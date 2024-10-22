@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Neosinerji.BABOnlineTP.Business
+{
+    public interface ITVMDokumanStorage : IStorageService
+    {
+    }
+
+    public class TVMDokumanStorage : StorageService, ITVMDokumanStorage
+    {
+        public TVMDokumanStorage()
+            :base("tvm-dokuman")
+        {
+
+        }
+    }
+}

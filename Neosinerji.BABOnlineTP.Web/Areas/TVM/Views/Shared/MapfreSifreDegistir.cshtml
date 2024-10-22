@@ -1,0 +1,132 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.TVM.Models.SifreDegistirModel
+
+@{
+    ViewBag.Title = "Mapfre";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>babonline</title>
+    <link href="@Url.Content("~/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <script src="~/Content/js/jquery.js"></script>
+    <script src="~/Content/js/jquery.validate.js"></script>
+    <script src="~/Content/js/bootstrap-transition.js"></script>
+    <script src="~/Content/js/bootstrap-tooltip.js"></script>
+    <link href="~/Content/css/mapfre-login.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <div class="main">
+        <a href="~/Mapfre/Login">
+            <div class="header"></div>
+        </a>
+        <style>
+            .sifremi-unuttum {
+                color: white;
+                font-size: 18px;
+                font-weight: bold;
+                height: 41px;
+                padding-left: 22px;
+                padding-top: 10px;
+                font-family: Helvetica;
+            }
+
+            .progress {
+                background-color: #F7F7F7;
+                background-image: linear-gradient(to bottom, #F5F5F5, #F9F9F9);
+                background-repeat: repeat-x;
+                border-radius: 4px 4px 4px 4px;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+                height: 20px;
+                margin-bottom: 20px;
+                overflow: hidden;
+            }
+
+                .progress-danger .bar, .progress .bar-danger {
+                    background-color: #DD514C;
+                    background-image: linear-gradient(to bottom, #EE5F5B, #C43C35);
+                    background-repeat: repeat-x;
+                }
+
+                .progress-success .bar, .progress .bar-success {
+                    background-color: #5EB95E;
+                    background-image: linear-gradient(to bottom, #62C462, #57A957);
+                    background-repeat: repeat-x;
+                }
+
+
+                .progress-warning .bar, .progress .bar-warning {
+                    background-color: #FAA732;
+                    background-image: linear-gradient(to bottom, #FBB450, #F89406);
+                    background-repeat: repeat-x;
+                }
+
+                .progress .bar {
+                    -moz-box-sizing: border-box;
+                    background-color: #0E90D2;
+                    background-image: linear-gradient(to bottom, #149BDF, #0480BE);
+                    background-repeat: repeat-x;
+                    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+                    color: #FFFFFF;
+                    float: left;
+                    font-size: 12px;
+                    height: 100%;
+                    text-align: center;
+                    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+                    transition: width 0.6s ease 0s;
+                    width: 0;
+                }
+
+            .error-list li {
+                list-style-type: none;
+                color: #B94A48;
+            }
+        </style>
+
+
+        @using (Html.BeginForm("SifreDegistir", "Profil", FormMethod.Post, new { id = "form1" }))
+        {
+            { Html.EnableClientValidation(false); }
+            <div class="custom-content">
+                <div class="left-img"></div>
+                <div class="login-hub-center" style="padding-top:50px;">
+                    <div style="padding-bottom:20px;">
+                        Dikkat: Lütfen yeni şifrenizin TRONWEB şifreniz ile aynı tanımlayınız.
+                    </div>
+                    <div class="login-hub-top">
+                        <div class="login-white-content-sifre-degistir">
+                            <div class="sifremi-unuttum">
+                                @babonline.ChangePassword
+                            </div>
+                            <div class="textbox-group">
+                                @Html.PasswordFor(m => m.EskiSifre, new { @class = "text-box", placeholder = "TW ESKİ ŞİFRE", minlength = 4, maxlength = 20, autocompletetype = "disabled" })
+                                @Html.ValidationMessageFor(m => m.EskiSifre)
+                                @Html.PasswordFor(m => m.YeniSifre, new { @class = "text-box", placeholder = "TW YENİ ŞİFRE", minlength = 4, maxlength = 20, autocompletetype = "disabled" })
+                                @Html.ValidationMessageFor(m => m.YeniSifre)
+
+
+                                @Html.PasswordFor(m => m.YeniSifreTekrar, new { @class = "text-box", placeholder = "TW YENİ ŞİFRE", minlength = 4, maxlength = 20, autocompletetype = "disabled" })
+                                @Html.ValidationMessageFor(m => m.YeniSifreTekrar)
+
+                                <input type="submit" id="btn-ok" class="tamam-button-div" style="margin-left: 0px; margin-right: 27px; float: right; margin-top: 3px;" value="Tamam"></input>
+                            </div>
+                        </div>
+                        <div class="error-div-custom" style="float: left; margin-top: 8px; width: 284px;">
+                            @Html.ValidationSummary(true)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="footer">
+        </div>
+    </div>
+
+</body>
+</html>

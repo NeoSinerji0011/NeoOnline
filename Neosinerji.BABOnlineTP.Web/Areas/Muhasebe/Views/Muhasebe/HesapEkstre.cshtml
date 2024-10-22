@@ -1,0 +1,801 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Muhasebe.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model HesapEkstresiAraModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">@babonline.PolicyPaymentStatement<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.OtherReport<span class="arrow"></span></a>
+            <ul class="dropdown-menu"></ul>
+            <b class="caret-out"></b>
+        </li>
+
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+<head>
+    <title>@babonline.PolicyPaymentStatement</title>
+</head>
+
+@section PageHeader
+{
+
+}
+
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/switch")
+    <link href="~/Content/css/bootstrapSwitch.min.css" rel="stylesheet" />
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+
+    <script type="text/javascript">
+    var myArray = [];
+/**/
+/**/
+/**/
+/**/
+@if (Model.tvmList != null)
+    {
+        foreach (var d in Model.tvmList)
+        {
+@:myArray.push("@d");
+        /**/
+        /**/
+        /**/
+                            /**/
+                            /**/
+                            /**/
+                            /**/
+                        }
+                    }
+    /**/
+    /**/
+    $(document).ready(function () {
+        $('#radiotvmler').click(function () {
+            $('#textpol').removeAttr("disabled");
+            $('#texttcvkn').attr("disabled", "disabled");
+            $('#textplaka').attr("disabled", "disabled");
+            $('.textunvan').attr("disabled", "disabled");
+            $('#textunvansoyad').attr("disabled", "disabled");
+            $('.textunvanfirma').attr("disabled", "disabled");
+            $('#texttarihbas').attr("disabled", "disabled");
+            $('#texttarihbit').attr("disabled", "disabled");
+            $('#textodemebelgeno').attr("disabled", "disabled");
+
+            var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+            $("#BitisTarihi").datepicker("option", "minDate", baslamaT);
+
+            //başlama tarihi değiştiğinde başlama tarihinin bir ay sonrasını bitiş tarihine atıyor
+            $('#BaslangicTarihi').change(function () {
+                var bas = $(this).datepicker("getDate");
+                $("#BitisTarihi").datepicker("option", "minDate", bas);
+
+                var monthMillisec = 30 * 24 * 60 * 60 * 1000;
+                var maxDate = new Date();
+                maxDate.setTime(bas.getTime() + monthMillisec);
+
+                $("#BitisTarihi").datepicker("setDate", maxDate);
+
+                var d2 = $('#BitisTarihi').datepicker("getDate");
+                var max = d2 - bas;
+
+            });
+
+            var bas = $(this).datepicker("getDate");
+            $("#BitisTarihi").datepicker("option", "minDate", bas);
+
+            var monthMillisec = 30 * 24 * 60 * 60 * 1000;
+            var maxDate = new Date();
+            maxDate.setTime(bas.getTime() + monthMillisec);
+
+            $("#BitisTarihi").datepicker("setDate", maxDate);
+
+            var d2 = $('#BitisTarihi').datepicker("getDate");
+            var max = d2 - bas;
+
+
+            var bas = $(this).datepicker("getDate");
+            $("#BitisTarihi").datepicker("option", "minDate", bas);
+
+            var monthMillisec = 30 * 24 * 60 * 60 * 1000;
+            var maxDate = new Date();
+            // maxDate.setTime(bas.getTime() + monthMillisec);
+
+            $("#BitisTarihi").datepicker("setDate", maxDate);
+
+            var d2 = $('#BitisTarihi').datepicker("getDate");
+            var max = d2 - bas;
+            //bitiş tarihi değiştiğinde tarih aralığının 1 ay aralığında olup olmadığının kontrolünü yapıyor
+            $('#BitisTarihi').change(function () {
+                var bitisT = $(this).datepicker("getDate");
+                var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+                var aralik = bitisT - baslamaT;
+                var monthMillisec = 30 * 24 * 60 * 60 * 1000;
+
+                var maxDate = new Date();
+                maxDate.setTime(baslamaT.getTime() + monthMillisec);
+
+                if (aralik > monthMillisec) {
+                    alert("İki tarih aralığı 1 aydan fazla olamaz");
+                    $("#BitisTarihi").datepicker("setDate", maxDate);
+                }
+
+            });
+
+
+            var bitisT = $(this).datepicker("getDate");
+            var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+            var aralik = bitisT - baslamaT;
+            var monthMillisec = 30 * 24 * 60 * 60 * 1000;
+
+            var maxDate = new Date();
+            // maxDate.setTime(baslamaT.getTime() + monthMillisec);
+
+            if (aralik > monthMillisec) {
+                alert("İki tarih aralığı 1 aydan fazla olamaz");
+                $("#BitisTarihi").datepicker("setDate", maxDate);
+            }
+
+
+            var bitisT = $(this).datepicker("getDate");
+            var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+            var aralik = bitisT - baslamaT;
+            var monthMillisec = 30 * 24 * 60 * 60 * 1000;
+
+            var maxDate = new Date();
+            maxDate.setTime(baslamaT.getTime() + monthMillisec);
+
+            if (aralik > monthMillisec) {
+                alert("İki tarih aralığı 1 aydan fazla olamaz");
+                $("#BitisTarihi").datepicker("setDate", maxDate);
+            }
+        });
+        $('#radiotcvkn').click(function () {
+            $('#texttcvkn').removeAttr("disabled");
+            $('#textpol').attr("disabled", "disabled");
+            $('#textplaka').attr("disabled", "disabled");
+            $('.textunvan').attr("disabled", "disabled");
+            $('#textunvansoyad').attr("disabled", "disabled");
+            $('.textunvanfirma').attr("disabled", "disabled");
+            $('#texttarihbas').attr("disabled", "disabled");
+            $('#texttarihbit').attr("disabled", "disabled");
+            $('#textodemebelgeno').attr("disabled", "disabled");
+
+            var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+            $("#BitisTarihi").datepicker("option", "minDate", baslamaT);
+
+            //başlama tarihi değiştiğinde başlama tarihinin bir ay sonrasını bitiş tarihine atıyor
+            $('#BaslangicTarihi').change(function () {
+                var bas = $(this).datepicker("getDate");
+                $("#BitisTarihi").datepicker("option", "minDate", bas);
+
+                var monthMillisec = (31 * 24 * 60 * 60 * 1000) * 12;
+                var maxDate = new Date();
+                maxDate.setTime(bas.getTime() + monthMillisec);
+
+                $("#BitisTarihi").datepicker("setDate", maxDate);
+
+                var d2 = $('#BitisTarihi').datepicker("getDate");
+                var max = d2 - bas;
+
+            });
+
+            //bitiş tarihi değiştiğinde tarih aralığının 1 ay aralığında olup olmadığının kontrolünü yapıyor
+            $('#BitisTarihi').change(function () {
+                var bitisT = $(this).datepicker("getDate");
+                var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+                var aralik = bitisT - baslamaT;
+                var monthMillisec = (31 * 24 * 60 * 60 * 1000) * 12;
+
+                var maxDate = new Date();
+                maxDate.setTime(baslamaT.getTime() + monthMillisec);
+
+                if (aralik > monthMillisec) {
+                    alert("İki tarih aralığı 1 yıldan fazla olamaz");
+                    $("#BitisTarihi").datepicker("setDate", maxDate);
+                }
+
+            });
+        });
+        $('#radioodemebelgeno').click(function () {
+            $('#textodemebelgeno').removeAttr("disabled");
+            $('#texttcvkn').attr("disabled", "disabled");
+            $('#textpol').attr("disabled", "disabled");
+            $('#textplaka').attr("disabled", "disabled");
+            $('.textunvan').attr("disabled", "disabled");
+            $('#textunvansoyad').attr("disabled", "disabled");
+            $('.textunvanfirma').attr("disabled", "disabled");
+            $('#texttarihbas').attr("disabled", "disabled");
+            $('#texttarihbit').attr("disabled", "disabled");
+            var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+            $("#BitisTarihi").datepicker("option", "minDate", baslamaT);
+
+            //başlama tarihi değiştiğinde başlama tarihinin bir ay sonrasını bitiş tarihine atıyor
+            $('#BaslangicTarihi').change(function () {
+                var bas = $(this).datepicker("getDate");
+                $("#BitisTarihi").datepicker("option", "minDate", bas);
+
+                var monthMillisec = (31 * 24 * 60 * 60 * 1000) * 12;
+                var maxDate = new Date();
+                maxDate.setTime(bas.getTime() + monthMillisec);
+
+                $("#BitisTarihi").datepicker("setDate", maxDate);
+
+                var d2 = $('#BitisTarihi').datepicker("getDate");
+                var max = d2 - bas;
+
+            });
+
+            //bitiş tarihi değiştiğinde tarih aralığının 1 ay aralığında olup olmadığının kontrolünü yapıyor
+            $('#BitisTarihi').change(function () {
+                var bitisT = $(this).datepicker("getDate");
+                var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+                var aralik = bitisT - baslamaT;
+                var monthMillisec = (31 * 24 * 60 * 60 * 1000) * 12;
+
+                var maxDate = new Date();
+                maxDate.setTime(baslamaT.getTime() + monthMillisec);
+
+                if (aralik > monthMillisec) {
+                    alert("İki tarih aralığı 1 yıldan fazla olamaz");
+                    $("#BitisTarihi").datepicker("setDate", maxDate);
+                }
+
+            });
+        });
+        $('#radiogrupKodu').click(function () {
+            $('#textplaka').removeAttr("disabled");
+            $('#textpol').attr("disabled", "disabled");
+            $('#texttcvkn').attr("disabled", "disabled");
+            $('.textunvan').attr("disabled", "disabled");
+            $('#textunvansoyad').attr("disabled", "disabled");
+            $('.textunvanfirma').attr("disabled", "disabled");
+            $('#texttarihbas').attr("disabled", "disabled");
+            $('#texttarihbit').attr("disabled", "disabled");
+            $('#textodemebelgeno').attr("disabled", "disabled");
+
+            var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+            $("#BitisTarihi").datepicker("option", "minDate", baslamaT);
+
+            //başlama tarihi değiştiğinde başlama tarihinin bir ay sonrasını bitiş tarihine atıyor
+            $('#BaslangicTarihi').change(function () {
+                var bas = $(this).datepicker("getDate");
+                $("#BitisTarihi").datepicker("option", "minDate", bas);
+
+                var monthMillisec = (31 * 24 * 60 * 60 * 1000) * 12;
+                var maxDate = new Date();
+                maxDate.setTime(bas.getTime() + monthMillisec);
+
+                $("#BitisTarihi").datepicker("setDate", maxDate);
+
+                var d2 = $('#BitisTarihi').datepicker("getDate");
+                var max = d2 - bas;
+
+            });
+
+            //bitiş tarihi değiştiğinde tarih aralığının 1 ay aralığında olup olmadığının kontrolünü yapıyor
+            $('#BitisTarihi').change(function () {
+                var bitisT = $(this).datepicker("getDate");
+                var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+                var aralik = bitisT - baslamaT;
+                var monthMillisec = (31 * 24 * 60 * 60 * 1000) * 12;
+
+                var maxDate = new Date();
+                maxDate.setTime(baslamaT.getTime() + monthMillisec);
+
+                if (aralik > monthMillisec) {
+                    alert("İki tarih aralığı 1 yıldan fazla olamaz");
+                    $("#BitisTarihi").datepicker("setDate", maxDate);
+                }
+
+            });
+        });
+        $('#radiounvan').click(function () {
+            $('.textunvan').removeAttr("disabled");
+            $('#textunvansoyad').removeAttr("disabled");
+            $('.textunvanfirma').removeAttr("disabled");
+            $('#texttcvkn').attr("disabled");
+            $('#textpol').attr("disabled", "disabled");
+            $('#textplaka').attr("disabled", "disabled");
+            $('#texttarihbas').attr("disabled", "disabled");
+            $('#texttarihbit').attr("disabled", "disabled");
+            $('#textodemebelgeno').attr("disabled", "disabled");
+
+            var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+            $("#BitisTarihi").datepicker("option", "minDate", baslamaT);
+
+            //başlama tarihi değiştiğinde başlama tarihinin bir ay sonrasını bitiş tarihine atıyor
+            $('#BaslangicTarihi').change(function () {
+                var bas = $(this).datepicker("getDate");
+                $("#BitisTarihi").datepicker("option", "minDate", bas);
+
+                var monthMillisec = (31 * 24 * 60 * 60 * 1000) * 12;
+                var maxDate = new Date();
+                maxDate.setTime(bas.getTime() + monthMillisec);
+
+                $("#BitisTarihi").datepicker("setDate", maxDate);
+
+                var d2 = $('#BitisTarihi').datepicker("getDate");
+                var max = d2 - bas;
+
+            });
+
+            //bitiş tarihi değiştiğinde tarih aralığının 1 ay aralığında olup olmadığının kontrolünü yapıyor
+            $('#BitisTarihi').change(function () {
+                var bitisT = $(this).datepicker("getDate");
+                var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+                var aralik = bitisT - baslamaT;
+                var monthMillisec = (31 * 24 * 60 * 60 * 1000) * 12;
+
+                var maxDate = new Date();
+                maxDate.setTime(baslamaT.getTime() + monthMillisec);
+
+                if (aralik > monthMillisec) {
+                    alert("İki tarih aralığı 1 yıldan fazla olamaz");
+                    $("#BitisTarihi").datepicker("setDate", maxDate);
+                }
+
+            });
+        });
+        $('#radioTarih').click(function () {
+            $('#texttarihbas').removeAttr("disabled");
+            $('#texttarihbit').removeAttr("disabled");
+            $('#textodemebelgeno').attr("disabled", "disabled");
+            $('#textunvansoyad').attr("disabled", "disabled");
+            $('.textunvanfirma').attr("disabled", "disabled");
+            $('#texttcvkn').attr("disabled", "disabled");
+            $('#textpol').attr("disabled", "disabled");
+            $('#textplaka').attr("disabled", "disabled");
+            $('.textunvan').attr("disabled", "disabled");
+            $('#radiotvmler').removeAttr('required');
+            $('#aaa').prop('required', false);
+            $('#aaa').removeAttr('required');
+            $('#textpol').prop('required', false);
+            $("#aaa").removeClass("ignore");
+            $("#radiotvmler").removeClass("ignore");
+
+        });
+
+        var oTable = $('.data-table').dataTable({
+
+            "bFilter": false,
+            "bSort": false,
+            "bInfo": false,
+            "bProcessing": false,
+            "bServerSide": true,
+            "sAjaxSource": "/Muhasebe/Muhasebe/HesapEkstre",
+            "bDeferLoading": false,
+            "iDeferLoading": 0,
+            "sDom": 'T<"clear">lfrtip',
+            "oTableTools": { "aButtons": ["xls", "print", "copy", "pdf"] },
+        });
+
+
+        //Tutar Değiştirme İşlemleri 100000 / 100,000
+        $(".tutar").each(function () {
+
+            var temp = $(this).html();
+
+            var valll = parseInt($(this).val());
+            //$p.contains("-");
+
+            // if (temp.contains("-"))   contains sadece firefox da çalışıyor o yüzden indexof kullanıldı
+            if (temp.valueOf().indexOf("-") > -1) {
+                var length = $(this).html().length;
+                var sayac = 0;
+                var result = "";
+                if (length > 7) {
+                    for (var i = 0; i < length; i++) {
+                        sayac++;
+                        result += $(this).html()[i];
+                        if (sayac == (length - 6) || sayac == (length - 9) || sayac == (length - 11))
+                            result += ",";
+                    }
+                    $(this).html(result);
+                }
+                else {
+                    return $(this).html();
+                }
+
+            }
+            else {
+                var length = $(this).html().length;
+                var sayac = 0;
+                var result = "";
+
+                if (length > 6) {
+                    for (var i = 0; i < length; i++) {
+                        sayac++;
+                        result += $(this).html()[i];
+                        if (sayac == (length - 6) || sayac == (length - 9) || sayac == (length - 12)) {
+                            result += ",";
+                        }
+                    }
+                    $(this).html(result);
+                } else if (length > 0 && length < 4) $(this).html($(this).html());
+            }
+
+        });
+
+    });
+
+    //0 şahıs,1 firma
+    $(document).ready(function () {
+        $("[rel=tooltip]").tooltip();
+
+        var islemTip = $('input[name="Durum"]:checked').val();
+        if (islemTip == 0) {
+            $(".firma").hide();
+            $(".sahis").show();
+            $("#textunvansoyad").removeClass("ignore");
+
+        }
+        else if (islemTip == 1) {
+            $(".firma").show();
+            $(".sahis").hide();
+            $("#textunvansoyad").addClass("ignore");
+
+        }
+        $('input[name="Durum"]').change(function () {
+            var islemTip = $(this).val();
+            if (islemTip == 0) {
+                $(".firma").hide();
+                $(".sahis").show();
+
+                $("#textunvansoyad").removeClass("ignore");
+            }
+            else if (islemTip == 1) {
+                $(".firma").show();
+                $(".sahis").hide();
+                $("#textunvansoyad").addClass("ignore");
+            }
+        });
+    });
+    </script>
+    <style type="text/css">
+        #baslikRow:hover {
+            background-color: #99CCFF !important;
+        }
+
+        .table > thead > tr > th {
+            padding-bottom: 10px !important;
+        }
+    </style>
+
+    <script>
+    $(document).ready(function () {
+        $("[rel=tooltip]").tooltip();
+
+
+
+        //Tvm listesini Dolduruyor....
+        var tvm = $("#TVMKodu").tvmfinder();
+        tvm.enable();
+
+        $('.multiselect').multiselect({
+            includeSelectAllOption: false,
+            enableFiltering: true,
+            maxHeight: 170,
+            /**/
+            /**/
+            nonSelectedText: '@babonline.PleaseSelect',
+    /**/
+    /**/
+    /**/
+    /**/
+    selectAllText: '@babonline.Select_All',
+    /**/
+    /**/
+    /**/
+    /**/
+    filterPlaceholder: '@babonline.Search',
+    /**/
+    /**/
+    /**/
+    /**/
+    nSelectedText: '@babonline.Selected'
+    /**/
+    /**/
+});
+
+if (myArray.length > 0) {
+    $('#tvmList').val(myArray);
+}
+$("#tvmList").multiselect("refresh");
+$("#satisKanali").change(function () {
+    if ($("select option:selected").length > 7) {
+        $(this).removeAttr("selected");
+        swal("Uyarı!", "Satış Kanalı sayısını maksimum 5 adet seçmeniz önerilir.", "error");
+    }
+});
+});
+    </script>
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">@babonline.PolicyPaymentStatement </span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @using (Html.BeginForm("HesapEkstre", "Muhasebe", FormMethod.Post, new { @class = "form-horizontal", id = "formPoliceListe", enctype = "multipart/form-data" }))
+                {
+                    @*@Html.HiddenFor(s => s.TVMKodu);
+                        @Html.HiddenFor(s => s.TVMUnvani);*@
+
+                    @*<div class="row-fluid" style="padding-top: 10px;">
+                            <div class="span4">
+                                <div class="">
+                                    <div class="span1">
+                                        @Html.RadioButtonFor(m => m.tvmler, "tvmler", new { Name = "group1", id = "radiotvmler" })
+                                    </div>
+                                    <label class="control-label">@babonline.TVM_Title</label>
+                                    <div class="controls" id="satisKanali">
+                                        @Html.DropDownListFor(s => s.tvmList, Model.tvmler, new { @class = "multiselect", multiple = "multiple", id = "textpol" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="span1">
+                                    @Html.RadioButtonFor(m => m.TcknVkn, "TcVknNo", new { Name = "group1", id = "radiotcvkn" })
+                                </div>
+                                <label class="control-label">@babonline.SE_KimlikNo</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.TcknVkn, new { maxlenght = 11, disabled = "disabled", id = "texttcvkn", @class = "onlynumbers" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="span1">
+                                    @Html.RadioButtonFor(m => m.OdemeBelgeNo, "OdemeBelgeNo", new { Name = "group1", id = "radioodemebelgeno" })
+                                </div>
+                                <label class="control-label">@babonline.PaymentDocumentNumber (KK)</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.OdemeBelgeNo, new { maxlenght = 20, disabled = "disabled", id = "textodemebelgeno" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="span1">
+                                    @Html.RadioButtonFor(m => m.GrupKodu, "PlakaNo", new { Name = "group1", id = "radiogrupKodu" })
+                                </div>
+                                <label class="control-label">@babonline.GroupCode</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.GrupKodu, new { maxlength = 31, disabled = "disabled", id = "textplaka" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="span1">
+                                    @Html.RadioButtonFor(m => m.Unvan, "Unvan", new { Name = "group1", id = "radiounvan" })
+                                </div>
+                                <label class="control-label">@babonline.TitleOfInsuredBy</label>
+                                <div class="control-group">
+                                    <div class="controls radio-custom">
+                                        @Html.RadioButtonListFor(m => m.Durum, Model.Durumlar)
+                                    </div>
+                                </div>
+                                <div class="control-group ">
+                                    <label class="control-label">@babonline.NameLastname</label>
+
+                                    <div class="controls sahis" style="display: none;">
+                                        @Html.TextBoxFor(m => m.Unvan, new { maxlenght = 50, disabled = "disabled", @tabindex = "1", style = "width:50% !important;margin-right:10px;", @class = "textunvan" })
+                                        @Html.TextBoxFor(m => m.UnvanSoyad, new { maxlength = 50, disabled = "disabled", @tabindex = "2", style = "width:35%;", id = "textunvansoyad" })
+                                    </div>
+                                    <div class="control-group firma" style="display: none;">
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.UnvanFirma, new { maxlenght = 100, disabled = "disabled", style = "width:65% !important;margin-right:10px;", @class = "textunvanfirma" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Period</label>
+                                <div class="controls">
+                                    @*   @Html.DropDownListFor(s => s.Ay, Model.Aylar, new { style = "width:100px" })*@
+                                    @Html.DropDownListFor(s => s.Yil, Model.Yillar, new { style = "width:125px" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">
+                        </div>
+                        <div class="form-actions">
+                            <a href="~/Muhasebe/Muhasebe/HesapEkstre" class="btn ligth-grey">@babonline.Clear</a>
+                            <input type="submit" id="searchl" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="@babonline.Search" />
+                        </div>
+                    </div>
+                }
+
+                <div class="row-fluid" style="margin-top: 20px;">
+
+                    <div class="span12">
+                        <div id="table-div" style="overflow-x: auto; margin-top: 15px;">
+                            @if (ViewBag.AnaTVM)
+                            {
+
+                                <table class="table table-striped table-bordered table-hover dataTable data-table" style="table-layout: inherit">
+                                    <thead style="background-color:white;border:none">
+                                        <tr style="background-color:white; border-color :white; font-style: italic;font-size:18px;">
+                                            <th style="width: auto; border-color :white;"> @babonline.Period - @ViewBag.Donemm </th>
+
+
+                                            <th style="width: auto; border-color :white;"></th>
+                                            <th style="width: auto; border-color :white;"></th>
+                                            <th style="width: auto; border-color :white;font-size:100%">@babonline.PolicyPaymentStatement </th>
+                                            <th style="width: auto; border-color :white;">@ViewBag.SigortaEttirenUnvani <br> @ViewBag.SigEtKimlikno</th>
+                                            <th style="width: auto; border-color :white;"> </th>
+                                            <th style="width: 10%; border-color :white;"></th>
+                                            <th style="width: auto; border-color :white;"></th>
+
+                                            <th style="width: auto; border-color :white;"></th>
+                                            <th style="width: auto; border-color :white;"></th>
+                                            <th style="width: auto; border-color :white;"></th>
+
+                                        </tr>
+                                    </thead>
+                                    <thead>
+
+                                        <tr>
+
+                                            <th style="width: auto;">@babonline.PaymentDate</th>
+                                            <th style="width: auto;">@babonline.ExpiryDate</th>
+                                            <th style="width: auto;">@babonline.PaymentType </th>
+                                            <th style="width: auto;">@babonline.PaymentDocumentNumber </th>
+                                            <th style="width: auto;">@babonline.Comment  </th>
+                                            <th style="width: auto;">@babonline.Currency</th>
+                                            <th style="width: auto;">@babonline.Debt</th>
+                                            <th style="width: auto;">@babonline.Receivables</th>
+                                            <th style="width: auto;">@babonline.Balance</th>
+                                            <th style="width: auto;">@babonline.Total @babonline.Balance   </th>
+                                            <th style="width: auto;">BT  </th>
+                                        </tr>
+
+                                    </thead>
+                                    @{
+                                        decimal bakiye = 0;
+                                        decimal toplamBorc = 0;
+                                        decimal toplamBakiye = 0;
+                                        decimal devir = 0;
+                                        decimal toplamAlacak = 0;
+                                        decimal devirAlacak = 0;
+                                        decimal devirBorc = 0;
+                                        decimal genelBorcToplam = 0;
+                                        decimal genelAlacakToplam = 0;
+                                    }
+
+                                    <tbody>
+
+                                        @if (Model.list != null)
+                                        {
+                                            var kontrol = 0;
+
+                                            foreach (var item in Model.list)
+                                            {
+                                                kontrol++;
+                                                devir = item.Devir;
+                                                if (item.Borc != null)
+                                                {
+                                                    toplamBorc += item.Borc.Value;
+                                                }
+                                                if (item.Alacak != null)
+                                                {
+                                                    toplamAlacak += item.Alacak.Value;
+                                                }
+                                                if (item.Bakiye != null)
+                                                {
+                                                    bakiye += item.Bakiye.Value;
+                                                }
+                                                toplamBakiye = toplamBorc - toplamAlacak;
+                                                devirAlacak = item.DevirAlacak;
+                                                devirBorc = item.DevirBorc;
+
+                                                genelAlacakToplam = devirAlacak + toplamAlacak;
+                                                genelBorcToplam = devirBorc + toplamBorc;
+                                                if (kontrol == 1)
+                                                {
+
+                                                    <tr>
+                                                        <td>
+                                                            <label class="control-label" style="width: 10%; font-weight: bold; font-size: medium;">@babonline.Cycle</label>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td style="width: 10%; font-weight: bold; font-size: medium;margin-right:15%">@devirBorc.ToString("N") </td>
+                                                        <td style="width: 10%; font-weight: bold; font-size: medium;margin-right:15%">@devirAlacak.ToString("N")</td>
+                                                        <td></td>
+                                                        <td style="width: 10%; font-weight: bold; font-size: medium;margin-right:15%">@devir.ToString("N") </td>
+                                                        <td></td>
+
+                                                    </tr>
+                                                }
+
+
+                                                <tr>
+
+                                                    <td style="width: 6%;"> @item.IslemTarih.ToString("dd.MM.yyyy")</td>
+                                                    <td style="width: 6%;">@item.VadeTarihi.ToString("dd.MM.yyyy")</td>
+                                                    <td style="width: 3%;"> @item.IslemTipi </td>
+                                                    <td style="width: 5%;">@item.EvrakNo   </td>
+                                                    <td style="width: 10%;"> @item.Aciklama  </td>
+                                                    <td style="width: 3%;"> @item.ParaBirimi  </td>
+                                                    <td style="width: 5%;">@item.Borc.Value.ToString("N")      </td>
+                                                    <td style="width: 5%;"> @item.Alacak.Value.ToString("N")    </td>
+                                                    <td style="width: 5%;">@item.Bakiye.Value.ToString("N")    </td>
+                                                    <td style="width: 5%;">@item.ToplamBakiye.Value.ToString("N")    </td>
+                                                    <td style="width: 1%;">@item.BorcTipi  </td>
+
+                                                </tr>
+
+                                            }
+                                        }
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">@babonline.Total  :</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 4%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 4%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 6%; font-weight: bold; font-size: medium;">@genelBorcToplam.ToString("N")  </td>
+                                            <td style="width: 6%; font-weight: bold; font-size: medium;">@genelAlacakToplam.ToString("N")</td>
+                                            <td style="width: 6%; font-weight: bold; font-size: medium;">@bakiye.ToString("N")</td>
+                                            <td style="width: 6%;font-weight:bold;font-size: medium;">@toplamBakiye.ToString("N")</td>
+
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

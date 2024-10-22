@@ -1,0 +1,278 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Business.Common
+@model  Neosinerji.BABOnlineTP.Business.Police
+
+
+@section HorizontalMenu
+{
+
+}
+@section PageHeader
+{
+
+}
+
+@section PageScripts
+{
+    <script>
+        //$.getJSON("/Police/Police/GetPoliceOfflineDetail", function (response) {
+
+        //    $('#test').val(response.GenelBilgiler.PoliceNumarasi);
+
+        //});
+        $(document).ready(function () {
+            var oTable = $('.data-table').dataTable({
+
+                "bFilter": false,
+                "bSort": false,
+                "bInfo": false,
+                "bProcessing": false,
+                "bServerSide": true,
+                "sAjaxSource": "/Police/Police/PoliceAraOffline",
+                "bDeferLoading": false,
+                "iDeferLoading": 0,
+
+                "sDom": 'T<"clear">lfrtip',
+                "oTableTools": { "aButtons": ["xls", "print", "copy", "pdf"] },
+
+
+            });
+        });
+    </script>
+}
+
+<form class="form-horizontal">
+    @*@Html.HiddenFor(m => m.TeklifId)*@
+    <div class="portlet box blue" style="margin-top: 24px;">
+        <div class="portlet-title">
+            <div class="caption"><i class="icon-reorder"></i>Poliçe Detay Bilgileri</div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="control-group">
+                <div class="form-section-header">
+                    <h3 class="form-section">Genel Bilgiler</h3>
+
+                    <div class="span3">
+                        <label class="control-label"><b>@babonline.PolicyNo :</b>  @Model.GenelBilgiler.PoliceNumarasi</label>
+                    </div>
+                    <div class="span3">
+                        <label class="control-label"><b>@babonline.Addendum :</b>  @Model.GenelBilgiler.EkNo</label>
+                    </div>
+                    <div class="span3">
+                        <label class="control-label"><b>@babonline.RenewalNo :</b>  @Model.GenelBilgiler.YenilemeNo</label>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="form-section-header">
+                    <h3 class="form-section">Sigortalı</h3>
+
+                    @if (@Model.GenelBilgiler.PoliceSigortali.KimlikNo != "")
+                    {   <div class="span3">
+                        <label class="control-label"><b>@babonline.IdentificationNumber :</b>  @Model.GenelBilgiler.PoliceSigortali.KimlikNo</label>
+                    </div>
+                    <div class="span3">
+                        <label class="control-label"><b>@babonline.Name :</b>  @Model.GenelBilgiler.PoliceSigortali.AdiUnvan</label>
+                    </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Surname :</b>  @Model.GenelBilgiler.PoliceSigortali.SoyadiUnvan</label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Address :</b>  @Model.GenelBilgiler.PoliceSigortali.Adres</label>
+                        </div>
+
+                    }
+                    else if (@Model.GenelBilgiler.PoliceSigortali.VergiKimlikNo != "")
+                    {
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Tax_Identification_Number :</b> @Model.GenelBilgiler.PoliceSigortali.VergiKimlikNo</label>
+
+                        </div>
+
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Name :</b>  @Model.GenelBilgiler.PoliceSigortali.AdiUnvan</label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Surname :</b>  @Model.GenelBilgiler.PoliceSigortali.SoyadiUnvan</label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Address :</b>  @Model.GenelBilgiler.PoliceSigortali.Adres</label>
+                        </div>
+                    }
+                    else
+                    { <div class="span3">
+                        <label class="control-label"><b>@babonline.IdentificationNumber :</b> @Model.GenelBilgiler.PoliceSigortali.KimlikNo</label>
+                    </div>
+
+                    <div class="span3">
+                        <label class="control-label"><b>@babonline.Name :</b>  @Model.GenelBilgiler.PoliceSigortali.AdiUnvan</label>
+                    </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Surname :</b>  @Model.GenelBilgiler.PoliceSigortali.SoyadiUnvan</label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Address :</b>  @Model.GenelBilgiler.PoliceSigortali.Adres</label>
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="form-section-header">
+                    <h3 class="form-section">Sigorta Ettiren</h3>
+
+                    @if (@Model.GenelBilgiler.PoliceSigortaEttiren.KimlikNo != "")
+                    {   <div class="span3">
+                        <label class="control-label"><b>@babonline.IdentificationNumber :</b> @Model.GenelBilgiler.PoliceSigortaEttiren.KimlikNo</label>
+                    </div>
+                    <div class="span3">
+                        <label class="control-label"><b>@babonline.Name :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.AdiUnvan</label>
+                    </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Surname :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.SoyadiUnvan</label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Address :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.Adres</label>
+
+                        </div>
+                    }
+                    else if (@Model.GenelBilgiler.PoliceSigortaEttiren.VergiKimlikNo != "")
+                    {
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Tax_Identification_Number :</b> @Model.GenelBilgiler.PoliceSigortaEttiren.VergiKimlikNo</label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Name :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.AdiUnvan</label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Surname :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.SoyadiUnvan</label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Address :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.Adres</label>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <label class="control-label"><b>@babonline.IdentificationNumber :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.KimlikNo</label>
+
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Name :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.AdiUnvan</label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Surname :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.SoyadiUnvan</label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Address :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.Adres</label>
+
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="form-section-header">
+
+                    @if (@Model.GenelBilgiler.BransKodu == 1 || @Model.GenelBilgiler.BransKodu == 2)
+                    {
+                        <h3 class="form-section">Araç Bilgileri</h3>
+
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.Plate :</b> @Model.GenelBilgiler.PoliceArac.PlakaKodu @Model.GenelBilgiler.PoliceArac.PlakaNo  </label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>@babonline.VehicleModel :</b> @Model.GenelBilgiler.PoliceArac.Model</label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>Marka :</b> @Model.GenelBilgiler.PoliceArac.Marka</label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>Aracin Tipi :</b> @Model.GenelBilgiler.PoliceArac.AracinTipiAciklama  @Model.GenelBilgiler.PoliceArac.AracinTipiAciklama2 </label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>Arac Deger :</b> @Model.GenelBilgiler.PoliceArac.AracDeger</label>
+                        </div>@*
+                            if (@Model.GenelBilgiler.PoliceArac.TrafikTescilTarihi.HasValue)
+                            {
+                                 <div class="span3">
+                                <label class="control-label"><b>Trafik Tescil Tarihi </b>: @Model.GenelBilgiler.PoliceArac.TrafikTescilTarihi.Value.ToString("dd/mm/yyyy") </label>
+                            </div>
+                            }
+                            else
+                            {
+                                <div class="span3">
+                                <label class="control-label"><b>Trafik Tescil Tarihi :</b>  </label>
+                            </div>
+                            }
+                        *@<div class="span3">
+                            <label class="control-label"><b>Şasi No :</b>  @Model.GenelBilgiler.PoliceArac.SasiNo</label>
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>Motor No :</b>  @Model.GenelBilgiler.PoliceArac.MotorNo</label>
+                        </div>
+                    }
+
+                    else
+                    {
+                        <h3 class="form-section">Riziko Bilgileri</h3>
+                        <div class="span3">
+
+                            <label class="control-label"><b>Riziko Adres :</b> @Model.GenelBilgiler.PoliceRizikoAdresi.Adres</label>
+
+                        </div>
+                        <div class="span3">
+                            <label class="control-label"><b>Riziko BinaBedel :</b> @Model.GenelBilgiler.PoliceRizikoAdresi.BinaBedel</label>
+
+                        </div>
+
+                    }
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="form-section-header">
+                    <h3 class="form-section">Ödeme Bilgileri</h3>
+
+                    <div class="span8" style="margin-left: 0%; width: 70%">
+                        <table class="table table-striped table-bordered table-hover dataTable data-table">
+
+                            @if (Model.GenelBilgiler.OdemeSekli == 1)
+                            {
+                                <label class="control-label"><b>Ödeme Şekli:</b> Peşin</label>
+                            }
+                            else
+                            {
+                                <label class="control-label"><b>Ödeme Şekli:</b> Taksit</label>
+                            }
+                            <label class="control-label"><b>Taksit Sayısı:</b> @Model.GenelBilgiler.PoliceOdemePlanis.Count</label>
+                            <tr>
+                                <th style="width: 35px; text-align: center">Vade Tarihi</th>
+                                <th style="width: 50px; text-align: center">@babonline.Amount</th>
+                            </tr>
+                            <tbody>
+                                @if (Model.GenelBilgiler.PoliceOdemePlanis.Count > 0)
+                                {
+                                    foreach (var item in Model.GenelBilgiler.PoliceOdemePlanis)
+                                    {
+                                        <tr>
+                                            <td style="text-align: center">@item.VadeTarihi.Value.ToString("dd/MM/yyyy")</td>
+                                            <td style="text-align: center">@item.TaksitTutari</td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,71 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Musteri.Models
+@model  NotListModel
+
+<table id="notlar-table" class="table table-striped table-bordered table-hover dataTable data-table">
+    <thead>
+        <tr>
+            <th>@babonline.Topic</th>
+            <th>@babonline.Date</th>
+            <th>@babonline.Added_Records_User</th>
+            <th>@babonline.Node</th>
+            @if (Model.sayfaAdi == "guncelle")
+            {
+                <th style="width: 30px;">&nbsp;</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Konu</td>
+                <td>@item.KayitTarihi.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>@item.TvmPersonelAdi</td>
+
+                @if (item.Konu == "Kullanıcı Sözleşmesi")
+                {
+                    <td>
+                        @item.NotAciklamasi
+                        <a href='https://neoonlinestrg.blob.core.windows.net/musteri-dokuman/KullaniciSozlesmeleri/Lilyum%20Ki%C5%9Fisel%20Verileri%20Koruma.pdf' title='Kullanıcı Sözleşmesi' target='_blank' class='pull-center'>
+                            <img src='/content/img/pdf_icon.png' />
+                        </a>
+                    </td>
+                }
+
+                else if (item.Konu == "E Ticaret İzni")
+                {
+                    <td>
+                        @item.NotAciklamasi
+                        <a href='https://neoonlinestrg.blob.core.windows.net/musteri-dokuman/KullaniciSozlesmeleri/Lilyum%20Kart%20E%20Ticaret%20%C4%B0zni.pdf' title='E Ticaret İzni' target='_blank' class='pull-center'>
+                            <img src='/content/img/pdf_icon.png' />
+                        </a>
+                    </td>
+                }
+                else if (item.Konu == "Lilyum Kart Hizmetleri")
+                {
+                    <td>
+                        @item.NotAciklamasi
+                        <a href='https://neoonlinestrg.blob.core.windows.net/musteri-dokuman/KullaniciSozlesmeleri/Lilyum%20Kart%20Hizmetleri.pdf' title='Lilyum Kart Hizmetleri' target='_blank' class='pull-center'>
+                            <img src='/content/img/pdf_icon.png' />
+                        </a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @item.NotAciklamasi
+                    </td>
+                }
+                @if (Model.sayfaAdi == "guncelle")
+                {
+                    <td>
+                        <div class="btn-group">
+                            <a href="javascript:void(0)" musteri-kodu="@item.MusteriKodu" sira-no="@item.SiraNo" class="btn btn-mini btn-danger delete-not">@babonline.Delete</a>
+                        </div>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

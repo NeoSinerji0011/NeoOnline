@@ -1,0 +1,59 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@model AcikHesapOdemeModel
+
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.Amount</label>
+            <div class="controls">
+                <strong>@Model.Tutar.Value.ToString("N2")&nbsp;TL</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">    
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.Customer_Name_Title</label>
+            <div class="controls">
+                @Model.AdiUnvani
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.Customer_Surname_Title</label>
+            <div class="controls">
+                @Model.SoyadiUnvani
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">&nbsp</label>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">&nbsp;</label>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="form-actions" style="margin-bottom:0px;margin-top:0px;">
+            <button id="btn-acik-hesap" class="btn btn-success">@babonline.IApprove</button>
+        </div>
+    </div>
+</div>

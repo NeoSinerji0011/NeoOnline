@@ -1,0 +1,47 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model TasiyiciSorumlulukModel
+ 
+<div class="control-group">
+    <label class="control-label">@babonline.CarryingAuthorization</label>
+    <div class="controls">
+        @Html.SwitchButtonFor(m => m.YetkiBelgesi, new string[] { babonline.Have, babonline.Havent }, new { })
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.CarryingResponsibility</label>
+    <div class="controls">
+        @Html.SwitchButtonFor(m => m.Sorumluluk, new string[] { babonline.Have, babonline.Havent }, new { })
+    </div>
+</div>
+<div id="tasiyici-sorumluluk" style="display:none;">
+    <div class="control-group">
+        <label class="control-label">@babonline.InsuranceCompany</label>
+        <div class="controls">
+            @Html.DropDownListFor(m => m.SigortaSirketiKodu, Model.SigortaSirketleri, new { style = "width:200px;", @class="ignore" })
+            @Html.ValidationMessageFor(m => m.SigortaSirketiKodu)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">@babonline.AgencyNo</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.AcenteNo, new { maxlength=10, autocompletetype="off", style = "width:150px;", @class="ignore" })
+            @Html.ValidationMessageFor(m => m.AcenteNo)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">@babonline.PolicyNo</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.PoliceNo, new { maxlength=15, autocompletetype="off", style = "width:150px;", @class="ignore" })
+            @Html.ValidationMessageFor(m => m.PoliceNo)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">@babonline.RenewalNo</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.YenilemeNo, new { maxlength=4, autocompletetype="off", style = "width:150px;", @class="ignore" })
+            @Html.ValidationMessageFor(m => m.YenilemeNo)
+        </div>
+    </div>
+</div>

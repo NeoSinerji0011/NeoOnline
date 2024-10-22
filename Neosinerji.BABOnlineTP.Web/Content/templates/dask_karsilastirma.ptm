@@ -1,0 +1,115 @@
+<img><path=$TVMLogo$><width=64><height=64><left></img><p><right>$Tarih$</p>
+<p><center><size=16><strong><spacingBefore=20><spacingAfter=20>DASK SİGORTASI KARŞILAŞTIRMA TABLOSU</p>
+<p><size=10><normal><spacingAfter=10>Sayın $AdiSoyadiUnvani$</p>
+<p>Eviniz ile ilgili olarak Dask sigortası ihtiyacınızı karşılamaya yönelik, vermiş olduğunuz bilgiler çerçevesinde hazırlanmış olan teklifler ekte tarafınıza sunulmaktadır.</p>
+<p></p>
+<p>Ayrıca sigorta şirketi, ürün, ödeme seçenekleri bazında hazırlanmış olan Prim Karşılaştırma Tablosunu aşağıda görebilirsiniz.</p>
+<p></p>
+<p>Teklifleri değerlendirirken her türlü sorunuz için bizimle irtibata geçebileceğinizi hatırlatır, göstermiş olduğunuz ilgi için teşekkür ederiz</p>
+<p></p>
+<p>Saygılarımızla,</p>
+<p></p>
+<p>$TVMUnvani$</p>
+<p><spacingAfter=20></p>
+<table>
+	<width=520><column=100><column=140><column=280>
+	<border=192,192,192>
+	<tbody>
+	<tr><height=40><backgroundColor=234,234,234>
+		<td><strong><center>Şirket</td>
+		<td><center>Ürün</td>
+		<td><center>Ödenecek Prim (TL)</td>
+	</tr>
+	<placeHolder=fiyatSatirlari></placeHolder>
+</table>
+<template=FiyatSatiri>
+<tr><backgroundColor=clear>
+	<td><normal><img><path=$TUMLogo$><width=32><height=32><center></img></td>
+	<td><center>$TUMUnvani$</td>
+	<td><center>$Fiyat1$</td>
+</tr>
+</template=FiyatSatiri>
+
+<p></p>
+<p></p>
+<table>
+	<width=520><column=100><column=200><column=100><column=100>
+	<border=black>
+	<tbody>
+	<tr><height=26><backgroundColor=clear>
+		<td>İl</td>
+		<td>$Il$</td>
+		<td>Teklif Tarihi</td>
+		<td>$Tarih$</td>
+	</tr>
+	<tr>
+		<td>İlçe</td>
+		<td>$Ilce$</td>
+		<td>Teklif No</td>
+		<td>$TeklifNo$</td>
+	</tr>
+	<tr>
+		<td>Semt / Belde</td>
+		<td>$Belde$</td>
+		<td>Posta Kodu</td>
+		<td>$PostaKodu$</td>
+	</tr>
+	<tr>
+		<td>Bina Yapı Tarzı</td>
+		<td>$YapiTarzi$</td>
+		<td>Bina Kat Sayısı</td>
+		<td>$KatSayisi$</td>
+	</tr>
+	<tr>
+		<td>Bina İnşa Yılı</td>
+		<td>$InsaYili$</td>
+		<td>Bina Yüz Olçümü (m2)</td>
+		<td>$YuzOlcumu$</td>
+	</tr>
+	<tr>	
+		<td>Adres</td>
+		<td><colspan=3>$Adres$</td>
+	</tr>
+</table>
+<p></p>
+<p></p>
+<table>
+	<width=520><placeHolder=karsilastirmaBaslikColumns></placeHolder>
+	<border=black>
+	<tbody>
+	<tr><height=22><backgroundColor=clear>
+		<td><strong><color=red>Karşılaştırma Konuları</td>
+		<placeHolder=karsilastirmaBaslik></placeHolder>
+	</tr>	
+</table>
+<template=karsilastirmaBaslik>
+<td><center>$TUMUnvani$</td>
+</template=karsilastirmaBaslik>
+
+<table>
+	<width=520><placeHolder=karsilastirmaColumns></placeHolder>
+	<border=black>
+	<tbody>
+	<tr><height=22><backgroundColor=234,234,234>
+		<td><left><strong><color=black>Primler</td>
+		<placeHolder=karsilastirma0></placeHolder>    
+	</tr>	
+	<tr><backgroundColor=clear>
+		<td><normal><left>Ödenecek Prim</td>
+		<placeHolder=karsilastirma1></placeHolder>
+	</tr>	
+	<tr><height=22><backgroundColor=234,234,234>
+		<td><left><strong><color=black>Teminatlar</td>
+		<placeHolder=karsilastirma2></placeHolder>
+	</tr>	
+	<tr><backgroundColor=clear>
+		<td><normal><left>Dask Teminatı</td>
+		<placeHolder=karsilastirma3></placeHolder>
+	</tr>
+</table>
+<template=karsilastirma>
+<td><center>TL</td>
+<td><center>$PesinPrim$</td>
+<td></td>
+<td><center>$DaskTeminati$</td>
+</template=karsilastirma>

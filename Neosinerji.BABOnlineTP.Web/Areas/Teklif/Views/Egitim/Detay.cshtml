@@ -1,0 +1,302 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@using Neosinerji.BABOnlineTP.Business.Common
+
+@model DetayEgitimModel
+
+@section PageStyles
+{
+    <link href="~/content/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
+}
+
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li>
+            <a href="~/Teklif/Teklif/Liste">@babonline.Proposal_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Detail<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.NewProposal<span class="arrow"></span></a>
+            <ul class="dropdown-menu">
+                @foreach (var item in ViewBag.UrunYetkileri)
+                {
+                    <li><a href="@item.UrunURL">@item.UrunAdi</a></li>
+                }
+            </ul>
+            <b class="caret-out"></b>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+
+@section PageHeader
+{
+
+}
+@section PageScripts
+{ @Scripts.Render("~/bundles/switch")
+    <script src="@Url.Content("~/Content/js/Aegon/aegon.ortak_v2.js")"  type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#step3").collapse('show');
+            $("#step1").collapse('hide');
+
+            $("#btn-teklif-tekrar").click(function () {
+                $("#id").val(@Model.SigortaEttiren.MusteriKodu);
+                $("#formTeklif").submit();
+            });
+            //Tutar Değiştirme İşlemleri 100000 / 100,000
+            $(".tutar").each(function () {
+
+
+                var length = $(this).html().length;
+                var sayac = 0;
+                var result = "";
+
+                if (length > 3 && length < 8) {
+                    for (var i = 0; i < length; i++) {
+                        sayac++;
+                        result += $(this).html()[i];
+                        if (sayac == (length - 3) || sayac == (length - 6))
+                            result += ",";
+                    }
+                    $(this).html(result + " " + "$");
+                } else if (length > 0 && length < 4) $(this).html($(this).html() + " " + $);
+            });
+
+        });
+    </script>
+}
+
+<form id="formTeklif" action="/Teklif/Egitim/Ekle" method="post">
+    @Html.Hidden("id", Model.SigortaEttiren.MusteriKodu)
+    @Html.Hidden("teklifId", Model.TeklifId)
+</form>
+<form class="form-horizontal">
+    @Html.HiddenFor(m => m.TeklifId)
+    <div class="portlet box light-grey" style="margin-top: 24px;">
+        <div class="portlet-title">
+            <div class="caption"><i class="icon-reorder"></i>@babonline.ProposalInfo</div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+
+            <div class="accordion" id="accordion">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step1">
+                            <i class="icon-angle-left"></i>
+                            @babonline.UserInfo
+                        </a>
+                    </div>
+                    <div id="step1" class="accordion-body collapse in">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+                                <div class="row-fluid">
+                                    @Html.EditorFor(m => m.Hazirlayan)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step2">
+                            <i class="icon-angle-left"></i>
+                            @babonline.ProposalInfo
+                        </a>
+                    </div>
+                    <div id="step2" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="form-section-header">
+                                            <h3 class="form-section">@babonline.InsuredBy</h3>
+                                        </div>
+                                        @Html.EditorFor(s => s.SigortaEttiren)
+                                    </div>
+                                </div>
+
+                                <div class="form-section-header">
+                                    <h3 class="form-section">@babonline.General_Information</h3>
+                                </div>
+
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Premium_Payment_Period</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.GenelBilgiler.OdemeDonemiText</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Insurance_Start_Date</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.GenelBilgiler.SigortaBaslangicTarihi.ToString("dd.MM.yyyy")</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.AnnualRepaymentAmount</label>
+                                            <div class="controls">
+                                                <label class="control tutar">@Model.GenelBilgiler.GeriOdemelerdeAlinacakYillikTutar</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Insurance_Duration (@babonline.Year)</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.GenelBilgiler.SigortaSuresi</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row-fluid">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.InsuranceRepaymentPeriod</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.GenelBilgiler.SigortaGeriOdemeSuresi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="accordion-group" id="step3group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step3">
+                            <i class="icon-angle-left"></i>
+                            @babonline.Proposal
+                        </a>
+
+                    </div>
+                    <div id="step3" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+                                <div id="teklif-no-container" class="row-fluid">
+                                    <div class="span12">
+                                        <h4>@babonline.Proposal_No : @Model.TeklifNo</h4>
+                                    </div>
+                                </div>
+                                <div id="teklif-fiyatlar">
+                                    <div class="row-fluid" style="margin-top: 20px; border-bottom: 1px solid #e5e5e5;">
+                                        <div class="span2" style="text-align: center; font-style: italic; color: #0D638F;">@babonline.InsuranceCompany</div>
+                                        <div class="span3" style="text-align: center;"></div>
+                                        <div class="span4" style="text-align: center; font-style: italic; color: #0D638F;">Ödenmesi Gereken Dönemsel Prim / Vefat Teminatı</div>
+                                        <div class="span3">
+                                        </div>
+                                    </div>
+                                    <div class="fiyat-container">
+                                        @for (int i = 0; i < Model.Fiyat.Fiyatlar.Count; i++)
+                                        {
+                                            <div class="row-fluid" id="fiyat-container-@(i)" style="margin-top:20px; padding-bottom:20px; border-bottom: 1px solid #e5e5e5;">
+                                                <div class="span2" style="text-align: center;">
+                                                    <img id="tum-unvan-@(i)" src="@Model.Fiyat.Fiyatlar[i].TUMLogoUrl" alt="@Model.Fiyat.Fiyatlar[i].TUMUnvani" title="@Model.Fiyat.Fiyatlar[i].TUMUnvani" />
+                                                </div>
+                                                @if (Model.Fiyat.Fiyatlar[i].Hatalar == null || Model.Fiyat.Fiyatlar[i].Hatalar.Count == 0)
+                                                {
+                                                    <div class="span4"></div>
+                                                    <div id="div-fiyat-1-@(i)" class="span3" style="text-align:center;">
+                                                        <span id="tum-fiyat-1-@(i)" style="font-weight:bold;" class="fiyat">@Model.Fiyat.Fiyatlar[i].Fiyat1</span>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="span10 alert alert-error" style="text-align: left; margin-bottom: 0px;">
+                                                        <strong>@babonline.ProposalIsNotCreated</strong><br />
+                                                        @foreach (var hata in Model.Fiyat.Fiyatlar[i].Hatalar)
+                                                        {
+                                                            <span title='@hata'>@(hata.Length > 250 ? hata.Substring(0, 250) : hata)</span><br />
+                                                        }
+                                                    </div>
+                                                    <span class="fiyat" style="display: none;">0</span>
+                                                }
+                                            </div>
+                                                if (Model.Fiyat.Fiyatlar[i].Hatalar == null && Model.Fiyat.Fiyatlar[i].Surprimler.Count > 0)
+                                                {
+                                            <div class="span12" style='margin: 10px;'>
+                                                <div class='span3' style='text-align: center; color: red; font-style: italic;'>@babonline.NecessaryAudits :</div>
+                                                <div class="span9">
+                                                    @foreach (TeklifSurprimModel supr in Model.Fiyat.Fiyatlar[i].Surprimler)
+                                                    {
+                                                        <p>@supr.Surprim</p>  
+                                                    }
+                                                </div>
+                                            </div>
+                                                }
+                                        }
+                                    </div>
+                                </div>
+                                <div id="teklif-button-container" class="row-fluid" style="padding-top: 20px; padding-bottom: 20px; margin-top: 20px;">
+                                    <div class="span3">
+                                        <button id="teklif-pdf" class="btn btn-primary" data-loading-text="@babonline.Message_Loading" type="button" pdf="@Model.Fiyat.PDFDosyasi"><i class="icon-file icon-white">&nbsp;</i>@babonline.Proposal_Detail PDF</button>
+                                    </div>
+                                    <div class="span3">
+                                        <button id="email-gonder" class="btn btn-primary" type="button" data-loading-text="@babonline.Message_Loading"><i class="icon-envelope icon-white">&nbsp;</i>@babonline.EmailSend</button>
+                                    </div>
+                                    <div class="span3" id="on-provizyon-button-container">
+                                        @if (Model.OnProvizyon)
+                                        { 
+                                            <button class="btn btn-success" type="button">@babonline.PreProvisioningDone</button>
+                                        }
+                                        else
+                                        {
+                                            <button id="onprovizyon-al" class="btn btn-primary" type="button" data-loading-text="@babonline.Message_Loading">
+                                                @babonline.PreProvisioning</button>
+                                        }
+                                        <div class="offset6"></div>
+                                    </div>
+
+                                    <div class="span3">
+                                        <button id="btn-teklif-tekrar" class="btn btn-warning" type="button"><i class="icon-star-empty icon-white"></i>@babonline.RepeatProposal</button>
+                                    </div>
+                                    <div class="offset6"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@*Mail gönderme modal form*@
+<div id="mail-gonder-modal-div"></div>
+
+<div id="on-provizyon-modal-div"></div>

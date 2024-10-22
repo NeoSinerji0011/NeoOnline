@@ -1,0 +1,246 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.YetkiEklemeModel
+
+@section PageStyles
+{
+    @Styles.Render("~/Content/switch")
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="/Manage/Yetki/Liste">@babonline.Authority_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Authority_Add<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/dataTable")
+    @Scripts.Render("~/bundles/switch")
+    <script>
+        $(document).ready(function () {
+            $("[rel=tooltip]").tooltip();
+            //Tvm listesini Dolduruyor....
+            var tvm = $("#TVMKodu").tvmfinder();
+            tvm.enable();
+            $("#form0").submit(function () {
+                $(".switcher").find(":input").switchFix();
+            });
+        });
+    </script>
+}
+
+<style type="text/css">
+    .buton-container-ana {
+        height: 30px;
+        margin-left: 235px;
+        margin-top: -30px;
+    }
+
+    .buton-container-alt {
+        height: 30px;
+        margin-left: 206px;
+    }
+
+    .aciklama {
+        display: block;
+        list-style-type: none;
+        line-height: 22px;
+        margin: 3px;
+        float: left;
+        text-align: center;
+        font-size: 15px;
+        width: 83px;
+        margin-left: 6px;
+        margin-right: 6px;
+    }
+
+    .altmenu-ismi {
+        color: maroon;
+        float: left;
+        height: 23px;
+        width: 210px;
+    }
+
+    .sekme-ismi {
+        color: #D6A5A5;
+        float: left;
+        height: 23px;
+        width: 185px;
+    }
+
+    .menuler {
+        font-size: medium;
+        list-style-type: none;
+        display: block;
+        height: 30px;
+    }
+
+    .div-evet-hayir {
+        float: left;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 62px;
+    }
+
+
+    .ul-custom {
+        margin: 0 0 10px 10px;
+    }
+
+    .nav-list-custom {
+        padding-left: 212px;
+        height: 30px;
+    }
+
+    .alt-menu-sekme-buttons {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+</style>
+
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.AuthorityGroup_Add</div>
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("Ekle", "Yetki", FormMethod.Post, new { id = "form0", @class = "form-horizontal" }))
+        {
+            <div class="row-fluid">
+                <div class="control-group">
+                    <label class="control-label">@babonline.TVM_Code   <span class="required">*</span></label>
+                    <div class="controls">
+                        @Html.TVMFinderFor(m => m.TVMKodu, Model.TVMUnvani)
+                        @Html.ValidationMessageFor(m => m.TVMKodu)
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">@babonline.Group_Name</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.GrupAdi, new { maxlength = 20, autocompletetype = "disabled", style = "width:200px;" })
+                        @Html.ValidationMessageFor(m => m.GrupAdi)
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">@babonline.HomeTVMIsLegend</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.YetkiSeviyesi, new string[] { "E", "H" }, new { })
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <br />
+                    <ul class="nav nav-list item-summary">
+                        <li class="nav-header">
+                            <div class="nav-list-custom">
+                                <label class="aciklama">@babonline.See</label>
+                                <label class="aciklama">@babonline.New_Registry</label>
+                                <label class="aciklama">@babonline.Change_Right</label>
+                                <label class="aciklama">@babonline.Delete_Right</label>
+                                <br />
+                            </div>
+                        </li>
+                    </ul>
+                    <div>
+                        <div id="accordion" class="accordion">
+                            @if (Model.AnaMenuler != null)
+                            {
+                                for (int i = 0; i < Model.AnaMenuler.Count; i++)
+                                {
+
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu-@Model.AnaMenuler[i].AnaMenuKodu" href="#menu-@Model.AnaMenuler[i].AnaMenuKodu">@Model.AnaMenuler[i].MenuAdi</a>
+
+                                            <div class="buton-container-ana">
+                                                @Html.SwitchButtonFor(m => m.AnaMenuler[i].Gorme, new string[] { "E", "H" }, new { style = "margin-left: 3px; margin-right: 3px;" })
+                                                @Html.SwitchButtonFor(m => m.AnaMenuler[i].YeniKayit, new string[] { "E", "H" }, new { style = "margin-left: 3px; margin-right: 3px;" })
+                                                @Html.SwitchButtonFor(m => m.AnaMenuler[i].Degistirme, new string[] { "E", "H" }, new { style = "margin-left: 3px; margin-right: 3px;" })
+                                                @Html.SwitchButtonFor(m => m.AnaMenuler[i].Silme, new string[] { "E", "H" }, new { style = "margin-left: 3px; margin-right: 3px;" })
+                                            </div>
+                                        </div>
+                                        @Html.HiddenFor(s => s.AnaMenuler[i].AnaMenuKodu)
+                                        <div id="menu-@Model.AnaMenuler[i].AnaMenuKodu" class="accordion-body collapse">
+                                            <div class="accordion-inner">
+                                                <ul class="ul-custom">
+                                                    @if (Model.AnaMenuler[i].AltMenuler != null)
+                                                    {
+                                                        for (int p = 0; p < Model.AnaMenuler[i].AltMenuler.Count; p++)
+                                                        {
+                                                            <li class="menuler">
+                                                                <label class="altmenu-ismi">@Model.AnaMenuler[i].AltMenuler[p].MenuAdi</label>
+                                                                <div>
+                                                                    @Html.SwitchButtonFor(m => m.AnaMenuler[i].AltMenuler[p].Gorme, new string[] { "E", "H" }, new { style = "margin-left: 3px; margin-right: 3px;" })
+                                                                    @Html.SwitchButtonFor(m => m.AnaMenuler[i].AltMenuler[p].YeniKayit, new string[] { "E", "H" }, new { style = "margin-left: 3px; margin-right: 3px;" })
+                                                                    @Html.SwitchButtonFor(m => m.AnaMenuler[i].AltMenuler[p].Degistirme, new string[] { "E", "H" }, new { style = "margin-left: 3px; margin-right: 3px;" })
+                                                                    @Html.SwitchButtonFor(m => m.AnaMenuler[i].AltMenuler[p].Silme, new string[] { "E", "H" }, new { style = "margin-left: 3px; margin-right: 3px;" })
+                                                                    @Html.HiddenFor(s => s.AnaMenuler[i].AltMenuler[p].AnaMenuKodu)
+                                                                    @Html.HiddenFor(s => s.AnaMenuler[i].AltMenuler[p].AltMenuKodu)
+                                                                </div>
+                                                            </li>
+                                                            <ul>
+                                                                @if (Model.AnaMenuler[i].AltMenuler[p].Sekmeler != null)
+                                                                {
+                                                                    for (int c = 0; c < Model.AnaMenuler[i].AltMenuler[p].Sekmeler.Count; c++)
+                                                                    {
+                                                                        <li class="menuler">
+                                                                            <label class="sekme-ismi">@Model.AnaMenuler[i].AltMenuler[p].Sekmeler[c].MenuAdi</label>
+                                                                            <div>
+                                                                                @Html.SwitchButtonFor(m => m.AnaMenuler[i].AltMenuler[p].Sekmeler[c].Gorme, new string[] { "E", "H" }, new { @class = "alt-menu-sekme-buttons switcher switcher-small" })
+
+                                                                                @Html.SwitchButtonFor(m => m.AnaMenuler[i].AltMenuler[p].Sekmeler[c].YeniKayit, new string[] { "E", "H" }, new { @class = "alt-menu-sekme-buttons switcher switcher-small" })
+
+                                                                                @Html.SwitchButtonFor(m => m.AnaMenuler[i].AltMenuler[p].Sekmeler[c].Degistirme, new string[] { "E", "H" }, new { @class = "alt-menu-sekme-buttons switcher switcher-small" })
+
+                                                                                @Html.SwitchButtonFor(m => m.AnaMenuler[i].AltMenuler[p].Sekmeler[c].Silme, new string[] { "E", "H" }, new { @class = "alt-menu-sekme-buttons switcher switcher-small" })
+                                                                                @Html.HiddenFor(s => s.AnaMenuler[i].AltMenuler[p].Sekmeler[c].AnaMenuKodu)
+                                                                                @Html.HiddenFor(s => s.AnaMenuler[i].AltMenuler[p].Sekmeler[c].AltMenuKodu)
+                                                                                @Html.HiddenFor(s => s.AnaMenuler[i].AltMenuler[p].Sekmeler[c].SekmeKodu)
+                                                                            </div>
+                                                                        </li>
+                                                                    }
+                                                                }
+                                                            </ul>
+                                                        }
+                                                    }
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                <a class="btn" href="/Manage/Yetki/Liste">@babonline.Cancel</a>
+            </div>
+        }
+    </div>
+</div>

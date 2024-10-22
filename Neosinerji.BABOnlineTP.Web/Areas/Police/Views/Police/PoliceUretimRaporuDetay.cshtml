@@ -1,0 +1,275 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Web.Areas.Police.Controllers
+
+@model  Neosinerji.BABOnlineTP.Business.Police
+<style>
+    .modal-body {
+        height: 800px !important;
+    }
+</style>
+
+<div id="police-detay-modal" class="modal hide fade" style="margin-left: -385px; width: 800px;">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body ">
+        <div class="span12">
+            <div id="table-div">
+                <table class="table table-striped table-bordered  data-table">
+                    <tr style="font-size: large;">
+                        <th style="width: 20px;text-align: center" colspan="9">@babonline.Policy_Info</th>
+                    </tr>
+                    <tr>
+                        @{
+                            bool anaAcenteMi = ((PoliceController)this.ViewContext.Controller).AnaAcenteMi();
+                        }
+                        <th style="width: 35px;">@babonline.PolicyNo</th>
+                        <th style="width: 50px;">@babonline.Addendum</th>
+                        <th style="width: 50px;">@babonline.RenewalNo</th>
+                        <th style="width: 50px;">@babonline.Date_Of_the_Establishment</th>
+                        <th style="width: 50px;">@babonline.PolicyStartDate</th>
+                        <th style="width: 50px;">@babonline.PolicyFinishDate</th>
+                        <th style="width: 50px;">@babonline.Gross_Premium</th>
+                        <th style="width: 50px;">@babonline.Net_Premium</th>
+                        @if (anaAcenteMi)
+                        {
+                            <th style="width: 50px;">@babonline.Commission</th>
+                        }
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>@Model.GenelBilgiler.PoliceNumarasi</td>
+                            <td>@Model.GenelBilgiler.EkNo</td>
+                            <td>@Model.GenelBilgiler.YenilemeNo</td>
+                            <td>
+                                @if (Model.GenelBilgiler.TanzimTarihi.Value != null)
+                                {
+                                    @Model.GenelBilgiler.TanzimTarihi.Value.ToString("dd/MM/yyyy");
+                                }
+                            </td>
+                            <td>
+                                @if (Model.GenelBilgiler.BaslangicTarihi.Value != null)
+                                {
+                                    @Model.GenelBilgiler.BaslangicTarihi.Value.ToString("dd/MM/yyyy");
+                                }
+                            </td>
+                            <td>
+                                @if (Model.GenelBilgiler.BitisTarihi.Value != null)
+                                {
+                                    @Model.GenelBilgiler.BitisTarihi.Value.ToString("dd/MM/yyyy");
+                                }
+                            </td>
+                            <td>@Model.GenelBilgiler.BrutPrim</td>
+                            <td>@Model.GenelBilgiler.NetPrim</td>
+                            @if (anaAcenteMi)
+                            {
+                                <td>@Model.GenelBilgiler.Komisyon</td>
+                            }
+                        </tr>
+
+
+                    </tbody>
+                </table>
+                <table class="table table-striped table-bordered table-hover dataTable data-table">
+                    <tr style="font-size: large">
+                        <th style="width: 20px; text-align: center" colspan="2">@babonline.Insured</th>
+                        <th style="width: 5px; background: none"></th>
+                        <th style="width: 20px; text-align: center" colspan="2">@babonline.InsuredBy</th>
+                    </tr>
+                    <tr>
+                        @if (!String.IsNullOrEmpty(@Model.GenelBilgiler.PoliceSigortali.KimlikNo))
+                        {
+                            <th style="width: 20px; text-align: right;">@babonline.IdentificationNumber :</th>
+                            <td style="width: 20px;">@Model.GenelBilgiler.PoliceSigortali.KimlikNo</td>
+                            <th style="width: 5px; background: none"></th>
+                        }
+                        else if (!String.IsNullOrEmpty(@Model.GenelBilgiler.PoliceSigortali.VergiKimlikNo))
+                        {
+                            <th style="width: 20px; text-align: right">@babonline.Tax_Identification_Number :</th>
+                            <td style="width: 20px;">@Model.GenelBilgiler.PoliceSigortali.VergiKimlikNo</td>
+                            <th style="width: 5px; background: none"></th>
+                        }
+                        else
+                        {
+                            <th style="width: 20px; text-align: right">@babonline.IdentificationNumber :</th>
+                            <td style="width: 20px;"></td>
+                            <td style="width: 20px;"></td>
+                        }
+
+
+                        @if (!String.IsNullOrEmpty(@Model.GenelBilgiler.PoliceSigortaEttiren.KimlikNo))
+                        {
+                            <th style="width: 20px; text-align: right">@babonline.IdentificationNumber :</th>
+                            <td style="width: 20px;">@Model.GenelBilgiler.PoliceSigortaEttiren.KimlikNo</td>
+                        }
+                        else if (!String.IsNullOrEmpty(@Model.GenelBilgiler.PoliceSigortaEttiren.VergiKimlikNo))
+                        {
+                            <th style="width: 20px; text-align: right">@babonline.Tax_Identification_Number :</th>
+                            <td style="width: 20px;">@Model.GenelBilgiler.PoliceSigortaEttiren.VergiKimlikNo</td>
+                        }
+                        else
+                        {
+                            <th style="width: 20px; text-align: right">@babonline.IdentificationNumber :</th>
+                            <td style="width: 20px;"></td>
+                            <td style="width: 20px;"></td>
+                        }
+                    </tr>
+                    <tr>
+                        <th style="width: 20px; text-align: right">@babonline.Name :</th>
+                        <td style="width: 20px;">@Model.GenelBilgiler.PoliceSigortali.AdiUnvan</td>
+                        <th style="width: 20px; background: none"></th>
+                        <th style="width: 20px; text-align: right">@babonline.Name :</th>
+                        <td style="width: 20px;">@Model.GenelBilgiler.PoliceSigortaEttiren.AdiUnvan</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 20px; text-align: right">@babonline.Surname :</th>
+                        <td style="width: 20px;">@Model.GenelBilgiler.PoliceSigortali.SoyadiUnvan</td>
+                        <th style="width: 20px; background: none"></th>
+                        <th style="width: 20px; text-align: right">@babonline.Surname :</th>
+                        <td style="width: 20px;">@Model.GenelBilgiler.PoliceSigortaEttiren.SoyadiUnvan</td>
+
+                    </tr>
+                    <tr style="height: 20px;">
+                        <th style="width: 20px; text-align: right">@babonline.Address :</th>
+                        <td style="width: 20px;">@Model.GenelBilgiler.PoliceSigortali.Adres</td>
+                        <th style="width: 20px; background: none"></th>
+                        <th style="width: 20px; text-align: right">@babonline.Address :</th>
+                        <td style="width: 20px;">@Model.GenelBilgiler.PoliceSigortaEttiren.Adres</td>
+
+                    </tr>
+                </table>
+
+
+                <table class="table table-striped table-bordered  data-table">
+
+                    @if (@Model.GenelBilgiler.BransKodu == 1 || @Model.GenelBilgiler.BransKodu == 2)
+                    {
+                        <tr style="font-size: large">
+                            <th style="width: 35px; text-align: center" colspan="7">@babonline.VehicleInfo</th>
+                        </tr>
+                        <tr>
+                            <th style="width: 35px;">@babonline.Plate</th>
+                            <th style="width: 50px;">@babonline.VehicleModel</th>
+                            <th style="width: 50px;">@babonline.VehicleBrand</th>
+                            <th style="width: 50px;">@babonline.Vehicle_Type</th>
+                            <th style="width: 50px;">@babonline.VehicleValue</th>
+                            <th style="width: 50px;">Trafik Tescil Tarihi</th>
+                            <th style="width: 50px;">@babonline.ChassisNo</th>
+                        </tr>
+                    }
+                    else
+                    {
+
+                        <tr style="font-size: large">
+                            <th style="width: 35px; text-align: center" colspan="5">@babonline.Risk</th>
+                        </tr>
+                        <tr>
+                            <th style="width: 35px;">@babonline.Address</th>
+                            <th style="width: 35px;">@babonline.City</th>
+                            <th style="width: 35px;">@babonline.District</th>
+                            <th style="width: 50px;">@babonline.BuildingStyle</th>
+                            <th style="width: 50px;">Bina Bedel</th>
+                        </tr>
+                    }
+
+                    <tbody>
+                        @if (@Model.GenelBilgiler.BransKodu == 1 || @Model.GenelBilgiler.BransKodu == 2)
+                        {
+                            <tr>
+                                <td>@Model.GenelBilgiler.PoliceArac.PlakaKodu - @Model.GenelBilgiler.PoliceArac.PlakaNo</td>
+                                <td>@Model.GenelBilgiler.PoliceArac.Model</td>
+                                <td>@Model.GenelBilgiler.PoliceArac.Marka</td>
+                                <td>@Model.GenelBilgiler.PoliceArac.AracinTipiAciklama @Model.GenelBilgiler.PoliceArac.AracinTipiAciklama2 </td>
+                                <td>@Model.GenelBilgiler.PoliceArac.AracDeger</td>
+                                <td>@Model.GenelBilgiler.PoliceArac.TrafikTescilTarihi</td>
+                                <td>@Model.GenelBilgiler.PoliceArac.SasiNo</td>
+
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@Model.GenelBilgiler.PoliceRizikoAdresi.Adres</td>
+                                <td>@Model.GenelBilgiler.PoliceRizikoAdresi.Il</td>
+                                <td>@Model.GenelBilgiler.PoliceRizikoAdresi.Ilce</td>
+                                <td>@Model.GenelBilgiler.PoliceRizikoAdresi.BinaKullanimTarzi</td>
+                                <td>@Model.GenelBilgiler.PoliceRizikoAdresi.BinaBedel</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="span8" style="margin-left: 15%; width: 70%">
+                    <table class="table table-striped table-bordered table-hover dataTable data-table">
+
+                        <tr style="font-size: large">
+                            <th style="width: 35px; text-align: center" colspan="2">@babonline.PaymentOptions</th>
+                        </tr>
+
+                        <tr>
+                            <th style="width: 35px; text-align: center">Vade Tarihi</th>
+                            <th style="width: 50px; text-align: center">@babonline.Amount</th>
+                        </tr>
+                        <tbody>
+                            @if (Model.GenelBilgiler.PoliceOdemePlanis.Count > 0)
+                            {
+                                foreach (var item in Model.GenelBilgiler.PoliceOdemePlanis)
+                                {
+                                    <tr>
+                                        @if (@item.VadeTarihi.HasValue)
+                                        {
+                                            <td style="text-align: center">@item.VadeTarihi.Value.ToString("dd/MM/yyyy")</td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                        <td style="text-align: center">@item.TaksitTutari</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="span8" style="margin-left: 15%; width: 70%">
+                    <table class="table table-striped table-bordered table-hover dataTable data-table">
+
+                        <tr style="font-size: large">
+                            <th style="width: 35px; text-align: center" colspan="2">Para Birimi / Döviz Kuru</th>
+                        </tr>
+
+                        <tr>
+                            <th style="width: 35px; text-align: center">Para Birimi</th>
+                            <th style="width: 50px; text-align: center">Döviz Kuru</th>
+                        </tr>
+                        <tbody>
+                            @if (Model.GenelBilgiler.PoliceOdemePlanis.Count > 0)
+                            {
+
+                                <tr>
+
+                                    <td style="width: 50px;text-align: center">@Model.GenelBilgiler.ParaBirimi</td>
+                                    @if (Model.GenelBilgiler.DovizKur.HasValue)
+                                    {
+                                        <td style="width: 50px;text-align: center">@Model.GenelBilgiler.DovizKur.Value </td>
+                                    }
+                                    else
+                                    {
+                                        <td style="width: 50px;text-align: center"></td>
+
+                                    }
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn green" data-dismiss="modal" aria-hidden="true">@babonline.OK</a>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model DetayMusteriModel
+
+
+<div class="control-group">
+    <label class="control-label">@babonline.Customer_Type</label>
+    <div class="controls">
+        <label class="control">@Model.MusteriTipText</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.Identification_Number</label>
+    <div class="controls">
+        <label class="control">@Model.KimlikNo</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.Customer_Name_Title</label>
+    <div class="controls">
+        <label class="control">@Model.AdiUnvan</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.Customer_Surname_Title</label>
+    <div class="controls">
+        <label class="control">@Model.SoyadiUnvan</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.Country</label>
+    <div class="controls">
+        <label class="control">@Model.UlkeAdi</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.City</label>
+    <div class="controls">
+        <label class="control">@Model.IlAdi</label> 
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.District</label>
+    <div class="controls">
+        <label class="control">@Model.IlceAdi</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.Job</label>
+    <div class="controls">
+        <label class="control">@Model.MeslekAdi</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.Email_Adress</label>
+    <div class="controls">
+        <label class="control">@Model.Email</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.TVMUser_MobilePhone</label>
+    <div class="controls">
+        <label class="control">@Model.CepTelefonu.ToString()</label>
+    </div>
+</div>

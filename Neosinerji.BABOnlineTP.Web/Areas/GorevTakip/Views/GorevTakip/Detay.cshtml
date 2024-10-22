@@ -1,0 +1,235 @@
+﻿
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.GorevTakip.Models
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model GorevTakipDetayModel
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="~/TVM/TVM/Index">Görev Takip<span class="selected"></span></a>
+        </li>
+        <li>
+            <a href="~/GorevTakip/GorevTakip/Ekle">Görev Atama<span></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search..." class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+@section PageStyles{}
+
+@section PageScripts
+{}
+<div class="row-fluid">
+    <div class="portlet box light-grey" style="margin-top: 24px;">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-reorder"></i>
+                <span class="hidden-480">Görev Atama @babonline.Detail</span>
+            </div>
+            <div class="actions">
+                <a href="/GorevTakip/GorevTakip/Guncelle/@Model.IsId" class="btn yellow"><i class="icon-pencil">&nbsp;</i>@babonline.Update</a>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <form class="form-horizontal form-view">
+                @Html.HiddenFor(m => m.IsId)
+                <div class="row-fluid" style="padding-top: 10px;">
+
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">İş Alan Satış Kanalı</label>
+                            <div class="controls">
+                                <label class="control">@Model.IsAlanTvmUnvani</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">İş Alan Kullanıcı</label>
+                            <div class="controls">
+                                <label class="control">@Model.IsAlanKullaniciUnvani</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">İş Atayan Satış Kanalı</label>
+                            <div class="controls">
+                                <label class="control">@Model.IsAtayanTvmUnvani</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">İş Atayan Kullanıcı</label>
+                            <div class="controls">
+                                <label class="control">@Model.IsAtayanKullaniciUnvani</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Başlık</label>
+                            <div class="controls">
+                                <label class="control">@Model.Baslik</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">İş Tipi</label>
+                            <div class="controls">
+                                <label class="control">@Model.IsTipiAciklama</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Talep Kanalı</label>
+                            <div class="controls">
+                                <label class="control">@Model.TalepKanali</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Öncelik Seviyesi</label>
+                            <div class="controls">
+                                <label class="control">@Model.OncelikSeviyeAciklama</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Durum</label>
+                            <div class="controls">
+                                <label class="control">@Model.DurumAciklama</label>
+                            </div>
+                        </div>
+                        <div class="control-group policeYenileme">
+                            <label class="control-label">@babonline.InsuranceCompany</label>
+                            <div class="controls">
+                                <label class="control">@Model.SigortaSirketiUnvani</label>
+                            </div>
+                        </div>
+                        <div class="control-group policeYenileme">
+                            <label class="control-label">@babonline.Branch</label>
+                            <div class="controls">
+                                <label class="control">@Model.BransAdi</label>
+                            </div>
+                        </div>
+                        <div class="control-group policeYenileme">
+                            <label class="control-label">@babonline.PolicyNo</label>
+                            <div class="controls">
+                                <label class="control">@Model.PoliceNumarasi</label>
+                            </div>
+                        </div>
+                        <div class="control-group policeYenileme">
+                            <label class="control-label">@babonline.Endorsement</label>
+                            <div class="controls">
+                                <label class="control">@Model.ZeylNumarasi</label>
+                            </div>
+                        </div>
+                        <div class="control-group policeYenileme">
+                            <label class="control-label">@babonline.RenewalNo</label>
+                            <div class="controls">
+                                <label class="control">@Model.YenilemeNumarasi</label>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">Açıklama</label>
+                            <div class="controls">
+                                <label class="control">@Model.Aciklama</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.StartDate</label>
+                            <div class="controls">
+                                <label class="control">@Model.BaslamaTarihi.ToString("dd.MM.yyyy")</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Tahmini Bitiş Tarihi</label>
+                            <div class="controls">
+                                <label class="control">@Model.TahminiBitisTarihi.ToString("dd.MM.yyyy")</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Tamamlama Tarihi</label>
+                            <div class="controls">
+                                @if (Model.TamamlamaTarihi.HasValue)
+                                {
+                                    <label class="control">@Model.TamamlamaTarihi.Value.ToString("dd.MM.yyyy")</label>
+                                }
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Evrak Numarası</label>
+                            <div class="controls">
+                                <label class="control">@Model.EvrakNo</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Gönderen Acente Ünvanı</label>
+                            <div class="controls">
+                                <label class="control">@Model.TalepYapanAcente</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Gönderen TC/VKN</label>
+                            <div class="controls">
+                                <label class="control">@Model.GonderenTCVKN</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Gönderen Adı Soyadı</label>
+                            <div class="controls">
+                                <label class="control">@Model.GonderenAdiSoyadi</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Gönderen Email</label>
+                            <div class="controls">
+                                <label class="control">@Model.GonderenEmail</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Gönderen Telefon</label>
+                            <div class="controls">
+                                <label class="control">@Model.GonderenTelefon</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.NotlarList != null)
+                {
+                    <h3 class="form-section">@babonline.Node Listesi</h3>
+                    <div class="row-fluid">
+                        <div class="span12" id="notlar-container">
+                            @Html.Partial("_Notlar", Model.NotlarList)
+                        </div>
+                    </div>
+
+                }
+                @if (Model.DokumanlariList != null)
+                {
+                    <h3 class="form-section">@babonline.Document Listesi</h3>
+                    <div class="row-fluid">
+                        <div class="span12" id="dokumanlar-container">
+                            @Html.Partial("_AtananIsDokumanlar", Model.DokumanlariList)
+                        </div>
+                    </div>
+                }
+            </form>
+        </div>
+    </div>
+</div>

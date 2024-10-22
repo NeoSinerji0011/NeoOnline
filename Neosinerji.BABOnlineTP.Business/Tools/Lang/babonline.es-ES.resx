@@ -1,0 +1,4263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Absent" xml:space="preserve">
+    <value>No hay</value>
+  </data>
+  <data name="Accessory" xml:space="preserve">
+    <value>Accesorios</value>
+  </data>
+  <data name="Access_Is_Denied" xml:space="preserve">
+    <value>Acceso no permitido</value>
+  </data>
+  <data name="AccidentalDeath" xml:space="preserve">
+    <value>Fallecimiento por accidente</value>
+  </data>
+  <data name="AccidentalDisability" xml:space="preserve">
+    <value>Franquicia por accidente</value>
+  </data>
+  <data name="AccidentalDisabilityBenefit" xml:space="preserve">
+    <value>Cobertura de franquicia por accidente</value>
+  </data>
+  <data name="Accidental_Death_Benefit" xml:space="preserve">
+    <value>Cobertura de fallecimiento por accidente</value>
+  </data>
+  <data name="Accidental_Death_in_Public_Transportation" xml:space="preserve">
+    <value>Cobertura de fallecimiento por accidente en vehículos de transporte público</value>
+  </data>
+  <data name="Accidental_Medical_Expenses_Additional_Coverage" xml:space="preserve">
+    <value>Cobertura suplementaria para gastos de rehabilitación por accidentes</value>
+  </data>
+  <data name="Accounting" xml:space="preserve">
+    <value>Contabilidad</value>
+  </data>
+  <data name="Accounting_Integration" xml:space="preserve">
+    <value>Integración de contabilidad</value>
+  </data>
+  <data name="AccountName" xml:space="preserve">
+    <value>Nombre de la cuenta</value>
+  </data>
+  <data name="AccountNo" xml:space="preserve">
+    <value>Número de cuenta</value>
+  </data>
+  <data name="Account_Collection_judical" xml:space="preserve">
+    <value>Cobro en cuenta (persona física)</value>
+  </data>
+  <data name="Account_Collection_real" xml:space="preserve">
+    <value>Cobro en cuenta (persona jurídica)</value>
+  </data>
+  <data name="Accrual" xml:space="preserve">
+    <value>Devengo</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Incluir</value>
+  </data>
+  <data name="Add1" xml:space="preserve">
+    <value>#YOK</value>
+  </data>
+  <data name="AddApplicationForm" xml:space="preserve">
+    <value>Añadir el formulario de solicitud</value>
+  </data>
+  <data name="AddDecoration" xml:space="preserve">
+    <value>Coste de decoración </value>
+  </data>
+  <data name="Added_Records_User" xml:space="preserve">
+    <value>Persona que realiza el registro</value>
+  </data>
+  <data name="Added_User" xml:space="preserve">
+    <value>Usuario que realiza el registro</value>
+  </data>
+  <data name="AddGoods" xml:space="preserve">
+    <value>Capital de los muebles </value>
+  </data>
+  <data name="AdditionalCollateralGoods" xml:space="preserve">
+    <value>Cobertura suplementaria de muebles </value>
+  </data>
+  <data name="AdditionalCollateralIngredient" xml:space="preserve">
+    <value>Cobertura suplementaria de contenido</value>
+  </data>
+  <data name="AdditionalCoverageLiability" xml:space="preserve">
+    <value>Cobertura suplementaria de responsabilidad financiera</value>
+  </data>
+  <data name="AdditionalPremiumAdditionalCoverage" xml:space="preserve">
+    <value>Prima añadida por cobertura suplementaria</value>
+  </data>
+  <data name="Additional_Guarantees" xml:space="preserve">
+    <value>Coberturas suplementarias</value>
+  </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Añadir nota</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
+  <data name="Address_Add" xml:space="preserve">
+    <value>Incluir dirección</value>
+  </data>
+  <data name="Address_Info" xml:space="preserve">
+    <value>Datos de dirección</value>
+  </data>
+  <data name="Address_Info2" xml:space="preserve">
+    <value>Datos de dirección</value>
+  </data>
+  <data name="Address_Type" xml:space="preserve">
+    <value>Tipo de dirección</value>
+  </data>
+  <data name="AddToCommodity" xml:space="preserve">
+    <value>Importe de la mercancía</value>
+  </data>
+  <data name="AddTUM" xml:space="preserve">
+    <value>Incluir compañía aseguradora</value>
+  </data>
+  <data name="AddTVM" xml:space="preserve">
+    <value>Incluir canal de ventas</value>
+  </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Añadir usuario</value>
+  </data>
+  <data name="AddUsers" xml:space="preserve">
+    <value>Añadir usuario múltiple</value>
+  </data>
+  <data name="Add_Date" xml:space="preserve">
+    <value>Fecha de inclusión</value>
+  </data>
+  <data name="Advance" xml:space="preserve">
+    <value>Avanzar </value>
+  </data>
+  <data name="AgencyNo" xml:space="preserve">
+    <value>Número de agente </value>
+  </data>
+  <data name="Agent" xml:space="preserve">
+    <value>Agente </value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alarma </value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="AllExportExcel" xml:space="preserve">
+    <value>Transferir todo a Excel</value>
+  </data>
+  <data name="AllFloors" xml:space="preserve">
+    <value>Todos los niveles</value>
+  </data>
+  <data name="AllOf" xml:space="preserve">
+    <value>Todo</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Importe</value>
+  </data>
+  <data name="AmountOfGuarantee" xml:space="preserve">
+    <value>Importe de la cobertura</value>
+  </data>
+  <data name="AMSCaption" xml:space="preserve">
+    <value>AMS</value>
+  </data>
+  <data name="AnErrorHasOccurred" xml:space="preserve">
+    <value>Se ha producido un error</value>
+  </data>
+  <data name="AnnouncementDetails" xml:space="preserve">
+    <value>Anuncio</value>
+  </data>
+  <data name="Annual" xml:space="preserve">
+    <value>Anual</value>
+  </data>
+  <data name="AnnualDisabilitySupportCoverage" xml:space="preserve">
+    <value>Cobertura anual para responsabilidad</value>
+  </data>
+  <data name="AnnualPremium" xml:space="preserve">
+    <value>Prima anual </value>
+  </data>
+  <data name="AnnualPremiumAmount" xml:space="preserve">
+    <value>Importe de la prima anual</value>
+  </data>
+  <data name="AnnualRateOfInflationProtection" xml:space="preserve">
+    <value>Porcentaje anual de protección frente a la inflación</value>
+  </data>
+  <data name="AnnualRepaymentAmount" xml:space="preserve">
+    <value>Importe anual a recaudarse en las devoluciones</value>
+  </data>
+  <data name="Apartment" xml:space="preserve">
+    <value>Apartamento</value>
+  </data>
+  <data name="ApartmentM2" xml:space="preserve">
+    <value>M2 brutos del piso</value>
+  </data>
+  <data name="Apartment_No" xml:space="preserve">
+    <value>Número del piso</value>
+  </data>
+  <data name="AppendixNo" xml:space="preserve">
+    <value>Número del suplemento</value>
+  </data>
+  <data name="ApplicationFormBass" xml:space="preserve">
+    <value>Clicar en el formulario de solicitud</value>
+  </data>
+  <data name="Approval" xml:space="preserve">
+    <value>Aceptación</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>babonline</value>
+  </data>
+  <data name="April" xml:space="preserve">
+    <value>Abril</value>
+  </data>
+  <data name="ASBISNo" xml:space="preserve">
+    <value>Número ASBIS (base de datos de vehículos y conductores)</value>
+  </data>
+  <data name="Asistans" xml:space="preserve">
+    <value>Asistencia </value>
+  </data>
+  <data name="AsistantManager" xml:space="preserve">
+    <value>Director adjunto</value>
+  </data>
+  <data name="AssetValue" xml:space="preserve">
+    <value>Importe del mobiliario</value>
+  </data>
+  <data name="Asset_Insurance" xml:space="preserve">
+    <value>Seguro de patrimonio</value>
+  </data>
+  <data name="AssistantService" xml:space="preserve">
+    <value>Servicio de asistencia</value>
+  </data>
+  <data name="Associate" xml:space="preserve">
+    <value>Licencia previa </value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>Agosto</value>
+  </data>
+  <data name="Authority" xml:space="preserve">
+    <value>Poder</value>
+  </data>
+  <data name="AuthorityGroup_Add" xml:space="preserve">
+    <value>Añadir grupo de poder </value>
+  </data>
+  <data name="AuthorityGroup_Info" xml:space="preserve">
+    <value>Datos del grupo de poder</value>
+  </data>
+  <data name="AuthorityManage" xml:space="preserve">
+    <value>Gestión de poderes</value>
+  </data>
+  <data name="Authority_Add" xml:space="preserve">
+    <value>Añadir poder</value>
+  </data>
+  <data name="Authority_Info" xml:space="preserve">
+    <value>Datos de poder</value>
+  </data>
+  <data name="Authority_Search" xml:space="preserve">
+    <value>Buscar poder</value>
+  </data>
+  <data name="Authorization_Group" xml:space="preserve">
+    <value>Grupo de poder</value>
+  </data>
+  <data name="AuthorizedService" xml:space="preserve">
+    <value>Servicio autorizado</value>
+  </data>
+  <data name="AuthorPaymentTCID" xml:space="preserve">
+    <value>Número de identificación TC del pagador</value>
+  </data>
+  <data name="Avenue" xml:space="preserve">
+    <value>Avenida</value>
+  </data>
+  <data name="AvenueStreetSquare" xml:space="preserve">
+    <value>Avenida/calle</value>
+  </data>
+  <data name="BABOnline_ProductCode" xml:space="preserve">
+    <value>Código de producto BAB online</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Atrás</value>
+  </data>
+  <data name="Bank" xml:space="preserve">
+    <value>Banco</value>
+  </data>
+  <data name="BankAccounts" xml:space="preserve">
+    <value>Cuentas bancarias</value>
+  </data>
+  <data name="BankAccounts_Add" xml:space="preserve">
+    <value>Añadir cuenta bancaria</value>
+  </data>
+  <data name="BankCode" xml:space="preserve">
+    <value>Código de banco</value>
+  </data>
+  <data name="BankName" xml:space="preserve">
+    <value>Nombre del banco </value>
+  </data>
+  <data name="Banner" xml:space="preserve">
+    <value>Banner</value>
+  </data>
+  <data name="BasicsOfFire" xml:space="preserve">
+    <value>Incendio de la base</value>
+  </data>
+  <data name="Bazaar" xml:space="preserve">
+    <value>Mercado</value>
+  </data>
+  <data name="BENEFICIARY_INFORMATION" xml:space="preserve">
+    <value>DATOS DEL BENEFICIARIO</value>
+  </data>
+  <data name="BetweenFloor_01_04" xml:space="preserve">
+    <value>Piso entre 01 y 04</value>
+  </data>
+  <data name="BetweenFloor_05_07" xml:space="preserve">
+    <value>Piso entre 05 y 07</value>
+  </data>
+  <data name="BetweenFloor_08_19" xml:space="preserve">
+    <value>Piso entre 08 y 19</value>
+  </data>
+  <data name="Between_1_and_100" xml:space="preserve">
+    <value>Introduzca por favor un valor entre 1 y 100.</value>
+  </data>
+  <data name="BidDateType" xml:space="preserve">
+    <value>Tipo de fecha de la propuesta</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Bloquear</value>
+  </data>
+  <data name="BlockOfBuilding" xml:space="preserve">
+    <value>Parcela/Isla</value>
+  </data>
+  <data name="Block_Info" xml:space="preserve">
+    <value>¡El usuario será bloqueado!</value>
+  </data>
+  <data name="BodyOfPartyLiabilityPerAccident" xml:space="preserve">
+    <value>Importe por accidente en responsabilidad civil ante terceros</value>
+  </data>
+  <data name="BoxContainsFire" xml:space="preserve">
+    <value>Incendio en el contenido de la caja</value>
+  </data>
+  <data name="BoxNumber" xml:space="preserve">
+    <value>Número de caja</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>Ramo</value>
+  </data>
+  <data name="BranchDescription" xml:space="preserve">
+    <value>Descripción del ramo</value>
+  </data>
+  <data name="Branch_Add" xml:space="preserve">
+    <value>Incluir ramo</value>
+  </data>
+  <data name="Branch_Code" xml:space="preserve">
+    <value>Código de ramo</value>
+  </data>
+  <data name="Branch_Info" xml:space="preserve">
+    <value>Datos del ramo</value>
+  </data>
+  <data name="Branch_List" xml:space="preserve">
+    <value>Lista de ramos</value>
+  </data>
+  <data name="Branch_Name" xml:space="preserve">
+    <value>Nombre del ramo</value>
+  </data>
+  <data name="Branch_Sales_Report" xml:space="preserve">
+    <value>Informe de ventas de la sucursal</value>
+  </data>
+  <data name="Branch_Search" xml:space="preserve">
+    <value>Buscar ramo</value>
+  </data>
+  <data name="BrandCode" xml:space="preserve">
+    <value>Código de marca</value>
+  </data>
+  <data name="BrickMasonry" xml:space="preserve">
+    <value>ALBAÑILERÍA </value>
+  </data>
+  <data name="Building" xml:space="preserve">
+    <value>Edificio</value>
+  </data>
+  <data name="BuildingAdditionalCoverage" xml:space="preserve">
+    <value>Cobertura suplementaria de edificio</value>
+  </data>
+  <data name="BuildingBuildYear" xml:space="preserve">
+    <value>Año de construcción del edificio</value>
+  </data>
+  <data name="BuildingCost" xml:space="preserve">
+    <value>Importe del edificio</value>
+  </data>
+  <data name="BuildingDebrisRemoval" xml:space="preserve">
+    <value>Edificio, recogida de ruinas</value>
+  </data>
+  <data name="BuildingEarthquake" xml:space="preserve">
+    <value>Edificio, terremoto</value>
+  </data>
+  <data name="BuildingExemptionRatio" xml:space="preserve">
+    <value>Edificio, porcentaje de franquicia</value>
+  </data>
+  <data name="BuildingFire" xml:space="preserve">
+    <value>Edificio, incendio</value>
+  </data>
+  <data name="BuildingFloorCount" xml:space="preserve">
+    <value>Número de pisos del edificio</value>
+  </data>
+  <data name="BuildingStyle" xml:space="preserve">
+    <value>Tipo de construcción</value>
+  </data>
+  <data name="Building_No" xml:space="preserve">
+    <value>Número de edificio</value>
+  </data>
+  <data name="BuiltInWater" xml:space="preserve">
+    <value>Agua interior</value>
+  </data>
+  <data name="Bureau" xml:space="preserve">
+    <value>Despacho</value>
+  </data>
+  <data name="BusinessDetails" xml:space="preserve">
+    <value>Detalles del trabajo</value>
+  </data>
+  <data name="BusinessInformationStatingAreInPlace" xml:space="preserve">
+    <value>Información del lugar de trabajo</value>
+  </data>
+  <data name="BusinessType" xml:space="preserve">
+    <value>Tipo de trabajo</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>Comprar</value>
+  </data>
+  <data name="BuyPolicy" xml:space="preserve">
+    <value>Realizar póliza</value>
+  </data>
+  <data name="BuyProposal" xml:space="preserve">
+    <value>Recibir propuesta</value>
+  </data>
+  <data name="Calculate" xml:space="preserve">
+    <value>Calcular</value>
+  </data>
+  <data name="Calculating" xml:space="preserve">
+    <value>Se está calculando</value>
+  </data>
+  <data name="CalculationofChoice" xml:space="preserve">
+    <value>Opción de cálculo</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Car" xml:space="preserve">
+    <value>Vehículo</value>
+  </data>
+  <data name="CarInsuranceStatisticsReport" xml:space="preserve">
+    <value>Informe estadístico del seguro de vehículos</value>
+  </data>
+  <data name="CarryingAuthorization" xml:space="preserve">
+    <value>Certificado para transporte</value>
+  </data>
+  <data name="CarryingAuthorization_Have" xml:space="preserve">
+    <value>¿Tiene certificado para transporte?</value>
+  </data>
+  <data name="CarryingResonsibilityInfo" xml:space="preserve">
+    <value>Datos de la responsabilidad del transportista</value>
+  </data>
+  <data name="CarryingResponsibility" xml:space="preserve">
+    <value>Responsabilidad del transportista</value>
+  </data>
+  <data name="CarryingResponsibility_Have" xml:space="preserve">
+    <value>¿Hay responsabilidad del transportista?</value>
+  </data>
+  <data name="Cash" xml:space="preserve">
+    <value>Metálico</value>
+  </data>
+  <data name="CashTheft" xml:space="preserve">
+    <value>Robo de cajas</value>
+  </data>
+  <data name="CentralAuthority" xml:space="preserve">
+    <value>Poder de la central</value>
+  </data>
+  <data name="CentralDamaged" xml:space="preserve">
+    <value>Daño intermedio</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Cambiar</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Cambiar la clave</value>
+  </data>
+  <data name="Change_Right" xml:space="preserve">
+    <value>Cambio</value>
+  </data>
+  <data name="ChassisNo" xml:space="preserve">
+    <value>Número de chasis</value>
+  </data>
+  <data name="Checkbook" xml:space="preserve">
+    <value>Informe de cheques</value>
+  </data>
+  <data name="Child" xml:space="preserve">
+    <value>Niño</value>
+  </data>
+  <data name="Choose" xml:space="preserve">
+    <value>SELECCIONAR</value>
+  </data>
+  <data name="ChoosePhoto" xml:space="preserve">
+    <value>SELECCIONE FOTOGRAFÍA</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Provincia</value>
+  </data>
+  <data name="City_Code" xml:space="preserve">
+    <value>Código de provincia</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Limpiar</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="Collateral" xml:space="preserve">
+    <value>Cobertura</value>
+  </data>
+  <data name="CollateralType" xml:space="preserve">
+    <value>Tipo de cobertura</value>
+  </data>
+  <data name="Collateral_Add" xml:space="preserve">
+    <value>Incluir cobertura</value>
+  </data>
+  <data name="Collateral_Code" xml:space="preserve">
+    <value>Código de cobertura</value>
+  </data>
+  <data name="Collateral_Info" xml:space="preserve">
+    <value>Información de la cobertura</value>
+  </data>
+  <data name="Collateral_List" xml:space="preserve">
+    <value>Listado de coberturas</value>
+  </data>
+  <data name="Collateral_Name" xml:space="preserve">
+    <value>Nombre de la cobertura</value>
+  </data>
+  <data name="Collateral_Of_Walkout_LockOut_PopularMovement" xml:space="preserve">
+    <value>Cobertura de huelgas, cierre patronal, protestas populares</value>
+  </data>
+  <data name="Collateral_Search" xml:space="preserve">
+    <value>Buscar cobertura</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="Commercial" xml:space="preserve">
+    <value>Comercial</value>
+  </data>
+  <data name="Commission" xml:space="preserve">
+    <value>Comisión</value>
+  </data>
+  <data name="CommissionCalculate" xml:space="preserve">
+    <value>Cálculo de comisión</value>
+  </data>
+  <data name="CommissionRate" xml:space="preserve">
+    <value>Porcentajes de comisión</value>
+  </data>
+  <data name="CommodityEarthquake" xml:space="preserve">
+    <value>Mercancías, terremoto</value>
+  </data>
+  <data name="CommodityFire" xml:space="preserve">
+    <value>Mercancías, incendio</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Compañía</value>
+  </data>
+  <data name="Complementary_Health" xml:space="preserve">
+    <value>Salud complementario</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Se ha completado</value>
+  </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="Configuration_Add" xml:space="preserve">
+    <value>Añadir configuración</value>
+  </data>
+  <data name="Configuration_Code" xml:space="preserve">
+    <value>Código de configuración</value>
+  </data>
+  <data name="Configuration_Info" xml:space="preserve">
+    <value>Datos de configuración</value>
+  </data>
+  <data name="Configuration_List" xml:space="preserve">
+    <value>Listado de configuración</value>
+  </data>
+  <data name="Configuration_Search" xml:space="preserve">
+    <value>Buscar configuración</value>
+  </data>
+  <data name="Configuration_Value" xml:space="preserve">
+    <value>Valor de la configuración</value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Vinculado</value>
+  </data>
+  <data name="ConnectionLimit" xml:space="preserve">
+    <value>Límite de la vinculación </value>
+  </data>
+  <data name="Consumer" xml:space="preserve">
+    <value>Consumidor</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contacto</value>
+  </data>
+  <data name="ContactInformation" xml:space="preserve">
+    <value>Nuestros datos de contacto</value>
+  </data>
+  <data name="Contact_Address" xml:space="preserve">
+    <value>Dirección de contacto</value>
+  </data>
+  <data name="Contact_Info" xml:space="preserve">
+    <value>Datos de contacto</value>
+  </data>
+  <data name="Contact_Infos" xml:space="preserve">
+    <value>DATOS DE CONTACTO</value>
+  </data>
+  <data name="Contact_Number_Type" xml:space="preserve">
+    <value>Tipo de número de contacto</value>
+  </data>
+  <data name="Contact_Us" xml:space="preserve">
+    <value>ESCRÍBANOS </value>
+  </data>
+  <data name="ContainsEarthquakeVolcanicEruption" xml:space="preserve">
+    <value>Seguro de contenido ante terremotos, explosiones volcánicas</value>
+  </data>
+  <data name="Contests" xml:space="preserve">
+    <value>Competiciones</value>
+  </data>
+  <data name="ContinuousAccidentInjury" xml:space="preserve">
+    <value>Invalidez permanente en el seguro de accidentes personales</value>
+  </data>
+  <data name="ContractedSpecialService" xml:space="preserve">
+    <value>Talleres acordados</value>
+  </data>
+  <data name="Corporate_Customers" xml:space="preserve">
+    <value>Persona jurídica</value>
+  </data>
+  <data name="Correct_Record" xml:space="preserve">
+    <value>Registros sin errores</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="Country_Code" xml:space="preserve">
+    <value>Código de país</value>
+  </data>
+  <data name="CountyType" xml:space="preserve">
+    <value>Tipo de país</value>
+  </data>
+  <data name="CourierWasDelivered" xml:space="preserve">
+    <value>Ha sido entregado al mensajero</value>
+  </data>
+  <data name="CreateApplication" xml:space="preserve">
+    <value>Realizar una solicitud</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Ha sido realizada</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Fecha de registro</value>
+  </data>
+  <data name="CreditAmount" xml:space="preserve">
+    <value>Importe de crédito</value>
+  </data>
+  <data name="CreditCardBankName" xml:space="preserve">
+    <value>Nombre del banco de la tarjeta de crédito</value>
+  </data>
+  <data name="CreditCard_Collection" xml:space="preserve">
+    <value>Cobro con tarjeta de crédito </value>
+  </data>
+  <data name="CreditCard_Holder" xml:space="preserve">
+    <value>Propietario de la tarjeta de crédito</value>
+  </data>
+  <data name="CreditCard_Number" xml:space="preserve">
+    <value>Número de tarjeta de crédito</value>
+  </data>
+  <data name="CreditDetails" xml:space="preserve">
+    <value>Información del crédito</value>
+  </data>
+  <data name="CreditDuration" xml:space="preserve">
+    <value>Duración del crédito</value>
+  </data>
+  <data name="CreditEndDate" xml:space="preserve">
+    <value>Fecha de finalización del crédito</value>
+  </data>
+  <data name="CreditExpiry" xml:space="preserve">
+    <value>Plazo del crédito</value>
+  </data>
+  <data name="CreditLife" xml:space="preserve">
+    <value>Seguro de vida con crédito</value>
+  </data>
+  <data name="CreditLifePolicyReport" xml:space="preserve">
+    <value>Informe de la póliza de vida con crédito</value>
+  </data>
+  <data name="CreditLifeReport" xml:space="preserve">
+    <value>Informe del seguro de vida con crédito</value>
+  </data>
+  <data name="CreditReferenceNumberAccountContractNo" xml:space="preserve">
+    <value>Número de referencia del crédito/Número de contrato de la cuenta</value>
+  </data>
+  <data name="CreditStartDate" xml:space="preserve">
+    <value>Fecha de inicio del crédito</value>
+  </data>
+  <data name="CreditType" xml:space="preserve">
+    <value>Tipo de crédito</value>
+  </data>
+  <data name="Credit_Card" xml:space="preserve">
+    <value>Tarjeta de crédito</value>
+  </data>
+  <data name="Credit_Card_Info" xml:space="preserve">
+    <value>Esta pantalla de pagos pertenece a la compañía de seguros y cumple con los criterios de seguridad de las compañías de seguros. La información de tarjetas de crédito se registran en el sistema.</value>
+  </data>
+  <data name="Critical_illness_Coverage" xml:space="preserve">
+    <value>Cobertura de enfermedades críticas</value>
+  </data>
+  <data name="Cumulative_Insurance" xml:space="preserve">
+    <value>Seguros acumulativos</value>
+  </data>
+  <data name="Cure" xml:space="preserve">
+    <value>Rehabilitación</value>
+  </data>
+  <data name="CureAssurance" xml:space="preserve">
+    <value>Cobertura de rehabilitación</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Tipo de divisa</value>
+  </data>
+  <data name="CurrencyCode" xml:space="preserve">
+    <value>Código de divisa</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Cliente </value>
+  </data>
+  <data name="CustomerCount" xml:space="preserve">
+    <value>Número de cliente</value>
+  </data>
+  <data name="CustomerInfo" xml:space="preserve">
+    <value>Datos del cliente</value>
+  </data>
+  <data name="CustomerManage" xml:space="preserve">
+    <value>GESTIÓN DEL CLIENTE </value>
+  </data>
+  <data name="CustomerNo" xml:space="preserve">
+    <value>Número de cliente</value>
+  </data>
+  <data name="CustomerProposalReport" xml:space="preserve">
+    <value>Informe de propuestas del cliente </value>
+  </data>
+  <data name="CustomerRates" xml:space="preserve">
+    <value>Porcentajes del cliente</value>
+  </data>
+  <data name="CustomerRepresentative" xml:space="preserve">
+    <value>Representante del cliente</value>
+  </data>
+  <data name="CustomersNo" xml:space="preserve">
+    <value>#YOK</value>
+  </data>
+  <data name="CustomersofthePayPeriodofInsurance" xml:space="preserve">
+    <value>Plazo del seguro a pagar por el cliente </value>
+  </data>
+  <data name="Customer_Add" xml:space="preserve">
+    <value>Incluir cliente</value>
+  </data>
+  <data name="Customer_Add_List" xml:space="preserve">
+    <value>Incluir cliente múltiple</value>
+  </data>
+  <data name="Customer_Code" xml:space="preserve">
+    <value>Código de cliente </value>
+  </data>
+  <data name="Customer_List" xml:space="preserve">
+    <value>Listado de cliente </value>
+  </data>
+  <data name="Customer_Name_Title" xml:space="preserve">
+    <value>Nombre/título </value>
+  </data>
+  <data name="Customer_No" xml:space="preserve">
+    <value>Número de cliente </value>
+  </data>
+  <data name="Customer_Save" xml:space="preserve">
+    <value>Registro de cliente </value>
+  </data>
+  <data name="Customer_Search" xml:space="preserve">
+    <value>Buscar cliente </value>
+  </data>
+  <data name="Customer_Surname_Title" xml:space="preserve">
+    <value>Apellido/Título</value>
+  </data>
+  <data name="Customer_Type" xml:space="preserve">
+    <value>Tipo de cliente </value>
+  </data>
+  <data name="Customer_TypeCode_Tooltip" xml:space="preserve">
+    <value>Persona física de origen turco: número de identificación turco &lt;/br&gt;: VKN&lt;/br&gt;empresa unipersonal: número de identificación turco: &lt;/br&gt;: VKN&lt;/br&gt;Persona física de origen extranjero: número de identificación extranjero</value>
+  </data>
+  <data name="Customer_Type_Code" xml:space="preserve">
+    <value>Tipo de cliente </value>
+  </data>
+  <data name="CustomField" xml:space="preserve">
+    <value>Especio privado</value>
+  </data>
+  <data name="CustomService" xml:space="preserve">
+    <value>Servicio privado</value>
+  </data>
+  <data name="CW_L_PM" xml:space="preserve">
+    <value>Revueltas sociales, terrorismo</value>
+  </data>
+  <data name="CylinderCapacity" xml:space="preserve">
+    <value>Volumen de cilindrada</value>
+  </data>
+  <data name="Daily_15" xml:space="preserve">
+    <value>15 días</value>
+  </data>
+  <data name="DainiLossPayee" xml:space="preserve">
+    <value>Beneficiarios por pérdidas</value>
+  </data>
+  <data name="DainiMurtein" xml:space="preserve">
+    <value>Beneficiarios por pérdidas</value>
+  </data>
+  <data name="DamageInsurance" xml:space="preserve">
+    <value>Seguro a todo riesgo</value>
+  </data>
+  <data name="DamageStatus" xml:space="preserve">
+    <value>Situación del daño</value>
+  </data>
+  <data name="Damage_From_The_Animals" xml:space="preserve">
+    <value>Daños causados por animales</value>
+  </data>
+  <data name="DaskInsuranceCompany" xml:space="preserve">
+    <value>Aseguradora del seguro obligatorio de terremotos (DASK)</value>
+  </data>
+  <data name="DaskInsuranceValue" xml:space="preserve">
+    <value>Importe del seguro obligatorio de terremotos (DASK) </value>
+  </data>
+  <data name="DaskPolicyMaturityDate" xml:space="preserve">
+    <value>Plazo del seguro obligatorio de terremotos (DASK)</value>
+  </data>
+  <data name="DaskProposal" xml:space="preserve">
+    <value>Propuesta para el seguro obligatorio de terremotos (DASK)</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="DateOfBirth" xml:space="preserve">
+    <value>Fecha de nacimiento</value>
+  </data>
+  <data name="DateRange" xml:space="preserve">
+    <value>Rango de fechas</value>
+  </data>
+  <data name="Date_Of_the_Establishment" xml:space="preserve">
+    <value>Fecha de emisión</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Día</value>
+  </data>
+  <data name="Death" xml:space="preserve">
+    <value>Fallecimiento</value>
+  </data>
+  <data name="DeathDisability" xml:space="preserve">
+    <value>Fallecimiento/Lesión</value>
+  </data>
+  <data name="DeathsDisabilityCure" xml:space="preserve">
+    <value>Rehabilitación de lesiones </value>
+  </data>
+  <data name="Death_or_Critical_Illness" xml:space="preserve">
+    <value>Fallecimiento o enfermedad grave</value>
+  </data>
+  <data name="DebrisRemovalGoods" xml:space="preserve">
+    <value>Limpieza de escombros</value>
+  </data>
+  <data name="December" xml:space="preserve">
+    <value>Margen </value>
+  </data>
+  <data name="DecoratingEarthquake" xml:space="preserve">
+    <value>Seguro de decoración, terremotos</value>
+  </data>
+  <data name="DecoratingFire" xml:space="preserve">
+    <value>Seguro de decoración, incendios</value>
+  </data>
+  <data name="DelayPenalty" xml:space="preserve">
+    <value>Intereses de demora</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="Delete_Right" xml:space="preserve">
+    <value>No borrar</value>
+  </data>
+  <data name="DeletingRecords" xml:space="preserve">
+    <value>El registro se está borrando</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Departamento</value>
+  </data>
+  <data name="DepartmentSalesDetailReport" xml:space="preserve">
+    <value>Informe de ventas del departamento</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detalles</value>
+  </data>
+  <data name="Detailed" xml:space="preserve">
+    <value>Detallado</value>
+  </data>
+  <data name="DetailProposalComparisonPDF" xml:space="preserve">
+    <value>OBSERVAR LA COMPARACIÓN DETALLADA DE LA PROPUESTA</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detalles</value>
+  </data>
+  <data name="Disability_Annual_Support" xml:space="preserve">
+    <value>Ayuda anual de responsabilidad</value>
+  </data>
+  <data name="DiscountOptions" xml:space="preserve">
+    <value>Descuento/Sub prima</value>
+  </data>
+  <data name="Disposal" xml:space="preserve">
+    <value>Emisión</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>Municipio</value>
+  </data>
+  <data name="DistrictTowns" xml:space="preserve">
+    <value>Barrio/villa</value>
+  </data>
+  <data name="District_Code" xml:space="preserve">
+    <value>Código de municipio</value>
+  </data>
+  <data name="Divorced" xml:space="preserve">
+    <value>Vacío</value>
+  </data>
+  <data name="Docket" xml:space="preserve">
+    <value>Listado de trabajos</value>
+  </data>
+  <data name="Doctorate" xml:space="preserve">
+    <value>Doctorado</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>Documento</value>
+  </data>
+  <data name="DocumentSuccessfullySaved" xml:space="preserve">
+    <value>El documento ha sido registrado de manera exitosa</value>
+  </data>
+  <data name="Document_Add" xml:space="preserve">
+    <value>Añadir documento</value>
+  </data>
+  <data name="Document_Type" xml:space="preserve">
+    <value>Tipo de documento</value>
+  </data>
+  <data name="Document_URL" xml:space="preserve">
+    <value>Dirección del documento</value>
+  </data>
+  <data name="DontUseCentralAuthority" xml:space="preserve">
+    <value>Uso de los poderes centrales</value>
+  </data>
+  <data name="Doviz_TL" xml:space="preserve">
+    <value>Divisa/lira turca</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Descargar </value>
+  </data>
+  <data name="Download_Document" xml:space="preserve">
+    <value>Descargar documento añadido</value>
+  </data>
+  <data name="DoYouHaveAnAlarm" xml:space="preserve">
+    <value>¿Hay alguna alarma?</value>
+  </data>
+  <data name="DSegmentReplacement" xml:space="preserve">
+    <value>Sustitución del segmento D</value>
+  </data>
+  <data name="Dwelling" xml:space="preserve">
+    <value>Residencia</value>
+  </data>
+  <data name="Earthquake" xml:space="preserve">
+    <value>Terremoto</value>
+  </data>
+  <data name="EarthquakeExemption" xml:space="preserve">
+    <value>Franquicia de terremoto</value>
+  </data>
+  <data name="EarthquakeExemptionRatio" xml:space="preserve">
+    <value>Porcentaje de franquicia en terremoto</value>
+  </data>
+  <data name="EarthquakeinStock" xml:space="preserve">
+    <value>Terremoto, mobiliario</value>
+  </data>
+  <data name="EarthquakeVolcanicEruption" xml:space="preserve">
+    <value>Terremoto, explosión volcánica</value>
+  </data>
+  <data name="EarthquakeVolcanicEruptionBuilding" xml:space="preserve">
+    <value>Seguro de edificio, terremoto, explosión volcánica</value>
+  </data>
+  <data name="EarthquakeVolcanicEruptionGoods" xml:space="preserve">
+    <value>Seguro de objetos, terremoto, explosión volcánica</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="Education" xml:space="preserve">
+    <value>Formación</value>
+  </data>
+  <data name="Education_Level" xml:space="preserve">
+    <value>Tipo de formación </value>
+  </data>
+  <data name="ElectronicEquipment" xml:space="preserve">
+    <value>Aparato electrónico</value>
+  </data>
+  <data name="EMailFormat_Add" xml:space="preserve">
+    <value>Añadir formato</value>
+  </data>
+  <data name="EMailFormat_Content" xml:space="preserve">
+    <value>Contenido</value>
+  </data>
+  <data name="EMailFormat_Id" xml:space="preserve">
+    <value>Número de formato</value>
+  </data>
+  <data name="EMailFormat_List" xml:space="preserve">
+    <value>Listado del formato de correo electrónico</value>
+  </data>
+  <data name="EMailFormat_Name" xml:space="preserve">
+    <value>Nombre del formato</value>
+  </data>
+  <data name="EMailFormat_Search" xml:space="preserve">
+    <value>Buscar formato</value>
+  </data>
+  <data name="EmailSend" xml:space="preserve">
+    <value>ENVIAR CORREO ELECTRÓNICO</value>
+  </data>
+  <data name="EMail_Address" xml:space="preserve">
+    <value>Su dirección de correo electrónico</value>
+  </data>
+  <data name="Email_Adress" xml:space="preserve">
+    <value>Dirección de correo electrónico</value>
+  </data>
+  <data name="EmergencyMedicalHospitalPersonalAccident" xml:space="preserve">
+    <value>Medicina/Hospital/Accidentes personales, urgente</value>
+  </data>
+  <data name="Emergency_Healt" xml:space="preserve">
+    <value>Salud, urgente</value>
+  </data>
+  <data name="EmployerLiabilityPerAccidentPersonal" xml:space="preserve">
+    <value>Capital por accidente en el seguro de responsabilidad civil del empleador </value>
+  </data>
+  <data name="EmployerLiabilityPerCapitaPersonal" xml:space="preserve">
+    <value>Capital por persona en el seguro de responsabilidad civil del empleador </value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Fecha de finalización</value>
+  </data>
+  <data name="EngineNo" xml:space="preserve">
+    <value>Número de motor</value>
+  </data>
+  <data name="EnterAnnualAmountReceivedRepayment" xml:space="preserve">
+    <value>Introduzca el importe anual de las devoluciones de pagos </value>
+  </data>
+  <data name="EnterInsuranceRepaymentPeriod" xml:space="preserve">
+    <value>Introduzca el plazo de devolución del seguro</value>
+  </data>
+  <data name="Eposta" xml:space="preserve">
+    <value>Correo electrónico</value>
+  </data>
+  <data name="EPosta_Add" xml:space="preserve">
+    <value>Introducir correo electrónico</value>
+  </data>
+  <data name="EPosta_Info" xml:space="preserve">
+    <value>Datos de correo electrónico</value>
+  </data>
+  <data name="EPosta_Search" xml:space="preserve">
+    <value>Buscar correo electrónico</value>
+  </data>
+  <data name="Equipment" xml:space="preserve">
+    <value>Aparato</value>
+  </data>
+  <data name="EquivalentPart" xml:space="preserve">
+    <value>Pieza de valor equivalente</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorLog" xml:space="preserve">
+    <value>Error Log</value>
+  </data>
+  <data name="ErrorPage_Description_404" xml:space="preserve">
+    <value>La página que buca no existe</value>
+  </data>
+  <data name="ErrorPage_Header" xml:space="preserve">
+    <value>Houston tenenos un problema</value>
+  </data>
+  <data name="ErrorPolicyCreate" xml:space="preserve">
+    <value>La póliza no está preparada</value>
+  </data>
+  <data name="ErrorProporsal" xml:space="preserve">
+    <value>La propuesta no está preparada</value>
+  </data>
+  <data name="Errors" xml:space="preserve">
+    <value>Errores</value>
+  </data>
+  <data name="EUR_Euro" xml:space="preserve">
+    <value>EUR -EURO</value>
+  </data>
+  <data name="ExcelTemplate" xml:space="preserve">
+    <value>Plantilla Excel</value>
+  </data>
+  <data name="Exception" xml:space="preserve">
+    <value>Se ha producido un error</value>
+  </data>
+  <data name="ExemptionAssetRatio" xml:space="preserve">
+    <value>Porcentaje de franquicia en mobiliario</value>
+  </data>
+  <data name="ExistingCustomer" xml:space="preserve">
+    <value>Clientes registrados</value>
+  </data>
+  <data name="Exists" xml:space="preserve">
+    <value>Existe</value>
+  </data>
+  <data name="ExpirationDate" xml:space="preserve">
+    <value>Fecha de finalización</value>
+  </data>
+  <data name="ExpirationRefundofPremiums" xml:space="preserve">
+    <value>Devolución de primas al final del período</value>
+  </data>
+  <data name="ExportToOutlook" xml:space="preserve">
+    <value>Transferir a Outlook</value>
+  </data>
+  <data name="ExtendedInsurance" xml:space="preserve">
+    <value>Seguro a todo riesgo ampliado</value>
+  </data>
+  <data name="Father" xml:space="preserve">
+    <value>Padre</value>
+  </data>
+  <data name="FatherName" xml:space="preserve">
+    <value>Nombre del padre</value>
+  </data>
+  <data name="Fax_Number" xml:space="preserve">
+    <value>Número de fax</value>
+  </data>
+  <data name="February" xml:space="preserve">
+    <value>Febrero</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Expediente</value>
+  </data>
+  <data name="File_Name" xml:space="preserve">
+    <value>Nombre del expediente</value>
+  </data>
+  <data name="FinancialInstitution" xml:space="preserve">
+    <value>Entidad financiera</value>
+  </data>
+  <data name="Find_Agency" xml:space="preserve">
+    <value>Encontrar al agente</value>
+  </data>
+  <data name="Find_Nearest_Agency" xml:space="preserve">
+    <value>Encontrar el agente más cercano</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Finalización</value>
+  </data>
+  <data name="Fire" xml:space="preserve">
+    <value>Incendio</value>
+  </data>
+  <data name="FireInsuranceCompany" xml:space="preserve">
+    <value>Compañía que realiza el seguro contra incendios</value>
+  </data>
+  <data name="FirePolicyNo" xml:space="preserve">
+    <value>Número de póliza contra incendios</value>
+  </data>
+  <data name="FKLimit" xml:space="preserve">
+    <value>Límite del seguro de accidentes personales (liras turcas)</value>
+  </data>
+  <data name="FlatGrossFloorArea" xml:space="preserve">
+    <value>Superficie bruta del piso</value>
+  </data>
+  <data name="FleetPolicy" xml:space="preserve">
+    <value>Póliza para flotas</value>
+  </data>
+  <data name="FloodAndFlood" xml:space="preserve">
+    <value>Inundaciones y aluviones de agua</value>
+  </data>
+  <data name="Flood_Water" xml:space="preserve">
+    <value>Inundaciones/Agua</value>
+  </data>
+  <data name="Floor" xml:space="preserve">
+    <value>Piso</value>
+  </data>
+  <data name="FloorNo" xml:space="preserve">
+    <value>Número de piso</value>
+  </data>
+  <data name="FloorType" xml:space="preserve">
+    <value>Tipo de piso</value>
+  </data>
+  <data name="Foreign" xml:space="preserve">
+    <value>Extranjero</value>
+  </data>
+  <data name="ForeignCurrency" xml:space="preserve">
+    <value>Divisa</value>
+  </data>
+  <data name="ForeignTravelHealth" xml:space="preserve">
+    <value>Seguro de viajes al extranjero</value>
+  </data>
+  <data name="ForeignTravelHealth_Short" xml:space="preserve">
+    <value>Viajes al extranjero</value>
+  </data>
+  <data name="Foreign_Identification_Number" xml:space="preserve">
+    <value>Número de identificación extranjero</value>
+  </data>
+  <data name="Foreig_Company_Customer" xml:space="preserve">
+    <value>Persona jurídica de origen extranjero</value>
+  </data>
+  <data name="Foreig_Real_Customer" xml:space="preserve">
+    <value>Individuo de origen extranjero</value>
+  </data>
+  <data name="Foreig_Real_CustomerPassport" xml:space="preserve">
+    <value>Pasaporte del individuo de origen extranjero</value>
+  </data>
+  <data name="Foreig_Real_CustomerTaxNo" xml:space="preserve">
+    <value>Número fiscal del individuo de origen extranjero</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>He olvidado mi clave</value>
+  </data>
+  <data name="Forgot_Key" xml:space="preserve">
+    <value>Pérdida de llaves</value>
+  </data>
+  <data name="FormsOriginallyCame" xml:space="preserve">
+    <value>Ha llegado el original del formulario</value>
+  </data>
+  <data name="Forward" xml:space="preserve">
+    <value>A plazos</value>
+  </data>
+  <data name="Friday" xml:space="preserve">
+    <value>Viernes</value>
+  </data>
+  <data name="FromHere" xml:space="preserve">
+    <value>Desde aquí</value>
+  </data>
+  <data name="FullInsurance" xml:space="preserve">
+    <value>Seguro a todo riesgo</value>
+  </data>
+  <data name="Full_Permanent_Disability_Benefit" xml:space="preserve">
+    <value>Cobertura de responsabilidad total y permanente</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Sexo</value>
+  </data>
+  <data name="General_Information" xml:space="preserve">
+    <value>Información general</value>
+  </data>
+  <data name="GH" xml:space="preserve">
+    <value>G.H.</value>
+  </data>
+  <data name="GivingBack" xml:space="preserve">
+    <value>Devolución</value>
+  </data>
+  <data name="GlassBreakage" xml:space="preserve">
+    <value>Rotura de cristales</value>
+  </data>
+  <data name="GLKHHKNHTerror" xml:space="preserve">
+    <value>Revueltas sociales, terrorismo</value>
+  </data>
+  <data name="Gold" xml:space="preserve">
+    <value>Oro</value>
+  </data>
+  <data name="GoodsEarthquake" xml:space="preserve">
+    <value>Terremotos, muebles</value>
+  </data>
+  <data name="GoodsExemptionRate" xml:space="preserve">
+    <value>Porcentaje de franquicia para muebles</value>
+  </data>
+  <data name="GoodsFire" xml:space="preserve">
+    <value>Incendios, muebles</value>
+  </data>
+  <data name="Gross_Premium" xml:space="preserve">
+    <value>Prima bruta</value>
+  </data>
+  <data name="GroundFloor" xml:space="preserve">
+    <value>Piso bajo</value>
+  </data>
+  <data name="Group_Name" xml:space="preserve">
+    <value>Nombre del grupo</value>
+  </data>
+  <data name="GuaranteeAmount" xml:space="preserve">
+    <value>Importe de la cobertura</value>
+  </data>
+  <data name="Guarantees" xml:space="preserve">
+    <value>Coberturas</value>
+  </data>
+  <data name="GuaranteesChoices" xml:space="preserve">
+    <value>Coberturas optativas</value>
+  </data>
+  <data name="Guarantee_Of_International" xml:space="preserve">
+    <value>Cobertura en el extranjero</value>
+  </data>
+  <data name="HALF_ASI_STONE" xml:space="preserve">
+    <value>ALBAÑILERÍA </value>
+  </data>
+  <data name="Hand_2ND_Extended_Warranty" xml:space="preserve">
+    <value>2. PRÓRROGA CON GARANTÍAS DE VEHÍCULOS DE SEGUNDA MANO</value>
+  </data>
+  <data name="Han_Apt_Fab" xml:space="preserve">
+    <value>Oficina/apartamento/fábrica</value>
+  </data>
+  <data name="HardContributory" xml:space="preserve">
+    <value>Con prima fija</value>
+  </data>
+  <data name="Healt" xml:space="preserve">
+    <value>Salud</value>
+  </data>
+  <data name="Help_description" xml:space="preserve">
+    <value>Explicaciones de ayuda</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="HighSchool_J_HighSchool" xml:space="preserve">
+    <value>Liceo</value>
+  </data>
+  <data name="HirePurchase" xml:space="preserve">
+    <value>Prima</value>
+  </data>
+  <data name="HirePurchaseCount" xml:space="preserve">
+    <value>Número de primas</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historia</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Casa</value>
+  </data>
+  <data name="Home2" xml:space="preserve">
+    <value>Apartamento</value>
+  </data>
+  <data name="HomeGuaranteeCost" xml:space="preserve">
+    <value>Cobertura principal</value>
+  </data>
+  <data name="HomeGuaranteeInsuranceCost" xml:space="preserve">
+    <value>Importe del seguro con cobertura principal</value>
+  </data>
+  <data name="HomeInsurance" xml:space="preserve">
+    <value>Seguro de vivienda</value>
+  </data>
+  <data name="HomePartaj" xml:space="preserve">
+    <value>Prorrateo</value>
+  </data>
+  <data name="Home_Apartment" xml:space="preserve">
+    <value>Apartamento</value>
+  </data>
+  <data name="Home_Page" xml:space="preserve">
+    <value>Página principal </value>
+  </data>
+  <data name="Home_Phone" xml:space="preserve">
+    <value>Teléfono de casa</value>
+  </data>
+  <data name="Home_Tali" xml:space="preserve">
+    <value>Secundarios más importantes</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>Hora</value>
+  </data>
+  <data name="HousingImprovements" xml:space="preserve">
+    <value>Capitales de las coberturas</value>
+  </data>
+  <data name="IApprove" xml:space="preserve">
+    <value>Acepto</value>
+  </data>
+  <data name="IBAN" xml:space="preserve">
+    <value>IBAN</value>
+  </data>
+  <data name="IdentificationNumber" xml:space="preserve">
+    <value>Número de identificación</value>
+  </data>
+  <data name="Identification_Number" xml:space="preserve">
+    <value>Número de identificación turco</value>
+  </data>
+  <data name="Identity" xml:space="preserve">
+    <value>Identificación</value>
+  </data>
+  <data name="IdleTime" xml:space="preserve">
+    <value>Plazo en el que está vacío</value>
+  </data>
+  <data name="IDNumber" xml:space="preserve">
+    <value>Número fiscal/identificación</value>
+  </data>
+  <data name="IdType" xml:space="preserve">
+    <value>Tipo de identificación</value>
+  </data>
+  <data name="IMMLimit" xml:space="preserve">
+    <value>Límite de la responsabilidad financiera ante terceros (TL)</value>
+  </data>
+  <data name="InArcadeTopFloorIs" xml:space="preserve">
+    <value>¿Interior de pasaje o piso alto?</value>
+  </data>
+  <data name="IncomeTaxRatio" xml:space="preserve">
+    <value>Porcentaje del impuesto de sociedades</value>
+  </data>
+  <data name="IndirimSurprim" xml:space="preserve">
+    <value>Descuento/Sub prima</value>
+  </data>
+  <data name="Individual" xml:space="preserve">
+    <value>Individual</value>
+  </data>
+  <data name="IndividualCustomer" xml:space="preserve">
+    <value>Cliente individual</value>
+  </data>
+  <data name="IndividualType" xml:space="preserve">
+    <value>Tipo individual</value>
+  </data>
+  <data name="Individual_Assurance" xml:space="preserve">
+    <value>Garantía individual</value>
+  </data>
+  <data name="InfifaRightsOwner" xml:space="preserve">
+    <value>Dueños del derecho al usufructo</value>
+  </data>
+  <data name="InflationRatio" xml:space="preserve">
+    <value>Porcentaje de inflación</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Información</value>
+  </data>
+  <data name="InformationForm" xml:space="preserve">
+    <value>Formulario de información</value>
+  </data>
+  <data name="InformationMessage" xml:space="preserve">
+    <value>Mensaje informativo</value>
+  </data>
+  <data name="InformationOnHousing" xml:space="preserve">
+    <value>Datos relativos al piso</value>
+  </data>
+  <data name="Info_Us" xml:space="preserve">
+    <value>Quiénes somos</value>
+  </data>
+  <data name="inn" xml:space="preserve">
+    <value>Oficinas</value>
+  </data>
+  <data name="Inpatient_treatment_hospital_Accidental_Weekly_Payment_Additional_Coverage" xml:space="preserve">
+    <value>Cobertura suplementaria con pago semanal por rehabilitación con ingreso hospitalario a causa de accidente</value>
+  </data>
+  <data name="Installment5" xml:space="preserve">
+    <value>5 primas</value>
+  </data>
+  <data name="Institutional" xml:space="preserve">
+    <value>Corporativo</value>
+  </data>
+  <data name="InstitutionBank" xml:space="preserve">
+    <value>Empresa/Banco</value>
+  </data>
+  <data name="InsulatedEventBSYear" xml:space="preserve">
+    <value>Aislamiento/Hechos/Año</value>
+  </data>
+  <data name="Insurance" xml:space="preserve">
+    <value>Seguro a todo riesgo</value>
+  </data>
+  <data name="InsuranceCompany" xml:space="preserve">
+    <value>Compañía de seguros</value>
+  </data>
+  <data name="InsurancePremiumAmount" xml:space="preserve">
+    <value>Importe de primas del seguro</value>
+  </data>
+  <data name="InsuranceReimbursementTime" xml:space="preserve">
+    <value>Duración de la devolución del seguro</value>
+  </data>
+  <data name="InsuranceRepaymentPeriod" xml:space="preserve">
+    <value>Duración de la devolución del seguro</value>
+  </data>
+  <data name="Insurances" xml:space="preserve">
+    <value>Seguro</value>
+  </data>
+  <data name="InsuranceSince" xml:space="preserve">
+    <value>Introduzca la fecha de inicio del seguro</value>
+  </data>
+  <data name="Insurance_Duration" xml:space="preserve">
+    <value>Duración del seguro</value>
+  </data>
+  <data name="Insurance_Housing" xml:space="preserve">
+    <value>Propuesta de seguro de hogar</value>
+  </data>
+  <data name="Insurance_Information" xml:space="preserve">
+    <value>Información del seguro</value>
+  </data>
+  <data name="Insurance_Quote" xml:space="preserve">
+    <value>Propuesta de seguro a todo riesgo</value>
+  </data>
+  <data name="Insurance_Services" xml:space="preserve">
+    <value>Servicios del seguro a todo riesgo</value>
+  </data>
+  <data name="Insurance_Spare_Parts" xml:space="preserve">
+    <value>Piezas de recambio del seguro a todo riesgo</value>
+  </data>
+  <data name="Insurance_Start_Date" xml:space="preserve">
+    <value>Fecha de inicio del seguro</value>
+  </data>
+  <data name="Insurance_Traffic" xml:space="preserve">
+    <value>Seguro de responsabilidad ante terceros</value>
+  </data>
+  <data name="Insurance_Type" xml:space="preserve">
+    <value>Tipos de seguros a todo riesgo</value>
+  </data>
+  <data name="Insured" xml:space="preserve">
+    <value>Asegurado</value>
+  </data>
+  <data name="InsuredBy" xml:space="preserve">
+    <value>Tomador</value>
+  </data>
+  <data name="InsuredByInfo" xml:space="preserve">
+    <value>Datos del tomador</value>
+  </data>
+  <data name="InsuredByIsInsured" xml:space="preserve">
+    <value>¿El tomador y el asegurados son los mismos?</value>
+  </data>
+  <data name="InsuredFamily" xml:space="preserve">
+    <value>¿Es el asegurado una familia?</value>
+  </data>
+  <data name="InsuredInfo" xml:space="preserve">
+    <value>Datos del asegurado</value>
+  </data>
+  <data name="InsuredInfos" xml:space="preserve">
+    <value>DATOS DEL ASEGURADO</value>
+  </data>
+  <data name="InsuredPlaceAddressInfo" xml:space="preserve">
+    <value>Datos relativos al lugar del asegurado</value>
+  </data>
+  <data name="InsuredStyle" xml:space="preserve">
+    <value>Características del tomador</value>
+  </data>
+  <data name="InsureNameAndSurname" xml:space="preserve">
+    <value>Nombre y apellido del asegurado</value>
+  </data>
+  <data name="InsureWarningText" xml:space="preserve">
+    <value>Se puede incluir la información de un máximo de 10 asegurados. Puede añadir y extraer un nuevo campo utilizando los botones de abajo</value>
+  </data>
+  <data name="IntroductoryGuide" xml:space="preserve">
+    <value>Guía de presentación</value>
+  </data>
+  <data name="IPConnection_List" xml:space="preserve">
+    <value>Listado de conexiones IP</value>
+  </data>
+  <data name="IRateSurcharge" xml:space="preserve">
+    <value>Porcentaje de la sub prima</value>
+  </data>
+  <data name="IsConnectedToTvm" xml:space="preserve">
+    <value>Canal de ventas al que está adscrito</value>
+  </data>
+  <data name="IsIronFence" xml:space="preserve">
+    <value>¿Existen huellas dactilares?</value>
+  </data>
+  <data name="IsTheDoor" xml:space="preserve">
+    <value>¿Hay puerta de acero?</value>
+  </data>
+  <data name="IsThereACamera" xml:space="preserve">
+    <value>¿Hay cámaras?</value>
+  </data>
+  <data name="IsThereAGuard" xml:space="preserve">
+    <value>¿Hay un guarda de seguridad?</value>
+  </data>
+  <data name="IsThereDaskPolicy" xml:space="preserve">
+    <value>¿Hay una póliza obligatoria de terremotos vigente?</value>
+  </data>
+  <data name="IsThereFirePolicy" xml:space="preserve">
+    <value>¿Hay una póliza de incendios?</value>
+  </data>
+  <data name="IsThereInsureMoreThanOne" xml:space="preserve">
+    <value>¿Hay más de un asegurado en el registro de la propiedad?</value>
+  </data>
+  <data name="IsTherePledgedCreditorDainLossPayee" xml:space="preserve">
+    <value>¿Hay algún beneficiario por pérdidas?</value>
+  </data>
+  <data name="ISurpriseToRate" xml:space="preserve">
+    <value>Porcentaje de sub prima</value>
+  </data>
+  <data name="Is_Original" xml:space="preserve">
+    <value>¿Es original?</value>
+  </data>
+  <data name="Is_WinterWeight" xml:space="preserve">
+    <value>¿Para el invierno?</value>
+  </data>
+  <data name="ItemSuccessfullyAdded" xml:space="preserve">
+    <value>El producto ha sido añadido de manera exitosa.</value>
+  </data>
+  <data name="ItemSuccessfullyDeleted" xml:space="preserve">
+    <value>El producto ha sido borrado de manera exitosa.</value>
+  </data>
+  <data name="January" xml:space="preserve">
+    <value>Enero</value>
+  </data>
+  <data name="Job" xml:space="preserve">
+    <value>Profesión</value>
+  </data>
+  <data name="JobCreated" xml:space="preserve">
+    <value>Se ha generado un trabajo</value>
+  </data>
+  <data name="JobNo" xml:space="preserve">
+    <value>Número de trabajo</value>
+  </data>
+  <data name="JobTypeDetail" xml:space="preserve">
+    <value>Detalle del tipo de trabajo</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>Julio</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>Junio</value>
+  </data>
+  <data name="KBB" xml:space="preserve">
+    <value>Capital por cada accidente </value>
+  </data>
+  <data name="Landslide" xml:space="preserve">
+    <value>Desprendimiento de tierras</value>
+  </data>
+  <data name="Last" xml:space="preserve">
+    <value>Final</value>
+  </data>
+  <data name="LastLogin" xml:space="preserve">
+    <value>Última entrada</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Mes pasado</value>
+  </data>
+  <data name="Lastname" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="Legal_Protection" xml:space="preserve">
+    <value>Protección jurídica</value>
+  </data>
+  <data name="LessDamaged" xml:space="preserve">
+    <value>Con pocos daños</value>
+  </data>
+  <data name="LiabilityFire" xml:space="preserve">
+    <value>Incendio, responsabilidad financiera</value>
+  </data>
+  <data name="LiabilityNeighborhoodOfTerror" xml:space="preserve">
+    <value>Terrorismo, responsabilidad financiera vecinal</value>
+  </data>
+  <data name="LicenceCity" xml:space="preserve">
+    <value>Provincia de registro</value>
+  </data>
+  <data name="LicenceCountry" xml:space="preserve">
+    <value>Provincia de la matrícula</value>
+  </data>
+  <data name="LicenceDate" xml:space="preserve">
+    <value>Fecha de registro del seguro de responsabilidad ante terceros</value>
+  </data>
+  <data name="LicenceDistrict" xml:space="preserve">
+    <value>Municipio de registro </value>
+  </data>
+  <data name="LicenceHolder" xml:space="preserve">
+    <value>Propietario de la licencia</value>
+  </data>
+  <data name="LicenceNumber" xml:space="preserve">
+    <value>Número de matrícula</value>
+  </data>
+  <data name="License" xml:space="preserve">
+    <value>Licencia</value>
+  </data>
+  <data name="LicenseSerial" xml:space="preserve">
+    <value>Número-Código de serie registrado</value>
+  </data>
+  <data name="Life_Insurance" xml:space="preserve">
+    <value>Seguros de vidas</value>
+  </data>
+  <data name="ListApprovedProjects" xml:space="preserve">
+    <value>Listado de los trabajos autorizados</value>
+  </data>
+  <data name="ListOfPolicies" xml:space="preserve">
+    <value>Listado de pólizas</value>
+  </data>
+  <data name="LoanDeposit" xml:space="preserve">
+    <value>Créditos</value>
+  </data>
+  <data name="Log" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Entrada</value>
+  </data>
+  <data name="Logo" xml:space="preserve">
+    <value>Logo </value>
+  </data>
+  <data name="LogoAdd" xml:space="preserve">
+    <value>Añadir logo</value>
+  </data>
+  <data name="LogoFetching" xml:space="preserve">
+    <value>Traer logo</value>
+  </data>
+  <data name="Logoff" xml:space="preserve">
+    <value>Salida</value>
+  </data>
+  <data name="Log_Search" xml:space="preserve">
+    <value>Buscar log</value>
+  </data>
+  <data name="LossofRent" xml:space="preserve">
+    <value>Pérdidas de alquiler </value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Bajo</value>
+  </data>
+  <data name="LowToHigh" xml:space="preserve">
+    <value>De barato a caro</value>
+  </data>
+  <data name="LPGCompany" xml:space="preserve">
+    <value>Marca LPG</value>
+  </data>
+  <data name="LPGPrice" xml:space="preserve">
+    <value>Capital del LPG</value>
+  </data>
+  <data name="MachineryBreakdown" xml:space="preserve">
+    <value>Alquiler de maquinaria</value>
+  </data>
+  <data name="MailIsNotSendPleaseReSend" xml:space="preserve">
+    <value>El correo no ha podido enviarse, por favor inténtelo de nuevo</value>
+  </data>
+  <data name="MailSendingPleaseWait" xml:space="preserve">
+    <value>Se está enviando el correo, espere por favor</value>
+  </data>
+  <data name="MailSent" xml:space="preserve">
+    <value>El correo no ha podido enviarse.</value>
+  </data>
+  <data name="MainCoverage" xml:space="preserve">
+    <value>Cobertura principal</value>
+  </data>
+  <data name="MainMenu" xml:space="preserve">
+    <value>PÁGINA DE INICIO</value>
+  </data>
+  <data name="MainMenu_Add" xml:space="preserve">
+    <value>Incluir al menú principal</value>
+  </data>
+  <data name="MainMenu_Code" xml:space="preserve">
+    <value>Código del menú principal</value>
+  </data>
+  <data name="MainMenu_Search" xml:space="preserve">
+    <value>Buscar menú principal</value>
+  </data>
+  <data name="Main_Guarantees" xml:space="preserve">
+    <value>Coberturas principales.</value>
+  </data>
+  <data name="Man" xml:space="preserve">
+    <value>Hombre </value>
+  </data>
+  <data name="Management_Authority" xml:space="preserve">
+    <value>Gestión de poderes</value>
+  </data>
+  <data name="Management_Product" xml:space="preserve">
+    <value>Gestión de productos</value>
+  </data>
+  <data name="Management_System" xml:space="preserve">
+    <value>Gestión del sistema</value>
+  </data>
+  <data name="Management_TUM" xml:space="preserve">
+    <value>Gestión de compañía aseguradora</value>
+  </data>
+  <data name="Management_TVM" xml:space="preserve">
+    <value>Gestión del canal de ventas</value>
+  </data>
+  <data name="Management_User" xml:space="preserve">
+    <value>Gestión de usuarios</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Director</value>
+  </data>
+  <data name="ManagerCode" xml:space="preserve">
+    <value>Código del director</value>
+  </data>
+  <data name="Manual_Integration" xml:space="preserve">
+    <value>Integración manual</value>
+  </data>
+  <data name="Manual_Transfer" xml:space="preserve">
+    <value>Transferencia manual</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Mapa</value>
+  </data>
+  <data name="MapfreProposalNo" xml:space="preserve">
+    <value>Número de oferta Mapfre </value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>Marzo</value>
+  </data>
+  <data name="Marital_Status" xml:space="preserve">
+    <value>Estado civil</value>
+  </data>
+  <data name="Married" xml:space="preserve">
+    <value>Casado</value>
+  </data>
+  <data name="MastersDegree" xml:space="preserve">
+    <value>Máster</value>
+  </data>
+  <data name="MaterialDamage" xml:space="preserve">
+    <value>Daños materiales</value>
+  </data>
+  <data name="MaxPasswordFail" xml:space="preserve">
+    <value>Introducción errónea de clave </value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>Mayo</value>
+  </data>
+  <data name="MechanicalEquipment" xml:space="preserve">
+    <value>Equipamientos de máquinas </value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Medio</value>
+  </data>
+  <data name="Menu" xml:space="preserve">
+    <value>Menú</value>
+  </data>
+  <data name="MenuOperation_Add" xml:space="preserve">
+    <value>Añadir transacción de menú</value>
+  </data>
+  <data name="MenuOperation_Detail" xml:space="preserve">
+    <value>Detalle de transacción de menú</value>
+  </data>
+  <data name="MenuOperation_List" xml:space="preserve">
+    <value>Listado de transacción de menú</value>
+  </data>
+  <data name="MenuOperation_Search" xml:space="preserve">
+    <value>Buscar transacción de menú</value>
+  </data>
+  <data name="Menus" xml:space="preserve">
+    <value>Menús </value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Mensaje</value>
+  </data>
+  <data name="Message_AddressLength" xml:space="preserve">
+    <value>La dirección no puede tener más de cien caracteres</value>
+  </data>
+  <data name="Message_AlanKoduLength" xml:space="preserve">
+    <value>El código de región debe constar de 3 dígitos</value>
+  </data>
+  <data name="Message_ApartmentLength" xml:space="preserve">
+    <value>El nombre de apartamento no puede tener más de 50 caracteres</value>
+  </data>
+  <data name="Message_Apartment_NoLength" xml:space="preserve">
+    <value>El número de apartamento no puede tener más de 20 caracteres</value>
+  </data>
+  <data name="Message_AvenueLength" xml:space="preserve">
+    <value>El nombre de la avenida no puede superar los 100 caracteres</value>
+  </data>
+  <data name="Message_Building_NoLength" xml:space="preserve">
+    <value>EL número de edificio no puede superar los 20 caracteres</value>
+  </data>
+  <data name="Message_ContactNumberType_Required" xml:space="preserve">
+    <value>Introduzca el tipo de número de contacto</value>
+  </data>
+  <data name="Message_CreatingPolicy" xml:space="preserve">
+    <value>La póliza se está preparando</value>
+  </data>
+  <data name="Message_CreditCard_Validation" xml:space="preserve">
+    <value>Introduzca por favor un número de tarjeta de crédito válido.</value>
+  </data>
+  <data name="Message_CustomerSaveError" xml:space="preserve">
+    <value>La información del cliente ha sido registrada. Por favor controle que la información introducida es correcta y completa.</value>
+  </data>
+  <data name="Message_Customer_Code_Length" xml:space="preserve">
+    <value>El código de clientes del canal de ventas no puede tener más de 20 dígitos</value>
+  </data>
+  <data name="Message_Customer_Name_Title_Length" xml:space="preserve">
+    <value>El nombre/título no puede tener más de 50 caracteres</value>
+  </data>
+  <data name="Message_Customer_SearchError" xml:space="preserve">
+    <value>Introduzca al menos un criterio más, salvo el título del canal de ventas</value>
+  </data>
+  <data name="Message_Customer_Surname_Title_Length" xml:space="preserve">
+    <value>El apellido/título no puede tener más de 50 caracteres</value>
+  </data>
+  <data name="Message_DateFormat" xml:space="preserve">
+    <value>Controle la veracidad de la información sobre la fecha.</value>
+  </data>
+  <data name="Message_DeleteConfirmation" xml:space="preserve">
+    <value>¿Está seguro de que quiere borrar el registro que ha elegido?</value>
+  </data>
+  <data name="Message_Deleting_Records" xml:space="preserve">
+    <value>El registro se está borrando</value>
+  </data>
+  <data name="Message_DocumentSaveError" xml:space="preserve">
+    <value>El documento no ha podido registrarse. Controle por favor la veracidad de los datos que ha introducido.</value>
+  </data>
+  <data name="Message_Document_Type_Length" xml:space="preserve">
+    <value>El tipo de documento no puede tener más de 50 caracteres</value>
+  </data>
+  <data name="Message_DublicateRecord" xml:space="preserve">
+    <value>El registro se había introducido con anterioridad.</value>
+  </data>
+  <data name="Message_Email" xml:space="preserve">
+    <value>El formato de correo electrónico es erróneo</value>
+  </data>
+  <data name="Message_Email_Length" xml:space="preserve">
+    <value>El correo electrónico no puede tener más de cincuenta caracteres</value>
+  </data>
+  <data name="Message_File_AlreadyExists" xml:space="preserve">
+    <value>El archivo que quiere añadir ya existe. ¿Quiere cambiarlo reemplazarlo por el archivo existente?</value>
+  </data>
+  <data name="Message_GenericErrorHeader" xml:space="preserve">
+    <value>Se ha producido un error durante la operación</value>
+  </data>
+  <data name="Message_Han_Apt_Fab_Length" xml:space="preserve">
+    <value>La oficina-Apartamento-Fábrica no puede tener más de veinte caracteres.</value>
+  </data>
+  <data name="Message_Identification_Number_Length" xml:space="preserve">
+    <value>El número de documento de identidad no puede tener más de 11 caracteres</value>
+  </data>
+  <data name="Message_InvalidUser" xml:space="preserve">
+    <value>El nombre de usuario o la clave es errónea.</value>
+  </data>
+  <data name="Message_Loading" xml:space="preserve">
+    <value>Espere por favor…</value>
+  </data>
+  <data name="Message_LockedUser" xml:space="preserve">
+    <value>La clave de usuario está bloqueada.</value>
+  </data>
+  <data name="Message_MapfrePartajError" xml:space="preserve">
+    <value>La información del prorrateo es incompleta</value>
+  </data>
+  <data name="Message_MapfreValidationError" xml:space="preserve">
+    <value>La validación no ha sido exitosa.</value>
+  </data>
+  <data name="Message_MenuExplanation_Required" xml:space="preserve">
+    <value>La descripción del menú no puede tener más de 30 caracteres</value>
+  </data>
+  <data name="Message_MenuHelpExplanation_Required" xml:space="preserve">
+    <value>La descripción del asistente del menú no puede tener más de 100 caracteres</value>
+  </data>
+  <data name="Message_MenuOperationMVCAActionParameter_Required" xml:space="preserve">
+    <value>El parámetro de acción del menú no puede tener más de 50 caracteres</value>
+  </data>
+  <data name="Message_MenuOperationMVCAction_Required" xml:space="preserve">
+    <value>El nombre de acción del menú no puede tener más de 50 caracteres</value>
+  </data>
+  <data name="Message_MenuOperationMVCController_Required" xml:space="preserve">
+    <value>El nombre del controller del menú no puede tener más de 50 caracteres</value>
+  </data>
+  <data name="Message_MenuOperationURL_Required" xml:space="preserve">
+    <value>El URL del menú no puede tener más de 100 caracteres</value>
+  </data>
+  <data name="Message_Neighborhood_Length" xml:space="preserve">
+    <value>El nombre del barrio no puede tener más de 50 caracteres</value>
+  </data>
+  <data name="Message_Node_Length" xml:space="preserve">
+    <value>La nota no puede tener más de 500 caracteres</value>
+  </data>
+  <data name="Message_NotSaveError" xml:space="preserve">
+    <value>La nota no ha sido registrada. Por favor revise la veracidad de los datos que ha introducido.</value>
+  </data>
+  <data name="Message_NumberLength" xml:space="preserve">
+    <value>El número debe estar compuesto por 7 dígitos</value>
+  </data>
+  <data name="Message_Number_Owner_Length" xml:space="preserve">
+    <value>El nombre del dueño del número no puede tener más de 50 caracteres</value>
+  </data>
+  <data name="Message_ParishLength" xml:space="preserve">
+    <value>El nombre del barrio no puede tener más de 100 caracteres</value>
+  </data>
+  <data name="Message_Passport_Number_Length" xml:space="preserve">
+    <value>El número de pasaporte no puede tener más de 40 caracteres</value>
+  </data>
+  <data name="Message_PasswordNew_Confirm" xml:space="preserve">
+    <value>Confirme su nueva clave</value>
+  </data>
+  <data name="Message_PasswordOld_Wrong" xml:space="preserve">
+    <value>Su clave antigua es errónea</value>
+  </data>
+  <data name="Message_PasswordRequired" xml:space="preserve">
+    <value>Introduzca su clave</value>
+  </data>
+  <data name="Message_Password_MaxLength" xml:space="preserve">
+    <value>Su clave deberá estar compuesta por un máximo de 50 caracteres.</value>
+  </data>
+  <data name="Message_Password_OldNew_Different" xml:space="preserve">
+    <value>Su nueva clave no pueda ser igual a la antigua</value>
+  </data>
+  <data name="Message_PhoneFormat" xml:space="preserve">
+    <value>El formato de su número de teléfono debe ser del tipo 90-212-5554433</value>
+  </data>
+  <data name="Message_PhoneNumber" xml:space="preserve">
+    <value>El formato de su número de teléfono debe ser del tipo 90-212-5554433</value>
+  </data>
+  <data name="Message_PhoneSaveError" xml:space="preserve">
+    <value>La información del teléfono no ha sido registrada. Controle por favor que la información introducida es correcta y completa.</value>
+  </data>
+  <data name="Message_PostCode" xml:space="preserve">
+    <value>El código postal no puede estar compuesto de 5 dígitos</value>
+  </data>
+  <data name="Message_Required" xml:space="preserve">
+    <value>Por favor introduzca los datos.</value>
+  </data>
+  <data name="Message_RequiredValues" xml:space="preserve">
+    <value>Entrada errónea de datos. Por favor revise la información introducida.</value>
+  </data>
+  <data name="Message_Required_Email" xml:space="preserve">
+    <value>El correo electrónico es obligatorio.</value>
+  </data>
+  <data name="Message_Required_Email_length" xml:space="preserve">
+    <value>La dirección de correo electrónico no puede superar los 50 caracteres.</value>
+  </data>
+  <data name="Message_StreetLength" xml:space="preserve">
+    <value>El nombre de la calle no puede superar los cien caracteres</value>
+  </data>
+  <data name="Message_TaxNumberLength" xml:space="preserve">
+    <value>El número fiscal debe estar formado por 10 dígitos.</value>
+  </data>
+  <data name="Message_TaxOfficeRequired" xml:space="preserve">
+    <value>Introduzca la sede fiscal</value>
+  </data>
+  <data name="Message_TaxOffice_Length" xml:space="preserve">
+    <value>La dirección de la sede fiscal no puede superar los 50 caracteres.</value>
+  </data>
+  <data name="Message_TCKNLength" xml:space="preserve">
+    <value>Su número de identificación TC debe constar de 11 caracteres.</value>
+  </data>
+  <data name="Message_TCKNRequired" xml:space="preserve">
+    <value>Introduzca el número de identificación turco TC</value>
+  </data>
+  <data name="Message_TCKN_AlreadyExist" xml:space="preserve">
+    <value>Este número de identificación ya está registrado</value>
+  </data>
+  <data name="Message_TCKN_least_11" xml:space="preserve">
+    <value>Debe introducir al menos 11 caracteres</value>
+  </data>
+  <data name="Message_TCKN_VKN_YKN_Required" xml:space="preserve">
+    <value>Introduzca el número de identificación turco TCKN/el número fiscal VKN/el número de identificación extranjero YKN</value>
+  </data>
+  <data name="Message_Topic_Length" xml:space="preserve">
+    <value>EL asunto no puede sobrepasar los 50 caracteres</value>
+  </data>
+  <data name="Message_TVMSaveError" xml:space="preserve">
+    <value>Los datos del canal de ventas no han sido registrados. Controle por favor la veracidad de los datos que ha introducido.</value>
+  </data>
+  <data name="Message_TVMUserSaveError" xml:space="preserve">
+    <value>No se han registrado los datos de usuario. </value>
+  </data>
+  <data name="Message_UnknownError" xml:space="preserve">
+    <value>Error desconocido. </value>
+  </data>
+  <data name="Message_VKN_Least10" xml:space="preserve">
+    <value>Debe introducir al menos 10 caracteres</value>
+  </data>
+  <data name="Message_Web_URL_Length" xml:space="preserve">
+    <value>La página web no debe superar los 50 caracteres</value>
+  </data>
+  <data name="MissingDocument" xml:space="preserve">
+    <value>Falta documento</value>
+  </data>
+  <data name="MissingDocumentDescription" xml:space="preserve">
+    <value>Faltan explicaciones del documento</value>
+  </data>
+  <data name="MissingSignature" xml:space="preserve">
+    <value>Falta la firma</value>
+  </data>
+  <data name="MissingSignatureDescription" xml:space="preserve">
+    <value>Faltan explicaciones de la firma</value>
+  </data>
+  <data name="Mobile_Phone" xml:space="preserve">
+    <value>Teléfono móvil</value>
+  </data>
+  <data name="Monday" xml:space="preserve">
+    <value>Lunes</value>
+  </data>
+  <data name="Month1" xml:space="preserve">
+    <value>1 mes</value>
+  </data>
+  <data name="Month10" xml:space="preserve">
+    <value>10 meses</value>
+  </data>
+  <data name="Month11" xml:space="preserve">
+    <value>11 meses</value>
+  </data>
+  <data name="Month2" xml:space="preserve">
+    <value>2 meses</value>
+  </data>
+  <data name="Month3" xml:space="preserve">
+    <value>3 meses</value>
+  </data>
+  <data name="Month4" xml:space="preserve">
+    <value>4 meses</value>
+  </data>
+  <data name="Month5" xml:space="preserve">
+    <value>5 meses</value>
+  </data>
+  <data name="Month6" xml:space="preserve">
+    <value>6 meses</value>
+  </data>
+  <data name="Month7" xml:space="preserve">
+    <value>7 meses</value>
+  </data>
+  <data name="Month8" xml:space="preserve">
+    <value>8 meses</value>
+  </data>
+  <data name="Month9" xml:space="preserve">
+    <value>9 meses</value>
+  </data>
+  <data name="Monthly_1" xml:space="preserve">
+    <value>De 1 mes</value>
+  </data>
+  <data name="Monthly_1_3" xml:space="preserve">
+    <value>Entre 1-3 meses</value>
+  </data>
+  <data name="Monthly_3_6" xml:space="preserve">
+    <value>Entre 3-6 meses</value>
+  </data>
+  <data name="Monthly_6_12" xml:space="preserve">
+    <value>Entre 6-12 meses</value>
+  </data>
+  <data name="Month_12" xml:space="preserve">
+    <value>12 meses</value>
+  </data>
+  <data name="Month_24" xml:space="preserve">
+    <value>24 meses</value>
+  </data>
+  <data name="Month_6" xml:space="preserve">
+    <value>6 meses</value>
+  </data>
+  <data name="Mother" xml:space="preserve">
+    <value>Madre</value>
+  </data>
+  <data name="MotorVehicleShock" xml:space="preserve">
+    <value>Choque entre vehículos terrestres</value>
+  </data>
+  <data name="MovementType" xml:space="preserve">
+    <value>Tipo de movimiento</value>
+  </data>
+  <data name="MT_Code" xml:space="preserve">
+    <value>Código del gestor de clientes</value>
+  </data>
+  <data name="MT_Sales_Report" xml:space="preserve">
+    <value>Informe de ventas del gestor de clientes </value>
+  </data>
+  <data name="MunicipalCityCode" xml:space="preserve">
+    <value>Provincia del ayuntamiento</value>
+  </data>
+  <data name="MunicipalCode" xml:space="preserve">
+    <value>Ayuntamiento</value>
+  </data>
+  <data name="MyClients" xml:space="preserve">
+    <value>Mis clientes</value>
+  </data>
+  <data name="MyPerformance" xml:space="preserve">
+    <value>Mi rendimiento</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>Mi perfil</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="NameLastname" xml:space="preserve">
+    <value>Nombre y apellido</value>
+  </data>
+  <data name="NameTitle" xml:space="preserve">
+    <value>Nombre/título </value>
+  </data>
+  <data name="Name_Surname" xml:space="preserve">
+    <value>Su nombre y apellido</value>
+  </data>
+  <data name="NarrowInsurance" xml:space="preserve">
+    <value>Seguro a todo riesgo limitado </value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>Nacionalidad</value>
+  </data>
+  <data name="NDIL" xml:space="preserve">
+    <value>Seguro obligatorio ante terremotos y desastren naturales (DASK)</value>
+  </data>
+  <data name="NecessaryAudits" xml:space="preserve">
+    <value>Estudios necesarios a realizar</value>
+  </data>
+  <data name="NegotiatedAuthorizedService" xml:space="preserve">
+    <value>Taller autorizado </value>
+  </data>
+  <data name="Neighborhood" xml:space="preserve">
+    <value>Barrio</value>
+  </data>
+  <data name="Neosinerji_insuranceCounseling" xml:space="preserve">
+    <value>neosinerji Bilgi Teknolojileri A.Ş.</value>
+  </data>
+  <data name="Net_Premium" xml:space="preserve">
+    <value>Prima neta</value>
+  </data>
+  <data name="NewCustomer" xml:space="preserve">
+    <value>Nuevo cliente</value>
+  </data>
+  <data name="NewProposal" xml:space="preserve">
+    <value>Nueva propuesta</value>
+  </data>
+  <data name="NewSales" xml:space="preserve">
+    <value>Nueva venta</value>
+  </data>
+  <data name="New_Registry" xml:space="preserve">
+    <value>Nuevo registro</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Avanzar</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoClaimDiscountRate" xml:space="preserve">
+    <value>Porcentaje de descuento por bonus</value>
+  </data>
+  <data name="NoDamage" xml:space="preserve">
+    <value>Bonus </value>
+  </data>
+  <data name="Node" xml:space="preserve">
+    <value>Nota</value>
+  </data>
+  <data name="NodeDetails" xml:space="preserve">
+    <value>Detalle de la nota</value>
+  </data>
+  <data name="NoDelete" xml:space="preserve">
+    <value>El registro no puede ser borrado</value>
+  </data>
+  <data name="NoDelete_Description_Address" xml:space="preserve">
+    <value>Antes de borrar los datos de contacto debe especificar una dirección de contacto</value>
+  </data>
+  <data name="NoDelete_Description_Menu" xml:space="preserve">
+    <value>No borre los menús inferiores pertenecientes al menú antes de realizar el borrado</value>
+  </data>
+  <data name="Node_Add" xml:space="preserve">
+    <value>Añadir nota </value>
+  </data>
+  <data name="NoRenovation" xml:space="preserve">
+    <value>Número de renovación</value>
+  </data>
+  <data name="NoSuchUser" xml:space="preserve">
+    <value>No existe un usuario con ese nombre</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notas</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notificaciones </value>
+  </data>
+  <data name="Notification_Add" xml:space="preserve">
+    <value>Añadir notificación</value>
+  </data>
+  <data name="Notification_Info" xml:space="preserve">
+    <value>Datos de la notificación</value>
+  </data>
+  <data name="Notification_Search" xml:space="preserve">
+    <value>Buscar notificación</value>
+  </data>
+  <data name="NotYetACustomerPolicy" xml:space="preserve">
+    <value>No existe ninguna póliza perteneciente al cliente </value>
+  </data>
+  <data name="Not_Found_MapfreUserCode" xml:space="preserve">
+    <value>El código de usuario introducido no ha podido ser encontrado en el sistema</value>
+  </data>
+  <data name="Not_Found_User_ThisEposta" xml:space="preserve">
+    <value>No existe ninguna cuenta con esta dirección de correo electrónico</value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>Noviembre</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Número</value>
+  </data>
+  <data name="NumberofCustomers" xml:space="preserve">
+    <value>Número de clientes </value>
+  </data>
+  <data name="NumberOfInstallments" xml:space="preserve">
+    <value>Número de recibos</value>
+  </data>
+  <data name="NumberOfLifts" xml:space="preserve">
+    <value>Número de ascensores</value>
+  </data>
+  <data name="NumberofPolicies" xml:space="preserve">
+    <value>Número de pólizas</value>
+  </data>
+  <data name="Number_Of_People_Collateralized" xml:space="preserve">
+    <value>Número de personas con cobertura</value>
+  </data>
+  <data name="Number_Owner" xml:space="preserve">
+    <value>Dueño del número</value>
+  </data>
+  <data name="Number_Type" xml:space="preserve">
+    <value>Tipo de número</value>
+  </data>
+  <data name="NumericError" xml:space="preserve">
+    <value>Número no válido</value>
+  </data>
+  <data name="Obsolescence" xml:space="preserve">
+    <value>Envejecimiento</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>Octubre</value>
+  </data>
+  <data name="Office" xml:space="preserve">
+    <value>Sucursal</value>
+  </data>
+  <data name="OfficeCode" xml:space="preserve">
+    <value>Código de sucursal</value>
+  </data>
+  <data name="OfficeName" xml:space="preserve">
+    <value>Nombre de sucursal</value>
+  </data>
+  <data name="Offices" xml:space="preserve">
+    <value>Sucursales </value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="OfflinePoliceControl" xml:space="preserve">
+    <value>Control de pólizas offline</value>
+  </data>
+  <data name="OfflinePolicyExport" xml:space="preserve">
+    <value>Transferir una póliza offline </value>
+  </data>
+  <data name="OfflinePolicyReport" xml:space="preserve">
+    <value>Informe de pólizas offline </value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>De acuerdo</value>
+  </data>
+  <data name="OldPolicy" xml:space="preserve">
+    <value>Póliza antigua</value>
+  </data>
+  <data name="OldPolicyInfo" xml:space="preserve">
+    <value>Datos de la póliza antigua</value>
+  </data>
+  <data name="OneOfPolicyholdersInsured" xml:space="preserve">
+    <value>¿Es el tomador uno de los asegurados?</value>
+  </data>
+  <data name="OnHold" xml:space="preserve">
+    <value>En espera</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Online </value>
+  </data>
+  <data name="OpeningFolder" xml:space="preserve">
+    <value>Se abre un expediente</value>
+  </data>
+  <data name="Operation_Code" xml:space="preserve">
+    <value>Código de operación</value>
+  </data>
+  <data name="Operation_Id" xml:space="preserve">
+    <value>Id de la operación</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Opcional</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Opciones </value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Número de serie</value>
+  </data>
+  <data name="Original" xml:space="preserve">
+    <value>Original </value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>OTROS</value>
+  </data>
+  <data name="OtherFloors" xml:space="preserve">
+    <value>Otros niveles</value>
+  </data>
+  <data name="OtherInformation" xml:space="preserve">
+    <value>Otros datos </value>
+  </data>
+  <data name="OtherReport" xml:space="preserve">
+    <value>Otros informes </value>
+  </data>
+  <data name="OtherSendMail" xml:space="preserve">
+    <value>Enviar otro correo electrónico </value>
+  </data>
+  <data name="Over20" xml:space="preserve">
+    <value>Más de 20</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Propietario </value>
+  </data>
+  <data name="PageNo" xml:space="preserve">
+    <value>Número de página </value>
+  </data>
+  <data name="Parcel" xml:space="preserve">
+    <value>Parcela</value>
+  </data>
+  <data name="Parish" xml:space="preserve">
+    <value>Barrio </value>
+  </data>
+  <data name="PartyGoodsFire" xml:space="preserve">
+    <value>Incendio de bienes de terceros </value>
+  </data>
+  <data name="PartyLiabilityPerAccidentProperty" xml:space="preserve">
+    <value>Responsabilidad financiera ante terceros. Daños materiales por accidente. </value>
+  </data>
+  <data name="Pasive" xml:space="preserve">
+    <value>Pasivo </value>
+  </data>
+  <data name="Passage" xml:space="preserve">
+    <value>Pasaje </value>
+  </data>
+  <data name="Passport" xml:space="preserve">
+    <value>Pasaporte </value>
+  </data>
+  <data name="Passport_Expiry_Date" xml:space="preserve">
+    <value>Fecha de validez del pasaporte </value>
+  </data>
+  <data name="Passport_Number" xml:space="preserve">
+    <value>Número de pasaporte </value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Clave </value>
+  </data>
+  <data name="PasswordReset" xml:space="preserve">
+    <value>Reiniciar la clave </value>
+  </data>
+  <data name="PasswordValidDays" xml:space="preserve">
+    <value>Días de validez de la clave</value>
+  </data>
+  <data name="PasswordWarningDays" xml:space="preserve">
+    <value>Advertencia días de la clave</value>
+  </data>
+  <data name="PasswordYour" xml:space="preserve">
+    <value>Su clave</value>
+  </data>
+  <data name="Password_Change" xml:space="preserve">
+    <value>Cambiar clave </value>
+  </data>
+  <data name="Password_Confirm" xml:space="preserve">
+    <value>Confirmar nuevo pasaporte </value>
+  </data>
+  <data name="Password_Failed" xml:space="preserve">
+    <value>Error en la entrada de datos</value>
+  </data>
+  <data name="Password_Locked" xml:space="preserve">
+    <value>Bloqueado </value>
+  </data>
+  <data name="Password_New" xml:space="preserve">
+    <value>Nueva clave</value>
+  </data>
+  <data name="Password_OK" xml:space="preserve">
+    <value>No hay problema</value>
+  </data>
+  <data name="Password_Old" xml:space="preserve">
+    <value>Clave antigua</value>
+  </data>
+  <data name="Password_Reset" xml:space="preserve">
+    <value>Reiniciar la clave </value>
+  </data>
+  <data name="Password_Reset_Info" xml:space="preserve">
+    <value>Se reiniciará la clave del usuario y se enviará una nueva clave a su correo electrónico</value>
+  </data>
+  <data name="Password_Reset_Info2" xml:space="preserve">
+    <value>Se ha enviado una nueva clave al usuario</value>
+  </data>
+  <data name="Password_Temporary" xml:space="preserve">
+    <value>Clave provisional</value>
+  </data>
+  <data name="Password_YouMustChangeYour" xml:space="preserve">
+    <value>¡Debes de modificarlo durante el día! </value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Pago</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Pagos realizados </value>
+  </data>
+  <data name="PaymentOption" xml:space="preserve">
+    <value>Opción de pago</value>
+  </data>
+  <data name="PaymentOptions" xml:space="preserve">
+    <value>Datos de pago</value>
+  </data>
+  <data name="PaymentProtectionSystem" xml:space="preserve">
+    <value>Seguridad de pago</value>
+  </data>
+  <data name="PaymentStyle" xml:space="preserve">
+    <value>Forma de pago</value>
+  </data>
+  <data name="PaymentTerm" xml:space="preserve">
+    <value>Período de pago</value>
+  </data>
+  <data name="PaymentType" xml:space="preserve">
+    <value>Tipo de pago</value>
+  </data>
+  <data name="Payment_Amount" xml:space="preserve">
+    <value>Importe a pagar</value>
+  </data>
+  <data name="Payment_Chose" xml:space="preserve">
+    <value>Opciones de pago</value>
+  </data>
+  <data name="PayPremiumsOfInfo" xml:space="preserve">
+    <value>DATOS DEL PAGADOR DE LAS PRIMAS </value>
+  </data>
+  <data name="PdfFileOfThisPolicyWereFound" xml:space="preserve">
+    <value>No se ha encontrado el archivo pdf de esta póliza.</value>
+  </data>
+  <data name="PerCapitaPersonalPartyLiability" xml:space="preserve">
+    <value>Capital por persona de responsabilidad financiera ante terceros</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Ejercicio</value>
+  </data>
+  <data name="PeriodicPremium" xml:space="preserve">
+    <value>Prima del ejercicio</value>
+  </data>
+  <data name="PersonalAccident" xml:space="preserve">
+    <value>Accidente personal </value>
+  </data>
+  <data name="PersonalAccidentDeath" xml:space="preserve">
+    <value>Accidente personal, fallecimiento</value>
+  </data>
+  <data name="PersonalAccidentPlus" xml:space="preserve">
+    <value>Accidente personal, plus</value>
+  </data>
+  <data name="Personel" xml:space="preserve">
+    <value>Personal </value>
+  </data>
+  <data name="PersonelBelongingAssurance" xml:space="preserve">
+    <value>Cobertura de objetos especiales</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+  <data name="PhoneType" xml:space="preserve">
+    <value>Tipo de teléfono</value>
+  </data>
+  <data name="Phone_Add" xml:space="preserve">
+    <value>Incluir teléfono</value>
+  </data>
+  <data name="Phone_Info" xml:space="preserve">
+    <value>Datos telefónicos </value>
+  </data>
+  <data name="Photo_Add" xml:space="preserve">
+    <value>Incluir fotografía</value>
+  </data>
+  <data name="Photo_Update" xml:space="preserve">
+    <value>Actualizar fotografía</value>
+  </data>
+  <data name="Pickpocketing" xml:space="preserve">
+    <value>Robo</value>
+  </data>
+  <data name="PlaceOfBirth" xml:space="preserve">
+    <value>Lugar de nacimiento</value>
+  </data>
+  <data name="Plan" xml:space="preserve">
+    <value>Plan </value>
+  </data>
+  <data name="Plate" xml:space="preserve">
+    <value>Matrícula</value>
+  </data>
+  <data name="Platinum" xml:space="preserve">
+    <value>Platino</value>
+  </data>
+  <data name="PleaseConsultYourSystemAdministrator" xml:space="preserve">
+    <value>Consulte por favor a su gestor de sistema</value>
+  </data>
+  <data name="PleaseSelect" xml:space="preserve">
+    <value>Escoja por favor</value>
+  </data>
+  <data name="PleaseSelectDate" xml:space="preserve">
+    <value>Elija el intervalo de fechas</value>
+  </data>
+  <data name="PleaseSelectTheFile" xml:space="preserve">
+    <value>Elija por favor el archivo.</value>
+  </data>
+  <data name="PleaseTryAgain" xml:space="preserve">
+    <value>Por favor vuélvalo a intentar</value>
+  </data>
+  <data name="PleaseWaitProposalIsPreparing" xml:space="preserve">
+    <value>Espere por favor, se está preparando su propuesta</value>
+  </data>
+  <data name="Please_Wait" xml:space="preserve">
+    <value>Espere por favor…</value>
+  </data>
+  <data name="Policies" xml:space="preserve">
+    <value>Pólizas</value>
+  </data>
+  <data name="Policy" xml:space="preserve">
+    <value>Póliza</value>
+  </data>
+  <data name="PolicyDateType" xml:space="preserve">
+    <value>Tipo de fechas de pólizas</value>
+  </data>
+  <data name="PolicyFinishDate" xml:space="preserve">
+    <value>Fecha de finalización de póliza</value>
+  </data>
+  <data name="PolicyGrossPremiumCommission" xml:space="preserve">
+    <value>Prima/Comisión bruta de la póliza</value>
+  </data>
+  <data name="PolicyholdersInsuredUnit" xml:space="preserve">
+    <value>¿Es el tomador uno de los asegurados?</value>
+  </data>
+  <data name="PolicyId" xml:space="preserve">
+    <value>Número de póliza</value>
+  </data>
+  <data name="PolicyNo" xml:space="preserve">
+    <value>Número de póliza</value>
+  </data>
+  <data name="PolicyPDF" xml:space="preserve">
+    <value>PDF de la póliza</value>
+  </data>
+  <data name="PolicyPeriod" xml:space="preserve">
+    <value>Duración de la póliza</value>
+  </data>
+  <data name="PolicyPrice" xml:space="preserve">
+    <value>Capital de la póliza</value>
+  </data>
+  <data name="PolicyRates" xml:space="preserve">
+    <value>Porcentajes de la póliza</value>
+  </data>
+  <data name="PolicySearch" xml:space="preserve">
+    <value>Buscar póliza</value>
+  </data>
+  <data name="PolicysPDFIsNotFound" xml:space="preserve">
+    <value>No se ha encontrado el archivo pdf de esta póliza. Consulte por favor a su director de sistemas</value>
+  </data>
+  <data name="PolicyStartDate" xml:space="preserve">
+    <value>Fecha de inicio de la póliza</value>
+  </data>
+  <data name="PolicyTime" xml:space="preserve">
+    <value>Duración de la póliza</value>
+  </data>
+  <data name="PolicyTypes" xml:space="preserve">
+    <value>Tipos de póliza</value>
+  </data>
+  <data name="Policy_Count" xml:space="preserve">
+    <value>Número de pólizas</value>
+  </data>
+  <data name="Policy_Info" xml:space="preserve">
+    <value>Información de pólizas </value>
+  </data>
+  <data name="Policy_Query" xml:space="preserve">
+    <value>Consultar pólizas </value>
+  </data>
+  <data name="Policy_Sales_Report" xml:space="preserve">
+    <value>Informe de pólizas</value>
+  </data>
+  <data name="Postal_Code" xml:space="preserve">
+    <value>Código postal</value>
+  </data>
+  <data name="Post_2007" xml:space="preserve">
+    <value>2007 y posterior</value>
+  </data>
+  <data name="PotentialCustomerAdd" xml:space="preserve">
+    <value>Añadir cliente potencial</value>
+  </data>
+  <data name="PotentialCustomerCode" xml:space="preserve">
+    <value>Código de cliente potencial</value>
+  </data>
+  <data name="PotentialCustomerInfo" xml:space="preserve">
+    <value>Datos de cliente potencial</value>
+  </data>
+  <data name="PotentialCustomerInformation" xml:space="preserve">
+    <value>Datos de cliente potencial</value>
+  </data>
+  <data name="PotentialCustomerSearc" xml:space="preserve">
+    <value>Buscar cliente potencial</value>
+  </data>
+  <data name="Preference" xml:space="preserve">
+    <value>Prioridad</value>
+  </data>
+  <data name="Premium" xml:space="preserve">
+    <value>Prima</value>
+  </data>
+  <data name="PremiumAmount" xml:space="preserve">
+    <value>Importe de la prima</value>
+  </data>
+  <data name="PremiumPaymentPeriod" xml:space="preserve">
+    <value>Elija el ejercicio de pago de la prima</value>
+  </data>
+  <data name="Premiums" xml:space="preserve">
+    <value>Prima</value>
+  </data>
+  <data name="Premium_Payment_Period" xml:space="preserve">
+    <value>Ejercicio de pago de prima</value>
+  </data>
+  <data name="PreparesReports" xml:space="preserve">
+    <value>Se está preparando el informe…</value>
+  </data>
+  <data name="PreparingProposal" xml:space="preserve">
+    <value>Espere por favor, la propuesta se está preparando</value>
+  </data>
+  <data name="PreProvisioning" xml:space="preserve">
+    <value>Provisión previa</value>
+  </data>
+  <data name="PreProvisioningDone" xml:space="preserve">
+    <value>Se ha realizado la provisión previa</value>
+  </data>
+  <data name="Preview_1975" xml:space="preserve">
+    <value>Anterior a 1975</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Precio</value>
+  </data>
+  <data name="Price1" xml:space="preserve">
+    <value>Importe</value>
+  </data>
+  <data name="PricingCode" xml:space="preserve">
+    <value>Código de tarificación</value>
+  </data>
+  <data name="PrimaryEducation" xml:space="preserve">
+    <value>Educación primaria</value>
+  </data>
+  <data name="PrimeReturnable" xml:space="preserve">
+    <value>Con devolución de primas</value>
+  </data>
+  <data name="PrimeReturnable2" xml:space="preserve">
+    <value>Con devolución de primas (5 años)</value>
+  </data>
+  <data name="PrincipalSendMail" xml:space="preserve">
+    <value>Enviar el correo verdadero </value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Imprimir</value>
+  </data>
+  <data name="PrivateSecurityAlarmExist" xml:space="preserve">
+    <value>¿Hay alarma/seguridad privada?</value>
+  </data>
+  <data name="ProcessCompleted" xml:space="preserve">
+    <value>El proceso ha sido completado</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Producto</value>
+  </data>
+  <data name="ProductDetailReport" xml:space="preserve">
+    <value>Informe del detalle del producto</value>
+  </data>
+  <data name="ProductManage" xml:space="preserve">
+    <value>GESTIÓN DEL PRODUCTO</value>
+  </data>
+  <data name="ProductQuestion_Add" xml:space="preserve">
+    <value>Añadir pregunta de producto</value>
+  </data>
+  <data name="ProductQuestion_Number" xml:space="preserve">
+    <value>Número de pregunta de producto</value>
+  </data>
+  <data name="ProductQuestion_Search" xml:space="preserve">
+    <value>Buscar pregunta de producto</value>
+  </data>
+  <data name="Product_Add" xml:space="preserve">
+    <value>Añadir producto</value>
+  </data>
+  <data name="Product_Code" xml:space="preserve">
+    <value>Código de producto</value>
+  </data>
+  <data name="Product_Description" xml:space="preserve">
+    <value>Descripción del producto</value>
+  </data>
+  <data name="Product_Info" xml:space="preserve">
+    <value>Datos del producto</value>
+  </data>
+  <data name="Product_List" xml:space="preserve">
+    <value>Listado de producto</value>
+  </data>
+  <data name="Product_Name" xml:space="preserve">
+    <value>Nombre del producto</value>
+  </data>
+  <data name="Product_Search" xml:space="preserve">
+    <value>Buscar producto</value>
+  </data>
+  <data name="Project_Code" xml:space="preserve">
+    <value>Código de proyecto</value>
+  </data>
+  <data name="Proposal" xml:space="preserve">
+    <value>Propuesta</value>
+  </data>
+  <data name="ProposalCompanies" xml:space="preserve">
+    <value>Compañías de seguros que recibirán la propuesta</value>
+  </data>
+  <data name="ProposalCompareTable" xml:space="preserve">
+    <value>Tabla de comparación de propuestas </value>
+  </data>
+  <data name="ProposalCount" xml:space="preserve">
+    <value>Número de propuestas</value>
+  </data>
+  <data name="ProposalDate" xml:space="preserve">
+    <value>Fecha de la propuesta</value>
+  </data>
+  <data name="ProposalDateType" xml:space="preserve">
+    <value>Tipos de fechas de propuestas</value>
+  </data>
+  <data name="ProposalEndDate" xml:space="preserve">
+    <value>Fecha de finalización de propuesta</value>
+  </data>
+  <data name="ProposalInfo" xml:space="preserve">
+    <value>Datos de la propuesta</value>
+  </data>
+  <data name="ProposalIsNotCreated" xml:space="preserve">
+    <value>La propuesta ha sido preparada</value>
+  </data>
+  <data name="ProposalPDF" xml:space="preserve">
+    <value>PDF de la propuesta</value>
+  </data>
+  <data name="ProposalRates" xml:space="preserve">
+    <value>Porcentajes de la propuesta</value>
+  </data>
+  <data name="ProposalReport" xml:space="preserve">
+    <value>Informe de la propuesta</value>
+  </data>
+  <data name="ProposalStartDate" xml:space="preserve">
+    <value>Fecha de inicio de la propuesta</value>
+  </data>
+  <data name="Proposal_CreditLife" xml:space="preserve">
+    <value>Propuesta de seguro de vida con crédito</value>
+  </data>
+  <data name="Proposal_Detail" xml:space="preserve">
+    <value>Detalle de propuesta</value>
+  </data>
+  <data name="Proposal_Get" xml:space="preserve">
+    <value>Recibir propuesta</value>
+  </data>
+  <data name="Proposal_Id" xml:space="preserve">
+    <value>ID de la propuesta</value>
+  </data>
+  <data name="Proposal_List" xml:space="preserve">
+    <value>Listado de propuestas</value>
+  </data>
+  <data name="Proposal_List_ForUser" xml:space="preserve">
+    <value>Propuestas</value>
+  </data>
+  <data name="Proposal_No" xml:space="preserve">
+    <value>Número de propuesta</value>
+  </data>
+  <data name="Proposal_Search" xml:space="preserve">
+    <value>Buscar propuesta</value>
+  </data>
+  <data name="Proposal_Status" xml:space="preserve">
+    <value>Situación de la propuesta</value>
+  </data>
+  <data name="Proposal_TVM" xml:space="preserve">
+    <value>Canal de ventas que lo prepara</value>
+  </data>
+  <data name="Proposal_TVMUser" xml:space="preserve">
+    <value>Usuario que lo prepara</value>
+  </data>
+  <data name="Proposal_UserOther" xml:space="preserve">
+    <value>Prepara la propuesta en nombre de otra persona</value>
+  </data>
+  <data name="Proposal_UserSelf" xml:space="preserve">
+    <value>Prepara la propuesta en mi nombre</value>
+  </data>
+  <data name="Proposol_Type" xml:space="preserve">
+    <value>Tipo de propuesta</value>
+  </data>
+  <data name="Proposol_User_Information" xml:space="preserve">
+    <value>No se ha introducido aún una propuesta del cliente…</value>
+  </data>
+  <data name="ProtectedFuture" xml:space="preserve">
+    <value>Futuro cubierto</value>
+  </data>
+  <data name="ProvisionForLoanAmount" xml:space="preserve">
+    <value>Equivalente del importe del crédito</value>
+  </data>
+  <data name="Query" xml:space="preserve">
+    <value>Consultar</value>
+  </data>
+  <data name="QueryIndicator" xml:space="preserve">
+    <value>Se está realizando la consulta…</value>
+  </data>
+  <data name="QueryOldPolicy" xml:space="preserve">
+    <value>Consultar con información de pólizas antiguas</value>
+  </data>
+  <data name="Query_Type" xml:space="preserve">
+    <value>Tipo de consulta</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Pregunta</value>
+  </data>
+  <data name="QuestionDetails" xml:space="preserve">
+    <value>Información de la pregunta</value>
+  </data>
+  <data name="Question_Add" xml:space="preserve">
+    <value>Añadir preguntas</value>
+  </data>
+  <data name="Question_Answer_Len" xml:space="preserve">
+    <value>Longitud de la respuesta</value>
+  </data>
+  <data name="Question_Answer_Type" xml:space="preserve">
+    <value>Tipo de pregunta y respuesta</value>
+  </data>
+  <data name="Question_Code" xml:space="preserve">
+    <value>Código de pregunta</value>
+  </data>
+  <data name="Question_List" xml:space="preserve">
+    <value>Listado de pregunta</value>
+  </data>
+  <data name="Question_Name" xml:space="preserve">
+    <value>Nombre de la pregunta</value>
+  </data>
+  <data name="Question_Search" xml:space="preserve">
+    <value>Buscar pregunta</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Porcentaje</value>
+  </data>
+  <data name="Ratio" xml:space="preserve">
+    <value>Porcentaje</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>Leer</value>
+  </data>
+  <data name="Real_TC_Nationals_Customer" xml:space="preserve">
+    <value>Individuo</value>
+  </data>
+  <data name="RecordsGoBackToFix" xml:space="preserve">
+    <value>Volver para corregir los registros</value>
+  </data>
+  <data name="RecoveryPassword_Success_AlreadySendLink" xml:space="preserve">
+    <value>Se ha enviado un correo electrónico a su dirección. Revise su spam y si el correo no hubiese llegado vuelva a intentarlo 20 minutos más tarde.</value>
+  </data>
+  <data name="RecoveryPassword_Success_SendLink" xml:space="preserve">
+    <value>Se ha enviado un link a su dirección de correo electrónico. Revise su spam y si el correo no hubiese llegado vuelva a intentarlo 20 minutos más tarde. </value>
+  </data>
+  <data name="ReferenceNumber" xml:space="preserve">
+    <value>Número de solicitud</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Renovar</value>
+  </data>
+  <data name="Region" xml:space="preserve">
+    <value>Región </value>
+  </data>
+  <data name="RegionalSalesDetailReport" xml:space="preserve">
+    <value>Informe de ventas detallado de la región</value>
+  </data>
+  <data name="Regions" xml:space="preserve">
+    <value>Regiones </value>
+  </data>
+  <data name="RegistrationFormId" xml:space="preserve">
+    <value>Número del documento de registro</value>
+  </data>
+  <data name="RelatedDocument" xml:space="preserve">
+    <value>Documento relacionado</value>
+  </data>
+  <data name="Related_Proposals" xml:space="preserve">
+    <value>Propuesta correspondiente</value>
+  </data>
+  <data name="Relative" xml:space="preserve">
+    <value>Pariente</value>
+  </data>
+  <data name="Reminders" xml:space="preserve">
+    <value>Recordatorios </value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Extraer </value>
+  </data>
+  <data name="Remove_All" xml:space="preserve">
+    <value>Extraer la totalidad</value>
+  </data>
+  <data name="RenewalNo" xml:space="preserve">
+    <value>Número de actualización </value>
+  </data>
+  <data name="Renovation" xml:space="preserve">
+    <value>Actualización</value>
+  </data>
+  <data name="RepeatProposal" xml:space="preserve">
+    <value>VOLVER A RECIBIR UNA PROPUESTA</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Informe </value>
+  </data>
+  <data name="ReportCompleted" xml:space="preserve">
+    <value>El informe no ha sido aún completado</value>
+  </data>
+  <data name="ReportEndDate" xml:space="preserve">
+    <value>Fecha de finalización del informe</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Informes</value>
+  </data>
+  <data name="ReportsPrepared" xml:space="preserve">
+    <value>Informes preparados</value>
+  </data>
+  <data name="ReportStartDate" xml:space="preserve">
+    <value>Fecha de inicio del informe</value>
+  </data>
+  <data name="Requesrt_Date" xml:space="preserve">
+    <value>Fecha de solicitud</value>
+  </data>
+  <data name="Requesrt_Type" xml:space="preserve">
+    <value>Tipo de solicitud</value>
+  </data>
+  <data name="Requesrt_URL" xml:space="preserve">
+    <value>URL de la solicitud</value>
+  </data>
+  <data name="Response_Date" xml:space="preserve">
+    <value>Fecha de la respuesta</value>
+  </data>
+  <data name="Response_URL" xml:space="preserve">
+    <value>URL de la respuesta</value>
+  </data>
+  <data name="ReturnsWere" xml:space="preserve">
+    <value>Ha sido devuelto</value>
+  </data>
+  <data name="Revise" xml:space="preserve">
+    <value>REVISAR</value>
+  </data>
+  <data name="Risk" xml:space="preserve">
+    <value>Riesgo</value>
+  </data>
+  <data name="RiskAssessmentResults" xml:space="preserve">
+    <value>Resultado de la valoración de riesgos</value>
+  </data>
+  <data name="RiskInfo" xml:space="preserve">
+    <value>Datos de riesgos</value>
+  </data>
+  <data name="Risk_Insurances" xml:space="preserve">
+    <value>Seguros de riesgo</value>
+  </data>
+  <data name="RoofType" xml:space="preserve">
+    <value>Tipo de techo</value>
+  </data>
+  <data name="Sales" xml:space="preserve">
+    <value>Ha sido vendido</value>
+  </data>
+  <data name="SalesRepresentativeName" xml:space="preserve">
+    <value>Nombre del representante de ventas</value>
+  </data>
+  <data name="SalesType" xml:space="preserve">
+    <value>Tipo de venta</value>
+  </data>
+  <data name="Sample" xml:space="preserve">
+    <value>Ejemplo</value>
+  </data>
+  <data name="Saturday" xml:space="preserve">
+    <value>Sábado</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Registrar</value>
+  </data>
+  <data name="Save_Correct_Record" xml:space="preserve">
+    <value>Registrar registros sin errores</value>
+  </data>
+  <data name="Save_UnCorret_Record" xml:space="preserve">
+    <value>Registrar registros con errores</value>
+  </data>
+  <data name="SBB" xml:space="preserve">
+    <value>Capital por persona</value>
+  </data>
+  <data name="Scatheless_Protection" xml:space="preserve">
+    <value>Protección por carencia de daños</value>
+  </data>
+  <data name="Schengen" xml:space="preserve">
+    <value>Schengen</value>
+  </data>
+  <data name="ScopeOfCoverage" xml:space="preserve">
+    <value>ALCANCE DE LA COBERTURA</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="Search2" xml:space="preserve">
+    <value>Buscar…</value>
+  </data>
+  <data name="SearchJobs" xml:space="preserve">
+    <value>Buscar trabajo</value>
+  </data>
+  <data name="SearchTUM" xml:space="preserve">
+    <value>Buscar compañía aseguradora</value>
+  </data>
+  <data name="SearchUser" xml:space="preserve">
+    <value>Buscar usuario</value>
+  </data>
+  <data name="SecurityCode" xml:space="preserve">
+    <value>Código de seguridad</value>
+  </data>
+  <data name="Security_Info" xml:space="preserve">
+    <value>Datos de seguridad</value>
+  </data>
+  <data name="See" xml:space="preserve">
+    <value>Visualizar </value>
+  </data>
+  <data name="SelectCalculationMethod" xml:space="preserve">
+    <value>Seleccionar método de cálculo </value>
+  </data>
+  <data name="SelectCustomer" xml:space="preserve">
+    <value>Seleccionar cliente </value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>Ha sido seleccionado </value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Seleccione archivo… </value>
+  </data>
+  <data name="SelectInsuranceTime" xml:space="preserve">
+    <value>Introduzca el plazo de aseguramiento </value>
+  </data>
+  <data name="Select_All" xml:space="preserve">
+    <value>Seleccionar todo</value>
+  </data>
+  <data name="Select_Currency" xml:space="preserve">
+    <value>Seleccionar divisa</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="SendingEmail" xml:space="preserve">
+    <value>Se está enviando el correo.</value>
+  </data>
+  <data name="September" xml:space="preserve">
+    <value>Setiembre</value>
+  </data>
+  <data name="Sequence_Number" xml:space="preserve">
+    <value>Número de serie</value>
+  </data>
+  <data name="SetActualCustomers" xml:space="preserve">
+    <value>Asignar como cliente verdadero</value>
+  </data>
+  <data name="SetAsMainCustomer" xml:space="preserve">
+    <value>Asignar como cliente verdadero</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ajustes </value>
+  </data>
+  <data name="SETVMMusteriKodu" xml:space="preserve">
+    <value>Código de tomador en el canal de ventas</value>
+  </data>
+  <data name="SE_KimlikNo" xml:space="preserve">
+    <value>Número de identificación del tomador</value>
+  </data>
+  <data name="SE_type" xml:space="preserve">
+    <value>Tipo de identificación del tomador</value>
+  </data>
+  <data name="SheetNo" xml:space="preserve">
+    <value>Número de sección</value>
+  </data>
+  <data name="ShockAircraft" xml:space="preserve">
+    <value>Choque entre vehículos aéreos</value>
+  </data>
+  <data name="ShortByCheaperToExpensive" xml:space="preserve">
+    <value>De barato a caro</value>
+  </data>
+  <data name="Silver" xml:space="preserve">
+    <value>Plata</value>
+  </data>
+  <data name="SinceThePolicy" xml:space="preserve">
+    <value>Duración de la póliza</value>
+  </data>
+  <data name="Single" xml:space="preserve">
+    <value>Soltero</value>
+  </data>
+  <data name="SinglePayment" xml:space="preserve">
+    <value>Por anticipado</value>
+  </data>
+  <data name="SkiDeposit" xml:space="preserve">
+    <value>Cobertura de esquí</value>
+  </data>
+  <data name="SKimlikNo" xml:space="preserve">
+    <value>Número de identificación del asegurado</value>
+  </data>
+  <data name="SkypeNumber" xml:space="preserve">
+    <value>Número de Skype</value>
+  </data>
+  <data name="Smoke" xml:space="preserve">
+    <value>Humo </value>
+  </data>
+  <data name="Sole_Proprietorship_Customer" xml:space="preserve">
+    <value>Empresa individual</value>
+  </data>
+  <data name="SpecialDate" xml:space="preserve">
+    <value>Fecha especial</value>
+  </data>
+  <data name="SpecialField" xml:space="preserve">
+    <value>Zona particular </value>
+  </data>
+  <data name="StaffDetailSalesReport" xml:space="preserve">
+    <value>Informe de venta detallado del personal</value>
+  </data>
+  <data name="Stage" xml:space="preserve">
+    <value>Fase</value>
+  </data>
+  <data name="Stars_3" xml:space="preserve">
+    <value>3 estrellas</value>
+  </data>
+  <data name="Stars_5" xml:space="preserve">
+    <value>5 estrellas</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Fecha de inicio</value>
+  </data>
+  <data name="Started" xml:space="preserve">
+    <value>Se ha iniciado</value>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="StatePolicies" xml:space="preserve">
+    <value>Situación de la póliza</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Situación</value>
+  </data>
+  <data name="SteelConcreteFramework" xml:space="preserve">
+    <value>ACERO, CARCASA DE HORMIGÓN</value>
+  </data>
+  <data name="STEEL_CONSTRUCTION_AND_OTHERS" xml:space="preserve">
+    <value>CONSTRUCCIÓN DE ACERO Y RESTO</value>
+  </data>
+  <data name="STEEL_CONSTRUCTION_THOUSANDS_EXCEPT_ALL" xml:space="preserve">
+    <value>TODOS LOS EDIFICIOS SALVO CONSTRUCCIÓN DE ACERO</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Paso</value>
+  </data>
+  <data name="Step2ApplicationProcess" xml:space="preserve">
+    <value>2. paso del proceso de solicitud</value>
+  </data>
+  <data name="Step3ApplicationProcess" xml:space="preserve">
+    <value>3. paso del proceso de solicitud</value>
+  </data>
+  <data name="Step4ApplicationProcess" xml:space="preserve">
+    <value>4. paso del proceso de solicitud</value>
+  </data>
+  <data name="STipi" xml:space="preserve">
+    <value>Tipo de identificación del asegurado</value>
+  </data>
+  <data name="StockFire" xml:space="preserve">
+    <value>Incendio del mobiliario</value>
+  </data>
+  <data name="StolenWithKey" xml:space="preserve">
+    <value>Robo de llave</value>
+  </data>
+  <data name="Storm" xml:space="preserve">
+    <value>Tormenta</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Calle </value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>#YOK</value>
+  </data>
+  <data name="String2" xml:space="preserve">
+    <value>#YOK</value>
+  </data>
+  <data name="Student" xml:space="preserve">
+    <value>Alumno</value>
+  </data>
+  <data name="STVMMuskteriKodu" xml:space="preserve">
+    <value>Código del asegurado del canal de ventas</value>
+  </data>
+  <data name="SubjectCompa" xml:space="preserve">
+    <value>Tipo de actividad </value>
+  </data>
+  <data name="SubMenuTabs_Add" xml:space="preserve">
+    <value>Añadir pestaña de submenú</value>
+  </data>
+  <data name="SubMenu_Add" xml:space="preserve">
+    <value>Añadir submenú</value>
+  </data>
+  <data name="SubstitutedSpecies" xml:space="preserve">
+    <value>Tipo de residencia</value>
+  </data>
+  <data name="Succesfull_UNSuccesfull" xml:space="preserve">
+    <value>Exitoso/Sin éxito</value>
+  </data>
+  <data name="Success_Rate_Offer" xml:space="preserve">
+    <value>Mi porcentaje de realización de pólizas</value>
+  </data>
+  <data name="SummaryReport" xml:space="preserve">
+    <value>Informe resumen</value>
+  </data>
+  <data name="SummerArrest" xml:space="preserve">
+    <value>Parón veraniego</value>
+  </data>
+  <data name="Summery" xml:space="preserve">
+    <value>Casa de verano</value>
+  </data>
+  <data name="Sunday" xml:space="preserve">
+    <value>Domingo</value>
+  </data>
+  <data name="Suppl" xml:space="preserve">
+    <value>Número de suplemento</value>
+  </data>
+  <data name="SupplementaryPayment" xml:space="preserve">
+    <value>Pago añadido</value>
+  </data>
+  <data name="Surname" xml:space="preserve">
+    <value>Apellido </value>
+  </data>
+  <data name="SurnameTitle" xml:space="preserve">
+    <value>Apellido/Título</value>
+  </data>
+  <data name="Surprim" xml:space="preserve">
+    <value>Sub prima</value>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>Ha sido parado</value>
+  </data>
+  <data name="Tah_Ipt" xml:space="preserve">
+    <value>Tah / Ipt</value>
+  </data>
+  <data name="TakeLocation" xml:space="preserve">
+    <value>Recibir información de localización</value>
+  </data>
+  <data name="Tax" xml:space="preserve">
+    <value>Impuesto</value>
+  </data>
+  <data name="TaxExpense" xml:space="preserve">
+    <value>Impuesto sobre ventas</value>
+  </data>
+  <data name="TaxNumber" xml:space="preserve">
+    <value>Número fiscal</value>
+  </data>
+  <data name="TaxOffice" xml:space="preserve">
+    <value>Oficina de hacienda</value>
+  </data>
+  <data name="Tax_Add" xml:space="preserve">
+    <value>Añadir impuesto</value>
+  </data>
+  <data name="Tax_Code" xml:space="preserve">
+    <value>Código de impuesto</value>
+  </data>
+  <data name="Tax_Identification_Number" xml:space="preserve">
+    <value>Número de Identificación Fisal</value>
+  </data>
+  <data name="Tax_Info" xml:space="preserve">
+    <value>Datos fiscales</value>
+  </data>
+  <data name="Tax_List" xml:space="preserve">
+    <value>Listado de impuestos</value>
+  </data>
+  <data name="Tax_Name" xml:space="preserve">
+    <value>Nombre del impuesto</value>
+  </data>
+  <data name="Tax_Search" xml:space="preserve">
+    <value>Buscar impuesto</value>
+  </data>
+  <data name="TCKN" xml:space="preserve">
+    <value>TCKN (Número de identificación turco)</value>
+  </data>
+  <data name="TC_Number" xml:space="preserve">
+    <value>Número de identificación TC</value>
+  </data>
+  <data name="TemperedGlass" xml:space="preserve">
+    <value>Cristal reforzado</value>
+  </data>
+  <data name="Tenant" xml:space="preserve">
+    <value>Arrendatario</value>
+  </data>
+  <data name="TenantLiabilityIncludingFireSmokeWater" xml:space="preserve">
+    <value>Responsabilidad financiera del arrendatario. Incendio, agua, humo. </value>
+  </data>
+  <data name="TenantLiabilityTerrorism" xml:space="preserve">
+    <value>Responsabilidad financiera del arrendatario, terrorismo</value>
+  </data>
+  <data name="TermFollowUpReport" xml:space="preserve">
+    <value>Informe de seguimiento de plazos</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Texto</value>
+  </data>
+  <data name="TE_Fixed_Payable" xml:space="preserve">
+    <value>Manzana naranja </value>
+  </data>
+  <data name="TheAddressYouAreLooking" xml:space="preserve">
+    <value>¿Es alguna de éstas la dirección que busca?</value>
+  </data>
+  <data name="TheAwardWinningAccumulation" xml:space="preserve">
+    <value>Acumulación con premios</value>
+  </data>
+  <data name="TheBasementFloor" xml:space="preserve">
+    <value>Piso bajo</value>
+  </data>
+  <data name="Theft" xml:space="preserve">
+    <value>Robo</value>
+  </data>
+  <data name="TheLast15Days" xml:space="preserve">
+    <value>Últimos 15 días</value>
+  </data>
+  <data name="TheLast30Days" xml:space="preserve">
+    <value>Últimos 30 días</value>
+  </data>
+  <data name="TheLast45Days" xml:space="preserve">
+    <value>Últimos 45 días</value>
+  </data>
+  <data name="TheLast7Days" xml:space="preserve">
+    <value>Últimos 7 días</value>
+  </data>
+  <data name="Then2000To3000" xml:space="preserve">
+    <value>Entre 2000 y 30000 cc</value>
+  </data>
+  <data name="TheNeighborhoodincludedFiscalResponsibilityFireSmokeWater" xml:space="preserve">
+    <value>Responsabilidad financiera de vecindad. Incendios, agua, humo.</value>
+  </data>
+  <data name="TheNumberofEmployeesInTheWorkplace" xml:space="preserve">
+    <value>Número de empleados de la empresa</value>
+  </data>
+  <data name="TheOperationWasSuccessful" xml:space="preserve">
+    <value>La operación se ha completado con éxito</value>
+  </data>
+  <data name="ThereWas_anError" xml:space="preserve">
+    <value>Se ha producido un error inesperado. Corregiremos este error.</value>
+  </data>
+  <data name="ThisAdditionToThePolicyDocumentSoFar" xml:space="preserve">
+    <value>No se han añadido más documentos a esta póliza.</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Este mes</value>
+  </data>
+  <data name="Thursday" xml:space="preserve">
+    <value>Jueves</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Duración</value>
+  </data>
+  <data name="Time_Of_Guarantee_Of_International" xml:space="preserve">
+    <value>Duración de la cobertura extranjera</value>
+  </data>
+  <data name="Title_Login" xml:space="preserve">
+    <value>babonline Entrada</value>
+  </data>
+  <data name="TL_TurkishLiras" xml:space="preserve">
+    <value>TL - LIRA TURCA</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hoy </value>
+  </data>
+  <data name="ToDetailedView" xml:space="preserve">
+    <value>Clique para visualizar </value>
+  </data>
+  <data name="ToMainSection" xml:space="preserve">
+    <value>Clique para pasar a la sección principal</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Asunto</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Importe total</value>
+  </data>
+  <data name="TotalCommission" xml:space="preserve">
+    <value>Total comisión</value>
+  </data>
+  <data name="TotalPremium" xml:space="preserve">
+    <value>Total prima</value>
+  </data>
+  <data name="TotalTax" xml:space="preserve">
+    <value>Total impuestos</value>
+  </data>
+  <data name="Total_Customer" xml:space="preserve">
+    <value>Total clientes</value>
+  </data>
+  <data name="Total_Policy_Number" xml:space="preserve">
+    <value>Total pólizas</value>
+  </data>
+  <data name="Total_Policy_Price" xml:space="preserve">
+    <value>Total pólizas (importe)</value>
+  </data>
+  <data name="Total_Proposal_Number" xml:space="preserve">
+    <value>Total propuestas</value>
+  </data>
+  <data name="Total_Proposal_Price" xml:space="preserve">
+    <value>Total propuestas (importe)</value>
+  </data>
+  <data name="To_2000" xml:space="preserve">
+    <value>Hasta 2000 cc</value>
+  </data>
+  <data name="Traffic" xml:space="preserve">
+    <value>Tráfico</value>
+  </data>
+  <data name="TrafficDate" xml:space="preserve">
+    <value>Fecha de circulación </value>
+  </data>
+  <data name="TrafficInsurance" xml:space="preserve">
+    <value>Seguro de automóviles de responsabilidad ante terceros </value>
+  </data>
+  <data name="TrafficServicesDevelopmentFund_small" xml:space="preserve">
+    <value>Fondo de Servicios para el Desarrollo del Tráfico (TGHF)</value>
+  </data>
+  <data name="TransactionInformation" xml:space="preserve">
+    <value>Datos de la operación </value>
+  </data>
+  <data name="TransactionWas" xml:space="preserve">
+    <value>La operación se ha completado</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transferencia</value>
+  </data>
+  <data name="TransferList" xml:space="preserve">
+    <value>Transferir el listado</value>
+  </data>
+  <data name="Travel" xml:space="preserve">
+    <value>Viaje </value>
+  </data>
+  <data name="TravelEndDate" xml:space="preserve">
+    <value>Fecha de finalización del viaje</value>
+  </data>
+  <data name="TravelHealthInsurance" xml:space="preserve">
+    <value>Seguro de salud para viaje</value>
+  </data>
+  <data name="TravelStartDate" xml:space="preserve">
+    <value>Fecha de inicio del viaje</value>
+  </data>
+  <data name="Tribe" xml:space="preserve">
+    <value>Grupo profesional</value>
+  </data>
+  <data name="Tuesday" xml:space="preserve">
+    <value>Martes</value>
+  </data>
+  <data name="TUMDetails" xml:space="preserve">
+    <value>Datos de la compañía aseguradora</value>
+  </data>
+  <data name="TUMManage" xml:space="preserve">
+    <value>GESTIÓN DE LAS COMPAÑÍAS ASEGURADORAS</value>
+  </data>
+  <data name="TUM_Add" xml:space="preserve">
+    <value>Añadir compañía aseguradora</value>
+  </data>
+  <data name="TUM_Code" xml:space="preserve">
+    <value>Código de la compañía aseguradora</value>
+  </data>
+  <data name="TUM_List" xml:space="preserve">
+    <value>Listado de compañías aseguradoras</value>
+  </data>
+  <data name="TUM_PolicyNo" xml:space="preserve">
+    <value>Número de póliza de la compañía aseguradora</value>
+  </data>
+  <data name="TUM_ProposalNo" xml:space="preserve">
+    <value>Número de propuesta de la compañía aseguradora</value>
+  </data>
+  <data name="TUM_Search" xml:space="preserve">
+    <value>Buscar compañía aseguradora</value>
+  </data>
+  <data name="TUM_Title" xml:space="preserve">
+    <value>Título de la compañía aseguradora</value>
+  </data>
+  <data name="TUM_UnityCode" xml:space="preserve">
+    <value>Código de unión</value>
+  </data>
+  <data name="TVMAgency" xml:space="preserve">
+    <value>Agencias </value>
+  </data>
+  <data name="TVMAgency_Add" xml:space="preserve">
+    <value>Añada agencia</value>
+  </data>
+  <data name="TVMAgency_Code" xml:space="preserve">
+    <value>Código de agencia</value>
+  </data>
+  <data name="TVMAgency_Name" xml:space="preserve">
+    <value>Nombre de agencia</value>
+  </data>
+  <data name="TVMAuthority" xml:space="preserve">
+    <value>PODER DEL Canal de ventas</value>
+  </data>
+  <data name="TVMBankAccounts" xml:space="preserve">
+    <value>Cuentas bancarias de los canal de ventas</value>
+  </data>
+  <data name="TVMContactAuthorities" xml:space="preserve">
+    <value>Responsables de la comunicación</value>
+  </data>
+  <data name="TVMContactAuthorities_Add" xml:space="preserve">
+    <value>Añadir responsable de comunicación</value>
+  </data>
+  <data name="TVMDepartment_Add" xml:space="preserve">
+    <value>Añadir departamento</value>
+  </data>
+  <data name="TVMDepartment_DepartmentCode" xml:space="preserve">
+    <value>Código de departamento</value>
+  </data>
+  <data name="TVMDepartment_DepartmentName" xml:space="preserve">
+    <value>Nombre de departamento</value>
+  </data>
+  <data name="TVMDepartment_List" xml:space="preserve">
+    <value>Listado de departamento</value>
+  </data>
+  <data name="TVMDepartment_RegionName" xml:space="preserve">
+    <value>Nombre de la región</value>
+  </data>
+  <data name="TVMDepartment_Search" xml:space="preserve">
+    <value>Buscar departamento</value>
+  </data>
+  <data name="TVMInformation" xml:space="preserve">
+    <value>Datos del canal de ventas</value>
+  </data>
+  <data name="TVMInsuranceCompany_Name" xml:space="preserve">
+    <value>Nombre de la compañía aseguradora</value>
+  </data>
+  <data name="TVMIPConnection_Add" xml:space="preserve">
+    <value>Añadir conexión</value>
+  </data>
+  <data name="TVMIPConnection_EndIP" xml:space="preserve">
+    <value>IP de finalización</value>
+  </data>
+  <data name="TVMIPConnection_List" xml:space="preserve">
+    <value>Listado de conexiones IP</value>
+  </data>
+  <data name="TVMIPConnection_StartIP" xml:space="preserve">
+    <value>IP de inicio</value>
+  </data>
+  <data name="TVMManage" xml:space="preserve">
+    <value>GESTIÓN DEL canal de ventas</value>
+  </data>
+  <data name="TVMRegion_Add" xml:space="preserve">
+    <value>Añadir región</value>
+  </data>
+  <data name="TVMRegion_Code" xml:space="preserve">
+    <value>Código de región</value>
+  </data>
+  <data name="TVMRegion_List" xml:space="preserve">
+    <value>Listado de regiones del canal de ventas</value>
+  </data>
+  <data name="TVMRegion_Name" xml:space="preserve">
+    <value>Nombre de región</value>
+  </data>
+  <data name="TVMUser_Add" xml:space="preserve">
+    <value>Añadir usuario</value>
+  </data>
+  <data name="TVMUser_AuthorityGroup" xml:space="preserve">
+    <value>Grupo de poder</value>
+  </data>
+  <data name="TVMUser_Department" xml:space="preserve">
+    <value>Departamento</value>
+  </data>
+  <data name="TVMUser_Job" xml:space="preserve">
+    <value>Tarea</value>
+  </data>
+  <data name="TVMUser_LastName" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="TVMUser_MobilePhone" xml:space="preserve">
+    <value>Teléfono móvil</value>
+  </data>
+  <data name="TVMUser_MTCode" xml:space="preserve">
+    <value>Código MT de la compañía de seguros</value>
+  </data>
+  <data name="TVMUser_Name" xml:space="preserve">
+    <value>Nombre </value>
+  </data>
+  <data name="TVMUser_PasswordStatus" xml:space="preserve">
+    <value>Estado de la clave</value>
+  </data>
+  <data name="TVMUser_Phone" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+  <data name="TVMUser_ProductionOffer" xml:space="preserve">
+    <value>Emisión de pólizas de propuesta</value>
+  </data>
+  <data name="TVMUser_Search" xml:space="preserve">
+    <value>Buscar usuario</value>
+  </data>
+  <data name="TVMUser_TCKN" xml:space="preserve">
+    <value>TCKN (Número de identificación turco) (nombre del usuario)</value>
+  </data>
+  <data name="TVMUser_TechnicalPersonnelCode" xml:space="preserve">
+    <value>Código del personal técnico</value>
+  </data>
+  <data name="TVMWebServiceUsers" xml:space="preserve">
+    <value>Usuarios de servicios web</value>
+  </data>
+  <data name="TVMWebServiceUser_Add" xml:space="preserve">
+    <value>Añadir usuario de servicio web</value>
+  </data>
+  <data name="TVM_Add" xml:space="preserve">
+    <value>Añadir canal de ventas</value>
+  </data>
+  <data name="TVM_Agency" xml:space="preserve">
+    <value>Agente </value>
+  </data>
+  <data name="TVM_AgencyExists" xml:space="preserve">
+    <value>Agente/sucursal dependiente </value>
+  </data>
+  <data name="TVM_Bank" xml:space="preserve">
+    <value>Banco</value>
+  </data>
+  <data name="TVM_Branch" xml:space="preserve">
+    <value>Sucursal/agente</value>
+  </data>
+  <data name="TVM_Broker" xml:space="preserve">
+    <value>Broker </value>
+  </data>
+  <data name="TVM_Code" xml:space="preserve">
+    <value>Canal de ventas</value>
+  </data>
+  <data name="TVM_ContractEndDate" xml:space="preserve">
+    <value>Fecha de finalización del contrato</value>
+  </data>
+  <data name="TVM_ContractStartDate" xml:space="preserve">
+    <value>Fecha de inicio del contrato</value>
+  </data>
+  <data name="TVM_Customer_Code" xml:space="preserve">
+    <value>Código de cliente del canal de ventas</value>
+  </data>
+  <data name="TVM_HQ" xml:space="preserve">
+    <value>Central</value>
+  </data>
+  <data name="TVM_List" xml:space="preserve">
+    <value>Listado del canal de ventas</value>
+  </data>
+  <data name="TVM_Name" xml:space="preserve">
+    <value>Nombre del canal de ventas</value>
+  </data>
+  <data name="TVM_Producer" xml:space="preserve">
+    <value>Productor</value>
+  </data>
+  <data name="TVM_ProducerTCKN" xml:space="preserve">
+    <value>TCKN (Número de identificación turco) del productor</value>
+  </data>
+  <data name="TVM_ProductAuth_Add" xml:space="preserve">
+    <value>Añadir poderes de producto del canal de ventas</value>
+  </data>
+  <data name="TVM_ProductAuth_List" xml:space="preserve">
+    <value>Listado de poderes del canal de ventas</value>
+  </data>
+  <data name="TVM_ProductAuth_Search" xml:space="preserve">
+    <value>Buscar poderes del canal de ventas</value>
+  </data>
+  <data name="TVM_Profile" xml:space="preserve">
+    <value>Perfil del canal de ventas</value>
+  </data>
+  <data name="TVM_RecordNo" xml:space="preserve">
+    <value>Número de placa/unión/broker</value>
+  </data>
+  <data name="TVM_RecordNo_Tooltip" xml:space="preserve">
+    <value>En caso de ser agente y productor: número de placa &lt;br/&gt;
+Si es una aseguradora: código de unión &lt;br/&gt;
+Si es un banco: unión de bancos &lt;br/&gt;
+</value>
+  </data>
+  <data name="TVM_RelatedCode" xml:space="preserve">
+    <value>Canal de ventas al que está adscrito </value>
+  </data>
+  <data name="TVM_Search" xml:space="preserve">
+    <value>Llamar al canal de ventas</value>
+  </data>
+  <data name="TVM_Select" xml:space="preserve">
+    <value>Seleccione un canal de ventas</value>
+  </data>
+  <data name="TVM_Title" xml:space="preserve">
+    <value>Nombre del canal de ventas</value>
+  </data>
+  <data name="TVM_Type" xml:space="preserve">
+    <value>Tipo de canal de ventas</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="UnBlock" xml:space="preserve">
+    <value>Desbloquear</value>
+  </data>
+  <data name="UnBlock_Info" xml:space="preserve">
+    <value>La clave de usuario será desbloqueada</value>
+  </data>
+  <data name="UnCorrect_Record" xml:space="preserve">
+    <value>Registros erróneos</value>
+  </data>
+  <data name="Undamaged" xml:space="preserve">
+    <value>Sin siniestros</value>
+  </data>
+  <data name="UnLimitedIMM" xml:space="preserve">
+    <value>IMM sin límite (Anadolu Sigorta)</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Actualizar </value>
+  </data>
+  <data name="Upstairs" xml:space="preserve">
+    <value>Pisos de arriba </value>
+  </data>
+  <data name="USD_AmericanDolar" xml:space="preserve">
+    <value>USD - DÓLAR AMERICANO</value>
+  </data>
+  <data name="UseApartment" xml:space="preserve">
+    <value>Forma de utilización del apartamento</value>
+  </data>
+  <data name="UseCentralAuthority" xml:space="preserve">
+    <value>Utilización de los poderes centrales </value>
+  </data>
+  <data name="UsedCarExtendedWarranty" xml:space="preserve">
+    <value>Garantía prolongada de segunda mano </value>
+  </data>
+  <data name="Used_Guarantee" xml:space="preserve">
+    <value>Garantía de segunda mano</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Persona</value>
+  </data>
+  <data name="UserCode" xml:space="preserve">
+    <value>Seleccione código</value>
+  </data>
+  <data name="UserCount" xml:space="preserve">
+    <value>Número de personas</value>
+  </data>
+  <data name="UserGroup" xml:space="preserve">
+    <value>Grupo de usuarios</value>
+  </data>
+  <data name="UserGrupAuthority" xml:space="preserve">
+    <value>Poderes del grupo de usuarios</value>
+  </data>
+  <data name="UserInfo" xml:space="preserve">
+    <value>Datos del usuario</value>
+  </data>
+  <data name="UserManage" xml:space="preserve">
+    <value>GESTIÓN DEL USUARIO</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Nombre del usuario</value>
+  </data>
+  <data name="UserNameSurname" xml:space="preserve">
+    <value>Nombre y apellido del usuario</value>
+  </data>
+  <data name="UserOtorizasyon" xml:space="preserve">
+    <value>Autorización del usuario</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Usuarios</value>
+  </data>
+  <data name="User_Select" xml:space="preserve">
+    <value>Seleccione usuario</value>
+  </data>
+  <data name="UUser" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="ValuableGoodsFire" xml:space="preserve">
+    <value>Objetos valioso, incendio</value>
+  </data>
+  <data name="Vehicle" xml:space="preserve">
+    <value>Vehículo</value>
+  </data>
+  <data name="VehicleBrand" xml:space="preserve">
+    <value>Marca</value>
+  </data>
+  <data name="VehicleInfo" xml:space="preserve">
+    <value>Datos del vehículo</value>
+  </data>
+  <data name="VehicleListRenewals" xml:space="preserve">
+    <value>Renovar el listado de vehículos</value>
+  </data>
+  <data name="VehicleListUpdate" xml:space="preserve">
+    <value>Actualizar el listado de vehículos</value>
+  </data>
+  <data name="VehicleModel" xml:space="preserve">
+    <value>Año del modelo</value>
+  </data>
+  <data name="VehicleType" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="VehicleUsage" xml:space="preserve">
+    <value>Forma de uso</value>
+  </data>
+  <data name="VehicleUsageType" xml:space="preserve">
+    <value>Modo de uso</value>
+  </data>
+  <data name="VehicleValue" xml:space="preserve">
+    <value>Valor del vehículo</value>
+  </data>
+  <data name="Vehicle_LPG" xml:space="preserve">
+    <value>Vehículo de LPF</value>
+  </data>
+  <data name="Vehicle_Type" xml:space="preserve">
+    <value>Tipo de vehículo</value>
+  </data>
+  <data name="VerificationScore" xml:space="preserve">
+    <value>Resultado de la validación</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>Validar</value>
+  </data>
+  <data name="VerifyAddress" xml:space="preserve">
+    <value>Validar dirección</value>
+  </data>
+  <data name="ViewDetails" xml:space="preserve">
+    <value>Visualizar detalles </value>
+  </data>
+  <data name="ViewReport" xml:space="preserve">
+    <value>Visualizar informe</value>
+  </data>
+  <data name="VisitAgeofInsured" xml:space="preserve">
+    <value>Edad de alta del asegurado</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Esperar </value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>¡Advertencia!</value>
+  </data>
+  <data name="WasAdvanced" xml:space="preserve">
+    <value>Ha avanzado</value>
+  </data>
+  <data name="Web_URL" xml:space="preserve">
+    <value>Dirección de página web</value>
+  </data>
+  <data name="Wednesday" xml:space="preserve">
+    <value>Miércoles</value>
+  </data>
+  <data name="WeightOfSnow" xml:space="preserve">
+    <value>Ponderación de beneficio</value>
+  </data>
+  <data name="WhatFloorIsInsuredIn" xml:space="preserve">
+    <value>¿En qué piso está el lugar a asegurarse?</value>
+  </data>
+  <data name="WhatIsIronShutters" xml:space="preserve">
+    <value>¿Hay persianas metálicas?</value>
+  </data>
+  <data name="Widow" xml:space="preserve">
+    <value>Viuda</value>
+  </data>
+  <data name="WinterWeight" xml:space="preserve">
+    <value>De invierno</value>
+  </data>
+  <data name="Women" xml:space="preserve">
+    <value>Mujer</value>
+  </data>
+  <data name="Work" xml:space="preserve">
+    <value>Trabajo</value>
+  </data>
+  <data name="Workplace" xml:space="preserve">
+    <value>Lugar de trabajo</value>
+  </data>
+  <data name="Work_Phone" xml:space="preserve">
+    <value>Teléfono del trabajo</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Año</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+  <data name="YesNo" xml:space="preserve">
+    <value>Sí/No</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Ayer</value>
+  </data>
+  <data name="YouAreAutomaticallyRenewed" xml:space="preserve">
+    <value>¿Qué se renueve automáticamente el año siguiente?</value>
+  </data>
+  <data name="Your_Message" xml:space="preserve">
+    <value>Su mensaje</value>
+  </data>
+  <data name="Your_Phone" xml:space="preserve">
+    <value>Su teléfono</value>
+  </data>
+  <data name="Adding" xml:space="preserve">
+    <value>Adding</value>
+  </data>
+  <data name="Agency" xml:space="preserve">
+    <value>Agency</value>
+  </data>
+  <data name="Introductionoftheplannedtarget" xml:space="preserve">
+    <value>Introduction of the Planned Target</value>
+  </data>
+  <data name="Istheplanofpolicytargetadded" xml:space="preserve">
+    <value>Is  the Plan of Policy Target  Added ?</value>
+  </data>
+  <data name="PleasefillintheYearfield" xml:space="preserve">
+    <value>Please fill in the Year field.</value>
+  </data>
+  <data name="PolicyPlanningProductionTarget" xml:space="preserve">
+    <value>Policy Planning Production Target</value>
+  </data>
+  <data name="Save_Update" xml:space="preserve">
+    <value>Save//Update</value>
+  </data>
+  <data name="targetQueries" xml:space="preserve">
+    <value>Target Queries</value>
+  </data>
+  <data name="ActuaryProduction" xml:space="preserve">
+    <value>Actuary Production</value>
+  </data>
+  <data name="ActuaryProductionReport" xml:space="preserve">
+    <value>Actuary Production Report</value>
+  </data>
+  <data name="Addendum" xml:space="preserve">
+    <value>Addendum</value>
+  </data>
+  <data name="Endorsement" xml:space="preserve">
+    <value>Endorsement No</value>
+  </data>
+  <data name="DailyReportList" xml:space="preserve">
+    <value>Daily Report List</value>
+  </data>
+  <data name="DateOfRegistration" xml:space="preserve">
+    <value>Date Of Registration</value>
+  </data>
+  <data name="DateOfUpdate" xml:space="preserve">
+    <value>Date Of Update</value>
+  </data>
+  <data name="DayClosed" xml:space="preserve">
+    <value>Day Closed</value>
+  </data>
+  <data name="Have" xml:space="preserve">
+    <value>Have</value>
+  </data>
+  <data name="Havent" xml:space="preserve">
+    <value>Haven't</value>
+  </data>
+  <data name="InsuranceCompanyProposalNo" xml:space="preserve">
+    <value>Insurance Company Proposal No</value>
+  </data>
+  <data name="InsuranceExpertProduction" xml:space="preserve">
+    <value>Insurance Expert Production</value>
+  </data>
+  <data name="InsuranceExpertProductionReport" xml:space="preserve">
+    <value>Insurance Expert Production Report</value>
+  </data>
+  <data name="InsurancePeriod" xml:space="preserve">
+    <value>Insurance Period</value>
+  </data>
+  <data name="Isthatdeleterecords" xml:space="preserve">
+    <value>Is that delete records</value>
+  </data>
+  <data name="Isthatpolicyaredded" xml:space="preserve">
+    <value>Is that policy are dded</value>
+  </data>
+  <data name="Isthedayclosed" xml:space="preserve">
+    <value>IsThe Day Closed</value>
+  </data>
+  <data name="NetCommission" xml:space="preserve">
+    <value>Net Commission</value>
+  </data>
+  <data name="Operation" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="Period_Month_Year" xml:space="preserve">
+    <value>Period(Month/Year)</value>
+  </data>
+  <data name="Piece" xml:space="preserve">
+    <value>Piece</value>
+  </data>
+  <data name="PolicyHolder" xml:space="preserve">
+    <value>Policy Holder</value>
+  </data>
+  <data name="Policy_Production_Report" xml:space="preserve">
+    <value>Policy Production Report</value>
+  </data>
+  <data name="ProductionStatus" xml:space="preserve">
+    <value>Production Status</value>
+  </data>
+  <data name="RecordWasDeleted" xml:space="preserve">
+    <value>Record Was Deleted</value>
+  </data>
+  <data name="ReportType" xml:space="preserve">
+    <value>Report Type</value>
+  </data>
+  <data name="SalesChannelCode" xml:space="preserve">
+    <value>Sales Channel Code</value>
+  </data>
+  <data name="SelectIfSubAgency" xml:space="preserve">
+    <value>Select , If Sub Agency</value>
+  </data>
+  <data name="ShowReport" xml:space="preserve">
+    <value>Show Report</value>
+  </data>
+  <data name="SubAgency" xml:space="preserve">
+    <value>Sub Agency</value>
+  </data>
+  <data name="SubAgencyCode" xml:space="preserve">
+    <value>Sub Agency Code</value>
+  </data>
+  <data name="SubAgencyComission" xml:space="preserve">
+    <value>Sub Agency Comission</value>
+  </data>
+  <data name="SubAgencyName" xml:space="preserve">
+    <value>Sub Agency Name</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="TurnOffTheDay" xml:space="preserve">
+    <value>Turn Off The Day</value>
+  </data>
+  <data name="TurnOffTheDayIfYouDontHaveDailyPolicy" xml:space="preserve">
+    <value>Turn Off TheDay If You Don't Have Daily Policy</value>
+  </data>
+  <data name="Unclear" xml:space="preserve">
+    <value>Unclear</value>
+  </data>
+  <data name="PleaseWaitLoadingPolicy" xml:space="preserve">
+    <value>Please Wait Loading Policy</value>
+  </data>
+  <data name="PolicyTransfer" xml:space="preserve">
+    <value>Policy Transfer</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="BrandCode1" xml:space="preserve">
+    <value>Brand Code</value>
+  </data>
+  <data name="DriverInclude" xml:space="preserve">
+    <value>Driver Include</value>
+  </data>
+  <data name="Installment" xml:space="preserve">
+    <value>Installment</value>
+  </data>
+  <data name="ReportShowsUntilPreviousDay" xml:space="preserve">
+    <value>Report Shows Until Previous Day</value>
+  </data>
+  <data name="PlannedTargets" xml:space="preserve">
+    <value>Planned Targets</value>
+  </data>
+  <data name="RealizedPercentage" xml:space="preserve">
+    <value>Realized Percentage</value>
+  </data>
+  <data name="RealizedProduction" xml:space="preserve">
+    <value>Realized Production</value>
+  </data>
+  <data name="RealizedTargets" xml:space="preserve">
+    <value>Realized Targets</value>
+  </data>
+  <data name="SalesCahannelTrialVersion" xml:space="preserve">
+    <value>Sales Cahannel Trial Version</value>
+  </data>
+  <data name="TechnicalPersonelNameSurname" xml:space="preserve">
+    <value>Technical Personel Name Surname</value>
+  </data>
+  <data name="AnnualProductionPlanning" xml:space="preserve">
+    <value>Annual Production Planning</value>
+  </data>
+  <data name="ProductionTargetPlan" xml:space="preserve">
+    <value>Production Target Plan</value>
+  </data>
+  <data name="TargetRealizedProduction" xml:space="preserve">
+    <value>Target / Realized Production</value>
+  </data>
+  <data name="TVM" xml:space="preserve">
+    <value>Sales Channel</value>
+  </data>
+  <data name="Closing" xml:space="preserve">
+    <value>Closing</value>
+  </data>
+  <data name="RealizedProduct" xml:space="preserve">
+    <value>Realized Porduction</value>
+  </data>
+  <data name="EndofDayOperations" xml:space="preserve">
+    <value>End of Day Operations</value>
+  </data>
+  <data name="ReportsShowPreviousDay" xml:space="preserve">
+    <value>The report shows the results of the Previous Day</value>
+  </data>
+  <data name="SubAgencyTransfer" xml:space="preserve">
+    <value>Sub Agency Transfer</value>
+  </data>
+  <data name="PriorInformationSalesReferencesIntroduction" xml:space="preserve">
+    <value>11 - Prior Information (Sales References Introduction)</value>
+  </data>
+  <data name="PriorInformationWithIntroduction" xml:space="preserve">
+    <value>1 - Prior Information With Introduction</value>
+  </data>
+  <data name="DelayHike" xml:space="preserve">
+    <value>Delay Hike</value>
+  </data>
+  <data name="Pleaseclickheretoportal" xml:space="preserve">
+    <value>Please click here to portal</value>
+  </data>
+  <data name="NoSubstitution" xml:space="preserve">
+    <value>No Substitution</value>
+  </data>
+  <data name="Institution" xml:space="preserve">
+    <value>Institution</value>
+  </data>
+  <data name="InstitutionType" xml:space="preserve">
+    <value>Institution Type</value>
+  </data>
+  <data name="Days14_24" xml:space="preserve">
+    <value>14 Days 24</value>
+  </data>
+  <data name="Days7_24" xml:space="preserve">
+    <value>7 Days 24</value>
+  </data>
+  <data name="productionpolicysynopsisreport" xml:space="preserve">
+    <value>Production Policy Synopsis Report</value>
+  </data>
+  <data name="Proposal_NipponLife" xml:space="preserve">
+    <value>Nippon Sağlık Sigortası</value>
+  </data>
+  <data name="TravelInfo" xml:space="preserve">
+    <value>Información de viaje</value>
+  </data>
+</root>

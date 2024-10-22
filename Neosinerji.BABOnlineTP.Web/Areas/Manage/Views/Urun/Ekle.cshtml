@@ -1,0 +1,78 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.UrunModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/Urun/Liste">@babonline.Product_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Product_Add<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.Product_Add</div>
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("Ekle", "Urun", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            Html.EnableClientValidation(true);
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Branch <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.BransKodu, Model.BransList, new { style = "width:220px;" })
+                    @Html.ValidationMessageFor(m => m.BransKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Product_Code <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.UrunKodu, new { maxlength = 4, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.UrunKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Product_Name <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.UrunAdi, new { maxlength = 30, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.UrunAdi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Status <span class="required">*</span></label>
+                <div class="controls radio-custom">
+                    @Html.RadioButtonListFor(m => m.Durum, Model.Durumlar)
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                <a class="btn" href="~/Manage/Urun/Liste">@babonline.Cancel</a>
+            </div>
+        }
+    </div>
+</div>
+

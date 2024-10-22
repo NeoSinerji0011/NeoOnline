@@ -1,0 +1,78 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@model KGDetayPartialModel
+
+
+<div class="row-fluid">
+
+    <div class="span6">
+        <h3 class="form-section">@babonline.General_Information</h3>
+        <div class="control-group">
+            <label class="control-label">Sigortalı Ad Soyad</label>
+            <div class="controls">
+                <label class="control">@Model.AdSoyad</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Sigorta Başlangıç Tarihi</label>
+            <div class="controls">
+                <label class="control">@Model.SigortaBaslangicTarihi</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Sigorta Süresi (Yıl)</label>
+            <div class="controls">
+                <label class="control">@Model.SigortaSuresi</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Para Birimi</label>
+            <div class="controls">
+                @if (Model.ParaBirimi == "USD")
+                {
+                    <label class="control">ABD Doları</label>
+                }
+                else
+                {
+                    <label class="control">EURO</label>
+                }
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Prim Ödeme Dönemi</label>
+            <div class="controls">
+                <label class="control">@Model.PrimOdemeDonemi</label>
+            </div>
+        </div>
+
+    </div>
+    <div class="span6">
+        <h3 class="form-section">Ana Teminat</h3>
+
+        <div class="control-group">
+            <label class="control-label">Vefat Teminatı Bedeli</label>
+            <div class="controls">
+                <label class="control">@Model.AnaTeminatTutar</label>
+            </div>
+        </div>
+
+
+        <h3 class="form-section">@babonline.Additional_Guarantees</h3>
+        <div class="control-group">
+            <label class="control-label">Maluliyet Yıllık Destek Teminatı Bedeli</label>
+            <div class="controls">
+                <label class="control">@Model.MaluliyetYillikDestekTutar</label>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+

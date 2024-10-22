@@ -1,0 +1,172 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.NeoConnectTvmSirketYetkileriModels
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/TVM/Liste">@babonline.TVM_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Update<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageScripts
+{
+    <script>
+
+        $("#TUMKodu").change(function () {
+            //Anadolu Sigorta ise Swap Kullanıcı Bilgi Giriş Ekranı açılıyor
+            if ($(this).val() == 4) {
+                $("#anadolu-ozel").show();
+            }
+            else {
+                $("#anadolu-ozel").hide();
+            }
+        });
+
+    </script>
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    @*    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>*@
+    <script>
+        var myArraySigortaSirket = [];
+        @if (Model.SigortaSirketleriSelectList != null)
+        {
+
+            foreach (var d in Model.SigortaSirketleriSelectList)
+            {
+                   @:myArraySigortaSirket.push("@d");
+             }
+        }
+
+
+        $(document).ready(function () {
+            $("[rel=tooltip]").tooltip();
+
+            //Tvm listesini Dolduruyor....
+            var tvm = $("#TVMKodu").tvmfinder();
+            tvm.enable();
+
+            $('.multiselect').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                maxHeight: 170,
+                nonSelectedText: '@babonline.PleaseSelect',
+                selectAllText: '@babonline.Select_All',
+                filterPlaceholder: '@babonline.Search',
+                nSelectedText: '@babonline.Selected'
+            });
+
+            if (myArraySigortaSirket.length > 0) {
+                $('#SigortaSirketleriSelectList').val(myArraySigortaSirket);
+            }
+            $("#SigortaSirketleriSelectList").multiselect("refresh");
+            $(".closed").hide();
+
+        });
+    </script>
+}
+
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>NeoConnect Satış Kanalına Sigorta Şirketi Ekle</div>
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("NeoConnectSirketYetkisiEkle", "TVM", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.HiddenFor(m => m.Id)
+            @Html.AntiForgeryToken()
+            @*@Html.HiddenFor(m=>m.TVMKodu && m=>m.TVMUnvan)*@
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TVM_Code <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.TVMKodu, Model.TVMListesi)
+                            @Html.ValidationMessageFor(m => m.TVMKodu)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.InsuranceCompany</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.SigortaSirketleriSelectList, Model.SigortaSirketleri, new { @class = "multiselect", multiple = "multiple", required = "required" })
+                            @Html.ValidationMessageFor(m => m.SigortaSirketleriSelectList)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Status</label>
+                        <div class="controls radio-custom">
+                            @Html.RadioButtonListFor(m => m.Durum, Model.Durumlar)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+
+            <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+
+        }
+        <div class="row-fluid" style="margin-top:2%;">
+            <table id="neoconnecttvmsirketkullanicilari-table" class="table table-bordered table-striped responsive data-table">
+                <thead>
+                    <tr>
+                        <th style="width:10%;">@babonline.TVM_Code</th>
+                        <th style="width: 20%;">@babonline.TVM</th>
+                        <th style="width: 20%;">@babonline.TUM_Title</th>
+                        <th style="width: 10%;">Durum</th>
+                        <th style="width: 50px;">&nbsp;</th>
+                        <th style="width: 40px;">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.sirketYetkliList.Count > 0)
+                    {
+                        foreach (var item in Model.sirketYetkliList)
+                        {
+                            <tr>
+                                <td>@item.TVMKodu</td>
+                                <td>@item.TVMUnvan</td>
+                                <td>@item.TUMUnvan</td>
+                                <td>@item.Durum</td>
+                                <td style="text-align: center;">
+                                    <a href="javascript:void(0)" kayit-id="@item.Id" class="btn btn-mini btn-info edit-neotvmsirket">@babonline.Edit</a>
+                                </td>
+                                <td style="text-align: center;">
+                                    <a href="javascript:void(0)" kayit-id="@item.Id" class="btn btn-mini btn-danger delete-neotvmsirket">@babonline.Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

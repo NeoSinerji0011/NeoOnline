@@ -1,0 +1,27 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model UrunModel
+
+<table id="teminatlar-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 60px;">@babonline.Order</th>
+            <th style="width: 100px;">@babonline.Collateral_Code</th>
+            <th>@babonline.Collateral_Name</th>
+            <th style="width: 40px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Teminatlari)
+        {
+            <tr>
+                <td style="text-align: center;">@item.SiraNo</td>
+                <td>@item.TeminatKodu</td>
+                <td><a href="/Manage/Teminat/Detay/@item.TeminatKodu">@item.TeminatAdi</a></td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" teminat-kodu="@item.TeminatKodu" urun-kodu="@Model.UrunKodu" class="btn btn-mini btn-danger delete-teminat">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

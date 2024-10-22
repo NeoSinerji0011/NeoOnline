@@ -1,0 +1,92 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@section PageScripts
+{
+
+}
+
+<style>
+    .label_field {
+        width: 115px !important;
+    }
+</style>
+<div id="footer" style="margin-top: 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="span8">
+                <h3>@babonline.ContactInformation</h3>
+                <div class="blog_post">
+                    <div class="row">
+                        <div class="span2">
+                            <a href="#">
+                                <img class="img-circle" alt="post image" src="~/Content/img/Home/pic_blog.png">
+                            </a>
+                        </div>
+                        <div class="span4">
+                            <a class="title" href="#">@babonline.Neosinerji_insuranceCounseling
+                            </a>
+                            <div class="intro">
+                                Sultan Selim Mahallesi, Sultan Selim Cad., Lalegül Sokak No:7/37<br />
+                               Kağıthane/İstanbul
+                               
+                            </div>
+                            <div class="date">
+                                Tel: (0 212) 325 68 00                              
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span4 contact_us">
+                <h3>@babonline.Contact_Us </h3>
+                <form class="form-horizontal">
+                    <div class="field">
+                        <div class="label_field">
+                            <label for="inputName">@babonline.Name_Surname</label>
+                        </div>
+                        <input type="text" id="inputName">
+                    </div>
+
+                    <div class="field">
+                        <div class="label_field">
+                            <label for="inputEmail">@babonline.EMail_Address</label>
+                        </div>
+                        <input type="text" id="inputEmail">
+                    </div>
+
+                    <div class="field">
+                        <div class="label_field">
+                            <label for="inputCity">@babonline.Your_Phone</label>
+                        </div>
+                        <input type="text" id="inputCity">
+                    </div>
+
+                    <div class="field">
+                        <div class="label_field">
+                            <label for="inputComment">@babonline.Your_Message</label>
+                        </div>
+                        <textarea name="comments"></textarea>
+                    </div>
+                    <button class="btn" type="submit">@babonline.Send</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="row copyright">
+            <div class="span5">
+                <h3>Social</h3>
+                <a class="social fb" href="#">
+                    <i class="i_facebook"></i>
+                </a>
+                <a class="social tw" href="#">
+                    <i class="i_twitter"></i>
+                </a>
+                <a class="social yt" href="#">
+                    <i class="i_youtube"></i>
+                </a>
+            </div>
+            <div class="span2 offset5 copy">
+                <p>2019 - NeoOnline</p>
+            </div>
+        </div>
+    </div>
+</div>

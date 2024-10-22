@@ -1,0 +1,67 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.PrimIadeli2GenelBilgiler
+
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Premium_Payment_Period<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.PrimOdemeDonemi, Model.PrimDonemleri, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.PrimOdemeDonemi)
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">@babonline.CalculationofChoice<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.HesaplamaSecenegi, Model.HesaplamaSecenekleri, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.HesaplamaSecenegi)
+            </div>
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Insurance_Start_Date<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(s => s.SigortaBaslangicTarihi, new { })
+                @Html.ValidationMessageFor(s => s.SigortaBaslangicTarihi)
+            </div>
+        </div>
+        @*<div class="control-group">
+            <label class="control-label">Surprim Oranı<span class="required">*</span></label>
+            <div class="controls">
+                <div class="input-append">
+                    @Html.TextBoxFor(s => s.SurPrimOrani, new { @class = "m-wrap onlynumbers ", style = "width:90px; text-align:right;" })<span class="add-on">%</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.SurPrimOrani)
+            </div>
+        </div>*@
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group" id="vefat" style="display: none">
+            <label class="control-label">
+                Vefat Tutarı
+  <i class="icon-info-sign tooltips" data-container="body" data-placement="bottom" data-original-title="Örnek Format : 1,500.20"></i><span class="required">*</span>
+            </label>
+            <div class="controls">
+                <div class="input-append">
+                    @Html.TextBoxFor(m => m.VefatTutari, new { @class = "m-wrap autoNumeric-custom", placeholder = "1,500.20", style = "width:90px; text-align:right;", data_val_number = "Örnek format : 1,500.20" })<span class="add-on">$</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.VefatTutari)
+            </div>
+        </div>
+        <div class="control-group" id="yillik" style="display: none">
+            <label class="control-label">Yıllık Prim Tutarı<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.YillikPrimTutari, Model.YillikPrimTutarlari, new { style = "width:100%" })
+                @Html.ValidationMessageFor(s => s.YillikPrimTutari)
+            </div>
+        </div>
+    </div>
+</div>

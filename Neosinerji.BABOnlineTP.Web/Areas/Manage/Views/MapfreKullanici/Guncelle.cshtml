@@ -1,0 +1,105 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@using Neosinerji.BABOnlineTP.Business.Common
+@model MapfreKullaniciGuncelleModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/MapfreKullanici/Liste">@babonline.SearchUser<span></span></a>
+        </li>
+        <li>
+            <a href="~/Manage/MapfreKullanici/Detay/@Model.KullaniciId">@babonline.Detail<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Update<span class="selected"></span></a>
+        </li>
+
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/dataTable")
+    @Scripts.Render("~/bundles/phoneinputjs")
+
+}
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.UserInfo</div>
+    </div>
+    <div class="portlet-body form">
+
+        @using (Html.BeginForm("Guncelle", "MapfreKullanici", FormMethod.Post, new { id = "form0", @class = "form-horizontal" }))
+        {
+            Html.EnableClientValidation(true);
+
+            @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+            @Html.HiddenFor(m => m.KullaniciId)
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Region</label>
+                <div class="controls">
+                    <label class="control">@Model.Bolge </label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">TVM Unvan</label>
+                <div class="controls">
+                    <label class="control">@Model.TVMUnvani</label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.HomePartaj<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.AnaPartaj, new { maxlength = 30, autocompletetype = "disabled", style = "width:200px;", @class = "onlynumbers" })
+                    @Html.ValidationMessageFor(m => m.AnaPartaj)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Tali Partaj<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.TaliPartaj, new { maxlength = 30, autocompletetype = "disabled", style = "width:200px;", @class = "onlynumbers" })
+                    @Html.ValidationMessageFor(m => m.TaliPartaj)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Name   <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.KullaniciAdi, new { maxlength = 30, autocompletetype = "disabled", style = "width:200px;", @class = "onlyalpha" })
+                    @Html.ValidationMessageFor(m => m.KullaniciAdi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Email_Adress </label>
+                <div class="controls">
+                    <label class="control">@Model.Email</label>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                <a class="btn" href="~/Manage/MapfreKullanici/Detay/@Model.KullaniciId">@babonline.Cancel</a>
+            </div>
+        }
+        <!-- END FORM-->
+    </div>
+</div>

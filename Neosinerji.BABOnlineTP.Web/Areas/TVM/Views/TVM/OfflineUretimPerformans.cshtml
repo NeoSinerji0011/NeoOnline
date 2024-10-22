@@ -1,0 +1,1100 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.TVM.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model OfflinePerformansModel
+
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">NeoOnline Kokpit<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.OtherReport<span class="arrow"></span></a>
+            <ul class="dropdown-menu"></ul>
+            <b class="caret-out"></b>
+        </li>
+
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    <div class="row-fluid">
+        <div class="span7">
+            <a href="~/TVM/TVM/OfflineUretimPerformans">
+                <img src="~/Content/img/Resim2.png" alt="Alternate Text" title="NeoOnline Kokpit'e git." width="50%" />
+            </a>
+        </div>
+        <div class="span5">
+            <span style="color: red; font-size: small;">@babonline._warningScreenResolution ! </span>
+        </div>
+    </div>
+}
+
+@section PageStyles{
+
+    <style>
+        #ocak-chartdiv-police,
+        #subat-chartdiv-police,
+        #mart-chartdiv-police,
+        #nisan-chartdiv-police,
+        #mayis-chartdiv-police,
+        #haziran-chartdiv-police,
+        #temmuz-chartdiv-police,
+        #agustos-chartdiv-police,
+        #eylul-chartdiv-police,
+        #ekim-chartdiv-police,
+        #kasim-chartdiv-police,
+        #aralik-chartdiv-police,
+        #geneltoplam-chartdiv-police {
+            width: 100%;
+            height: 700px;
+            font-size: 11px;
+            border: 2px lightgray solid;
+            border-radius: 20px !important;
+            background-color: #fffaf3;
+        }
+
+        #ocak-chartdiv-prim,
+        #subat-chartdiv-prim,
+        #mart-chartdiv-prim,
+        #nisan-chartdiv-prim,
+        #mayis-chartdiv-prim,
+        #haziran-chartdiv-prim,
+        #temmuz-chartdiv-prim,
+        #agustos-chartdiv-prim,
+        #eylul-chartdiv-prim,
+        #ekim-chartdiv-prim,
+        #kasim-chartdiv-prim,
+        #aralik-chartdiv-prim,
+        #geneltoplam-chartdiv-prim {
+            width: 100%;
+            height: 700px;
+            font-size: 11px;
+            border: 2px lightgray solid;
+            border-radius: 20px !important;
+            background-color: #fffaf3;
+        }
+
+        #ocak-chartdiv-komisyon,
+        #subat-chartdiv-komisyon,
+        #mart-chartdiv-komisyon,
+        #nisan-chartdiv-komisyon,
+        #mayis-chartdiv-komisyon,
+        #haziran-chartdiv-komisyon,
+        #temmuz-chartdiv-komisyon,
+        #agustos-chartdiv-komisyon,
+        #eylul-chartdiv-komisyon,
+        #ekim-chartdiv-komisyon,
+        #kasim-chartdiv-komisyon,
+        #aralik-chartdiv-komisyon,
+        #geneltoplam-chartdiv-komisyon {
+            width: 100%;
+            height: 700px;
+            font-size: 11px;
+            border: 2px lightgray solid;
+            border-radius: 20px !important;
+            background-color: #fffaf3;
+        }
+
+        #ocak-chartdiv-verilenkomisyon,
+        #subat-chartdiv-verilenkomisyon,
+        #mart-chartdiv-verilenkomisyon,
+        #nisan-chartdiv-verilenkomisyon,
+        #mayis-chartdiv-verilenkomisyon,
+        #haziran-chartdiv-verilenkomisyon,
+        #temmuz-chartdiv-verilenkomisyon,
+        #agustos-chartdiv-verilenkomisyon,
+        #eylul-chartdiv-verilenkomisyon,
+        #ekim-chartdiv-verilenkomisyon,
+        #kasim-chartdiv-verilenkomisyon,
+        #aralik-chartdiv-verilenkomisyon,
+        #geneltoplam-chartdiv-verilenkomisyon {
+            width: 100%;
+            height: 700px;
+            font-size: 11px;
+            border: 2px lightgray solid;
+            border-radius: 20px !important;
+            background-color: #fffaf3;
+        }
+    </style>
+}
+
+<style>
+    #G {
+        width: 470px;
+        height: 650px;
+    }
+
+        #G:hover {
+            width: 470px;
+            height: 650px;
+        }
+</style>
+
+@section PageScripts
+{
+    @if (lang == "en")
+    {
+        <script type="text/javascript" src="~/content/js/pages/neosinerji.babonlinetp.performans.en.js"></script>
+        <script type="text/ecmascript" src="~/Content/js/date.en.js"></script>
+    }
+    else if (lang == "it")
+    {
+        <script type="text/javascript" src="~/content/js/neosinerji.babonlinetp.performans.it.js"></script>
+        <script type="text/ecmascript" src="~/Content/js/date.en.js"></script>
+    }
+    else
+    {
+        <script type="text/javascript" src="~/content/js/pages/neosinerji.babonlinetp.performans.js"></script>
+        <script type="text/ecmascript" src="~/Content/js/date.js"></script>
+    }
+
+    <script type="text/javascript" src="~/Content/js/highcharts.js"></script>
+    <script type="text/javascript" src="~/Content/js/exporting.js"></script>
+    <script type="text/javascript" src="~/Content/js/daterangepicker.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.flot.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.flot.resize.js"></script>
+
+    <script>
+        var myArray = [];
+        @if (Model.tvmList != null)
+        {
+            foreach (var d in Model.tvmList)
+            {
+                   @:myArray.push("@d");
+             }
+        }
+
+        $(document).ready(function () {
+
+            var oTable = $('.data-table').dataTable({
+                "bFilter": false,
+                "bSort": false,
+                "bInfo": false,
+                "bProcessing": false,
+                "bServerSide": true,
+                "sAjaxSource": "/Police/Police/PoliceUretimIcmal",
+                "bDeferLoading": false,
+                "iDeferLoading": 0,
+                "sDom": 'T<"clear">lfrtip',
+                "oTableTools": { "aButtons": ["xls", "print", "copy", "pdf"] },
+
+            });
+            $("#DataTables_Table_0_length").css({ "display": "none" });
+            $(".dataTables_paginate.paging_bootstrap.pagination").css({ "display": "none" });
+
+            $('.multiselect').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                maxHeight: 170,
+                nonSelectedText: '@babonline.PleaseSelect',
+                selectAllText: '@babonline.Select_All',
+                filterPlaceholder: '@babonline.Search',
+                nSelectedText: '@babonline.Selected'
+            });
+
+            if (myArray.length > 0) {
+                $('#tvmList').val(myArray);
+            }
+            $("#tvmList").multiselect("refresh");
+
+            $("#kokpit-update").click(function () {
+                $(this).button("loading");
+
+                $.ajax({
+                    timeout: 10000000,
+                    method: "post",
+                    url: "/TVM/TVM/KokpitGuncelle",
+                    data: { donemYil: $("#donemYil").val() },
+                    success: function (response) {
+                        if (response.Success) {
+                            $("#kokpit-update").button("reset");
+                            alert("@babonline._warningUpdateCompleted.");
+                        }
+                        else {
+                            alert("@babonline._warningUpdateError.");
+                            $("#kokpit-update").button("reset");
+                        }
+                    },
+                    error: function () {
+                        alert("@babonline.Error");
+                        $("#kokpit-update").button("reset");
+                       }
+                });
+            });
+        });
+    </script>
+}
+
+<div class="row-fluid" style="margin-top: -40px;">
+    <div class="span12" style="margin-top: -60px;">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey" style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-reorder"></i>
+                            <span class="hidden-480">NeoOnline Kokpit</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+
+                        @using (Html.BeginForm("OfflineUretimPerformans", "TVM", FormMethod.Post, new { @class = "form-horizontal", id = "formListe", enctype = "multipart/form-data" }))
+                        {
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.TVM<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.DropDownListFor(s => s.tvmList, Model.tvmler, new { @class = "multiselect", multiple = "multiple", required = "required" })
+                                                @Html.ValidationMessageFor(m => m.tvmList)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Year</label>
+                                            <div class="controls">
+                                                @Html.DropDownListFor(s => s.donemYil, Model.donemler, new { })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span4">
+                                    </div>
+                                </div>
+                            </div>
+                            <span style="color:chocolate">* @babonline._warningSelectYearBeforeUpdateChartData @*Grafik verilerinde hata varsa lütfen Yıl seçerek <b>Grafik Verilerini Güncelle</b> botununa tıklayınız.*@</span><br />
+                            <span style="color:chocolate">* @babonline._warningUpdateIsNotWorkingBasisOfTheSalesChannel @*Güncelleme işlemi Satış Kanalı bazında değil sadece yıl bazında genel olarak çalışmaktadır.*@</span>
+                            <div class="form-actions">
+                                <div class="row-fluid" style="margin-top: 20px;">
+                                    <div class="span6">
+                                        <input type="submit" id="search" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="@babonline.Search" />
+
+                                        <a id="kokpit-update" class="btn green button-submit" href="javascript:;" title="@babonline._warningSelectYearBeforeUpdateChartData." data-loading-text="@babonline.Updating..">@babonline.UpdateChartData</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="row-fluid" style="margin-top: 20px;">
+                            <div class="tabbable tabbable-custom" style="margin-top: 15px;">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tab_1_1" data-toggle="tab">@Model.donemYil @babonline.NumberofPolicies</a></li>
+                                    <li class=""><a href="#tab_1_2" data-toggle="tab">@Model.donemYil @babonline.Net_Premium</a></li>
+                                    @if (Model.MerkezAcenteMi || Model.BolgeYetkilisiMi)
+                                    {
+                                        <li><a href="#tab_1_3" data-toggle="tab">@Model.donemYil @babonline.Commission</a></li>
+                                    }
+                                    <li><a href="#tab_1_4" data-toggle="tab">@Model.donemYil @babonline.SubAgencyComission</a></li>
+                                    <li><a href="#tab_1_5" data-toggle="tab">@Model.donemYil @babonline.OverallTotal</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_1_1">
+
+                                        <div class="row-fluid policeadetleri-container" style="margin-top: 3%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform: uppercase;">@babonline.January</span> / @babonline.NumberofPolicies</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="ocak-chartdiv-police">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="ocak-police-img">
+                                                            <img src="~/Content/img/Emojiler/ocak.jpg" width="50%" style="margin-left: 20%; margin-top: 15%;" />
+                                                        </div>
+                                                        <span class="ocak-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform: uppercase;">@babonline.February</span> / @babonline.NumberofPolicies</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="subat-chartdiv-police">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="subat-police-img">
+                                                            <img src="~/Content/img/Emojiler/subat.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="subat-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row-fluid policeadetleri-container" style="margin-top: 3%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform: uppercase;">@babonline.March</span> / @babonline.NumberofPolicies</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="mart-chartdiv-police">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="mart-police-img">
+                                                            <img src="~/Content/img/Emojiler/mart.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="mart-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform: uppercase;">@babonline.April</span> / @babonline.NumberofPolicies</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="nisan-chartdiv-police">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="nisan-police-img">
+                                                            <img src="~/Content/img/Emojiler/nisan.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="nisan-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row-fluid policeadetleri-container" style="margin-top: 5%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.May</span> / @babonline.NumberofPolicies</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="mayis-chartdiv-police">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="mayis-police-img">
+                                                            <img src="~/Content/img/Emojiler/mayis.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="mayis-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.June</span> / @babonline.NumberofPolicies</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="haziran-chartdiv-police">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="haziran-police-img">
+                                                            <img src="~/Content/img/Emojiler/haziran.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="haziran-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row-fluid policeadetleri-container" style="margin-top: 5%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.July</span> / @babonline.NumberofPolicies</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="temmuz-chartdiv-police">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="temmuz-police-img">
+                                                            <img src="~/Content/img/Emojiler/temmuz.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="temmuz-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase">@babonline.August</span> / @babonline.NumberofPolicies</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="agustos-chartdiv-police">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="agustos-police-img">
+                                                            <img src="~/Content/img/Emojiler/agustos.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="agustos-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row-fluid policeadetleri-container" style="margin-top: 5%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase">@babonline.September</span> / @babonline.NumberofPolicies</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="eylul-chartdiv-police">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="eylul-police-img">
+                                                            <img src="~/Content/img/Emojiler/eylul.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="eylul-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase">@babonline.October</span> / @babonline.NumberofPolicies</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="ekim-chartdiv-police">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="ekim-police-img">
+                                                            <img src="~/Content/img/Emojiler/ekim.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="ekim-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row-fluid policeadetleri-container" style="margin-top: 5%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.November</span> / @babonline.NumberofPolicies</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="kasim-chartdiv-police">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="kasim-police-img">
+                                                            <img src="~/Content/img/Emojiler/kasim.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="kasim-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase">@babonline.December</span> / @babonline.NumberofPolicies</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="aralik-chartdiv-police">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="aralik-police-img">
+                                                            <img src="~/Content/img/Emojiler/aralik.jpg" width="60%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="aralik-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="tab_1_2">
+                                        <div class="row-fluid primler-container" style="margin-top: 3%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.January</span> / @babonline.NetPremiums</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="ocak-chartdiv-prim">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="ocak-prim-img">
+                                                            <img src="~/Content/img/Emojiler/ocak.jpg" width="50%" style="margin-left: 20%; margin-top: 15%;" />
+                                                        </div>
+                                                        <span class="ocak-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.February</span>/ @babonline.NetPremiums</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="subat-chartdiv-prim">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="subat-prim-img">
+                                                            <img src="~/Content/img/Emojiler/subat.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="subat-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid primler-container" style="margin-top: 3%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.March</span> / @babonline.NetPremiums</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="mart-chartdiv-prim">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="mart-prim-img">
+                                                            <img src="~/Content/img/Emojiler/mart.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="mart-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase">@babonline.April</span> / @babonline.NetPremiums</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="nisan-chartdiv-prim">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="nisan-prim-img">
+                                                            <img src="~/Content/img/Emojiler/nisan.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="nisan-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid primler-container" style="margin-top: 5%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.May</span> / @babonline.NetPremiums</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="mayis-chartdiv-prim">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="mayis-prim-img">
+                                                            <img src="~/Content/img/Emojiler/mayis.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="mayis-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.June</span> / @babonline.NetPremiums</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="haziran-chartdiv-prim">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="haziran-prim-img">
+                                                            <img src="~/Content/img/Emojiler/haziran.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="haziran-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid primler-container" style="margin-top: 5%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase">@babonline.July</span> / @babonline.NetPremiums</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="temmuz-chartdiv-prim">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="temmuz-prim-img">
+                                                            <img src="~/Content/img/Emojiler/temmuz.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="temmuz-prim-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase">@babonline.August</span> / @babonline.NetPremiums</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="agustos-chartdiv-prim">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="agustos-prim-img">
+                                                            <img src="~/Content/img/Emojiler/agustos.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="agustos-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid primler-container" style="margin-top: 5%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase">@babonline.September</span> / @babonline.NetPremiums</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="eylul-chartdiv-prim">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="eylul-prim-img">
+                                                            <img src="~/Content/img/Emojiler/eylul.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="eylul-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase">@babonline.October</span> / @babonline.NetPremiums</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="ekim-chartdiv-prim">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="ekim-prim-img">
+                                                            <img src="~/Content/img/Emojiler/ekim.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="ekim-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid primler-container" style="margin-top: 5%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase">@babonline.November</span> / @babonline.NetPremiums</label>
+                                                <div style="margin-left: 2%;">
+                                                        <div id="kasim-chartdiv-prim">
+                                                            <div style="margin-left: 2%; margin-top: 2%; display: none;" class="kasim-prim-img">
+                                                                <img src="~/Content/img/Emojiler/kasim.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                            </div>
+                                                            <span class="kasim-police-img" style="margin-left: 60%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase">@babonline.December</span> / @babonline.NetPremiums</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="aralik-chartdiv-prim">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="aralik-prim-img">
+                                                            <img src="~/Content/img/Emojiler/aralik.jpg" width="60%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="aralik-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if (Model.MerkezAcenteMi || Model.BolgeYetkilisiMi)
+                                    {
+                                        <div class="tab-pane" id="tab_1_3">
+                                            <div class="row-fluid komisyonlar-container" style="margin-top: 3%;">
+                                                <div class="span6">
+                                                    <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.January</span> / @babonline.Commissions</label>
+                                                    <div style="margin-left: 2%;">
+                                                        <div id="ocak-chartdiv-komisyon">
+                                                            <div style="margin-left: 2%; margin-top: 2%; display: none;" class="ocak-komisyon-img">
+                                                                <img src="~/Content/img/Emojiler/ocak.jpg" width="50%" style="margin-left: 20%; margin-top: 15%;" />
+                                                            </div>
+                                                            <span class="ocak-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="span6">
+                                                    <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.February</span> / @babonline.Commissions</label>
+                                                    <div style="margin-left: 2%;">
+                                                        <div id="subat-chartdiv-komisyon">
+                                                            <div style="margin-left: 2%; margin-top: 2%; display: none;" class="subat-komisyon-img">
+                                                                <img src="~/Content/img/Emojiler/subat.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                            </div>
+                                                            <span class="subat-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row-fluid komisyonlar-container" style="margin-top: 3%;">
+                                                <div class="span6">
+                                                    <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.March</span> / @babonline.Commissions</label>
+                                                    <div style="margin-left: 2%;">
+                                                        <div id="mart-chartdiv-komisyon">
+                                                            <div style="margin-left: 2%; margin-top: 2%; display: none;" class="mart-komisyon-img">
+                                                                <img src="~/Content/img/Emojiler/mart.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                            </div>
+                                                            <span class="mart-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="span6">
+                                                    <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.April</span> / @babonline.Commissions</label>
+                                                    <div style="margin-left: 2%;">
+                                                        <div id="nisan-chartdiv-komisyon">
+                                                            <div style="margin-left: 2%; margin-top: 2%; display: none;" class="nisan-komisyon-img">
+                                                                <img src="~/Content/img/Emojiler/nisan.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                            </div>
+                                                            <span class="nisan-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row-fluid komisyonlar-container" style="margin-top: 5%;">
+                                                <div class="span6">
+                                                    <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.May</span> / @babonline.Commissions</label>
+                                                    <div style="margin-left: 2%;">
+                                                        <div id="mayis-chartdiv-komisyon">
+                                                            <div style="margin-left: 2%; margin-top: 2%; display: none;" class="mayis-komisyon-img">
+                                                                <img src="~/Content/img/Emojiler/mayis.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                            </div>
+                                                            <span class="mayis-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="span6">
+                                                    <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.June</span> / @babonline.Commissions</label>
+                                                    <div style="margin-left: 2%;">
+                                                        <div id="haziran-chartdiv-komisyon">
+                                                            <div style="margin-left: 2%; margin-top: 2%; display: none;" class="haziran-komisyon-img">
+                                                                <img src="~/Content/img/Emojiler/haziran.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                            </div>
+                                                            <span class="haziran-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row-fluid komisyonlar-container" style="margin-top: 5%;">
+                                                <div class="span6">
+                                                    <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.July</span> / @babonline.Commissions</label>
+                                                    <div style="margin-left: 2%;">
+                                                        <div id="temmuz-chartdiv-komisyon">
+                                                            <div style="margin-left: 2%; margin-top: 2%; display: none;" class="temmuz-komisyon-img">
+                                                                <img src="~/Content/img/Emojiler/temmuz.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                            </div>
+                                                            <span class="temmuz-komisyon-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="span6">
+                                                    <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.August</span> / @babonline.Commissions</label>
+                                                    <div style="margin-left: 2%;">
+                                                        <div id="agustos-chartdiv-komisyon">
+                                                            <div style="margin-left: 2%; margin-top: 2%; display: none;" class="agustos-komisyon-img">
+                                                                <img src="~/Content/img/Emojiler/agustos.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                            </div>
+                                                            <span class="agustos-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row-fluid komisyonlar-container" style="margin-top: 5%;">
+                                                <div class="span6">
+                                                    <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.September</span> / @babonline.Commissions</label>
+                                                    <div style="margin-left: 2%;">
+                                                        <div id="eylul-chartdiv-komisyon">
+                                                            <div style="margin-left: 2%; margin-top: 2%; display: none;" class="eylul-komisyon-img">
+                                                                <img src="~/Content/img/Emojiler/eylul.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                            </div>
+                                                            <span class="eylul-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="span6">
+                                                    <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.October</span> / @babonline.Commissions</label>
+                                                    <div style="margin-left: 2%;">
+                                                        <div id="ekim-chartdiv-komisyon">
+                                                            <div style="margin-left: 2%; margin-top: 2%; display: none;" class="ekim-komisyon-img">
+                                                                <img src="~/Content/img/Emojiler/ekim.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                            </div>
+                                                            <span class="ekim-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row-fluid komisyonlar-container" style="margin-top: 5%;">
+                                                <div class="span6">
+                                                    <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.November</span> / @babonline.Commissions</label>
+                                                    <div style="margin-left: 2%;">
+                                                        <div id="kasim-chartdiv-komisyon">
+                                                            <div style="margin-left: 2%; margin-top: 2%; display: none;" class="kasim-komisyon-img">
+                                                                <img src="~/Content/img/Emojiler/kasim.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                            </div>
+                                                            <span class="kasim-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="span6">
+                                                    <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.December</span> / @babonline.Commissions</label>
+                                                    <div style="margin-left: 2%;">
+                                                        <div id="aralik-chartdiv-komisyon">
+                                                            <div style="margin-left: 2%; margin-top: 2%; display: none;" class="aralik-komisyon-img">
+                                                                <img src="~/Content/img/Emojiler/aralik.jpg" width="60%" style="margin-left: 20%; margin-top: 10%;" />
+                                                            </div>
+                                                            <span class="aralik-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="tab-pane" id="tab_1_4">
+                                        <div class="row-fluid verilenkomisyonlar-container" style="margin-top: 3%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.January</span> / @babonline.CommissionsGiven</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="ocak-chartdiv-verilenkomisyon">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="ocak-verilenKomisyon-img">
+                                                            <img src="~/Content/img/Emojiler/ocak.jpg" width="50%" style="margin-left: 20%; margin-top: 15%;" />
+                                                        </div>
+                                                        <span class="ocak-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.February</span> / @babonline.CommissionsGiven</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="subat-chartdiv-verilenkomisyon">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="subat-verilenKomisyon-img">
+                                                            <img src="~/Content/img/Emojiler/subat.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="subat-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid verilenkomisyonlar-container" style="margin-top: 3%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.March</span> / @babonline.CommissionsGiven</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="mart-chartdiv-verilenkomisyon">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="mart-verilenKomisyon-img">
+                                                            <img src="~/Content/img/Emojiler/mart.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="mart-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.April</span> / @babonline.CommissionsGiven</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="nisan-chartdiv-verilenkomisyon">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="nisan-verilenKomisyon-img">
+                                                            <img src="~/Content/img/Emojiler/nisan.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="nisan-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid verilenkomisyonlar-container" style="margin-top: 5%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.May</span> / @babonline.CommissionsGiven</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="mayis-chartdiv-verilenkomisyon">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="mayis-verilenKomisyon-img">
+                                                            <img src="~/Content/img/Emojiler/mayis.jpg" width="55%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="mayis-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.June</span> / @babonline.CommissionsGiven</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="haziran-chartdiv-verilenkomisyon">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="haziran-verilenKomisyon-img">
+                                                            <img src="~/Content/img/Emojiler/haziran.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="haziran-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid verilenkomisyonlar-container" style="margin-top: 5%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.July</span> / @babonline.CommissionsGiven</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="temmuz-chartdiv-verilenkomisyon">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="temmuz-verilenKomisyon-img">
+                                                            <img src="~/Content/img/Emojiler/temmuz.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="temmuz-verilenKomisyon-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.August</span> / @babonline.CommissionsGiven</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="agustos-chartdiv-verilenkomisyon">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="agustos-verilenKomisyon-img">
+                                                            <img src="~/Content/img/Emojiler/agustos.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="agustos-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid verilenkomisyonlar-container" style="margin-top: 5%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.September</span> / @babonline.CommissionsGiven</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="eylul-chartdiv-verilenkomisyon">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="eylul-verilenKomisyon-img">
+                                                            <img src="~/Content/img/Emojiler/eylul.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="eylul-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.October</span> / @babonline.CommissionsGiven</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="ekim-chartdiv-verilenkomisyon">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="ekim-verilenKomisyon-img">
+                                                            <img src="~/Content/img/Emojiler/ekim.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="ekim-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid verilenkomisyonlar-container" style="margin-top: 5%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.November</span> / @babonline.CommissionsGiven</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="kasim-chartdiv-verilenkomisyon">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="kasim-verilenKomisyon-img">
+                                                            <img src="~/Content/img/Emojiler/kasim.jpg" width="50%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="kasim-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - <span style="text-transform:uppercase;">@babonline.December</span> / @babonline.CommissionsGiven</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="aralik-chartdiv-verilenkomisyon">
+                                                        <div style="margin-left: 2%; margin-top: 2%; display: none;" class="aralik-verilenKomisyon-img">
+                                                            <img src="~/Content/img/Emojiler/aralik.jpg" width="60%" style="margin-left: 20%; margin-top: 10%;" />
+                                                        </div>
+                                                        <span class="aralik-police-img" style="margin-left: 30%; font-style: italic; display: none; font-size: 14px;">@babonline.SorryNoDataFound !</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="tab_1_5">
+                                        <div class="row-fluid verilenkomisyonlar-container" style="margin-top: 3%;">
+                                            <div class="span6">
+                                                <label>@Model.donemYil - @babonline.OverallTotal / @babonline.Number_of_Policies</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="geneltoplam-chartdiv-police"></div>
+                                                </div>
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - @babonline.OverallTotal / @babonline.PolicyNetPremium</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="geneltoplam-chartdiv-prim"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid verilenkomisyonlar-container" style="margin-top: 3%;">
+                                            <div class="span6">
+                                                @if (Model.MerkezAcenteMi || Model.BolgeYetkilisiMi)
+                                                {
+                                                    <label>@Model.donemYil - @babonline.OverallTotal / @babonline.Commission</label>
+                                                    <div style="margin-left: 2%;">
+                                                        <div id="geneltoplam-chartdiv-komisyon"></div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="span6">
+                                                <label>@Model.donemYil - @babonline.OverallTotal / @babonline.CommissionGiven</label>
+                                                <div style="margin-left: 2%;">
+                                                    <div id="geneltoplam-chartdiv-verilenkomisyon"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/graphics/amcharts.js"></script>
+<script src="~/Content/js/graphics/pie.js"></script>
+<script src="~/Content/js/graphics/light.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+         @Html.Raw(ViewBag.JScript)
+
+        jQuery('.chart-input').off().on('input change', function () {
+            var property = jQuery(this).data('property');
+            var target = chart;
+            var value = Number(this.value);
+
+            chartOcakPolice.startDuration = 0;
+            chartOcakPrim.startDuration = 0;
+            chartOcakKomisyon.startDuration = 0;
+            chartOcakVerilenKomisyon.startDuration = 0;
+
+            chartSubatPolice.startDuration = 0;
+            chartSubatPrim.startDuration = 0;
+            chartSubatKomisyon.startDuration = 0;
+            chartSubatVerilenKomisyon.startDuration = 0;
+
+            chartMartPolice.startDuration = 0;
+            chartMartPrim.startDuration = 0;
+            chartMartKomisyon.startDuration = 0;
+            chartMartVerilenKomisyon.startDuration = 0;
+
+            chartNisanPolice.startDuration = 0;
+            chartNisanPrim.startDuration = 0;
+            chartNisanKomisyon.startDuration = 0;
+            chartNisanVerilenKomisyon.startDuration = 0;
+
+            chartMayisPolice.startDuration = 0;
+            chartMayisPrim.startDuration = 0;
+            chartMayisKomisyon.startDuration = 0;
+            chartMayisVerilenKomisyon.startDuration = 0;
+
+            chartHaziranPolice.startDuration = 0;
+            chartHaziranPrim.startDuration = 0;
+            chartHaziranKomisyon.startDuration = 0;
+            chartHaziranVerilenKomisyon.startDuration = 0;
+
+            chartTemmuzPolice.startDuration = 0;
+            chartTemmuzPrim.startDuration = 0;
+            chartTemmuzKomisyon.startDuration = 0;
+            chartTemmuzVerilenKomisyon.startDuration = 0;
+
+            chartAgustosPolice.startDuration = 0;
+            chartAgustosPrim.startDuration = 0;
+            chartAgustosKomisyon.startDuration = 0;
+            chartAgustosVerilenKomisyon.startDuration = 0;
+
+            chartEylulPolice.startDuration = 0;
+            chartEylulPrim.startDuration = 0;
+            chartEylulKomisyon.startDuration = 0;
+            chartEylulVerilenKomisyon.startDuration = 0;
+
+            chartEkimPolice.startDuration = 0;
+            chartEkimPrim.startDuration = 0;
+            chartEkimKomisyon.startDuration = 0;
+            chartEkimVerilenKomisyon.startDuration = 0;
+
+            chartKasimPolice.startDuration = 0;
+            chartKasimPrim.startDuration = 0;
+            chartKasimKomisyon.startDuration = 0;
+            chartKasimVerilenKomisyon.startDuration = 0;
+
+            chartAralikPolice.startDuration = 0;
+            chartAralikPrim.startDuration = 0;
+            chartAralikKomisyon.startDuration = 0;
+            chartAralikVerilenKomisyon.startDuration = 0;
+
+            chartGenelToplamPolice.startDuration = 0;
+            chartGenelToplamPrim.startDuration = 0;
+            chartGenelToplamKomisyon.startDuration = 0;
+            chartGenelToplamVerilenKomisyon.startDuration = 0;
+
+            if (property == 'innerRadius') {
+                value += "@babonline.Piece";
+            }
+
+            target[property] = value;
+
+            chartOcakPolice.validateNow();
+            chartOcakPrim.validateNow();
+            chartOcakKomisyon.validateNow();
+            chartOcakVerilenKomisyon.validateNow();
+
+            chartSubatPolice.validateNow();
+            chartSubatPrim.validateNow();
+            chartSubatKomisyon.validateNow();
+            chartSubatVerilenKomisyon.validateNow();
+
+            chartMartPolice.validateNow();
+            chartMartPrim.validateNow();
+            chartMartKomisyon.validateNow();
+            chartMartVerilenKomisyon.validateNow();
+
+            chartNisanPolice.validateNow();
+            chartNisanPrim.validateNow();
+            chartNisanKomisyon.validateNow();
+            chartNisanVerilenKomisyon.validateNow();
+
+            chartMayisPolice.validateNow();
+            chartMayisPrim.validateNow();
+            chartMayisKomisyon.validateNow();
+            chartMayisVerilenKomisyon.validateNow();
+
+            chartHaziranPolice.validateNow();
+            chartHaziranPrim.validateNow();
+            chartHaziranKomisyon.validateNow();
+            chartHaziranVerilenKomisyon.validateNow();
+
+            chartTemmuzPolice.validateNow();
+            chartTemmuzPrim.validateNow();
+            chartTemmuzKomisyon.validateNow();
+            chartTemmuzVerilenKomisyon.validateNow();
+
+            chartAgustosPolice.validateNow();
+            chartAgustosPrim.validateNow();
+            chartAgustosKomisyon.validateNow();
+            chartAgustosVerilenKomisyon.validateNow();
+
+            chartEylulPolice.validateNow();
+            chartEylulPrim.validateNow();
+            chartEylulKomisyon.validateNow();
+            chartEylulVerilenKomisyon.validateNow();
+
+            chartEkimPolice.validateNow();
+            chartEkimPrim.validateNow();
+            chartEkimKomisyon.validateNow();
+            chartEkimVerilenKomisyon.validateNow();
+
+            chartKasimPolice.validateNow();
+            chartKasimPrim.validateNow();
+            chartKasimKomisyon.validateNow();
+            chartKasimVerilenKomisyon.validateNow();
+
+            chartAralikPolice.validateNow();
+            chartAralikPrim.validateNow();
+            chartAralikKomisyon.validateNow();
+            chartAralikVerilenKomisyon.validateNow();
+
+            chartGenelToplamPolice.validateNow();
+            chartGenelToplamPrim.validateNow();
+            chartGenelToplamKomisyon.validateNow();
+            chartGenelToplamVerilenKomisyon.validateNow();
+        });
+    });
+</script>

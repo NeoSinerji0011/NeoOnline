@@ -1,0 +1,2441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F08E10F9-99D1-4412-998B-E576FD100C6C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Neosinerji.BABOnlineTP.Web</RootNamespace>
+    <AssemblyName>Neosinerji.BABOnlineTP.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44383</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ClosedXML">
+      <HintPath>..\packages\ClosedXML.0.73.0\lib\net40-client\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.1.4.12333\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.7.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.7\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="INET.Crypto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=49c082c77d4ecc1a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Neosinerji.BABOnlineTP.Business\INET.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="iTextSharp, Version=4.1.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\iTextSharp-LGPL.4.1.6\lib\iTextSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Core.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.JwtBearer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.JwtBearer.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.Internal, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Cryptography.Internal.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Cryptography.Internal.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.DataProtection, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.DataProtection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.DataProtection.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.DataProtection.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.DataProtection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Extensions.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.2.0.4\lib\net45\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Hosting.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.ObjectPool.2.0.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.WebEncoders, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.WebEncoders.2.0.0\lib\netstandard2.0\Microsoft.Extensions.WebEncoders.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.4\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols, Version=2.1.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.2.1.4\lib\net451\Microsoft.IdentityModel.Protocols.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect, Version=2.1.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Protocols.OpenIdConnect.2.1.4\lib\net451\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.4\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.0.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EnterpriseLibrary.Logging.5.0.505.1\lib\NET35\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.Interception.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebHelpers.3.2.3\lib\net45\Microsoft.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.3.2.3\lib\net45\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Registry, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.4.4.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.8.5.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.4.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.0\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.4.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.0\lib\net40\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.0\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.4.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.0\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="reCAPTCHA.MVC">
+      <HintPath>..\packages\reCAPTCH.MVC.1.0.1\lib\net40\reCAPTCHA.MVC.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.6.9.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.6.9\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SmsApi">
+      <HintPath>.\SmsApi.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.4\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.4.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.AccessControl, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.4.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Xml.4.4.0\lib\net461\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.4.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.4.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.3.2.3\lib\net45\WebMatrix.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.2.3\lib\net45\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Bireysel\BireyselAreaRegistration.cs" />
+    <Compile Include="Areas\Bireysel\Controllers\SatinAlController.cs" />
+    <Compile Include="Areas\GorevTakip\Controllers\GorevTakipController.cs" />
+    <Compile Include="Areas\GorevTakip\GorevTakipAreaRegistration.cs" />
+    <Compile Include="Areas\GorevTakip\Models\GorevTakipModel.cs" />
+    <Compile Include="Areas\Hasar\Controllers\HasarController.cs" />
+    <Compile Include="Areas\Hasar\HasarAreaRegistration.cs" />
+    <Compile Include="Areas\Hasar\Models\HasarModel.cs" />
+    <Compile Include="Areas\Komisyon\Controllers\DataController.cs" />
+    <Compile Include="Areas\Komisyon\Controllers\HesaplamaController.cs" />
+    <Compile Include="Areas\Komisyon\Controllers\OranController.cs" />
+    <Compile Include="Areas\Komisyon\KomisyonAreaRegistration.cs" />
+    <Compile Include="Areas\Komisyon\Models\TaliKomisyonHesaplamaFiltreModel.cs" />
+    <Compile Include="Areas\Komisyon\Models\TaliKomisyonOranFiltreIslem.cs" />
+    <Compile Include="Areas\Komisyon\Models\TaliKomisyonOranFiltreModel.cs" />
+    <Compile Include="Areas\Komisyon\Models\TaliKomisyonOranListeModel.cs" />
+    <Compile Include="Areas\Komisyon\Models\TaliKomisyonOranModel.cs" />
+    <Compile Include="Areas\Komisyon\Models\TaliKomisyonHesaplamaListeModel.cs" />
+    <Compile Include="Areas\Manage\Controllers\AracController.cs" />
+    <Compile Include="Areas\Manage\Controllers\BransController.cs" />
+    <Compile Include="Areas\Manage\Controllers\DuyuruController.cs" />
+    <Compile Include="Areas\Manage\Controllers\HataLogController.cs" />
+    <Compile Include="Areas\Manage\Controllers\KonfigurasyonController.cs" />
+    <Compile Include="Areas\Manage\Controllers\EPostaController.cs" />
+    <Compile Include="Areas\Manage\Controllers\KullaniciController.cs" />
+    <Compile Include="Areas\Manage\Controllers\MapfreKullaniciController.cs" />
+    <Compile Include="Areas\Manage\Controllers\MenuController.cs" />
+    <Compile Include="Areas\Manage\Controllers\SoruController.cs" />
+    <Compile Include="Areas\Manage\Controllers\TeminatController.cs" />
+    <Compile Include="Areas\Manage\Controllers\TUMController.cs" />
+    <Compile Include="Areas\Manage\Controllers\TVMController.cs" />
+    <Compile Include="Areas\Manage\Controllers\UrunController.cs" />
+    <Compile Include="Areas\Manage\Controllers\VergiController.cs" />
+    <Compile Include="Areas\Manage\Controllers\WebServiceLogController.cs" />
+    <Compile Include="Areas\Manage\Controllers\YetkiController.cs" />
+    <Compile Include="Areas\Manage\Controllers\YonetimController.cs" />
+    <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
+    <Compile Include="Areas\Manage\Models\BransModels.cs" />
+    <Compile Include="Areas\Manage\Models\AracModels.cs" />
+    <Compile Include="Areas\Manage\Models\CacheHelper.cs" />
+    <Compile Include="Areas\Manage\Models\DuyuruModels.cs" />
+    <Compile Include="Areas\Manage\Models\HataLogModels.cs" />
+    <Compile Include="Areas\Manage\Models\MapfreKullaniciModel.cs" />
+    <Compile Include="Areas\Manage\Models\NeoConnectGrupKullaniciModels.cs" />
+    <Compile Include="Areas\Manage\Models\NeoConnectLogModels.cs" />
+    <Compile Include="Areas\Manage\Models\NeoConnectLogRaporlamaModels.cs" />
+    <Compile Include="Areas\Manage\Models\NeoConnectTvmSirketYetkileriModels.cs" />
+    <Compile Include="Areas\Manage\Models\NeoConnectYasakliUrlModels.cs" />
+    <Compile Include="Areas\Manage\Models\SirketWebEkranModel.cs" />
+    <Compile Include="Areas\Manage\Models\TUMUrunleriModels.cs" />
+    <Compile Include="Areas\Manage\Models\TUMIletisimYetkilileriModels.cs" />
+    <Compile Include="Areas\Manage\Models\TUMBankaHesaplariModels.cs" />
+    <Compile Include="Areas\Manage\Models\TUMDokumanlarModels.cs" />
+    <Compile Include="Areas\Manage\Models\TUMNotlarModels.cs" />
+    <Compile Include="Areas\Manage\Models\TUMIPBaglantiModels.cs" />
+    <Compile Include="Areas\Manage\Models\SigortaSirketleriModels.cs" />
+    <Compile Include="Areas\Manage\Models\KonfigurasyonModels.cs" />
+    <Compile Include="Areas\Manage\Models\EPostaFormatModels.cs" />
+    <Compile Include="Areas\Manage\Models\KullaniciModels.cs" />
+    <Compile Include="Areas\Manage\Models\MerkezYetkisiListesiAktifPasif.cs" />
+    <Compile Include="Areas\Manage\Models\DurumListesiAktifPasif.cs" />
+    <Compile Include="Areas\Manage\Models\MeslekVeTanimModels.cs" />
+    <Compile Include="Areas\Manage\Models\TUMModels.cs" />
+    <Compile Include="Areas\Manage\Models\MenuModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMAcentelikleriModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMBankaHesaplariModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMBolgeleriModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMDenemeSurumModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMDepartmanlarModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMDokumanlarModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMDurumTarihcesiModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMIletisimYetkilileriModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMIPBaglantiModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMKullaniciAtamaModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMKullaniciDurumTarihcesiModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMKullanicilarModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMKullaniciSifreTarihcesiModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMModels.cs" />
+    <Compile Include="Areas\Manage\Models\SoruModels.cs" />
+    <Compile Include="Areas\Manage\Models\TeklifSoruModels.cs" />
+    <Compile Include="Areas\Manage\Models\TeminatModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMNotlarModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMUrunYetkileriModels.cs" />
+    <Compile Include="Areas\Manage\Models\TVMWebServisKullanicilari.cs" />
+    <Compile Include="Areas\Manage\Models\TVMYetkiModels.cs" />
+    <Compile Include="Areas\Manage\Models\UlkeModels.cs" />
+    <Compile Include="Areas\Manage\Models\UrunModels.cs" />
+    <Compile Include="Areas\Manage\Models\VergiModels.cs" />
+    <Compile Include="Areas\Manage\Models\VKNModels.cs" />
+    <Compile Include="Areas\Manage\Controllers\UlkeController.cs" />
+    <Compile Include="Areas\Manage\Models\WebServiceLogModel.cs" />
+    <Compile Include="Areas\Manage\Models\YetkiModels.cs" />
+    <Compile Include="Areas\Manage\Models\YonetimModels.cs" />
+    <Compile Include="Areas\Maps\Controllers\MapsController.cs" />
+    <Compile Include="Areas\Maps\MapsAreaRegistration.cs" />
+    <Compile Include="Areas\Muhasebe\Controllers\MuhasebeController.cs" />
+    <Compile Include="Areas\Muhasebe\Controllers\TopluPoliceTahsilatController.cs" />
+    <Compile Include="Areas\Muhasebe\Models\CariHesapDetayModel.cs" />
+    <Compile Include="Areas\Muhasebe\Models\HesapEkstresiModel.cs" />
+    <Compile Include="Areas\Muhasebe\Models\MuhasebeListModels.cs" />
+    <Compile Include="Areas\Muhasebe\Models\TopluPoliceTahsilatModel.cs" />
+    <Compile Include="Areas\Muhasebe\MuhasebeAreaRegistration.cs" />
+    <Compile Include="Areas\Musteri\Controllers\MusteriController.cs" />
+    <Compile Include="Areas\Musteri\Controllers\PotansiyelMusteriController.cs" />
+    <Compile Include="Areas\Musteri\Models\MusteriModels.cs" />
+    <Compile Include="Areas\Musteri\Models\PotansiyelMusteriModels.cs" />
+    <Compile Include="Areas\Musteri\MusteriAreaRegistration.cs" />
+    <Compile Include="Areas\OdemeGirisi\Controllers\OdemeGirisiController.cs" />
+    <Compile Include="Areas\OdemeGirisi\Models\OdemeGirisiModels.cs" />
+    <Compile Include="Areas\OdemeGirisi\OdemeGirisiAreaRegistration.cs" />
+    <Compile Include="Areas\PoliceTransfer\Controllers\PoliceTransferController.cs" />
+    <Compile Include="Areas\PoliceTransfer\Models\PoliceTransferModel.cs" />
+    <Compile Include="Areas\PoliceTransfer\PoliceTransferAreaRegistration.cs" />
+    <Compile Include="Areas\PoliceUretimHedefPlanlanan\Controllers\PoliceUretimHedefPlaniController.cs" />
+    <Compile Include="Areas\PoliceUretimHedefPlanlanan\Models\PoliceUretimHedefPlanlananModel.cs" />
+    <Compile Include="Areas\PoliceUretimHedefPlanlanan\PoliceUretimHedefPlanlananAreaRegistration.cs" />
+    <Compile Include="Areas\Police\Controllers\PoliceController.cs" />
+    <Compile Include="Areas\Police\Models\PoliceModels.cs" />
+    <Compile Include="Areas\Police\Models\PoliceSorguModel.cs" />
+    <Compile Include="Areas\Police\PoliceAreaRegistration.cs" />
+    <Compile Include="Areas\Rapor\Controllers\AegonRaporController.cs" />
+    <Compile Include="Areas\Rapor\Controllers\LilyumController.cs" />
+    <Compile Include="Areas\Rapor\Controllers\MapfreRaporController.cs" />
+    <Compile Include="Areas\Rapor\Controllers\RaporController.cs" />
+    <Compile Include="Areas\Rapor\Controllers\TVMProjeKoduGenelController.cs" />
+    <Compile Include="Areas\Rapor\Models\AegonModel.cs" />
+    <Compile Include="Areas\Rapor\Models\LilyumModels.cs" />
+    <Compile Include="Areas\Rapor\Models\MapfreModels.cs" />
+    <Compile Include="Areas\Rapor\Models\RaporModels.cs" />
+    <Compile Include="Areas\Rapor\Models\TVMProjeKoduGenelModel.cs" />
+    <Compile Include="Areas\Rapor\RaporAreaRegistration.cs" />
+    <Compile Include="Areas\Robot\Controllers\RobotController.cs" />
+    <Compile Include="Areas\Robot\Models\RobotModel.cs" />
+    <Compile Include="Areas\Robot\RobotAreaRegistration.cs" />
+    <Compile Include="Areas\Robot\Utils\Util.cs" />
+    <Compile Include="Areas\TaliAcenteTransfer\Controllers\TaliAcenteTransferController.cs" />
+    <Compile Include="Areas\TaliAcenteTransfer\Models\TaliAcenteTransferModel.cs" />
+    <Compile Include="Areas\TaliAcenteTransfer\TaliAcenteTransferAreaRegistration.cs" />
+    <Compile Include="Areas\TaliAcente\Controllers\TaliAcenteController.cs" />
+    <Compile Include="Areas\TaliAcente\Models\TaliAcenteModel.cs" />
+    <Compile Include="Areas\TaliAcente\TaliAcenteAreaRegistration.cs" />
+    <Compile Include="Areas\Teklif\Controllers\DaskController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\EgitimController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\FerdiKazaPlusController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\IkinciElGarantiController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\KaskoController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\KonutController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\KorunanGelecekController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\KrediliHayatController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\LilyumKartController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\MapfreKaskoController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\MapfreTrafikController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\KritikHastalikController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\NipponSeyahatController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\OdemeGuvenceController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\OdulluBirikimController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\PrimIadeli2Controller.cs" />
+    <Compile Include="Areas\Teklif\Controllers\PrimIadeliController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\SeyehatSaglikController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\SirketWebLoginController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\TamamlayiciSaglikController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\TeklifController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\IsYeriController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\TrafikController.cs" />
+    <Compile Include="Areas\Teklif\Controllers\TESabitPrimliController.cs" />
+    <Compile Include="Areas\Teklif\Models\AegonModels.cs" />
+    <Compile Include="Areas\Teklif\Models\BilgilendirmeFormuModels.cs" />
+    <Compile Include="Areas\Teklif\Models\DaskModels.cs" />
+    <Compile Include="Areas\Teklif\Models\EgitimModels.cs" />
+    <Compile Include="Areas\Teklif\Models\FerdiKazaPlusModel.cs" />
+    <Compile Include="Areas\Teklif\Models\IkinciElGarantiModels.cs" />
+    <Compile Include="Areas\Teklif\Models\KaskoModels.cs" />
+    <Compile Include="Areas\Teklif\Models\KonutModels.cs" />
+    <Compile Include="Areas\Teklif\Models\KorunanGelecekModels.cs" />
+    <Compile Include="Areas\Teklif\Models\KrediliHayatModels.cs" />
+    <Compile Include="Areas\Teklif\Models\KritikHastalikModels.cs" />
+    <Compile Include="Areas\Teklif\Models\LilyumFerdiKazaModel.cs" />
+    <Compile Include="Areas\Teklif\Models\MapfreKaskoModels.cs" />
+    <Compile Include="Areas\Teklif\Models\MapfreTrafikModels.cs" />
+    <Compile Include="Areas\Teklif\Models\MetlifeDokumanModel.cs" />
+    <Compile Include="Areas\Teklif\Models\NipponSeyahatModel.cs" />
+    <Compile Include="Areas\Teklif\Models\OdemeGuvenceModel.cs" />
+    <Compile Include="Areas\Teklif\Models\FerdiKazaPlus.cs" />
+    <Compile Include="Areas\Teklif\Models\OdulluBirkimModels.cs" />
+    <Compile Include="Areas\Teklif\Models\PrimIadeli2Models.cs" />
+    <Compile Include="Areas\Teklif\Models\PrimIadeliModels.cs" />
+    <Compile Include="Areas\Teklif\Models\SeyehatSaglikModels.cs" />
+    <Compile Include="Areas\Teklif\Models\TamamlayiciSaglikModels.cs" />
+    <Compile Include="Areas\Teklif\Models\TeklifListProvide.cs" />
+    <Compile Include="Areas\Teklif\Models\TeklifModels.cs" />
+    <Compile Include="Areas\Teklif\Models\IsYeriModels.cs" />
+    <Compile Include="Areas\Teklif\Models\TESabitPrimliModels.cs" />
+    <Compile Include="Areas\Teklif\Models\TrafikModels.cs" />
+    <Compile Include="Areas\Teklif\TeklifAreaRegistration.cs" />
+    <Compile Include="Areas\TVM\Controllers\ProfilController.cs" />
+    <Compile Include="Areas\TVM\Controllers\TestController.cs" />
+    <Compile Include="Areas\TVM\Controllers\TVMController.cs" />
+    <Compile Include="Areas\TVM\Models\KullaniciKokpitViewModel.cs" />
+    <Compile Include="Areas\TVM\Models\OfflineUretimChart.cs" />
+    <Compile Include="Areas\TVM\Models\OfflineUretimKullaniciChart.cs" />
+    <Compile Include="Areas\TVM\Models\PerformansChart.cs" />
+    <Compile Include="Areas\TVM\Models\ProfilModels.cs" />
+    <Compile Include="Areas\TVM\Models\TVMModels.cs" />
+    <Compile Include="Areas\TVM\TVMAreaRegistration.cs" />
+    <Content Include="Content\Angular\css\Animate.css" />
+    <Content Include="Content\Angular\css\sweetalert.css" />
+    <Content Include="Content\Angular\css\sweetalert2.min.css" />
+    <Content Include="Content\Angular\js\sweetalert2.min.js" />
+    <Content Include="Content\Angular\pagejs\komisyon.oran.js" />
+    <Content Include="Content\Angular\js\angular.babonline.resource.js" />
+    <Compile Include="Content\Lang\babonline.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>babonline.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Lang\babonline.en-us.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>babonline.en-us.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Lang\babonline.es-ES.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>babonline.es-ES.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AegonController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HizliTeklifController.cs" />
+    <Compile Include="Controllers\LifeController.cs" />
+    <Compile Include="Controllers\MapfreController.cs" />
+    <Compile Include="Controllers\MetlifeController.cs" />
+    <Compile Include="Models\AegonModel.cs" />
+    <Compile Include="Models\CommonModels.cs" />
+    <Compile Include="Models\ErrorModel.cs" />
+    <Compile Include="Models\HizliTeklifModel.cs" />
+    <Compile Include="Tools\Bootstrapper.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\Filters\AegonLogin.cs" />
+    <Compile Include="Tools\Filters\AjaxExceptionFilter.cs" />
+    <Compile Include="Tools\Filters\AuthorizationAttribute.cs" />
+    <Compile Include="Tools\Filters\IDAuthority.cs" />
+    <Compile Include="Tools\Filters\TestAuthorizationAttribute.cs" />
+    <Compile Include="Tools\Helpers\DateTimeModelBinder.cs" />
+    <Compile Include="Tools\Helpers\DecimalModelBinder.cs" />
+    <Compile Include="Tools\Helpers\DummyPolicyApp.cs" />
+    <Compile Include="Tools\Helpers\EmptySelectList.cs" />
+    <Compile Include="Tools\Helpers\ExceptionTools.cs" />
+    <Compile Include="Tools\Helpers\HtmlExtensions.cs" />
+    <Compile Include="Tools\Helpers\JsonHelper.cs" />
+    <Compile Include="Tools\Helpers\SelectListExtension.cs" />
+    <Compile Include="Tools\Helpers\Utils.cs" />
+    <Compile Include="Tools\Validations\CreditCardValidationRule.cs" />
+    <Compile Include="Tools\Validations\EPostaAdresiAttribute.cs" />
+    <Compile Include="Tools\Validations\EPostaAdresiClientValidationRule.cs" />
+    <Compile Include="Tools\Helpers\ModelStateDictionaryExtension.cs" />
+    <Compile Include="Tools\Validations\MapfreTedaviTeminatAttribute.cs" />
+    <Compile Include="Tools\Validations\MapfreTedaviTeminatClientValidationRule.cs" />
+    <Compile Include="Tools\Validations\TelefonClientValidationRule.cs" />
+    <Compile Include="Tools\Validations\TelefonRequiredClientValidationRule.cs" />
+    <Compile Include="Tools\Validations\TelefonRequiredValidationAttribute.cs" />
+    <Compile Include="Tools\Validations\TelefonValidationAttribute.cs" />
+    <Compile Include="WS\NeoConnect.asmx.cs">
+      <DependentUpon>NeoConnect.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WS\PoliceMuhasebe.asmx.cs">
+      <DependentUpon>PoliceMuhasebe.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Teklif\Views\Teklif\HtmlPage1.html" />
+    <Content Include="Content\css\animate.css" />
+    <Content Include="Content\css\bootstap-multiselect.css" />
+    <Content Include="Content\css\bootstrap-clockpicker.min.css" />
+    <Content Include="Content\css\bootstrap-fileupload.min.css" />
+    <Content Include="Content\css\bootstrap-modal.css" />
+    <Content Include="Content\css\bootstrap-wysihtml5-0.0.2.min.css" />
+    <Content Include="Content\css\bootstrapSwitch.min.css" />
+    <Content Include="Content\css\bootstrap\mixins\_border-radius.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\css\bootstrap\mixins\_reset-text.css" />
+    <Content Include="Content\css\bootstrap\mixins\_screen-reader.css" />
+    <Content Include="Content\css\bootstrap\mixins\_text-hide.css" />
+    <Content Include="Content\css\bootstrap\mixins\_visibility.css" />
+    <Content Include="Content\css\bootstrap\utilities\_stretched-link.css" />
+    <Content Include="Content\css\bootstrap\_media.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\css\chosen.css" />
+    <Content Include="Content\css\datepicker.min.css" />
+    <Content Include="Content\css\error.css" />
+    <Content Include="Content\css\jquery-clockpicker.min.css" />
+    <Content Include="Content\css\jquery.gritter.css" />
+    <Content Include="Content\css\jquery.smoothness.css" />
+    <Content Include="Content\css\login-soft.css" />
+    <Content Include="Content\css\loginStyle.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\css\select2.css" />
+    <Content Include="Content\css\font-awosome.3.2.css" />
+    <Content Include="Content\css\SigortaliGiris.css" />
+    <Content Include="Content\img\bg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\copy.png" />
+    <Content Include="Content\img\csv.png" />
+    <Content Include="Content\img\Emojiler\agustos.jpg" />
+    <Content Include="Content\img\Emojiler\aralik.jpg" />
+    <Content Include="Content\img\Emojiler\ekim.jpg" />
+    <Content Include="Content\img\Emojiler\eylul.jpg" />
+    <Content Include="Content\img\Emojiler\haziran.jpg" />
+    <Content Include="Content\img\Emojiler\kasdim.jpg" />
+    <Content Include="Content\img\Emojiler\kasim.jpg" />
+    <Content Include="Content\img\Emojiler\mart.jpg" />
+    <Content Include="Content\img\Emojiler\mayis.jpg" />
+    <Content Include="Content\img\Emojiler\nisan.jpg" />
+    <Content Include="Content\img\Emojiler\ocak.jpg" />
+    <Content Include="Content\img\Emojiler\subat.jpg" />
+    <Content Include="Content\img\Emojiler\temmuz.jpg" />
+    <Content Include="Content\img\Emojiler\uzgun.jpg" />
+    <Content Include="Content\img\excel.png" />
+    <Content Include="Content\img\gulf-logo.png" />
+    <Content Include="Content\img\hasar.png" />
+    <Content Include="Content\img\11845336-cockpit.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\11930983-cockpit.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\Aegon\aegonHeaderTE.jpg" />
+    <Content Include="Content\img\Aegon\aegonlogo-pdf.jpg" />
+    <Content Include="Content\img\Aegon\aegon__logo.jpg" />
+    <Content Include="Content\img\Aegon\EgitimSigortasiHeader_eski.jpg" />
+    <Content Include="Content\img\allianz-logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\ergo-logo.png" />
+    <Content Include="Content\img\es.png" />
+    <Content Include="Content\img\eureko-logo.png" />
+    <Content Include="Content\img\fr.png" />
+    <Content Include="Content\img\Groupama_Logolar.png" />
+    <Content Include="Content\img\it.png" />
+    <Content Include="Content\img\lilyum-icon.png" />
+    <Content Include="Content\img\Mapfre\eureko-alt.png" />
+    <Content Include="Content\img\Mapfre\ust.png" />
+    <Content Include="Content\img\pdf.png" />
+    <Content Include="Content\img\pdficon_large.png" />
+    <Content Include="Content\img\Product\dask.jpg" />
+    <Content Include="Content\img\Product\egitim-sigortasi.jpg" />
+    <Content Include="Content\img\Product\isyeri.jpg" />
+    <Content Include="Content\img\Product\kasko.png" />
+    <Content Include="Content\img\Product\konut.jpg" />
+    <Content Include="Content\img\Product\korunan-gelecek.png" />
+    <Content Include="Content\img\Product\kredi-hayat.jpg" />
+    <Content Include="Content\img\Product\musteri-icon.png" />
+    <Content Include="Content\img\Product\new-proposal.png" />
+    <Content Include="Content\img\Product\odeme-guvence.png" />
+    <Content Include="Content\img\Product\odullu-birikim.png" />
+    <Content Include="Content\img\Product\pol-oran2.jpg" />
+    <Content Include="Content\img\Product\policy-icon.png" />
+    <Content Include="Content\img\Product\policy-life-icon.png" />
+    <Content Include="Content\img\Product\prim-iadeli.png" />
+    <Content Include="Content\img\Product\saglik.jpg" />
+    <Content Include="Content\img\Product\salesprojections_icon.png" />
+    <Content Include="Content\img\Product\satis_en_icon.jpg" />
+    <Content Include="Content\img\Product\teklif-icon.png" />
+    <Content Include="Content\img\Product\trafik.jpg" />
+    <Content Include="Content\img\Product\trafik.png" />
+    <Content Include="Content\img\Product\turuncu-elma.jpg" />
+    <Content Include="Content\img\ray.jpg" />
+    <Content Include="Content\img\red.ico" />
+    <Content Include="Content\img\Resim1.png" />
+    <Content Include="Content\img\Resim2.png" />
+    <Content Include="Content\img\Resim3.png" />
+    <Content Include="Content\img\Robot\back.png" />
+    <Content Include="Content\img\Robot\robotlogo.png" />
+    <Content Include="Content\img\select2-spinner.gif" />
+    <Content Include="Content\img\select2.png" />
+    <Content Include="Content\img\select2x2.png" />
+    <Content Include="Content\img\sidebar-menu-arrow-orange.png" />
+    <Content Include="Content\img\SompoJapan.jpg" />
+    <Content Include="Content\img\Turknippon.jpg" />
+    <Content Include="Content\img\Turknippon.png" />
+    <Content Include="Content\img\unico-logo.png" />
+    <Content Include="Content\img\YeniTasarim\aegon-login-logo-en.png" />
+    <Content Include="Content\img\YeniTasarim\aegon-login-logo.png" />
+    <Content Include="Content\img\YeniTasarim\bg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\YeniTasarim\comodosecure.png" />
+    <Content Include="Content\img\YeniTasarim\giris-kilit-eu.png" />
+    <Content Include="Content\img\YeniTasarim\giris-kilit-tr.png" />
+    <Content Include="Content\img\YeniTasarim\hayat-sigortasi.jpg" />
+    <Content Include="Content\img\YeniTasarim\hjh.JPG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\YeniTasarim\italy.png" />
+    <Content Include="Content\img\YeniTasarim\lilyum-login.jpg.jpg" />
+    <Content Include="Content\img\YeniTasarim\lilyumkart.png" />
+    <Content Include="Content\img\YeniTasarim\login-left.jpg" />
+    <Content Include="Content\img\YeniTasarim\logo212.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\YeniTasarim\neoSinerji_logo.jpg" />
+    <Content Include="Content\Angular\js\angular.min.js" />
+    <Content Include="Content\Angular\pagejs\komisyon.hesaplama.js" />
+    <Content Include="Content\Angular\css\bootstrap.min.css" />
+    <Content Include="Content\Angular\js\multiselect.js" />
+    <Content Include="Content\Angular\tmpl\multiselect.tmpl.html" />
+    <Content Include="Content\Angular\css\style.css" />
+    <Content Include="Content\Angular\css\xeditable.css" />
+    <Content Include="Content\Angular\js\xeditable.js" />
+    <Content Include="Content\img\YeniTasarim\only_logo.jpg" />
+    <Content Include="Content\img\YeniTasarim\Resim8.png" />
+    <Content Include="Content\img\YeniTasarim\right-login.jpg" />
+    <Content Include="Content\img\YeniTasarim\symbol.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\YeniTasarim\ust-banner-2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\YeniTasarim\yeni_logo.JPG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\yesiltik.png" />
+    <Content Include="Content\js\bootstrap-clockpicker.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\cleave.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\customDataTable.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\customDataTable2.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\customDataTable3.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\customlang.it.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\date.it.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\graphics\amcharts.js" />
+    <Content Include="Content\js\graphics\chart.js" />
+    <Content Include="Content\js\graphics\light.js" />
+    <Content Include="Content\js\graphics\pie.js" />
+    <Content Include="Content\js\jquery-clockpicker.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\main.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\MapfreDisAcente\kasko.js" />
+    <Content Include="Content\js\MapfreDisAcente\dask.js" />
+    <Content Include="Content\js\MapfreDisAcente\ikincielgaranti.js" />
+    <Content Include="Content\js\MapfreDisAcente\lilyum.js" />
+    <Content Include="Content\js\MapfreDisAcente\seyehatsaglik.js" />
+    <Content Include="Content\js\MapfreDisAcente\konut.js" />
+    <Content Include="Content\js\MapfreDisAcente\isyeri.js" />
+    <Content Include="Content\js\MapfreDisAcente\trafik.js" />
+    <Content Include="Content\js\Aegon\aegon.tesabitpirimli.js" />
+    <Content Include="Content\js\Aegon\odemeguvence-ilgiliurun.js" />
+    <Content Include="Content\js\MapfreDisAcente\tss.js" />
+    <Content Include="Content\js\mask.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\moment.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\neosinerji.babonlinetp.nipponsaglik.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\neosinerji.babonlinetp.nipponSeyahatTeklif.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\neosinerji.babonlinetp.performans.it.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\PoliceTransfer\PoliceTransfer.js" />
+    <Content Include="Content\js\popper.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\select2.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\select2_locale_tr.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\css\select2_metro.css" />
+    <Content Include="Content\css\style.aegon.css" />
+    <Content Include="Content\css\mapfre-login.css" />
+    <Content Include="Content\css\TableTools.min.css" />
+    <Content Include="Content\css\theme.min.css" />
+    <Content Include="Content\css\themes\aegon.css" />
+    <Content Include="Content\css\theme_home.min.css" />
+    <Content Include="Content\css\timepicker.min.css" />
+    <Content Include="Content\css\TLsimgesi.css" />
+    <Content Include="Content\css\Yenitema.css" />
+    <Content Include="Content\css\YeniTemaLogin.css" />
+    <Content Include="Content\fonts\TlsimgesiFont.css" />
+    <Content Include="Content\fonts\TRY.dev.svg" />
+    <Content Include="Content\fonts\TRY.svg" />
+    <Content Include="Content\img\Aegon\aegonFooter.jpg" />
+    <Content Include="Content\img\Aegon\aegonHeader.jpg" />
+    <Content Include="Content\img\Aegon\aegonlogo.jpg" />
+    <Content Include="Content\img\Aegon\aegonSigortaliBilgileri.jpg" />
+    <Content Include="Content\img\Aegon\aegonSigortaPrimeleri.jpg" />
+    <Content Include="Content\img\Aegon\aegonSigortaPrimeleri_EUR.jpg" />
+    <Content Include="Content\img\Aegon\aegonSigortaPrimeleri_USD.jpg" />
+    <Content Include="Content\img\Aegon\arrow.gif" />
+    <Content Include="Content\img\Aegon\EgitimSigortasiHeader.jpg" />
+    <Content Include="Content\img\Aegon\enter.jpg" />
+    <Content Include="Content\img\Aegon\gr_bg.jpg" />
+    <Content Include="Content\img\Aegon\korunan-gelecek-header.jpg" />
+    <Content Include="Content\img\Aegon\korunan-gelecek-img.jpg" />
+    <Content Include="Content\img\Aegon\korunangelecek-img-baslik.jpg" />
+    <Content Include="Content\img\Aegon\korunan_gelecek_parabirimEuro_baslik.jpg" />
+    <Content Include="Content\img\Aegon\login_bg.jpg" />
+    <Content Include="Content\img\Aegon\OB_FooterBorder.jpg" />
+    <Content Include="Content\img\Aegon\odulluBirikim_birikimBilgileri.jpg" />
+    <Content Include="Content\img\Aegon\odulluBirikim_Header.jpg" />
+    <Content Include="Content\img\Aegon\odulluBirikim_teminatKesinti.jpg" />
+    <Content Include="Content\img\Aegon\primiadeli-hayat-470.png" />
+    <Content Include="Content\img\Aegon\PrimIadeli_Header.jpg" />
+    <Content Include="Content\img\Aegon\PrimIadeli_Header.png" />
+    <Content Include="Content\img\Aegon\PrimIadeli_Header2.png" />
+    <Content Include="Content\img\Aegon\sorgula.png" />
+    <Content Include="Content\img\Aegon\Tetkikler.jpg" />
+    <Content Include="Content\img\Aegon\unl.gif" />
+    <Content Include="Content\img\Aegon\warning.png" />
+    <Content Include="Content\img\aig-logo1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\earth.jpg" />
+    <Content Include="Content\img\glyphicons_028_cars.png" />
+    <Content Include="Content\img\icon-details.png" />
+    <Content Include="Content\img\input-spinner.gif" />
+    <Content Include="Content\img\Mapfre\alt.png" />
+    <Content Include="Content\img\Mapfre\anasayfa_new2.jpg" />
+    <Content Include="Content\img\Mapfre\avatar.png" />
+    <Content Include="Content\img\Mapfre\header.png" />
+    <Content Include="Content\img\Mapfre\hsap.png" />
+    <Content Include="Content\img\Mapfre\Login.jpg" />
+    <Content Include="Content\img\Mapfre\mail_logo.png" />
+    <Content Include="Content\img\Mapfre\mapfre_jet.png" />
+    <Content Include="Content\img\Mapfre\mapfre_logo.png" />
+    <Content Include="Content\img\Maps\1.jpg" />
+    <Content Include="Content\img\Maps\2.jpg" />
+    <Content Include="Content\img\Maps\3.jpg" />
+    <Content Include="Content\img\Maps\4.jpg" />
+    <Content Include="Content\img\Maps\ajax-modal-loading.gif" />
+    <Content Include="Content\img\Maps\bg-white-lock.png" />
+    <Content Include="Content\img\Maps\blue_MarkerS.png" />
+    <Content Include="Content\img\Maps\brown_MarkerY.png" />
+    <Content Include="Content\img\Maps\darkgreen_MarkerT.png" />
+    <Content Include="Content\img\Maps\orange_MarkerF.png" />
+    <Content Include="Content\img\metlife-tvm-logo.png" />
+    <Content Include="Content\img\parituslogo-ori.png" />
+    <Content Include="Content\img\sidebar-menu-arrow-blue.png" />
+    <Content Include="Content\img\social\callbutton_16px.png" />
+    <Content Include="Content\img\social\chatbutton_16px.png" />
+    <Content Include="Content\img\social\linkedin.png" />
+    <Content Include="Content\img\social\skype.png" />
+    <Content Include="Content\img\YeniTasarim\01_giris_V3_15_en-us.png" />
+    <Content Include="Content\img\animated-overlay.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\css\bootstrap-fileupload.css" />
+    <Content Include="Content\css\bootstrap-responsive.css" />
+    <Content Include="Content\css\bootstrap-responsive.min.css" />
+    <Content Include="Content\css\bootstrap-wysihtml5-0.0.2.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\bootstrapSwitch.css" />
+    <Content Include="Content\css\custom.css" />
+    <Content Include="Content\css\datepicker.css" />
+    <Content Include="Content\css\daterangepicker.css" />
+    <Content Include="Content\css\DT_bootstrap.css" />
+    <Content Include="Content\css\font-awesome.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\jquery-ui.css" />
+    <Content Include="Content\css\jquery-ui.min.css" />
+    <Content Include="Content\css\jquery.ui.datepicker.css" />
+    <Content Include="Content\css\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\css\style-metro.css" />
+    <Content Include="Content\css\style-responsive.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\teklif-custom.css" />
+    <Content Include="Content\css\themes\blue.css" />
+    <Content Include="Content\css\themes\brown.css" />
+    <Content Include="Content\css\themes\default.css" />
+    <Content Include="Content\css\themes\light.css" />
+    <Content Include="Content\css\themes\purple.css" />
+    <Content Include="Content\css\themes\ram_sigorta.css" />
+    <Content Include="Content\css\theme_home.css" />
+    <Content Include="Content\img\CHARTIS.png" />
+    <Content Include="Content\img\chosen-sprite.png" />
+    <Content Include="Content\img\demir.png" />
+    <Content Include="Content\img\Devices-printer-icon.png" />
+    <Content Include="Content\img\Excel-icon.png" />
+    <Content Include="Content\img\Files-Copy-File-icon.png" />
+    <Content Include="Content\img\FooterLeft.png" />
+    <Content Include="Content\img\FooterRight.png" />
+    <Content Include="Content\img\gritter-blue.png" />
+    <Content Include="Content\img\gritter-brown.png" />
+    <Content Include="Content\img\gritter-light.png" />
+    <Content Include="Content\img\gritter-long.png" />
+    <Content Include="Content\img\gritter-purple.png" />
+    <Content Include="Content\img\gritter.png" />
+    <Content Include="Content\img\ie-spacer.gif" />
+    <Content Include="Content\img\kredili_hayat_imzalar.jpg" />
+    <Content Include="Content\img\pdf-icon-big.png" />
+    <Content Include="Content\img\PDFFooter.png" />
+    <Content Include="Content\img\printer.png" />
+    <Content Include="Content\img\sinerji_kredili_hayat.jpg" />
+    <Content Include="Content\img\tr.png" />
+    <Content Include="Content\img\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\img\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\img\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\img\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\img\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\img\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\img\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\img\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\img\ui-icons_222222_256x240.png" />
+    <Content Include="Content\img\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\img\ui-icons_454545_256x240.png" />
+    <Content Include="Content\img\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\css\uniform.default.css" />
+    <Content Include="Content\fonts\font.css" />
+    <Content Include="Content\img\anadolu.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\calendar.gif" />
+    <Content Include="Content\img\destek.png" />
+    <Content Include="Content\img\glyphicons-white.png" />
+    <Content Include="Content\img\glyphicons-white.svg" />
+    <Content Include="Content\img\glyphicons.png" />
+    <Content Include="Content\img\ajax-loading.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\arrow-down.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\avatar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\axa.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\bg-input-focus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\bg-input.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\bg-opacity.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\glyphicons.svg" />
+    <Content Include="Content\img\glyphicons_045_calendar.png" />
+    <Content Include="Content\img\glyphicons_223_chevron-right.png" />
+    <Content Include="Content\img\glyphicons_224_chevron-left.png" />
+    <Content Include="Content\img\handle.png" />
+    <Content Include="Content\img\hdi.png" />
+    <Content Include="Content\img\headshotpicnik-1024x1021.jpg" />
+    <Content Include="Content\img\Home\about.png" />
+    <Content Include="Content\img\Home\babonline_logo_maxi.png" />
+    <Content Include="Content\img\Home\babonline_logo_mini.png" />
+    <Content Include="Content\img\Home\chart1.png" />
+    <Content Include="Content\img\Home\chart1_small.png" />
+    <Content Include="Content\img\Home\chart2.png" />
+    <Content Include="Content\img\Home\chart2_small.png" />
+    <Content Include="Content\img\Home\content_bg.jpg" />
+    <Content Include="Content\css\TableTools.css" />
+    <Content Include="Content\css\theme.css" />
+    <Content Include="Content\css\timepicker.css" />
+    <Content Include="Content\img\Home\feature1.jpg" />
+    <Content Include="Content\img\Home\feature2.jpg" />
+    <Content Include="Content\img\Home\feature3.jpg" />
+    <Content Include="Content\img\Home\footer_bg.jpg" />
+    <Content Include="Content\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\img\Home\icons.png" />
+    <Content Include="Content\img\Home\OnlineOperasyon.jpg" />
+    <Content Include="Content\img\Home\OnlineOperasyon2.jpg" />
+    <Content Include="Content\img\Home\OnlinePazarlama.jpg" />
+    <Content Include="Content\img\Home\OnlineSatis.jpg" />
+    <Content Include="Content\img\Home\OnlineSatis2.jpg" />
+    <Content Include="Content\img\Home\OnlineYonetim.jpg" />
+    <Content Include="Content\img\Home\OnlineYonetim2.jpg" />
+    <Content Include="Content\img\Home\pic1.jpg" />
+    <Content Include="Content\img\Home\pic_blog.png" />
+    <Content Include="Content\img\Home\social_icons.png" />
+    <Content Include="Content\img\hor-menu-red-arrow.png" />
+    <Content Include="Content\img\hor-menu-search-close.png" />
+    <Content Include="Content\img\hor-menu-search.jpg" />
+    <Content Include="Content\img\hor-menu-search.png" />
+    <Content Include="Content\img\icon-color-close.png" />
+    <Content Include="Content\img\icon-color.png" />
+    <Content Include="Content\img\icon-img-down.png" />
+    <Content Include="Content\img\icon-img-up.png" />
+    <Content Include="Content\img\images.jpg" />
+    <Content Include="Content\img\inbox-nav-arrow-blue.png" />
+    <Content Include="Content\img\loading.gif" />
+    <Content Include="Content\img\loading2.gif" />
+    <Content Include="Content\img\Home\nav_bg.jpg" />
+    <Content Include="Content\img\Home\slide1.png" />
+    <Content Include="Content\img\Home\slide2.png" />
+    <Content Include="Content\img\Home\slide3.png" />
+    <Content Include="Content\img\loading6.gif" />
+    <Content Include="Content\img\loading7.gif" />
+    <Content Include="Content\img\loading9.gif" />
+    <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\menu-toggler.png" />
+    <Content Include="Content\img\neosinerji_logo.png" />
+    <Content Include="Content\img\mapfre.png" />
+    <Content Include="Content\img\overlay-icon.png" />
+    <Content Include="Content\img\pdf_icon.png" />
+    <Content Include="Content\img\portlet-collapse-icon-white.png" />
+    <Content Include="Content\img\portlet-collapse-icon.png" />
+    <Content Include="Content\img\portlet-config-icon-white.png" />
+    <Content Include="Content\img\portlet-config-icon.png" />
+    <Content Include="Content\img\portlet-expand-icon-white.png" />
+    <Content Include="Content\img\portlet-expand-icon.png" />
+    <Content Include="Content\img\portlet-reload-icon-white.png" />
+    <Content Include="Content\img\portlet-reload-icon.png" />
+    <Content Include="Content\img\portlet-remove-icon-white.png" />
+    <Content Include="Content\img\portlet-remove-icon.png" />
+    <Content Include="Content\img\ram_sigorta.png" />
+    <Content Include="Content\img\remove-icon-small.png" />
+    <Content Include="Content\img\search-icon-blue.png" />
+    <Content Include="Content\img\search-icon-brown.png" />
+    <Content Include="Content\img\search-icon-purple.png" />
+    <Content Include="Content\img\search-icon-red.png" />
+    <Content Include="Content\img\search-icon-white.png" />
+    <Content Include="Content\img\search-icon.png" />
+    <Content Include="Content\img\select-caret.png" />
+    <Content Include="Content\img\sidebar-menu-arrow-green.png" />
+    <Content Include="Content\img\sidebar-menu-arrow-rtl.png" />
+    <Content Include="Content\img\sidebar-menu-arrow.png" />
+    <Content Include="Content\img\sidebar-search-close-blue.png" />
+    <Content Include="Content\img\sidebar-search-close-brown.png" />
+    <Content Include="Content\img\sidebar-search-close-light.png" />
+    <Content Include="Content\img\sidebar-search-close-purple.png" />
+    <Content Include="Content\img\sidebar-search-close.png" />
+    <Content Include="Content\img\sidebar-toggler-blue.jpg" />
+    <Content Include="Content\img\sidebar-toggler-brown.jpg" />
+    <Content Include="Content\img\sidebar-toggler-light.jpg" />
+    <Content Include="Content\img\sidebar-toggler-purple.jpg" />
+    <Content Include="Content\img\sidebar-toggler.jpg" />
+    <Content Include="Content\img\sidebar-toggler.png" />
+    <Content Include="Content\img\sort_asc.png" />
+    <Content Include="Content\img\sort_asc_disabled.png" />
+    <Content Include="Content\img\sort_both.png" />
+    <Content Include="Content\img\sort_desc.png" />
+    <Content Include="Content\img\sort_desc_disabled.png" />
+    <Content Include="Content\img\sprite.png" />
+    <Content Include="Content\img\sprite_original.png" />
+    <Content Include="Content\img\syncfusion-icons-white.png" />
+    <Content Include="Content\img\syncfusion-icons.png" />
+    <Content Include="Content\img\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\img\ui-icons_888888_256x240.png" />
+    <Content Include="Content\img\us.png" />
+    <Content Include="Content\img\YeniTasarim\01_giris_v2_1.png" />
+    <Content Include="Content\img\YeniTasarim\01_giris_v2_12.jpg" />
+    <Content Include="Content\img\YeniTasarim\01_giris_v2_16.png" />
+    <Content Include="Content\img\YeniTasarim\01_giris_v2_166.png" />
+    <Content Include="Content\img\YeniTasarim\01_giris_v2_17_en-us.png" />
+    <Content Include="Content\img\YeniTasarim\01_giris_v2_260.png" />
+    <Content Include="Content\img\YeniTasarim\01_giris_v2_9.png" />
+    <Content Include="Content\img\YeniTasarim\01_giris_V3.jpg" />
+    <Content Include="Content\img\YeniTasarim\01_giris_V3_10.png" />
+    <Content Include="Content\img\YeniTasarim\01_giris_V3_14_en-us.png" />
+    <Content Include="Content\img\YeniTasarim\01_giris_V3_6.png" />
+    <Content Include="Content\img\YeniTasarim\01_giris_V3_9.png" />
+    <Content Include="Content\img\YeniTasarim\01_giris_V3_ust_1.png" />
+    <Content Include="Content\img\YeniTasarim\01_giris_V3_ust_2.png" />
+    <Content Include="Content\img\YeniTasarim\global-sign-img.png" />
+    <Content Include="Content\img\YeniTasarim\globalsign-logo.png" />
+    <Content Include="Content\img\YeniTasarim\only_logo.png" />
+    <Content Include="Content\img\YeniTasarim\secured-by-globalsign.png" />
+    <Content Include="Content\img\YeniTasarim\the_United_Kingdom.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\YeniTasarim\Turkey.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\YeniTasarim\ust-banner-2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\YeniTasarim\ust_banner.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\img\YeniTasarim\ust_header_bgr.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\additional-methods.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\Aegon\aegon.form.wizard.js" />
+    <Content Include="Content\js\Aegon\aegon.odemeguvence.js" />
+    <Content Include="Content\js\Aegon\aegon.ortak_v2.js" />
+    <Content Include="Content\js\Aegon\aegon.primiadeli2.js" />
+    <Content Include="Content\js\Aegon\aegon.teklifraporu.js" />
+    <Content Include="Content\js\app.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\AracPoliceRapor.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\autoNumeric.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\blockui.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\blockui.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-datepicker.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-datepicker.tr.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-datepicker.tr.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-fileupload.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-fileupload.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-formhelpers-phone.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-maxlength.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-modal.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-modalmanager.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-multiselect.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-timepicker.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-tooltip.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-transition.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap-wysihtml5-0.0.2.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrap.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrapSwitch.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\bootstrapSwitch.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\brand.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\breakpoints.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\chosen.jquery.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\customlang.en.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\customlang.tr.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\date.en.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\date.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\daterangepicker.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\DT_bootstrap.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\excanvas.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\exporting.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\form-wizard.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\ga.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\highcharts.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery-1.10.1.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery-migrate-1.2.1.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery-ui.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.alphanumeric.pack.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.blockUI.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.bootstrap.wizard.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.bootstrap.wizard.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.cookie.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.dataTables.bootstrap.en.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.flot.crosshair.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.flot.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.flot.pie.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.flot.resize.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.flot.stack.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.gritter.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.inputmask.bundle.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.inputmask.bundle.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.isotope.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.slimscroll.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.slimscroll.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.ui.core.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.ui.datepicker-tr.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.ui.datepicker.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.ui.datepicker.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\Mapfre\kasko.js" />
+    <Content Include="Content\js\Mapfre\trafik.js" />
+    <Content Include="Content\js\Maps\bootstrap-modal.js" />
+    <Content Include="Content\js\Maps\bootstrap-modalmanager.js" />
+    <Content Include="Content\js\Maps\gmaps.js" />
+    <Content Include="Content\js\Maps\harita.js" />
+    <Content Include="Content\js\Maps\jquery.backstretch.min.js" />
+    <Content Include="Content\js\Maps\login-soft.js" />
+    <Content Include="Content\js\Maps\maps-api.js" />
+    <Content Include="Content\js\Maps\maps-google.js" />
+    <Content Include="Content\js\neosinerji.babonlinetp.ferdikazaplus.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\neosinerji.babonlinetp.kritikhastalik.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\musteri.musterilerim.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\Aegon\aegon.korunangelecek.js" />
+    <Content Include="Content\js\neosinerji.babonlinetp.common.en.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\neosinerji.babonlinetp.ikincielgaranti.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\neosinerji.babonlinetp.konut.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\neosinerji.babonlinetp.isyeri.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\neosinerji.babonlinetp.potansiyel-musteri.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\OzetRapor.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\OzetRaporTest.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\ParitusAdesDogrulama_Musteri.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\ParitusAdresDogrulama_Dask.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\PotansiyelMusteriAdresDogrulama.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\respond.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\skype-uri.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Angular\js\sweetalert.min.js" />
+    <Content Include="Content\js\tableHTMLExport.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\TableTools.en.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\neosinerji.babonlinetp.kasko.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\neosinerji.babonlinetp.kredilihayat.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\neosinerji.babonlinetp.teklif.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\pages\neosinerji.babonlinetp.performans.en.js" />
+    <Content Include="Content\js\pages\neosinerji.babonlinetp.performans.js" />
+    <Content Include="Content\js\pwstrength.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\theme_home.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.dataTables.bootstrap.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.dataTables.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.smartTab.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.validate.bootstrap.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.validate.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\jquery.validate.unobtrusive.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\neosinerji.babonlinetp.common.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\neosinerji.babonlinetp.trafik.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\TableTools.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\twitter-bootstrap-hover-dropdown.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\twitter-bootstrap-hover-dropdown.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\ui-modals.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\underscore.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\wysihtml5-0.3.0.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\js\zeroClickboard.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\templates\copy_csv_xls_pdf.swf" />
+    <Content Include="favicon.ico" />
+    <Content Include="Files\TextFile1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global.asax" />
+    <Content Include="Areas\Manage\Views\Web.config" />
+    <Content Include="Areas\Manage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Manage\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Manage\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\Ekle.cshtml" />
+    <Content Include="Areas\Manage\Views\Brans\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\Brans\Detay.cshtml" />
+    <Content Include="Areas\Manage\Views\Brans\Ekle.cshtml" />
+    <Content Include="Areas\Manage\Views\Brans\Guncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\Urun\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\Urun\Detay.cshtml" />
+    <Content Include="Areas\Manage\Views\Urun\Ekle.cshtml" />
+    <Content Include="Areas\Manage\Views\Urun\Guncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\Guncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\Soru\Detay.cshtml" />
+    <Content Include="Areas\Manage\Views\Soru\Ekle.cshtml" />
+    <Content Include="Areas\Manage\Views\Soru\Guncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\Soru\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\Vergi\Detay.cshtml" />
+    <Content Include="Areas\Manage\Views\Vergi\Ekle.cshtml" />
+    <Content Include="Areas\Manage\Views\Vergi\Guncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\Vergi\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\Teminat\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\Teminat\Detay.cshtml" />
+    <Content Include="Areas\Manage\Views\Teminat\Ekle.cshtml" />
+    <Content Include="Areas\Manage\Views\Teminat\Guncelle.cshtml" />
+    <Content Include="Content\js\jquery.validate.custom.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Manage\Views\Shared\_DeleteConfirmation.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\_AltMenuSekme-Ekle.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\_AnaMenuDetay.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\_AnaMenuGuncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\_AnaEkran.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\_KayitSilinemezBilgisi.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\_AnaMenuEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\_AltMenuDetay.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\_AltMenuGuncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\_AltMenuSekme-Detay.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\_AltMenuSekme-Guncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\Detay.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\MenuIslemListe.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\MenuIslemDetay.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\MenuIslemEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\Menu\MenuIslemGuncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\Urun\_Teminatlar.cshtml" />
+    <Content Include="Areas\Manage\Views\Urun\_Vergiler.cshtml" />
+    <Content Include="Areas\Manage\Views\Urun\_Sorular.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_Departmanlar.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_Bolgeler.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_Notlar.cshtml" />
+    <Content Include="Areas\Teklif\Views\Web.config" />
+    <Content Include="Areas\Teklif\Views\Trafik\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Teklif\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_BolgeEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_DepartmanEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_NotEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_TVMListe.cshtml" />
+    <Content Include="Areas\Manage\Views\Kullanici\_KullaniciListe.cshtml" />
+    <Content Include="Areas\Manage\Views\Kullanici\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\Kullanici\Ekle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_BaglantiEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\Kullanici\Detay.cshtml" />
+    <Content Include="Areas\Manage\Views\Kullanici\Guncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_DokumanEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_Baglantilar.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_Dokumanlar.cshtml" />
+    <Content Include="Areas\Manage\Views\EPosta\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\EPosta\Detay.cshtml" />
+    <Content Include="Areas\Manage\Views\EPosta\Guncelle.cshtml" />
+    <Content Include="Areas\Musteri\Views\Web.config" />
+    <Content Include="Areas\Musteri\Views\Shared\_DeleteConfirmation.cshtml" />
+    <Content Include="Areas\Musteri\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Musteri\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\_AdresEkle.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\_Adresler.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\_DokumanEkle.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\_Dokumanlar.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\_NotEkle.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\_Notlar.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\_TelefonEkle.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\_Telefonlar.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\Detay.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\Ekle.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\Guncelle.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\Liste.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\Upload.cshtml" />
+    <Content Include="Areas\Musteri\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Manage\Views\Konfigurasyon\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\Konfigurasyon\Detay.cshtml" />
+    <Content Include="Areas\Manage\Views\Konfigurasyon\Ekle.cshtml" />
+    <Content Include="Areas\Manage\Views\Konfigurasyon\Guncelle.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\_KayitSilinemez.cshtml" />
+    <Content Include="Areas\Manage\Views\Yonetim\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_AcentelikEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_Acentelikler.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_BankaHesaplari.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_IletisimYetkilileri.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_IletisimYetkilileriEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_BankaHesaplariEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\Yetki\Ekle.cshtml" />
+    <Content Include="Areas\Manage\Views\Yetki\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\Liste.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\Manage\Views\TUM\Detay.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\Guncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\Ekle.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\TVM\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\TVM\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\TVM\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Manage\Views\Yetki\Guncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\Yetki\Detay.cshtml" />
+    <Content Include="Areas\TVM\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\TVM\Views\TVM\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_Baglantilar.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_Notlar.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_Dokumanlar.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_BankaHesaplari.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_IletisimYetkilileri.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_Urunler.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_BaglantiEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_BankaHesaplariEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_DokumanEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_IletisimYetkilileriEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_NotEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_UrunEkle.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\HazirlayanModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\EskiPoliceModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\TasiyiciSorumlulukModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\AracBilgiModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\TeklifUMModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\TeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Trafik\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\DetayHazirlayanModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\DetayAracBilgiModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\DetayEskiPoliceModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\DetayTasiyiciSorumlulukModel.cshtml" />
+    <Content Include="Areas\TVM\Views\Profil\Detay.cshtml" />
+    <Content Include="Areas\TVM\Views\Profil\_FotografEkle.cshtml" />
+    <Content Include="Areas\TVM\Views\Profil\SifreDegistirEski.cshtml" />
+    <Content Include="Areas\Manage\Views\WebServiceLog\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\Kullanici\_Kilitle.cshtml" />
+    <Content Include="Areas\Manage\Views\Kullanici\_DetayPartial.cshtml" />
+    <Content Include="Areas\Manage\Views\Kullanici\_PageMenuPartial.cshtml" />
+    <Content Include="Areas\Manage\Views\Kullanici\_SifreSifirlama.cshtml" />
+    <Content Include="Areas\Manage\Views\Kullanici\_SifreSifirlamaRapor.cshtml" />
+    <Content Include="Areas\Teklif\Views\Teklif\Liste.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\Teklifleri.cshtml" />
+    <Content Include="Areas\Teklif\Views\Teklif\TeklifEkleTest.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\_MusteriAraPartial.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\UrunYetkileriListe.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\UrunYetkileriEkle.cshtml" />
+    <Content Include="Areas\Teklif\Views\Trafik\Odeme.cshtml" />
+    <Content Include="Areas\Teklif\Views\Trafik\_SigortaBilgileri.cshtml" />
+    <Content Include="Areas\Teklif\Views\Trafik\_OdemeBilgileri.cshtml" />
+    <Content Include="Areas\Teklif\Views\Trafik\_OdemeSecenekleri.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\UrunYetkileriDetay.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\KrediKartiOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\KrediKartiModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Trafik\TrafikFiyat.cshtml" />
+    <Content Include="Content\fonts\calibri.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\fonts\calibrib.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\fonts\calibrii.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\fonts\calibriz.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\templates\trafik_karsilastirma.ptm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Manage\Views\TVM\UrunYetkileriGuncelle.cshtml" />
+    <Content Include="Areas\TVM\Views\Shared\_IndexScript.cshtml" />
+    <Content Include="Areas\Manage\Views\Arac\Guncelle.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\_PhoneScripts.cshtml" />
+    <Content Include="Areas\TVM\Views\TVM\_NotEklePartial.cshtml" />
+    <Content Include="Areas\TVM\Views\TVM\_KullaniciNotlarPartial.cshtml" />
+    <Content Include="Areas\TVM\Views\Shared\_DeleteConfirmation.cshtml" />
+    <Content Include="Areas\Manage\Views\Duyuru\Ekle.cshtml" />
+    <Content Include="Areas\Manage\Views\Duyuru\Detay.cshtml" />
+    <Content Include="Areas\Manage\Views\Duyuru\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\Duyuru\Guncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\Yonetim\_NotEklePartial.cshtml" />
+    <Content Include="Areas\Manage\Views\Yonetim\_KullaniciNotlarPartial.cshtml" />
+    <Content Include="Areas\Rapor\Views\Web.config" />
+    <Content Include="Areas\Rapor\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Rapor\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\Index.cshtml" />
+    <Content Include="Areas\Rapor\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\SubeSatisRaporu.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\MTSatisRaporu.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\Excelaktar.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\ExcelKontrol.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\PoliceRaporu.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\MusteriModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\AcikHesapOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Trafik\Police.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\TVM\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\TVM\Views\Profil\_UserMenu.cshtml" />
+    <Content Include="Areas\Manage\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\Musteri\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\Rapor\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Content\fonts\cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff" />
+    <Content Include="Content\fonts\DXI1ORHCpsQm3Vp6mXoaTXhCUOGz7vYGh680lGh-uXM.woff" />
+    <Content Include="Content\fonts\k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff" />
+    <Content Include="Content\fonts\MTP_ySUJH_bn48VBG8sNSnhCUOGz7vYGh680lGh-uXM.woff" />
+    <Content Include="Areas\Manage\Views\EPosta\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\SigortaliModel.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_Logo.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_LogoEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_LogoEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TUM\_Logo.cshtml" />
+    <Content Include="Areas\Teklif\Views\Kasko\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\Kasko\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\Kasko\Police.cshtml" />
+    <Content Include="Areas\TVM\Views\TVM\_NotDetayPartial.cshtml" />
+    <Content Include="Areas\TVM\Views\TVM\_DuyuruDetayPartial.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\DetayMusteriModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Kasko\EditorTemplates\KaskoAracBilgiModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Kasko\EditorTemplates\KaskoTeminatModel.cshtml" />
+    <Content Include="Content\fonts\TRY.eot" />
+    <Content Include="Content\fonts\TRY.ttf" />
+    <Content Include="Content\fonts\TRY.woff" />
+    <Content Include="Areas\Manage\Views\TVM\_WebServisKullaniciEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_WebServisKullanicilari.cshtml" />
+    <Content Include="Content\templates\kasko_karsilastirma.ptm" />
+    <Content Include="Areas\TVM\Views\Profil\SifreDegistir.cshtml" />
+    <Content Include="Areas\Teklif\Views\Shared\_MailGonderPartial.cshtml" />
+    <Content Include="Areas\Teklif\Views\Kasko\EditorTemplates\KaskoTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\_MusteriListe.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\Policeleri.cshtml" />
+    <Content Include="Areas\Police\Views\Web.config" />
+    <Content Include="Areas\Police\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Police\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Police\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Police\Views\Police\Liste.cshtml" />
+    <Content Include="Areas\Teklif\Views\KrediliHayat\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\Dask\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\Dask\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\Dask\Police.cshtml" />
+    <Content Include="Areas\Teklif\Views\Dask\EditorTemplates\DaskRizikoGenelBilgiler.cshtml" />
+    <Content Include="Areas\Teklif\Views\Dask\EditorTemplates\DaskRizikoAdresModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Dask\EditorTemplates\DaskRizikoDigerBilgiler.cshtml" />
+    <Content Include="Content\js\neosinerji.babonlinetp.dask.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Teklif\Views\Dask\EditorTemplates\DaskTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\KrediliHayat\EditorTemplates\KrediAlanAdresModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\KrediliHayat\EditorTemplates\KrediBilgileriModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\KrediliHayat\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\Teklif\BilgilendirmeFormu.cshtml" />
+    <Content Include="Content\templates\dask_karsilastirma.ptm" />
+    <Content Include="Areas\Teklif\Views\KrediliHayat\EditorTemplates\DetayKrediBilgileriModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\KrediliHayat\EditorTemplates\DetayKrediAlanAdresModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\KrediliHayat\Police.cshtml" />
+    <Content Include="Content\templates\kredilihayat_police.ptm" />
+    <Content Include="Content\templates\dask_police.ptm" />
+    <Content Include="Areas\Teklif\Views\SeyehatSaglik\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\SeyehatSaglik\EditorTemplates\SeyehatSaglikGenelBilgiler.cshtml" />
+    <Content Include="Areas\Teklif\Views\SeyehatSaglik\EditorTemplates\SeyehatSaglikSigortalilarList.cshtml" />
+    <Content Include="Content\js\neosinerji.babonlinetp.seyehatsaglik.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Teklif\Views\SeyehatSaglik\EditorTemplates\SeyehatSaglikTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\SeyehatSaglik\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\SeyehatSaglik\Police.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\OfflinePoliceAktar.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\OfflinePoliceKontrol.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\KrediliHayatPoliceRaporu.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\TeklifRaporu.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\OzetRapor.cshtml" />
+    <Content Include="Areas\Teklif\Views\Kasko\EditorTemplates\KaskoDainiMurtein.cshtml" />
+    <Content Include="Areas\Teklif\Views\Trafik\EditorTemplates\TrafikTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_NeoConnectYasakliUrlEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_NeoConnectYasakliUrl.cshtml" />
+    <Content Include="Areas\PoliceTransfer\Views\PoliceTransfer\_PoliceTransferSonuc.cshtml" />
+    <Content Include="Areas\Hasar\Views\Web.config" />
+    <Content Include="Areas\Hasar\Views\Shared\_Footer.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\Hasar\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\Hasar\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Hasar\Views\Hasar\HasarGirisi.cshtml" />
+    <Content Include="Areas\Hasar\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Hasar\Views\Hasar\_Notlar.cshtml" />
+    <Content Include="Areas\Hasar\Views\Hasar\_NotEkle.cshtml" />
+    <Content Include="Areas\Hasar\Views\Hasar\_EksperList.cshtml" />
+    <Content Include="Areas\Hasar\Views\Hasar\_EksperEkle.cshtml" />
+    <Content Include="Areas\Hasar\Views\Hasar\_EvrakEkle.cshtml" />
+    <Content Include="Areas\Hasar\Views\Hasar\_Evraklar.cshtml" />
+    <Content Include="Areas\Hasar\Views\Hasar\_BankaHesaplari.cshtml" />
+    <Content Include="Areas\Hasar\Views\Hasar\_BankaHesaplariEkle.cshtml" />
+    <Content Include="Areas\Hasar\Views\Hasar\_IletisimYetkilileri.cshtml" />
+    <Content Include="Areas\Hasar\Views\Hasar\_IletisimYetkilileriEkle.cshtml" />
+    <Content Include="Areas\Hasar\Views\Shared\_DeleteConfirmation.cshtml" />
+    <Content Include="Areas\Teklif\Views\Kasko\EditorTemplates\KaskoDigerTeklifModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\TamamlayiciSaglik\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\TamamlayiciSaglik\EditorTemplates\TSSGenelBilgilerModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\TamamlayiciSaglik\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\TamamlayiciSaglik\Police.cshtml" />
+    <Content Include="Areas\Teklif\Views\TamamlayiciSaglik\EditorTemplates\TSSTeklifOdemeModel.cshtml" />
+    <Content Include="Content\js\MapfreDisAcente\jQueryUI1.8.7.js" />
+    <Content Include="Content\js\MapfreDisAcente\jQuery1.4.4.js" />
+    <Content Include="Areas\Manage\Views\TVM\NeoConnectGrupKullaniciGuncelle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\NeoConnectSifreYetkisiListe.cshtml" />
+    <Content Include="Areas\OdemeGirisi\Views\Web.config" />
+    <Content Include="Areas\OdemeGirisi\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\OdemeGirisi\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\OdemeGirisi\Views\OdemeGirisi\Ekle.cshtml" />
+    <Content Include="Areas\OdemeGirisi\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\OdemeGirisi\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\NeoConnectSirketYetkisiEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\NeoConnectSirketYetkiListe.cshtml" />
+    <Content Include="Areas\Police\Views\Police\PoliceGirisi.cshtml" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Areas\OdemeGirisi\Views\OdemeGirisi\KesintiTransfer.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\TVMIPEkle.cshtml" />
+    <Content Include="WS\NeoConnect.asmx" />
+    <Content Include="WS\PoliceMuhasebe.asmx" />
+    <Content Include="WS\PoliceMuhasebe.asmx" />
+    <Content Include="Areas\PoliceTransfer\Views\Web.config" />
+    <Content Include="Areas\PoliceTransfer\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\PoliceTransfer\Views\PoliceTransfer\PoliceTransfer.cshtml" />
+    <Content Include="Areas\PoliceTransfer\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\PoliceTransfer\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\PoliceTransfer\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\PoliceTransfer\Views\PoliceTransfer\Liste.cshtml" />
+    <Content Include="Areas\PoliceTransfer\Views\PoliceTransfer\_PoliceKayit.cshtml" />
+    <Content Include="Areas\Police\Views\Police\Sorgu.cshtml" />
+    <Content Include="Areas\Teklif\Views\Teklif\Liste1.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\EditorTemplates\MapfreKaskoDMKurumModel.cshtml" />
+    <Content Include="Areas\Komisyon\Views\Hesaplama\index.cshtml" />
+    <Content Include="Areas\Komisyon\Views\Oran\index.cshtml" />
+    <Content Include="Areas\Komisyon\Views\Web.config" />
+    <Content Include="Areas\Komisyon\Views\_ViewStart.cshtml" />
+    <Content Include="Content\Angular\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Areas\TaliAcenteTransfer\Views\Web.config" />
+    <Content Include="Areas\TaliAcenteTransfer\Views\TaliAcenteTransfer\Index.cshtml" />
+    <Content Include="Areas\TaliAcenteTransfer\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\TaliAcenteTransfer\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\TaliAcenteTransfer\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\TaliAcenteTransfer\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\TaliAcenteTransfer\Views\TaliAcenteTransfer\TaliAcente.cshtml" />
+    <Content Include="Areas\TaliAcenteTransfer\Views\TaliAcenteTransfer\_TaliUpload.cshtml" />
+    <Content Include="Areas\TaliAcente\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\TaliAcente\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\TaliAcente\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\TaliAcente\Views\TaliAcente\TaliAcenteIslem.cshtml" />
+    <Content Include="Areas\TaliAcente\Views\TaliAcente\TaliAcenteRaporEkrani.cshtml" />
+    <Content Include="Areas\TaliAcente\Views\Web.config" />
+    <Content Include="Areas\TaliAcente\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Teklif\Views\Kasko\EditorTemplates\EskiPoliceModel.cshtml" />
+    <Content Include="Areas\Police\Views\Police\PoliceUretimRaporuListe.cshtml" />
+    <Content Include="Areas\TVM\Views\TVM\TVMDenemeSurum.cshtml" />
+    <Content Include="Files\babonline_tanitim_dokumani.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\PoliceUretimHedefPlanlanan\Views\PoliceUretimHedefPlani\UretimHedefPlanlamaEkrani.cshtml" />
+    <Content Include="Areas\PoliceUretimHedefPlanlanan\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\PoliceUretimHedefPlanlanan\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\PoliceUretimHedefPlanlanan\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\PoliceUretimHedefPlanlanan\Views\Web.config" />
+    <EmbeddedResource Include="Content\Lang\babonline.es-ES.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>babonline.es-ES.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="Areas\Police\Views\Police\PoliceHedefRapor.cshtml" />
+    <Content Include="Areas\Police\Views\Police\PoliceUretimIcmal.cshtml" />
+    <Content Include="Areas\PoliceTransfer\Views\PoliceTransfer\NeoOnlinePoliceTransfer.cshtml" />
+    <Content Include="Areas\Police\Views\Police\PoliceUretimRaporuDetay.cshtml" />
+    <Content Include="Areas\Police\Views\Police\PoliceAraOffline.cshtml" />
+    <Content Include="Areas\Police\Views\Police\GetPoliceOfflineDetail.cshtml" />
+    <Content Include="Files\NeoOnline_Tanitim_Dokumani_12042016.pdf" />
+    <Content Include="Areas\Rapor\Views\Rapor\GetPoliceDetail.cshtml" />
+    <Content Include="Areas\Police\Views\Police\PoliceTahsilatRaporu.cshtml" />
+    <Content Include="Areas\TaliAcente\Views\TaliAcente\PoliceTransferEslemeListesi.cshtml" />
+    <Content Include="Areas\TaliAcente\Views\TaliAcente\PaylasimliPoliceUretimGirisi.cshtml" />
+    <Content Include="Areas\TaliAcente\Views\TaliAcente\UretimBordrosuGoruntule.cshtml" />
+    <Content Include="Areas\TaliAcente\Views\TaliAcente\PoliceOnaylama.cshtml" />
+    <Content Include="Areas\TVM\Views\TVM\OfflineUretimPerformans.cshtml" />
+    <Content Include="Areas\PoliceTransfer\Views\PoliceTransfer\PoliceTransferDosyaGoruntuleme.cshtml" />
+    <Content Include="Areas\Teklif\Views\SirketWebLogin\SirketWeb.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_NeoConnectKullanicilari.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_NeoConnectKullaniciEkle.cshtml" />
+    <Content Include="Areas\Police\Views\Police\_KimlikGuncelle.cshtml" />
+    <Content Include="Areas\Teklif\Views\Trafik\SBMTrafikPoliceSorgula.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_NeoConnectTvmSigortaSirketEkle.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\_NeoConnectTvmSigortaSirketi.cshtml" />
+    <Content Include="whois.txt" />
+    <Content Include="Content\templates\seyahatPolice.ptm" />
+    <Content Include="Content\templates\seyahat_karsilastirma.ptm" />
+    <Content Include="Areas\Teklif\Views\IkinciElGaranti\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\IkinciElGaranti\EditorTemplates\IkinciElGarantiGenelBilgiler.cshtml" />
+    <Content Include="Areas\Teklif\Views\IkinciElGaranti\EditorTemplates\IkinciElGarantiTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\IkinciElGaranti\Police.cshtml" />
+    <Content Include="Areas\Teklif\Views\IkinciElGaranti\Detay.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\VadeTakipRaporu.cshtml" />
+    <Content Include="Areas\Teklif\Views\IkinciElGaranti\_DokumanEkle.cshtml" />
+    <Content Include="Areas\Teklif\Views\Konut\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\Konut\EditorTemplates\KonutRizikoGenelBilgiler.cshtml" />
+    <Content Include="Areas\Teklif\Views\Konut\EditorTemplates\KonutRizikoAdresModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Konut\EditorTemplates\KonutRizikoDigerBilgiler.cshtml" />
+    <Content Include="Areas\Teklif\Views\Konut\EditorTemplates\KonutTeminatBedelBilgileri.cshtml" />
+    <Content Include="Areas\Teklif\Views\Konut\EditorTemplates\KonutTeminatBilgileri.cshtml" />
+    <Content Include="Areas\Teklif\Views\Konut\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\Konut\Police.cshtml" />
+    <Content Include="Areas\Teklif\Views\Konut\EditorTemplates\KonutTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\Konut\EditorTemplates\KonutNotModel.cshtml" />
+    <Content Include="Content\templates\konut_karsilastirma.ptm" />
+    <Content Include="Areas\Rapor\Views\Rapor\AracSigortalariIstatistikRaporu.cshtml" />
+    <Content Include="Areas\Teklif\Views\IsYeri\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\IsYeri\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\IsYeri\Police.cshtml" />
+    <Content Include="Areas\Teklif\Views\IsYeri\EditorTemplates\IsYeriNotModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\IsYeri\EditorTemplates\IsYeriRizikoAdresModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\IsYeri\EditorTemplates\IsYeriRizikoDigerBilgiler.cshtml" />
+    <Content Include="Areas\Teklif\Views\IsYeri\EditorTemplates\IsYeriRizikoGenelBilgiler.cshtml" />
+    <Content Include="Areas\Teklif\Views\IsYeri\EditorTemplates\IsYeriTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\IsYeri\EditorTemplates\IsYeriTeminatBedelBilgileri.cshtml" />
+    <Content Include="Areas\Teklif\Views\IsYeri\EditorTemplates\IsYeriTeminatBilgileri.cshtml" />
+    <Content Include="Areas\Teklif\Views\Teklif\TeklifTUMDetayPartial.cshtml" />
+    <Content Include="Content\templates\Is_Yeri_Karsilastirma.ptm" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\Detay.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\Ekle.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\Guncelle.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\Teklifleri.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\Policeleri.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\Upload.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\Liste.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\Excelaktar.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\ExcelKontrol.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\_Telefonlar.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\_PhoneScript.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\_TelefonEkle.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\_Notlar.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\_NotEkle.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\_PotansiyelMusteriListe.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\_PotansiyelMusteriAraPartial.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\_KayitSilinemez.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\_Dokumanlar.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\_DokumanEkle.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\_Adresler.cshtml" />
+    <Content Include="Areas\Musteri\Views\PotansiyelMusteri\_AdresEkle.cshtml" />
+    <Content Include="Content\js\neosinerji.babonlinetp.musteri.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Rapor\Views\Rapor\OzetRaporTest.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\Musterilerim.cshtml" />
+    <Content Include="Areas\Teklif\Views\TESabitPrimli\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\TESabitPrimli\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\TESabitPrimli\EditorTemplates\TESabitPrimliGenelBilgiler.cshtml" />
+    <Content Include="Areas\Teklif\Views\TESabitPrimli\EditorTemplates\TESabitPrimliAnaTeminatlar.cshtml" />
+    <Content Include="Areas\Teklif\Views\TESabitPrimli\EditorTemplates\TESabitPrimliTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\TESabitPrimli\EditorTemplates\SigortaliModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\TESabitPrimli\EditorTemplates\TESabitPrimliEkTeminatlar.cshtml" />
+    <Content Include="Areas\Teklif\Views\OdulluBirikim\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\OdulluBirikim\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\OdulluBirikim\EditorTemplates\OdulluBirikimGenelBilgiler.cshtml" />
+    <Content Include="Content\js\Aegon\aegon.odullubirikim_V1.js" />
+    <Content Include="Areas\Teklif\Views\KorunanGelecek\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\KorunanGelecek\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\KorunanGelecek\EditorTemplates\KorunanGelecekGenelBilgiler.cshtml" />
+    <Content Include="Areas\Teklif\Views\KorunanGelecek\EditorTemplates\KorunanGelecekTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\OdulluBirikim\EditorTemplates\SigortaliModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\KorunanGelecek\EditorTemplates\SigortaliModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\KorunanGelecek\EditorTemplates\KorunanGelecekAnaTeminatlar.cshtml" />
+    <Content Include="Areas\Teklif\Views\KorunanGelecek\EditorTemplates\KorunanGelecekEkTeminatlar.cshtml" />
+    <Content Include="Content\templates\teTeklif.ptm" />
+    <Content Include="Areas\Teklif\Views\PrimIadeli\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\PrimIadeli\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\PrimIadeli\EditorTemplates\SigortaliModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\PrimIadeli\EditorTemplates\PrimIadeliGenelBilgiler.cshtml" />
+    <Content Include="Content\js\Aegon\aegon.primiadeli.js" />
+    <Content Include="Areas\Teklif\Views\Shared\EditorTemplates\AegonDetayMusteriModel.cshtml" />
+    <Content Include="Content\templates\odullubirikim.ptm" />
+    <Content Include="Content\templates\PrimIadeli.ptm" />
+    <Content Include="Areas\Teklif\Views\Egitim\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\Egitim\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\Egitim\EditorTemplates\EgitimGenelBilgiler.cshtml" />
+    <Content Include="Areas\Teklif\Views\Egitim\EditorTemplates\SigortaliModel.cshtml" />
+    <Content Include="Content\js\Aegon\aegon.egitim.js" />
+    <Content Include="Content\templates\Egitim.ptm" />
+    <Content Include="Content\templates\PrimIadeli_Yedek.ptm" />
+    <Content Include="Areas\Teklif\Views\TESabitPrimli\_DetayPartial.cshtml" />
+    <Content Include="Areas\Teklif\Views\PrimIadeli\_DetayPartial.cshtml" />
+    <Content Include="Areas\Teklif\Views\OdulluBirikim\_DetayPartial.cshtml" />
+    <Content Include="Areas\Teklif\Views\Egitim\_DetayPartial.cshtml" />
+    <Content Include="Areas\Manage\Views\EPosta\HataLog\Liste.cshtml" />
+    <Content Include="Areas\TVM\Views\TVM\Aegon.cshtml" />
+    <Content Include="Areas\TVM\Views\Shared\AegonSifreDegistir.cshtml" />
+    <Content Include="Areas\TVM\Views\Shared\MapfreSifreDegistir.cshtml" />
+    <Content Include="Areas\Rapor\Views\AegonRapor\TeklifRaporu.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\EditorTemplates\MapfreKaskoTeminatModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\EditorTemplates\MapfreKaskoAracBilgiModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\EditorTemplates\KaskoTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\EditorTemplates\MapfreKaskoDainiMurtein.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\_TeklifFiyat.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\EditorTemplates\MapfreOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\Police.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreTrafik\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreTrafik\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreTrafik\Police.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreTrafik\_TeklifFiyat.cshtml" />
+    <Content Include="Areas\Teklif\Views\OdemeGuvence\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\OdemeGuvence\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\OdemeGuvence\EditorTemplates\OdemeGuvenceGenelBilgiler.cshtml" />
+    <Content Include="Areas\Teklif\Views\OdemeGuvence\EditorTemplates\SigortaliModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\OdemeGuvence\EditorTemplates\OdemeGuvenceKAP.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreTrafik\EditorTemplates\MapfreOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\OdemeGuvence\_DetayPartial.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreTrafik\EditorTemplates\AracBilgiModel.cshtml" />
+    <Content Include="Content\templates\OdemeGuvence.ptm" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\_OtorizasyonMesajlari.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\_OtorizasyonDurumu.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\Otorizasyon.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\OtorizasyonOnay.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreTrafik\EditorTemplates\DetayAracBilgiModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\KritikHastalik\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\KritikHastalik\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\KritikHastalik\EditorTemplates\KritikHastalikTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\KorunanGelecek\_DetayPartial.cshtml" />
+    <Content Include="Content\templates\KorunanGelecek.ptm" />
+    <Content Include="Areas\Teklif\Views\KritikHastalik\EditorTemplates\KritikHastalikGenelBilgilerModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\KritikHastalik\EditorTemplates\KritikHastalikTeminatlarModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\KritikHastalik\EditorTemplates\LehtarBilgileriModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\KritikHastalik\IsDetay.cshtml" />
+    <Content Include="Areas\Teklif\Views\KritikHastalik\IsTakipSistemi.cshtml" />
+    <Content Include="Areas\Teklif\Views\PrimIadeli2\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\PrimIadeli2\EditorTemplates\PrimIadeli2GenelBilgiler.cshtml" />
+    <Content Include="Areas\Teklif\Views\PrimIadeli2\EditorTemplates\SigortaliModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\PrimIadeli2\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\PrimIadeli2\_DetayPartial.cshtml" />
+    <Content Include="Content\templates\PrimIadeli2.ptm" />
+    <Content Include="Areas\Teklif\Views\Shared\_OnProvizyonPartial.cshtml" />
+    <Content Include="Areas\Rapor\Views\AegonRapor\_OnProvizyonDetay.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\EditorTemplates\KaskoIndirimSurprimModel.cshtml" />
+    <Content Include="Areas\Manage\Views\Kullanici\_SifreSifirlamaMapfre.cshtml" />
+    <Content Include="Areas\Rapor\Views\TVMProjeKoduGenel\TVMProjeKoduGenel.cshtml" />
+    <Content Include="Areas\Manage\Views\MapfreKullanici\Liste.cshtml" />
+    <Content Include="Areas\Manage\Views\MapfreKullanici\Ekle.cshtml" />
+    <Content Include="Areas\Manage\Views\MapfreKullanici\Detay.cshtml" />
+    <Content Include="Areas\Manage\Views\MapfreKullanici\_DetayPartial.cshtml" />
+    <Content Include="Areas\Manage\Views\MapfreKullanici\Guncelle.cshtml" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\EditorTemplates\FerdiKazaPlusTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\EditorTemplates\FerdiKazaPlusTeminatlarModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\EditorTemplates\FerdiKazaPlusLehtarBilgileriModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\EditorTemplates\PrimOdeyenBilgileriModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\EditorTemplates\IletisimBilgieriModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\EditorTemplates\SigortaliBilgileriModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\_DokumanEkle.cshtml" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\Islerim.cshtml" />
+    <Content Include="Areas\Maps\Views\Web.config" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\IsDetay.cshtml" />
+    <Content Include="Areas\Maps\Views\Maps\Index.cshtml" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\IsAra.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreTrafik\_TVM.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreKasko\EditorTemplates\EskiPoliceModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\MapfreTrafik\EditorTemplates\EskiPoliceModel.cshtml" />
+    <Content Include="Areas\Rapor\Views\MapfreRapor\BolgeUretim.cshtml" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\Onayladiklarim.cshtml" />
+    <Content Include="Areas\Teklif\Views\FerdiKazaPlus\_Dokumanlar.cshtml" />
+    <Content Include="Content\fonts\verdana.ttf" />
+    <Content Include="Content\fonts\SenticoSansDT-Regular.otf" />
+    <Content Include="Areas\Manage\Views\Menu\_AltMenuEkle.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Account\LoginEski.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\IndexEski.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_LayoutEski.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Shared\_Account.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TelefonModel.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Shared\_SideBar.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Account\SifremiUnuttumEski.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\NeoConnectSifreIslemleri.cshtml" />
+    <Content Include="Areas\PoliceTransfer\Views\PoliceTransfer\OtomatikPoliceOnaylama.cshtml" />
+    <Content Include="Areas\TVM\Views\TVM\MobilOnayKodu.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\NeoConnectKullaniciAra.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\NeoConnectLogRapor.cshtml" />
+    <Content Include="Areas\Police\Views\Shared\_PoliceAraPartial.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\_IslemAtama.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\PoliceListesi.cshtml" />
+    <Content Include="Areas\Police\Views\Police\_OdemeTipiGuncelle.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\web.config" />
+    <Content Include="Areas\GorevTakip\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\GorevTakip\Ekle.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\GorevTakip\Detay.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\GorevTakip\Guncelle.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\GorevTakip\_AtananIsDokumanEkle.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\GorevTakip\_AtananIsDokumanlar.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\GorevTakip\_DeleteConfirmation.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\web.config" />
+    <Content Include="Areas\Muhasebe\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\HesapEkstre.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\GorevTakip\Islerim.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\GorevTakip\GorevDagilimRaporu.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\GorevTakip\_NotEkle.cshtml" />
+    <Content Include="Areas\GorevTakip\Views\GorevTakip\_Notlar.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\CariHareketEkle.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\CariHesapEkle.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\EditorTemplates\KarsiCariHareketEkleModel.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\CariHareketDetay.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\CariHesapDetay.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\CariHesapHareketEktresi.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\CariHesapGuncelle.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\CariHesapListesi.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\CariHesapHareketKontrolListesi.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\_DeleteConfirmation.cshtml" />
+    <Content Include="Areas\Police\Views\Police\_TopluTahsilatOdeme.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\TopluPoliceTahsilat\TopluPoliceTahsilat.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\CariHesaplaraAktar.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\CarileriOtomatikAktar.cshtml" />
+    <Content Include="Content\templates\carihesap-ekstre.ptm" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\CariHesapMizani.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\NeoConnectGrupTanimlama.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\TopluPoliceTahsilatOdeme.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\_TopluPoliceTahsilatOdeme.cshtml" />
+    <Content Include="Areas\Manage\Views\TVM\TVMIPList.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\PoliceleriCariyeAktar.cshtml" />
+    <Content Include="Areas\Manage\Views\Yetki\YetkiSablonuEkle.cshtml" />
+    <Content Include="Areas\Teklif\Views\Kasko\_OnerilenUrunler.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\MuhasebeAktarimListesi.cshtml" />
+    <Content Include="Areas\Teklif\Views\LilyumKart\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\LilyumKart\EditorTemplates\DetayLilyumMusteriModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\LilyumKart\EditorTemplates\LilyumGenelBilgilerModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\LilyumKart\EditorTemplates\LilyumTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\LilyumKart\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\LilyumKart\Police.cshtml" />
+    <Content Include="Areas\Teklif\Views\LilyumKart\SatinAl.cshtml" />
+    <Content Include="Areas\TVM\Views\Shared\LilyumSifreDegistir.cshtml" />
+    <Content Include="Areas\Rapor\Views\Lilyum\KartKullanim.cshtml" />
+    <Content Include="Areas\Rapor\Views\Lilyum\KartKullanimGuncelle.cshtml" />
+    <Content Include="Areas\Rapor\Views\Lilyum\KartListesi.cshtml" />
+    <Content Include="Areas\Bireysel\Views\web.config" />
+    <Content Include="Areas\Bireysel\Views\SatinAl\LilyumKart.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\AcikHesapOdemeModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\AegonDetayMusteriModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\AracBilgiModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\DetayAracBilgiModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\DetayEskiPoliceModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\DetayHazirlayanModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\DetayMusteriModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\DetayTasiyiciSorumlulukModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\EskiPoliceModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\HazirlayanModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\KrediKartiModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\KrediKartiOdemeModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\MusteriModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\SigortaliModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\TasiyiciSorumlulukModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\TeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\EditorTemplates\TeklifUMModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\_HorizontalMenu.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\_MailGonderPartial.cshtml" />
+    <Content Include="Areas\Bireysel\Views\Shared\_OnProvizyonPartial.cshtml" />
+    <Content Include="Areas\Bireysel\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Bireysel\Views\SatinAl\EditorTemplates\DetayLilyumMusteriModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\SatinAl\EditorTemplates\LilyumGenelBilgilerModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\SatinAl\EditorTemplates\LilyumTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Bireysel\Views\SatinAl\Bilgilendirme.cshtml" />
+    <Content Include="Areas\Rapor\Views\Lilyum\_lilyumReferansNoEdit.cshtml" />
+    <Content Include="Areas\Teklif\Views\NipponSeyahat\Detay.cshtml" />
+    <Content Include="Areas\Teklif\Views\NipponSeyahat\EditorTemplates\DetayNipponSeyahatAlanAdresModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\NipponSeyahat\EditorTemplates\DetayNipponSeyahatModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\NipponSeyahat\Ekle.cshtml" />
+    <Content Include="Areas\Teklif\Views\NipponSeyahat\EditorTemplates\NipponSeyehatSaglikGenelBilgiler.cshtml" />
+    <Content Include="Areas\Teklif\Views\NipponSeyahat\EditorTemplates\NipponSeyehatSaglikSigortalilarList.cshtml" />
+    <Content Include="Areas\Teklif\Views\NipponSeyahat\EditorTemplates\NipponSeyehatSaglikTeklifOdemeModel.cshtml" />
+    <Content Include="Areas\Police\Views\Police\PoliceDokuman.cshtml" />
+    <Content Include="Areas\Police\Views\Police\_Dokumanlar.cshtml" />
+    <Content Include="Areas\Police\Views\Shared\_DokumanEkle.cshtml" />
+    <Content Include="Areas\Teklif\Views\NipponSeyahat\EditorTemplates\NipponSeyahatSigortaliModel.cshtml" />
+    <Content Include="Areas\Teklif\Views\NipponSeyahat\EditorTemplates\NipponSeyahatHazirlayanModel.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\_underwriters.cshtml" />
+    <Content Include="Areas\Police\Views\Police\YDBrokerGetPoliceOfflineDetail.cshtml" />
+    <Content Include="Areas\Police\Views\Shared\_PoliceEkiAraPartial.cshtml" />
+    <Content Include="Areas\Police\Views\Police\_YDBroker_TopluTahsilatOdeme.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\GelirGiderTablosu.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\GelirGiderDönemi.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Shared\_CariHesapEklePartial.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\MusteriListesi.cshtml" />
+    <Content Include="Areas\Musteri\Views\Musteri\MusteriAdedi.cshtml" />
+    <Content Include="Areas\Robot\Views\web.config" />
+    <Content Include="Areas\Robot\Views\Robot\Index.cshtml" />
+    <Content Include="Areas\Robot\Utils\appsettings.Development.json" />
+    <Content Include="Areas\Robot\Utils\appsettings.json" />
+    <Content Include="Areas\Robot\Views\Shared\_Footer.cshtml" />
+    <Content Include="Areas\Robot\Views\Shared\_IndexScript.cshtml" />
+    <Content Include="Areas\Robot\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Robot\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Police\Views\Police\PoliceYaslandirmaTablosu.cshtml" />
+    <Content Include="Areas\Police\Views\Police\PoliceTeklifListesiUwDetayli.cshtml" />
+    <Content Include="Areas\Muhasebe\Views\Muhasebe\BrokerCariHareketEkle.cshtml" />
+    <None Include="Areas\Teklif\Views\NipponSeyahat\Ekle1.cshtml" />
+    <Content Include="Areas\Teklif\Views\NipponSeyahat\Police.cshtml" />
+    <Content Include="Areas\Police\Views\Police\ManuelTeklifPoliceGirisi.cshtml" />
+    <Content Include="Areas\Police\Views\Shared\_TeklifAraPartial.cshtml" />
+    <Content Include="Areas\Rapor\Views\Rapor\PoliceTeklifListesi.cshtml" />
+    <Content Include="Content\js\neosinerji.babonlinetp.nippon-form-wizard.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\templates\kasko_karsilastirma_ihsan.ptm" />
+    <Content Include="Content\templates\trafik_karsilastirma_ihsan.ptm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\templates\carihesap-ekstre1.ptm" />
+    <Content Include="Areas\TVM\Views\TVM\OfflineUretimPerformansKullanici.cshtml" />
+    <Content Include="Areas\TVM\Views\TVM\Excel.cshtml" />
+    <Content Include="Content\templates\policeListesiDonemselUretimRaporu.ptm" />
+    <Content Include="Content\css\bootstrap\.DS_Store" />
+    <Content Include="Content\css\bootstrap\mixins\.DS_Store" />
+    <Content Include="Files\NeoOnline_Tanitim_Dokumani_2021_07.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\templates\trafik_karsilastirmayeni.ptm" />
+    <Content Include="Files\reader_data.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\log.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\errorlog.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\robot_config.json" />
+    <Content Include="Files\Reader\126.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\PublishProfiles\babonline - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\babonline - Web Deploy.pubxml" />
+    <Content Include="Views\Shared\_UserMenu.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\SifremiUnuttum.cshtml" />
+    <Content Include="Views\Home\Harita.cshtml" />
+    <Content Include="Views\Shared\_LayoutMap.cshtml" />
+    <Content Include="Views\Shared\_HaritaIletisimModel.cshtml" />
+    <Content Include="Views\Error\ErrorPage.cshtml" />
+    <None Include="Properties\PublishProfiles\local - file.pubxml" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
+    <Content Include="Views\Account\SifreSifirla.cshtml" />
+    <Content Include="Views\Account\Aegon.cshtml" />
+    <Content Include="Views\Aegon\Login.cshtml" />
+    <Content Include="Views\Aegon\SifremiUnuttum.cshtml" />
+    <Content Include="Views\Aegon\SifreSifirla.cshtml" />
+    <Content Include="Views\Mapfre\Login.cshtml" />
+    <Content Include="Views\Shared\_Mapfre.cshtml" />
+    <Content Include="Views\Mapfre\SifremiUnuttum.cshtml" />
+    <Content Include="Views\Mapfre\SifreSifirla.cshtml" />
+    <Content Include="Views\Account\TimeOut.cshtml" />
+    <Content Include="Views\Metlife\Login.cshtml" />
+    <Content Include="Views\Shared\_Metlife.cshtml" />
+    <Content Include="Views\Aegon\Login2.cshtml" />
+    <Content Include="Views\Home\Index2.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Life\Login.cshtml" />
+    <Content Include="Views\HizliTeklif\Login.cshtml" />
+    <Content Include="Views\Account\SigortaliGiris.cshtml" />
+    <None Include="Properties\PublishProfiles\neoonline - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\neoonline-neoonlinetest - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\neoonline-TEST - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\neoonline-test-publish - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\neoonline-test-publish - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\neoonline-test-publish - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\neosinerjicloudservice - Web Deploy.pubxml" />
+    <Content Include="Views\Account\LilyumSifremiUnuttum.cshtml" />
+    <None Include="Properties\PublishProfiles\test-neoonline - Web Deploy.pubxml" />
+    <Content Include="Views\Account\_LilyumMusteriKayit.cshtml" />
+    <Content Include="Views\Shared\_LayoutCommonLogin .cshtml" />
+    <Content Include="Views\Account\LilyumKart.cshtml" />
+    <None Include="Properties\PublishProfiles\test.neoonline.com.tr.pubxml" />
+    <None Include="Web.Test.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Bireysel\Models\" />
+    <Folder Include="Areas\Komisyon\Views\Shared\" />
+    <Folder Include="Areas\Maps\Models\" />
+    <Folder Include="Areas\Maps\Views\Shared\" />
+    <Folder Include="Areas\Robot\Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Neosinerji.BABOnlineTP.Business\Neosinerji.BABOnlineTP.Business.csproj">
+      <Project>{bc5a2abf-2751-4943-a0f3-ab32aaec777b}</Project>
+      <Name>Neosinerji.BABOnlineTP.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Neosinerji.BABOnlineTP.Database\Neosinerji.BABOnlineTP.Database.csproj">
+      <Project>{c15b7c22-5639-4e40-b6eb-7a7913cfe77d}</Project>
+      <Name>Neosinerji.BABOnlineTP.Database</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Lang\babonline.en-us.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>babonline.en-us.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\Lang\babonline.fr-FR.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\Lang\babonline.it-IT.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\Lang\babonline.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>babonline.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3168</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44383/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

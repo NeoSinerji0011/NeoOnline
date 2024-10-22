@@ -1,0 +1,2139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetProposalFromLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="log" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProposalFromLogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProposalFromLogResult" type="tns:MethodResultOfCascoResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MethodResultOfCascoResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MethodResultBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Result" type="tns:CascoResult" />
+              <s:element minOccurs="0" maxOccurs="1" name="SessionKey" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="MethodResultBase">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ResultCode" type="tns:ProposalResultCodes" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ProposalResultCodes">
+        <s:restriction base="s:string">
+          <s:enumeration value="Success" />
+          <s:enumeration value="Fail" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="CascoResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Result" type="tns:ProposalSimple" />
+          <s:element minOccurs="0" maxOccurs="1" name="Proposal" type="tns:ProposalOutput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProposalSimple">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="last-state" type="tns:PolicyStates" />
+          <s:element minOccurs="1" maxOccurs="1" name="result-code" type="tns:MessageCode" />
+          <s:element minOccurs="1" maxOccurs="1" name="net-premium" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="taxes" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="gross-premium" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="input-detail" type="tns:CascoInput" />
+          <s:element minOccurs="0" maxOccurs="1" name="product-no" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="policy-number" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="policy-type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="unit-no-details" type="tns:UnitNoDetail" />
+          <s:element minOccurs="1" maxOccurs="1" name="session-no" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="identity" type="tns:CitizenshipResultSimple" />
+          <s:element minOccurs="1" maxOccurs="1" name="begin-date" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="end-date" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="day-count" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="proposal-type-code" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="claim-discount-step" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="claim-discount-percentage" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="model-code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="model-year" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="cover" type="tns:CoverSimple" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PolicyStates">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Prepared" />
+          <s:enumeration value="PlateChecked" />
+          <s:enumeration value="DublicateChecked" />
+          <s:enumeration value="UnitNumberChecked" />
+          <s:enumeration value="UnitDetailsLoaded" />
+          <s:enumeration value="NationalityChecked" />
+          <s:enumeration value="AddressLoaded" />
+          <s:enumeration value="IdentityLoaded" />
+          <s:enumeration value="ClaimLoaded" />
+          <s:enumeration value="DetailsSaved" />
+          <s:enumeration value="QuestionSaved" />
+          <s:enumeration value="PriceChecked" />
+          <s:enumeration value="ProductChecked" />
+          <s:enumeration value="DeluxeChecked" />
+          <s:enumeration value="PhaseChecked" />
+          <s:enumeration value="BeginDateChecked" />
+          <s:enumeration value="LockDateChecked" />
+          <s:enumeration value="ClaimCountChecked" />
+          <s:enumeration value="PertListChecked" />
+          <s:enumeration value="AgeChecked" />
+          <s:enumeration value="ProductControlled" />
+          <s:enumeration value="CustomerCreated" />
+          <s:enumeration value="DefaultQuestionsCreated" />
+          <s:enumeration value="StepCodeComputed" />
+          <s:enumeration value="DefaultCoversCreated" />
+          <s:enumeration value="PremiumComputed" />
+          <s:enumeration value="MaxBoiControlled" />
+          <s:enumeration value="ArtiKaskoControlled" />
+          <s:enumeration value="NewPolicyNumberGenerated" />
+          <s:enumeration value="AddressSaved" />
+          <s:enumeration value="Proposal" />
+          <s:enumeration value="Policy" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="MessageCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Success" />
+          <s:enumeration value="Error" />
+          <s:enumeration value="InvalidNationality" />
+          <s:enumeration value="UnitNoLoadError" />
+          <s:enumeration value="DuplicatePolicy" />
+          <s:enumeration value="BlackList" />
+          <s:enumeration value="ClaimRequestedError" />
+          <s:enumeration value="WebGirisCreateError" />
+          <s:enumeration value="IdentityLoadError" />
+          <s:enumeration value="VehiclePriceError" />
+          <s:enumeration value="ProductCodeError" />
+          <s:enumeration value="DeluxeError" />
+          <s:enumeration value="PhaseError" />
+          <s:enumeration value="TariffDateError" />
+          <s:enumeration value="MonthLock" />
+          <s:enumeration value="ClaimError" />
+          <s:enumeration value="PertOrBlockList" />
+          <s:enumeration value="AgeError" />
+          <s:enumeration value="StepCodeError" />
+          <s:enumeration value="PremiumError" />
+          <s:enumeration value="InvalidLossPayee" />
+          <s:enumeration value="AccessDenied" />
+          <s:enumeration value="NotValid" />
+          <s:enumeration value="InvalidUser" />
+          <s:enumeration value="QueryLimitExceed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="CascoInput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="customer-type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="identity-number" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="plate-state-code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="plate-char" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="plate-number" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="occupation" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="firm-activity-code" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="proposal-date" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UnitNoDetail">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="has-error" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="unit-no" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="location" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="channel" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="fullname" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CitizenshipResultSimple">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="identity-number" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="fistname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="lastname" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CoverSimple">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="code" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="price" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProposalOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="REQUEST_MESSAGE_NO" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RESPONSE_MESSAGE_NO" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="RESULT" type="tns:Result" />
+          <s:element minOccurs="1" maxOccurs="1" name="PROPOSAL_BEGIN_DATE" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PROPOSAL_END_DATE" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PROPOSAL_EXPIRE_DATE" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PROPOSAL_NO" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="PAYMENT" nillable="true" type="tns:Payments" />
+          <s:element minOccurs="1" maxOccurs="1" name="COVERS" nillable="true" type="tns:ArrayOfProposalOutputCover" />
+          <s:element minOccurs="1" maxOccurs="1" name="QUESTIONS" nillable="true" type="tns:ArrayOfProposalOutputQuestion" />
+          <s:element minOccurs="1" maxOccurs="1" name="INSURED_UNIT_NO" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CUSTOMER_UNIT_NO" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Result">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RESULT_CODE" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ERROR" type="tns:ErrorType" />
+          <s:element minOccurs="0" maxOccurs="1" name="NOTIFICATION_LIST" type="tns:ArrayOfNotificationType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ErrorType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ERROR_CODE" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ERROR_SOURCE" type="tns:ErrorSourceEnum" />
+          <s:element minOccurs="0" maxOccurs="1" name="ERROR_DESCRIPTION" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ErrorSourceEnum">
+        <s:restriction base="s:string">
+          <s:enumeration value="Core" />
+          <s:enumeration value="Winsure" />
+          <s:enumeration value="Inet" />
+          <s:enumeration value="WebService" />
+          <s:enumeration value="WinsureAuthorization" />
+          <s:enumeration value="PrintingService" />
+          <s:enumeration value="ExternalService" />
+          <s:enumeration value="Internal" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfNotificationType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NOTIFICATION" nillable="true" type="tns:NotificationType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NotificationType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="NOTIFICATION_CODE" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NOTIFICATION_SOURCE" type="tns:NotificationSourceEnum" />
+          <s:element minOccurs="0" maxOccurs="1" name="NOTIFICATION_DESCRIPTION" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="NotificationSourceEnum">
+        <s:restriction base="s:string">
+          <s:enumeration value="Core" />
+          <s:enumeration value="Winsure" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Payments">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PAYMENT_TYPE" nillable="true" type="s:unsignedByte" />
+          <s:element minOccurs="0" maxOccurs="1" name="POL_CURRENCY_TYPE" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NET_PREMIUM" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TAXES" nillable="true" type="tns:ArrayOfTax" />
+          <s:element minOccurs="1" maxOccurs="1" name="GROSS_PREMIUM" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="INSTALLMENTS" nillable="true" type="tns:ArrayOfInstallment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTax">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TAX" nillable="true" type="tns:Tax" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Tax">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DEDUCTION_AMOUNT" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="DEDUCTION_DESCRIPTION" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfInstallment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="INSTALLMENT" nillable="true" type="tns:Installment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Installment">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="INSTALLMENT_ORDER_NO" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="INSTALLMENT_AMOUNT" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="INSTALLMENT_DATE" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProposalOutputCover">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="COVER" nillable="true" type="tns:ProposalOutputCover" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProposalOutputCover">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="COVER_CODE" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="COVER_AMOUNT" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="COVER_NAME" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="GROSS_PREMIUM" nillable="true" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProposalOutputQuestion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="QUESTION" nillable="true" type="tns:ProposalOutputQuestion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProposalOutputQuestion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="QUESTION_CODE" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ANSWER" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="QUESTION_NAME" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetProposal3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="parameters" type="tns:CascoParameters" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CascoParameters">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PlateState" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PlateChar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PlateNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TypeCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="EgmTescilBelgeSeriKod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EgmTescilBelgeSeriNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfCustomParameter" />
+          <s:element minOccurs="0" maxOccurs="1" name="Unit" type="tns:Unit" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCustomParameter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CustomParameter" nillable="true" type="tns:CustomParameter" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomParameter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Unit">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IDENTITY_NO" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="TAX_NO" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NAME" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SURNAME" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BIRTHDATE" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FIRM_NAME" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FATHER_NAME" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MARITAL_STATUS" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BIRTH_PLACE" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OCCUPATION" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="NATIONALITY" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="PERSONAL_COMMERCIAL" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PHONE_COUNTRY_CODE" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="PHONE_CODE" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="PHONE_NUMBER" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="EMAIL_ADDRESS" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BASE_NO" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GSM_COUNTRY_CODE" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="GSM_CODE" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="GSM_NUMBER" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FAX_COUNTRY_CODE" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="FAX_CODE" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="FAX_NUMBER" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="ADDRESS_LIST" nillable="true" type="tns:ArrayOfAddress" />
+          <s:element minOccurs="1" maxOccurs="1" name="QUESTION_LIST" nillable="true" type="tns:ArrayOfQuestion" />
+          <s:element minOccurs="1" maxOccurs="1" name="GENDER" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UPDATEENTITY" nillable="true" type="tns:ProposalUnitUpdateEntity" />
+          <s:element minOccurs="1" maxOccurs="1" name="UNIT_NO" nillable="true" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ADDRESS" nillable="true" type="tns:Address" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Address">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ADDRESS_TYPE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ADDRESS_DATA" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfQuestion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="QUESTION" nillable="true" type="tns:Question" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Question">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="QUESTION_CODE" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ANSWER" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProposalUnitUpdateEntity">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UPDATE_UNSMAS_ENTITIES" nillable="true" type="tns:ArrayOfProposalUpdateUnsMasterEntity" />
+          <s:element minOccurs="1" maxOccurs="1" name="UNSADR" nillable="true" type="tns:ArrayOfProposalUpdateUnsAddressEntity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProposalUpdateUnsMasterEntity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UPDATE_UNSMAS" nillable="true" type="tns:ProposalUpdateUnsMasterEntity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProposalUpdateUnsMasterEntity">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ENTITY_NAME" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ENTITY_VALUE" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProposalUpdateUnsAddressEntity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ADDRESS" nillable="true" type="tns:ProposalUpdateUnsAddressEntity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProposalUpdateUnsAddressEntity">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ADR_TYPE" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ADR_DATA" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetProposal3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProposal3Result" type="tns:MethodResultOfCascoResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProposal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="parameters" type="tns:ProposalParameters" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ProposalParameters">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PlateState" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PlateChar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PlateNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TypeCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfCustomParameter" />
+          <s:element minOccurs="0" maxOccurs="1" name="Insured" type="tns:Unit" />
+          <s:element minOccurs="0" maxOccurs="1" name="Customer" type="tns:Unit" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetProposalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProposalResult" type="tns:MethodResultOfProposalOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MethodResultOfProposalOutput">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MethodResultBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Result" type="tns:ProposalOutput" />
+              <s:element minOccurs="0" maxOccurs="1" name="SessionKey" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="IdentityHeader" type="tns:IdentityHeader" />
+      <s:complexType name="IdentityHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KullaniciParola" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KullaniciIP" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="KullaniciTipi" type="tns:ClientType" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:simpleType name="ClientType">
+        <s:restriction base="s:string">
+          <s:enumeration value="ACENTE" />
+          <s:enumeration value="INTERNET" />
+          <s:enumeration value="DEVELOP" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetProposal2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="identity" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tax" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="plateState" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="plateChar" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="plateNumber" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="typeCode" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="parameters" type="tns:ArrayOfCustomParameter" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProposal2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="casco-proposal" nillable="true" type="tns:ProposalSimple" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOccupations">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOccupationsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOccupationsResult" type="tns:ArrayOfBaseDataResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBaseDataResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BaseDataResult" nillable="true" type="tns:BaseDataResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BaseDataResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ValueField" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TextField" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetOccupationsExt">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetOccupationsExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOccupationsExtResult" type="tns:ArrayOfBaseDataResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCorporateActivityCodes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCorporateActivityCodesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCorporateActivityCodesResult" type="tns:ArrayOfBaseDataResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCorporateActivityCodesExt">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCorporateActivityCodesExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCorporateActivityCodesExtResult" type="tns:ArrayOfBaseDataResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConfirmProposal2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="parameters" type="tns:ConfirmParameters" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ConfirmParameters">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PolicyNr" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardHolderName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Month" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Year" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cvv" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Installment" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfCustomParameter" />
+          <s:element minOccurs="0" maxOccurs="1" name="Unit" type="tns:Unit" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaymentMethod" type="tns:PaymentMethod" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PaymentMethod">
+        <s:restriction base="s:string">
+          <s:enumeration value="WithCreditCard" />
+          <s:enumeration value="AsCash" />
+          <s:enumeration value="FromBankAccount" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ConfirmProposal2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="confirm-response" nillable="true" type="tns:ConfirmResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ConfirmResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="policy-number" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCustomerInformationForm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sessionNo" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="policyNumber" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerInformationFormResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="print-response" nillable="true" type="tns:PrintResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PrintResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="download-url" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sessionNo" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="policyNumber" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="print-response" nillable="true" type="tns:PrintResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEndorsPrint">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="policyNumber" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="endorsNumber" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEndorsPrintResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="print-response" nillable="true" type="tns:PrintResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentSlip">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sessionNo" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="policyNumber" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentSlipResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="print-response" nillable="true" type="tns:PrintResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Cities">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CitiesResult" type="tns:MethodResultOfListOfAddressItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MethodResultOfListOfAddressItem">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MethodResultBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Result" type="tns:ArrayOfAddressItem" />
+              <s:element minOccurs="0" maxOccurs="1" name="SessionKey" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfAddressItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AddressItem" nillable="true" type="tns:AddressItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ItemCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CitiesExt">
+        <s:complexType />
+      </s:element>
+      <s:element name="CitiesExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CitiesExtResult" type="tns:MethodResultOfListOfAddressItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Towns">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="cityCode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TownsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TownsResult" type="tns:MethodResultOfListOfAddressItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TownsExt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="cityCode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TownsExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TownsExtResult" type="tns:MethodResultOfListOfAddressItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIMMList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetIMMListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIMMListResult" type="tns:MethodResultOfListOfImmValues" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MethodResultOfListOfImmValues">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MethodResultBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Result" type="tns:ArrayOfImmValues" />
+              <s:element minOccurs="0" maxOccurs="1" name="SessionKey" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfImmValues">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ImmValues" nillable="true" type="tns:ImmValues" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ImmValues">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Kod" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="KisiBasiBedeni" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="KazaBasiBedeni" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="KazaBasiMaddi" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Kombine" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetIMMListExt">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetIMMListExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIMMListExtResult" type="tns:MethodResultOfListOfImmValues" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Brands">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BrandsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BrandsResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MethodResultOfListOfFihristItem">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MethodResultBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Result" type="tns:ArrayOfFihristItem" />
+              <s:element minOccurs="0" maxOccurs="1" name="SessionKey" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfFihristItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FihristItem" nillable="true" type="tns:FihristItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FihristItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ItemText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ItemValue" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BrandsExt">
+        <s:complexType />
+      </s:element>
+      <s:element name="BrandsExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BrandsExtResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BrandsWithCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BrandsWithCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BrandsWithCodeResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BrandsWithCodeExt">
+        <s:complexType />
+      </s:element>
+      <s:element name="BrandsWithCodeExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BrandsWithCodeExtResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Models">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="brandName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModelsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ModelsResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModelsExt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="brandName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModelsExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ModelsExtResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModelsViaBrandCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="brandcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModelsViaBrandCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ModelsViaBrandCodeResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModelsViaBrandCodeExt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="brandcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ModelsViaBrandCodeExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ModelsViaBrandCodeExtResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UsageCode">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UsageCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UsageCodeResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UsageCodeExt">
+        <s:complexType />
+      </s:element>
+      <s:element name="UsageCodeExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UsageCodeExtResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LostIgnitionKeyCovers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LostIgnitionKeyCoversResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LostIgnitionKeyCoversResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LostIgnitionKeyCoversExt">
+        <s:complexType />
+      </s:element>
+      <s:element name="LostIgnitionKeyCoversExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LostIgnitionKeyCoversExtResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PersonalAccidentCoverLimits">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="coverCode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PersonalAccidentCoverLimitsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PersonalAccidentCoverLimitsResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PersonalAccidentCoverLimitsExt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="coverCode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PersonalAccidentCoverLimitsExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PersonalAccidentCoverLimitsExtResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VehicleCaseTypes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isCommercial" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="usageCode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VehicleCaseTypesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VehicleCaseTypesResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VehicleCaseTypesExt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="isCommercial" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="usageCode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VehicleCaseTypesExtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VehicleCaseTypesExtResult" type="tns:MethodResultOfListOfFihristItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetProposalFromLogSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProposalFromLog" />
+  </wsdl:message>
+  <wsdl:message name="GetProposalFromLogSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProposalFromLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProposal3SoapIn">
+    <wsdl:part name="parameters" element="tns:GetProposal3" />
+  </wsdl:message>
+  <wsdl:message name="GetProposal3SoapOut">
+    <wsdl:part name="parameters" element="tns:GetProposal3Response" />
+  </wsdl:message>
+  <wsdl:message name="GetProposalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProposal" />
+  </wsdl:message>
+  <wsdl:message name="GetProposalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProposalResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProposalIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetProposal2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetProposal2" />
+  </wsdl:message>
+  <wsdl:message name="GetProposal2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetProposal2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetOccupationsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOccupations" />
+  </wsdl:message>
+  <wsdl:message name="GetOccupationsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOccupationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOccupationsExtSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOccupationsExt" />
+  </wsdl:message>
+  <wsdl:message name="GetOccupationsExtSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOccupationsExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOccupationsExtIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCorporateActivityCodesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCorporateActivityCodes" />
+  </wsdl:message>
+  <wsdl:message name="GetCorporateActivityCodesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCorporateActivityCodesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCorporateActivityCodesExtSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCorporateActivityCodesExt" />
+  </wsdl:message>
+  <wsdl:message name="GetCorporateActivityCodesExtSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCorporateActivityCodesExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCorporateActivityCodesExtIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmProposal2SoapIn">
+    <wsdl:part name="parameters" element="tns:ConfirmProposal2" />
+  </wsdl:message>
+  <wsdl:message name="ConfirmProposal2SoapOut">
+    <wsdl:part name="parameters" element="tns:ConfirmProposal2Response" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerInformationFormSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomerInformationForm" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerInformationFormSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomerInformationFormResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDocument" />
+  </wsdl:message>
+  <wsdl:message name="GetDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEndorsPrintSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEndorsPrint" />
+  </wsdl:message>
+  <wsdl:message name="GetEndorsPrintSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEndorsPrintResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentSlipSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPaymentSlip" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentSlipSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPaymentSlipResponse" />
+  </wsdl:message>
+  <wsdl:message name="CitiesSoapIn">
+    <wsdl:part name="parameters" element="tns:Cities" />
+  </wsdl:message>
+  <wsdl:message name="CitiesSoapOut">
+    <wsdl:part name="parameters" element="tns:CitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="CitiesExtSoapIn">
+    <wsdl:part name="parameters" element="tns:CitiesExt" />
+  </wsdl:message>
+  <wsdl:message name="CitiesExtSoapOut">
+    <wsdl:part name="parameters" element="tns:CitiesExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="CitiesExtIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="TownsSoapIn">
+    <wsdl:part name="parameters" element="tns:Towns" />
+  </wsdl:message>
+  <wsdl:message name="TownsSoapOut">
+    <wsdl:part name="parameters" element="tns:TownsResponse" />
+  </wsdl:message>
+  <wsdl:message name="TownsExtSoapIn">
+    <wsdl:part name="parameters" element="tns:TownsExt" />
+  </wsdl:message>
+  <wsdl:message name="TownsExtSoapOut">
+    <wsdl:part name="parameters" element="tns:TownsExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="TownsExtIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetIMMListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIMMList" />
+  </wsdl:message>
+  <wsdl:message name="GetIMMListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIMMListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIMMListExtSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIMMListExt" />
+  </wsdl:message>
+  <wsdl:message name="GetIMMListExtSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIMMListExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIMMListExtIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="BrandsSoapIn">
+    <wsdl:part name="parameters" element="tns:Brands" />
+  </wsdl:message>
+  <wsdl:message name="BrandsSoapOut">
+    <wsdl:part name="parameters" element="tns:BrandsResponse" />
+  </wsdl:message>
+  <wsdl:message name="BrandsExtSoapIn">
+    <wsdl:part name="parameters" element="tns:BrandsExt" />
+  </wsdl:message>
+  <wsdl:message name="BrandsExtSoapOut">
+    <wsdl:part name="parameters" element="tns:BrandsExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="BrandsExtIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="BrandsWithCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:BrandsWithCode" />
+  </wsdl:message>
+  <wsdl:message name="BrandsWithCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:BrandsWithCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="BrandsWithCodeExtSoapIn">
+    <wsdl:part name="parameters" element="tns:BrandsWithCodeExt" />
+  </wsdl:message>
+  <wsdl:message name="BrandsWithCodeExtSoapOut">
+    <wsdl:part name="parameters" element="tns:BrandsWithCodeExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="BrandsWithCodeExtIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="ModelsSoapIn">
+    <wsdl:part name="parameters" element="tns:Models" />
+  </wsdl:message>
+  <wsdl:message name="ModelsSoapOut">
+    <wsdl:part name="parameters" element="tns:ModelsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModelsExtSoapIn">
+    <wsdl:part name="parameters" element="tns:ModelsExt" />
+  </wsdl:message>
+  <wsdl:message name="ModelsExtSoapOut">
+    <wsdl:part name="parameters" element="tns:ModelsExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModelsExtIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="ModelsViaBrandCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:ModelsViaBrandCode" />
+  </wsdl:message>
+  <wsdl:message name="ModelsViaBrandCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:ModelsViaBrandCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModelsViaBrandCodeExtSoapIn">
+    <wsdl:part name="parameters" element="tns:ModelsViaBrandCodeExt" />
+  </wsdl:message>
+  <wsdl:message name="ModelsViaBrandCodeExtSoapOut">
+    <wsdl:part name="parameters" element="tns:ModelsViaBrandCodeExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModelsViaBrandCodeExtIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="UsageCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:UsageCode" />
+  </wsdl:message>
+  <wsdl:message name="UsageCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:UsageCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="UsageCodeExtSoapIn">
+    <wsdl:part name="parameters" element="tns:UsageCodeExt" />
+  </wsdl:message>
+  <wsdl:message name="UsageCodeExtSoapOut">
+    <wsdl:part name="parameters" element="tns:UsageCodeExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="UsageCodeExtIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="LostIgnitionKeyCoversSoapIn">
+    <wsdl:part name="parameters" element="tns:LostIgnitionKeyCovers" />
+  </wsdl:message>
+  <wsdl:message name="LostIgnitionKeyCoversSoapOut">
+    <wsdl:part name="parameters" element="tns:LostIgnitionKeyCoversResponse" />
+  </wsdl:message>
+  <wsdl:message name="LostIgnitionKeyCoversExtSoapIn">
+    <wsdl:part name="parameters" element="tns:LostIgnitionKeyCoversExt" />
+  </wsdl:message>
+  <wsdl:message name="LostIgnitionKeyCoversExtSoapOut">
+    <wsdl:part name="parameters" element="tns:LostIgnitionKeyCoversExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="LostIgnitionKeyCoversExtIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="PersonalAccidentCoverLimitsSoapIn">
+    <wsdl:part name="parameters" element="tns:PersonalAccidentCoverLimits" />
+  </wsdl:message>
+  <wsdl:message name="PersonalAccidentCoverLimitsSoapOut">
+    <wsdl:part name="parameters" element="tns:PersonalAccidentCoverLimitsResponse" />
+  </wsdl:message>
+  <wsdl:message name="PersonalAccidentCoverLimitsExtSoapIn">
+    <wsdl:part name="parameters" element="tns:PersonalAccidentCoverLimitsExt" />
+  </wsdl:message>
+  <wsdl:message name="PersonalAccidentCoverLimitsExtSoapOut">
+    <wsdl:part name="parameters" element="tns:PersonalAccidentCoverLimitsExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="PersonalAccidentCoverLimitsExtIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="VehicleCaseTypesSoapIn">
+    <wsdl:part name="parameters" element="tns:VehicleCaseTypes" />
+  </wsdl:message>
+  <wsdl:message name="VehicleCaseTypesSoapOut">
+    <wsdl:part name="parameters" element="tns:VehicleCaseTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="VehicleCaseTypesExtSoapIn">
+    <wsdl:part name="parameters" element="tns:VehicleCaseTypesExt" />
+  </wsdl:message>
+  <wsdl:message name="VehicleCaseTypesExtSoapOut">
+    <wsdl:part name="parameters" element="tns:VehicleCaseTypesExtResponse" />
+  </wsdl:message>
+  <wsdl:message name="VehicleCaseTypesExtIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:portType name="CascoSoap">
+    <wsdl:operation name="GetProposalFromLog">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">ehde</wsdl:documentation>
+      <wsdl:input message="tns:GetProposalFromLogSoapIn" />
+      <wsdl:output message="tns:GetProposalFromLogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProposal3">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Kasko poliçe teklifi almak için kullanılır.</wsdl:documentation>
+      <wsdl:input message="tns:GetProposal3SoapIn" />
+      <wsdl:output message="tns:GetProposal3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProposal">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Kasko poliçe teklifi almak için kullanılır.</wsdl:documentation>
+      <wsdl:input message="tns:GetProposalSoapIn" />
+      <wsdl:output message="tns:GetProposalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProposal2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Kasko poliçe teklifi almak için kullanılır.</wsdl:documentation>
+      <wsdl:input message="tns:GetProposal2SoapIn" />
+      <wsdl:output message="tns:GetProposal2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOccupations">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Meslek Bilgileri</wsdl:documentation>
+      <wsdl:input message="tns:GetOccupationsSoapIn" />
+      <wsdl:output message="tns:GetOccupationsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOccupationsExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Meslek Bilgileri</wsdl:documentation>
+      <wsdl:input message="tns:GetOccupationsExtSoapIn" />
+      <wsdl:output message="tns:GetOccupationsExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCorporateActivityCodes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Faaliyet Kodu Bilgileri</wsdl:documentation>
+      <wsdl:input message="tns:GetCorporateActivityCodesSoapIn" />
+      <wsdl:output message="tns:GetCorporateActivityCodesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCorporateActivityCodesExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Faaliyet Kodu Bilgileri</wsdl:documentation>
+      <wsdl:input message="tns:GetCorporateActivityCodesExtSoapIn" />
+      <wsdl:output message="tns:GetCorporateActivityCodesExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmProposal2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Seans numarası ve ödeme bilgileri kullanılarak ilgili poliçenin onaylanmasını için kullanılır.</wsdl:documentation>
+      <wsdl:input message="tns:ConfirmProposal2SoapIn" />
+      <wsdl:output message="tns:ConfirmProposal2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerInformationForm">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Seans numarası ve poliçe numarasına karşılık gelen bilgilendirme formunun download adresini üretir.</wsdl:documentation>
+      <wsdl:input message="tns:GetCustomerInformationFormSoapIn" />
+      <wsdl:output message="tns:GetCustomerInformationFormSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDocument">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Seans numarası ve poliçe numarasına karşılık gelen poliçe basım dökümanının download adresini üretir.</wsdl:documentation>
+      <wsdl:input message="tns:GetDocumentSoapIn" />
+      <wsdl:output message="tns:GetDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEndorsPrint">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Poliçe numarası ve zeyil numarasına karşılık gelen poliçe basım dökümanının download adresini üretir.</wsdl:documentation>
+      <wsdl:input message="tns:GetEndorsPrintSoapIn" />
+      <wsdl:output message="tns:GetEndorsPrintSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentSlip">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Onay sırasındaki kart işleminin basımını verir</wsdl:documentation>
+      <wsdl:input message="tns:GetPaymentSlipSoapIn" />
+      <wsdl:output message="tns:GetPaymentSlipSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Cities">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Şehir listesi</wsdl:documentation>
+      <wsdl:input message="tns:CitiesSoapIn" />
+      <wsdl:output message="tns:CitiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CitiesExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Şehir listesi</wsdl:documentation>
+      <wsdl:input message="tns:CitiesExtSoapIn" />
+      <wsdl:output message="tns:CitiesExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Towns">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Şehre bağlı ilçe listesi</wsdl:documentation>
+      <wsdl:input message="tns:TownsSoapIn" />
+      <wsdl:output message="tns:TownsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TownsExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Şehre bağlı ilçe listesi</wsdl:documentation>
+      <wsdl:input message="tns:TownsExtSoapIn" />
+      <wsdl:output message="tns:TownsExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIMMList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">IMM listesi (KisiBasiBedeni - KazaBasiBedeni - KazaBasiMaddi) - Kombine </wsdl:documentation>
+      <wsdl:input message="tns:GetIMMListSoapIn" />
+      <wsdl:output message="tns:GetIMMListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIMMListExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">IMM listesi (KisiBasiBedeni - KazaBasiBedeni - KazaBasiMaddi) - Kombine </wsdl:documentation>
+      <wsdl:input message="tns:GetIMMListExtSoapIn" />
+      <wsdl:output message="tns:GetIMMListExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Brands">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Marka Listesi</wsdl:documentation>
+      <wsdl:input message="tns:BrandsSoapIn" />
+      <wsdl:output message="tns:BrandsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BrandsExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Marka Listesi</wsdl:documentation>
+      <wsdl:input message="tns:BrandsExtSoapIn" />
+      <wsdl:output message="tns:BrandsExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BrandsWithCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Marka Listesi</wsdl:documentation>
+      <wsdl:input message="tns:BrandsWithCodeSoapIn" />
+      <wsdl:output message="tns:BrandsWithCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BrandsWithCodeExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Marka Listesi</wsdl:documentation>
+      <wsdl:input message="tns:BrandsWithCodeExtSoapIn" />
+      <wsdl:output message="tns:BrandsWithCodeExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Models">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Models Listesi</wsdl:documentation>
+      <wsdl:input message="tns:ModelsSoapIn" />
+      <wsdl:output message="tns:ModelsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModelsExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Models Listesi</wsdl:documentation>
+      <wsdl:input message="tns:ModelsExtSoapIn" />
+      <wsdl:output message="tns:ModelsExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModelsViaBrandCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Models Listesi</wsdl:documentation>
+      <wsdl:input message="tns:ModelsViaBrandCodeSoapIn" />
+      <wsdl:output message="tns:ModelsViaBrandCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ModelsViaBrandCodeExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Models Listesi</wsdl:documentation>
+      <wsdl:input message="tns:ModelsViaBrandCodeExtSoapIn" />
+      <wsdl:output message="tns:ModelsViaBrandCodeExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UsageCode">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Kullanım kodu Listesi</wsdl:documentation>
+      <wsdl:input message="tns:UsageCodeSoapIn" />
+      <wsdl:output message="tns:UsageCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UsageCodeExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Kullanım kodu Listesi</wsdl:documentation>
+      <wsdl:input message="tns:UsageCodeExtSoapIn" />
+      <wsdl:output message="tns:UsageCodeExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LostIgnitionKeyCovers">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Kayıp Anahtar teminatı için Fihrist</wsdl:documentation>
+      <wsdl:input message="tns:LostIgnitionKeyCoversSoapIn" />
+      <wsdl:output message="tns:LostIgnitionKeyCoversSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LostIgnitionKeyCoversExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Kayıp Anahtar teminatı için Fihrist</wsdl:documentation>
+      <wsdl:input message="tns:LostIgnitionKeyCoversExtSoapIn" />
+      <wsdl:output message="tns:LostIgnitionKeyCoversExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PersonalAccidentCoverLimits">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ferdi kaza teminatı için fihrist</wsdl:documentation>
+      <wsdl:input message="tns:PersonalAccidentCoverLimitsSoapIn" />
+      <wsdl:output message="tns:PersonalAccidentCoverLimitsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PersonalAccidentCoverLimitsExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Ferdi kaza teminatı için fihrist</wsdl:documentation>
+      <wsdl:input message="tns:PersonalAccidentCoverLimitsExtSoapIn" />
+      <wsdl:output message="tns:PersonalAccidentCoverLimitsExtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VehicleCaseTypes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Araç Kasa Tipi Fihristi</wsdl:documentation>
+      <wsdl:input message="tns:VehicleCaseTypesSoapIn" />
+      <wsdl:output message="tns:VehicleCaseTypesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="VehicleCaseTypesExt">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Araç Kasa Tipi Fihristi</wsdl:documentation>
+      <wsdl:input message="tns:VehicleCaseTypesExtSoapIn" />
+      <wsdl:output message="tns:VehicleCaseTypesExtSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CascoSoap" type="tns:CascoSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProposalFromLog">
+      <soap:operation soapAction="http://tempuri.org/GetProposalFromLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProposal3">
+      <soap:operation soapAction="http://tempuri.org/GetProposal3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProposal">
+      <soap:operation soapAction="http://tempuri.org/GetProposal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetProposalIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProposal2">
+      <soap:operation soapAction="http://tempuri.org/GetProposal2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOccupations">
+      <soap:operation soapAction="http://tempuri.org/GetOccupations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOccupationsExt">
+      <soap:operation soapAction="http://tempuri.org/GetOccupationsExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetOccupationsExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCorporateActivityCodes">
+      <soap:operation soapAction="http://tempuri.org/GetCorporateActivityCodes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCorporateActivityCodesExt">
+      <soap:operation soapAction="http://tempuri.org/GetCorporateActivityCodesExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCorporateActivityCodesExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmProposal2">
+      <soap:operation soapAction="http://tempuri.org/ConfirmProposal2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerInformationForm">
+      <soap:operation soapAction="http://tempuri.org/GetCustomerInformationForm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocument">
+      <soap:operation soapAction="http://tempuri.org/GetDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEndorsPrint">
+      <soap:operation soapAction="http://tempuri.org/GetEndorsPrint" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentSlip">
+      <soap:operation soapAction="http://tempuri.org/GetPaymentSlip" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cities">
+      <soap:operation soapAction="http://tempuri.org/Cities" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CitiesExt">
+      <soap:operation soapAction="http://tempuri.org/CitiesExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CitiesExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Towns">
+      <soap:operation soapAction="http://tempuri.org/Towns" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TownsExt">
+      <soap:operation soapAction="http://tempuri.org/TownsExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:TownsExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIMMList">
+      <soap:operation soapAction="http://tempuri.org/GetIMMList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIMMListExt">
+      <soap:operation soapAction="http://tempuri.org/GetIMMListExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetIMMListExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Brands">
+      <soap:operation soapAction="http://tempuri.org/Brands" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BrandsExt">
+      <soap:operation soapAction="http://tempuri.org/BrandsExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:BrandsExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BrandsWithCode">
+      <soap:operation soapAction="http://tempuri.org/BrandsWithCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BrandsWithCodeExt">
+      <soap:operation soapAction="http://tempuri.org/BrandsWithCodeExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:BrandsWithCodeExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Models">
+      <soap:operation soapAction="http://tempuri.org/Models" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModelsExt">
+      <soap:operation soapAction="http://tempuri.org/ModelsExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ModelsExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModelsViaBrandCode">
+      <soap:operation soapAction="http://tempuri.org/ModelsViaBrandCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModelsViaBrandCodeExt">
+      <soap:operation soapAction="http://tempuri.org/ModelsViaBrandCodeExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ModelsViaBrandCodeExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UsageCode">
+      <soap:operation soapAction="http://tempuri.org/UsageCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UsageCodeExt">
+      <soap:operation soapAction="http://tempuri.org/UsageCodeExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UsageCodeExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LostIgnitionKeyCovers">
+      <soap:operation soapAction="http://tempuri.org/LostIgnitionKeyCovers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LostIgnitionKeyCoversExt">
+      <soap:operation soapAction="http://tempuri.org/LostIgnitionKeyCoversExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:LostIgnitionKeyCoversExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersonalAccidentCoverLimits">
+      <soap:operation soapAction="http://tempuri.org/PersonalAccidentCoverLimits" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersonalAccidentCoverLimitsExt">
+      <soap:operation soapAction="http://tempuri.org/PersonalAccidentCoverLimitsExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:PersonalAccidentCoverLimitsExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VehicleCaseTypes">
+      <soap:operation soapAction="http://tempuri.org/VehicleCaseTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VehicleCaseTypesExt">
+      <soap:operation soapAction="http://tempuri.org/VehicleCaseTypesExt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:VehicleCaseTypesExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CascoSoap12" type="tns:CascoSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProposalFromLog">
+      <soap12:operation soapAction="http://tempuri.org/GetProposalFromLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProposal3">
+      <soap12:operation soapAction="http://tempuri.org/GetProposal3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProposal">
+      <soap12:operation soapAction="http://tempuri.org/GetProposal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetProposalIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProposal2">
+      <soap12:operation soapAction="http://tempuri.org/GetProposal2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOccupations">
+      <soap12:operation soapAction="http://tempuri.org/GetOccupations" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOccupationsExt">
+      <soap12:operation soapAction="http://tempuri.org/GetOccupationsExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetOccupationsExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCorporateActivityCodes">
+      <soap12:operation soapAction="http://tempuri.org/GetCorporateActivityCodes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCorporateActivityCodesExt">
+      <soap12:operation soapAction="http://tempuri.org/GetCorporateActivityCodesExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCorporateActivityCodesExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConfirmProposal2">
+      <soap12:operation soapAction="http://tempuri.org/ConfirmProposal2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerInformationForm">
+      <soap12:operation soapAction="http://tempuri.org/GetCustomerInformationForm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDocument">
+      <soap12:operation soapAction="http://tempuri.org/GetDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEndorsPrint">
+      <soap12:operation soapAction="http://tempuri.org/GetEndorsPrint" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentSlip">
+      <soap12:operation soapAction="http://tempuri.org/GetPaymentSlip" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cities">
+      <soap12:operation soapAction="http://tempuri.org/Cities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CitiesExt">
+      <soap12:operation soapAction="http://tempuri.org/CitiesExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CitiesExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Towns">
+      <soap12:operation soapAction="http://tempuri.org/Towns" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TownsExt">
+      <soap12:operation soapAction="http://tempuri.org/TownsExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:TownsExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIMMList">
+      <soap12:operation soapAction="http://tempuri.org/GetIMMList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIMMListExt">
+      <soap12:operation soapAction="http://tempuri.org/GetIMMListExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetIMMListExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Brands">
+      <soap12:operation soapAction="http://tempuri.org/Brands" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BrandsExt">
+      <soap12:operation soapAction="http://tempuri.org/BrandsExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:BrandsExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BrandsWithCode">
+      <soap12:operation soapAction="http://tempuri.org/BrandsWithCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BrandsWithCodeExt">
+      <soap12:operation soapAction="http://tempuri.org/BrandsWithCodeExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:BrandsWithCodeExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Models">
+      <soap12:operation soapAction="http://tempuri.org/Models" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModelsExt">
+      <soap12:operation soapAction="http://tempuri.org/ModelsExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ModelsExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModelsViaBrandCode">
+      <soap12:operation soapAction="http://tempuri.org/ModelsViaBrandCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModelsViaBrandCodeExt">
+      <soap12:operation soapAction="http://tempuri.org/ModelsViaBrandCodeExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ModelsViaBrandCodeExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UsageCode">
+      <soap12:operation soapAction="http://tempuri.org/UsageCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UsageCodeExt">
+      <soap12:operation soapAction="http://tempuri.org/UsageCodeExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UsageCodeExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LostIgnitionKeyCovers">
+      <soap12:operation soapAction="http://tempuri.org/LostIgnitionKeyCovers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LostIgnitionKeyCoversExt">
+      <soap12:operation soapAction="http://tempuri.org/LostIgnitionKeyCoversExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:LostIgnitionKeyCoversExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersonalAccidentCoverLimits">
+      <soap12:operation soapAction="http://tempuri.org/PersonalAccidentCoverLimits" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PersonalAccidentCoverLimitsExt">
+      <soap12:operation soapAction="http://tempuri.org/PersonalAccidentCoverLimitsExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:PersonalAccidentCoverLimitsExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VehicleCaseTypes">
+      <soap12:operation soapAction="http://tempuri.org/VehicleCaseTypes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VehicleCaseTypesExt">
+      <soap12:operation soapAction="http://tempuri.org/VehicleCaseTypesExt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:VehicleCaseTypesExtIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Casco">
+    <wsdl:port name="CascoSoap" binding="tns:CascoSoap">
+      <soap:address location="https://www.sompojapan.com.tr/SompoEndPoint/Casco.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CascoSoap12" binding="tns:CascoSoap12">
+      <soap12:address location="https://www.sompojapan.com.tr/SompoEndPoint/Casco.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

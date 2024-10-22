@@ -1,0 +1,119 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.KonutRizikoGenelBilgiler
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.IsTherePledgedCreditorDainLossPayee</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(s => s.RehinliAlacakliDainMurtehinVarmi, new string[] { "EVET", "HAYIR" }, new { })
+            </div>
+        </div>
+
+        <div class="rehinli-alacak" style="display: none">
+            <div class="control-group">
+                <label class="control-label">@babonline.VehicleType<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.Tipi, Model.Tipler, new { style = "width:90%" })
+                    @Html.ValidationMessageFor(s => s.Tipi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.InstitutionBank<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.KurumBanka, Model.Kurum_Bankalar, new { style = "width:90%" })
+                    @Html.ValidationMessageFor(s => s.KurumBanka)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Office<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.Sube, Model.Subeler, new { style = "width:90%" })
+                    @Html.ValidationMessageFor(s => s.Sube)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.CurrencyCode</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.DovizKodu, Model.DovizKodlari, new { style = "width:90%" })
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">@babonline.CreditEndDate</label>
+                <div class="controls">
+                    @Html.DateTextBoxFor(s => s.KrediBitisTarihi, new { style = "width:90%" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.CreditAmount</label>
+                <div class="controls">
+                    <div class="input-append">
+                        @Html.TextBoxFor(m => m.KrediTutari, new { @class = "m-wrap onlynumbers autoNumeric", style = "width:90px; text-align:right" })<span class="add-on"> TL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.CreditReferenceNumberAccountContractNo<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.KrediReferansNo_HesapSozlesmeNo, new { style = "width:90%" })
+                    @Html.ValidationMessageFor(s => s.KrediReferansNo_HesapSozlesmeNo)
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.IsThereDaskPolicy</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(s => s.YururlukteDaskPolicesiVarmi, new string[] { "EVET", "HAYIR" }, new { })
+            </div>
+        </div>
+        <div class="dask-policesi" style="display: none">
+            <div class="control-group">
+                <label class="control-label">@babonline.InsuranceCompany<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.SigortaSirketi, Model.SigortaSirketleri, new { style = "width:90%" })
+                    @Html.ValidationMessageFor(s => s.SigortaSirketi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.DaskPolicyMaturityDate<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DateTextBoxFor(s => s.PoliceninVadeTarihi, new { })
+                    @Html.ValidationMessageFor(s => s.PoliceninVadeTarihi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.PolicyNo<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.PoliceNumarasi, new { })
+                    @Html.ValidationMessageFor(s => s.PoliceNumarasi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.DaskInsuranceValue<span class="required">*</span></label>
+                <div class="controls">
+                    <div class="input-append">
+                        @Html.TextBoxFor(m => m.DaskSigortaBedeli, new { @class = "m-wrap onlynumbers autoNumeric", style = "width:90px; text-align:right" })<span class="add-on"> TL</span>
+                    </div>
+                    @Html.ValidationMessageFor(s => s.DaskSigortaBedeli)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,53 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models;
+@model TeklifDurumModel
+
+<div class="row-fluid">
+    @Html.Hidden("TeklifId", Model.teklifId)
+    <div id="teklif-fiyatlar">
+        <h4>@babonline.Proposal_No: <span id="teklif-no">@Model.teklifNo</span></h4>
+        <h4>@babonline.MapfreProposalNo: <span id="mapfre-teklif-no">@Model.TUMTeklifNo</span></h4>
+        @for (int i = 0; i < Model.teklifler.Count; i++)
+        {
+            if (Model.teklifler[i].Hatalar != null && Model.teklifler[i].Hatalar.Count > 0)
+            {
+                <div class="row-fluid" style="margin-top:20px; padding-bottom:20px; border-bottom: 1px solid #e5e5e5;">
+                    <div class="alert alert-danger">
+                        <h4>Teklif oluşturulamadı</h4>
+                        @foreach (var item in Model.teklifler[i].Hatalar)
+	                    {
+		                    <p>@item</p>
+	                    }
+                    </div>
+                </div>
+            }
+            else
+            {
+            <div class="row-fluid" style="margin-top:20px; padding-bottom:20px; border-bottom: 1px solid #e5e5e5;">
+                <div class="span2" style="text-align: center;">
+                    <img alt="@Model.teklifler[i].TUMUnvani" title="@Model.teklifler[i].TUMUnvani" src="@Model.teklifler[i].TUMLogoUrl" />
+                </div>
+                <div class="span1" style="text-align:center;">
+                    &nbsp;
+                </div>
+                <div class="span3" style="text-align:center;">
+                    &nbsp;
+                </div>
+                <div class="span3" style="text-align:center;">
+                    <span style="font-weight:bold;" class="fiyat">@Model.teklifler[i].Fiyat1</span>
+                    <button type="button" class="btn btn-success teklif-satin-al" style="padding-left:10px;" teklif-id="@Model.teklifler[i].Fiyat1_TeklifId" fiyat="@Model.teklifler[i].Fiyat1">
+                        <i class="icon-ok icon-white"></i>
+                        <span>@babonline.BuyPolicy</span>
+                    </button>
+                </div>
+            </div>
+            }
+        }
+    </div>
+
+    <div id="teklif-button-container" class="row-fluid" style="padding-top: 20px; padding-bottom: 20px;">
+        <div class="span4">
+            <button id="btn-teklif-tekrar" class="btn btn-warning" type="button"><i class="icon-star-empty icon-white"></i>&nbsp;@babonline.Revise</button>
+        </div>
+    </div>
+</div>

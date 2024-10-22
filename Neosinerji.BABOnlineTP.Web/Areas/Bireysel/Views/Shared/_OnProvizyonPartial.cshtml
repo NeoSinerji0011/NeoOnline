@@ -1,0 +1,129 @@
+﻿@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.AegonOnProvizyonModel
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+
+<div id="onprovizyon-modal" class="modal hide fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>Ön Provizyon</h3>
+    </div>
+    <div class="modal-body">
+        <form id="onprovizyon-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.HiddenFor(m => m.teklifid)
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+
+            <div class="control-group ">
+                <label class="control-label">Partaj No <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.pPartajNox, new { maxlength = 15, style = "width:193px;", @class = "m-wrap" })
+                    @Html.ValidationMessageFor(m => m.pPartajNox)
+                </div>
+            </div>
+
+            <div class="control-group ">
+                <label class="control-label">Başvuru Numarası <span class="required">*</span>  </label>
+                <div class="controls input-icon">
+                    @Html.TextBoxFor(s => s.pBasvuruNox, new { maxlength = 10, style = "width:193px;", @class = "m-wrap" })
+                    <span class="input-info tooltips" id="basvuru-message" data-original-title="Doldurulan başvuru formundaki barkod numarası">
+                        <i class="icon-warning-sign"></i>
+                    </span>
+                    @Html.ValidationMessageFor(m => m.pBasvuruNox)
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Ödemeyi Yapanın TC Kimlik Numarası  <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.pTCKx, new { maxlength = 11, autocompletetype = "disabled", style = "width:193px;", @class = "m-wrap" })
+                    @Html.ValidationMessageFor(m => m.pTCKx)
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">@babonline.CreditCard_Number <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.EditorFor(m => m.pKKNox)
+                    @Html.ValidationMessageFor(m => m.pKKNox)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.ExpirationDate</label>
+                <div class="controls">
+
+                    @Html.DropDownListFor(s => s.pSKT_Ayx, Model.Aylar, new { style = "width:60px !important;" })
+                    @Html.ValidationMessageFor(s => s.pSKT_Ayx)
+                    @Html.DropDownListFor(s => s.pSKT_Yilx, Model.Yillar, new { style = "width:75px !important;" })
+                    @Html.ValidationMessageFor(s => s.pSKT_Yilx)
+                </div>
+            </div>
+            <div class="control-group diger-mail">
+                <label class="control-label">CVV Numarasi <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.pCVVx, new { maxlength = "3", data_format = "ddd", @class = "input-medium bfh-phone m-wrap", style = "width:35px;" })
+                    @Html.ValidationMessageFor(m => m.pCVVx)
+                </div>
+            </div>
+
+            <div class="control-group asil-mail">
+                <label class="control-label">Ödeme Yapılacak Tutar</label>
+                <div class="controls">
+                    <label class="control">@Model.pTutarx.ToString("N2", new System.Globalization.CultureInfo("TR-tr"))</label>
+                </div>
+            </div>
+
+            <div class="control-group asil-mail">
+                <label class="control-label">Para Birimi</label>
+                <div class="controls">
+                    <label class="control">@Model.pParaBirimix</label>
+                </div>
+            </div>
+
+            <div class="control-group asil-mail">
+                <label class="control-label">Provizyon Tarihi <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DateTextBoxFor(s => s.pProvTarx, new { })
+                    @Html.ValidationMessageFor(s => s.pProvTarx)
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="#" class="btn btn-success" id="onprovizyon-al-btn">@babonline.Send</a>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        //Tarih için
+        $("#pProvTarx").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'dd.mm.yy',
+            showOn: "button",
+            buttonImage: "/Content/img/glyphicons_045_calendar.png",
+            buttonImageOnly: true,
+            minDate: 0,
+            maxDate: +13
+        });
+
+
+    });
+
+    $(".credit-card").keyup(function (event) {
+        var key = event.which;
+
+        if (key !== 0) {
+            var c = String.fromCharCode(key);
+            if (c.match("[0-9]")) {
+                if (this.value.length == 4)
+                    $(this).next("input[type=text]").focus();
+
+                if (this.value.length == 0)
+                    $(this).prev("input[type=text]").focus();
+            }
+        }
+    });
+
+</script>

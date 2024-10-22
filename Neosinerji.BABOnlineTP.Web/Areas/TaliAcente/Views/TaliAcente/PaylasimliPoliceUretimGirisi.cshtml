@@ -1,0 +1,158 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@using Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Web.Areas.TaliAcente.Models
+@model PaylasimliPoliceUretimModel
+
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+
+}
+
+<link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+<script src="~/Content/Angular/js/sweetalert.min.js"></script>
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;"><span class="selected">Paylaşımlı Üretim Girişi</span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.OtherReport<span class="arrow"></span></a>
+            <ul class="dropdown-menu"></ul>
+            <b class="caret-out"></b>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <style>
+        .input-append {
+            width: 95% !important;
+        }
+    </style>
+
+}
+
+@section PageScripts
+{
+    <script>
+        //Tvm listesini Dolduruyor....
+        var tvm = $("#TaliTVMKodu").tvmfinder();
+        tvm.enable();
+    </script>
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey" style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-reorder"></i>
+                            <span class="hidden-480">Paylaşımlı Poliçe Üretim Girişi</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        @using (Html.BeginForm("PaylasimliPoliceUretimGirisiEkle", "TaliAcente", FormMethod.Post, new { @class = "form-horizontal", id = "formTali", enctype = "multipart/form-data" }))
+                        {
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <div class="control-group">
+                                        <label class="control-label">Merkez Acente</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.TVMUnvan, new { disabled = "disabled", style = "width:25%;" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="asad">
+                                        <label class="control-label">@babonline.PolicyHolder (@babonline.SelectIfSubAgency!!!)</label>
+                                        <div class="controls" style="width:25%">
+                                            @Html.TVMFinderFor(m => m.TaliTVMKodu, Model.TaliTVMUnvan)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.InsuranceCompany <span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(m => m.SigortaSirketiKodu, Model.SigortaSirketleri, new { style = "width:25%;", @required = "required", id = "SigortaSirketiKodu" })
+                                            @Html.ValidationMessageFor(m => m.SigortaSirketiKodu)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Branch <span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(m => m.BransKodu, Model.Branslar, new { style = "width:200px;", @required = "required", id = "SigortaSirketiKodu" })
+                                            @Html.ValidationMessageFor(m => m.BransKodu)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.PolicyNo <span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.PoliceNo, new { required = "required" })
+                                            @Html.ValidationMessageFor(m => m.PoliceNo)
+                                        </div>
+                                        <span style="color: red">Poliçe numaralarını başlarındaki 0(Sıfır) lar dahil eksiksiz olarak giriniz.</span>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.RenewalNo <span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.YenilemeNo, new { @class = "onlynumbers", required = "required" })
+                                            @Html.ValidationMessageFor(m => m.YenilemeNo)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Endorsement <span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.ZeylNo, new { @class = "onlynumbers", required = "required" })
+                                            @Html.ValidationMessageFor(m => m.ZeylNo)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Date_Of_the_Establishment <span class="required">*</span></label>
+                                        @Html.DateTextBoxFor(m => m.TanzimTarihi, new { tabindex = "17" })
+                                        @Html.ValidationMessageFor(m => m.TanzimTarihi)
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Gross_Premium <span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.BrutPrim, new { @class = "onlynumbers", required = "required" })
+                                            @Html.ValidationMessageFor(m => m.BrutPrim)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Net_Premium <span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.NetPrim, new { @class = "onlynumbers", required = "required" })
+                                            @Html.ValidationMessageFor(m => m.NetPrim)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <a href="/TaliAcente/TaliAcente/PaylasimliPoliceUretimGirisi" id="clean" class="btn ligth-grey">@babonline.Clear</a>
+                                        <a href="javascript:void(0)" id="PoliceEkle" class="btn btn-success tali-form" data-loading-text="@babonline.adding">@babonline.Add</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

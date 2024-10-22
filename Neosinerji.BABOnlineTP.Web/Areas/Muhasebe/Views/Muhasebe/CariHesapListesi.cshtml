@@ -1,0 +1,405 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Muhasebe.Models
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model CariHesapListesiAraModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">@babonline.SearchUpdateCurrentAccount<span class="selected"></span></a>
+        </li>
+
+    </ul>
+}
+<head>
+    <title>@babonline.SearchUpdateCurrentAccount</title>
+</head>
+
+@section PageHeader
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+}
+
+@section PageStyles
+{
+
+}
+
+@section PageScripts
+{
+    <script>
+
+        $(".cari-hesap-sil").click(function () {
+            var tr = $(this).closest('tr');
+            var td = tr.find("td")[0];
+            var cariHesapKodu = td.innerHTML.trim();
+            cariHesapSilOnay(cariHesapKodu);
+
+        });
+
+        function cariHesapSilOnay(cariHesapKodu) {
+            Swal.fire({
+                title: "@babonline.DoYouWantToContinue ?",
+                text: "@babonline._cariHesapSilOnayText" + cariHesapKodu,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "@babonline.Yes",
+                cancelButtonText: "@babonline.No",
+            }).then(function (result) {
+                if (result.value) {
+                    console.log("evet");
+                    $.ajax({
+                        timeout: 10000000,
+                        method: "post",
+                        url: "/Muhasebe/Muhasebe/CariHesapSil",
+                        data: { cariHesapKodu: cariHesapKodu },
+                        success: function (json) {
+                            console.log(json)
+                            if (json.success == true) { // cari hesap silindi
+                                showConfirmSweetAlert("@babonline.TheOperationWasSuccessful!", json.message);
+                            }
+                            else { // silinemedi
+                                showErrorSweetAlert("@babonline.Error", json.message);
+                            }
+                        },
+
+                    });
+                } else {
+                    console.log("hayır");
+                }
+            });
+        }
+
+
+        function showInfoSweetAlert(title, text = "", showConfirmButton = false, imageUrl = null) {
+            Swal.fire({
+                title: title,
+                text: text,
+                type: "info",
+                imageUrl: imageUrl,
+                showCancelButton: false,
+                imageWidth: 32,
+                imageHeight: 32,
+                showConfirmButton: showConfirmButton,
+                closeOnConfirm: false,
+                allowOutsideClick: false
+            });
+        }
+
+        function updateSweetAlertText(title, text) {
+            Swal.getTitle().textContent = title;
+            Swal.getContent().textContent = text;
+        }
+
+        function showConfirmSweetAlert(title, text) {
+            Swal.fire({
+                title: title,
+                text: text,
+                type: "success",
+                showCancelButton: false,
+
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "@babonline.OK",
+                closeOnConfirm: true
+            });
+        }
+
+        function showErrorSweetAlert(title, text) {
+            Swal.fire({
+                title: title,
+                text: text,
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "@babonline.OK",
+                closeOnConfirm: true
+            });
+        }
+
+
+        $(document).ready(function () {
+
+            if ($('#textgrubkodu').val() != "") {
+                $('#radioMusteriGrupKodu').attr('checked', true);
+                $('#textgrubkodu').removeAttr("disabled");
+                $('#radioCariHesapKodu').attr('checked', false);
+                $('#radioAdUnvan').attr('checked', false);
+            }
+            else if ($('#textcarihesapkodu').val() != "") {
+                $('#radioCariHesapKodu').attr('checked', true);
+                $('#textcarihesapkodu').removeAttr("disabled");
+                $('#radioMusteriGrupKodu').attr('checked', false);
+                $('#radioAdUnvan').attr('checked', false);
+            }
+            else if ($('#textunvanadi').val() != "") {
+                $('#radioAdUnvan').attr('checked', true);
+                $('#textunvanadi').removeAttr("disabled");
+                $('#radioMusteriGrupKodu').attr('checked', false);
+                $('#radioCariHesapKodu').attr('checked', false);
+            }
+            $('#radioMusteriGrupKodu').click(function () {
+                $('#textgrubkodu').removeAttr("disabled");
+                $('#textcarihesapkodu').attr("disabled", "disabled");
+                $('#textcarihesapkodu').val(null);
+                $('#textunvanadi').attr("disabled", "disabled");
+                $('#textunvanadi').val(null);
+                $('#textgrubkodu').focus();
+            });
+            $('#radioCariHesapKodu').click(function () {
+                $('#textcarihesapkodu').removeAttr("disabled");
+                $('#textgrubkodu').attr("disabled", "disabled");
+                $('#textgrubkodu').val(null);
+                $('#textunvanadi').attr("disabled", "disabled");
+                $('#textunvanadi').val(null);
+                $('#textcarihesapkodu').focus();
+            });
+            $('#radioAdUnvan').click(function () {
+                $('#textunvanadi').removeAttr("disabled");
+                $('#textgrubkodu').attr("disabled", "disabled");
+                $('#textgrubkodu').val(null);
+                $('#textcarihesapkodu').attr("disabled", "disabled");
+                $('#textcarihesapkodu').val(null);
+                $('#textunvanadi').focus();
+
+            });
+
+            $("#search").click(function () {
+                var grubKodu = $("#textgrubkodu").val();
+                var carihesapKodu = $("#textcarihesapkodu").val();
+                var unvanAdi = $("#textunvanadi").val();
+
+                debugger;
+                if (grubKodu == "" && carihesapKodu == "" && unvanAdi == "") {
+                    $(this).button("reset");
+                    swal.fire("@babonline.ListAllRecordsExceptTheClient.");
+
+                }
+
+                if (grubKodu != "" || carihesapKodu != "" || unvanAdi != "") {
+                    oTable.fnDraw();
+                    $(this).button("loading");
+                    $("#table-div").attr("style", "display:normal");
+                    $("#alert").attr("style", "display:none");
+                    $('body').tooltip({
+                        selector: '[rel=tooltip]'
+                    });
+                }
+                else {
+                   // $("#alert").addClass("in");
+                    //$("#alert").attr("style", "display:normal");
+                }
+                var carihesapKodu = $("#textunvanadi").val();
+                if (carihesapKodu != null && carihesapKodu != "") {
+                    var carihesaptipi = carihesapKodu.Substring(0, 3);
+                    if (carihesaptipi == "120" && carihesapKodu.Length < 10) {
+                        swal("@babonline.CustomerAccountsShouldBe10Characters", "info");
+                        return false;
+                    }
+                }
+
+            });
+            var oTable = $('.data-table').dataTable({
+
+                "bFilter": false,
+                "bSort": false,
+                "bInfo": false,
+                "bProcessing": false,
+                "bServerSide": true,
+                "sAjaxSource": "/Muhasebe/Muhasebe/CariHesapListesi",
+                "bDeferLoading": false,
+                "iDeferLoading": 0,
+                "sDom": 'T<"clear">lfrtip',
+                "oTableTools": { "aButtons": ["xls", "print", "copy", "pdf"] },
+            });
+
+
+            $("#search").defaultAction();
+            $("[rel=tooltip]").tooltip();
+        });
+    </script>
+}
+
+
+
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 25px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">@babonline.SearchUpdateCurrentAccount </span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @using (Html.BeginForm("CariHesapListesi", "Muhasebe", FormMethod.Post, new { @class = "form-horizontal", id = "formCariHesapListesi", enctype = "multipart/form-data" }))
+                {
+                    Html.EnableClientValidation(true);
+                    @Html.ValidationSummary(true, babonline.CustomerAccountsShouldBe10Characters)
+                    @Html.AntiForgeryToken();
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="span1">
+                                    @Html.RadioButtonFor(m => m.MusteriGrupKodu, "radioMusteriGrupKodu", new { Name = "group1", id = "radioMusteriGrupKodu" })
+                                </div>
+                                <label class="control-label">@babonline.GroupCode</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.MusteriGrupKodu, new { maxlength = 31, id = "textgrubkodu", style = "width:85%", disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="span1">
+                                    @Html.RadioButtonFor(m => m.CariHesapKodu, "radioCariHesapKodu", new { Name = "group1", id = "radioCariHesapKodu" })
+                                </div>
+                                <label class="control-label">@babonline.CurrentAccountCode</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.CariHesapKodu, new { maxlength = 31, disabled = "disabled", style = "width:85%", id = "textcarihesapkodu" })
+                                    @Html.ValidationMessageFor(m => m.CariHesapKodu)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="control-group">
+
+                                <div class="span1">
+                                    @Html.RadioButtonFor(m => m.Unvan, "radioAdUnvan", new { Name = "group1", id = "radioAdUnvan" })
+                                </div>
+                                <label class="control-label">@babonline.NameSurnameTitle</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.Unvan, new { maxlenght = 50, disabled = "disabled", @tabindex = "1", style = "width:85%", @class = "textunvan", id = "textunvanadi" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="form-actions">
+                            <a href="~/Muhasebe/Muhasebe/CariHesapListesi" class="btn ligth-grey">@babonline.Clear</a>
+                            <input type="submit" id="search" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="@babonline.Search" />
+                        </div>
+                    </div>
+
+                }
+                @if (Model.list != null)
+                {
+                    if (Model.list.Count() > 0)
+                    {
+                        <div class="row-fluid" id="kayitSayisi">
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label">@Model.list.Count() @babonline.RecordFound.</label>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                <div class="row-fluid" style="margin-top: 20px;">
+
+                    <div class="span12">
+                        <div id="table-div" style="overflow-x: auto; margin-top: 15px;">
+                            <table class="table table-striped table-bordered table-hover dataTable data-table" style="table-layout: inherit" id="cariHesapTable">
+                                <thead>
+                                    <tr>
+                                        <th style="width: auto;">@babonline.CurrentAccountCode </th>
+                                        <th style="width: auto;">C. H. Tipi</th>
+                                        <th style="width: auto;">@babonline.NameSurnameTitle</th>
+                                        <th style="width: auto;">@babonline.CustomerGroupCode</th>
+                                        <th style="width: auto;">@babonline.TaxNumber / @babonline.TCKN</th>
+                                        <th style="width: auto;">@babonline.TaxOffice</th>
+                                        <th style="width: auto;">@babonline.Phone 1 </th>
+                                        <th style="width: auto;">@babonline.Phone 2</th>
+                                        <th style="width: auto;">@babonline.Mobile_Phone</th>
+                                        <th style="width: auto;">Email</th>
+                                        <th style="width: auto;">@babonline.AccountingCode</th>
+                                        <th style="width: auto;">M. Cari Kodu </th>
+                                        <th style="width: auto;">Komisyon G.Muhasebe Kodu</th>
+                                        <th style="width: auto;">@babonline.Web_URL</th>
+                                        <th style="width: auto;">@babonline.City / @babonline.District</th>
+                                        <th style="width: auto;">@babonline.Postal_Code</th>
+                                        <th style="width: auto;">@babonline.Address</th>
+                                        <th style="width: auto;">@babonline.WarningNote </th>
+                                        <th style="width: auto;">@babonline.InformationNote</th>
+                                        <th style="width: auto;">@babonline.CreationDate</th>
+                                        <th style="width: auto;">@babonline.DateOfUpdate</th>
+                                        <th style="width: 38px; max-width: 60px">&nbsp;</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    @if (Model.list != null)
+                                    {
+                                        foreach (var item in Model.list)
+                                        {
+                                            <tr>
+
+                                                <td style="width: 6%;"> @item.CariHesapKodu </td>
+                                                <td style="width: 6%;"> @item.CariHesapTipiAdi </td>
+                                                <td style="width: 6%;"><a href="/Muhasebe/Muhasebe/CariHesapDetay/ @item.id"  target="_blank">@item.Unvan </a> </td>
+                                                <td style="width: 6%;"> @item.MusteriGrupKodu </td>
+                                                <td style="width: 6%;"> @item.KimlikNo</td>
+                                                <td style="width: 6%;"> @item.VergiDairesi </td>
+                                                <td style="width: 6%;"> @item.Telefon1 </td>
+                                                <td style="width: 6%;"> @item.Telefon2 </td>
+                                                <td style="width: 6%;"> @item.CepTel</td>
+                                                <td style="width: 6%;"> @item.Email</td>
+                                                <td style="width: 6%;"> @item.DisaktarimMuhasebeKodu</td>
+                                                <td style="width: 6%;"> @item.DisaktarimCariKodu </td>
+                                                <td style="width: 6%;"> @item.KomisyonGelirleriMuhasebeKodu </td>
+                                                <td style="width: 6%;"> @item.WebAdresi </td>
+                                                <td style="width: 6%;"> @item.IlAdi/@item.IlceAdi </td>
+                                                <td style="width: 6%;"> @item.PostaKodu </td>
+                                                <td style="width: 6%;"> @item.Adres</td>
+                                                <td style="width: 6%;"> @item.UyariNotu </td>
+                                                <td style="width: 6%;"> @item.BilgiNotu</td>
+                                                <td style="width: 6%;"> @item.KayitTarihi.ToShortDateString()</td>
+                                                <td style="width: 6%;"> @item.GuncellemeTarihi.ToShortDateString()</td>
+                                                <th style="width: 38px; max-width: 90px">
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-mini" href="/Muhasebe/Muhasebe/CariHesapDetay/ @item.id" rel="tooltip" data-placement="bottom" data-original-title="@babonline.Detail">
+                                                            <i class="icon-info-sign"></i>
+                                                        </a>
+                                                        <a class="btn btn-mini" href="/Muhasebe/Muhasebe/CariHesapGuncelle/ @item.id" rel="tooltip" data-placement="bottom" data-original-title="@babonline.Update">
+                                                            <i class="icon-edit"></i>
+                                                        </a>
+                                                        <a class="btn btn-mini cari-hesap-sil" href="javascript:void(0)" rel="tooltip" data-placement="bottom" data-original-title="@babonline.Delete">
+                                                            <i class="icon-remove"></i>
+                                                        </a>
+                                                    </div>
+
+                                                </th>
+                                            </tr>
+
+
+                                        }
+                                    }
+                                </tbody>
+
+
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

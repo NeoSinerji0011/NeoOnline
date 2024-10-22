@@ -1,0 +1,33 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.IkinciElGarantiDokumanEkleModel
+
+<div id="dokuman-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>@babonline.Document_Add</h3>
+    </div>
+    <div class="modal-body">
+        <form id="dokuman-ekle-form" class="form-horizontal" name="dokuman-ekle-form" enctype="multipart/form-data">
+            @{ Html.EnableClientValidation(true); }
+            @Html.HiddenFor(m => m.teklifId)
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            <div class="control-group">
+                <label class="control-label">@babonline.Document_Type</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.DokumanAdi, new { maxlength = 50, autocompletetype = "disabled", style = "width:200px;" })
+                    @Html.ValidationMessageFor(m => m.DokumanAdi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.File</label>
+                <div class="controls">
+                    <input type="file" id="file" name="file" style="width: 300px;" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="#" class="btn btn-success" id="dokuman-ekle-btn">@babonline.Save</a>
+    </div>
+</div>

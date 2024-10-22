@@ -1,0 +1,41 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.TUMDokumanlarModel
+
+<div id="dokuman-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>@babonline.Document_Add</h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="dokuman-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="dokuman-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <form id="dokuman-ekle-form" class="form-horizontal" >
+            @{ Html.EnableClientValidation(true); }
+            @Html.HiddenFor(m => m.TUMKodu)
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            @Html.AntiForgeryToken()
+            <div class="control-group">
+                <label class="control-label">@babonline.Document_Type<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.DokumanTuru, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.DokumanTuru)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.File</label>
+                <div class="controls">
+                    <input type="file" id="file" name="file" style="width: 300px;" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+                <a href="#" class="btn btn-success" id="dokuman-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+            </div>
+        </form>
+    </div>
+</div>

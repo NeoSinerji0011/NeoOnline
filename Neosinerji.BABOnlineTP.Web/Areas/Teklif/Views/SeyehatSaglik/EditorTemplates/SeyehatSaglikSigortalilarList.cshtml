@@ -1,0 +1,73 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.SeyehatSaglikSigortalilarList
+
+
+
+@for (int i = 0; i < Model.SigortaliList.Count; i++)
+{
+    
+    <div id="sigortalilar-ana-div_@i" style="display: none">
+        <h4 class="form-section">@(i + 1). @babonline.Insured </h4>
+        <div class="row-fluid birey-tipi" id="birey-tipi_@i" style="display:none" >
+            <div class="span6 ">
+                <div class="control-group">
+                    <label class="control-label">@babonline.IndividualType</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.SigortaliList[i].BireyTipi, Model.BireyTipleri, new { })
+                        @Html.ValidationMessageFor(s => s.SigortaliList[i].BireyTipi)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="control-group">
+                    <label class="control-label">@babonline.Name<span class="required">*</span></label>
+                    <div class="controls">
+                        @Html.TextBoxFor(s => s.SigortaliList[i].Adi, new { @class = "upper-letter" })
+                        @Html.ValidationMessageFor(s => s.SigortaliList[i].Adi)
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">@babonline.Lastname<span class="required">*</span></label>
+                    <div class="controls">
+                        @Html.TextBoxFor(s => s.SigortaliList[i].Soyadi, new { @class = "upper-letter" })
+                        @Html.ValidationMessageFor(s => s.SigortaliList[i].Soyadi)
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">@babonline.DateOfBirth<span class="required">*</span></label>
+                    <div class="controls">
+                        @Html.DateTextBoxFor(s => s.SigortaliList[i].DogumTarihi, new { })
+                        @Html.ValidationMessageFor(s => s.SigortaliList[i].DogumTarihi)
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="control-group">
+                    <label class="control-label">@babonline.Nationality<span class="required">*</span></label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.SigortaliList[i].Uyruk, Model.SigortaliList[i].Uyruklar)
+                        @Html.ValidationMessageFor(s => s.SigortaliList[i].Uyruk)
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">@babonline.IdType<span class="required">*</span></label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.SigortaliList[i].KimlikTipi, Model.SigortaliList[i].KimlikTipleri)
+                        @Html.ValidationMessageFor(s => s.SigortaliList[i].KimlikTipi)
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">@babonline.IdentificationNumber<span class="required">*</span></label>
+                    <div class="controls">
+                        @Html.TextBoxFor(s => s.SigortaliList[i].KimlikNo, new { maxlength = 11, style = "width:120px;", @class = "onlynumbers tckn" })
+                        @Html.ValidationMessageFor(s => s.SigortaliList[i].KimlikNo)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

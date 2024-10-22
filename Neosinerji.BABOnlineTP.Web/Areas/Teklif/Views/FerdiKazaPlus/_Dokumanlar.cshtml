@@ -1,0 +1,57 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@model IsTakipDokumanlarListModel
+
+<script>
+    $(document).ready(function () {
+        var dokumanTable;
+        function dokumanTableSet() {
+            dokumanTable = $('#dokuman-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        dokumanTableSet();
+    });
+
+</script>
+
+<table id="dokumanlar-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th>@babonline.Document_Type</th>
+            <th>@babonline.Add_Date</th>
+            <th>@babonline.Added_Records_User </th>
+            <th>@babonline.File_Name</th>
+            <th style="width: 10%;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+
+                <td class="">@item.DokumanTuru</td>
+                <td class="">@item.Tarihi</td>
+                <td class="">@item.KaydiEkleyen</td>
+                <td class="">@item.DosyaAdi</td>
+                <td>
+                    <a href="@item.DokumanURL">
+                        <label class="label label-success">indir</label>
+                    </a>
+                    <a href="javascript:void(0)" istakip-id="@item.IsTakipId" istakipdokuman-id="@item.IsTakipDokumanId" class="label label-important delete-dokuman">
+                        @babonline.Delete
+                    </a>                    
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

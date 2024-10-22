@@ -1,0 +1,40 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Hasar.Models.ZorunluEvrakModel
+
+<div id="evrak-modal" class="modal hide fade">
+    <div class="modal-header">
+        <h3>Evrak Ekle</h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="evrak-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="dokuman-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <form id="evrak-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @*@Html.HiddenFor(m => m.TVMKodu)*@
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.HasarId)
+            <div class="control-group">
+                <label class="control-label">Evrak Türü <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.EvrakKodu, Model.EvrakList, new { style = "width:90%" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.File</label>
+                <div class="controls">
+                    <input type="file" id="file" name="file" style="width: 300px;" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+                <a href="#" class="btn btn-success" id="evrak-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+            </div>
+        </form>
+    </div>
+</div>

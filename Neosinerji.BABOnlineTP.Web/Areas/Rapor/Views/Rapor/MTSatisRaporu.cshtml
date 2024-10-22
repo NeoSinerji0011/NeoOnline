@@ -1,0 +1,307 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@using Neosinerji.BABOnlineTP.Web.Areas.Rapor.Models
+
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model MTSatisRaporModel
+
+@{
+    List<KullaniciYetkiModel> altMenuler = ViewBag.AltMenuler;
+    List<KullaniciYetkiModel> raporlar = altMenuler.Where(s => s.AnaMenu == menu.AnaMenuler.Rapor).ToList();
+}
+<head>
+    <title>MTSatisRaporu</title>
+</head>
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">@babonline.MT_Sales_Report <span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.OtherReport<span class="arrow"></span></a>
+            <ul class="dropdown-menu">
+                @foreach (var rapor in raporlar)
+                {
+                    if (rapor.MenuKodu != menu.AltMenuler.OnlineRaporlar && rapor.SekmeKodu != menu.AltMenuSekmeler.MTSatisRaporu)
+                    {
+                <li><a href="@rapor.URL">@rapor.Aciklama<span></span></a></li>    }
+                }
+            </ul>
+            <b class="caret-out"></b>
+        </li>
+
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+
+@section PageHeader
+{
+
+}
+
+@section PageStyles
+{
+    <style type="text/css">
+        .table td.right {
+            text-align: right;
+        }
+    </style>
+}
+
+@section PageScripts
+{
+
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+
+            var tvm = $("#TvmKodu").tvmfinder();
+            tvm.enable();
+
+            var customerfinder = $("#MusteriKodu").customerfinder("TvmKodu");
+            customerfinder.enable();
+            // ====Tvm listesini Dolduruyor ====//
+
+            // ==== Tarih ayarları ==== //
+
+            $('#BaslangicTarihi').change(function () {
+                var d1 = $(this).datepicker("getDate");
+                $("#BitisTarihi").datepicker("option", "minDate", d1);
+                setTimeout(function () { $("#BitisTarihi").datepicker("show"); }, 100);
+            });
+            // ==== Tarih Ayarları ==== //
+
+            var customerfinder = $("#MusteriKodu").customerfinder("TVMKodu");
+            customerfinder.enable();
+
+
+            $("[rel=tooltip]").tooltip();
+
+            //Arama Yapıyor..
+            var oTable = $('.data-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": true,
+                "bFilter": false,
+                "bSort": false,
+                "bInfo": true,
+                "bProcessing": true,
+                "bServerSide": true,
+                "sAjaxSource": "/Rapor/Rapor/ListePagerMTSatis",
+                "bDeferLoading": true,
+                "iDeferLoading": 0,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap",
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap",
+                "show": function (event, ui) {
+                    var jqTable = $('table.display', ui.panel);
+                    if (jqTable.length > 0) {
+                        var oTableTools = TableTools.fnGetInstance(jqTable[0]);
+                        if (oTableTools != null && oTableTools.fnResizeRequired()) {
+                            jqTable.dataTable().fnAdjustColumnSizing();
+                            oTableTools.fnResizeButtons();
+                        }
+                    }
+                },
+                "aoColumns": [
+                            null, null, null, { "sClass": "right" }, { "sClass": "right" }
+                ],
+                "sDom": 'T<"clear">lfrtip',
+                "oTableTools": { "aButtons": ["pdf", "xls", "print", "copy"] },
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "PoliceTarihi", "value": $("#PoliceTarihi").val() });
+                    aoData.push({ "name": "DovizTL", "value": $("#DovizTL").val() });
+                    aoData.push({ "name": "BransSelectList", "value": $("#BransSelectList").val() });
+                    aoData.push({ "name": "UrunSelectList", "value": $("#UrunSelectList").val() });
+                    aoData.push({ "name": "TVMLerSelectList", "value": $("#TVMLerSelectList").val() });
+
+                    aoData.push({ "name": "BaslangicTarihi", "value": $("#BaslangicTarihi").val() });
+                    aoData.push({ "name": "BitisTarihi", "value": $("#BitisTarihi").val() });
+                    aoData.push({ "name": "TahsIptal", "value": $("#TahsIptal").val() });
+
+                    aoData.push({ "name": "OdemeSekli", "value": $("#OdemeSekli").val() });
+                    aoData.push({ "name": "OdemeTipi", "value": $("#OdemeTipi").val() });
+                },
+                "fnDrawCallback": function () {
+                    $("#search").button("reset");
+                }
+            });
+
+            $("#search").click(function () {
+                $(this).button("loading");
+                oTable.fnDraw();
+            });
+
+            //Multi SElectlist Scritps
+            $('.multiselect').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                maxHeight: 170,
+                nonSelectedText: '@babonline.PleaseSelect',
+                selectAllText: '@babonline.Select_All',
+                filterPlaceholder: '@babonline.Search',
+                nSelectedText: '@babonline.Selected'
+            });
+        });
+    </script>
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 25px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">@babonline.MT_Sales_Report</span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form class="form-horizontal">
+                    <div class="row-fluid" style="padding-top: 10px;">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.ReportStartDate</label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(s => s.BaslangicTarihi, new { style = "width:100px", Id = "BaslangisTarihi" })
+                                    @Html.ValidationMessageFor(s => s.BaslangicTarihi)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.PaymentStyle</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.OdemeSekli, Model.OdemeSekilleri, new { style = "width:81%" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.ReportEndDate</label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(s => s.BitisTarihi, new { style = "width:100px", Id = "BitisTarihi" })
+                                    @Html.ValidationMessageFor(s => s.BitisTarihi)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.PaymentType</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.OdemeTipi, Model.OdemeTipleri, new { style = "width:81%" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Offices</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.TVMLerSelectList, Model.TVMLerItems, new { @class = "multiselect", multiple = "multiple" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.PolicyDateType</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.PoliceTarihi, Model.PoliceTarihiTipleri, new { style = "width:81%" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Branch</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.BransSelectList, Model.BranslarItems, new { @class = "multiselect", multiple = "multiple" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Tah_Ipt</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.TahsIptal, Model.TahsilatIptalList, new { style = "width:81%" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label" id="tckn">@babonline.Product</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.UrunSelectList, Model.UrunlerItems, new { @class = "multiselect", multiple = "multiple" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Doviz_TL</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.DovizTL, Model.DovizTlList, new { style = "width:81%" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="alert" class="alert fade" style="display: none">
+                        <button type="button" class="close" id="close-alert">×</button>
+                        <strong>@babonline.Warning</strong>  @babonline.Message_Customer_SearchError
+                    </div>
+                    <div class="form-actions">
+                        <a href="/Rapor/Rapor/MTSatisRaporu" class="btn ligth-grey">@babonline.Clear</a>
+                        <a id="search" class="btn green" data-loading-text="@babonline.Message_Loading">@babonline.Search</a>
+                    </div>
+
+                    <div class="row-fluid" style="margin-top: 30px;">
+                        <div class="span12">
+                            <div id="table-div" style="margin-top: 15px;">
+                                <table class="table table-striped table-bordered table-hover dataTable data-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 80px;">@babonline.TVM_Title</th>
+                                            <th style="width: 110px;">@babonline.NameLastname</th>
+                                            <th style="width: 100px;">@babonline.Policy_Count</th>
+                                            <th style="width: 85px;">@babonline.Gross_Premium</th>
+                                            <th style="width: 80px;">@babonline.Commission</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

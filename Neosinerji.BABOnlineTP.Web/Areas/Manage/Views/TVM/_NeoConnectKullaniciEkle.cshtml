@@ -1,0 +1,165 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.SirketWebEkranModel
+
+<script type="text/javascript">
+
+    $("#TUMKodu").change(function () {
+        //Anadolu Sigorta ise Swap Kullanıcı Bilgi Giriş Ekranı açılıyor
+        if ($(this).val() == 4) {
+            $("#anadolu-ozel").show();
+        }
+        else {
+            $("#anadolu-ozel").hide();
+        }
+        if ($(this).val() != "" && $(this).val() != null) {
+            $("#WSTVMKodu").prop("disabled", false);
+            var tvmkodu = $("#WSTVMKodu").val();
+            var tumkodu = $("#TUMKodu").val();
+            $.get("/Manage/TVM/GetSirketGrupKullaniciListesi", { TVMKodu: tvmkodu, SirketKodu: tumkodu }, function (data) {
+                if (data != null) {
+                    $("#GrupKodu").dropDownFill(data); $("#KullaniciAdi").val("");
+                    $("#Sifre").val("");
+                }
+                else {
+                    $("#KullaniciAdi").val("");
+                    $("#Sifre").val("");
+                }
+            });
+
+            $("#WSTVMKodu").prop("disabled", true);
+        }
+    });
+
+    $("#GrupKodu").change(function () {
+        if ($(this).val() != "" && $(this).val() != null) {
+            var grupKodu = $("#GrupKodu").val();
+
+            $.get("/Manage/TVM/GetSirketGrupKullaniciDetay", { grupKodu: grupKodu }, function (data) {
+                if (data != null) {
+                    $("#KullaniciAdi").val(data.KullaniciAdi);
+                    $("#Sifre").val(data.Sifre);
+                }
+                else {
+                    $("#KullaniciAdi").val("");
+                    $("#Sifre").val("");
+                }
+            });
+        }
+        else {
+            $("#KullaniciAdi").val("");
+            $("#Sifre").val("");
+        }
+    });
+
+</script>
+
+<div id="neoconnectkullanici-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        @if (Model.TUMKodu > 0)
+        {
+            <h3>@babonline.Edit</h3>
+        }
+        else
+        {
+            <h3>NeoConnect Kullanıcı Ekle</h3>
+        }
+    </div>
+
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="departman-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="departman-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <form id="neoconnectkullanici-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            @Html.HiddenFor(m => m.TVMKodu)
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_Code</label>
+                <div class="controls">
+                    @Html.TextBox("WSTVMKodu", Model.TVMKodu, new { autocompletetype = "disabled", disabled = "true" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Satış Kanalları </label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.AltTVMKodu, Model.TVMListesi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TUM_Title <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.TUMKodu, Model.TUMListesi)
+                    @Html.ValidationMessageFor(m => m.TUMKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Şirket Grupları</label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.GrupKodu, Model.SirketGrupKullaniciListesi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVMUser_Name</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.KullaniciAdi, new { autocompletetype = "disabled", style = "width:150px;" })
+                    @Html.ValidationMessageFor(m => m.KullaniciAdi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Acente Kodu</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.AcenteKodu, new { autocompletetype = "disabled", style = "width:150px;" })
+                    @Html.ValidationMessageFor(m => m.AcenteKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Password</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Sifre, new { autocompletetype = "disabled", style = "width:150px;" })
+                    @Html.ValidationMessageFor(m => m.Sifre)
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Proxy(IpAdresi/Port)</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.ProxyIpPort, new { autocompletetype = "disabled", style = "width:150px;", placeholder = "Ip Adresi:Port Numarası" })
+                    @Html.ValidationMessageFor(m => m.ProxyIpPort)
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Proxy Kullanıcı Adı</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.ProxyKullaniciAdi, new { autocompletetype = "disabled", style = "width:150px;", placeholder = "Yoksa boş bırakınız." })
+                    @Html.ValidationMessageFor(m => m.ProxyKullaniciAdi)
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Proxy Şifre</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.ProxySifre, new { autocompletetype = "disabled", style = "width:150px;", placeholder = "Yoksa boş bırakınız." })
+                    @Html.ValidationMessageFor(m => m.ProxySifre)
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        @if (Model.TUMKodu > 0)
+        {
+            <a href="#" class="btn btn-success" id="neokullanici-guncelle-btn">@babonline.Edit</a>
+        }
+        else
+        {
+            <a href="#" class="btn btn-success" id="neokullanici-ekle-btn">@babonline.Save</a>
+        }
+    </div>
+</div>

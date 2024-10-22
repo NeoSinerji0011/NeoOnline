@@ -1,0 +1,2696 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BC5A2ABF-2751-4943-A0F3-AB32AAEC777B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Neosinerji.BABOnlineTP.Business</RootNamespace>
+    <AssemblyName>Neosinerji.BABOnlineTP.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="ClientPerfCountersInstaller, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\main\Neosinerji.BABOnlineTP.Business\Microsoft.WindowsAzure.Caching\ClientPerfCountersInstaller.exe</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.7.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.7\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="INET.Crypto">
+      <HintPath>.\INET.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="iTextSharp">
+      <HintPath>..\packages\iTextSharp-LGPL.4.1.6\lib\iTextSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.2.0.4\lib\net45\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Services3">
+      <HintPath>..\packages\Microsoft.Web.Services3.3.0.0.0\lib\net20\Microsoft.Web.Services3.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.8.5.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.4.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.0\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.4.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.0\lib\net40\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.0\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.4.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.4.0\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="OutSourceLib">
+      <HintPath>.\OutSourceLib.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=106.6.9.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.6.9\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.40804.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AracDegerListesi\ADL.cs" />
+    <Compile Include="AracDegerListesi\AracDegerService.cs" />
+    <Compile Include="AracDegerListesi\IAracDegerService.cs" />
+    <Compile Include="AracDegerListesi\XL2007.cs" />
+    <Compile Include="AracService\AracKullanimTarziServisModel.cs" />
+    <Compile Include="AracService\AracService.cs" />
+    <Compile Include="AracService\IAracService.cs" />
+    <Compile Include="AracDegerListesi\AracListe.cs" />
+    <Compile Include="Common\AEGON\AegonCommon.cs" />
+    <Compile Include="Common\AEGON\EgitimSigortasiCommon.cs" />
+    <Compile Include="Common\AEGON\KorunanGelecekCommon.cs" />
+    <Compile Include="Common\AEGON\OdemeGuvenceCommon.cs" />
+    <Compile Include="Common\AEGON\OdulluBirikimCommon.cs" />
+    <Compile Include="Common\AEGON\PrimIadeli2Common.cs" />
+    <Compile Include="Common\AEGON\PrimIadeliCommon.cs" />
+    <Compile Include="Common\AEGON\TESabitPrimliCommon.cs" />
+    <Compile Include="Common\AK\AKCommon.cs" />
+    <Compile Include="Common\ALLIANZ\ALLIANZCommon.cs" />
+    <Compile Include="Common\ANADOLU\ANADOLUCommon.cs" />
+    <Compile Include="Common\AXA\AXACommon.cs" />
+    <Compile Include="Common\Bankalar.cs" />
+    <Compile Include="Common\BransListeCeviri.cs" />
+    <Compile Include="Common\CommonService.cs" />
+    <Compile Include="Common\ERGO\ERGOCommon.cs" />
+    <Compile Include="Common\EUREKO\EurekoCommon.cs" />
+    <Compile Include="Common\EUREKO\EurokoPrimOdemeTalimati.cs" />
+    <Compile Include="Common\EUREKO\KrediKartiFormModel.cs" />
+    <Compile Include="Common\Exceptions\TeklifBulunamadiException.cs" />
+    <Compile Include="Common\GROUPAMA\GroupamaCommon.cs" />
+    <Compile Include="Common\GULF\GULFCommon.cs" />
+    <Compile Include="Common\HASAR\HasarCommon.cs" />
+    <Compile Include="Common\ICommonService.cs" />
+    <Compile Include="Common\Islemler.cs" />
+    <Compile Include="Common\KimlikTipleri.cs" />
+    <Compile Include="Common\KORU\KORUCommon.cs" />
+    <Compile Include="Common\LilyumFerdiKazaSorular.cs" />
+    <Compile Include="Common\Mapfre\MapfeOdemeKodlari.cs" />
+    <Compile Include="Common\Mapfre\MapfreCommon.cs" />
+    <Compile Include="Common\Mapfre\MapfreIndirimSurprim.cs" />
+    <Compile Include="Common\Mapfre\MapfreKaskoEkSoruTipleri.cs" />
+    <Compile Include="Common\MD5Helper.cs" />
+    <Compile Include="Common\MenuConstants.cs" />
+    <Compile Include="Common\MerkezTVMKodlari.cs" />
+    <Compile Include="Common\Metlife\FerdiKazaPlusCommon.cs" />
+    <Compile Include="Common\Metlife\KritikHastalikCommon.cs" />
+    <Compile Include="Common\Metlife\MetlifeCommon.cs" />
+    <Compile Include="Common\MuhasebeCommon.cs" />
+    <Compile Include="Common\OzetRaporCommon.cs" />
+    <Compile Include="Common\ParitusAdresModel.cs" />
+    <Compile Include="Common\ParitusAdresSorgulamaRequest.cs" />
+    <Compile Include="Common\AdresTipleri.cs" />
+    <Compile Include="Common\BireyTipleri.cs" />
+    <Compile Include="Common\CinsiyetTipleri.cs" />
+    <Compile Include="Common\DaskCommon.cs" />
+    <Compile Include="Common\DASKSorular.cs" />
+    <Compile Include="Common\DASKTeminatlar.cs" />
+    <Compile Include="Common\DovizTLTipleri.cs" />
+    <Compile Include="Common\Exceptions.cs" />
+    <Compile Include="Common\ExtensionMethods.cs" />
+    <Compile Include="Common\IkinciElGarantiSorular.cs" />
+    <Compile Include="Common\IkinciElGarantiTeminatlar.cs" />
+    <Compile Include="Common\IletisimNumaraTipleri.cs" />
+    <Compile Include="Common\IsDurumTipleri.cs" />
+    <Compile Include="Common\IsTipleri.cs" />
+    <Compile Include="Common\IsYeriCommon.cs" />
+    <Compile Include="Common\IsYeriSorular.cs" />
+    <Compile Include="Common\IsYeriTeminatlar.cs" />
+    <Compile Include="Common\IsYeriVergileri.cs" />
+    <Compile Include="Common\KaskoServisTurleri.cs" />
+    <Compile Include="Common\KaskoSorular.cs" />
+    <Compile Include="Common\KaskoTeminatlar.cs" />
+    <Compile Include="Common\KaskoTurleri.cs" />
+    <Compile Include="Common\KaskoVergiler.cs" />
+    <Compile Include="Common\KaskoYedekParcaTuru.cs" />
+    <Compile Include="Common\KaskoYurtDisiTeminatSureleri.cs" />
+    <Compile Include="Common\Konfig.cs" />
+    <Compile Include="Common\KonutCommon.cs" />
+    <Compile Include="Common\KonutSorular.cs" />
+    <Compile Include="Common\KonutTeminatlar.cs" />
+    <Compile Include="Common\KonutVergiler.cs" />
+    <Compile Include="Common\KrediliHayatSorular.cs" />
+    <Compile Include="Common\KrediliHayatTeminatlar.cs" />
+    <Compile Include="Common\KrediTurleri.cs" />
+    <Compile Include="Common\KullaniciDurumTipleri.cs" />
+    <Compile Include="Common\KullaniciGorevTipleri.cs" />
+    <Compile Include="Common\KullaniciNotOncelikTipleri.cs" />
+    <Compile Include="Common\KullaniciSifreDurumTipleri.cs" />
+    <Compile Include="Common\KullaniciTeklifPoliceUretimTipleri.cs" />
+    <Compile Include="Common\KurBilgileri.cs" />
+    <Compile Include="Common\MedeniDurumTipleri.cs" />
+    <Compile Include="Common\MusteriTipleri.cs" />
+    <Compile Include="Common\NeosinerjiTVMKodu.cs" />
+    <Compile Include="Common\OdemePlaniAlternatifKodlari.cs" />
+    <Compile Include="Common\OdemeSekilleri.cs" />
+    <Compile Include="Common\OdemeTipleri.cs" />
+    <Compile Include="Common\PoliceDurumlari.cs" />
+    <Compile Include="Common\PoliceSureleri.cs" />
+    <Compile Include="Common\RAY\RAYCommon.cs" />
+    <Compile Include="Common\ResorcesHelper.cs" />
+    <Compile Include="Common\SatisKanaliKesintiTurleri.cs" />
+    <Compile Include="Common\SatisTurleri.cs" />
+    <Compile Include="Common\SBM\SBMApi.cs" />
+    <Compile Include="Common\SBM\SBMCommon.cs" />
+    <Compile Include="Common\SBM\SBMTrafficPolicyDetail.cs" />
+    <Compile Include="Common\SeyehatPlanlari.cs" />
+    <Compile Include="Common\SeyehatSaglikSorular.cs" />
+    <Compile Include="Common\SeyehatSaglikTeminatlar.cs" />
+    <Compile Include="Common\SeyehatSaglikVergiler.cs" />
+    <Compile Include="Common\Sifreleme.cs" />
+    <Compile Include="Common\SigortaSirketiBirlikKodlari.cs" />
+    <Compile Include="Common\SilindirHacimleri.cs" />
+    <Compile Include="Common\SOMPOJAPAN\SOMPOJAPANCommon.cs" />
+    <Compile Include="Common\SoruCevapTipleri.cs" />
+    <Compile Include="Common\TarihAraliklari.cs" />
+    <Compile Include="Common\TeklifDurumlari.cs" />
+    <Compile Include="Common\TeklifOdemeTipleri.cs" />
+    <Compile Include="Common\TeklifSayfaAdresleri.cs" />
+    <Compile Include="Common\TeminatTurleri.cs" />
+    <Compile Include="Common\TSSSorular.cs" />
+    <Compile Include="Common\TURKNIPPON\TURKNIPPONCommon.cs" />
+    <Compile Include="Common\TVMAcenteSubeVar.cs" />
+    <Compile Include="Common\TVMBaglantiSiniri.cs" />
+    <Compile Include="Common\TVMDurumlari.cs" />
+    <Compile Include="Common\TVMProfilleri.cs" />
+    <Compile Include="Common\TVMProjeKodlari.cs" />
+    <Compile Include="Common\TVMTipleri.cs" />
+    <Compile Include="Common\TvmYetkiKodlari.cs" />
+    <Compile Include="Common\UlkeTipleri.cs" />
+    <Compile Include="Common\UNICO\UNICOCommon.cs" />
+    <Compile Include="Common\UrunDurumlari.cs" />
+    <Compile Include="Common\UrunKodlari.cs" />
+    <Compile Include="Common\UygulamaKodlari.cs" />
+    <Compile Include="Common\UyrukTipleri.cs" />
+    <Compile Include="Common\WebServisBasariTipleri.cs" />
+    <Compile Include="Common\WebServisCevaplar.cs" />
+    <Compile Include="Common\WebServisIstekTipleri.cs" />
+    <Compile Include="Common\HataLogCommon.cs" />
+    <Compile Include="Common\YetkiModels.cs" />
+    <Compile Include="GorevTakip\GorevTakipService.cs" />
+    <Compile Include="GorevTakip\IGorevTakipService.cs" />
+    <Compile Include="GorevTakip\GorevTakipModels.cs" />
+    <Compile Include="Hasar\HasarService.cs" />
+    <Compile Include="Hasar\IHasarService.cs" />
+    <Compile Include="KesintiTransfer\IKesintiExcelReader.cs" />
+    <Compile Include="KesintiTransfer\IKesintiTransferService.cs" />
+    <Compile Include="KesintiTransfer\KesintiExcelReader.cs" />
+    <Compile Include="KesintiTransfer\KesintiTransferService.cs" />
+    <Compile Include="Komisyon\IKomisyonService.cs" />
+    <Compile Include="Komisyon\KomisyonModel.cs" />
+    <Compile Include="Komisyon\KomisyonService.cs" />
+    <Compile Include="Kullanici\MapfreKullanici.cs" />
+    <Compile Include="Log\ILogService.cs" />
+    <Compile Include="Log\MockLogService.cs" />
+    <Compile Include="Log\TableLogEntity.cs" />
+    <Compile Include="Log\TableStorageLogService.cs" />
+    <Compile Include="Muhasebe_CariHesap\CariHesapBorcAlacakServiceModel.cs" />
+    <Compile Include="Muhasebe_CariHesap\IMuhasebe_CariHesapService.cs" />
+    <Compile Include="Muhasebe_CariHesap\Muhasebe_CariHesapService.cs" />
+    <Compile Include="Musteri\MusteriADL.cs" />
+    <Compile Include="Musteri\MusteriXL.cs" />
+    <Compile Include="Common\ParitusAdresSorgulamaResponse.cs" />
+    <Compile Include="Musteri\PotansiyelMusteri.cs" />
+    <Compile Include="NeoConnectYonetim\INeoConnectService.cs" />
+    <Compile Include="NeoConnectYonetim\NeoConnectService.cs" />
+    <Compile Include="Paratika3DCode\ParatikaClient.cs" />
+    <Compile Include="Paratika3DCode\ParatikaModel.cs" />
+    <Compile Include="Paratika3DCode\ParatikaService.cs" />
+    <Compile Include="Paratika3DCode\ParatikaUtil.cs" />
+    <Compile Include="Pdf\PDFHelper.cs" />
+    <Compile Include="Pdf\PDFParser.cs" />
+    <Compile Include="Pdf\PDFTag.cs" />
+    <Compile Include="Pdf\PdfTemplates.cs" />
+    <Compile Include="PoliceMuhasebe\AcenteEntity.cs" />
+    <Compile Include="PoliceMuhasebe\AracEntity.cs" />
+    <Compile Include="PoliceMuhasebe\OdemeEntity.cs" />
+    <Compile Include="PoliceMuhasebe\PoliceEntity.cs" />
+    <Compile Include="PoliceMuhasebe\PoliceKeyEntity.cs" />
+    <Compile Include="PoliceMuhasebe\SigortaEttirenEntity.cs" />
+    <Compile Include="PoliceMuhasebe\SigortaliEntity.cs" />
+    <Compile Include="PoliceMuhasebe\VergiEntity.cs" />
+    <Compile Include="PoliceTransfer\AxaOtoPolTransferReferans.cs" />
+    <Compile Include="PoliceTransfer\BransUrunService.cs" />
+    <Compile Include="PoliceTransfer\Factory\AutoPoliceTransferReaderFactory.cs" />
+    <Compile Include="PoliceTransfer\GencListeler.cs" />
+    <Compile Include="PoliceTransfer\IBransUrunService.cs" />
+    <Compile Include="PoliceTransfer\IGencListeler.cs" />
+    <Compile Include="PoliceTransfer\Message\HDI_PoliceTransfer_Request.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceOnaylama\IOtomatikPoliceOnaylamaReader.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceOnaylama\OtomatikPoliceOnaylamaReader.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\AXAOtomatikPoliceTransfer.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\DOGAOtomatikPoliceTransfer.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\ETHICAOtomatikPoliceTransfer.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\HDIOtomatikPoliceTransfer.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\IAXAOtomatikPoliceTransfer.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\IDOGAOtomatikPoliceTransfer.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\IETHICAOtomatikPoliceTransfer.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\IHDIOtomatikPoliceTransferReader.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\IMAPFREDASKOtomtikPoliceTranfer.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\IMAPFREOtomatikPoliceTransferReader.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\IMAPFREOtomatikTahsilatPoliceTransferReader.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\IRaySigortaOtomatikPoliceTransfer.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\MAPFREDASKOtomtikPoliceTranfer.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\MapfreOtomatikPoliceTransfer.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\MAPFREOtomatikTahsilatPoliceTransferReader.cs" />
+    <Compile Include="PoliceTransfer\OtomatikPoliceTransferler\RaySigortaOtomatikPoliceTransfer.cs" />
+    <Compile Include="PoliceTransfer\Readers\AigExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\AkExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\AllianzHayatveEmeklilikReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\AllianzTahsilatXMLReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\AllianzXMLReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\AnadoluXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\AcnTurkExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\AnkaraExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\AveonGlobalXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\AvivaExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\AvivaXMLSpreadSheetlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\AxaXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\BasakXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\BereketExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\DogaXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\DubaiXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\EgeXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\ErgoSaglikExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\EthicaXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\EurekoXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\ExcelErgoSaglik.cs" />
+    <Compile Include="PoliceTransfer\Readers\FibaEmeklilikExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\FibaExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\GencExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\GeneraliXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\GriXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\GunesXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\HalkXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\ERGOXMLReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\HdiXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\HepIyiExcel.cs" />
+    <Compile Include="PoliceTransfer\Readers\HepIyiExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\IGencPoliceTransferReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\IsikXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\KoruXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\LibertyExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\MagdeExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\MapfreDaskXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\MapfreSeyahatSaglikXmlRader.cs" />
+    <Compile Include="PoliceTransfer\Readers\NeovaXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\NipponExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\OrientExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\QuickExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\RayExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\IPoliceTransferReader.cs" />
+    <Compile Include="PoliceTransfer\IPoliceTransferService.cs" />
+    <Compile Include="PoliceTransfer\Readers\MapfreXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\SBNXMLReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\SFSExcelAig.cs" />
+    <Compile Include="PoliceTransfer\Readers\ExcelAcnTurk.cs" />
+    <Compile Include="PoliceTransfer\Readers\SFSExcelAnkara.cs" />
+    <Compile Include="PoliceTransfer\Readers\SFSExcelAviva.cs" />
+    <Compile Include="PoliceTransfer\Readers\SFSExcelLiberty.cs" />
+    <Compile Include="PoliceTransfer\Readers\SFSExcelMagde.cs" />
+    <Compile Include="PoliceTransfer\Readers\SFSExcelNippon.cs" />
+    <Compile Include="PoliceTransfer\Readers\SFSExcelOrient.cs" />
+    <Compile Include="PoliceTransfer\Readers\SFSExcelQuick.cs" />
+    <Compile Include="PoliceTransfer\Readers\SFSExcelRay.cs" />
+    <Compile Include="PoliceTransfer\Readers\SFSExcelSompo.cs" />
+    <Compile Include="PoliceTransfer\Readers\SFSExcelTurkland.cs" />
+    <Compile Include="PoliceTransfer\Readers\SompoExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\TurkiyeXMLReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\TurklandExcelReader.cs" />
+    <Compile Include="PoliceTransfer\Readers\VizyoneksExcelBereket.cs" />
+    <Compile Include="PoliceTransfer\Readers\ZurichXmlReader.cs" />
+    <Compile Include="PoliceTransfer\Utils\Util.cs" />
+    <Compile Include="PoliceTransfer\Factory\PoliceTransferReaderFactory.cs" />
+    <Compile Include="PoliceTransfer\PoliceTransferService.cs" />
+    <Compile Include="PoliceTransfer\IPolice.cs" />
+    <Compile Include="PoliceTransfer\IPoliceService.cs" />
+    <Compile Include="PoliceTransfer\Police.cs" />
+    <Compile Include="PoliceTransfer\PoliceService.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="RaporService\IRaporService.cs" />
+    <Compile Include="RaporService\RaporModels.cs" />
+    <Compile Include="RaporService\RaporService.cs" />
+    <Compile Include="Service References\AkSigorta1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AkSigorta\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceReferenceAxaNew\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service\BankaSubeleriService\BankaSubeleriService.cs" />
+    <Compile Include="Service\BankaSubeleriService\IBankaSubeleriService.cs" />
+    <Compile Include="Service\DuyuruService\DuyuruModels.cs" />
+    <Compile Include="Service\DuyuruService\DuyuruService.cs" />
+    <Compile Include="Service\DuyuruService\IDuyuruService.cs" />
+    <Compile Include="Service\HataLogService\HataLogService.cs" />
+    <Compile Include="Service\HataLogService\IHataLogService.cs" />
+    <Compile Include="Service\ParitusService\IParitusService.cs" />
+    <Compile Include="Service\ParitusService\ParitusService.cs" />
+    <Compile Include="Service\PoliceMuhasebeService\IPoliceMuhasebeService.cs" />
+    <Compile Include="Service\PoliceMuhasebeService\PoliceMuhasebeService.cs" />
+    <Compile Include="Service\TVMBolgeleri\ITVMBolgeleriService.cs" />
+    <Compile Include="Service\TVMBolgeleri\TVMBolgeleriService.cs" />
+    <Compile Include="Service\TVMDepartmanlar\ITVMDepartmanlarService.cs" />
+    <Compile Include="Service\TVMDepartmanlar\TVMDepartmanlarService.cs" />
+    <Compile Include="Service\UrunParametreleriService\IUrunParametreleriService.cs" />
+    <Compile Include="Service\UrunParametreleriService\UrunParametreleriModel.cs" />
+    <Compile Include="Service\UrunParametreleriService\UrunParametreleriService.cs" />
+    <Compile Include="Service\WebServisLog\IWebServisLogService.cs" />
+    <Compile Include="Service\WebServisLog\WebServisLogService.cs" />
+    <Compile Include="StorageService\AracZipStorage.cs" />
+    <Compile Include="StorageService\AtananIsLogStorage.cs" />
+    <Compile Include="StorageService\CariHesapEkstrePDFStorage.cs" />
+    <Compile Include="StorageService\DuyuruDokumanStorage.cs" />
+    <Compile Include="StorageService\GorevTakipDokumanStorage.cs" />
+    <Compile Include="StorageService\HasarStorageService.cs" />
+    <Compile Include="StorageService\IPoliceListesiPDFStorage.cs" />
+    <Compile Include="StorageService\IsTipiAciklama.cs" />
+    <Compile Include="StorageService\IStorageService.cs" />
+    <Compile Include="StorageService\KullaniciFotografStorage.cs" />
+    <Compile Include="StorageService\MockStroageService.cs" />
+    <Compile Include="StorageService\MusteriDokumanStorage.cs" />
+    <Compile Include="StorageService\PolicePDFStorage.cs" />
+    <Compile Include="StorageService\PoliceTransferStorage.cs" />
+    <Compile Include="StorageService\StorageService.cs" />
+    <Compile Include="StorageService\TeklifPDFStorage.cs" />
+    <Compile Include="StorageService\WEBServiceLogStorage.cs" />
+    <Compile Include="TaliAcenteTransfer\DenemeTVMService.cs" />
+    <Compile Include="TaliAcenteTransfer\IDenemeTVMService.cs" />
+    <Compile Include="TaliAcenteTransfer\ITaliAcente.cs" />
+    <Compile Include="TaliAcenteTransfer\ITaliAcenteTransferService.cs" />
+    <Compile Include="TaliAcenteTransfer\ITVMDenemeSurum.cs" />
+    <Compile Include="TaliAcenteTransfer\TaliAcente.cs" />
+    <Compile Include="TaliAcenteTransfer\TaliAcenteTransferService.cs" />
+    <Compile Include="TaliAcenteTransfer\TaliReader.cs" />
+    <Compile Include="TaliAcenteTransfer\TVMDenemeSurum.cs" />
+    <Compile Include="TaliPolice\ITaliPoliceService.cs" />
+    <Compile Include="TaliPolice\TaliPoliceService.cs" />
+    <Compile Include="TeklifYapayZeka\ITeklifYapayZekaService.cs" />
+    <Compile Include="TeklifYapayZeka\TeklifYapayZekaModel.cs" />
+    <Compile Include="TeklifYapayZeka\TeklifYapayZekaService.cs" />
+    <Compile Include="Teklif\AEGON\Egitim\AEGONEgitim.cs" />
+    <Compile Include="Teklif\AEGON\Egitim\IAEGONEgitim.cs" />
+    <Compile Include="Teklif\AEGON\KorunanGelecek\AEGONKorunanGelecek.cs" />
+    <Compile Include="Teklif\AEGON\KorunanGelecek\IAEGONKorunanGelecek.cs" />
+    <Compile Include="Teklif\AEGON\Messages\AegonHelper.cs" />
+    <Compile Include="Teklif\AEGON\Messages\AegonRequest.cs" />
+    <Compile Include="Teklif\AEGON\OdemeGuvence\AEGONOdemeGuvence.cs" />
+    <Compile Include="Teklif\AEGON\OdemeGuvence\IAEGONOdemeGuvence.cs" />
+    <Compile Include="Teklif\AEGON\OdulluBirikim\AEGONOdulluBirikim.cs" />
+    <Compile Include="Teklif\AEGON\OdulluBirikim\IAEGONOdulluBirikim.cs" />
+    <Compile Include="Teklif\AEGON\PrimIadeli2\AEGONPrimIadeli2.cs" />
+    <Compile Include="Teklif\AEGON\PrimIadeli2\IAEGONPrimIadeli2.cs" />
+    <Compile Include="Teklif\AEGON\PrimIadeli\AEGONPrimIadeli.cs" />
+    <Compile Include="Teklif\AEGON\PrimIadeli\IAEGONPrimIadeli.cs" />
+    <Compile Include="Teklif\AEGON\TESabitPrimli\IAEGONTESabitPrimli.cs" />
+    <Compile Include="Teklif\AEGON\TESabitPrimli\AEGONTESabitPrimli.cs" />
+    <Compile Include="Teklif\AK\Kasko\AKKasko.cs" />
+    <Compile Include="Teklif\AK\Kasko\IAKKasko.cs" />
+    <Compile Include="Teklif\ALLIANZ\Trafik\ALLIANZTrafik.cs" />
+    <Compile Include="Teklif\ALLIANZ\Trafik\IALLIANZTrafik.cs" />
+    <Compile Include="Teklif\ANADOLU\Dask\ANADOKUDask.cs" />
+    <Compile Include="Teklif\ANADOLU\Dask\IANADOLUDask.cs" />
+    <Compile Include="Teklif\ANADOLU\IkinciElGaranti\ANADOLUIkinciElGaranti.cs" />
+    <Compile Include="Teklif\ANADOLU\IkinciElGaranti\IANADOLUIkinciElGaranti.cs" />
+    <Compile Include="Teklif\ANADOLU\Kasko\ANADOLUKasko.cs" />
+    <Compile Include="Teklif\ANADOLU\Kasko\IANADOLUKasko.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\ANADOLUMessage.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\ANADOLUService.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\ANADOLUWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Teklif\ANADOLU\Messages\ConsumerContext.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_MUS_WEB_SWEPTE_MUSTERI_KAYDET.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_MUS_WEB_SWEPTE_MUSTERI_KAYDET_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_DSK_WS_DASK_PRIM_HESAPLA.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_DSK_WS_DASK_PRIM_HESAPLA_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_DSK_WS_GET_DASK_BELDE_WITH_IL_KODU_ILCE_ADI.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_DSK_WS_GET_DASK_BELDE_WITH_IL_KODU_ILCE_ADI_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_GET_BIRLESIK_KASKO_TEMINATLAR.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_GET_BIRLESIK_KASKO_TEMINATLAR_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_GET_MARKA_FOR_MOBIL.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_GET_MARKA_FOR_MOBIL_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_GET_WEB_KULLANIM_SEKLI_LISTESI.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_GET_WEB_KULLANIM_SEKLI_LISTESI_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_GET_WEB_KULLANIM_TIPI_LISTESI.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_GET_WEB_KULLANIM_TIPI_LISTESI_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_KASKO_TEKLIF_KAYDET.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_KASKO_TEKLIF_KAYDET_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_KASKO_TEKLIF_POLICELENDIR.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_KASKO_TEKLIF_POLICELENDIR_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_KASKO_TEMINAT.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_KASKO_TEMINAT_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_SET_KULLANIM_SEKLI_FOR_INTERNET_SATIS.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_SET_KULLANIM_SEKLI_FOR_INTERNET_SATIS_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_SET_KULLANIM_TIPI_FOR_INTERNET_SATIS.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_SET_KULLANIM_TIPI_FOR_INTERNET_SATIS_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_TRAFIK_KAYDET.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_TRAFIK_KAYDET_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_V1.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_V1_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_YENI_TRAFIK_TEKLIF_KAYDET.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_YENI_TRAFIK_TEKLIF_KAYDET_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_YENI_TRAFIK_TEKLIF_POLICELENDIR.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_OTO_WS_YENI_TRAFIK_TEKLIF_POLICELENDIR_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_URT_WS_GET_MENFAAT_SAHIBI_BILGILERI.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\PR_SWEP_URT_URT_WS_GET_MENFAAT_SAHIBI_BILGILERI_Response.cs" />
+    <Compile Include="Teklif\ANADOLU\Messages\WsseSecurity.cs" />
+    <Compile Include="Teklif\ANADOLU\Trafik\ANADOLUTrafik.cs" />
+    <Compile Include="Teklif\ANADOLU\Trafik\IANADOLUTrafik.cs" />
+    <Compile Include="Teklif\AXA\Kasko\AXAKasko.cs" />
+    <Compile Include="Teklif\AXA\Kasko\IAXAKasko.cs" />
+    <Compile Include="Teklif\AXA\Trafik\AXATrafik.cs" />
+    <Compile Include="Teklif\AXA\Trafik\IAXATrafik.cs" />
+    <Compile Include="Teklif\CHARTIS\SeyehatSaglik\CHARTISSeyehatSaglik.cs" />
+    <Compile Include="Teklif\CHARTIS\SeyehatSaglik\ICHARTISSeyehatSaglik.cs" />
+    <Compile Include="Teklif\Common\KrediKarti.cs" />
+    <Compile Include="Teklif\Common\Odeme.cs" />
+    <Compile Include="Teklif\Common\SeyehatSaglikModels.cs" />
+    <Compile Include="Teklif\Common\TeklifUrunFactory.cs" />
+    <Compile Include="Teklif\DASK\DaskTeklif.cs" />
+    <Compile Include="Teklif\DASK\IDaskTeklif.cs" />
+    <Compile Include="Teklif\DEMIR\KrediliHayat\DEMIRKrediliHayat.cs" />
+    <Compile Include="Teklif\DEMIR\KrediliHayat\IDEMIRKrediliHayat.cs" />
+    <Compile Include="Teklif\Egitim\EgitimTeklif.cs" />
+    <Compile Include="Teklif\Egitim\IEgitimTeklif.cs" />
+    <Compile Include="Teklif\ERGO\Kasko\ERGOKasko.cs" />
+    <Compile Include="Teklif\ERGO\Kasko\IERGOKasko.cs" />
+    <Compile Include="Teklif\ERGO\Messages\ERGOMessage.cs" />
+    <Compile Include="Teklif\ERGO\Messages\ERGOService.cs" />
+    <Compile Include="Teklif\ERGO\Messages\SaveProposal_Request.cs" />
+    <Compile Include="Teklif\ERGO\Trafik\ERGOTrafik.cs" />
+    <Compile Include="Teklif\ERGO\Trafik\IERGOTrafik.cs" />
+    <Compile Include="Teklif\EUREKO\Kasko\EUREKOKasko.cs" />
+    <Compile Include="Teklif\EUREKO\Kasko\IEUREKOKasko.cs" />
+    <Compile Include="Teklif\EUREKO\Messages\EurekoMusteriRequestModel.cs" />
+    <Compile Include="Teklif\EUREKO\Trafik\EUREKOTrafik.cs" />
+    <Compile Include="Teklif\EUREKO\Trafik\IEUREKOTrafik.cs" />
+    <Compile Include="Teklif\FerdiKazaPlus\FerdiKazaPlusTeklif.cs" />
+    <Compile Include="Teklif\FerdiKazaPlus\IFerdiKazaPlusTeklif.cs" />
+    <Compile Include="Teklif\GROUPAMA\Kasko\GROUPAMAKasko.cs" />
+    <Compile Include="Teklif\GROUPAMA\Kasko\IGROUPAMAKasko.cs" />
+    <Compile Include="Teklif\GROUPAMA\Trafik\GROUPAMATrafik.cs" />
+    <Compile Include="Teklif\GROUPAMA\Trafik\IGROUPAMATrafik.cs" />
+    <Compile Include="Teklif\GULF\Kasko\GULFKasko.cs" />
+    <Compile Include="Teklif\GULF\Kasko\IGULFKasko.cs" />
+    <Compile Include="Teklif\GULF\Messages\Arac\GULF_AracBilgiSorgu_Request.cs" />
+    <Compile Include="Teklif\GULF\Messages\Arac\EGM\GULF_EGMSorgu_Request.cs" />
+    <Compile Include="Teklif\GULF\Messages\Musteri\GULF_Musteri_DatabaseSorguHata_Response.cs" />
+    <Compile Include="Teklif\GULF\Messages\Musteri\GULF_Musteri_DatabaseSorgu_Request.cs" />
+    <Compile Include="Teklif\GULF\Messages\Musteri\GULF_Musteri_DatabaseSorgu_Response.cs" />
+    <Compile Include="Teklif\GULF\Messages\Musteri\Kaydet\GULF_Musteri_KaydetmeHata_Response.cs" />
+    <Compile Include="Teklif\GULF\Messages\Musteri\Kaydet\GULF_Musteri_Kaydetme_Request.cs" />
+    <Compile Include="Teklif\GULF\Messages\Musteri\Kaydet\GULF_Musteri_Kaydetme_Response.cs" />
+    <Compile Include="Teklif\GULF\Messages\Kasko\Police\GULF_KaskoPolice_Request.cs" />
+    <Compile Include="Teklif\GULF\Messages\Kasko\Police\GULF_KaskoPolice_Response.cs" />
+    <Compile Include="Teklif\GULF\Messages\Kasko\Teklif\GULF_KaskoTeklifKayitHata_Response.cs" />
+    <Compile Include="Teklif\GULF\Messages\Kasko\Teklif\GULF_KaskoTeklifKayit_Request.cs" />
+    <Compile Include="Teklif\GULF\Messages\Kasko\Teklif\GULF_KaskoTeklifKayit_Response.cs" />
+    <Compile Include="Teklif\GULF\Messages\PDF\GULF_PDFHata_Response.cs" />
+    <Compile Include="Teklif\GULF\Messages\PDF\GULF_PDF_Request.cs" />
+    <Compile Include="Teklif\GULF\Messages\PDF\GULF_PDF_Response.cs" />
+    <Compile Include="Teklif\HDI\Dask\HDIDask.cs" />
+    <Compile Include="Teklif\HDI\Dask\IHDIDask.cs" />
+    <Compile Include="Teklif\HDI\Kasko\HDIKasko.cs" />
+    <Compile Include="Teklif\HDI\Kasko\IHDIKasko.cs" />
+    <Compile Include="Teklif\HDI\Konut\HDIKonut.cs" />
+    <Compile Include="Teklif\HDI\Konut\IHDIKonut.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIAracListeRequest.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIDaskEskiPoliceResponse.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIDaskRequest.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIDaskResponse.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIKaskoRequest.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIKaskoResponse.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIKonutRequest.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIKonutResponse.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIPDFRequest.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIIsYeriRequest.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIIsYeriResponse.cs" />
+    <Compile Include="Teklif\HDI\IsYeri\HDIIsYeri.cs" />
+    <Compile Include="Teklif\HDI\IsYeri\IHDIIsYeri.cs" />
+    <Compile Include="Teklif\HDI\Trafik\IHDITrafik.cs" />
+    <Compile Include="Teklif\IkinciElGaranti\IIkinciElGarantiTeklif.cs" />
+    <Compile Include="Teklif\IkinciElGaranti\IkinciElGarantiTeklif.cs" />
+    <Compile Include="Teklif\ITeklifBase.cs" />
+    <Compile Include="Teklif\Kasko\IKaskoTeklif.cs" />
+    <Compile Include="Teklif\Kasko\KaskoTeklif.cs" />
+    <Compile Include="Teklif\Konut\IKonutTeklif.cs" />
+    <Compile Include="Teklif\Konut\KonutTeklif.cs" />
+    <Compile Include="Teklif\KorunanGelecek\IKorunanGelecekTeklif.cs" />
+    <Compile Include="Teklif\KorunanGelecek\KorunanGelecekTeklif.cs" />
+    <Compile Include="Teklif\KORU\LilyumFerdiKaza\IKoruFerdiKaza.cs" />
+    <Compile Include="Teklif\KORU\LilyumFerdiKaza\KoruFerdiKaza.cs" />
+    <Compile Include="Teklif\KORU\Messages\KoruLilyumYardimTekUrunHesaplaRequest.cs" />
+    <Compile Include="Teklif\KrediliHayat\IKrediliHayatTeklif.cs" />
+    <Compile Include="Teklif\KrediliHayat\KrediliHayatTeklif.cs" />
+    <Compile Include="Teklif\KritikHastalik\IKritikHastalikTeklif.cs" />
+    <Compile Include="Teklif\KritikHastalik\KritikHastalikTeklif.cs" />
+    <Compile Include="Teklif\LilyumKoru\ILilyumKoruTeklif.cs" />
+    <Compile Include="Teklif\LilyumKoru\LilyumKoruTeklif.cs" />
+    <Compile Include="Teklif\Log\IWebServiceLogService.cs" />
+    <Compile Include="Teklif\Log\WebServiceLogService.cs" />
+    <Compile Include="Common\TrafikTeminatlar.cs" />
+    <Compile Include="Common\TrafikVergiler.cs" />
+    <Compile Include="Teklif\MapfreKasko\IMapfreKaskoTeklif.cs" />
+    <Compile Include="Teklif\MapfreKasko\MapfreKaskoTeklif.cs" />
+    <Compile Include="Teklif\MapfreTrafik\IMapfreTrafikTeklif.cs" />
+    <Compile Include="Teklif\MapfreTrafik\MapfreTrafikTeklif.cs" />
+    <Compile Include="Teklif\MAPFRE\Common\MapfreAdresSorguTipleri.cs" />
+    <Compile Include="Teklif\MAPFRE\Common\MAPFREHelper.cs" />
+    <Compile Include="Teklif\MAPFRE\Common\MapfreKimlikTipleri.cs" />
+    <Compile Include="Teklif\MAPFRE\Common\MapfreSahisTipi.cs" />
+    <Compile Include="Teklif\MAPFRE\Common\MapfreParaBirimi.cs" />
+    <Compile Include="Teklif\MAPFRE\Common\MapfreSorguParametreler.cs" />
+    <Compile Include="Teklif\MAPFRE\Common\MapfreUyrukTipleri.cs" />
+    <Compile Include="Teklif\MAPFRE\DASK\IMAPFREDask.cs" />
+    <Compile Include="Teklif\MAPFRE\DASK\MAPFREDask.cs" />
+    <Compile Include="Teklif\MAPFRE\IMAPFRESorguService.cs" />
+    <Compile Include="Teklif\MAPFRE\Kasko\IMAPFREKasko.cs" />
+    <Compile Include="Teklif\MAPFRE\Kasko\MAPFREKasko.cs" />
+    <Compile Include="Teklif\MAPFRE\MapfreKasko\IMAPFREProjeKasko.cs" />
+    <Compile Include="Teklif\MAPFRE\MapfreKasko\MAPFREProjeKasko.cs" />
+    <Compile Include="Teklif\MAPFRE\MAPFRESorguService.cs" />
+    <Compile Include="Teklif\MAPFRE\MapfreTrafik\IMAPFREProjeTrafik.cs" />
+    <Compile Include="Teklif\MAPFRE\MapfreTrafik\MAPFREProjeTrafik.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\EgmSorguAracBilgi.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\EgmSorguAracSahipBilgileri.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\EgmSorguAracTescilBilgileri.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\EgmSorguResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\EskiKaskoBilgiSorguResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\EskiTrafikBilgiSorguResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\HasarsizlikResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\HazineYururlulukResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\KaskoIkameResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\KimlikSorguResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\KimliktenAdresSorguResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\KisiAdresBilgisiType.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\MapfreBelgeSorguRequest.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\MapfrePrintRequest.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\MapfreSorgu.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\MapfreSorguResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\MapfreTarih.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\OncekiTescilResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\OtorizasyonMesajResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\OtorizasyonResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\PoliceSorguKaskoResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\PoliceSorguTrafikResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\trafikHasar.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\TrafikHasarBilgi.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\UrunKoduSorguModel.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\UrunSorguResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Messages\ValidateUserResponse.cs" />
+    <Compile Include="Teklif\MAPFRE\Trafik\IMAPFRETrafik.cs" />
+    <Compile Include="Teklif\MAPFRE\Trafik\MAPFRETrafik.cs" />
+    <Compile Include="Teklif\METLIFE\FerdiKazaPlus\IMETLIFEFerdiKazaPlus.cs" />
+    <Compile Include="Teklif\METLIFE\FerdiKazaPlus\METLIFEFerdiKazaPlus.cs" />
+    <Compile Include="Teklif\METLIFE\KritikHastalik\IMETLIFEKritikHastalik.cs" />
+    <Compile Include="Teklif\METLIFE\KritikHastalik\METLIFEKritikHastalik.cs" />
+    <Compile Include="Teklif\OdemeGuvence\IOdemeGuvenceTeklif.cs" />
+    <Compile Include="Teklif\OdemeGuvence\OdemeGuvenceTeklif.cs" />
+    <Compile Include="Teklif\OdulluBirikim\IOdulluBirikimTeklif.cs" />
+    <Compile Include="Teklif\OdulluBirikim\OdulluBirikimTeklif.cs" />
+    <Compile Include="Teklif\PoliceToXML\IPoliceToXML.cs" />
+    <Compile Include="Teklif\PoliceToXML\PoliceToXML.cs" />
+    <Compile Include="Teklif\PrimIadeli2\IPrimIadeli2Teklif.cs" />
+    <Compile Include="Teklif\PrimIadeli2\PrimIadeli2Teklif.cs" />
+    <Compile Include="Teklif\PrimIadeli\IPrimIadeliTeklif.cs" />
+    <Compile Include="Teklif\PrimIadeli\PrimIadeliTeklif.cs" />
+    <Compile Include="Teklif\RAY\Kasko\IRAYKasko.cs" />
+    <Compile Include="Teklif\RAY\Kasko\RAYKasko.cs" />
+    <Compile Include="Teklif\RAY\Messages\Kasko\RAY_KaskoPolicelestirmeHata2_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\Kasko\RAY_KaskoPolicelestirmeHata_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\Kasko\RAY_KaskoPolicelestirme_Request.cs" />
+    <Compile Include="Teklif\RAY\Messages\Kasko\RAY_KaskoPolicelestirme_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\Kasko\RAY_KaskoTeklifKayit_Request.cs" />
+    <Compile Include="Teklif\RAY\Messages\Kasko\RAY_KaskoTeklifKayit_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAYMessages.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAY_Musteri_DatabaseSorguHata_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAY_Musteri_DatabaseSorgu_Request.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAY_Musteri_DatabaseSorgu_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAY_Musteri_KaydetmeHata_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAY_Musteri_Kaydetme_Request.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAY_Musteri_Kaydetme_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\Trafik\RAY_TrafikPolicestirmeHata2_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAY_PoliceBasimi_Request.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAY_PoliceBasimi_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\Trafik\RAY_TrafikPolicelestirmeHata_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\Trafik\RAY_TrafikPolicelestirme_Request.cs" />
+    <Compile Include="Teklif\RAY\Messages\Trafik\RAY_TrafikPolicelestirme_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\Trafik\RAY_TrafikTeklifKayitHata_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\Trafik\RAY_TrafikTeklifKayit_Request.cs" />
+    <Compile Include="Teklif\RAY\Messages\Trafik\RAY_TrafikTeklifKayit_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAY_Trafik_EGM_Arac_Sorgu_Request.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAY_Trafik_EGM_Arac_Sorgu_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAY_TramerKimlikSorgulamaHata_Response.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAY_TramerKimlikSorgu_Request.cs" />
+    <Compile Include="Teklif\RAY\Messages\RAY_TramerKimlikSorgu_Response.cs" />
+    <Compile Include="Teklif\RAY\Trafik\IRAYTrafik.cs" />
+    <Compile Include="Teklif\RAY\Trafik\RAYTrafik.cs" />
+    <Compile Include="Teklif\SeyehatSaglik\ISeyehatSaglikTeklif.cs" />
+    <Compile Include="Teklif\SeyehatSaglik\SeyehatSaglikTeklif.cs" />
+    <Compile Include="Teklif\SOMPOJAPAN\Kasko\ISOMPOJAPANKasko.cs" />
+    <Compile Include="Teklif\SOMPOJAPAN\Kasko\SOMPOJAPANKasko.cs" />
+    <Compile Include="Teklif\SOMPOJAPAN\Messages\Encripyt.cs" />
+    <Compile Include="Teklif\SOMPOJAPAN\Messages\SompoDekontRequest.cs" />
+    <Compile Include="Teklif\SOMPOJAPAN\Messages\SOMPOJAPANMessages.cs" />
+    <Compile Include="Teklif\SOMPOJAPAN\Trafik\ISOMPOJAPANTrafik.cs" />
+    <Compile Include="Teklif\SOMPOJAPAN\Trafik\SOMPOJAPANTrafik.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Teklif\TeklifBase.cs" />
+    <Compile Include="Teklif\Common\TeklifOzelModels.cs" />
+    <Compile Include="Teklif\IsYeri\IIsYeriTeklif.cs" />
+    <Compile Include="Teklif\IsYeri\IsYeriTeklif.cs" />
+    <Compile Include="Teklif\TESabitPrimli\ITESabitPrimliTeklif.cs" />
+    <Compile Include="Teklif\TESabitPrimli\TESabitPrimliTeklif.cs" />
+    <Compile Include="Teklif\TURKNIPPON\DASK\ITURKNIPPONDask.cs" />
+    <Compile Include="Teklif\TURKNIPPON\DASK\TURKNIPPONDask.cs" />
+    <Compile Include="Teklif\TURKNIPPON\Kasko\ITURKNIPPONKasko.cs" />
+    <Compile Include="Teklif\TURKNIPPON\Kasko\TURKNIPPONKasko.cs" />
+    <Compile Include="Teklif\TURKNIPPON\Messages\TURKNIPPONMessage.cs" />
+    <Compile Include="Teklif\TURKNIPPON\Messages\TURKNIPPON_DASK_Response.cs" />
+    <Compile Include="Teklif\TURKNIPPON\Messages\TURKNIPPON_Proposal_Response.cs" />
+    <Compile Include="Teklif\TURKNIPPON\Seyahat\ITURKNIPPONSeyahat.cs" />
+    <Compile Include="Teklif\TURKNIPPON\Seyahat\TURKNIPPONSeyahat.cs" />
+    <Compile Include="Teklif\TURKNIPPON\YabanciSaglik\ITURKNIPPONYabanciSaglik.cs" />
+    <Compile Include="Teklif\TURKNIPPON\YabanciSaglik\TURKNIPPONYabanciSaglik.cs" />
+    <Compile Include="Teklif\UNICO\Kasko\IUNICOKasko.cs" />
+    <Compile Include="Teklif\UNICO\Kasko\UNICOKasko.cs" />
+    <Compile Include="Teklif\TSS\ITSSTeklif.cs" />
+    <Compile Include="Teklif\TSS\TSSTeklif.cs" />
+    <Compile Include="Tools\DataTableList.cs" />
+    <Compile Include="Tools\DataTableParameters.cs" />
+    <Compile Include="EMail\EMailService.cs" />
+    <Compile Include="EMail\IEMailService.cs" />
+    <Compile Include="Kullanici\Encryption.cs" />
+    <Compile Include="Kullanici\FormsAuthenticationService.cs" />
+    <Compile Include="Kullanici\IFormsAuthenticationService.cs" />
+    <Compile Include="Kullanici\IAktifKullaniciService.cs" />
+    <Compile Include="Kullanici\IKullaniciService.cs" />
+    <Compile Include="Kullanici\IMembershipService.cs" />
+    <Compile Include="Kullanici\KullaniciService.cs" />
+    <Compile Include="Kullanici\Kullanıci.cs" />
+    <Compile Include="Kullanici\AktifKullaniciService.cs" />
+    <Compile Include="Kullanici\MembershipService.cs" />
+    <Compile Include="Kullanici\PasswordGenerator.cs" />
+    <Compile Include="Musteri\Musteri.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\BransService\BransService.cs" />
+    <Compile Include="Service\BransService\IBransService.cs" />
+    <Compile Include="Service\EPostaService\EPostaService.cs" />
+    <Compile Include="Service\EPostaService\IEPostaService.cs" />
+    <Compile Include="Service\KonfigurasyonService\KonfigTable.cs" />
+    <Compile Include="Service\KonfigurasyonService\KonfigurasyonService.cs" />
+    <Compile Include="Service\KonfigurasyonService\IKonfigurasyonService.cs" />
+    <Compile Include="Service\SigortaSirketleriService\SigortaSirketleriService.cs" />
+    <Compile Include="Service\SigortaSirketleriService\ISigortaSirketleriService.cs" />
+    <Compile Include="Service\TanimService\ITanimService.cs" />
+    <Compile Include="Service\TanimService\TanimService.cs" />
+    <Compile Include="Service\MenuService\IMenuService.cs" />
+    <Compile Include="Service\MenuService\MenuService.cs" />
+    <Compile Include="Musteri\IMusteriService.cs" />
+    <Compile Include="Musteri\MusteriService.cs" />
+    <Compile Include="Service\SoruService\ISoruService.cs" />
+    <Compile Include="Service\SoruService\SoruService.cs" />
+    <Compile Include="Service\TeminatService\ITeminatService.cs" />
+    <Compile Include="Service\TeminatService\TeminatService.cs" />
+    <Compile Include="Service\TVMKullanicilar\ITVMKullanicilarService.cs" />
+    <Compile Include="Service\TVMKullanicilar\TVMKullanicilarService.cs" />
+    <Compile Include="Service\UlkeService\IUlkeService.cs" />
+    <Compile Include="Service\UlkeService\UlkeService.cs" />
+    <Compile Include="Musteri\UlkeToilce.cs" />
+    <Compile Include="Service\UrunService\IUrunService.cs" />
+    <Compile Include="Service\UrunService\UrunService.cs" />
+    <Compile Include="Service\UrunService\UrunServiceModels.cs" />
+    <Compile Include="Service\VergiService\IVergiService.cs" />
+    <Compile Include="Service\VergiService\VergiService.cs" />
+    <Compile Include="Teklif\CRService.cs" />
+    <Compile Include="Teklif\HDI\Trafik\HDITrafik.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIAdresBilgi.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIEskiPoliceBilgileri.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIMessage.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIPlakaSorgulamaRequest.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDIPlakaSorgulamaResponse.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDITrafikRequest.cs" />
+    <Compile Include="Teklif\HDI\Messages\HDITrafikResponse.cs" />
+    <Compile Include="Teklif\ICRService.cs" />
+    <Compile Include="Teklif\ITeklif.cs" />
+    <Compile Include="Teklif\ITeklifService.cs" />
+    <Compile Include="Teklif\Teklif.cs" />
+    <Compile Include="Teklif\TeklifService.cs" />
+    <Compile Include="Common\TrafikSorular.cs" />
+    <Compile Include="Teklif\Trafik\ITrafikTeklif.cs" />
+    <Compile Include="Teklif\Trafik\TrafikTeklif.cs" />
+    <Compile Include="Common\TUM.cs" />
+    <Compile Include="Tools\KeyValueItem.cs" />
+    <Compile Include="Tools\Lang\babonline.Designer.cs">
+      <DependentUpon>babonline.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Tools\Lang\babonline.en-us.Designer.cs">
+      <DependentUpon>babonline.en-us.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Tools\Lang\babonline.es-ES.Designer.cs">
+      <DependentUpon>babonline.es-ES.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Tools\Utils.cs" />
+    <Compile Include="TUMService\ITUMService.cs" />
+    <Compile Include="TUMService\TUMListe.cs" />
+    <Compile Include="TUMService\TUMService.cs" />
+    <Compile Include="SQLs\TVMProjeKoduSQLs.cs" />
+    <Compile Include="TVMService\ITVMService.cs" />
+    <Compile Include="TVMService\NeoConnectSifreTanimlamaModel.cs" />
+    <Compile Include="TVMService\Yetki\IYetkiService.cs" />
+    <Compile Include="TVMService\TVMListe.cs" />
+    <Compile Include="TVMService\TVMOzetModel.cs" />
+    <Compile Include="TVMService\TVMService.cs" />
+    <Compile Include="TVMService\Yetki\KulliciYetkiProcedure.cs" />
+    <Compile Include="TVMService\Yetki\YetkiService.cs" />
+    <Compile Include="UretimHedefPlanlanan\IPoliceUretimHedefPlanlananService.cs" />
+    <Compile Include="UretimHedefPlanlanan\PoliceUretimHedefPlanlananService.cs" />
+    <Compile Include="Web References\aegon\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\aksigorta.basim\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\aksigorta.kasko\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\allianz\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\anadolu\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\axa.tahsilat\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\AxaKasko\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\AXAPoliceBasim\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\axasigorta.hayat\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\dogapolicetransfer\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\Ergo.Info\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ergoturkiye.kasko\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ergoturkiye.police.uretim\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\eureko.basim\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\eureko.kasko\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\eureko.musteri\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\eureko.policeteklifbilgi\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\eureko.teminat\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\eureko.trafik\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\eurekosigorta.kaskoV3\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\eurekosigorta.musteriV2\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\eurekosigorta.trafikV4\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\groupama.service\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\gulfsigorta.kasko\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\gulfsigorta.musteri\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\gulfsigorta.plakasorgu\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\koruLilyumferdiKaza\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\mapfreutil\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\mapfre\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ray\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\sompojapan.common\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\sompojapan.kasko\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\sompojapan.trafik\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\sompojapantrafik\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\turknippon.dask\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\turknippon.seyahat\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\turknipponkasko\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\turknippontss\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\unicosecurity\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\unicosigorta.previva\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\unicosigorta.utilityService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="WebServiceLog\IWebServiceLogListService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebServiceLog\WebServiceLogListe.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebServiceLog\WebServiceLogListService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Neosinerji.BABOnlineTP.Database\Neosinerji.BABOnlineTP.Database.csproj">
+      <Project>{c15b7c22-5639-4e40-b6eb-7a7913cfe77d}</Project>
+      <Name>Neosinerji.BABOnlineTP.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RayLibrary\RayLibrary.csproj">
+      <Project>{b53e3f23-644b-42ad-8746-05c567e4189e}</Project>
+      <Name>RayLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
+    <None Include="Properties\DataSources\System.Xml.XmlNode.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\AkSigorta1\aa368c022b98868d2b2e389d8dec2762.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AkSigorta1\KaskoWebService.wsdl" />
+    <None Include="Service References\AkSigorta1\Neosinerji.BABOnlineTP.Business.AkSigorta1.kaskoPoliceOlusturmaOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AkSigorta1\Neosinerji.BABOnlineTP.Business.AkSigorta1.kaskoPoliceOlusturResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AkSigorta1\Neosinerji.BABOnlineTP.Business.AkSigorta1.kaskoPrimHesaplamaOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AkSigorta1\Neosinerji.BABOnlineTP.Business.AkSigorta1.kaskoPrimHesaplaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AkSigorta1\Neosinerji.BABOnlineTP.Business.AkSigorta1.kaskoTeklifOlusturmaOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AkSigorta1\Neosinerji.BABOnlineTP.Business.AkSigorta1.kaskoTeklifOlusturResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AkSigorta1\Neosinerji.BABOnlineTP.Business.AkSigorta1.kaskoTeklifOnayla3dTahsilatUrlOlusturResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AkSigorta1\Neosinerji.BABOnlineTP.Business.AkSigorta1.kaskoTeklifOnayla3dUrlOlusturResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AkSigorta1\Neosinerji.BABOnlineTP.Business.AkSigorta1.kaskoTeklifOnaylaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AkSigorta1\Neosinerji.BABOnlineTP.Business.AkSigorta1.sanalpos3DUrlOlusutrmaOutput.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AkSigorta\aa368c022b98868d2b2e389d8dec2762.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AkSigorta\Neosinerji.BABOnlineTP.Business.AkSigorta.policePDFSorgulamaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AkSigorta\PolicePDFSorgulamaWebService.wsdl" />
+    <None Include="Service References\ServiceReferenceAxaNew\AxaExternalProductionService.wsdl" />
+    <None Include="Service References\ServiceReferenceAxaNew\Neosinerji.BABOnlineTP.Business.ServiceReferenceAxaNew.CFiyatCalismasiSonuc.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceAxaNew\Neosinerji.BABOnlineTP.Business.ServiceReferenceAxaNew.CPoliceOnayRedSonuc.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Web References\aegon\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\aegon\result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\aegon\Service1.wsdl" />
+    <None Include="Web References\aegon\TEPrimInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\aksigorta.basim\aa368c022b98868d2b2e389d8dec2762.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\aksigorta.basim\PolicePDFSorgulamaWebService.wsdl" />
+    <None Include="Web References\aksigorta.basim\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\aksigorta.kasko\aa368c022b98868d2b2e389d8dec2762.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\aksigorta.kasko\kaskoPoliceOlusturmaOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\aksigorta.kasko\kaskoPrimHesaplamaOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\aksigorta.kasko\kaskoTeklifOlusturmaOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\aksigorta.kasko\KaskoWebService.wsdl" />
+    <None Include="Web References\aksigorta.kasko\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\aksigorta.kasko\sanalpos3DUrlOlusutrmaOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\allianz\GenericProcessExecutorService.wsdl" />
+    <None Include="Web References\allianz\GPE.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\allianz\objectDescriptor.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\allianz\processDescriptor.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\allianz\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\allianz\serviceCommandResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\allianz\valueSet.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\anadolu\anadolu_service.wsdl" />
+    <None Include="Web References\anadolu\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\axa.tahsilat\AOCTahsilatBilgiList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\AOCTahsilatBilgiListheader.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\AOCUretimBilgiList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\AOCUretimBilgiListheader.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\AxaTahsilatWeb.wsdl" />
+    <None Include="Web References\axa.tahsilat\BankaAcentaAftReturn.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\BankaDetayliUretimList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\BnkPoliceSonDurumResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\CAOCTahPosParam.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\EntegGetTokenResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\IptalSonrasiOdemeResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\KismiNakitTahsilatResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\KomisyonOdemeListesiResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\KomisyonTediyeResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\KrediKartTahIslemRaporList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\NakitTahsilatResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\Odea_Banka_Detayli_List.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\OdemeAraci_List.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\OdenecekKomisyonReturn_List.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\OtoTalimatIslemleriParam.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\PoliceBorcuList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\PoliceBorcuList_V2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\axa.tahsilat\Sonuc.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\SonucParametre.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\TahsilatIptalParametreResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\TahsilatLogResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axa.tahsilat\ToplamBorcResults.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AxaKasko\AdresNodanDaskPoliceOkuSonuc.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AxaKasko\AOCSonlandiranEkbelgeKaydetResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AxaKasko\AxaApplicationWebSrvV01.wsdl" />
+    <None Include="Web References\AxaKasko\CIslemSonuc.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AxaKasko\CIslemSonuc2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AxaKasko\CPoliceAdresUpdateSonuc.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AxaKasko\CPoliceSonuc2.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AxaKasko\CPoliceSonuc4.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AxaKasko\CSonuc01.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AxaKasko\CSonucTeknikPersonel.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AxaKasko\CYenilenenPoliceler.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AxaKasko\MustPoliceZeylList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AxaKasko\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\AXAPoliceBasim\AOCPoliceBasimSonuc.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\AXAPoliceBasim\AxaPoliceBasim.wsdl" />
+    <None Include="Web References\AXAPoliceBasim\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\axasigorta.hayat\AOHayatDataShare.wsdl" />
+    <None Include="Web References\axasigorta.hayat\PolBills.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axasigorta.hayat\PoliceListesi.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axasigorta.hayat\PolicyList.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\axasigorta.hayat\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\dogapolicetransfer\AcenteBilgiServisleri.wsdl" />
+    <None Include="Web References\dogapolicetransfer\GeriyePoliceTransferCevap.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\dogapolicetransfer\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\Ergo.Info\bankBranchWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Ergo.Info\bankWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Ergo.Info\financeBankWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Ergo.Info\InfoService.wsdl" />
+    <None Include="Web References\Ergo.Info\infoService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\Ergo.Info\lossPayeeTypeWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Ergo.Info\paymentTypeWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Ergo.Info\pLossPayeeWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Ergo.Info\prodPaymentPlanWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Ergo.Info\prodPropertyWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Ergo.Info\prodRiskBenCovWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Ergo.Info\prodRiskBenWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Ergo.Info\prodRiskDisSurWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Ergo.Info\prodRiskValueWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Ergo.Info\propertyValueWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\Ergo.Info\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ergoturkiye.kasko\CascoService.wsdl" />
+    <None Include="Web References\ergoturkiye.kasko\cascoService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\ergoturkiye.kasko\pCollectionWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.kasko\policyWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.kasko\printPolicyWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.kasko\propertyValueWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.kasko\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ergoturkiye.kasko\vehicleMakeModelWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\agencyCustomerWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\agencyPolicyWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\agencySellerWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\agencySubWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\agencyWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\bankBranchWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\bankWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\currencyWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\customerTypeWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\ExternalPolicyService.wsdl" />
+    <None Include="Web References\ergoturkiye.police.uretim\externalPolicyService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\financeBankWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\identityTypeWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\lossPayeeTypeWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\partnerAddressWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\partnerWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\paymentTypeWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\pCollectionWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\pLossPayeeWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\policyWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\premiumTypeWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\printPolicyWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\prodPaymentPlanWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\prodPropertyWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\prodRiskBenCovWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\prodRiskBenWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\prodRiskDisSurWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\prodRiskValueWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\productVersionWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\productWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\profileTypeWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\profileWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\propertyValueWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ergoturkiye.police.uretim\regionWsDto.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\eureko.basim\GetPdfService.wsdl" />
+    <None Include="Web References\eureko.basim\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\eureko.kasko\AutoInsPolicyCreateV2.wsdl" />
+    <None Include="Web References\eureko.kasko\ExecuteResponseResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\eureko.kasko\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\eureko.musteri\CustomerProcess.wsdl" />
+    <None Include="Web References\eureko.musteri\ExecuteResponseResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\eureko.musteri\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\eureko.policeteklifbilgi\ExecuteResponseResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\eureko.policeteklifbilgi\PolicyGenInfoReadV3.wsdl" />
+    <None Include="Web References\eureko.policeteklifbilgi\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\eureko.teminat\ExecuteResponseResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\eureko.teminat\PolicyComponentRead.wsdl" />
+    <None Include="Web References\eureko.teminat\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\eureko.trafik\ExecuteResponseResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\eureko.trafik\ProposalAndPolicySrV2.wsdl" />
+    <None Include="Web References\eureko.trafik\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\eurekosigorta.kaskoV3\AutoInsPolicyCreateV3.wsdl" />
+    <None Include="Web References\eurekosigorta.kaskoV3\ExecuteResponseResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\eurekosigorta.kaskoV3\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\eurekosigorta.musteriV2\CustomerProcessV2.wsdl" />
+    <None Include="Web References\eurekosigorta.musteriV2\ExecuteResponseResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\eurekosigorta.musteriV2\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\eurekosigorta.trafikV4\ExecuteResponseResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\eurekosigorta.trafikV4\ProposalAndPolicySrV4.wsdl" />
+    <None Include="Web References\eurekosigorta.trafikV4\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\groupama.service\AracDeger.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\AracMarkaModel.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\AracMarkasi.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\Banka.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\BGS_WS.wsdl" />
+    <None Include="Web References\groupama.service\BilgiFormuReadInfoResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\CevapDegerSeti.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\DaskPoliceQueryResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\IlIlceKoy.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\KaskoTeklifUsingTramerAndProfileResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\KrediKartBinno.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\OdemePlani.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\PoliceCreateResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\PoliceFindResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\PoliceGetResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\PrintResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\groupama.service\SbmTrafikReferansPoliceSorguResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\SigortaEttirenSifati.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\SigortaSirket.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\TeklifCreateResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\TeklifCreateUsingTramerResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\TeklifFindResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\TeklifGetResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\TramerKaskoQueryResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\Urun.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\groupama.service\UrunTaksitInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\gulfsigorta.kasko\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\gulfsigorta.kasko\sfspolsvcws.wsdl" />
+    <None Include="Web References\gulfsigorta.musteri\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\gulfsigorta.musteri\SFSUNSSVCWS.wsdl" />
+    <None Include="Web References\gulfsigorta.plakasorgu\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\gulfsigorta.plakasorgu\sfspolutilws.wsdl" />
+    <None Include="Web References\koruLilyumferdiKaza\AcentePoliceServisleri.wsdl" />
+    <None Include="Web References\koruLilyumferdiKaza\BankaSube.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\koruLilyumferdiKaza\BasimSonuc.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\koruLilyumferdiKaza\DPolice.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\koruLilyumferdiKaza\DSoru.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\koruLilyumferdiKaza\DUrunTanimi.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\koruLilyumferdiKaza\IsyeriFaaliyetSinifi.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\koruLilyumferdiKaza\Kurum.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\koruLilyumferdiKaza\MeslekSinifi.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\koruLilyumferdiKaza\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\koruLilyumferdiKaza\SoruCevap.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\koruLilyumferdiKaza\TahsilatMakbuzSonuc.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\koruLilyumferdiKaza\UavtWebServisSonuc.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\koruLilyumferdiKaza\UcuncuSahisBedel.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\koruLilyumferdiKaza\YanginFaaliyet.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\mapfreutil\item.wsdl" />
+    <None Include="Web References\mapfreutil\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\mapfre\item.wsdl" />
+    <None Include="Web References\mapfre\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\mapfre\ZeyilWS.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ray\InsurerServices.wsdl" />
+    <None Include="Web References\ray\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\sompojapan.trafik\Proposal.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\turknippon.dask\dask-v2.wsdl" />
+    <None Include="Web References\turknippon.dask\DASKOuput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\turknippon.dask\JetSatisAddressModel.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\turknippon.dask\ListOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\turknippon.dask\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\turknippon.seyahat\AlternativeOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\turknippon.seyahat\CountryOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\turknippon.seyahat\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\turknippon.seyahat\ScopeOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\turknippon.seyahat\travel.wsdl" />
+    <None Include="Web References\turknippon.seyahat\TravelOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\turknippontss\JobOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\turknippontss\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\turknippontss\TariffGroupOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\turknippontss\tss.wsdl" />
+    <None Include="Web References\turknippontss\TssOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosecurity\BaseEntity.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosecurity\SecurityUser.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosecurity\VW_SECURITY_PERMISSIONS.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.common\Common.wsdl" />
+    <None Include="Web References\sompojapan.common\ConfirmOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.common\PrintResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.common\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\sompojapan.kasko\BaseDataResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.kasko\Casco.wsdl" />
+    <None Include="Web References\sompojapan.kasko\ConfirmResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.kasko\MethodResultOfCascoResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.kasko\MethodResultOfListOfAddressItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.kasko\MethodResultOfListOfFihristItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.kasko\MethodResultOfListOfImmValues.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.kasko\MethodResultOfProposalOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.kasko\PrintResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.kasko\ProposalSimple.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.kasko\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\sompojapan.trafik\ConfirmResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.trafik\MethodResultOfListOfAddressItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.trafik\MethodResultOfListOfFihristItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.trafik\PremiumResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.trafik\ProposalOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapan.trafik\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\sompojapan.trafik\traffic.wsdl" />
+    <None Include="Web References\sompojapankasko\BaseDataResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapankasko\Casco.wsdl" />
+    <None Include="Web References\sompojapankasko\ConfirmResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapankasko\MethodResultOfCascoResult.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapankasko\MethodResultOfListOfAddressItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapankasko\MethodResultOfListOfFihristItem.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapankasko\MethodResultOfListOfImmValues.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapankasko\PrintResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapankasko\ProposalSimple.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapankasko\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+    </None>
+    <None Include="Web References\sompojapantrafik\ConfirmResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapantrafik\MethodResultOfListOfAddressItem1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapantrafik\MethodResultOfListOfFihristItem1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapantrafik\PremiumResult1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapantrafik\ProposalOutput1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\sompojapantrafik\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\sompojapantrafik\traffic.wsdl" />
+    <None Include="Web References\turknipponkasko\LatestMODPolicyOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\turknipponkasko\ListOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\turknipponkasko\mod.wsdl" />
+    <None Include="Web References\turknipponkasko\MODOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\turknipponkasko\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\turknipponkasko\VehicleModelOutput.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosecurity\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\unicosecurity\SecurityService.wsdl" />
+    <None Include="Web References\unicosecurity\SecurityService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosecurity\SecurityService0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosecurity\SecurityService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosecurity\SecurityService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosecurity\SecurityService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.previva\BaseEntity.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.previva\CheckActiveProductByInsured.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.previva\GetCustomerNo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.previva\PertVehicle.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.previva\PlakaDetailsService.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.previva\Policy.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.previva\Policy1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.previva\PolicyPayment.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.previva\PolicyPayment3D.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.previva\PolicyService.wsdl" />
+    <None Include="Web References\unicosigorta.previva\PolicyService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.previva\PolicyService0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.previva\PolicyService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.previva\PolicyService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.previva\PolicyService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.previva\PolicyService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.previva\PolicyService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.previva\PolicyService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.previva\PolicyService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.previva\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\unicosigorta.previva\Report.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.previva\Supplement.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.previva\TAHKOD_CEVAP_TYPE.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.previva\TupleOfstringstringstringstringstringstringstring.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.previva\VehicleInfo.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.utilityService\EXT_WS_GECICI_DASK_SE_REC.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.utilityService\KeyValuePairOfintstring.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.utilityService\KeyValuePairOfstringstring.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.utilityService\ListSource.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.utilityService\NPOL_UAVT_ADDRESS_TYPE.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\unicosigorta.utilityService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\unicosigorta.utilityService\UtilityService.wsdl" />
+    <None Include="Web References\unicosigorta.utilityService\UtilityService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.utilityService\UtilityService0.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.utilityService\UtilityService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.utilityService\UtilityService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.utilityService\UtilityService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.utilityService\UtilityService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\unicosigorta.utilityService\UtilityService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="D:\Musteriler\BABOnline\WebServices\anadolu\anadolu_service.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\anadolu\</RelPath>
+      <UpdateFromURL>D:\Musteriler\BABOnline\WebServices\anadolu\anadolu_service.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_anadolu_Oto_SERVICE_LIST</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://81.8.109.155/iNet.Services/InsurerServices.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ray\</RelPath>
+      <UpdateFromURL>http://81.8.109.155/iNet.Services/InsurerServices.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_ray_InsurerServices</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://aegonteklif.aegonemeklilik.com:8888/aegontekliftest/Service1.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\aegon\</RelPath>
+      <UpdateFromURL>http://aegonteklif.aegonemeklilik.com:8888/aegontekliftest/Service1.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_aegon_Service1</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://ergotest.ergoturkiye.com/thirdParty/externalPolicyService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ergoturkiye.police.uretim\</RelPath>
+      <UpdateFromURL>http://ergotest.ergoturkiye.com/thirdParty/externalPolicyService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_ergoturkiye_police_uretim_ExternalPolicyService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://esgenericservices-test.eurekosigorta.com.tr/ESGenericServices/services/GetPdfService/wsdl/GetPdfService.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\eureko.basim\</RelPath>
+      <UpdateFromURL>http://esgenericservices-test.eurekosigorta.com.tr/ESGenericServices/services/GetPdfService/wsdl/GetPdfService.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_eureko_basim_GetPdfServiceService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eswsps-t.eurekosigorta.com.tr/ESWS/services/AutoInsPolicyCreateV2/wsdl/AutoInsPolicyCreateV2.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\eureko.kasko\</RelPath>
+      <UpdateFromURL>http://eswsps-t.eurekosigorta.com.tr/ESWS/services/AutoInsPolicyCreateV2/wsdl/AutoInsPolicyCreateV2.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_eureko_kasko_AutoInsPolicyCreateV2Service</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eswsps-t.eurekosigorta.com.tr/ESWS/services/AutoInsPolicyCreateV3/wsdl/AutoInsPolicyCreateV3.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\eurekosigorta.kaskoV3\</RelPath>
+      <UpdateFromURL>http://eswsps-t.eurekosigorta.com.tr/ESWS/services/AutoInsPolicyCreateV3/wsdl/AutoInsPolicyCreateV3.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_eurekosigorta_kaskoV3_AutoInsPolicyCreateV3Service</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eswsps-t.eurekosigorta.com.tr/ESWS/services/CustomerProcess/wsdl/CustomerProcess.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\eureko.musteri\</RelPath>
+      <UpdateFromURL>http://eswsps-t.eurekosigorta.com.tr/ESWS/services/CustomerProcess/wsdl/CustomerProcess.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_eureko_musteri_CustomerProcessService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eswsps-t.eurekosigorta.com.tr/ESWS/services/CustomerProcessV2/wsdl/CustomerProcessV2.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\eurekosigorta.musteriV2\</RelPath>
+      <UpdateFromURL>http://eswsps-t.eurekosigorta.com.tr/ESWS/services/CustomerProcessV2/wsdl/CustomerProcessV2.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_eurekosigorta_musteriV2_CustomerProcessV2Service</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eswsps-t.eurekosigorta.com.tr/ESWS/services/PolicyComponentRead/wsdl/PolicyComponentRead.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\eureko.teminat\</RelPath>
+      <UpdateFromURL>http://eswsps-t.eurekosigorta.com.tr/ESWS/services/PolicyComponentRead/wsdl/PolicyComponentRead.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_eureko_teminat_PolicyComponentReadService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eswsps-t.eurekosigorta.com.tr/ESWS/services/PolicyGenInfoReadV3/wsdl/PolicyGenInfoReadV3.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\eureko.policeteklifbilgi\</RelPath>
+      <UpdateFromURL>http://eswsps-t.eurekosigorta.com.tr/ESWS/services/PolicyGenInfoReadV3/wsdl/PolicyGenInfoReadV3.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_eureko_policeteklifbilgi_PolicyGenInfoReadV3Service</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eswsps-t.eurekosigorta.com.tr/ESWS/services/ProposalAndPolicySrV2/wsdl/ProposalAndPolicySrV2.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\eureko.trafik\</RelPath>
+      <UpdateFromURL>http://eswsps-t.eurekosigorta.com.tr/ESWS/services/ProposalAndPolicySrV2/wsdl/ProposalAndPolicySrV2.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_eureko_trafik_ProposalAndPolicySrV2Service</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://eswsps-t.eurekosigorta.com.tr/ESWS/services/ProposalAndPolicySrV4/wsdl/ProposalAndPolicySrV4.wsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\eurekosigorta.trafikV4\</RelPath>
+      <UpdateFromURL>http://eswsps-t.eurekosigorta.com.tr/ESWS/services/ProposalAndPolicySrV4/wsdl/ProposalAndPolicySrV4.wsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_eurekosigorta_trafikV4_ProposalAndPolicySrV4Service</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://previva.unicosigorta.com.tr/Public/SecurityService.svc%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\unicosecurity\</RelPath>
+      <UpdateFromURL>http://previva.unicosigorta.com.tr/Public/SecurityService.svc%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_unicosigorta_security_SecurityService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://test.korusigortaportal.com/WebServisleri/AcentePoliceServisleri.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\koruLilyumferdiKaza\</RelPath>
+      <UpdateFromURL>http://test.korusigortaportal.com/WebServisleri/AcentePoliceServisleri.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_koruLilyumferdiKaza_AcentePoliceServisleri</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://test.services.allianz.com.tr/gws/GPE%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\allianz\</RelPath>
+      <UpdateFromURL>http://test.services.allianz.com.tr/gws/GPE%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_allianz_GenericProcessExecutorService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://testuretimws.mapfregenelsigorta.com/%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\mapfre\</RelPath>
+      <UpdateFromURL>http://testuretimws.mapfregenelsigorta.com/%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_mapfre_TanzimWSService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://testwebapp01.gulfsigorta.com.tr/polutil/sfspolutilws.asmx%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\gulfsigorta.plakasorgu\</RelPath>
+      <UpdateFromURL>http://testwebapp01.gulfsigorta.com.tr/polutil/sfspolutilws.asmx%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_gulfsigorta_plakasorgu_SFSPolicyIntegrationService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://testwebapp01.gulfsigorta.com.tr/UNSSVC/SFSUNSSVCWS.asmx%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\gulfsigorta.musteri\</RelPath>
+      <UpdateFromURL>http://testwebapp01.gulfsigorta.com.tr/UNSSVC/SFSUNSSVCWS.asmx%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_gulfsigorta_musteri_SFSEntityIntegrationService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://wsutiltest.mapfregenelsigorta.com/%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\mapfreutil\</RelPath>
+      <UpdateFromURL>http://wsutiltest.mapfregenelsigorta.com/%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_mapfreutil_UtilitiesWSService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://apps.sompojapan.com.tr/SompoEndPoint/Casco.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\sompojapan.kasko\</RelPath>
+      <UpdateFromURL>https://apps.sompojapan.com.tr/SompoEndPoint/Casco.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_sompojapan_kasko_Casco</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://apps.sompojapan.com.tr/SompoEndPoint/Common.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\sompojapan.common\</RelPath>
+      <UpdateFromURL>https://apps.sompojapan.com.tr/SompoEndPoint/Common.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_sompojapan_common_Common</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://apps.sompojapan.com.tr/SompoEndPoint/traffic.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\sompojapan.trafik\</RelPath>
+      <UpdateFromURL>https://apps.sompojapan.com.tr/SompoEndPoint/traffic.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_sompojapan_trafik_Traffic</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://appt.axasigorta.com.tr/AxaApplicationWebSrv-Prod/AxaApplicationWebSrvV01.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\AxaKasko\</RelPath>
+      <UpdateFromURL>https://appt.axasigorta.com.tr/AxaApplicationWebSrv-Prod/AxaApplicationWebSrvV01.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_AxaKasko_AxaApplicationWebSrvV01</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://appt.axasigorta.com.tr/AxaApplicationWebSrv_DevTest/AxaTahsilatWeb.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\axa.tahsilat\</RelPath>
+      <UpdateFromURL>https://appt.axasigorta.com.tr/AxaApplicationWebSrv_DevTest/AxaTahsilatWeb.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_axa_tahsilat_AxaTahsilatWeb</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://appt.axasigorta.com.tr/PoliceBasimSrv_V29/AxaPoliceBasim.asmx%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\AXAPoliceBasim\</RelPath>
+      <UpdateFromURL>https://appt.axasigorta.com.tr/PoliceBasimSrv_V29/AxaPoliceBasim.asmx%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_AXAPoliceBasim_AxaPoliceBasim</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://datashare.axasigorta.com.tr/AOPublicServices_v5/AOHayatDataShare.asmx%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\axasigorta.hayat\</RelPath>
+      <UpdateFromURL>https://datashare.axasigorta.com.tr/AOPublicServices_v5/AOHayatDataShare.asmx%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_axasigorta_hayat_AOHayatDataShare</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://ergotest.ergoturkiye.com/PolicyWeb/thirdParty/external/cascoService%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ergoturkiye.kasko\</RelPath>
+      <UpdateFromURL>https://ergotest.ergoturkiye.com/PolicyWeb/thirdParty/external/cascoService%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_ergoturkiye_kasko_CascoService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://ergotest.ergoturkiye.com/PolicyWeb/thirdParty/external/infoService%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\Ergo.Info\</RelPath>
+      <UpdateFromURL>https://ergotest.ergoturkiye.com/PolicyWeb/thirdParty/external/infoService%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_Ergo_Info_InfoService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://galaksi.turknippon.com/appservice/dask-v2.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\turknippon.dask\</RelPath>
+      <UpdateFromURL>https://galaksi.turknippon.com/appservice/dask-v2.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_turknippon_dask_DASKService_v2</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://galaksi.turknippon.com/appservice/mod.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\turknipponkasko\</RelPath>
+      <UpdateFromURL>https://galaksi.turknippon.com/appservice/mod.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_turknipponkasko_MODService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://galaksi.turknippon.com/appservice/travel.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\turknippon.seyahat\</RelPath>
+      <UpdateFromURL>https://galaksi.turknippon.com/appservice/travel.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_turknippon_seyahat_TravelService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://galaksi.turknippon.com/appservice/tss.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\turknippontss\</RelPath>
+      <UpdateFromURL>https://galaksi.turknippon.com/appservice/tss.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_turknippontss_TssService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://previva.unicosigorta.com.tr/Public/PolicyService.svc%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\unicosigorta.previva\</RelPath>
+      <UpdateFromURL>https://previva.unicosigorta.com.tr/Public/PolicyService.svc%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_unicosigorta_previva_PolicyService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://previva.unicosigorta.com.tr/Public/UtilityService.svc%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\unicosigorta.utilityService\</RelPath>
+      <UpdateFromURL>https://previva.unicosigorta.com.tr/Public/UtilityService.svc%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_unicosigorta_utilityService_UtilityService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://service7.groupama.com.tr/GroupamaWS20/BGS_WS.asmx%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\groupama.service\</RelPath>
+      <UpdateFromURL>https://service7.groupama.com.tr/GroupamaWS20/BGS_WS.asmx%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_groupama_service_BGS_WS</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://testapi.aksigorta.com.tr/api/kaskoWS-V3.0/KaskoWebService%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\aksigorta.kasko\</RelPath>
+      <UpdateFromURL>https://testapi.aksigorta.com.tr/api/kaskoWS-V3.0/KaskoWebService%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_aksigorta_kasko__webservices_genel_v2_KaskoWebService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://testapi.aksigorta.com.tr/api/policePDFSorgulamaWS-V2.0/PolicePDFSorgulamaWebService%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\aksigorta.basim\</RelPath>
+      <UpdateFromURL>https://testapi.aksigorta.com.tr/api/policePDFSorgulamaWS-V2.0/PolicePDFSorgulamaWebService%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_aksigorta_basim__policeBasimBilgileri_PolicePDFSorgulamaWebService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://testwebapp01.gulfsigorta.com.tr/polsvc/sfspolsvcws.asmx%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\gulfsigorta.kasko\</RelPath>
+      <UpdateFromURL>https://testwebapp01.gulfsigorta.com.tr/polsvc/sfspolsvcws.asmx%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_gulfsigorta_kasko_SFSPolicyIntegrationService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://www.dogasigortaportal.com/WebServisleri/AcenteBilgiServisleri.asmx%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\dogapolicetransfer\</RelPath>
+      <UpdateFromURL>https://www.dogasigortaportal.com/WebServisleri/AcenteBilgiServisleri.asmx%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_dogapolicetransfer_AcenteBilgiServisleri</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://www.sompojapan.com.tr/SompoEndPoint/Casco.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\sompojapankasko\</RelPath>
+      <UpdateFromURL>https://www.sompojapan.com.tr/SompoEndPoint/Casco.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_sompojapankasko_Casco</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://www.sompojapan.com.tr/SompoEndPoint/traffic.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\sompojapantrafik\</RelPath>
+      <UpdateFromURL>https://www.sompojapan.com.tr/SompoEndPoint/traffic.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Neosinerji_BABOnlineTP_Business_sompojapan_Traffic</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Microsoft.WindowsAzure.Caching\" />
+    <Folder Include="obj\Release\TempPE\" />
+    <Folder Include="PoliceMuhasebe\Models\" />
+    <Folder Include="Service\MusteriService\" />
+    <Folder Include="Teklif\EUREKO\Dask\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\axa.tahsilat\AxaTahsilatWeb.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AkSigorta1\" />
+    <WCFMetadataStorage Include="Service References\AkSigorta\" />
+    <WCFMetadataStorage Include="Service References\ServiceReferenceAxaNew\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReferenceAxaNew\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReferenceAxaNew\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReferenceAxaNew\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\koruLilyumferdiKaza\AcentePoliceServisleri.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AkSigorta\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AkSigorta\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AkSigorta\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AkSigorta1\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AkSigorta1\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AkSigorta1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Tools\Lang\babonline.en-us.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>babonline.en-us.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\Lang\babonline.es-ES.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>babonline.es-ES.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\Lang\babonline.fr-FR.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\Lang\babonline.it-IT.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tools\Lang\babonline.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>babonline.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

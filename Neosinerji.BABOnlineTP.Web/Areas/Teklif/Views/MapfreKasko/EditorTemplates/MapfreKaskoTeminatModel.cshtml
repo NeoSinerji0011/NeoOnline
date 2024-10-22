@@ -1,0 +1,375 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model MapfreKaskoTeminatModel
+
+<script type="text/template" class="template-aksesuar">
+<div class="row-fluid aksesuar-row control-group" style="padding-bottom:10px;" id="aksesuar-row-<%- rc.no %>">
+	<div class="span4">
+		<select name="Teminat.Aksesuarlar[<%- rc.no %>].AksesuarTip" id="Teminat_Aksesuarlar_<%- rc.no %>__AksesuarTip" style="width:90%">
+            @foreach(var item in Model.AksesuarTipleri)
+            {
+			    <option value="@item.Value">@item.Text</option>
+            }
+		</select>
+	</div>
+	<div class="span4">
+		<input name="Teminat.Aksesuarlar[<%- rc.no %>].Aciklama" class="input-medium" id="Teminat_Aksesuarlar_<%- rc.no %>__Aciklama" type="text" value="" data-val-required="Açıklama alanı bol bırakılamaz." data-val="true">
+	</div>
+	<div class="span2">
+		<input name="Teminat.Aksesuarlar[<%- rc.no %>].Bedel" class="input-small" id="Teminat_Aksesuarlar_<%- rc.no %>__Bedel" type="text" value="" 
+			  data-val-required="Bedel alanı gereklidir." data-val="true" data-val-number="The field Bedel must be a number.">
+	</div>
+    <div class="span2">
+        <button class="btn btn-mini btn-danger remove-aksesuar" data-id="<%- rc.no %>" style="margin-left:10px;margin-top:3px;" type="button"><i class="icon-white icon-remove"></i></button>
+    </div>
+</div>
+</script>
+<script type="text/template" class="template-elekcihaz">
+<div class="row-fluid elekcihaz-row control-group" style="padding-bottom:10px;" id="elekcihaz-row-<%- rc.no %>">
+	<div class="span4">
+		<select name="Teminat.Cihazlar[<%- rc.no %>].AksesuarTip" id="Teminat_Cihazlar_<%- rc.no %>__AksesuarTip" style="width:90%">
+            @foreach(var item in Model.ElektronikCihazTipleri)
+            {
+			    <option value="@item.Value">@item.Text</option>
+            }
+		</select>
+	</div>
+	<div class="span4">
+		<input name="Teminat.Cihazlar[<%- rc.no %>].Aciklama" class="input-medium" id="Teminat_Cihazlar_<%- rc.no %>__Aciklama" type="text" value="">
+	</div>
+	<div class="span2">
+		<input name="Teminat.Cihazlar[<%- rc.no %>].Bedel" class="input-small" id="Teminat_Cihazlar_<%- rc.no %>__Bedel" type="text" value="" 
+			  data-val-required="Bedel alanı gereklidir." data-val="true" data-val-number="The field Bedel must be a number.">
+	</div>
+    <div class="span2">
+        <button class="btn btn-mini btn-danger remove-elekcihaz" data-id="<%- rc.no %>" style="margin-left:10px;margin-top:3px;" type="button"><i class="icon-white icon-remove"></i></button>
+    </div>
+</div>
+</script>
+<script type="text/template" class="template-tasinan">
+<div class="row-fluid tasinan-row control-group" style="padding-bottom:10px;" id="tasinan-row-<%- rc.no %>">
+	<div class="span4">
+		<select name="Teminat.TasinanYukler[<%- rc.no %>].TasinanYukTip" id="Teminat_TasinanYukler_<%- rc.no %>__TasinanYukTip" style="width:90%">
+            @foreach (var item in Model.TasinanYukTipleri)
+            {
+			    <option value="@item.Value">@item.Text</option>
+            }
+		</select>
+	</div>
+	<div class="span3">
+		<input name="Teminat.TasinanYukler[<%- rc.no %>].Aciklama" class="input-medium" id="Teminat_TasinanYukler_<%- rc.no %>__Aciklama" type="text" value="">
+	</div>
+	<div class="span3">
+		<input name="Teminat.TasinanYukler[<%- rc.no %>].Bedel" class="input-small" id="Teminat_TasinanYukler_<%- rc.no %>__Bedel" type="text" value="" 
+			  data-val-required="Bedel alanı gereklidir." data-val="true" data-val-number="The field Bedel must be a number.">
+	</div>
+	<div class="span2">
+		<input name="Teminat.TasinanYukler[<%- rc.no %>].Fiyat" class="input-small" id="Teminat_TasinanYukler_<%- rc.no %>__Fiyat" type="text" value="" 
+			  data-val-required="Fiyat alanı gereklidir." data-val="true" data-val-number="The field Fiyat must be a number.">
+	</div>
+</div>
+</script>
+
+<div class="span12">
+    <h3 class="form-section">@babonline.GuaranteesChoices</h3>
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">@babonline.AMSCaption</label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.AMSKodu, Model.AMS, new { style = "width:300px;" })
+                    @Html.ValidationMessageFor(m => m.AMSKodu)
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">@babonline.DeathDisability</label>
+                <div class="controls">
+                    <div class="input-prepend input-append">
+                        <span class="add-on simge-tl">&#8378;</span> @Html.TextBoxFor(s => s.OlumSakatlikTeminat, new { @class = "m-wrap onlynumbers", style = "width:90px; text-align:right" })<span class="add-on">.00</span>
+                        @Html.ValidationMessageFor(m => m.OlumSakatlikTeminat)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="offset6 span6">
+            <div class="control-group">
+                <label class="control-label">@babonline.Cure</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Tedavi, new string[] { "EVET", "HAYIR" }, new { })
+                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid" style="display:none;" id="teminat-tedavi-tutar">
+        <div class="offset6 span6">
+            <div class="control-group">
+                <label class="control-label">@babonline.CureAssurance</label>
+                <div class="controls">
+                    <div class="input-prepend input-append">
+                        <span class="add-on simge-tl">&#8378;</span> @Html.TextBoxFor(s => s.TedaviTeminat, new { @class = "m-wrap onlynumbers", style = "width:90px; text-align:right" })<span class="add-on">.00</span>
+                        @Html.ValidationMessageFor(m => m.TedaviTeminat)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">@babonline.Earthquake</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Deprem, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.EarthquakeExemption</label>
+                <div class="controls radio-custom">
+                    @Html.RadioButtonListFor(m => m.DepremMuafiyetKodu, Model.DepremMuafiyetKodlari)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Legal_Protection</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Hukuksal_Koruma_Teminati, new string[] { "EVET", "HAYIR" }, new { disabled = "disabled" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Accessory</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Aksesuar_Teminati, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="row-fluid control-group" id="aksesuarlar" style="display:none;">
+                <div class="span12">
+                    <div class="row-fluid" id="aksesuar-header">
+                        <div class="span4">
+                            <strong>@babonline.Accessory</strong>
+                        </div>
+                        <div class="span4">
+                            <strong>@babonline.Description</strong>
+                        </div>
+                        <div class="span2">
+                            <strong>@babonline.Price1</strong>
+                        </div>
+                        <div class="span2">
+                            <button class="btn btn-mini btn-success add-aksesuar" style="margin-left:10px;" type="button"><i class="icon-white icon-plus"></i></button>
+                        </div>
+                    </div>
+                    @if (Model.Aksesuarlar != null && Model.Aksesuarlar.Count > 0)
+                    {
+                        for(int i = 0; i < Model.Aksesuarlar.Count; i++)
+                        {
+                        <div class="row-fluid aksesuar-row control-group" style="padding-bottom:10px;" id="aksesuar-row-@(i)">
+	                        <div class="span4">
+                                @Html.DropDownListFor(m => m.Aksesuarlar[i].AksesuarTip, new SelectList(Model.AksesuarTipleri, "Value", "Text",  Model.Aksesuarlar[i].AksesuarTip), new { style="width:90%" })
+	                        </div>
+	                        <div class="span4">
+                                @Html.TextBoxFor(m => m.Aksesuarlar[i].Aciklama, new { @class = "input-medium" })		                        
+	                        </div>
+	                        <div class="span2">
+                                @Html.TextBoxFor(m => m.Aksesuarlar[i].Bedel, new { @class = "input-small auto-bedel" })
+	                        </div>
+                            <div class="span2">
+                                <button class="btn btn-mini btn-danger remove-aksesuar" data-id="@(i)" style="margin-left:10px;margin-top:3px;" type="button"><i class="icon-white icon-remove"></i></button>
+                            </div>
+                        </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.ElectronicEquipment</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.ElektronikCihaz_Teminati, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="row-fluid" id="elekcihaz" style="display:none;">
+                <div class="span12">
+                    <div class="row-fluid" id="elekcihaz-header">
+                        <div class="span4">
+                            <strong>@babonline.Equipment</strong>
+                        </div>
+                        <div class="span4">
+                            <strong>@babonline.Description</strong>
+                        </div>
+                        <div class="span2">
+                            <strong>@babonline.Price1</strong>
+                        </div>
+                        <div class="span2">
+                            <button class="btn btn-mini btn-success add-elekcihaz" style="margin-left:10px;" type="button"><i class="icon-white icon-plus"></i></button>
+                        </div>
+                    </div>
+                    @if(Model.Cihazlar != null && Model.Cihazlar.Count > 0)
+                    {
+                        for(int i = 0; i < Model.Cihazlar.Count; i++)
+                        {
+                        <div class="row-fluid elekcihaz-row control-group" style="padding-bottom:10px;" id="elekcihaz-row-@(i)">
+	                        <div class="span4">
+		                        @Html.DropDownListFor(m => m.Cihazlar[i].AksesuarTip, new SelectList(Model.ElektronikCihazTipleri, "Value", "Text",  Model.Cihazlar[i].AksesuarTip), new { style="width:90%" })
+	                        </div>
+	                        <div class="span4">
+		                        @Html.TextBoxFor(m => m.Cihazlar[i].Aciklama, new { @class = "input-medium" })
+	                        </div>
+	                        <div class="span2">
+		                        @Html.TextBoxFor(m => m.Cihazlar[i].Bedel, new { @class = "input-small auto-bedel" })
+	                        </div>
+                            <div class="span2">
+                                <button class="btn btn-mini btn-danger remove-elekcihaz" data-id="@(i)" style="margin-left:10px;margin-top:3px;" type="button"><i class="icon-white icon-remove"></i></button>
+                            </div>
+                        </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="control-group tasinan-yuk" style="display:none;">
+                <label class="control-label">Taşınan Yük</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.TasinanYuk_Teminati, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="row-fluid" id="tasinan" style="display:none;">
+                <div class="span12">
+                    <div class="row-fluid" id="tasinan-header">
+                        <div class="span4">
+                            <strong>Yük</strong>
+                        </div>
+                        <div class="span3">
+                            <strong>@babonline.Description</strong>
+                        </div>
+                        <div class="span3">
+                            <strong>@babonline.Price1</strong>
+                        </div>
+                        <div class="span2">
+                            <strong>@babonline.Price</strong>
+                        </div>
+                    </div>
+                    @if(Model.TasinanYukler != null && Model.TasinanYukler.Count > 0)
+                    {
+                        for (int i = 0; i < Model.TasinanYukler.Count; i++)
+                        {
+                        <div class="row-fluid tasinan-row control-group" style="padding-bottom:10px;" id="tasinan-row-@(i)">
+	                        <div class="span4">
+		                        @Html.DropDownListFor(m => m.TasinanYukler[i].TasinanYukTip, new SelectList(Model.TasinanYukTipleri, "Value", "Text", Model.TasinanYukler[i].TasinanYukTip), new { style="width:90%" }) 
+	                        </div>
+	                        <div class="span3">
+		                        @Html.TextBoxFor(m => m.TasinanYukler[i].Aciklama, new { @class = "input-medium" })
+	                        </div>
+	                        <div class="span3">
+		                        @Html.TextBoxFor(m => m.TasinanYukler[i].Bedel, new { @class = "input-small auto-bedel" })
+	                        </div>
+	                        <div class="span2">
+		                        @Html.TextBoxFor(m => m.TasinanYukler[i].Fiyat, new { @class = "input-small auto-bedel" })
+	                        </div>
+                        </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">@babonline.Forgot_Key</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Anahtar_Kaybi_Teminati, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.PersonelBelongingAssurance</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Ozel_Esya_Teminati, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.StolenWithKey</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Anahtarla_Calinma_Teminati, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Obsolescence</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Eskime_Payi_Teminati, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.FleetPolicy</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.FiloPolice_Teminati, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Onarım Yeri</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.OnarimYeri, Model.OnarimYerleri)
+                </div>
+            </div>
+            @if(Model.IkameTurleri.Count > 0)
+            {
+            <div class="control-group ikame-turu">
+                <label class="control-label">İkame Türü</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.IkameTuru, Model.IkameTurleri)
+                    @Html.ValidationMessageFor(m => m.IkameTuru)
+                </div>
+            </div>
+            }
+            else
+            {
+            <div class="control-group ikame-turu" style="display: none">
+                <label class="control-label">İkame Türü</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.IkameTuru, Model.IkameTurleri, new { @class="ignore" })
+                    @Html.ValidationMessageFor(m => m.IkameTuru)
+                </div>
+            </div>
+            }
+            <div class="control-group">
+                <label class="control-label">@babonline.Guarantee_Of_International</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Yutr_Disi_Teminat, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="control-group yurtdisi-teminat" style="display: none">
+                <label class="control-label" style="text-align: center;">@babonline.Time_Of_Guarantee_Of_International</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.Yurt_Disi_Teminati_Sure, Model.Yurtdisi_Teminat_Sureleri)
+                </div>
+            </div>
+            <div class="control-group yurtdisi-teminat" style="display: none">
+                <label class="control-label" style="text-align: center;">@babonline.Country</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.Yurt_Disi_Teminat_Ulke, Model.Yurtdisi_Teminat_Ulkeler, new { @class="ignore" })
+                    @Html.ValidationMessageFor(m => m.Yurt_Disi_Teminat_Ulke)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Araç Kullanıcı</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Kullanici_Teminat, new string[] { "EVET", "HAYIR" }, new { })
+                    <div style="color: #b94a48;">Porche, Maserati, Bentley vb. araçlar</div>
+                </div>
+            </div>
+            <div class="control-group kullanici-teminat" style="display: none">
+                <label class="control-label" style="text-align: center;">@babonline.TC_Number</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Kullanici_TCKN, new { @class = "input-medium onlynumbers ignore", maxlength=11})
+                    <button class="btn btn-primary" id="btn-kullanici-sorgula" data-loading-text="@babonline.QueryIndicator" type="button">@babonline.Query</button>
+                    <div id="kullanici-sorgu-hata" style="display: none; color: #b94a48;"></div>
+                    @Html.ValidationMessageFor(m => m.Kullanici_TCKN)
+                </div>
+            </div>
+            <div class="control-group kullanici-teminat" style="display: none">
+                <label class="control-label" style="text-align: center;">@babonline.NameLastname</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Kullanici_Adi, new { @class = "input-xlarge ignore", maxlength=50, disabled="disabled" })                    
+                    @Html.ValidationMessageFor(m => m.Kullanici_Adi)
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>

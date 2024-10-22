@@ -1,0 +1,50 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Business
+@using Neosinerji.BABOnlineTP.Business.Common
+@model OdemeTipiGuncelleModel
+
+
+<div id="odemetipiGuncelle-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Ödeme Tipi Güncelle</h3>
+    </div>
+    <div class="modal-body">
+        <form id="odemetipi-guncelle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.HiddenFor(m => m.policeId)
+            @Html.AntiForgeryToken()
+            <div class="control-group">
+                <label class="control-label">Ödeme Tipi<span class="required">*</span></label>
+                <div class="controls">
+                    @*@Html.TextBoxFor(m => m.OdemeTipi, new { maxlength = 15, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.OdemeTipi)*@
+                    <td style="text-align: center">
+                        <select class="" style="width:auto" id="OdemeTipi">
+                            @*<option value="1">Nakit</option>
+                            <option value="2">Müşteri Kredi Kartı</option>
+                            <option value="3">Havale</option>
+                            <option value="4">ÇekSenet </option>
+                            <option value="5">Acente Kredi Kartı</option>
+                            <option value="6">Acente Pos Hesabı</option>*@
+                            <option value="1">Nakit</option>
+                            <option value="2">Müşteri Kredi Kartı</option>
+                            <option value="3">Havale</option>
+                            <option value="4">Çek </option>
+                            <option value="7">Senet </option>
+                            <option value="5">Acente Kredi Kartı</option>
+                            <option value="6">Acente Pos Hesabı</option>
+                            <option value="9">Acente Bireysel K. Kartı</option>
+                            @*<option value="8">Banka Hesabı</option>*@
+                        </select></td>
+                        @*@Html.DropDownListFor(s => s.OdemeTipi, Model.OdemeTipleri, new { style = "width:81%" })*@
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="javascript:void(0)" class="btn btn-info" data-loading-text="Güncelleniyor" id="odemetipi-guncelle-btn">@babonline.Update</a>
+    </div>
+</div>

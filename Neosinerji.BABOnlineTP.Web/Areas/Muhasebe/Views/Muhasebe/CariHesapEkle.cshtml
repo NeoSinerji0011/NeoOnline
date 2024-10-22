@@ -1,0 +1,713 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Muhasebe.Models
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model CariHesapEkleModel
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+<head>
+    <title>@babonline.CurrentAccountEntry</title>
+</head>
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="~/TVM/TVM/Index">@babonline.CurrentAccountEntry<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search..." class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <title>@babonline.CurrentAccountEntry</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link href="~/Content/css/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/css/datepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/css/daterangepicker.css" rel="stylesheet" />
+    <script src="~/Content/js/mask.js" type="text/javascript"></script>
+    <script src="~/Content/js/daterangepicker.js"></script>
+    <link href="~/Content/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Content/js/jquery.gritter.min.js")" type="text/javascript"></script>
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+}
+@section PageStyles{}
+
+@section PageScripts
+{
+    <script src="~/Content/js/bootstrap-formhelpers-phone.js"></script>
+    <script>
+        function pad (str, max) {
+          str = str.toString();
+          return str.length < max ? pad("0" + str, max) : str;
+        }
+
+
+        var yurtDisiBrokerKodu = "340.";
+        var acentekodu = '1';
+
+        $(document).ready(function () {
+            //Ülke - il - ilçe
+            $('#UlkeKodu').ulke({ il: '#IlKodu', ilce: '#IlceKodu' });
+            $('#IlceKodu').val(449);
+            if (@ViewBag.eklendiMi)
+            {
+                swal.fire({
+                    title: "@babonline.Successful",
+                    text: "@babonline._infoCurrentAccountCreated!", // Cari hesap oluşturuldu
+                    type: "success",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Tamam",
+                    closeOnConfirm: false
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            window.location.reload();
+                        }
+                    });
+            }
+
+            $("#hesap-ekle").live("click", function () {
+                $("#hesap-ekle").button("loading");
+                $.get("/Muhasebe/Muhasebe/CariHesapEklePartial",
+                    function (data) {
+                           $("#hesapekle-modal-div").html(data);
+                           $("#hesapekle-modal").modal('show');
+                           $("#hesap-ekle").button("reset");
+                    },
+                        "html");
+            });
+            $("#hesap-ekle-btn").live("click", function () {
+
+                $("#hesap-ekle-btn").button("loading");
+                $("#hesap-ekle-form").validate().form();
+                AlanlariTemizle();
+                var formData = $("#hesap-ekle-form").serialize();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: "/Muhasebe/Muhasebe/GetHesapEklePartial",
+                    data: formData,
+                    timeout: 60000,
+                    traditional: true,
+                    success: function (data) {
+                        debugger;
+                        if (data.data.CariHesapKodu != null && data.data.CariHesapKodu != "") {
+                            $("#hesap-ekle-btn").button("reset");
+                            $("#hesapekle-modal").modal('hide');
+                            SetHesap(data.data);
+                            $("#HesapSil").show();
+                        }
+                        else {
+                            $("#HataMesaji").html("@babonline._warningCurrentAccountCodeNotFound."); // Cari hesap kodu bulunamadı
+                            $("#HataMesaji").show();
+                            $("#hesap-ekle-btn").button("reset");
+
+                        }
+
+
+
+
+                        return;
+
+                    },
+                    error: function () {
+
+                    }
+
+
+                });
+
+            });
+
+            $("#HesapSil").click(function () {
+
+                swal.fire({
+                    title: "@babonline._warningAreYouSureDeleteAccountCode",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "@babonline.DeleteAccount",
+
+                }).then((isConfirm) =>
+                    {
+                        debugger
+                        if (isConfirm.value) {
+                            $("#HesapSil").button("loading");
+                            var carihesapKodu = $("#CariHesapKodu").val();
+                            if (carihesapKodu != null) {
+                                $.ajax(
+                                    {
+
+                                        type: "POST",
+                                        url: "/Muhasebe/Muhasebe/CariHesapSil",
+                                        data: { CariHesapKodu: carihesapKodu },
+                                        success: function (data) {
+
+                                            $("#HesapSil").button("reset");
+                                            swal.fire("@babonline.Information!", data.HataMesaji);
+                                            $("#HesapSil").hide();
+                                            AlanlariTemizle();
+                                        },
+                                        error: function () {
+                                            $("#HesapSil").button("reset");
+                                        }
+                                    });
+                            }
+                            else {
+                                swal.fire("@babonline.Information!", "@babonline._warningPleaseSearchBeforeDelete."); // silme işlemi yapmadan önce lütfen öncelikle arama işlemini yapınız
+                            }
+                        }
+                        else {
+                            swal.fire("@babonline.Cancel", "@babonline.DeletionCancelled", "error");
+                        }
+                    })
+             });
+
+            function SetHesap(data)
+            {
+                if (data != null)
+                {
+                    debugger;
+                    $("#carihesaptipi").val(data.carihesaptipi);
+                    $("#TCKNVKN").val(data.KimlikNo);
+                    $("#CariHesapKodu").val(data.CariHesapKodu);
+                    $("#MusteriGrupKodu").val(data.MusteriGrupKodu);
+                    $("#Unvan").val(data.Unvan);
+                    $("#VergiDairesi").val(data.VergiDairesi);
+                    $("#Telefon1").val(data.Telefon1);
+                    $("#Telefon2").val(data.Telefon2);
+                    $("#CepTel").val(data.CepTel);
+                    $("#WebAdresi").val(data.WebAdresi);
+                    $("#Adres").val(data.Adres);
+                    $("#DisaktarimMuhasebeKodu").val(data.DisaktarimMuhasebeKodu);
+                    $("#DisaktarimCariKodu").val(data.DisaktarimCariKodu);
+                    $("#textKomisyonGelirleriMuhasebeKodu").val(data.textKomisyonGelirleriMuhasebeKodu);
+                    $("#TextboxSatisIadeleri").val(data.TextboxSatisIadeleri);
+                    $("#PostaKodu").val(data.PostaKodu);
+                    $("#UlkeKodu").val(data.UlkeKodu);
+                    $("#IlKodu").val(data.IlKodu);
+                    $("#IlceKodu").val(data.IlceKodu);
+                    $("#BilgiNotu").val(data.BilgiNotu);
+                    $("#UyariNotu").val(data.UyariNotu);
+               }
+
+            }
+            function AlanlariTemizle() {
+
+                    $("#carihesaptipi").empty();
+                    $("#TCKNVKN").val("");
+                    $("#CariHesapKodu").val("");
+                    $("#MusteriGrupKodu").val("");
+                    $("#Unvan").val("");
+                    $("#VergiDairesi").val("");
+                    $("#Telefon1").val("");
+                    $("#Telefon2").val("");
+                    $("#CepTel").val("");
+                    $("#WebAdresi").val("");
+                    $("#Adres").val("");
+                    $("#DisaktarimMuhasebeKodu").val("");
+                    $("#DisaktarimCariKodu").val("");
+                    $("#textKomisyonGelirleriMuhasebeKodu").val("");
+                    $("#TextboxSatisIadeleri").val("");
+                    $("#PostaKodu").val("");
+                    $("#UlkeKodu").val("");
+                    $("#IlKodu").val("");
+                    $("#IlceKodu").val("");
+                    $("#BilgiNotu").val("");
+                    $("#UyariNotu").val("");
+            }
+
+
+
+
+            $("#carihesaptipi").change(function () {
+
+                var carihesaptipi = $("#carihesaptipi").val();
+
+                if (carihesaptipi == "612.02.") {
+                    $("#TCKNVKN").val("0000000001");
+                }
+                else {
+                    $("#TCKNVKN").val("")
+                }
+                if (carihesaptipi == "320.01." || carihesaptipi == "600.01." || carihesaptipi == "610.01.") {
+                    $("#SigortaSirketleriControlGroup").show();
+                    $("#sigortaSirketleri").attr("required", "required");
+                    $("#sigortaSirketleri").trigger("change");
+                    $("#sigortaSirketleri").val($("#sigortaSirketleri option:first").val());
+                }
+                else {
+                    $("#SigortaSirketleriControlGroup").hide();
+                    $("#sigortaSirketleri").removeAttr("required");
+                }
+
+
+                if (carihesaptipi == yurtDisiBrokerKodu) {
+                    $("#ParaBirimleriControlGroup").show();
+                    $("#yurtDisiBrokerlar").attr("required", "required");
+                    $("#YurtDisiBrokerlarControlGroup").show();
+                    $("#yurtDisiBrokerlar").attr("required", "required");
+                    $("#yurtDisiBrokerlar").trigger("change");
+                }
+                else if (carihesaptipi=="102.01.") {
+                    $("#ParaBirimleriControlGroup").show();
+                }
+                else {
+                    $("#YurtDisiBrokerlarControlGroup").hide();
+                    $("#yurtDisiBrokerlar").removeAttr("required");
+                    $("#ParaBirimleriControlGroup").hide();
+                    $("#paraBirimleri").removeAttr("required");
+                }
+
+
+
+                var tcknvkn = $("#TCKNVKN").val();
+                var carihesapkodu = carihesaptipi + tcknvkn;
+                var satisIadeleri = "610.01." + tcknvkn;
+                var komisyon = "600.01." + tcknvkn;
+                if (carihesaptipi != null && carihesaptipi != "" && tcknvkn != null && tcknvkn != "") {
+                    $("#CariHesapKodu").val(carihesapkodu);
+                    if ($("#carihesaptipi").val() == "320.01.") {
+                        $("#TextboxSatisIadeleri").val(satisIadeleri);
+                        $("#textKomisyonGelirleriMuhasebeKodu").val(komisyon);
+                        $("#komisyongelirlerimuhasebekodu").text("@babonline._warningOpenAccountingAccount."); //Eğer ilgili muhasebe hesabınız yok ise lütfen hesabınızı açınız
+                        $("#TextSatisIadeleri").text("@babonline._warningOpenAccountingAccount."); //Eğer ilgili muhasebe hesabınız yok ise lütfen hesabınızı açınız
+
+                    }
+                    else {
+                        $("#TextboxSatisIadeleri").val("");
+                        $("#textKomisyonGelirleriMuhasebeKodu").val("");
+                        $("#komisyongelirlerimuhasebekodu").text("");
+                        $("#TextSatisIadeleri").text("");
+                    }
+                }
+
+                else
+                    $("#CariHesapKodu").val("");
+            });
+            if ($("#carihesaptipi").val() == "320.01." ) {
+                $("#SigortaSirketleriControlGroup").show();
+                $("#sigortaSirketleri").attr("required", "required");
+                $("#komisyongelirlerimuhasebekodu").text("@babonline._warningOpenAccountingAccount."); // Eğer ilgili muhasebe hesabınız yok ise lütfen hesabınızı açınız
+                $("#TextSatisIadeleri").text("@babonline._warningOpenAccountingAccount."); // Eğer ilgili muhasebe hesabınız yok ise lütfen hesabınızı açınız
+            }
+            else if ($("#carihesaptipi").val() == "600.01." || $("#carihesaptipi").val() == "610.01.")
+            {
+                $("#SigortaSirketleriControlGroup").show();
+                $("#sigortaSirketleri").attr("required", "required");
+            }
+            else {
+                $("#SigortaSirketleriControlGroup").hide();
+                $("#sigortaSirketleri").removeAttr("required");
+                $("#komisyongelirlerimuhasebekodu").text("");
+                $("#TextSatisIadeleri").text("");
+            }
+
+
+            if ($("#carihesaptipi").val() == yurtDisiBrokerKodu ) {
+                $("#YurtDisiBrokerlarControlGroup").show();
+                $("#ParaBirimleriControlGroup").show();
+                $("#yurtDisiBrokerlar").attr("required", "required");
+                $("#paraBirimleri").attr("required", "required");
+                $("#komisyongelirlerimuhasebekodu").text("@babonline._warningOpenAccountingAccount."); // Eğer ilgili muhasebe hesabınız yok ise lütfen hesabınızı açınız
+                $("#TextSatisIadeleri").text("@babonline._warningOpenAccountingAccount."); // Eğer ilgili muhasebe hesabınız yok ise lütfen hesabınızı açınız
+            }
+            else {
+                $("#YurtDisiBrokerlarControlGroup").hide();
+                $("#ParaBirimleriControlGroup").hide();
+                $("#paraBirimleri").removeAttr("required");
+                $("#yurtDisiBrokerlar").removeAttr("required");
+                $("#komisyongelirlerimuhasebekodu").text("");
+                $("#TextSatisIadeleri").text("");
+            }
+
+            $("#sigortaSirketleri").change(function () {
+
+                var sirketKodu = $("#sigortaSirketleri").val();
+                $.getJSON('/Muhasebe/Muhasebe/GetSigortaBilgileri', { SirketKodu: sirketKodu },
+                    function (result) {
+                        if (result.success) {
+                            $("#TCKNVKN").val(result.VergiNo);
+                            $("#Unvan").val(result.SirketinAdi);
+                            $("#VergiDairesi").val(result.VergiDairesi);
+                        }
+                        else {
+                            $("#TCKNVKN").val("");
+                            $("#Unvan").val("");
+                            $("#VergiDairesi").val("");
+                        }
+                        var carihesaptipi = $("#carihesaptipi").val();
+                        var tcknvkn = result.VergiNo;
+                        var carihesapkodu = carihesaptipi + tcknvkn;
+                        var satisIadeleri = "610.01." + tcknvkn;
+                        var komisyon = "600.01." + tcknvkn;
+                        if (carihesaptipi != null && carihesaptipi != "" && tcknvkn != null && tcknvkn != "") {
+                            $("#CariHesapKodu").val(carihesapkodu);
+                            if ($("#carihesaptipi").val() == "320.01.") {
+                                $("#TextboxSatisIadeleri").val(satisIadeleri);
+                                $("#textKomisyonGelirleriMuhasebeKodu").val(komisyon);
+                                $("#komisyongelirlerimuhasebekodu").text("@babonline._warningOpenAccountingAccount."); // Eğer ilgili muhasebe hesabınız yok ise lütfen hesabınızı açınız
+                                $("#TextSatisIadeleri").text("@babonline._warningOpenAccountingAccount."); //Eğer ilgili muhasebe hesabınız yok ise lütfen hesabınızı açınız
+
+                            }
+                            else {
+                                $("#TextboxSatisIadeleri").val("");
+                                $("#textKomisyonGelirleriMuhasebeKodu").val("");
+                                $("#komisyongelirlerimuhasebekodu").text("");
+                                $("#TextSatisIadeleri").text("");
+                            }
+                        }
+                        else
+                            $("#CariHesapKodu").val("");
+                    });
+            });
+
+            $("#paraBirimleri").change(function () {
+                var carihesaptipi = $("#carihesaptipi").val();
+                var tcknvkn = $("#TCKNVKN").val();
+                if (carihesaptipi.startsWith("102")) {
+                    var el = document.getElementById("carihesaptipi")
+                    el.options[el.selectedIndex].value = "102."+document.getElementById("paraBirimleri").value+"."
+                    $("#CariHesapKodu").val(el.options[el.selectedIndex].value + tcknvkn);
+                }
+                else {
+                    $("#CariHesapKodu").val(carihesaptipi + $("#paraBirimleri :selected").val() + "." + tcknvkn);
+                    var satisIadeleri = "610." + $("#paraBirimleri :selected").val() + "." + tcknvkn;
+                    var komisyon = "600." + $("#paraBirimleri :selected").val() + "." + tcknvkn;
+                    $("#TextboxSatisIadeleri").val(satisIadeleri);
+                    $("#textKomisyonGelirleriMuhasebeKodu").val(komisyon);
+                }
+            });
+            $("#yurtDisiBrokerlar").change(function () {
+                var brokerKodu = $("#yurtDisiBrokerlar").val();
+                brokerKodu = pad(brokerKodu, 10);
+
+                if (brokerKodu === "0000000000") {
+                    brokerKodu = "";
+                }
+
+                $("#TCKNVKN").val(brokerKodu);
+                $("#Unvan").val($("#yurtDisiBrokerlar").children("option:selected").text());
+
+                var carihesaptipi = $("#carihesaptipi").val();
+                var tcknvkn = brokerKodu;
+                var carihesapkodu = carihesaptipi + $("#paraBirimleri :selected").val() + "." + tcknvkn;
+                var satisIadeleri = "610." + $("#paraBirimleri :selected").val() + "." + tcknvkn;
+                var komisyon = "600."+ $("#paraBirimleri :selected").val() + "." + tcknvkn;
+                if (carihesaptipi != null && carihesaptipi != "" && tcknvkn != null && tcknvkn != "") {
+                    $("#CariHesapKodu").val(carihesapkodu);
+                    if ($("#carihesaptipi").val() == yurtDisiBrokerKodu) {
+                        $("#TextboxSatisIadeleri").val(satisIadeleri);
+                        $("#textKomisyonGelirleriMuhasebeKodu").val(komisyon);
+                        $("#komisyongelirlerimuhasebekodu").text("@babonline._warningOpenAccountingAccount"); //Eğer ilgili muhasebe hesabınız yok ise lütfen hesabınızı açınız
+                        $("#TextSatisIadeleri").text("@babonline._warningOpenAccountingAccount"); //Eğer ilgili muhasebe hesabınız yok ise lütfen hesabınızı açınız.
+
+                    }
+                    else {
+                        $("#TextboxSatisIadeleri").val("");
+                        $("#textKomisyonGelirleriMuhasebeKodu").val("");
+                        $("#komisyongelirlerimuhasebekodu").text("");
+                        $("#TextSatisIadeleri").text("");
+                    }
+                }
+                else
+                    $("#CariHesapKodu").val("");
+
+            });
+
+            $("#TCKNVKN").keyup(function () {
+                var carihesaptipi = $("#carihesaptipi").val();
+                var tcknvkn = $("#TCKNVKN").val();
+                var carihesapkodu = carihesaptipi + tcknvkn;
+                if (carihesaptipi == yurtDisiBrokerKodu) {
+                    carihesapkodu = carihesaptipi + $("#paraBirimleri :selected").val()+ "." + tcknvkn;
+
+                }
+
+                var satisIadeleri = "610.01." + tcknvkn;
+                var komisyon = "600.01." + tcknvkn;
+                if (carihesaptipi != null && carihesaptipi != "" && tcknvkn != null && tcknvkn != "") {
+                    $("#CariHesapKodu").val(carihesapkodu);
+                    if ($("#carihesaptipi").val() == "320.01." ) {
+                        $("#TextboxSatisIadeleri").val(satisIadeleri);
+                        $("#textKomisyonGelirleriMuhasebeKodu").val(komisyon);
+                        $("#komisyongelirlerimuhasebekodu").text("@babonline._warningOpenAccountingAccount"); // Eğer ilgili muhasebe hesabınız yok ise lütfen hesabınızı açınız.
+                        $("#TextSatisIadeleri").text("@babonline._warningOpenAccountingAccount"); //Eğer ilgili muhasebe hesabınız yok ise lütfen hesabınızı açınız.
+
+                    }
+                    else if ($("#carihesaptipi").val() == "340.") {
+                         $("#TextboxSatisIadeleri").val(satisIadeleri);
+                        $("#textKomisyonGelirleriMuhasebeKodu").val(komisyon);
+                    }
+                    else {
+                        $("#TextboxSatisIadeleri").val("");
+                        $("#textKomisyonGelirleriMuhasebeKodu").val("");
+                        $("#komisyongelirlerimuhasebekodu").text("");
+                        $("#TextSatisIadeleri").text("");
+                    }
+                }
+                else {
+                    $("#CariHesapKodu").val("");
+                }
+            });
+        });
+
+
+    </script>
+}
+
+<div class="row-fluid">
+    <div class="portlet box light-grey" style="margin-top: 24px;">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-reorder"></i>
+                <span class="hidden-480">@babonline.CurrentAccountEntry</span>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <form class="form-horizontal" id="cariHesapGirisi">
+            </form>
+            @using (Html.BeginForm("CariHesapEkle", "Muhasebe", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                Html.EnableClientValidation(true);
+                @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+                @Html.AntiForgeryToken()
+                <div class="row-fluid" style="padding-top: 10px;">
+                    <div class="span8">
+                        <h4 class="form-section">   </h4>
+                    </div>
+                    <div class="actions">
+                        <a href="javascript:void(0);" id="hesap-ekle" class="btn yellow"><i class="icon-search" data-loading-text="@babonline.Searching">&nbsp;</i>@babonline._searchCurrentAccountCode</a>
+                        <a id="HesapSil" class="btn red button-submit" style="display: none;" href="javascript:;" data-loading-text="@babonline.Saving"><i class="icon-remove"></i>@babonline.Delete</a>
+                        @*<a title="sil"
+
+                             class="tipS btn btn-sm btn-danger"
+                             href="/Muhasebe/Muhasebe/CariHesapSil/@Model.CariHesapKodu"
+                             rel="silmek istediğinizden emin misiniz?"
+                            ><span class="fa fa-trash"></span></a>*@
+
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.CurrentAccountType<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.CariHesapTipi, Model.CariHesapTipleri, new { style = "width:50%", required = "required", id = "carihesaptipi" })
+                                @Html.ValidationMessageFor(m => m.CariHesapTipi)
+                            </div>
+                        </div>
+                        <div class="control-group" id="SigortaSirketleriControlGroup">
+                            <label class="control-label">@babonline.InsuranceCompanies<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.sigortaSirketi, Model.sigortaSirketleri, new { style = "width:50%", required = "required", id = "sigortaSirketleri" })
+                                @Html.ValidationMessageFor(m => m.sigortaSirketi)
+                            </div>
+                        </div>
+                        <div class="control-group" id="YurtDisiBrokerlarControlGroup">
+                            <label class="control-label">@babonline.TVM_Broker<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.yurtDisiBroker, Model.yurtDisiBrokerlar, new { style = "width:50%", required = "required", id = "yurtDisiBrokerlar" })
+                                @Html.ValidationMessageFor(m => m.yurtDisiBroker)
+                            </div>
+                        </div>
+                        <div class="control-group" id="ParaBirimleriControlGroup">
+                            <label class="control-label">@babonline.CurrentAccount @babonline.Currency<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.paraBirimi, Model.paraBirimleri, new { style = "width:50%", required = "required", id = "paraBirimleri" })
+                                @Html.ValidationMessageFor(m => m.paraBirimi)
+                            </div>
+                        </div>
+
+
+                        <div class="control-group">
+                            <label class="control-label">@babonline.TCKN / @babonline.TaxNumber / @babonline.CurrentCode<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.KimlikNo, Model.KimlikNo, new { maxlength = 11, minlength = 10, style = "width:50%", required = "required", id = "TCKNVKN" })
+
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">@babonline.CurrentAccountCode</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.CariHesapKodu, Model.CariHesapKodu, new { style = "width:50%", disabled = "disabled", id = "CariHesapKodu" })
+                                @Html.ValidationMessageFor(m => m.CariHesapKodu)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.CustomerGroupCode</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.MusteriGrupKodu, Model.MusteriGrupKodu, new { style = "width:50%" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Title<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.Unvan, Model.Unvan, new { style = "width:50%", id = "Unvan", required = "required" })
+                                @Html.ValidationMessageFor(m => m.Unvan)
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">@babonline.TaxOffice</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.VergiDairesi, Model.VergiDairesi, new { style = "width:50%", @class = "", id = "VergiDairesi" })
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Phone No 1</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.Telefon1, new { style = "width:50%", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", placeholder = "90-212-5554477", title = babonline.Message_PhoneFormat })
+                                @Html.ValidationMessageFor(m => m.Telefon1)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Phone No 2</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.Telefon2, new { style = "width:50%", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", placeholder = "90-212-5554477", title = babonline.Message_PhoneFormat })
+                                @Html.ValidationMessageFor(m => m.Telefon2)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Mobile_Phone No</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.CepTel, new { style = "width:50%", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", placeholder = "90-534-5554477", title = babonline.Message_PhoneFormat })
+                                @Html.ValidationMessageFor(m => m.CepTel)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">E-mail</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.Email, new { style = "width:50%" })
+                                @Html.ValidationMessageFor(m => m.Email)
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Web_URL</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.WebAdresi, new { maxlength = 30, style = "width:50%" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> @babonline.Address</label>
+                            <div class="controls">
+                                @Html.TextAreaFor(s => s.Adres, new { maxlength = 500, style = "width:50%", placeholder = babonline.Address })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        @*<h4 class="form-section"></h4>*@
+                        <div class="control-group">
+                            <label class="control-label">@babonline.ExportAccountingCode</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.DisaktarimMuhasebeKodu, Model.DisaktarimMuhasebeKodu, new { style = "width:50%" })
+                                @Html.ValidationMessageFor(m => m.DisaktarimMuhasebeKodu)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.ExportCurrentCode </label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.DisaktarimCariKodu, Model.DisaktarimCariKodu, new { style = "width:50%" })
+                                @Html.ValidationMessageFor(m => m.DisaktarimCariKodu)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.CommissionIncomeAccountingCode</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.KomisyonGelirleriMuhasebeKodu, Model.KomisyonGelirleriMuhasebeKodu, new { style = "width:50%", disabled = "disabled", id = "textKomisyonGelirleriMuhasebeKodu" })
+                                @Html.ValidationMessageFor(m => m.KomisyonGelirleriMuhasebeKodu)
+                            </div>
+                            <span id="komisyongelirlerimuhasebekodu" class="required" style="font-size: 12px; margin-left:20px;"></span>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.SalesReturnsCommissionAccountingCode</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.SatisIadeleriMuhasebeKodu, Model.SatisIadeleriMuhasebeKodu, new { style = "width:50%", disabled = "disabled", id = "TextboxSatisIadeleri" })
+                                @*@Html.ValidationMessageFor(s => s.SatisIadeleriMuhasebeKodu)*@
+                            </div>
+                            <span id="TextSatisIadeleri" class="required" style="font-size: 12px; margin-left:20px;"></span>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Postal_Code</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.PostaKodu, new { @class = "", style = "width:50%" })
+                                @Html.ValidationMessageFor(m => m.PostaKodu)
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Country<span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.UlkeKodu, Model.Ulkeler, new { style = "width:50%;" })
+                                    @Html.ValidationMessageFor(m => m.UlkeKodu)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.City  <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.IlKodu, Model.Iller, new { style = "width:50%;" })
+                                    @Html.ValidationMessageFor(m => m.IlKodu)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.District  <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.IlceKodu, Model.IlceLer, new { style = "width:50%;" })
+                                    @Html.ValidationMessageFor(m => m.IlceKodu)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Description</label>
+                            <div class="controls">
+                                @Html.TextAreaFor(s => s.BilgiNotu, new { maxlength = 500, style = "width:50%", placeholder = babonline.Description })
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.WarningNote </label>
+                            <div class="controls">
+                                @Html.TextAreaFor(s => s.UyariNotu, new { maxlength = 500, style = "width:50%", placeholder = babonline.WarningNote })
+                                @Html.ValidationMessageFor(m => m.UyariNotu)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-success" id="kaydet"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                    <a class="btn" href="~/Muhasebe/Muhasebe/CariHesapEkle">@babonline.Cancel</a>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<div id="hesapekle-modal-div"></div>
+
+
+
+

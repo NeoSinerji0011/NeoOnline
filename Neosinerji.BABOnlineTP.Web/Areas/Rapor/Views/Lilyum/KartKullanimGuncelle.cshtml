@@ -1,0 +1,559 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Rapor.Models
+
+@model KartKullanimGuncelleModel
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+<head>
+    <title>LilyumKartKullanimGuncelle</title>
+    <link rel="shortcut icon" href="@Url.Content("~/Content/img/lilyum-icon.png")" />
+</head>
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">Lilyum Kart Kullanım Güncelle<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link href="~/Content/css/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/css/datepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/css/daterangepicker.css" rel="stylesheet" />
+    <script src="~/Content/js/mask.js" type="text/javascript"></script>
+    <script src="~/Content/js/daterangepicker.js"></script>
+    <script src="~/Content/js/moment.js"></script>
+    <link href="~/Content/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Content/js/jquery.gritter.min.js")" type="text/javascript"></script>
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+
+    <style>
+        .baslik {
+            text-align: center;
+            font-style: normal;
+            font-size: x-large;
+            font-weight: bold;
+        }
+
+        .sweet-alert button.cancel {
+            background-color: #DD6B55 !important;
+        }
+
+        .sweet-alert {
+            background-color: #f1eafb !important;
+        }
+    </style>
+}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/switch")
+    @Scripts.Render("~/bundles/dataTable")
+    <script src="@Url.Content("~/Content/js/customlang.tr.js")" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $(".Datepicker").mask("99.99.9999");
+            $(".lilyumKartGrup").mask("9999-9999-9999-9999");
+            $("#lilyumKart").mask("9999-9999-9999-9999");
+
+
+
+            var validDate = function (strDate) {
+                var formats = ["D-M-YYYY", "DD-MM-YYYY"];
+                var valid = moment(strDate, formats).isValid();
+                return valid;
+            };
+
+            $("#LilyumKartIptal").click(function () {
+
+                if ($(this).text().trim() != "İptal Ediliyor.") {
+                    $(this).button("loading");
+                    swal({
+                        title: "iptal isleminizi onaylıyor musunuz?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#56B05C",
+                        confirmButtonText: "Evet",
+                        closeOnConfirm: false,
+                        cancelButtonText: "Hayır",
+                        focusConfirm: false,
+                        cancelButtonColor: "#DD6B55"
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                var refNo = $("#ReferansNo").val();
+                                debugger
+                                $.ajax(
+                                    {
+                                        type: "POST",
+                                        url: "/Rapor/Lilyum/lilyumKartIptalEt",
+                                        data: { referansNo: refNo },
+                                        success: function (data) {
+                                            if (data) {
+                                                swal("İşlem başarılı", "Başarılı","success");
+                                                $("#KartTeminatlariGetir").trigger("click");
+                                                $("#LilyumKartIptal").button("reset");
+                                            }
+                                            else {
+                                                swal("İşlem başarısız", "Başarısız","error");
+                                                $("#KartTeminatlariGetir").trigger("click");
+                                                $("#LilyumKartIptal").button("reset");
+                                            }
+                                        },
+                                        error: function () {
+                                            swal("İşlem başarısız", "Başarısız", "error");
+                                            $("#KartTeminatlariGetir").trigger("click");
+                                            $("#LilyumKartIptal").button("reset");
+                                        }
+                                    });
+                            }
+                            else {
+                                $("#LilyumKartIptal").button("reset");
+                            }
+                        });
+
+                }
+
+
+            });
+
+            $("#Kart").change(function () {
+                var refNo = $(this).val();
+                if (refNo != "") {
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "/Rapor/Lilyum/GetLilyumKartKullanimDetayi",
+                            data: { referansNo: refNo },
+                            success: setKartBilgileri,
+                            error: function () {
+
+                            }
+                        });
+                }
+            });
+            $("#TvmKodu").change(function () {
+                if ($(this).val() != "") {
+                    $("#liste-progress").show();
+                    $.getJSON('/Rapor/Lilyum/GetAcenteKullanici', { acenteKodu: $(this).val() },
+                        function (result) {
+                            $("#KullaniciKodu").dropDownFill(result);
+                            $("#liste-progress").hide();
+                        });
+                }
+            });
+            //$("#KullaniciKodu").change(function () {
+            //    if ($(this).val() != "" && $("#TvmKodu") != "") {
+            //        $("#liste-progress").show();
+            //        $.getJSON('/Rapor/Lilyum/getKullaniciReferanslari', { acenteKodu: $("#TvmKodu").val(), kullaniciKodu: $(this).val() },
+            //            function (result) {
+            //                $("#liste-progress").hide();
+            //                $("#ReferansNo").dropDownFill(result);
+            //            });
+            //    }
+
+            //});
+            $("#kullaniciAra").click(function () {
+                if ($("#KullaniciKodu").val() != "" && $("#TvmKodu").val() != "") {
+                    $("#liste-progress").show();
+                    $.getJSON('/Rapor/Lilyum/getKullaniciReferanslari', { acenteKodu: $("#TvmKodu").val(), kullaniciKodu: $("#KullaniciKodu").val(), adsoyad: $("#kullaniciAdiSoyadi").val() },
+                        function (result) {
+                            $("#liste-progress").hide();
+                            $("#ReferansNo").dropDownFill(result);
+                            $("#kullaniciVar").html(result.length - 1 + " tane hesap bulundu.");
+                            $("#kullaniciVar").show();
+                        });
+                }
+                else {
+                    $('#ReferansNo').empty();
+                    var myOptions = {
+                        "": 'Lütfen Seçiniz'
+                    };
+                    $.each(myOptions, function (val, text) {
+                        $('#ReferansNo').append(new Option(text, val));
+                    });
+                    $('#ReferansNo').val("");
+                    $("#kullaniciVar").html("");
+                    $("#kullaniciVar").hide();
+                }
+
+            });
+            $("#KartTeminatlariGetir").click(function () {
+                var refNo = $("#ReferansNo").val();
+                var tvmkodu = $("#TvmKodu").val();
+                var kullanicikodu = $("#KullaniciKodu").val();
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Rapor/Lilyum/GetLilyumKartKullanimDetayi",
+                        data: { referansNo: refNo, tvmkodu: tvmkodu, kullanicikodu: kullanicikodu },
+                        success: setEditingKartBilgileri,
+                        error: function () {
+
+                        }
+                    });
+            });
+
+            $("#KartTeminatlariGuncelle").click(function () {
+                var teminatSayisi = 0;
+                $("#tabloBody").find(".teminatSatirlari").each(function (i) {
+                    teminatSayisi = teminatSayisi + 1;
+                });
+                var teminatlar = new Array();
+                var teminat = new Object();
+                for (var i = teminatSayisi - 1; i >= 0; i--) {
+                    var teminatKullanimAdet = $(".ToplamKullanimAdet-" + i).val();
+                    var teminatId = $(".ToplamKullanimAdet-" + i).attr("teminatId");
+                    var lilyumReferansNo = $(".ToplamKullanimAdet-" + i).attr("referansNo");
+                    var teminatSonKullanilanTarihi = $(".TeminatSonKullanilanTarih-" + i).val();
+
+                    teminat = new Object();
+                    teminat.teminatKullanimAdet = teminatKullanimAdet;
+                    teminat.teminatId = teminatId;
+                    teminat.teminatSonKullanilanTarihi = teminatSonKullanilanTarihi;
+                    debugger
+                    if (teminatSonKullanilanTarihi != undefined && !validDate(teminatSonKullanilanTarihi) && teminatSonKullanilanTarihi != "") {
+                        swal("Uyarı!", "İki Tarih Aralığını Gün.Ay.Yıl Şeklinde yazınız.\nÖrnek: 31.12.2018");
+                        return false;
+                    }
+                    teminat.lilyumKartNo = $("#lilyumKart").val();
+                    teminat.lilyumReferansNo = lilyumReferansNo;
+                    teminatlar.push(teminat);
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '/Rapor/Lilyum/KartKullanimGuncelle/',
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: "json",
+                    data: JSON.stringify(teminatlar),
+                    success: function (data) {
+                        if (data) {
+                            $("#KartTeminatlariGetir").trigger("click");
+                        } else {
+                            alert("İşlem sırasında bir hata oluştu.");
+                        }
+
+                    },
+                    error: function () {
+
+                    }
+                });
+            });
+            function setKartBilgileri(data) {
+                $("#LilyumKartNo").html(data.LilyumKartNo);
+                $("#MusteriAdiSoyadi").html(data.MusteriAdiSoyadi);
+                var adres = data.KonutAdres + "/" + data.KonutIlIlce;
+                $("#KonutAdres").html(adres);
+                if (data.BrutPrim != null) {
+                    var prim = data.BrutPrim + "₺";
+                    $("#BrutPrim").html(prim);
+                }
+                else {
+                    $("#BrutPrim").html("");
+                }
+
+                if (data.TaksitSayisi != null) {
+                    if (data.TaksitSayisi == 1) {
+                        $(".odemeSekli").html("Peşin");
+                    }
+                    else {
+                        $(".odemeSekli").html("6 Taksit");
+                    }
+                }
+
+                var tBodyHtml = "";
+                $("#tabloBody").html(tBodyHtml);
+                if (data.list != null) {
+                    for (var i = (data.list.length - 1); i >= 0; i--) {
+                        tBodyHtml += "<tr>" +
+                            "<td>" + data.list[i].GrupAdi + "</td>" +
+                            "<td>" + data.list[i].TeminatAdi + "</td>";
+
+                        if (data.list[i].KullanimHakkiAdet != 0) {
+                            tBodyHtml += "<td  style='text-align:center;'>" + data.list[i].KullanimHakkiAdet + "</td>" +
+                                "<td  style='text-align:center;'>" + data.list[i].ToplamKullanimAdet + "</td>" +
+                                "<td  style='text-align:center;'>" + data.list[i].KalanKullanimAdet + "</td>";
+                        }
+                        else {
+                            tBodyHtml += "<td style='text-align:center;'>Sınırsız</td>" +
+                                "<td></td>" +
+                                "<td></td>";
+                        }
+                        if (data.list[i].TeminatSonKullanilanTarih != null) {
+                            tBodyHtml += "<td style='text-align:center;'>" + data.list[i].TeminatSonKullanilanTarih + "</td>"
+                        }
+                        else {
+                            tBodyHtml += "<td></td>";
+                        }
+                        tBodyHtml += "<td>" + data.list[i].TeminatAciklama + "</td></tr>";
+                    }
+                }
+                if (data.list.length == 0) {
+                    tBodyHtml += "<tr>" +
+                        "<td colspan='8'>Lilyum Kart Teminat Detayları bulunamadı. </td></tr>"
+                }
+                $("#tabloBody").html(tBodyHtml);
+
+            }
+
+            function setEditingKartBilgileri(data) {
+                $("#LilyumKartNo").html(data.LilyumKartNo);
+                $("#MusteriAdiSoyadi").html(data.MusteriAdiSoyadi);
+                var adres = data.KonutAdres + "/" + data.KonutIlIlce;
+                $("#KonutAdres").html(adres);
+                if (data.BrutPrim != null) {
+                    var prim = data.BrutPrim + "₺";
+                    $("#BrutPrim").html(prim);
+                }
+                else {
+                    $("#BrutPrim").html("");
+                }
+
+                if (data.TaksitSayisi != null) {
+                    if (data.TaksitSayisi == 1) {
+                        $(".odemeSekli").html("Peşin");
+                    }
+                    else {
+                        $(".odemeSekli").html("6 Taksit");
+                    }
+                }
+
+                var iptaldiv = "";
+                if (data.iptal != null) {
+                    iptaldiv =
+                        "<div class='span6'> <div class='control-group'> <div class='controls'><label style='color: red;  margin-top:50px; font-size:30px; font-weight:bold;'>İPTAL EDİLMİŞTİR.</label> </div></div></div>";
+
+                    $("#iptalDiv").html(iptaldiv);
+                    $("#KartTeminatlariGuncelle").hide();
+                    $("#LilyumKartIptal").hide();
+                }
+                else {
+                    $("#iptalDiv").html(iptaldiv);
+                    $("#KartTeminatlariGuncelle").show();
+                    $("#LilyumKartIptal").show();
+                }
+                var tBodyHtml = "";
+                $("#tabloBody").html(tBodyHtml);
+                if (data.list != null) {
+                    for (var i = (data.list.length - 1); i >= 0; i--) {
+                        tBodyHtml += "<tr class='teminatSatirlari'>";
+                        if (data.list[i].LilyumKartNo != "" && data.list[i].LilyumKartNo != null) {
+                            if (i == data.list.length - 1) {
+                                tBodyHtml += "<td  style='text-align:center;'>" + data.list[i].LilyumKartNo + "</td>";
+                            }
+                            else {
+                                tBodyHtml += "<td  style='text-align:center;'></td>";
+                            }
+                        }
+                        else {
+                            if (i == data.list.length - 1) {
+                                tBodyHtml += "<td  style='text-align:center;'> <input autocompletetype='disabled' data-val='true' teminatId='" + data.list[i].TeminatId + "' id='lilyumKart' class='LilyumKartNo-" + i + "' maxlength='19' name='LilyumKartNo' required='required' style='width: 35 %;' type='text' value=''></td>";
+                            }
+                            else {
+                                tBodyHtml += "<td  style='text-align:center;'></td>";
+                            }
+                        }
+                        tBodyHtml += "<td>" + data.list[i].GrupAdi + "</td>" +
+                            "<td>" + data.list[i].TeminatAdi + "</td>";
+
+                        if (data.list[i].KullanimHakkiAdet != 0) {
+                            tBodyHtml += "<td  style='text-align:center;'>" + data.list[i].KullanimHakkiAdet + "</td>";
+
+                            if (data.list[i].KalanKullanimAdet != 0) {
+                                tBodyHtml += "<td  style='text-align:center;'> <input autocompletetype='disabled' data-val='true' teminatId='" + data.list[i].TeminatId + "' referansNo='" + data.list[i].LilyumReferansNo + "' class='ToplamKullanimAdet-" + i + "' maxlength='1' name='ToplamKullanimAdet' required='required' style='width: 35 %;' type='text' value='" + data.list[i].ToplamKullanimAdet + "'></td>";
+                            }
+                            else {
+                                tBodyHtml += "<td  style='text-align:center;'> <input autocompletetype='disabled' disabled='disabled' data-val='true' teminatId='" + data.list[i].TeminatId + "' referansNo='" + data.list[i].LilyumReferansNo + "' class='ToplamKullanimAdet-" + i + "' maxlength='1' name='ToplamKullanimAdet' required='required' style='width: 35 %;' type='text' value='" + data.list[i].ToplamKullanimAdet + "'></td>";
+
+                            }
+                            tBodyHtml += "<td  style='text-align:center;'>" + data.list[i].KalanKullanimAdet + "</td>";
+                        }
+                        else {
+                            tBodyHtml += "<td style='text-align:center;' class='ToplamKullanimAdet-" + i + "' teminatId='" + data.list[i].TeminatId + "' referansNo='" + data.list[i].LilyumReferansNo + "'>Sınırsız</td> " +
+                                "<td></td>" +
+                                "<td></td>";
+                        }
+                        if (data.list[i].ToplamKullanimAdet != 0) {
+                            if (data.list[i].KalanKullanimAdet == 0) {
+                                if (data.list[i].TeminatSonKullanilanTarih == null) {
+                                    tBodyHtml += "<td> <input type='text' id='1-datepicker' disabled='disabled' class='Datepicker hasDatepicker TeminatSonKullanilanTarih-" + i + "' style='width: 90px' placeholder='gg.aa.yyyy' value=''> </td>";
+                                } else {
+                                    tBodyHtml += "<td> <input type='text' id='1-datepicker' disabled='disabled' class='Datepicker hasDatepicker TeminatSonKullanilanTarih-" + i + "' style='width: 90px' placeholder='gg.aa.yyyy' value=" + data.list[i].TeminatSonKullanilanTarih + "> </td>";
+                                }
+                            }
+                            else {
+                                if (data.list[i].TeminatSonKullanilanTarih == null || data.list[i].TeminatSonKullanilanTarih == "") {
+                                    tBodyHtml += "<td> <input type='text' id='1-datepicker'  class='Datepicker hasDatepicker TeminatSonKullanilanTarih-" + i + "' style='width: 90px' placeholder='gg.aa.yyyy' value=''> </td>";
+                                } else {
+                                    tBodyHtml += "<td> <input type='text' id='1-datepicker' class='Datepicker hasDatepicker TeminatSonKullanilanTarih-" + i + "' style='width: 90px' placeholder='gg.aa.yyyy' value=" + data.list[i].TeminatSonKullanilanTarih + "> </td>";
+                                }
+                            }
+                        }
+                        else {
+                            if (data.list[i].KullanimHakkiAdet != 0) {
+                                tBodyHtml += "<td> <input type='text' id='1-datepicker' class='Datepicker hasDatepicker TeminatSonKullanilanTarih-" + i + "' style='width: 90px' placeholder='gg.aa.yyyy' value=''> </td>";
+                            }
+                            else {
+                                tBodyHtml += "<td> </td>";
+                            }
+                        }
+
+                        tBodyHtml += "<td>" + data.list[i].TeminatAciklama + "</td></tr>";
+                    }
+                    if (data.list.length == 0) {
+                        tBodyHtml += "<tr>" +
+                            "<td colspan='8'>Lilyum Kart Teminat Detayları bulunamadı. </td></tr>"
+                        $("#guncelleBtn").hide();
+                    }
+                    else {
+                        $("#guncelleBtn").show();
+                    }
+                }
+                $("#tabloBody").html(tBodyHtml);
+
+            }
+
+        });
+
+    </script>
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">Lilyum Kart Kullanım Güncelle</span>
+                </div>
+            </div>
+            <div class="portlet-body form form-horizontal">
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">Satış Kanalı</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.TvmKodu, Model.TVMler, new { style = "width:65%;" })
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">Kullanıcı</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.KullaniciKodu, Model.Kullanicilar, new { style = "width:65%;" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Kart Sahibi Ara<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.kullaniciAdiSoyadi, new { minlength = 3, maxlength = 30, style = "width:50%", required = "required", placeHolder = "Kart Sahibi Adını yazınız. " })
+                                @Html.ValidationMessageFor(m => m.kullaniciAdiSoyadi)
+                                <button class="btn btn-info " id="kullaniciAra" type="button" data-loading-text="Aranıyor">Ara</button><br />
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <label>Referans No / Lilyum Kart No / Müşteri</label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Kullanıcı Kartları</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.ReferansNo, Model.Referanslar, new { style = "width:65%;" }) &nbsp; &nbsp; <span style="color:red;display:none;" id="kullaniciVar"></span>
+                            </div>
+                        </div>
+
+                        <div id="liste-progress" style="padding-bottom: 20px; display: none;">
+                            @*<div style="font-size: 11PX; margin: 20px auto; width: 50%; text-align: center;">
+                                    <h4>Lütfen bekleyin, Kullanıcı Lilyum Kartları Yükleniyor..</h4>
+                                </div>*@
+                            <div style="margin: 20px auto; width: 500px; text-align: center;">
+                                <img src="/Content/img/loading9.gif" width="32" height="32" title="Lütfen bekleyin, Kullanıcı Lilyum Kartları Yükleniyor.." alt="Lütfen bekleyin, Kullanıcı Lilyum Kartları Yükleniyor..">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-actions">
+                    <a href="~/Rapor/Lilyum/KartKullanimGuncelle" class="btn ligth-grey">@babonline.Clear</a>
+                    <input type="submit" id="KartTeminatlariGetir" class="btn btn-success" data-loading-text="@babonline.Please_Wait" value="@babonline.Search" />
+                </div>
+                <div class="row-fluid" id="iptalDiv">
+
+                </div>
+                @*<div class="row-fluid" style="margin-top:5%; border-bottom: 1px solid #e5e5e5;">
+                        <div class="span2 baslik">Kart</div>
+                        <div class="span2 baslik">Kart No</div>
+                        <div class="span2 baslik">Müşteri</div>
+                        <div class="span2 baslik">Konut Adresi</div>
+                        <div class="span2 baslik">Prim</div>
+                        <div class="span2 baslik">Ödeme Şekli</div>
+                    </div>
+                    <div class="row-fluid" style="margin-top: 20px;padding-bottom: 20px; border-bottom: 1px solid #e5e5e5;">
+                        <div class="span2" style="text-align: center;"> <img id="tum-unvan" alt="Lilyum Kart" src="" /></div>
+                        <div class="span2" style="text-align: center;" id="LilyumKartNo"></div>
+                        <div class="span2" style="text-align: center;" id="MusteriAdiSoyadi"></div>
+                        <div class="span2" style="text-align: center;" id="KonutAdres"></div>
+                        <div class="span2" style="text-align: center;" id="BrutPrim"></div>
+                        <div class="span2 odemeSekli" style="text-align: center;"></div>
+                    </div>*@
+                <div class="row-fluid" style="margin-top: 20px;">
+                    <div class="span12">
+                        <div id="table-div" style="overflow-x: auto; margin-top: 15px;">
+                            <table class="table table-striped table-bordered table-hover dataTable data-table" style="table-layout:auto; width:100%;">
+                                <thead>
+                                    <tr style="">
+                                        <th style="width: 3%; text-align:center;">Lilyum Kart No</th>
+                                        <th style="width: 3%; text-align:center;">Teminat Grup Adı</th>
+                                        <th style="width: 4%; text-align:center;">Teminat Adı</th>
+                                        <th style="width: 2%; text-align:center;">Toplam Kullanım Hakkı(Adet)</th>
+                                        <th style="width: 2%; text-align:center;">Kullanılan(Adet)</th>
+                                        <th style="width: 2%; text-align:center;">Kalan Kullanım(Adet)</th>
+                                        <th style="width: 4%; text-align:center;">Teminatı Kullandığınız Son Tarihi</th>
+                                        <th style="width: 10%; text-align:center;">Açıklama</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabloBody">
+                                    <tr>
+                                        <td colspan="7">
+                                            Kayıt Bulunamadı.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="form-actions" id="guncelleBtn" style="display:none;">
+                            <a href="~/Rapor/Lilyum/KartKullanimGuncelle" class="btn ligth-grey">@babonline.Clear</a>
+                            <input type="submit" id="KartTeminatlariGuncelle" class="btn btn-success" data-loading-text="@babonline.Please_Wait" value="@babonline.Update" />
+
+                            &nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-info " id="LilyumKartIptal" type="button" data-loading-text="İptal Ediliyor.">Kartı İptal Et</button><br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model LilyumTeklifOdemeModel
+
+<style>
+    .radio, .checkbox {
+        padding-left: 17px !important;
+    }
+
+    .controls .inline {
+        margin-top: 0;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+</style>
+
+
+
+<div class="control-group">
+    <label class="control-label">@babonline.PaymentStyle</label>
+    <div class="controls">
+        @Html.SwitchButtonFor(m => m.OdemeSekli, new string[] { "TekÇekim", "6 Taksit" }, new { style = "width:20%;" })
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.PaymentType</label>
+    <div class="controls">
+        <div class="btn-group" data-toggle="buttons-radio">
+            @Html.RadioButtonListFor(s => s.OdemeTipi, Model.OdemeTipleri)
+        </div>
+    </div>
+</div>
+
+<div class="control-group">
+    <table style="font-size:20px;">
+        <tr>
+            <th style="border:none"></th>
+            <th style=" text-align:center;color:#6815b1;">NET TUTAR</th>
+            <th style=" text-align:center;color:#6815b1;">KDV</th>
+            <th style=" text-align:center;color:#6815b1;">TOPLAM</th>
+        </tr>
+        <tr id="pesin" style="background-color:#dddddd;">
+            <td  style=" text-align:right;">PEŞİN ÖDEME</td>
+            <td style=" text-align:right;">  378,00</td>
+            <td style=" text-align:right;">68,04</td>
+            <td style="width:30%; text-align:right;">
+                446,04
+            </td>
+        </tr>
+        <tr id="taksitli">
+            <td style=" text-align:right;">6 TAKSİT ÖDEME</td>
+            <td style=" text-align:right;"> 420,00</td>
+            <td style=" text-align:right;">75,60</td>
+            <td style="width:30%; text-align:right;">
+                495,60
+            </td>
+        </tr>
+        @*@if (ViewBag.AnaAcenteMi == -9999)
+                {
+                    <tr>
+                        <td>Diğer Ödeme Tutarı</td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            @Html.TextBoxFor(m => m.DigerOdemeTutari, new { maxlength = 50, autocompletetype = "disabled", style = "width:33%" })
+                        </td>
+                    </tr>
+            }*@
+    </table>
+
+</div>
+    <style>
+        .switcher-danger {
+            background: #6815b1 !important;
+            background-color: #6815b1 !important;
+            color: white !important;
+            
+        }
+        .switcher-success {
+            background: #a64dff !important;
+            background-color: #a64dff !important;
+            color: white !important;
+        }
+    </style>
+ 
+

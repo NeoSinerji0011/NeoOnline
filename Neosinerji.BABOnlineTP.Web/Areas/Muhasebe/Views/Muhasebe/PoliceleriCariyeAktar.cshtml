@@ -1,0 +1,298 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@using Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Web.Areas.Muhasebe.Models
+@model  PoliceleriCariyeAktar
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">@babonline.TransferPoliciesToCurrent<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+<head>
+    <title>PoliçeleriCariyeAktar</title>
+</head>
+@section PageHeader
+{
+
+}
+
+@section PageScripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            function pad(str, max) {
+                str = str.toString();
+                return str.length < max ? pad("0" + str, max) : str;
+            }
+
+            BitisTarihiSetDate();
+
+            $("#BaslangicTarihi").change(function () {
+                //BitisTarihiSetDate();
+                debugger;
+                var selectedDate = $("#BaslangicTarihi").val();
+                var splitArray = selectedDate.split(".");
+                var day = splitArray[0];
+                var month = splitArray[1];
+                var year = splitArray[2];
+
+                month = Number(month) - 1;
+
+                var currentDate = new Date(year, month, day);
+                var endDate = new Date(year, month + 1, 0);
+                endDate = ((endDate.getMonth() > 8) ? (endDate.getMonth() + 1) : ('0' + (endDate.getMonth() + 1))) + '/' + ((endDate.getDate() > 9) ? endDate.getDate() : ('0' + endDate.getDate())) + '/' + endDate.getFullYear()
+                var endDateSplitArray = endDate.split("/");
+
+                var endDay = endDateSplitArray[1];
+                var endMonth = endDateSplitArray[0];
+                var endYear = endDateSplitArray[2];
+
+                endMonth = pad(endMonth, 2);
+                var bitisTarihiValue = endDay + "." + endMonth + "." + endYear;
+
+                $("#BitisTarihi").val(bitisTarihiValue);
+            });
+
+            //$("#BitisTarihi").change(function () {
+            //    var dmy = $("#BaslangicTarihi").val().split('.');
+            //    var secilenTarih = dmy[2] + "-" + dmy[1] + "-" + dmy[0];
+            //    var joindate = new Date(secilenTarih);
+            //    var yil = joindate.getFullYear();
+
+            //    var day = joindate.getDate();
+            //    if (day < 10) {
+            //        day = "0" + day;
+            //    }
+            //    var ay = parseInt(joindate.getMonth()) + 2;
+            //    if (ay < 10) {
+            //        ay = "0" + ay;
+            //    }
+            //    else if (ay > 12) {
+            //        ay = "0" + 1;
+            //        yil = yil + 1;
+            //    }
+
+            //    var bitisTarihi = yil + "-" + ay + "-" + day;
+            //    var d1 = new Date(bitisTarihi);
+            //    var bitT = $("#BitisTarihi").val().split('.');
+            //    var secilenbitT = bitT[2] + "-" + bitT[1] + "-" + bitT[0];
+            //    var d2 = new Date(secilenbitT);
+            //    var bitisTarihi2 = day + "." + ay + "." + yil;
+
+            //    if (d2 > d1) {
+            //        $("#BitisTarihi").val(bitisTarihi2);
+            //        alert("Max değer değiştirilemez.");
+            //    }
+            //});
+
+            function BitisTarihiSetDate() {
+                var dmy = $("#BaslangicTarihi").val().split('.');
+                var secilenTarih = dmy[2] + "-" + dmy[1] + "-" + dmy[0];
+                var joindate = new Date(secilenTarih);
+                var yil = joindate.getFullYear();
+
+                var day = joindate.getDate();
+                if (day < 10) {
+                    day = "0" + day;
+                }
+                var ay = parseInt(joindate.getMonth()) + 2;
+                if (ay < 10) {
+                    ay = "0" + ay;
+                }
+                else if (ay > 12) {
+                    ay = "0" + 1;
+                    yil = yil + 1;
+                }
+                var bitisTarihi = day + "." + ay + "." + yil;
+                $("#BitisTarihi").val(bitisTarihi);
+
+                $("#BitisTarihi").datepicker("option", "maxDate", bitisTarihi);
+                $("#BitisTarihi").datepicker("option", "minDate", joindate);
+            }
+        });
+        $("#PoliceleriCariyeAktar").click(function () {
+            var baslangicTarihi = $("#BaslangicTarihi").val();
+            var bitisTarihi = $("#BitisTarihi").val();
+            var sirketKodu = $("#SirketKodu").val();
+            var bransKodu = $("#BransKodu").val();
+            if (baslangicTarihi == "") {
+                $("#PoliceleriCariyeAktar").button("reset");
+                swal("@babonline.Warning", "@babonline.EnterStartDate", "warning")
+                return false;
+            }
+            if (bitisTarihi == "") {
+                $("#PoliceleriCariyeAktar").button("reset");
+                swal("@babonline.Error", "@babonline.EnterEndDate", "warning")
+                return false;
+            }
+
+            $("#PoliceleriCariyeAktar").button("loading");
+            $.ajax({
+                type: "POST",
+                url: "/Muhasebe/Muhasebe/PoliceleriCariyeAktar",
+                data: { baslangicTarihi: baslangicTarihi, bitisTarihi: bitisTarihi, sirketKodu: sirketKodu, bransKodu: bransKodu },
+                success: function (data) {
+                    $("#PoliceleriCariyeAktar").button("reset");
+                    if (!data.success) {
+                        swal({
+                            title: "@babonline.Error",
+                            text: data.sonuc,
+                            type: "error",
+                            showCancelButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "@babonline.OK",
+                            closeOnConfirm: false
+                        },
+                            function (isConfirm) {
+                                if (isConfirm) {
+                                    location.reload(true);
+                                }
+                            });
+                    }
+                    else {
+                        showInfoSweetAlert("@babonline.PoliciesAreTransferring ...", "@babonline.PoliciesAreTransferring. @babonline.Status : %0", false, "/Content/img/loading9.gif");
+                        var loop = setInterval(function () {
+                            $.ajax({
+                                type: "POST",
+                                url: "/Muhasebe/Muhasebe/GetMuhasebeAktarimStatus",
+                                data: { konfigurasyonId: data.konfigurasyonId },
+                                success: function (result) {
+                                    muhasebeAktarimYuzdesi = parseFloat(result);
+                                    if (muhasebeAktarimYuzdesi < 100) {
+                                        updateSweetAlertText("@babonline.PoliciesAreTransferring...", "@babonline.PoliciesAreTransferring. @babonline.Status : %" + muhasebeAktarimYuzdesi);
+                                    }
+                                    else if (muhasebeAktarimYuzdesi >= 100) {
+                                        showConfirmSweetAlert("@babonline.Successful", "@babonline.PolicyTransferCompleted.");
+                                        clearInterval(loop);
+                                    }
+                                }
+                            });
+                        }, 3000);
+                    }
+                }
+            });
+
+        });
+
+        function showInfoSweetAlert(title, text = "", showConfirmButton = false, imageUrl = null) {
+            Swal.fire({
+                title: title,
+                text: text,
+                type: "info",
+                imageUrl: imageUrl,
+                showCancelButton: false,
+                imageWidth: 32,
+                imageHeight: 32,
+                showConfirmButton: showConfirmButton,
+                closeOnConfirm: false,
+                allowOutsideClick: false
+            });
+        }
+
+        function updateSweetAlertText(title, text) {
+            Swal.getTitle().textContent = title;
+            Swal.getContent().textContent = text;
+        }
+
+        function showConfirmSweetAlert(title, text) {
+            Swal.fire({
+                title: title,
+                text: text,
+                type: "success",
+                showCancelButton: false,
+
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "@babonline.OK",
+                closeOnConfirm: true
+            });
+        }
+
+        function showErrorSweetAlert(title, text) {
+            Swal.fire({
+                title: title,
+                text: text,
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "@babonline.OK",
+                closeOnConfirm: true
+            });
+        }
+
+    </script>
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey" style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-reorder"></i>
+                            <span class="hidden-480">@babonline.TransferPoliciesToCurrent</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal" id="PoliceleriCariyeAktarForm">
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Inception_Date<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DateTextBoxFor(s => s.BaslangicTarihi, new { required = "required" })
+                                            @Html.ValidationMessageFor(m => m.BaslangicTarihi)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.ExpiryDate<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DateTextBoxFor(s => s.BitisTarihi, new { required = "required" })
+                                            @Html.ValidationMessageFor(m => m.BitisTarihi)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Outsource</label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(s => s.SirketKodu, Model.SigortaSirketleri, new { style = "width:50%;", @required = "required", id = "SirketKodu" })
+                                            @Html.ValidationMessageFor(m => m.SirketKodu)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Branch</label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(s => s.BransKodu, Model.Branslar, new { style = "width:50%;", @required = "required" })
+                                            @Html.ValidationMessageFor(m => m.BransKodu)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                @*  m-icon-swapright m-icon-white*@
+                                <a href="/Muhasebe/Muhasebe/PoliceleriCariyeAktar" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+                                <a id="PoliceleriCariyeAktar" class="btn green button-submit" href="javascript:;" data-loading-text="@babonline.Transferring..">@babonline.Transferr <i class="icon-arrow-right"></i></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

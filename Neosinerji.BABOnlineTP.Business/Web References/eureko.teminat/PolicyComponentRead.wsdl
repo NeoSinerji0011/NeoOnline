@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:intf="http://PolicyComponentRead.webservices.gb.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://PolicyComponentRead.webservices.gb.com" targetNamespace="http://PolicyComponentRead.webservices.gb.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:intf="http://PolicyComponentRead.webservices.gb.com" elementFormDefault="qualified" targetNamespace="http://PolicyComponentRead.webservices.gb.com">
+      <xsd:simpleType name="AccruePremiumAmount">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+Yazılan Prim, Süre bağımlıdır. Prim dosyasındaki + ve - kayıtların toplam değeri atılır.
+                  </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:decimal">
+          <xsd:totalDigits value="17" />
+          <xsd:fractionDigits value="2" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="Execute">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Request">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="InHeader">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="CompanyId">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string" />
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="UserId">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string" />
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="Password">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string" />
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="PlatformType">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="DVL" />
+                              <xsd:enumeration value="EGT" />
+                              <xsd:enumeration value="TST" />
+                              <xsd:enumeration value="PRD" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="MessageId">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="36" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="InPolicyMaster">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" name="CompanyCode">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Şirket kodu. GENERAL_COMPANY dosyasından kontrol edilecektir veya kullanıcı tanımına  göre otomatik olarak atanacaktır.
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="3" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="PolicyGroupNum">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Grup Sıra No GENERAL_NUM_COUNT dosyasından tip kodu "G" olarak otomatik numara verilecektir.
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="7" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="PolicyNum">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Poliçe/Sertifika No.  GENERAL_NUM_COUNT dosyasından tip kodu "P" olarak otomatik numara  verilecektir.
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="10" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="RenewalNum">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Tecdit (Yenileme) No    Poliçe ve zeyl girişlerinde sistem tarafından otomatik olarak sıfır atanacaktır.Yenilemelerde poliçe nosu değişmeyecek, tecdit nosu birden başlayarak otomatik numara alacaktır.
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="3" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="EndorsementNum">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Zeyl No . Poliçe ve zeyl girişlerinde sistem tarafından otomatik olaraksıfır değeri atanacaktır. Yenilemelerde poliçe nosu değişmeyecek, tecdit nosu 1'den başlayarak otomatik numara verilecektir. Tecditlerde sıfırlanacaktır.
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="5" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="InternalEndorsementNum">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Dahili zeyl no. Her bir zeyl altında otomatik numara verilecektir.
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="5" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="ChangeSequenceNum">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="5" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ExecuteResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="OutHeader">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="IsSuccessfull">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string" />
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="ResponseMessage">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string" />
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="ResponseCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string" />
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="OutGroup">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" maxOccurs="160" name="OutGroupRow">
+                          <xsd:complexType>
+                            <xsd:sequence>
+                              <xsd:element name="OutGlobalInfo">
+                                <xsd:complexType>
+                                  <xsd:sequence>
+                                    <xsd:element name="ComponentNameText">
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:maxLength value="50" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                              <xsd:element name="OutPolicySumInsured">
+                                <xsd:complexType>
+                                  <xsd:sequence>
+                                    <xsd:element name="CoverageMatrixNum">
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:integer">
+                                          <xsd:totalDigits value="4" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="SumInsuredAmount">
+                                      <xsd:annotation>
+                                        <xsd:documentation xml:lang="en">
+Bedel. Null olamaz.Endekssiz bedel.
+                  </xsd:documentation>
+                                      </xsd:annotation>
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:decimal">
+                                          <xsd:totalDigits value="17" />
+                                          <xsd:fractionDigits value="2" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="AccruePremiumAmount" type="impl:AccruePremiumAmount" />
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                              <xsd:element name="OutPolicyTax">
+                                <xsd:complexType>
+                                  <xsd:sequence>
+                                    <xsd:element name="TaxAmount">
+                                      <xsd:annotation>
+                                        <xsd:documentation xml:lang="en">
+VERGİ TUTARI
+                  </xsd:documentation>
+                                      </xsd:annotation>
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:decimal">
+                                          <xsd:totalDigits value="17" />
+                                          <xsd:fractionDigits value="2" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                              <xsd:element name="OutIir1PolicyCommission">
+                                <xsd:complexType>
+                                  <xsd:sequence>
+                                    <xsd:element name="CommissionAmount">
+                                      <xsd:annotation>
+                                        <xsd:documentation xml:lang="en">
+Komisyon Tutarı
+                  </xsd:documentation>
+                                      </xsd:annotation>
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:decimal">
+                                          <xsd:totalDigits value="17" />
+                                          <xsd:fractionDigits value="2" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                              <xsd:element name="OutGrossPolicySumInsured">
+                                <xsd:complexType>
+                                  <xsd:sequence>
+                                    <xsd:element name="AccruePremiumAmount" type="impl:AccruePremiumAmount" />
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ExecuteResponse">
+    <wsdl:part name="parameters" element="impl:ExecuteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteRequest">
+    <wsdl:part name="parameters" element="impl:Execute" />
+  </wsdl:message>
+  <wsdl:portType name="PolicyComponentRead">
+    <wsdl:operation name="Execute">
+      <wsdl:input name="ExecuteRequest" message="impl:ExecuteRequest" />
+      <wsdl:output name="ExecuteResponse" message="impl:ExecuteResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PolicyComponentReadSoapBinding" type="impl:PolicyComponentRead">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Execute">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="ExecuteRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ExecuteResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PolicyComponentReadService">
+    <wsdl:documentation xml:lang="tr">
+DEĞİŞİKLİK: 0
+YAYIM TARİHİ: 16-08-2007
+AMAÇ: TYPE READ External 'Service Server'.
+
+REVISION: 0
+RELEASED ON: 16-08-2007
+PURPOSE:  TYPE READ External 'Service Server'.
+   
+    	</wsdl:documentation>
+    <wsdl:port name="PolicyComponentRead" binding="impl:PolicyComponentReadSoapBinding">
+      <wsdlsoap:address location="http://eswsps-t.eurekosigorta.com.tr:80/ESWS/services/PolicyComponentRead" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,126 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@model TEDetayPartialModel
+
+
+<div class="row-fluid">
+
+    <div class="span6">
+        <h3 class="form-section">@babonline.General_Information</h3>
+        <div class="control-group">
+            <label class="control-label">Sigortalı Ad Soyad</label>
+            <div class="controls">
+                <label class="control">@Model.AdSoyad</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Sigorta Başlangıç Tarihi</label>
+            <div class="controls">
+                <label class="control">@Model.SigortaBaslangicTarihi</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Sigorta Süresi (Yıl)</label>
+            <div class="controls">
+                <label class="control">@Model.SigortaSuresi</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Prim Ödeme Dönemi</label>
+            <div class="controls">
+                <label class="control">@Model.PrimOdemeDonemi</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">@babonline.CalculationofChoice</label>
+            <div class="controls">
+                <label class="control">@Model.HesaplamaSecenegiText</label>
+            </div>
+        </div>
+
+        @if (Model.HesaplamaSecenegi == "1")
+        {
+            <h3 class="form-section">Ana Teminat</h3>
+            <div class="control-group">
+                <label class="control-label">@Model.AnaTeminatAdi</label>
+                <div class="controls">
+                    <label class="control">@Model.AnaTeminatTutari</label>
+                </div>
+            </div>
+        }
+        else if (Model.HesaplamaSecenegi == "2")
+        {
+            <div class="control-group">
+                <label class="control-label">@babonline.AnnualPremium</label>
+                <div class="controls">
+                    <label class="control">@Model.YillikPrim</label>
+                </div>
+            </div>
+        }
+
+
+    </div>
+
+    <div class="span6">
+        <h3 class="form-section">@babonline.Additional_Guarantees</h3>
+        <div class="control-group">
+            <label class="control-label">Kritik Hastalık Teminatı Sigorta Bedeli</label>
+            <div class="controls">
+                <label class="control">@Model.KritikHastalikTutar</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Kaza Sonucu Vefat Teminatı Sigorta Bedeli</label>
+            <div class="controls">
+                <label class="control">@Model.KazaSonucuVefat</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Toplu Taşıma Araçlarında Vefat Teminatı Sigorta Bedeli</label>
+            <div class="controls">
+                <label class="control">@Model.TopluTasimaAraclarindaVefat</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Tam ve Daimi Maluliyet Teminatı Sigorta Bedeli</label>
+            <div class="controls">
+                <label class="control">@Model.TamVeDaimiMaluliyet</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Maluliyet Yıllık Destek Teminatı Sigorta Bedeli</label>
+            <div class="controls">
+                <label class="control">@Model.MaluliyetYillikDestek</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Kaza Sonucu Tedavi Masrafları Teminatı Sigorta Bedeli</label>
+            <div class="controls">
+                <label class="control">@Model.KazaSonucu_TedaviMasraflariBedeli</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Kaza Sonucu Hastanede Yatarak Tedavi Durumunda Haftalık Ödeme Teminatı Sigorta Bedeli</label>
+            <div class="controls">
+                <label class="control">@Model.KazaSonucu_HastanedeYatarakTD_HaftalikEkOdemeBedeli</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

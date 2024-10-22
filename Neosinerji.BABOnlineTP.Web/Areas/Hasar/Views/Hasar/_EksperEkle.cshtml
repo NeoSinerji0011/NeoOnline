@@ -1,0 +1,190 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Hasar.Models.HasarEksperModel
+
+<style type="text/css">
+    #eksper-modal {
+        width: 60%;
+        margin-left: -450px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+
+    });
+</script>
+<link href="~/Content/css/datepicker.css" rel="stylesheet" />
+<script src="~/Content/js/bootstrap-datepicker.js"></script>
+
+
+<div id="eksper-modal" class="modal hide fade">
+    <div class="modal-header">
+        <h3>Eksper Ekle</h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="eksper-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="eksper-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <form id="eksper-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @*@Html.HiddenFor(m => m.HasarId)*@
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.HasarId)
+            @Html.HiddenFor(m => m.EksperId)
+            @Html.HiddenFor(m => m.EksperAdSoyad)
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">Eksper Sorumlusu Adı / Soyadı<span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.EksperSorumlusuKodu, Model.EksperList, new { style = "width:90%" })
+                            @Html.ValidationMessageFor(m => m.EksperSorumlusuKodu)
+                        </div>
+                    </div>
+                    @* <div class="control-group">
+                            <label class="control-label">Tahmini Hasar Bedeli</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.TahminiHasarBedeli)
+                                @Html.ValidationMessageFor(m => m.TahminiHasarBedeli)
+                            </div>
+                        </div>*@
+                    <div class="control-group">
+                        <label class="control-label">Tahmini Hasar Bedeli<span class="required">*</span></label>
+                        <div class="controls">
+
+                            @Html.TextBoxFor(s => s.TahminiHasarBedeli, new { @class = "m-wrap onlynumbers", style = "width:90px; text-align:right", tabindex = "14" })
+                            @Html.ValidationMessageFor(m => m.TahminiHasarBedeli)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Tahmini Hasar Para Birimi<span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.TahminiHasarParaBirimi, Model.TahminiHasarParaBirimleri, new { style = "width:60%" })
+                            @Html.ValidationMessageFor(m => m.TahminiHasarParaBirimi)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Anlaşmalı Servis Ödenen Hasar Bedeli</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.AnlasmaliServisBedeli, new { @class = "m-wrap onlynumbers", style = "width:90px; text-align:right", tabindex = "14" })
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Anlaşmalı Servis Ödenen Hasar Para Birimi</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.AnlasmaliServisParaBirimi, Model.AnlasmaliServisParaBirimleri, new { style = "width:60%" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Tahakkuk Bedeli</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.TahakkukBedeli, new { @class = "m-wrap onlynumbers", style = "width:90px; text-align:right", tabindex = "14" })
+                            @Html.ValidationMessageFor(m => m.TahakkukBedeli)
+                        </div>
+
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Tahakkuk Para Birimi</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.TahakkukParaBirimi, Model.TahakkukParaBirimleri, new { style = "width:60%" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Rucu Bedeli</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.RucuBedeli, new { @class = "m-wrap onlynumbers", style = "width:90px; text-align:right", tabindex = "14" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Rucu Para Birimi</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.RucuBedeliParaBirimi, Model.RucuParaBirimleri, new { style = "width:60%" })
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">Red Bedeli</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.RedBedeli, new { @class = "m-wrap onlynumbers", style = "width:90px; text-align:right", tabindex = "14" })
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Red Para Birimi</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.RedParaBirimi, Model.RedParaBirimleri, new { style = "width:60%" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Asistans Firma</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.AsistansFirma, Model.AsistansFirmalari, new { style = "width:90%" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Asistans Firma Bedeli</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.AsistansFirmaBedeli, new { @class = "m-wrap onlynumbers", style = "width:90px; text-align:right", tabindex = "14" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Asistans Firma Para Birimi</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.AsistansFirmaParaBirimi, Model.AsistansFirmaParaBirimleri, new { style = "width:60%" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Ödeme Tarihi</label>
+                        <div class="controls">
+                            @*  @Html.DateTextBoxFor(m => m.OdemeTarihi, null)
+                                @Html.ValidationMessageFor(m => m.OdemeTarihi)*@
+                            <div class="controls input-append datepicker date">
+                                @Html.TextBoxFor(s => s.OdemeTarihi, new { style = "width:50%", Id = "OdemeTarihi" })
+                                <img class="ui-datepicker-trigger" src="/Content/img/glyphicons_045_calendar.png" alt="..." title="...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Bildirim Tarihi</label>
+                        <div class="controls">
+                            <div class="controls input-append datepicker date">
+                                @Html.TextBoxFor(s => s.BildirimTarihi, new { style = "width:50%", Id = "BildirimTarihi" })
+                                <img class="ui-datepicker-trigger" src="/Content/img/glyphicons_045_calendar.png" alt="..." title="...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Geliş Saati</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.GelisSaati)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Bekleme Süresi</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.BeklemeSuresi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        @if (Model.BildirimTarihi != null)
+        {
+            <a href="#" class="btn btn-info" id="eksper-guncelle-btn">@babonline.Update</a>
+        }
+        else
+        {
+            <a href="#" class="btn btn-success" id="eksper-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+        }
+    </div>
+</div>

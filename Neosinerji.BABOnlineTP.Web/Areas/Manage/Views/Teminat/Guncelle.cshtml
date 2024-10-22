@@ -1,0 +1,68 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.TeminatModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li>
+            <a href="~/Manage/Teminat/Liste">@babonline.Collateral_Search<span></span></a>
+        </li>
+        <li>
+            <a href="~/Manage/Teminat/Detay/@Model.TeminatKodu">@babonline.Detail<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Update<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.Collateral_Info</div>
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("Guncelle", "Teminat", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            Html.EnableClientValidation(true);    
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(s => s.TeminatKodu)
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Collateral_Code</label>
+                <div class="controls">
+                    <label class="control" id="BransAdi">@Model.TeminatKodu</label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Collateral_Name</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.TeminatAdi, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.TeminatAdi)
+                </div>
+            </div>       
+            <div class="form-actions">
+                <button class="btn btn-success">@babonline.Edit</button>
+                <a class="btn" href="~/Manage/Teminat/Detay/@Model.TeminatKodu">@babonline.Cancel</a>
+            </div>              
+        }
+    </div>
+</div>
+
+
+
+

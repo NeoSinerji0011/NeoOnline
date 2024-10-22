@@ -1,0 +1,86 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.SigortaliBilgileriModel
+
+<div class="row-fluid">
+    <div class="span6">
+       <div class="control-group">
+                    <label class="control-label">@babonline.Identification_Number<span class="required">*</span></label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.TCKimlikNo, new { maxlength = 11, style = "width:120px;", @class = "onlynumbers" })
+                        <button class="btn btn-info blue" id="sigortali-sorgula" type="button" data-loading-text="@babonline.QueryIndicator">@babonline.Query</button><br />
+                        <span class="text-error" id="sigortaettiren-kimlikno-mesaj">@babonline.Message_TCKN_VKN_YKN_Required</span>
+                    </div>
+                </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Name</label>
+            <div class="controls">
+                @Html.TextBoxFor(s => (s.Ad), new { })
+                @Html.ValidationMessageFor(s => s.Ad)
+            </div>
+        </div>
+         <div class="control-group">
+            <label class="control-label">@babonline.DateOfBirth<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.DogumTarihi, new { placeholder="gg.aa.yyyy"})
+                @Html.ValidationMessageFor(s => s.DogumTarihi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Gender</label>
+            <div class="controls" style="margin-left: 200px;">
+                @Html.RadioButtonListFor(m => m.Cinsiyet, Model.CinsiyetTipler)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Job</label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.MeslekGrubu, Model.MeslekGruplari, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.MeslekGrubu)
+            </div>
+        </div>
+         <div class="control-group">
+            <label class="control-label">@babonline.Product_Name</label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.UrunAd, Model.Urunler, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.UrunAd)
+            </div>
+        </div>
+         <div class="control-group">
+            <label class="control-label">@babonline.Insurance_Duration</label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.SigortaSuresi, Model.SigortaSureler, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.SigortaSuresi)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+         <div class="control-group">
+            <label class="control-label">@babonline.CustomerNo</label>
+            <div class="controls">
+                @Html.TextBoxFor(s => (s.MusteriNo), new { })
+                @Html.ValidationMessageFor(s => s.MusteriNo)
+            </div>
+        </div>
+       <div class="control-group">
+            <label class="control-label">@babonline.Surname</label>
+            <div class="controls">
+                @Html.TextBoxFor(s => (s.SoyAd), new { })
+                @Html.ValidationMessageFor(s => s.SoyAd)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.PlaceOfBirth</label>
+            <div class="controls">
+                @Html.TextBoxFor(s => (s.DogumYeri), new { })
+                @Html.ValidationMessageFor(s => s.DogumYeri)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.FatherName</label>
+            <div class="controls">
+                @Html.TextBoxFor(s => (s.BabaAdi), new { })
+                @Html.ValidationMessageFor(s => s.BabaAdi)
+            </div>
+        </div>
+    </div>
+</div>

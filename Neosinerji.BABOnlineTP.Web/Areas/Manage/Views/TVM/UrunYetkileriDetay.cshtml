@@ -1,0 +1,261 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using Neosinerji.BABOnlineTP.Business.Common
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Database.Models
+@model TVMUrunYetkileriModel_Detay
+
+@{
+    bool guncellemeYetkisi = false;
+
+    List<KullaniciYetkiModel> sekmeler = ViewBag.Sekmeler;
+    KullaniciYetkiModel sekme = sekmeler.Where(s => s.SekmeKodu == menu.AltMenuSekmeler.TVMUrunYetkileri).FirstOrDefault();
+
+    if (sekme != null)
+    {
+        if (sekme.Degistirme == 1)
+        { guncellemeYetkisi = true; }
+    }
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="/Manage/TVM/TVMUrunYetkileriListe">@babonline.TVM_ProductAuth_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Detail<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageStyles
+{
+    @Styles.Render("~/Content/switch")
+}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/dataTable")
+    @Scripts.Render("~/bundles/switch")
+    <script>
+        $(document).ready(function () {
+            $("[rel=tooltip]").tooltip();
+            $("#TVMKodu").tvmfinder();
+            $("#form0").submit(function () {
+                $(".switcher").find(":input").switchFix();
+            });
+        });
+    </script>
+
+    <style type="text/css">
+        .aciklama {
+            display: block;
+            list-style-type: none;
+            line-height: 15px;
+            margin: 5px 0 3px 6px;
+            float: left;
+            text-align: center;
+            font-size: 12px;
+            width: 100px;
+        }
+
+        .menuler {
+            font-size: small;
+            list-style-type: none;
+        }
+
+        .anamenu-ismi {
+            float: left;
+            font-size: 20px;
+            color: blue;
+        }
+
+        .altmenu-ismi {
+            float: left;
+            font-size: 14px;
+            color: maroon;
+            width: 100px;
+        }
+
+        .sekme-ismi {
+            float: left;
+            font-size: 14px;
+        }
+
+        .buton-container {
+            margin-left: 100px;
+            display: block;
+            list-style-type: none;
+            float: none;
+        }
+
+        .buton-container-ana {
+            margin-top: 0px;
+        }
+
+        .custom {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .ozel-label {
+            font-size: medium;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .div-evet-hayir {
+            float: left;
+            padding-left: 20px;
+            padding-right: 8px;
+            width: 77px;
+        }
+    </style>
+
+}
+
+<div class="row-fluid" style="min-width: 997px;">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey " style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-reorder"></i>@babonline.Authority_Info</div>
+                        @if (guncellemeYetkisi)
+                        {
+                            <div class="actions">
+                                <a href="/Manage/TVM/UrunYetkileriGuncelle/@Model.TVMKodu" class="btn yellow"><i class="icon-pencil">&nbsp;</i> @babonline.Update</a>
+                            </div>
+                        }
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVM_Name</label>
+                                <div class="controls">
+                                    <label class="control">@Model.TVMAdi</label>
+                                </div>
+                            </div>
+                            <br />
+                            <ul class="nav nav-list item-summary">
+                                <li class="nav-header">
+                                    <div style="width: 885px; padding-left: 100px;">
+                                        <label class="aciklama">@babonline.Proposal</label>
+                                        <label class="aciklama">@babonline.Policy</label>
+                                        <label class="aciklama">@babonline.Report</label>
+                                        <label class="aciklama">@babonline.Manual_Transfer</label>
+                                        <label class="aciklama">@babonline.Manual_Integration</label>
+                                        <label class="aciklama">@babonline.CreditCard_Collection</label>
+                                        <label class="aciklama">@babonline.Account_Collection_real</label>
+                                        <label class="aciklama">@babonline.Account_Collection_judical</label>
+                                        <br />
+                                    </div>
+                                </li>
+                            </ul>
+                            <br />
+                            <div id="accordion" class="accordion" style="width: 1000px;">
+                                @if (Model.TUMUrunList != null)
+                                {
+                                    foreach (var bab in Model.BabOnlineUrunListesi)
+                                    {
+                                        <div class="accordion-group">
+                                            <div class="accordion-heading">
+                                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu-1" href="#menu-@bab.Value">@bab.Text</a>
+                                            </div>
+                                            <div id="menu-@bab.Value" class="accordion-body collapse">
+                                                <div class="accordion-inner">
+                                                    @foreach (var item in Model.TUMUrunList.Where(m => m.BabOnlineUrunKodu.ToString() == bab.Value))
+                                                    {
+
+                                                        <div class="row-fluid">
+                                                            <div class="">
+                                                                <label style="color: #0D638F;">@item.TUMUnvani</label>
+                                                            </div>
+                                                            <div class="altmenu-ismi">
+                                                                <label>@item.TUMUrunAdi</label>
+                                                            </div>
+                                                            <div class="div-evet-hayir">
+                                                                @if (item.Teklif == true)
+                                                                {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                else
+                                                                { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                            </div>
+
+                                                            <div class="div-evet-hayir">
+                                                                @if (item.Police == true)
+                                                                {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                else
+                                                                { <span class="label label-important ozel-label">@babonline.No</span> }
+
+                                                            </div>
+                                                            <div class="div-evet-hayir">
+                                                                @if (item.Rapor == true)
+                                                                {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                else
+                                                                { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                            </div>
+                                                            <div class="div-evet-hayir">
+                                                                @if (item.ManuelHavale == true)
+                                                                {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                else
+                                                                { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                            </div>
+                                                            <div class="div-evet-hayir">
+                                                                @if (item.HavaleEntegrasyon == true)
+                                                                {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                else
+                                                                { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                            </div>
+                                                            <div class="div-evet-hayir">
+                                                                @if (item.KrediKartiTahsilat == true)
+                                                                {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                else
+                                                                { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                            </div>
+                                                            <div class="div-evet-hayir">
+                                                                @if (item.AcikHesapTahsilatGercek == true)
+                                                                {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                else
+                                                                { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                            </div>
+                                                            <div class="div-evet-hayir">
+                                                                @if (item.AcikHesapTahsilatTuzel == true)
+                                                                {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                else
+                                                                { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                <br />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

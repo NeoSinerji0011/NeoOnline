@@ -1,0 +1,65 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model List<Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.NeoConnectTvmSirketYetkileriModels>
+
+<script>
+    $(document).ready(function () {
+        var webservisKullanicilariTable;
+        function webservisKullanicilariTableSet() {
+            webservisKullanicilariTable = $('#neoconnecttvmsirketkullanicilari-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        webservisKullanicilariTableSet();
+    });
+</script>
+
+<table id="neoconnecttvmsirketkullanicilari-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width:20%;">@babonline.TUM_Title</th>
+            <th>Satış Kanalı</th>
+            <th>Durum</th>
+            <th style="width: 50px;">&nbsp;</th>
+            <th style="width: 40px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TUMUnvan</td>
+                <td>@item.TVMUnvan</td>
+                @*<td>@item.TVMKodu</td>*@
+                  @if (@item.Durum == 1)
+                {
+                    <td>
+                        Aktif
+                    </td>
+
+                }
+                else
+                {
+                    <td>
+                        Pasif
+                    </td>
+                }
+
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" kayit-id="@item.Id" class="btn btn-mini btn-info edit-neotvmsirket">@babonline.Edit</a>
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" tvm-kodu="@item.TVMKodu" tum-kodu="@item.TUMKodu" kayit-id="@item.Id" class="btn btn-mini btn-danger delete-neotvmsirket">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

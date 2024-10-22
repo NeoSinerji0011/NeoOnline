@@ -1,0 +1,87 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Police.Models.PoliceDokumanModel
+
+<script>
+    $(document).ready(function () {
+
+    });
+    $("#dokuman-kaydet-btn").click(function () {
+        $("#dokuman-kaydet-btn").button("loading");
+        var contents = new FormData($("#police-dosya-kayit-form").get(0));
+        var policeId = $("#PoliceId").val();
+        contents.set('PoliceId', policeId);
+        $.ajax(
+            {
+                type: "POST",
+                url: "/Police/Police/PoliceDosyaKayitEt",
+                data: contents,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function (data) {
+                    $("#dokuman-kaydet-btn").button("reset");
+                    if (data.HataMesaji == "Dosya Kayıt İşlemi Başarılı.") {
+                        swal({
+                            title: "Dosya Kayıt bilgilendirme!",
+                            text: data.HataMesaji,
+                            type: "success",
+                            showCancelButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Tamam",
+                            closeOnConfirm: false
+                        },
+                            function (isConfirm) {
+                                if (isConfirm) {
+                                    window.location.href = "/Police/Police/PoliceDokuman/" + policeId;
+                                }
+                            });
+                    } else {
+                        swal("Dosya Kayıt bilgilendirme!", "Bir Hata Oluştu.");
+                    }
+
+                },
+                error: function () {
+                    swal("Dosya Kayıt bilgilendirme!", data.HataMesaji,"warning");
+                    $("#dokuman-kaydet-btn").button("reset");
+                }
+            });
+    });
+</script>
+
+<div id="DokumanEkle-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>@babonline.Document Kaydet</h3>
+    </div>
+    <div class="modal-body">
+        <form id="police-dosya-kayit-form" class="form-horizontal">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.File_Name<span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.DokumanAdi, new { maxlength = 250, autocompletetype = "disabled", style = "width:200px;" })
+                            @Html.ValidationMessageFor(m => m.DokumanAdi)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Document<span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.Dokuman, null, new { type = "file", @class = "input-file", @style = "width: 300px; font-size:medium" })
+                            @Html.ValidationMessageFor(m => m.Dokuman)
+                        </div>
+                    </div>
+                    <div class="control-group" hidden>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.PoliceId, null, new { @style = "width: 500px; font-size:medium" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="#" class="btn btn-success" id="dokuman-kaydet-btn" data-loading-text="Kayıt Ediliyor..">@babonline.Save</a>
+    </div>
+</div>

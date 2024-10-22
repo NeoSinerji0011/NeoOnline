@@ -1,0 +1,118 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Muhasebe.Models
+
+@model KarsiCariHareketEkleModel
+
+<script type="text/javascript">
+
+               // var hareketId = $(this).attr("cariHareketId");
+
+
+</script>
+
+<h4 class="form-section karsiHareketBilgileri" style="display:none">@babonline.CounterTransactionEntry</h4>
+<div class="row-fluid karsiHareketBilgileri" style="display:none; padding-top: 10px;">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.SearchCurrentAccountName<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.KarsiCariHesapAdi, new { minlength = 3, maxlength = 30, style = "width:50%", placeHolder = babonline.EnterCurrentAccountName })
+                @Html.ValidationMessageFor(m => m.KarsiCariHesapAdi)
+                <button class="btn btn-info " id="karsiCariHesapAra" type="button" data-loading-text="@babonline.Searching">@babonline.Search</button><br />
+
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.CurrentAccount  <span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.KarsiCariHesapKodu, Model.KarsiCariHesapList, new { style = "width:50%", required = "required" })
+                @Html.ValidationMessageFor(m => m.KarsiCariHesapKodu)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.DocumentType<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.KarsiEvrakTipi, Model.KarsiEvrakTipleri, new { style = "width:50%" })
+                @Html.ValidationMessageFor(m => m.KarsiEvrakTipi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Debt/@babonline.Receivables<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.BorcAlacakTipi, Model.BorcAlacakTipler, new { style = "width:50%" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.DocumentNumber</label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.KarsiEvrakNo, new { maxlength = 30, style = "width:50%" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Description</label>
+            <div class="controls">
+                @Html.TextAreaFor(s => s.Aciklama, new { maxlength = 100, style = "width:50%" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Amount<span class="span_parabirimi"></span></label>
+            <div class="controls">
+                <div class="input-prepend input-append">
+                    @Html.TextBoxFor(s => s.Tutar, new { @class = "m-wrap autoNumeric-custom", style = "width:90px; text-align:right;border-right: solid !important; border-right-width: 1px!important;border-right-color: #e5e5e5 !important;", tabindex = "14", disabled = "disabled" }) @*<span class="add-on simge-tl">&#8378;</span>*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+
+        <div class="control-group">
+            <label class="control-label">@babonline.CurrentTransaction @babonline.DocumentDate<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(s => s.CariHareketTarihi, new { required = "required" })
+                @Html.ValidationMessageFor(m => m.CariHareketTarihi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.ExpiryDate<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(s => s.OdemeTarihi, new { required = "required" })
+                @Html.ValidationMessageFor(m => m.OdemeTarihi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.PaymentType<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.OdemeTipi, Model.OdemeTipleri, new { style = "width:50%" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Currency<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.DovizTipi, Model.KarsiDovizTipleri, new { style = "", @class = "" })
+            </div>
+        </div>
+        <div class="control-group" id="KarsiCari_dovizKur">
+            <label class="control-label">@babonline.Currency_Exchange<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.DovizKuru, new { @class = "m-wrap autoNumeric-dovizKur", placeholder = "1.000,0000" })
+            </div>
+        </div>
+        @*<div class="control-group" id="KarsiCari_dovizTutar">
+            <label class="control-label">Döviz Tutar<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.DovizTutari, new { @class = "m-wrap autoNumeric-custom" })
+            </div>
+        </div>*@
+    </div>
+</div>
+<div class="form-actions karsiHareketBilgileri" style="display:none" id="KarsiKayitEtmeButonlari">
+    <a id="karsiHareketKaydet" class="btn green button-submit" href="javascript:;" data-loading-text="@babonline.Saving..">
+        @babonline.Save <i class="m-icon-swapright m-icon-white"></i>
+    </a>
+    <a class="btn" href="#" id="hareketIptal">@babonline.Cancel</a>
+</div>
+<div class="form-actions" id="KarsikayitEdildi" style="display:none">
+    <label class="control-group"><img src="~/Content/img/yesiltik.png" style="width: 2.7%" /> @babonline.CurrentTransactionSavedSuccessfully.</label>
+</div>
+

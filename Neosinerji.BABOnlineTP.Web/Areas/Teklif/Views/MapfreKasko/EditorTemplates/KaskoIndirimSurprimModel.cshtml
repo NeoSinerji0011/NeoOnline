@@ -1,0 +1,19 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model KaskoIndirimSurprimModel
+
+<div class="control-group">
+    <label class="control-label">@babonline.DiscountOptions</label>
+    <div class="controls" style="width:100px;">
+        @Html.DropDownListFor(m => m.IndirimTipi, Model.IndirimTipleri)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.Ratio</label>
+    <div class="controls" style="width:100px;">
+        <div class="input-prepend">
+            <span class="add-on">%</span> @Html.TextBoxFor(s => s.IndirimOrani, new { @class = "m-wrap onlynumbers", style = "width:40px; text-align:right", maxlength=2 })
+        </div>
+    </div>
+</div>

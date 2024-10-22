@@ -1,0 +1,29 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model UrunModel
+
+<table id="vergiler-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 60px;">@babonline.Order</th>
+            <th style="width: 100px;">@babonline.Tax_Code</th>
+            <th>@babonline.Tax_Name</th>
+            <th style="width: 30px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Vergileri)
+        {
+            <tr>
+                <td>@item.SiraNo</td>
+                <td>@item.VergiKodu </td>
+                <td>@item.VergiAdi</td>
+                <td>
+                    <div class="btn-group">
+                        <a href="javascript:void(0)" vergi-kodu="@item.VergiKodu" urun-kodu="@Model.UrunKodu" class="btn btn-mini btn-danger delete-vergi">@babonline.Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

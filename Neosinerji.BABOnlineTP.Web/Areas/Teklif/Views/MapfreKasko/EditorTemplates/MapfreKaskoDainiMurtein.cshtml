@@ -1,0 +1,51 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model MapfreKaskoDainiMurtein
+
+
+<div class="control-group">
+    <label class="control-label">@babonline.DainiMurtein</label>
+    <div class="controls">
+        @Html.SwitchButtonFor(m => m.DainiMurtein, new string[] { "VAR", "YOK" }, new { })
+    </div>
+</div>
+<div id="dainimurtein" style="display:none;">
+    <div class="control-group">
+        <label class="control-label">@babonline.TaxNumber</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.KimlikNo, new { maxlength=10, autocompletetype="off", @class="onlynumbers ignore" })
+            <button class="btn btn-primary" id="btn-daini-sorgula" data-loading-text="@babonline.QueryIndicator" type="button">@babonline.Query</button>
+            <div id="daini-sorgu-hata" style="display: none; color: #b94a48;"></div>
+            @Html.ValidationMessageFor(m => m.KimlikNo)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Unvan</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.Unvan, new { disabled="disabled", maxlength=100, autocompletetype="off", @class="input-xxlarge ignore" })
+            @Html.ValidationMessageFor(m => m.Unvan)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Kurum Tipi</label>
+        <div class="controls">
+            @Html.DropDownListFor(m => m.KurumTipi, Model.KurumTipleri, new {@class="input-xxlarge ignore" })
+            @Html.ValidationMessageFor(m => m.KurumTipi)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Kurum</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.KurumKodu1, new { style = "width:60px;margin-right:10px;", @class="onlynumbers ignore" })
+            @Html.DropDownListFor(m => m.KurumKodu, Model.Kurumlar, "[SEÇİNİZ]", new {@class="input-xxlarge ignore" })
+            @Html.ValidationMessageFor(m => m.KurumKodu)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Şube Kodu</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.SubeKodu, new { style="width:100px;"} )
+        </div>
+    </div>
+</div>

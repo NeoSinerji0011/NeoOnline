@@ -1,0 +1,19 @@
+﻿@model Neosinerji.BABOnlineTP.Web.Models.TelefonModel
+
+<div>
+    @Html.TextBoxFor(m => m.UluslararasiKod, new { style = "width:17px", maxlength = 3, autocompletetype = "disabled", @class = "disabled", disabled = "disabled" })
+    <span>-</span>
+    @Html.TextBoxFor(m => m.AlanKodu, new { style = "width:25px", maxlength = 3, autocompletetype = "disabled", onkeyup = "telefonAlanKoduChange(this);", @class = "onlynumbers" })
+    @Html.TextBoxFor(m => m.Numara, new { style = "width:60px", maxlength = 7, autocompletetype = "disabled", @class = "onlynumbers" })
+</div>
+
+
+@*<script>
+    $(document).ready(function () {
+        //SAdece Rakam girilebilecek Alanlar için
+        $('.onlynumbers').bind('input propertychange', function () {
+            var filteredText = $(this).val().replace(/[^\d]/gi, '');
+            $(this).val(filteredText);
+        });
+    });
+</script>*@

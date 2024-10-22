@@ -1,0 +1,42 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model MapfreKaskoDMKurumModel
+
+<div class="control-group">
+    <label class="control-label">@babonline.DainiMurtein</label>
+    <div class="controls">
+        @Html.SwitchButtonFor(m => m.DainiMurtein, new string[] { "VAR", "YOK" }, new { })
+    </div>
+</div>
+<div id="dainimurtein" style="display:none;">
+    <div class="control-group">
+        <label class="control-label">Kurum Tipi</label>
+        <div class="controls">
+            @Html.DropDownListFor(m => m.KurumTipi, Model.KurumTipleri)
+            @Html.ValidationMessageFor(m => m.KurumTipi)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Kurum</label>
+        <div class="controls">
+            @Html.DropDownListFor(m => m.KurumKodu, Model.Kurumlar)
+            @Html.ValidationMessageFor(m => m.KurumKodu)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Şube Kodu</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.SubeKodu, new { style="width:100px;"} )
+        </div>
+    </div>
+    @if(!String.IsNullOrEmpty(Model.KimlikNo))
+    {
+    <div class="control-group">
+        <label class="control-label">Kurum Bilgisi</label>
+        <div class="controls">
+            <span class="text">@Model.KimlikNo @Model.Unvan</span> 
+        </div>
+    </div>
+    }
+</div>

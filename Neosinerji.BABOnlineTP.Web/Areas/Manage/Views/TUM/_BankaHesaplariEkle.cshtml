@@ -1,0 +1,96 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.TUMBankaHesaplariModel
+<script>
+    $(document).ready(function () {
+        //$('#Banka').banka({ Sube: '#Sube' });
+        $("#BankaAdi").change(function () {
+            var banka = $(this).val();
+            if (banka === undefined) return;
+            if ($("#BankaAdi").val() == "")
+                $("#SubeAdi").empty();
+
+            $.get("/Manage/TVM/GetSubeler", { Banka: banka }, function (data) {
+                if (data != null) $("#SubeAdi").dropDownFill(data);
+
+            })
+        });
+    });
+</script>
+
+<div id="bankahesaplari-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        @if (!string.IsNullOrEmpty(Model.BankaAdi))
+        { 
+            <h3>@babonline.Edit</h3>
+        }
+        else
+        {
+            <h3>@babonline.BankAccounts_Add</h3>
+        }
+    </div>
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="bankahesaplari-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="bankahesaplari-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <form id="bankahesaplari-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.HiddenFor(m => m.TUMKodu)
+            @Html.HiddenFor(m => m.SiraNo)
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            @Html.AntiForgeryToken()
+
+             <div class="control-group">
+                <label class="control-label">@babonline.Bank<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.BankaAdi, Model.Bankalar, new { style = "width:220px;" })
+                    @Html.ValidationMessageFor(m => m.BankaAdi)
+                </div>
+            </div>
+           
+            <div class="control-group">
+                <label class="control-label">@babonline.Office<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.SubeAdi, Model.Subeler, new { style = "width:220px;" })
+                    @Html.ValidationMessageFor(m => m.SubeAdi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.AccountNo<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.HesapNo, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.HesapNo)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.AccountName<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.HesapAdi, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.HesapAdi)
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">@babonline.IBAN<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.IBAN, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.IBAN)
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        @if (!string.IsNullOrEmpty(Model.BankaAdi))
+        { 
+            <a href="#" class="btn btn-info" id="bankahesaplari-guncelle-btn">@babonline.Update</a>
+        }
+        else
+        {
+            <a href="#" class="btn btn-success" id="bankahesaplari-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+        }
+    </div>
+</div>

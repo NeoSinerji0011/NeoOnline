@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.Policy" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.Policy" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://previva.unicosigorta.com.tr/Public/PolicyService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" />
+  <xs:import schemaLocation="http://previva.unicosigorta.com.tr/Public/PolicyService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ApplicationBlocks.Common" />
+  <xs:complexType name="ArrayOfPolicy">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Policy" nillable="true" type="tns:Policy" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPolicy" nillable="true" type="tns:ArrayOfPolicy" />
+  <xs:complexType name="Policy">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/ApplicationBlocks.Common" base="q1:BaseEntity">
+        <xs:sequence>
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="AdditionalPersons" nillable="true" type="q2:ADDITIONAL_PERSON_TYPE" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="AllStatistics" nillable="true" type="q3:EXT_WS_POLICE_IST_TYP" />
+          <xs:element minOccurs="0" name="AppSecurityKey" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AssistDiscountAmount" nillable="true" type="xs:decimal" />
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="Authorizations" nillable="true" type="q4:EXT_WS_POLICE_OTOR_TYP" />
+          <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="CoverageLimits" nillable="true" type="q5:ArrayOfEXT_WS_POLICE_TEM_REC" />
+          <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="CoverageLimitsOut" nillable="true" type="q6:EXT_WS_POLICE_TEM_TYP" />
+          <xs:element minOccurs="0" name="DAINI_BANKA" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DAINI_SUBE" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DiscountAmount" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="DiscountRate" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="ExemptionDescription" nillable="true" type="xs:string" />
+          <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="Informations" nillable="true" type="q7:EXT_WS_POLICE_BLG_TYP" />
+          <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="Insured" nillable="true" type="q8:EXT_WS_POLICE_SIGLI_REC" />
+          <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="InsuredBy" nillable="true" type="q9:EXT_WS_POLICE_ETT_REC" />
+          <xs:element minOccurs="0" name="IsRenewalAndPolicyService" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsUavtAddress" type="xs:boolean" />
+          <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="Item" nillable="true" type="q10:EXT_WS_POLICE_REC" />
+          <xs:element minOccurs="0" name="NewGrossPremium" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="ODM" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OnlinePolicyEnabled" type="xs:boolean" />
+          <xs:element minOccurs="0" name="OptionalClause" nillable="true" type="xs:string" />
+          <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="PaymentDetails" nillable="true" type="q11:EXT_WS_TAKSIT_RSP_TYP" />
+          <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="PaymentHeaders" nillable="true" type="q12:EXT_WS_TAKSIT_RSP_TYP" />
+          <xs:element minOccurs="0" name="PolicyStatus" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="QueryAddressNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="QueryIdentityInput" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="QueryIdentityType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="QueryLicencePlate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="QueryLicencePlateType" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="QueryRegistryNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="QueryRegistrySerial" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="QueryRenewAgentNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="QueryRenewFirmNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="QueryRenewNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="QueryRenewPolicyNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RelatedPolicyNumber" nillable="true" type="xs:string" />
+          <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="RiskAddress" nillable="true" type="q13:EXT_WS_MADRESINSERT_REQ_TYP" />
+          <xs:element minOccurs="0" name="SelectedTAHSILAT_KOD" nillable="true" type="xs:string" />
+          <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="Statistics" nillable="true" type="q14:ArrayOfEXT_WS_ISTDEG_REC" />
+          <xs:element minOccurs="0" name="StopCommit" type="xs:boolean" />
+          <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="Taxes" nillable="true" type="q15:EXT_WS_POLICE_VRG_TYP" />
+          <xs:element minOccurs="0" name="TotalCommission" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalCommissionCash" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalGrossPremium" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalGrossPremiumCash" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalPremium" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalPremiumCash" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalTax" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalTaxCash" nillable="true" type="xs:decimal" />
+          <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/EntitySpaces.NonLife.TypeMapping" minOccurs="0" name="UavtRiskAddress" nillable="true" type="q16:NPOL_UAVT_ADDRESS_TAB" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Policy" nillable="true" type="tns:Policy" />
+  <xs:complexType name="Supplement">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q17="http://schemas.datacontract.org/2004/07/ApplicationBlocks.Common" base="q17:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ByPassAuthorization" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Costs" nillable="true" type="tns:ArrayOfSupplementCost" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="IssueDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="PolicyNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PolicyStatus" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="SuppPremiums" nillable="true" type="tns:ArrayOfSupplementPremium" />
+          <xs:element minOccurs="0" name="SupplementNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TariffCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TariffText" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TotalCommission" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalNetPremium" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalPremium" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalReturnGrossPremium" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalReturnGrossPremiumTL" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalReturnNetPremium" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalReturnPremium" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Supplement" nillable="true" type="tns:Supplement" />
+  <xs:complexType name="ArrayOfSupplementCost">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SupplementCost" nillable="true" type="tns:SupplementCost" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSupplementCost" nillable="true" type="tns:ArrayOfSupplementCost" />
+  <xs:complexType name="SupplementCost">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q18="http://schemas.datacontract.org/2004/07/ApplicationBlocks.Common" base="q18:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Adet" type="xs:int" />
+          <xs:element minOccurs="0" name="AdetMdhl" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="AdetValid" type="xs:int" />
+          <xs:element minOccurs="0" name="Adetmanuel" type="xs:int" />
+          <xs:element minOccurs="0" name="Aeb" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AracBedel" type="xs:decimal" />
+          <xs:element minOccurs="0" name="AracEskiBedel" type="xs:decimal" />
+          <xs:element minOccurs="0" name="AracOrjBedel" type="xs:decimal" />
+          <xs:element minOccurs="0" name="AtlaDurum" type="xs:int" />
+          <xs:element minOccurs="0" name="B5Sec" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Bedel" type="xs:decimal" />
+          <xs:element minOccurs="0" name="BedelArttir" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BedelIstKod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BedelMdhl" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="BedelValid" type="xs:int" />
+          <xs:element minOccurs="0" name="Brans" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Dvz" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DvzKur" type="xs:decimal" />
+          <xs:element minOccurs="0" name="DvzKurMdhl" type="xs:int" />
+          <xs:element minOccurs="0" name="DvzKurTemSon" type="xs:decimal" />
+          <xs:element minOccurs="0" name="DvzMdhl" type="xs:int" />
+          <xs:element minOccurs="0" name="Eski" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EskiAdet" type="xs:int" />
+          <xs:element minOccurs="0" name="EskiBedel" type="xs:decimal" />
+          <xs:element minOccurs="0" name="EskiDeger" type="xs:decimal" />
+          <xs:element minOccurs="0" name="FarkAdet" type="xs:int" />
+          <xs:element minOccurs="0" name="FiyatDegisim" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="GecKur" type="xs:decimal" />
+          <xs:element minOccurs="0" name="IlkSecim" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Kay" type="xs:int" />
+          <xs:element minOccurs="0" name="KontrolBedel" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Mdhl" type="xs:int" />
+          <xs:element minOccurs="0" name="OncAdet" type="xs:int" />
+          <xs:element minOccurs="0" name="OpId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OrnPage14" type="xs:int" />
+          <xs:element minOccurs="0" name="Pol" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Property" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Renk" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Sessionid" type="xs:int" />
+          <xs:element minOccurs="0" name="SystemCursorRecord" type="xs:int" />
+          <xs:element minOccurs="0" name="Tarih" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="TeminatAdi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TeminatKod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TeminatVk" type="xs:int" />
+          <xs:element minOccurs="0" name="TotalTl" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalTlMdhl" type="xs:int" />
+          <xs:element minOccurs="0" name="TotalTlTemSon" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TotalYtl" type="xs:decimal" />
+          <xs:element minOccurs="0" name="X1Otor" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SupplementCost" nillable="true" type="tns:SupplementCost" />
+  <xs:complexType name="ArrayOfSupplementPremium">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SupplementPremium" nillable="true" type="tns:SupplementPremium" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSupplementPremium" nillable="true" type="tns:ArrayOfSupplementPremium" />
+  <xs:complexType name="SupplementPremium">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q19="http://schemas.datacontract.org/2004/07/ApplicationBlocks.Common" base="q19:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Aeb" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Asagi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Bedel8" type="xs:decimal" />
+          <xs:element minOccurs="0" name="BrutPrim" type="xs:decimal" />
+          <xs:element minOccurs="0" name="CK" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Eski" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EskiDeger" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Fiyat" type="xs:decimal" />
+          <xs:element minOccurs="0" name="GolgeMatrah" type="xs:int" />
+          <xs:element minOccurs="0" name="GolgeOrtFiyat" type="xs:decimal" />
+          <xs:element minOccurs="0" name="GolgePrim" type="xs:decimal" />
+          <xs:element minOccurs="0" name="IndIstDeg1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IndIstDeg2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IndIstDeg3" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IndIstKod1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IndIstKod2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IndIstKod3" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Matrah" type="xs:int" />
+          <xs:element minOccurs="0" name="Mdhl" type="xs:int" />
+          <xs:element minOccurs="0" name="Meblag" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Muafiyet" type="xs:decimal" />
+          <xs:element minOccurs="0" name="MustFiyatIstgrpKod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NetPrim" type="xs:decimal" />
+          <xs:element minOccurs="0" name="NetPrimTl" type="xs:decimal" />
+          <xs:element minOccurs="0" name="NetPrimYtl" type="xs:decimal" />
+          <xs:element minOccurs="0" name="OpId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OrtFiyat" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Prim" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Renk" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Sessionid" type="xs:int" />
+          <xs:element minOccurs="0" name="SurpIstDeg1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SurpIstDeg2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SurpIstDeg3" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SystemCursorRecord" type="xs:int" />
+          <xs:element minOccurs="0" name="Tarih" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="TeminatAdi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TeminatKod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TeminatVk" type="xs:int" />
+          <xs:element minOccurs="0" name="Yukari" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SupplementPremium" nillable="true" type="tns:SupplementPremium" />
+  <xs:complexType name="ArrayOfPlakaDetailsService">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlakaDetailsService" nillable="true" type="tns:PlakaDetailsService" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPlakaDetailsService" nillable="true" type="tns:ArrayOfPlakaDetailsService" />
+  <xs:complexType name="PlakaDetailsService">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q20="http://schemas.datacontract.org/2004/07/ApplicationBlocks.Common" base="q20:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ACENTA_NO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BASLAMA_TARIH" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="BITIS_TARIH" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="CARI_POL_NO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TANZIM_TARIH" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="TECDIT_NO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ZEYL_AD" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ZEYL_SIRA_NO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ZEYL_TURU" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PlakaDetailsService" nillable="true" type="tns:PlakaDetailsService" />
+</xs:schema>

@@ -1,0 +1,128 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.TVMWebServisKullanicilariModel
+
+<script>
+
+    $("#TUMKodu").change(function () {
+        //Anadolu Sigorta ise Swap Kullanıcı Bilgi Giriş Ekranı açılıyor
+        if ($(this).val() == 4) {
+            $("#anadolu-ozel").show();
+            $(".axa-ozel").hide();
+        }
+        else if($(this).val() == 2)
+        {
+            $(".axa-ozel").show();
+            $("#anadolu-ozel").hide();
+        }
+        else {
+            $("#anadolu-ozel").hide();
+            $(".axa-ozel").hide();
+        }
+        
+    });
+
+
+</script>
+
+<div id="webserviskullanici-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        @if (Model.TUMKodu > 0)
+        {
+            <h3>@babonline.Edit</h3>
+        }
+        else
+        {
+            <h3>@babonline.TVMWebServiceUser_Add</h3>
+        }
+    </div>
+
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="departman-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="departman-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <form id="webserviskullanici-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            @Html.HiddenFor(m => m.TVMKodu)
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_Code</label>
+                <div class="controls">
+                    @Html.TextBox("WSTVMKodu", Model.TVMKodu, new { autocompletetype = "disabled", disabled = "true" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TUM_Code <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.TUMKodu, Model.TUMListesi)
+                    @Html.ValidationMessageFor(m => m.TUMKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><span class="axa-ozel">Poliçe Trans. Kullanıcı</span> @babonline.TVMUser_Name</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.KullaniciAdi, new { autocompletetype = "disabled", style = "width:150px;" })
+                    @Html.ValidationMessageFor(m => m.KullaniciAdi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"><span class="axa-ozel">Poliçe Trans. Kullanıcı</span> @babonline.Password</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Sifre, new { autocompletetype = "disabled", style = "width:150px;" })
+                    @Html.ValidationMessageFor(m => m.Sifre)
+                </div>
+            </div>
+            <div id="anadolu-ozel" style="display: none;">
+                <div class="control-group">
+                    <label class="control-label">SWAP @babonline.TVMUser_Name</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.KullaniciAdi2, new { autocompletetype = "disabled", style = "width:150px;" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">SWAP @babonline.Password</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Sifre2, new { autocompletetype = "disabled", style = "width:150px;" })
+                    </div>
+                </div>
+            </div>
+            <div class="axa-ozel" style="display: none;">
+                <div class="control-group">
+                    <label class="control-label">Teklif/Police Kullanıcı @babonline.TVMUser_Name</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.KullaniciAdi2, new { autocompletetype = "disabled", style = "width:150px;" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Teklif/Police Kullanıcı @babonline.Password</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Sifre2, new { autocompletetype = "disabled", style = "width:150px;" })
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Partaj No</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.PartajNo_, new { autocompletetype = "disabled", style = "width:150px;" })
+                    @Html.ValidationMessageFor(m => m.PartajNo_)
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        @if (Model.TUMKodu > 0)
+        {
+            <a href="#" class="btn btn-success" id="wskullanici-guncelle-btn">@babonline.Edit</a>
+        }
+        else
+        {
+            <a href="#" class="btn btn-success" id="wskullanici-ekle-btn">@babonline.Save</a>
+        }
+    </div>
+</div>

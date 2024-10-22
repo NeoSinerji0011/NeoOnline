@@ -1,0 +1,557 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.PoliceTransfer.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model PoliceTransferModel
+
+<link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+<script src="~/Content/Angular/js/sweetalert.min.js"></script>
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        @* <li>
+                <a href="/Musteri/Musteri/Liste">@babonline.Customer_Search<span></span></a>
+            </li>*@
+        <li class="active">
+            <a href="#">@babonline.PolicyTransfer<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <style type="text/css">
+
+        .form-horizontal .control-label {
+            width: 170px !important;
+        }
+    </style>
+
+}
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/switch")
+    <script src="@Url.Content("~/Content/js/PoliceTransfer/PoliceTransfer.js")" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <script type="text/javascript">
+
+        function showInfoSweetAlert(title, text = "", showConfirmButton = false, imageUrl = null) {
+            Swal.fire({
+                title: title,
+                text: text,
+                type: "info",
+                imageUrl: imageUrl,
+                showCancelButton: false,
+                imageWidth: 32,
+                imageHeight: 32,
+                showConfirmButton: showConfirmButton,
+                closeOnConfirm: false,
+                allowOutsideClick: false
+            });
+        }
+
+        function updateSweetAlertText(title, text) {
+            Swal.getTitle().textContent = title;
+            Swal.getContent().textContent = text;
+        }
+
+        function showConfirmSweetAlert(title, text) {
+            Swal.fire({
+                title: title,
+                html: text,
+                type: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Tamam",
+                closeOnConfirm: true
+            });
+        }
+
+        function showErrorSweetAlert(title, text) {
+            Swal.fire({
+                title: title,
+                text: text,
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Tamam",
+                closeOnConfirm: true
+            });
+        }
+
+        function parseDate(str) {
+            var mdy = str.split('.');
+            return new Date(mdy[2], mdy[1] - 1, mdy[0]);
+        }
+
+
+        function daysBetweenDates(first, second) {
+            return Math.round((second - first) / (1000 * 60 * 60 * 24));
+        }
+
+        $(".policeyukle").click(function () {
+
+            var seciliSirket = $("#SigortaSirketiKodu").val();
+
+
+             var tahTip = $('input[name="TahsilatDosyasiVarmi2"]:checked').val();
+            if (tahTip == 1) {
+
+               if ($("#tahsilatFile").val() == '') {
+                    Swal.fire({
+                        title: "Uyarı",
+                        text: "Tahsilat Dosyasını Seçiniz",
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Tamam",
+                        closeOnConfirm: true
+                    }); 
+                    return;
+            }
+
+
+        }
+            else
+
+           
+            $("#policeyukle-progress").show();
+            policeKayit.DosyaGonder();
+
+
+        });
+        $("#policeKaydet").click(function () {
+
+            var beginDate = parseDate($("#TanzimBaslangicTarihi").val());
+            var endDate = parseDate($("#TanzimBitisTarihi").val());
+            var selectedInsuranceCompanyCode = $("#AutoPoliceTransferSirketiKodu").val();
+
+             var tahTip = $('input[name="TahsilatDosyasiVarmi"]:checked').val();
+            if (tahTip == 1) {
+
+              if ($("#tahsilatFile").val() == '') {
+                    Swal.fire({
+                        title: "Uyarı",
+                        text: "Tahsilat Dosyasını Seçiniz",
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Tamam",
+                        closeOnConfirm: true
+                    }); 
+                    return;
+                }
+                }
+            if (selectedInsuranceCompanyCode === "054") { // HDI
+                if (daysBetweenDates(beginDate, endDate) > 7) {
+                    showErrorSweetAlert("Hata", "HDI için seçilen tarih aralığı 7 günden fazla olamaz.");
+                    return;
+                }
+            }
+           
+
+            ////buraya tahsilat dosya uyarısı olacak
+            policeKayit.otomatikPoliceKaydet();
+
+        });
+
+        $('#TransferTipi').on('change', function () {
+            var sirketKodu = document.getElementById("AutoPoliceTransferSirketiKodu").value
+            var transferTipi = document.getElementById("TransferTipi").value
+              $("#tah_div").css("display", "block")
+            if (sirketKodu == "054" && transferTipi == "1") {
+                $("#policeKaydet").css("display", "none");
+                $("#span_hdi_aciklama").css("display", "block");
+            }
+            else if (transferTipi == "1") {
+                     $("#tah_div").css("display", "none")
+                    $("#div_tahsilatfile").css("display","none")
+
+            }
+
+            else {
+                $("#policeKaydet").css("display", "inline-block");
+                $("#span_hdi_aciklama").css("display", "none");
+            }
+        });
+
+        $(document).ready(function () {
+            var islemTip = $('input[name="IslemTipi"]:checked').val();
+            if (islemTip == 0) {
+                $(".otomatik").hide();
+                $(".dosyadan").show();
+
+                $("#AutoPoliceTransferSirketiKodu").addClass("ignore");
+                $("#TanzimBaslangicTarihi").addClass("ignore");
+                $("#TanzimBitisTarihi").addClass("ignore");
+                $("#TransferTipi").addClass("ignore");
+            }
+            else if (islemTip == 1) {
+                $(".otomatik").show();
+                $(".dosyadan").hide();
+
+                $("#AutoPoliceTransferSirketiKodu").removeClass("ignore");
+                $("#TanzimBaslangicTarihi").removeClass("ignore");
+                $("#TanzimBitisTarihi").removeClass("ignore");
+                $("#TransferTipi").removeClass("ignore");
+            }
+
+        });
+
+        $('input[name="TahsilatDosyasiVarmi"]').change(function () {
+            var value = $(this).val();
+            if (value == 0) {
+                $("#div_tahsilatfile").css("display", "none")
+            }
+            if (value == 1) {
+                $("#div_tahsilatfile").css("display", "block")
+            }
+        });
+        $('input[name="TahsilatDosyasiVarmi2"]').change(function () {
+            var value = $(this).val();
+            if (value == 0) {
+                $("#div_tahsilatfile2").css("display", "none")
+            }
+            if (value == 1) {
+                $("#div_tahsilatfile2").css("display", "block")
+            }
+        });
+
+        $('input[name="IslemTipi"]').change(function () {
+            var islemTip = $(this).val();
+            if (islemTip == 0) {
+                $(".otomatik").hide();
+                $(".dosyadan").show();
+
+                var qwe = '<input type="file" id="tahsilatFile" name="tahsilatFile" style="width: 300px;">'
+                $("#div_file").html(qwe)
+                $("#div_file2").html("")
+                $(".axa-ozel").hide();
+                $("#AutoPoliceTransferSirketiKodu").addClass("ignore");
+                $("#TanzimBaslangicTarihi").addClass("ignore");
+                $("#TanzimBitisTarihi").addClass("ignore");
+                $("#TransferTipi").addClass("ignore");
+            }
+            else if (islemTip == 1) {
+                $(".otomatik").show();
+                $(".dosyadan").hide();
+
+
+                var qwe = '<input type="file" id="tahsilatFile" name="tahsilatFile" style="width: 300px;">'
+                $("#div_file").html("")
+                $("#div_file2").html(qwe)
+                 $("#div_tahsilatfile2").css("display", "none")
+
+                $("#AutoPoliceTransferSirketiKodu").removeClass("ignore");
+                $("#TanzimBaslangicTarihi").removeClass("ignore");
+                $("#TanzimBitisTarihi").removeClass("ignore");
+                $("#TransferTipi").removeClass("ignore");
+            }
+        });
+
+         
+
+        $("#AutoPoliceTransferSirketiKodu").change(function () {
+            $("#TransferTipi").css('pointer-events', 'auto');
+            var sirketKodu = $(this).val();
+            $("#rd_tahsilathayir").click()
+            $("#tah_div").css("display", "block")
+            if (sirketKodu == "054") {
+                $("#Hdi-uyari").show();
+                $(".axa-ozel").hide();
+                $("#TransferTipi").css('pointer-events', 'none');
+                $("#TransferTipi").val(0)
+
+            }
+            else if (sirketKodu == "040") {
+                $(".axa-ozel").show();
+                $("#TransferTipi").css('pointer-events', 'none');
+                $("#TransferTipi").val(0)
+            }
+            else if (sirketKodu == "050") {
+
+                $(".axa-ozel").hide();
+                // if (transferTipi == 1) {
+                //    $("#tah_div").css("display", "none")
+                //    $("#div_tahsilatfile").css("display","none")
+                //}
+            }
+            else if (sirketKodu == "109") {
+                $("#TransferTipi").css('pointer-events', 'none');
+                $("#TransferTipi").val(0)
+                 $(".axa-ozel").hide();
+            }
+                 else if (sirketKodu == "104") {
+                $("#TransferTipi").css('pointer-events', 'none');
+                $("#TransferTipi").val(0)
+                 $(".axa-ozel").hide();
+            }
+            else {
+                $("#Hdi-uyari").hide();
+                $(".axa-ozel").hide();
+            }
+        });
+
+        $("#TaliAcenteKodu").change(function () {
+
+            if ($("#TaliAcenteKodu").val() != "" && $("#TaliAcenteKodu") != null) {
+                $("#altkaynak-uyari").show();
+            }
+            else {
+                $("#altkaynak-uyari").hide();
+            }
+            //var tvmKodu = $(this).val();
+            //$.ajax({
+            //    timeout: 190000000,
+            //    method: "post",
+            //    url: "/PoliceTransfer/PoliceTransfer/UzerindenPoliceTransferYapiliyorMu",
+            //    data: { tvmKodu: tvmKodu },
+            //    success: function (res) {
+            //        if (res) {
+            //            $("#altkaynak-uyari").show();
+            //        }
+            //        else {
+            //            $("#altkaynak-uyari").hide();
+            //        }
+            //    },
+            //    error: function () { alert("Bir hata oluştu") }
+            //});
+        });
+        $("#TaliAcenteKoduOtomatik").change(function () {
+            if ($("#TaliAcenteKoduOtomatik").val() != "" && $("#TaliAcenteKoduOtomatik") != null) {
+                $("#altkaynak-uyari").show();
+            }
+            else {
+                $("#altkaynak-uyari").hide();
+            }
+
+            //var tvmKodu = $(this).val();
+            //$.ajax({
+            //    timeout: 190000000,
+            //    method: "post",
+            //    url: "/PoliceTransfer/PoliceTransfer/UzerindenPoliceTransferYapiliyorMu",
+            //    data: { tvmKodu: tvmKodu },
+            //    success: function (res) {
+            //       // alert("Bir hata oluştu")
+            //        if (res) {
+            //            $("#altkaynak-uyari").show();
+            //        }
+            //        else {
+            //            $("#altkaynak-uyari").hide();
+            //        }
+            //    },
+            //    error: function () { alert("Bir hata oluştu") }
+            //});
+        });
+    </script>
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">@babonline.PolicyTransfer</span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @using (Html.BeginForm("PoliceTransfer", "PoliceTransfer", FormMethod.Post, new { @class = "form-horizontal", id = "form-police-transfer", enctype = "multipart/form-data" }))
+                {
+                    Html.EnableClientValidation(true);
+                    @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.StatePolicies</label>
+                                <div class="controls radio-custom">
+                                    @Html.RadioButtonListFor(m => m.IslemTipi, Model.Islemler)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="control-group dosyadan">
+                        <label class="control-label">@babonline.TVM </label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.TaliAcenteKodu, Model.TaliAcenteler, new { style = "width:200px;", @class = "ignore" })
+                        </div>
+                    </div>*@
+
+                    <div class="control-group dosyadan">
+                        <label class="control-label">@babonline.InsuranceCompany <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.SigortaSirketiKodu, Model.SigortaSirketleri, new { style = "width:200px;", @class = "ignore" })
+                            @Html.ValidationMessageFor(m => m.SigortaSirketiKodu)
+                        </div>
+                    </div>
+
+                    <div class="control-group dosyadan">
+                        <label class="control-label"></label>
+                    </div>
+                    <div class="control-group dosyadan">
+                        <label class="control-label">Poliçe Dosyası </label>
+                        <div class="controls">
+                            <input type="file" id="file" name="file" style="width: 300px;" />
+                        </div>
+                    </div>
+                    <div class="control-group dosyadan " >
+                        <label class="control-label">Tahsilat Transferi Yapılacak mı?</label>
+                        <div class="controls radio-custom">
+                            <label>
+                                <input type="radio" name="TahsilatDosyasiVarmi2" value="1" id="rd_tahsilatevet">Evet
+                                <input style="margin-left:5px;" type="radio" name="TahsilatDosyasiVarmi2" checked="checked" value="0">Hayır
+                            </label>
+                        </div>
+                    </div>
+                    <div class="control-group " id="div_tahsilatfile2" style="display: none !important;">
+                        <label class="control-label">Tahsilat Dosyası</label>
+                        <div class="controls" id="div_file">
+                            <input type="file" id="tahsilatFile" name="tahsilatFile" style="width: 300px;" />
+                        </div>
+                    </div>
+                    <div class="row-fluid dosyadan">
+                        <div class="span12">
+                            <label style="color: #f00">AÇIKLAMA </label>
+                            <label style="color: black">
+                                @*@babonline.TVM = Poliçe Transferi yapılacak olan Paylaşımlı Acente.*@@*<br />  <br />*@ Tahsilat kapatma transferi <b style="color: red">EVET </b>olarak seçildiğinde; <br /> Transfer edilen poliçeler Tahsilat Excel dosyasında bulunamaz ise ya da Kredi Kartı numarası Acenteye ait kart ise <b style="color: red"> TAHSİLAT KAPATILMAZ. </b>  <br /> Diğer durumda, Kredi Kartı numarası taksitlere Belge No olarak yazılır,  Müşteri Ödemesi olarak  <b style="color: red"> KAPATILIR. </b>
+                            </label>
+                            @*<label> Tahsilatlarının kapatılmasını istemediğiniz poliçeler için ilgili dosyayı indirmek için lütfen tıklayınız. </label>*@
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span5">
+                            @*<div class="control-group otomatik" style="display: none;">
+                                <label class="control-label">@babonline.TVM </label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.TaliAcenteKoduOtomatik, Model.TaliAcenteler, new { style = "width:70%;", @class = "ignore" })
+                                </div>
+                            </div>*@
+                            <div class="control-group otomatik" style="display: none;">
+                                <label class="control-label">@babonline.InsuranceCompany <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.AutoPoliceTransferSirketiKodu, Model.AutoPoliceTransferSirketleri, new { style = "width:70%;", @class = "ignore" })
+                                    @Html.ValidationMessageFor(m => m.AutoPoliceTransferSirketiKodu)
+                                </div>
+                            </div>
+                            <div class="control-group axa-ozel" style="display: none;">
+                                <label class="control-label">Axa Poliçe Tipi <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.AxaPoliceTipi, Model.AxaPoliceTipleri, new { style = "width:70%;", @class = "ignore" })
+                                </div>
+                            </div>
+                            <div class="control-group otomatik" style="display: none;">
+                                <label class="control-label">Poliçe Transfer Tipi<span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.TransferTipi, Model.TransferTipleri, new { style = "width:70%;" })
+                                    @Html.ValidationMessageFor(m => m.TransferTipi)
+                                </div>
+                            </div>
+                            <div class="control-group otomatik" id="tah_div">
+                                <label class="control-label">Tahsilat Yapılacak mı?</label>
+                                <div class="controls radio-custom">
+                                    <label>
+                                        <input type="radio" name="TahsilatDosyasiVarmi" value="1" id="rd_tahsilatevet">Evet
+                                        <input style="margin-left:5px;" type="radio" name="TahsilatDosyasiVarmi" checked="checked" value="0" id="rd_tahsilathayir">Hayır
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="control-group" style="display: none;" id="div_tahsilatfile">
+                                <label class="control-label">Tahsilat Dosyası <span class="required">*</span></label>
+                                <div class="controls" id="div_file2">
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="span7">
+                            <div class="control-group otomatik" style="display: none;">
+                                <label class="control-label">Tanzim Başlangıç Tarihi <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(m => m.TanzimBaslangicTarihi, new { style = "width:100px" })
+                                    @Html.ValidationMessageFor(m => m.TanzimBaslangicTarihi)
+                                </div>
+                            </div>
+                            <div class="control-group otomatik" style="display: none;">
+                                <label class="control-label">Tanzim Bitiş Tarihi<span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(m => m.TanzimBitisTarihi, new { style = "width:100px" })
+                                    @Html.ValidationMessageFor(m => m.AutoPoliceTransferSirketiKodu)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid otomatik">
+                        <div class="span12">
+                            <label style="color: #f00">AÇIKLAMA </label>
+                            <label style="color: black">
+                                @*@babonline.TVM = Poliçe Transferi yapılacak olan Paylaşımlı Acente.<br />  <br />*@ Tahsilat kapatma transferi <b style="color: red">EVET </b>olarak seçildiğinde; <br /> Transfer edilen poliçeler Tahsilat Excel dosyasında bulunamaz ise ya da Kredi Kartı numarası Acenteye ait kart ise <b style="color: red"> TAHSİLAT KAPATILMAZ. </b>  <br /> Diğer durumda, Kredi Kartı numarası taksitlere Belge No olarak yazılır,  Müşteri Ödemesi olarak  <b style="color: red"> KAPATILIR. </b>
+                            </label>
+                            @*<label> Tahsilatlarının kapatılmasını istemediğiniz poliçeler için ilgili dosyayı indirmek için lütfen tıklayınız. </label>*@
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div id="policeyukle-progress" class="span12" style="padding-bottom: 20px; display: none;">
+                            <div style="margin: 20px auto; width: 500px; text-align: center;">
+                                <h4>@babonline.PleaseWaitLoadingPolicy</h4>
+                            </div>
+                            <div style="margin: 20px auto; width: 500px; text-align: center;">
+                                <img src="/Content/img/loading9.gif" width="32" height="32" title="@babonline.PleaseWaitLoadingPolicy" alt="@babonline.PleaseWaitLoadingPolicy">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions yukle dosyadan">
+                        <button tabindex="19" id="btn-kaydet" type="button" class="btn btn-success policeyukle"><i class="icon-ok">&nbsp;</i>@babonline.Upload</button>
+                        @*<a class="btn" href="/PoliceTransfer/PoliceTransfer/Liste">@babonline.Cancel</a>*@
+                    </div>
+                    <div class="form-actions yukle otomatik">
+                        <a id="policeKaydet" href="#" class="btn btn-danger" data-loading-text="Transfer ediliyor">TRANSFER ET</a>
+                        <span id="span_hdi_aciklama" style="color: red; font-size: 13px;display:none">HDI Sigorta Üzerinden Tahsilat Kapatma İşlemi Yapılamamaktadır.</span>
+                    </div>
+                }
+            </div>
+
+        </div>
+        <div class="row-fluid" id="Hdi-uyari" style="display: none;">
+            <div class="span12">
+                <label>
+                    <span style="color: red; font-size: 13px;">UYARI! HDI Sigorta Poliçe Transferi 3 günlük olarak yapıldığından Tanzim tarihi aralığını Maximum 3 gün seçmeniz gerekmektedir. 3 günden fazla seçildiği taktirde transfer işlemi gerçekleşmeyecektir.</span>
+                </label>
+            </div>
+        </div>
+        <div class="row-fluid" id="altkaynak-uyari" style="display: none;">
+            <div class="span12">
+                <label>
+                    <span style="color: red; font-size: 15px;"><b>ÖNEMLİ UYARI!</b> </span>
+                    <br />
+                </label>
+                <label>
+                    <span style="color: black; font-size: 15px;">Seçmiş olduğunuz acente, </span> <span style="color: red; font-size: 15px;">ÜZERİNDEN İŞ YAPILAN ACENTEDİR.</span>
+                </label>
+                <label>
+                    <span style="color: black; font-size: 15px;">İlgili acentenin poliçe transferleri yapılırken, poliçenin toplam komisyonu acenteden alacağınız komisyon oranı ile hesaplanarak değiştirlecektir.</span>
+                </label><br />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="div-modal-helper"></div>
+<div id="div-modal-polTransferSonuc"></div>
+
+
+

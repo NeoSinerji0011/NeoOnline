@@ -1,0 +1,103 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="#">@babonline.VehicleListRenewals<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageScripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#loading-gif").attr("style", "display:none");
+        });
+        $("#aracdetay-guncelle-btn").click(function () {
+            var fileInput = document.getElementById("file");
+
+            if ('files' in fileInput) {
+                if (fileInput.files.length == 0) {
+                    alert("@babonline.PleaseSelectTheFile")
+                } else {
+                    $("#loading-gif").attr("style", "display:normal");
+                    var formData = new FormData(document.forms.namedItem('aracdetay-guncelle-form'));
+                    var oReq = new XMLHttpRequest();
+                    oReq.open("POST", "/Manage/Arac/UploadZip", true);
+                    oReq.send(formData);
+                    oReq.onload = function (oEvent) {
+                        if (oReq.status == 200) {
+                            alert('@babonline.TheOperationWasSuccessful');
+                            $("#loading-gif").attr("style", "display:none");
+                        }
+                        else {
+                            alert('@babonline.TransactionWas');
+                            $("#loading-gif").attr("style", "display:none");
+                        }
+                    };
+                }
+            }
+        });
+
+
+        $("#hdi-aktar").click(function () {
+
+            $.ajax({
+                url: "@Url.Content("~/Manage/Arac/HDIAracTipAktar")",
+                method: "post",
+                success: function (result) {
+                    if (result !== undefined && result) {
+                        alert("İşlem başarılı");
+                    }
+                    else { alert("Bir hata oluştu.") }
+                },
+                error: function () { alert("Bir hata oluştu.") }
+            });
+
+        });
+    </script>
+}
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.VehicleListUpdate</div>
+        <a href="javascript:;" class="btn btn-info" style="float: right" id="hdi-aktar">HDI @babonline.TransferList</a>
+    </div>
+    <div class="portlet-body form">
+        <form id="aracdetay-guncelle-form" class="form-horizontal" name="aracdetay-guncelle-form" enctype="multipart/form-data">
+            <div id="fileupload" class="fileupload fileupload-new" data-provides="fileupload" style="width: 500px; height: 80px; margin-bottom: 10px; height: ">
+                <div>
+                    <span class="btn btn-file">
+                        <span class="fileupload-new">@babonline.SelectFile</span>
+                        <div style="height: 40px; margin-left: 155px; margin-top: -25px; width: 40px;">
+                            <img id="loading-gif" src="~/Content/img/loading6.gif" alt="loading.." style="display: none" />
+                        </div>
+                        <input type="file" id="file" name="file" style="width:500px;" />
+                    </span>
+                </div>
+            </div>
+        </form>
+        <div class="form-actions">
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+            <a href="#" data-loading-text="@babonline.Message_Loading" class="btn btn-success" id="aracdetay-guncelle-btn">@babonline.Update</a>
+        </div>
+    </div>
+</div>

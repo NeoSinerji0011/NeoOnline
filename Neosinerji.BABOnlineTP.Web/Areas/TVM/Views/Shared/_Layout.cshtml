@@ -1,0 +1,193 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Business.Common
+
+@{
+    var logoUrl = ViewBag.Logo;
+    var projekodu = ViewBag.ProjeKodu;
+    var sifreSuresiMessage=ViewBag.SifreSuresiMessage;
+}
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>NeoOnline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="neosinerji" name="author" />
+
+
+    @*<script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/jquery")" type="text/javascript"></script>*@
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/style-metro.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/custom.css" rel="stylesheet" />
+    <link href="~/Content/css/style-responsive.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/themes/ram_sigorta.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="~/Content/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/jquery.gritter.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/Content/css/jquery.smoothness.css" />
+    <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" />
+    <link href="~/Content/css/font-awosome.3.2.css" rel="stylesheet" />
+    <!--Menü iconları için yeni css-->
+
+    <!-- BEGIN CORE PLUGINS -->
+    <script src="~/Content/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+    <script src="~/Content/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+
+
+    @if (projekodu == TVMProjeKodlari.Aegon)
+    {
+        <link href="@Url.Content("~/Content/css/themes/aegon.css")" type="text/css" rel="stylesheet" />
+    }
+
+    @RenderSection("PageStyles", required: false)
+
+    <script>
+        $("#sifreSuresiKapat").click(function () {
+            $('#sifreSuresiMessage').css('display', 'none');
+        });
+
+    </script>
+</head>
+<body class="fixed-top">
+    <div class="header navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="brand" style="text-align: center" title="@babonline.MainMenu" href="/TVM/TVM">
+                    <img src="@logoUrl" alt="TVM Logo" class="tvm-logo"  style="height:39px; margin-top: -8px; margin-right: -13px;"/>
+                </a>
+                <div class="navbar hor-menu">
+                    <div class="navbar-inner">
+                        @RenderSection("HorizontalMenu", required: true)
+
+                    </div>
+                </div>
+
+                <a href="javascript:;" class="btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+                    <img src="~/content/img/menu-toggler.png" alt="" />
+                </a>
+
+                @Html.Partial("_UserMenu")
+            </div>
+        </div>
+    </div>
+
+    <div id="page-container" class="page-container row-fluid">
+        <div class="page-sidebar nav-collapse collapse">
+            @Html.Partial("_SideBar")
+        </div>
+        <div class="page-content no-min-height">
+            @if (!String.IsNullOrEmpty(sifreSuresiMessage))
+            {
+                <div class="row-fluid" id="sifreSuresiMessage" style="margin-top:10px">
+                    <div class="span7">
+                    </div>
+                    <div class="span4">
+                        <div class="alert alert-danger" role="alert">
+                            <a href="#" class="close" id="sifreSuresiKapat" data-dismiss="alert" aria-label="close"></a>
+                            <strong>UYARI!</strong>@sifreSuresiMessage <a href="/TVM/Profil/SifreDegistir" class="alert-link">Şifre Değiştir</a> 
+                        </div>
+                    </div>
+                 <div class="span1">
+                    </div>
+                </div>
+            }      
+            
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="color-panel hidden-phone">
+                            <div class="color-mode-icons icon-color"></div>
+                            <div class="color-mode-icons icon-color-close"></div>
+                            <div class="color-mode">
+                                <p>THEME COLOR</p>
+                                <ul class="inline">
+                                    <li class="color-black current color-default" data-style="default"></li>
+                                    <li class="color-blue" data-style="blue"></li>
+                                    <li class="color-brown" data-style="brown"></li>
+                                    <li class="color-purple" data-style="purple"></li>
+                                    <li class="color-white color-light" data-style="light"></li>
+                                </ul>
+                                <label class="hidden-phone">
+                                    <div class="checker" id="uniform-undefined">
+                                        <span class="checked">
+                                            <input type="checkbox" class="header" checked="" value="" style="opacity: 0;"></span>
+                                    </div>
+                                    <span class="color-mode-label">Fixed Header</span>
+                                </label>
+                            </div>
+                        </div>
+                        @RenderSection("PageHeader", required: true)
+                    </div>
+                </div>
+                
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        2020 &copy; Neosinerji / NeoOnline 
+      <div class="span pull-right">
+          <span class="go-top"><i class="icon-angle-up"></i></span>
+      </div>
+    </div>
+
+
+    <!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+    <script src="~/Content/js/jquery-ui.js" type="text/javascript"></script>
+    <script src="~/content/js/bootstrap.js" type="text/javascript"></script>
+    <script src="~/Content/js/twitter-bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+    <!--[if lt IE 9]>
+	<script src="~/Content/js/excanvas.min.js"></script>
+	<script src="~/Content/js/respond.min.js"></script>  
+	<![endif]-->
+    <script src="~/content/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="~/content/js/jquery.blockui.js" type="text/javascript"></script>
+    <script src="~/content/js/jquery.cookie.js" type="text/javascript"></script>
+
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="~/Content/js/breakpoints.js" type="text/javascript"></script>
+    <script src="~/Content/js/jquery.dataTables.js"></script>
+    <script src="~/Content/js/jquery.validate.js"></script>
+    <script src="~/Content/js/jquery.validate.bootstrap.js"></script>
+    <script src="~/Content/js/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/js/neosinerji.babonlinetp.common.js"></script>
+    <script src="~/Content/js/jquery.gritter.min.js"></script>
+    <script src="~/Content/js/skype-uri.js" type="text/javascript"></script>
+
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="~/content/js/app.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+
+
+    <script>
+        jQuery(document).ready(function () {
+            App.init();
+        });
+    </script>
+
+     @Scripts.Render("~/bundles/multiselect")
+    @RenderSection("PageScripts", required: false)
+    @RenderSection("scripts", required: false)
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-77351630-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>

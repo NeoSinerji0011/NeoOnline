@@ -1,0 +1,23 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@babonline.Title_Login</title>
+    @Scripts.Render("~/Content/jquery")
+    @Styles.Render("~/Content/styles")
+    @Scripts.Render("~/bundles/requiredjs")
+</head>
+<body>
+    <div class="row-fluid login">
+        <div class="dialog">
+
+            <a href="/Home/Index">
+                <img alt="babonline" style="margin-bottom: 15px; margin-left: 65px; margin-top: -50px;" src="~/Content/img/Home/babonline_logo_maxi.png" /></a>
+            <div class="block">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</body>
+</html>

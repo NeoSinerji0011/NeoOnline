@@ -1,0 +1,1045 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model TUMGuncelleModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="/Manage/TUM/Liste">@babonline.TUM_Search<span></span></a>
+        </li>
+        <li>
+            <a href="/Manage/TUM/Detay/@Model.Kodu">@babonline.Detail<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Update<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+<style>
+    .table th, .table td {
+        padding: 2px 8px !important;
+    }
+</style>
+
+@section PageScripts
+{
+    <script src="~/Content/js/bootstrap-formhelpers-phone.js"></script>
+    @Scripts.Render("~/bundles/dataTable")
+    <script>
+        $(document).ready(function () {
+            $("[rel=tooltip]").tooltip();
+            $("#tum-tab a:first").tab("show");
+
+
+            //Telefon ve fax
+            setTimeout(function () {
+                $("#Telefon").val("@Model.Telefon");
+                $("#Fax").val("@Model.Fax");
+            }, 2000);
+
+
+            //Bağlantı Sınırına bağlı olarak table'ın durumu
+            function BaglantiTableVisible() {
+                if ($('#BaglantiSiniri_1').attr('checked')) {
+                    $("#divbaglantiTable").slideDown("fast");
+                } else {
+                    $("#divbaglantiTable").css("display", "none");
+                }
+            }
+
+            BaglantiTableVisible();
+            $('input[name="BaglantiSiniri"]').change(function () {
+                BaglantiTableVisible();
+            });
+            ///////////////////////////////////////////////////////////////
+
+            //TUM Tipi produktor olduğunda produktor tckn alınacak
+            $("#Tipi").change(function () {
+                var val = $(this).val();
+                if (val == "4") { //Prodüktör
+                    $("#TCKN").val("");
+                    $("#divProducerTCKN").slideDown("fast");
+                }
+                else {
+                    $("#divProducerTCKN").slideUp("fast", function () { $("#TCKN").val("XXXXXXXXXXX"); });
+                }
+            });
+
+            //TUM Profili Şube / Acente olduğunda bağlı olduğu tum'nin kodu girilmeli
+            //$("[name='Profili'").change(function () {
+            //    var val = $(this).val();
+            //    if (val == "0") { //Şube/Acente
+            //        $("#BagliOlduguTUMKodu").val("");
+            //        $("#divBagliOlduguTUMKodu").slideDown("fast");
+            //    }
+            //    else {
+            //        $("#divBagliOlduguTUMKodu").slideUp("fast", function () { $("#BagliOlduguTUMKodu").val("-9999"); });
+            //    }
+            //});
+
+            //Ülke - il - ilçe
+            $('#UlkeKodu').ulke({ il: '#IlKodu', ilce: '#IlceKodu' });
+
+        });
+
+
+        //Logo İşlemleri //////////////////////////////////
+        $("#btn-logo-ekle").click(function () {
+            var tumkodu = $(this).attr("tum-kodu");
+            $.get("/Manage/TUM/LogoEkle",
+                 { TUMKodu: tumkodu },
+                 function (data) {
+                     $("#logoekle-modal-div").html(data);
+                     $.validator.unobtrusive.parse("#logoekle-modal-div");
+                     $("#logo-modal").modal('show');
+                 },
+                 "html");
+        });
+
+        $("#logo-ekle-btn").live("click", function () {
+            var formData = new FormData(document.forms.namedItem('logo-ekle-form'));
+            var oReq = new XMLHttpRequest();
+            oReq.open("POST", "/Manage/TUM/LogoEkle", true);
+            oReq.send(formData);
+            oReq.onload = function (oEvent) {
+                if (oReq.status == 200 && oReq.responseText == "") {
+                    $("#logo-modal").modal('hide');
+                    viewLogo();
+                } else if (oReq.responseText != "") {
+                    $("#logo-modal").modal('hide');
+                    $("#logoekle-modal-div").html(oReq.responseText);
+                    $("#logo-modal").modal('show');
+                }
+                else { alert("@babonline.AnErrorHasOccurred"); }
+            };
+        });
+
+
+        //Bağlantı Ekleme - Silme İşlemleri
+        $("#baglanti-ekle").click(function () {
+            var tumkodu = $("#Kodu").val();
+            $.get("/Manage/TUM/BaglantiEkle",
+                  { TUMKodu: tumkodu },
+                  function (data) {
+                      $("#baglanti-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#baglanti-modal-div");
+                      $("#baglanti-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#baglanti-ekle-btn").live("click", function () {
+            $("#baglanti-ekle-form").validate().form();
+            if ($("#baglanti-ekle-form").valid()) {
+                var formData = $("#baglanti-ekle-form").serialize();
+                $.post("/Manage/TUM/BaglantiEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#baglanti-modal").modal('hide'); }
+                        else {
+                            $("#baglanti-modal").modal('hide');
+                            $("#baglanti-modal-div").html(data);
+                            $("#baglanti-modal").modal('show');
+                        }
+                        viewBaglanti();
+                    }, "html");
+            }
+        });
+
+        $(".delete-baglanti").live("click", (function () {
+            var baglantiKodu = $(this).attr("baglanti-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TUM/BaglantiSil/",
+                       { baglantiKodu: baglantiKodu, tumKodu: TUMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#baglanti-container").html(data);
+                           viewBaglanti();
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        }));
+
+        $(".edit-baglanti").live("click", function () {
+            var baglantiKodu = $(this).attr("baglanti-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $.get("/Manage/TUM/BaglantiGuncelle",
+                  { SiraNo: baglantiKodu, tumKodu: TUMKodu },
+                  function (data) {
+                      $("#baglanti-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#baglanti-modal-div");
+                      $("#baglanti-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#baglanti-guncelle-btn").live("click", function () {
+            $("#baglanti-ekle-form").validate().form();
+            if ($("#baglanti-ekle-form").valid()) {
+                var formData = $("#baglanti-ekle-form").serialize();
+                $.post("/Manage/TUM/BaglantiGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#baglanti-modal").modal('hide'); }
+                        else {
+                            $("#baglanti-modal").modal('hide');
+                            $("#baglanti-modal-div").html(data);
+                            $("#baglanti-modal").modal('show');
+                        }
+                        viewBaglanti();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //Not Ekleme - Silme İşlemleri
+        $("#not-ekle").click(function () {
+            var tumkodu = $("#Kodu").val();
+            $.get("/Manage/TUM/NotEkle",
+                  { TUMKodu: tumkodu },
+                  function (data) {
+                      $("#not-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#not-modal-div");
+                      $("#not-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#not-ekle-btn").live("click", function () {
+            $("#not-ekle-form").validate().form();
+            if ($("#not-ekle-form").valid()) {
+                var formData = $("#not-ekle-form").serialize();
+                $.post("/Manage/TUM/NotEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#not-modal").modal('hide'); }
+                        else {
+                            $("#not-modal").modal('hide');
+                            $("#not-modal-div").html(data);
+                            $("#not-modal").modal('show');
+                        }
+                        viewNot();
+                    }, "html");
+            }
+        });
+
+        $(".delete-not").live("click", function () {
+            var notKodu = $(this).attr("not-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TUM/NotSil/",
+                       { notKodu: notKodu, tumKodu: TUMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#not-container").html(data);
+                           viewNot();
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+
+
+        ///////////////////////////////////////////////////////////////
+
+        //Doküman Ekleme - Silme İşlemleri
+        $("#dokuman-ekle").click(function () {
+            var tumkodu = $("#Kodu").val();
+            $.get("/Manage/TUM/Dokuman",
+                  { TUMKodu: tumkodu },
+                  function (data) {
+                      $("#dokuman-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#dokuman-modal-div");
+                      $("#dokuman-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#dokuman-ekle-btn").live("click", function () {
+            $("#dokuman-ekle-form").validate().form();
+            if ($("#dokuman-ekle-form").valid()) {
+                var formData = new FormData(document.forms.namedItem('dokuman-ekle-form'));
+
+                var oReq = new XMLHttpRequest();
+                oReq.open("POST", "/Manage/TUM/Dokuman", true);
+                oReq.send(formData);
+                oReq.onload = function (oEvent) {
+                    $("#dokuman-modal").modal('hide');
+                    $("#dokuman-modal-div").html("");
+                    if (oReq.status == 200) {
+
+                        if (oReq.response != "" || oReq.response != null) {
+                            $("#dokuman-modal-div").html(oReq.response);
+                            $.validator.unobtrusive.parse("#dokuman-modal-div");
+                            $("#dokuman-modal").modal('show');
+                        }
+                    } else if (oReq.status == 500) {
+                        $("#dokuman-modal").modal('hide');
+                        alert("Bir hata oluştu.");
+                    }
+                    //Liste Yenileniyor
+                    viewDokuman();
+                };
+            }
+        });
+
+        $(".delete-dokuman").live("click", (function () {
+            var dokumanKodu = $(this).attr("dokuman-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TUM/DokumanSil/",
+                       { dokumanKodu: dokumanKodu, tumKodu: TUMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#dokuman-container").html(data);
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        }));
+
+        $(".edit-dokuman").live("click", function () {
+            var dokumanKodu = $(this).attr("dokuman-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $.get("/Manage/TUM/DokumanGuncelle",
+                  { SiraNo: dokumanKodu, tumKodu: TUMKodu },
+                  function (data) {
+                      $("#dokuman-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#dokuman-modal-div");
+                      $("#dokuman-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#dokuman-guncelle-btn").live("click", function () {
+            $("#dokuman-ekle-form").validate().form();
+            if ($("#dokuman-ekle-form").valid()) {
+                var formData = $("#dokuman-ekle-form").serialize();
+                $.post("/Manage/TUM/DokumanGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#dokuman-modal").modal('hide'); }
+                        else {
+                            $("#dokuman-modal").modal('hide');
+                            $("#dokuman-modal-div").html(data);
+                            $("#dokuman-modal").modal('show');
+                        }
+                        viewDokuman();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //Banka Hesap Ekleme - Silme İşlemleri
+        $("#bankahesaplari-ekle").click(function () {
+            var tumkodu = $("#Kodu").val();
+            $.get("/Manage/TUM/BankaHesaplariEkle",
+                  { TUMKodu: tumkodu },
+                  function (data) {
+                      $("#bankahesaplari-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#bankahesaplari-modal-div");
+                      $("#bankahesaplari-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#bankahesaplari-ekle-btn").live("click", function () {
+            $("#bankahesaplari-ekle-form").validate().form();
+            if ($("#bankahesaplari-ekle-form").valid()) {
+                var formData = $("#bankahesaplari-ekle-form").serialize();
+                $.post("/Manage/TUM/BankaHesaplariEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#bankahesaplari-modal").modal('hide'); }
+                        else {
+                            $("#bankahesaplari-modal").modal('hide');
+                            $("#bankahesaplari-modal-div").html(data);
+                            $("#bankahesaplari-modal").modal('show');
+                        }
+                        viewBankaHesap();
+                    }, "html");
+            }
+        });
+
+        $(".delete-bankahesaplari").live("click", (function () {
+            var bankahesaplariKodu = $(this).attr("bankahesaplari-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TUM/BankaHesaplariSil/",
+                       { SiraNo: bankahesaplariKodu, tumKodu: TUMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#bankahesaplari-container").html(data);
+                           viewBankaHesap();
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        }));
+
+        $(".edit-bankahesaplari").live("click", function () {
+            var bankahesaplariKodu = $(this).attr("bankahesaplari-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $.get("/Manage/TUM/BankaHesaplariGuncelle",
+                  { SiraNo: bankahesaplariKodu, tumKodu: TUMKodu },
+                  function (data) {
+                      $("#bankahesaplari-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#bankahesaplari-modal-div");
+                      $("#bankahesaplari-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#bankahesaplari-guncelle-btn").live("click", function () {
+            $("#bankahesaplari-ekle-form").validate().form();
+            if ($("#bankahesaplari-ekle-form").valid()) {
+                var formData = $("#bankahesaplari-ekle-form").serialize();
+                $.post("/Manage/TUM/BankaHesaplariGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#bankahesaplari-modal").modal('hide'); }
+                        else {
+                            $("#bankahesaplari-modal").modal('hide');
+                            $("#bankahesaplari-modal-div").html(data);
+                            $("#bankahesaplari-modal").modal('show');
+                        }
+                        viewBankaHesap();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //İletişim Yetkilileri Ekleme - Silme İşlemleri
+        $("#iletisimyetkilileri-ekle").click(function () {
+            var tumkodu = $("#Kodu").val();
+            $.get("/Manage/TUM/IletisimYetkilileriEkle",
+                  { TUMKodu: tumkodu },
+                  function (data) {
+                      $("#iletisimyetkilileri-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#iletisimyetkilileri-modal-div");
+                      $("#iletisimyetkilileri-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#iletisimyetkilileri-ekle-btn").live("click", function () {
+            $("#iletisimyetkilileri-ekle-form").validate().form();
+            if ($("#iletisimyetkilileri-ekle-form").valid()) {
+                var formData = $("#iletisimyetkilileri-ekle-form").serialize();
+                $.post("/Manage/TUM/IletisimYetkilileriEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#iletisimyetkilileri-modal").modal('hide'); }
+                        else {
+                            $("#iletisimyetkilileri-modal").modal('hide');
+                            $("#iletisimyetkilileri-modal-div").html(data);
+                            $("#iletisimyetkilileri-modal").modal('show');
+                        }
+                        viewIletisimYetki();
+                    }, "html");
+            }
+        });
+
+        $(".delete-iletisimyetkilileri").live("click", (function () {
+            var iletisimyetkilileriKodu = $(this).attr("iletisimyetkilileri-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TUM/IletisimYetkilileriSil/",
+                       { SiraNo: iletisimyetkilileriKodu, tumKodu: TUMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#iletisimyetkilileri-container").html(data);
+                           viewIletisimYetki();
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        }));
+
+        $(".edit-iletisimyetkilileri").live("click", function () {
+            var iletisimyetkilileriKodu = $(this).attr("iletisimyetkilileri-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $.get("/Manage/TUM/IletisimYetkilileriGuncelle",
+                  { SiraNo: iletisimyetkilileriKodu, tumKodu: TUMKodu },
+                  function (data) {
+                      $("#iletisimyetkilileri-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#iletisimyetkilileri-modal-div");
+                      $("#iletisimyetkilileri-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#iletisimyetkilileri-guncelle-btn").live("click", function () {
+            $("#iletisimyetkilileri-ekle-form").validate().form();
+            if ($("#iletisimyetkilileri-ekle-form").valid()) {
+                var formData = $("#iletisimyetkilileri-ekle-form").serialize();
+                $.post("/Manage/TUM/IletisimYetkilileriGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#iletisimyetkilileri-modal").modal('hide'); }
+                        else {
+                            $("#iletisimyetkilileri-modal").modal('hide');
+                            $("#iletisimyetkilileri-modal-div").html(data);
+                            $("#iletisimyetkilileri-modal").modal('show');
+                        }
+                        viewIletisimYetki();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //Urun Ekleme - Silme İşlemleri
+        $("#urun-ekle").click(function () {
+            var tumkodu = $("#Kodu").val();
+            $.get("/Manage/TUM/UrunEkle",
+                  { TUMKodu: tumkodu },
+                  function (data) {
+                      $("#urun-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#urun-modal-div");
+                      $("#urun-modal").modal('show');
+                  },
+                  "html");
+        });
+        $("#urun-ekle-btn").live("click", function () {
+            $("#urun-progress").show();
+        });
+
+        $("#urun-ekle-btn").live("click", function () {
+            $("#urun-ekle-btn").button("loading");
+            $("#urun-ekle-form").validate().form();
+            if ($("#urun-ekle-form").valid()) {
+                var formData = $("#urun-ekle-form").serialize();
+                $.post("/Manage/TUM/UrunEkle", formData,
+                    function (data) {
+                        $("#urun-progress").hide();
+                        if (data == "") { $("#urun-modal").modal('hide'); alert("Ürün başarıyla eklendi") }
+                        else {
+                            $("#urun-modal").modal('hide');
+                            $("#urun-modal-div").html(data);
+                            $("#urun-modal").modal('show');
+                        }
+                        $("#urun-ekle-btn").button("reset");
+                        viewUrun();
+                    }, "html");
+                }
+        });
+
+            $(".edit-urun").live("click", function () {
+                var urunKodu = $(this).attr("urun-kodu");
+                var TUMKodu = $(this).attr("tum-kodu");
+                var babOnlineUrunKodu = $(this).attr("babonline-urun-kodu");
+
+                $.get("/Manage/TUM/UrunGuncelle",
+                      { TUMUrunKodu: urunKodu, TUMKodu: TUMKodu, BabOnlineUrunKodu: babOnlineUrunKodu },
+                      function (data) {
+                          $("#urun-modal-div").html(data);
+                          $.validator.unobtrusive.parse("#urun-modal-div");
+                          $("#urun-modal").modal('show');
+                      },
+                      "html");
+            });
+
+            $("#urun-guncelle-btn").live("click", function () {
+                $("#urun-progress").show();
+            });
+
+            $("#urun-guncelle-btn").live("click", function () {
+                $("#urun-guncelle-btn").button("loading");
+                $("#urun-ekle-form").validate().form();
+                if ($("#urun-ekle-form").valid()) {
+                    var formData = $("#urun-ekle-form").serialize();
+                    $.post("/Manage/TUM/UrunGuncelle", formData,
+                        function (data) {
+                            $("#urun-progress").hide();
+                            if (data == "") { $("#urun-modal").modal('hide'); alert("Ürün başarıyla güncellendi") }
+                            else {
+                                $("#urun-modal").modal('hide');
+                                $("#urun-modal-div").html(data);
+                                $("#urun-modal").modal('show');
+                            }
+                            $("#urun-guncelle-btn").button("reset");
+                            viewUrun();
+                        }, "html");
+                }
+            });
+
+           
+            $(".delete-urun").live("click", (function () {
+                var urunKodu = $(this).attr("urun-kodu");
+                var TUMKodu = $(this).attr("tum-kodu");
+                var babOnlineUrunKodu = $(this).attr("babonline-urun-kodu");
+
+                $('#delete-confirm-btn').unbind('click');
+                $("#delete-confirm-btn").click(function () {
+                    $("#delete-confirm-btn").button("loading");
+                    $.post("/Manage/TUM/UrunSil/",
+                              { TUMUrunKodu: urunKodu, TUMKodu: TUMKodu, BabOnlineUrunKodu: babOnlineUrunKodu },
+                           function (data) {
+                               $("#urunsil-progress").hide();
+                               viewUrun();
+                               if (data == "True") {
+                                   $("#delete-confirmation").modal('hide');
+                                   alert("Ürün başarıyla silindi");
+                               }
+                               else { alert("@babonline.AnErrorHasOccurred, @babonline.PleaseTryAgain"); }
+                               $("#delete-confirm-btn").button("reset");
+                           });
+                });
+                $("#delete-confirmation").modal('show');
+            }));
+
+                   //View'ler
+
+                   function viewLogo() {
+                       var tumkodu = $("#Kodu").val();
+                       $.get("/Manage/TUM/LogoView",
+                           { TUMKodu: tumkodu },
+                           function (data) {
+                               if (data != "")
+                               { $("#div-logo").html(data); }
+                               else { alert("@babonline.LogoFetching @babonline.AnErrorHasOccurred") }
+                           },
+                "html");
+                       }
+
+                       function viewBaglanti() {
+                           var tumkodu = $("#Kodu").val();
+                           $.get("/Manage/TUM/BaglantiView",
+                               { TUMKodu: tumkodu },
+                               function (data) {
+                                   $("#baglanti-container").html(data);
+                               },
+                               "html");
+                       }
+
+                       function viewNot() {
+                           var tumkodu = $("#Kodu").val();
+                           $.get("/Manage/TUM/NotView",
+                               { TUMKodu: tumkodu },
+                               function (data) {
+                                   $("#not-container").html(data);
+                               },
+                               "html");
+                       }
+
+                       function viewDokuman() {
+                           var tumkodu = $("#Kodu").val();
+                           $.get("/Manage/TUM/DokumanView",
+                               { TUMKodu: tumkodu },
+                               function (data) {
+                                   $("#dokuman-container").html(data);
+                               },
+                               "html");
+                       }
+
+                       function viewBankaHesap() {
+                           var tumkodu = $("#Kodu").val();
+                           $.get("/Manage/TUM/BankaHesapView",
+                               { TUMKodu: tumkodu },
+                               function (data) {
+                                   $("#bankahesaplari-container").html(data);
+                               },
+                               "html");
+                       }
+
+                       function viewIletisimYetki() {
+                           var tumkodu = $("#Kodu").val();
+                           $.get("/Manage/TUM/IletisimYetkiView",
+                               { TUMKodu: tumkodu },
+                               function (data) {
+                                   $("#iletisimyetkilileri-container").html(data);
+                               },
+                               "html");
+                       }
+
+                       function viewUrun() {
+                           var tumkodu = $("#Kodu").val();
+                           $.get("/Manage/TUM/UrunView",
+                               { TUMKodu: tumkodu },
+                               function (data) {
+                                   $("#urun-container").html(data);
+                               },
+                               "html");
+                       }
+    </script>
+}
+
+
+
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.TUMDetails</div>
+    </div>
+    <div class="portlet-body form">
+
+        @using (Html.BeginForm("Guncelle", "TUM", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            Html.EnableClientValidation(true);
+            @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+            @Html.HiddenFor(m => m.Kodu);
+            @Html.AntiForgeryToken()
+    
+            <h3 class="form-section">@babonline.General_Information</h3>
+            <div class="control-group">
+                <label class="control-label">@babonline.TUM_Code    <span class="required">*</span></label>
+
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Kodu, new { maxlength = 6, autocompletetype = "disabled", style = "width:100px;", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TUM_Title   <span class="required">*</span></label>
+
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Unvani, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%;", @class = "onlyalpha" })
+                    @Html.ValidationMessageFor(m => m.Unvani)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TUM_UnityCode</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.BirlikKodu, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%;;" })
+                    @Html.ValidationMessageFor(m => m.BirlikKodu)
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TaxOffice    <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.VergiDairesi, new { maxlength = 30, autocompletetype = "disabled", style = "width:90%;;", @class = "onlyalpha" })
+                            @Html.ValidationMessageFor(m => m.VergiDairesi)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TaxNumber   <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.VergiNumarasi, new { maxlength = 10, autocompletetype = "disabled", style = "width:90%;", @class = "onlynumbers" })
+                            @Html.ValidationMessageFor(m => m.VergiNumarasi)
+                        </div>
+                    </div>
+                </div>
+            </div>@*
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Logo</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Logo, new { maxlength = 30, autocompletetype = "disabled" })
+                            @Html.ValidationMessageFor(m => m.Logo)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Banner</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Banner, new { maxlength = 30, autocompletetype = "disabled" })
+                            @Html.ValidationMessageFor(m => m.Banner)
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+                
+            <div class="control-group">
+                <label class="control-label">@babonline.PricingCode</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.UcretlendirmeKodu, new { maxlength = 5, autocompletetype = "disabled", style = "width:100px" })
+                    @Html.ValidationMessageFor(m => m.UcretlendirmeKodu)
+                </div>
+            </div>
+                
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Status</label>
+                        <div class="controls radio-custom">
+                            @Html.RadioButtonListFor(m => m.Durum, Model.Durumlar)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Status @babonline.Update</label>
+                        <div class="controls">
+                            <label class="control">@Model.DurumGuncellemeTarihi.Value.ToString("dd.MM.yyyy")</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.StartDate</label>
+                        <div class="controls">
+                            @Html.DateTextBoxFor(m => m.TUMBaslangicTarihi, null)
+                            @Html.ValidationMessageFor(m => m.TUMBaslangicTarihi)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.EndDate</label>
+                        <div class="controls">
+                            @Html.DateTextBoxFor(m => m.TUMBitisTarihi, null)
+                            @Html.ValidationMessageFor(m => m.TUMBitisTarihi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tabbable tabbable-custom" style="margin-top: 15px;">
+                <ul class="nav nav-tabs" id="tum-tab">
+                    <li><a href="#iletisim" data-toggle="tab">@babonline.Contact_Info</a></li>
+                    <li><a href="#guvenlik" data-toggle="tab">@babonline.Security_Info</a></li>
+                    <li><a href="#not" data-toggle="tab">@babonline.Notes</a></li>
+                    <li><a href="#dokuman" data-toggle="tab">@babonline.Document</a></li>
+                    <li><a href="#banka" data-toggle="tab">@babonline.BankAccounts</a></li>
+                    <li><a href="#iletisimyetkili" data-toggle="tab">@babonline.TVMContactAuthorities</a></li>
+                    <li><a href="#urun" data-toggle="tab">@babonline.Product_List</a></li>
+                    <li><a href="#logo" data-toggle="tab">Logo</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="iletisim">
+                        @* İletisim ve Adres Bilgileri  !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Country</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.UlkeKodu, Model.Ulkeler, new { style = "width:90%;" })
+                                        @Html.ValidationMessageFor(m => m.UlkeKodu)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Phone</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Telefon, new { style = "width:90%;", data_format = "dd-ddd-ddddddd", pattern = ".{14,14}", title = babonline.Message_PhoneFormat, @class = "bfh-phone" })
+                                        @Html.ValidationMessageFor(m => m.Telefon)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.City</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.IlKodu, Model.Iller, new { style = "width:90%;" })
+                                        @Html.ValidationMessageFor(m => m.IlKodu)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Fax_Number</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Fax, new { style = "width:90%;", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", title = babonline.Message_PhoneFormat, @class = "bfh-phone" })
+                                        @Html.ValidationMessageFor(m => m.Fax)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.District</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.IlceKodu, Model.IlceLer, new { style = "width:90%;" })
+                                        @Html.ValidationMessageFor(m => m.IlceKodu)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Email_Adress</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Email, new { style = "width:90%;" })
+                                        @Html.ValidationMessageFor(m => m.Email)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Neighborhood</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Semt, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%;" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Web_URL</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.WebAdresi, new { style = "width:90%;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Address</label>
+                                    <div class="controls">
+                                        @Html.TextAreaFor(m => m.Adres, new { maxlength = 200, autocompletetype = "disabled", style = "width:97%;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="guvenlik">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.ConnectionLimit</label>
+                                    <div class="controls">
+                                        @Html.RadioButtonListFor(m => m.BaglantiSiniri, Model.BaglantiSiniriVarYok)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12" id="divbaglantiTable">
+                                <label><a id="baglanti-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.TVMIPConnection_Add</a></label>
+
+                                @*Bağlantı IPler Burada Ekleniyor*@
+                                <div class="row-fluid">
+                                    <div class="span12" id="baglanti-container">
+                                        @Html.Partial("_Baglantilar", Model.IPBaglantilariList)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="not">
+                        <div class="span12">
+                            <label><a id="not-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.Node_Add</a></label>
+
+                            @*Notlar Burada Ekleniyor*@
+                            <div class="row-fluid">
+                                <div class="span12" id="not-container">
+                                    @Html.Partial("_Notlar", Model.NotlarList)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="dokuman">
+                        <div class="span12">
+                            <label><a id="dokuman-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.Document_Add</a></label>
+
+                            @*Dokumanlar Burada Ekleniyor*@
+                            <div class="row-fluid">
+                                <div class="span12" id="dokuman-container">
+                                    @Html.Partial("_Dokumanlar", Model.DokumanlariList)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="banka">
+                        <div class="span12">
+                            <label><a id="bankahesaplari-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.BankAccounts_Add</a></label>
+
+                            @*BankaHesaplari Burada Ekleniyor*@
+                            <div class="row-fluid">
+                                <div class="span12" id="bankahesaplari-container">
+                                    @Html.Partial("_BankaHesaplari", Model.BankaHesaplariList)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="iletisimyetkili">
+                        <div class="span12">
+                            <label><a id="iletisimyetkilileri-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.TVMContactAuthorities_Add</a></label>
+
+                            @*iletisimyetkilileri Burada Ekleniyor*@
+                            <div class="row-fluid">
+                                <div class="span12" id="iletisimyetkilileri-container">
+                                    @Html.Partial("_IletisimYetkilileri", Model.IletisimYetkilileriList)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="urun">
+                        <div class="span12" id="divurunTable">
+                            <label><a id="urun-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.Product_Add</a></label>
+
+                            @*Urunler Burada Ekleniyor*@
+                            <div class="row-fluid">
+                                <div class="span12" id="urun-container">
+                                    @Html.Partial("_Urunler", Model.UrunleriList)
+                                </div>
+                            </div>
+                        </div>                       
+                    </div>
+                    <div class="tab-pane" id="logo">
+                        <div class="row-fluid">
+                            <label><a id="btn-logo-ekle" href="#" tum-kodu="@Model.Kodu" data-toggle="modal" class="btn btn-success">@babonline.LogoAdd</a></label>
+
+                            <div class="row-fluid">
+                                <div class="span12" id="div-logo">
+                                    @Html.Partial("_Logo", Model.LogoModel)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                <a class="btn" href="~/Manage/TUM/Liste">@babonline.Cancel</a>
+            </div>
+        }
+    </div>
+</div>
+
+@*IP Bağlantı Ekleme*@
+<div id="baglanti-modal-div"></div>
+
+@*Not Ekleme*@
+<div id="not-modal-div"></div>
+
+@*Dokuman Ekleme*@
+<div id="dokuman-modal-div"></div>
+
+@*Dokuman Ekleme*@
+<div id="bankahesaplari-modal-div"></div>
+
+@*Dokuman Ekleme*@
+<div id="iletisimyetkilileri-modal-div"></div>
+
+@*Urun Ekleme*@
+<div id="urun-modal-div"></div>
+
+@*Logo Ekleme*@
+<div id="logoekle-modal-div"></div>
+
+@*Silme İşlemi*@
+@Html.Partial("_DeleteConfirmation")

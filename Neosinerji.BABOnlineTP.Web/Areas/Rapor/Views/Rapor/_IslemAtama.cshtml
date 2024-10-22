@@ -1,0 +1,67 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Rapor.Models.IslemAtamaModel
+
+<script>
+    $(document).ready(function () {
+        $("#TVMKodu").change(function () {
+            $.ajax({
+                dataType: "json",
+                url: "/Rapor/Rapor/GetTVMKullanici",
+                data: { tvmKodu: $("#TVMKodu").val() },
+                success: function (data) {
+                    $("#KullaniciKodu").dropDownFill(data.list);
+                },
+                error: {
+                }
+            });
+        });
+    });
+   
+</script>
+<div id="islematama-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>İşlem Atama</h3>
+    </div>
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="islematama-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="dokuman-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <form id="islematama-form" class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_Title</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.TVMKodu, Model.TVMSelectList, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Kullanıcı</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.KullaniciKodu, Model.KullanicilarList, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Comment</label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.Aciklama, new { style = "width:90%" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Öncelik Seviyesi</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.OncelikSeviyesi, Model.OncelikSeviyeleri, new { })
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="~/Rapor/Rapor/IslemAtama" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="#" class="btn btn-info" id="btn-isata">İş Ata</a>
+    </div>
+</div> 
+<div class="sonuc text-error" >
+
+</div>

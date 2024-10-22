@@ -1,0 +1,55 @@
+<p></p>
+<p>$TVMUnvani$</p>
+<p></p>
+<placeHolder=CariHesapTablolari></placeHolder>
+
+<template=CariHesapTablo>
+	<table>
+		<width=750><column=70><column=50><column=50><column=110><column=140><column=30>
+		<column=90><column=90><column=90><column=30>
+		<border=clear>	
+		<tbody>
+		<tr><border=clear>
+			<td><strong><center>$Donem$</td>
+			<td><center></td>
+			<td><center></td>
+			<td><strong><center>$ListeAdi$</td>
+			<td><center></td>
+			<td><center></td>
+			<td><strong><center></td>
+		</tr>
+		<tr><height=40><backgroundColor=234,234,234><border=240,240,240>	
+			<td><strong><center>Cari Hesap Kodu </td>
+			<td><strong><center>Hesap Adi</td>
+			<td><strong><center>Para B.</td>
+			<td><strong><center>Borç</td>
+			<td><strong><center>Alacak</td>
+			<td><strong><center>Bakiye</td>
+			<td><strong><center>B/A </td>
+		</tr>
+		<placeHolder=EkstreSatirlari></placeHolder>
+		<tr><size=10>
+		<td><strong><center>GENEL TOPLAM</td>
+			<td><right></td>
+			<td><right></td>
+			<td><right><center></td>
+			<td><right></td>
+			<td><right></td>
+			<td><right>$CEBorcToplam$</td>
+			<td><right>$CEAlacakToplam$</td>
+			<td><right>$CEBakiyeToplam$</td>
+			<td><right>$CEBAGenel$</td>
+		</tr>
+	</table>
+</template=CariHesapTablo>
+<template=EkstreSatiri>
+<tr><backgroundColor=clear><border=clear>
+		<td><left>$CariHesapKodu$</td>
+		<td><left>$HesapAdı$</td>
+		<td><center>$ParaBirimi$</td>
+		<td><right>$Borc$</td>
+		<td><right>$Alacak$</td>
+		<td><right>$Bakiye$</td>
+		<td><right>$BA$</td>
+</tr>
+</template=EkstreSatiri>

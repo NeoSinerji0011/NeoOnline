@@ -1,0 +1,54 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.PrimIadeliGenelBilgiler
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Insurance_Start_Date<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(s => s.SigortaBaslangicTarihi, new { })
+                @Html.ValidationMessageFor(s => s.SigortaBaslangicTarihi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.CalculationofChoice<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.HesaplamaSecenegi, Model.HesaplamaSecenekleri, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.HesaplamaSecenegi)
+            </div>
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Insurance_Duration (@babonline.Year)<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.SigortaSuresi, Model.SigortaSureleri, new { style = "width:100px;" })
+                @Html.ValidationMessageFor(s => s.SigortaSuresi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Premium_Payment_Period<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.PrimOdemeDonemi, Model.PrimDonemleri, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.PrimOdemeDonemi)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6" id="ortak-prim" style="display: none;">
+        <div class="control-group">
+            <label class="control-label" id="yillikPrim">@babonline.AnnualPremiumAmount
+                <i class="icon-info-sign tooltips" data-container="body" data-placement="bottom" data-original-title="Örnek Format : 1,500.20"></i><span class="required">*</span>
+            </label>
+            <div class="controls">
+                <div class="input-append">
+                    @Html.TextBoxFor(m => m.Ortak_PrimTutari, new { @class = "m-wrap autoNumeric-custom", placeholder = "1,500.20", style = "width:90px; text-align:right;", data_val_number = "Örnek format : 1,500.20" })<span id="para-birimi" class="add-on">$</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.Ortak_PrimTutari)
+            </div>
+        </div>
+    </div>
+</div>

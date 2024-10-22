@@ -1,0 +1,482 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+
+<script type="text/javascript" src="~/Content/js/highcharts.js"></script>
+<script type="text/javascript" src="~/Content/js/exporting.js"></script>
+<script type="text/javascript" src="~/Content/js/daterangepicker.js"></script>
+<link rel="stylesheet" href="~/Content/css/daterangepicker.css" />
+<script type="text/ecmascript" src="~/Content/js/date.js"></script>
+<script>
+
+    $(document).ready(function () {
+        //KullaniciNot Ekleme
+        $("#btn-not-ekle").click(function () {
+
+            $.get("/TVM/TVM/NotEkle", "", function (data) {
+                $("#not-ekle-modal-div").html(data);
+                $.validator.unobtrusive.parse($("#not-ekle-modal-div"));
+                $("#not-ekle-modal").modal("show");
+            }, "html")
+
+        });
+
+        $("#btn-not-kaydet").live("click", function () {
+            $("#not-ekle-form").validate().form();
+
+            if ($("#not-ekle-form").valid()) {
+                var formdata = $("#not-ekle-form").serialize();
+
+                $.post("/TVM/TVM/NotEkle", formdata, function (data) {
+                    if (data == "Null") {
+                        $("#not-ekle-modal").modal("hide");
+                    }
+                    else {
+                        $("#not-ekle-modal").modal("hide");
+                        $("#kullanici-notlari").html(data);
+                        $("#not-ekle-modal-div").html("");
+                    }
+                });
+            }
+        });
+
+        //Not Silme İşlemleri
+        $("#btn-not-sil").live("click", function () {
+            var notid = $(this).attr("not-id");
+            $("#delete-confirmation").modal('show');
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/TVM/TVM/NotSil/",
+                       { NotId: notid },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#kullanici-notlari").html("");
+
+                           if (data != "Null")
+                               $("#kullanici-notlari").html(data);
+                       });
+            });
+        });
+
+
+        var tMusteri = $("#MusteriChart_TMusteriSayisi").val();
+
+
+        //Musteri Sayısı için Hazırlanan Chart
+
+        var colors = Highcharts.getOptions().colors,
+      categories = ['@babonline.Individual', '@babonline.Institutional'],
+      name = '@babonline.Customer_Type',
+      data = [{
+          y: tMusteri,
+          color: colors[0],
+          drilldown: {
+              name: '@babonline.IndividualCustomer',
+              categories: [@babonline.Real_TC_Nationals_Customer, @babonline.Corporate_Customers, @babonline.Foreign, @babonline.Company],
+              data: [10.85, 7.35, 33.06, 2.81],
+              color: colors[0]
+          }
+          //}, {
+          //    y: 21.63,
+          //    color: colors[1],
+          //    drilldown: {
+          //        name: 'Kurumsal Müşteri',
+          //        categories: ['ŞAHIS', 'TUZEL', 'YABANCI', 'ŞİRKET'],
+          //        data: [0.20, 0.83, 1.58, 13.12],
+          //        color: colors[1]
+          //    }
+      }];
+
+        function setChart(name, categories, data, color) {
+            chart.xAxis[0].setCategories(categories, false);
+            chart.series[0].remove(false);
+            chart.addSeries({
+                name: name,
+                data: data,
+                color: color || 'white'
+            }, false);
+            chart.redraw();
+        }
+
+        var chart = $('#container-musteri').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '@babonline.CustomerCount'
+            },
+            subtitle: {
+                text: '' //Click the columns to view versions. Click again to view brands.'
+            },
+            xAxis: {
+                categories: categories
+            },
+            yAxis: {
+                title: {
+                    text: '@babonline.CustomerRates'
+                }
+            },
+            plotOptions: {
+                column: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function () {
+                                var drilldown = this.drilldown;
+                                if (drilldown) { // drill down
+                                    setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
+                                } else { // restore
+                                    setChart(name, categories, data);
+                                }
+                            }
+                        }
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        color: colors[0],
+                        style: {
+                            fontWeight: 'bold'
+                        },
+                        formatter: function () {
+                            return this.y + '%';
+                        }
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    var point = this.point,
+                        s = this.x + ':<b>' + this.y + '% Oran</b><br/>';
+                    if (point.drilldown) {
+                        s += '@babonline.Detailed ' + point.category + ' @babonline.ToDetailedView';
+                    } else {
+                        s += '@babonline.ToMainSection';
+                    }
+                    return s;
+                }
+            },
+            series: [{
+                name: name,
+                data: data,
+                color: 'white'
+            }],
+            exporting: {
+                enabled: false
+            }
+        })
+        .highcharts(); // return chart
+    });
+
+
+    $(document).ready(function () {
+        $("#collapseOne").attr("style", "heigth:auto;");
+
+        //Teklif Sayısı için Hazırlanan Cart
+        var colors = Highcharts.getOptions().colors,
+        categories = [@babonline.Traffic, @babonline.Insurance, @babonline.NDIL, @babonline.Home2, @babonline.PersonalAccident],
+        name = '@babonline.Proposol_Type',
+        data = [{
+            y: 55.11,
+            color: colors[0],
+            drilldown: {
+                name: '@babonline.Traffic',
+                categories: ['HDI', 'MAPFRE', 'ANADOLU', 'AXA'],
+                data: [10.85, 7.35, 33.06, 2.81],
+                color: colors[0]
+            }
+        }, {
+            y: 21.63,
+            color: colors[1],
+            drilldown: {
+                name: '@babonline.Insurance',
+                categories: ['HDI', 'MAPFRE', 'ANADOLU', 'AXA'],
+                data: [0.20, 0.83, 1.58, 13.12],
+                color: colors[1]
+            }
+        }, {
+            y: 11.94,
+            color: colors[2],
+            drilldown: {
+                name: '@babonline.NDIL',
+                categories: ['HDI', 'MAPFRE', 'ANADOLU', 'AXA'],
+                data: [0.12, 0.19, 0.12, 0.36, ],
+                color: colors[2]
+            }
+        }, {
+            y: 7.15,
+            color: colors[3],
+            drilldown: {
+                name: '@babonline.Home2',
+                categories: ['HDI', 'MAPFRE', 'ANADOLU', 'AXA'],
+                data: [4.55, 1.42, 0.23, 0.21],
+                color: colors[3]
+            }
+        }, {
+            y: 2.14,
+            color: colors[4],
+            drilldown: {
+                name: '@babonline.PersonalAccident',
+                categories: ['HDI', 'MAPFRE', 'ANADOLU', 'AXA'],
+                data: [0.12, 0.37, 1.65, 0.21],
+                color: colors[4]
+            }
+        }];
+
+        function setChart(name, categories, data, color) {
+            chart.xAxis[0].setCategories(categories, false);
+            chart.series[0].remove(false);
+            chart.addSeries({
+                name: name,
+                data: data,
+                color: color || 'white'
+            }, false);
+            chart.redraw();
+        }
+
+        var chart = $('#container-teklif').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '@babonline.ProposalCount'
+            },
+            subtitle: {
+                text: '' //Click the columns to view versions. Click again to view brands.'
+            },
+            xAxis: {
+                categories: categories
+            },
+            yAxis: {
+                title: {
+                    text: '@babonline.ProposalRates'
+                }
+            },
+            plotOptions: {
+                column: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function () {
+                                var drilldown = this.drilldown;
+                                if (drilldown) { // drill down
+                                    setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
+                                } else { // restore
+                                    setChart(name, categories, data);
+                                }
+                            }
+                        }
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        color: colors[0],
+                        style: {
+                            fontWeight: 'bold'
+                        },
+                        formatter: function () {
+                            return this.y + '%';
+                        }
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    var point = this.point,
+                        s = this.x + ':<b>' + this.y + '% Oran</b><br/>';
+                    if (point.drilldown) {
+                        s += '@babonline.Detailed ' + point.category + ' @babonline.ToDetailedView';
+                    } else {
+                        s += '@babonline.ToMainSection';
+                    }
+                    return s;
+                }
+            },
+            series: [{
+                name: name,
+                data: data,
+                color: 'white'
+            }],
+            exporting: {
+                enabled: false
+            }
+        })
+        .highcharts(); // return chart
+
+    });
+
+
+    $(document).ready(function () {
+
+        //Police Sayısı için Hazırlanan Cart
+        var colors = Highcharts.getOptions().colors,
+        categories = [@babonline.Traffic, @babonline.Insurance, @babonline.NDIL, @babonline.Home2, @babonline.PersonalAccident],
+        name = '@babonline.PolicyTypes',
+         data = [{
+             y: 55.11,
+             color: colors[0],
+             drilldown: {
+                 name: '@babonline.Traffic',
+                 categories: ['HDI', 'MAPFRE', 'ANADOLU', 'AXA'],
+                 data: [10.85, 7.35, 33.06, 2.81],
+                 color: colors[0]
+             }
+         }, {
+             y: 21.63,
+             color: colors[1],
+             drilldown: {
+                 name: '@babonline.Insurance',
+                 categories: ['HDI', 'MAPFRE', 'ANADOLU', 'AXA'],
+                 data: [0.20, 0.83, 1.58, 13.12],
+                 color: colors[1]
+             }
+         }, {
+             y: 11.94,
+             color: colors[2],
+             drilldown: {
+                 name: '@babonline.NDIL',
+                 categories: ['HDI', 'MAPFRE', 'ANADOLU', 'AXA'],
+                 data: [0.12, 0.19, 0.12, 0.36, ],
+                 color: colors[2]
+             }
+         }, {
+             y: 7.15,
+             color: colors[3],
+             drilldown: {
+                 name: '@babonline.Home2',
+                 categories: ['HDI', 'MAPFRE', 'ANADOLU', 'AXA'],
+                 data: [4.55, 1.42, 0.23, 0.21],
+                 color: colors[3]
+             }
+         }, {
+             y: 2.14,
+             color: colors[4],
+             drilldown: {
+                 name: '@babonline.PersonalAccident',
+                 categories: ['HDI', 'MAPFRE', 'ANADOLU', 'AXA'],
+                 data: [0.12, 0.37, 1.65, 0.21],
+                 color: colors[4]
+             }
+         }];
+
+        function setChart(name, categories, data, color) {
+            chart.xAxis[0].setCategories(categories, false);
+            chart.series[0].remove(false);
+            chart.addSeries({
+                name: name,
+                data: data,
+                color: color || 'white'
+            }, false);
+            chart.redraw();
+        }
+
+        var chart = $('#container-police').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '@babonline.Policy_Count'
+            },
+            subtitle: {
+                text: '' //Click the columns to view versions. Click again to view brands.'
+            },
+            xAxis: {
+                categories: categories
+            },
+            yAxis: {
+                title: {
+                    text: '@babonline.PolicyRates'
+                }
+            },
+            plotOptions: {
+                column: {
+                    cursor: 'pointer',
+                    point: {
+                        events: {
+                            click: function () {
+                                var drilldown = this.drilldown;
+                                if (drilldown) { // drill down
+                                    setChart(drilldown.name, drilldown.categories, drilldown.data, drilldown.color);
+                                } else { // restore
+                                    setChart(name, categories, data);
+                                }
+                            }
+                        }
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        color: colors[0],
+                        style: {
+                            fontWeight: 'bold'
+                        },
+                        formatter: function () {
+                            return this.y + '%';
+                        }
+                    }
+                }
+            },
+            tooltip: {
+                formatter: function () {
+                    var point = this.point,
+                        s = this.x + ':<b>' + this.y + '% Oran</b><br/>';
+                    if (point.drilldown) {
+                        s += '@babonline.Detailed ' + point.category + ' @babonline.ToDetailedView';
+                    } else {
+                        s += '@babonline.ToMainSection';
+                    }
+                    return s;
+                }
+            },
+            series: [{
+                name: name,
+                data: data,
+                color: 'white'
+            }],
+            exporting: {
+                enabled: false
+            }
+        })
+        .highcharts(); // return chart
+
+
+    });
+
+
+    $(document).ready(function () {
+        $('#reportrange').daterangepicker(
+           {
+               ranges: {
+                   '@babonline.Today': ['today', 'today'],
+                   '@babonline.Yesterday': ['yesterday', 'yesterday'],
+                   '@babonline.Last 7 @babonline.Day': [Date.today().add({ days: -6 }), 'today'],
+                   '@babonline.Last 30 @babonline.Day': [Date.today().add({ days: -29 }), 'today'],
+                   '@babonline.ThisMonth': [Date.today().moveToFirstDayOfMonth(), Date.today().moveToLastDayOfMonth()],
+                   '@babonline.LastMonth': [Date.today().moveToFirstDayOfMonth().add({ months: -1 }), Date.today().moveToFirstDayOfMonth().add({ days: -1 })]
+               },
+               opens: 'left',
+               format: 'MM/dd/yyyy',
+               separator: ' to ',
+               startDate: Date.today().add({ days: -29 }),
+               endDate: Date.today(),
+               minDate: '01/01/2012',
+               maxDate: '12/31/2013',
+               locale: {
+                   applyLabel: '@babonline.Approval',
+                   clearLabel: "@babonline.Logoff",
+                   fromLabel: 'From',
+                   toLabel: 'To',
+                   customRangeLabel: '@babonline.SpecialDate',
+                   daysOfWeek: [@babonline.Sunday, @babonline.Monday, @babonline.Tuesday, @babonline.Wednesday, @babonline.Thursday, @babonline.Friday, @babonline.Saturday],
+                   monthNames: [@babonline.January, @babonline.February, @babonline.March, @babonline.April, @babonline.May, @babonline.June, @babonline.July, @babonline.August, @babonline.September, @babonline.October, @babonline.November, @babonline.December],
+                   firstDay: 1
+               },
+               showWeekNumbers: true,
+               buttonClasses: ['btn-danger'],
+               dateLimit: false
+           },
+           function (start, end) {
+               $('#reportrange span').html(start.toString('MMMM d, yyyy') + ' - ' + end.toString('MMMM d, yyyy'));
+           }
+        );
+
+        //Set the initial state of the picker label
+        $('#reportrange span').html(Date.today().add({ days: -29 }).toString('MMMM d, yyyy') + ' - ' + Date.today().toString('MMMM d, yyyy'));
+    });
+
+</script>

@@ -1,0 +1,35 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+
+<ul class="nav pull-right">
+
+    <li id="fat-menu" class="dropdown">
+        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+
+            @if (ViewBag.Kullanici != null && ViewBag.Kullanici.AdiSoyadi != null)
+            {
+                <span>@ViewBag.Kullanici.AdiSoyadi </span> <b class="caret"></b>
+            }
+            else
+            {
+                <span>User</span> <b class="caret"></b>
+            }
+
+        </a>
+        <ul class="dropdown-menu">
+            @if (ViewBag.Kullanici.AdiSoyadi != null)
+            {
+                <li><a tabindex="-1" href="/TVM/PRofil/Detay/@ViewBag.Kullanici.KullaniciKodu"><i class="icon-user"></i>@babonline.MyProfile</a></li>
+                <li class="divider"></li>
+                <li><a tabindex="-1" href="javascript:document.getElementById('logoutForm').submit()"><i class="icon-off"></i>@babonline.Logoff</a></li>
+            }
+        </ul>
+    </li>
+</ul>
+
+<form action="/Account/LogOff" id="logoutForm" method="post">
+    @Html.AntiForgeryToken()
+</form>
+@*@using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
+{
+    @Html.AntiForgeryToken()
+}*@

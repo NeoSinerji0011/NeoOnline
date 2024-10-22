@@ -1,0 +1,116 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model MusteriModel
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.OldPolicy</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.EskiPoliceVar, new string[] { babonline.Have, babonline.Havent }, new { })
+            </div>
+        </div>
+    </div> 
+    <div class="span6">
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">Kimlik No</label>
+            <span class="required">*</span>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.KimlikNo, new { maxlength = 11, style = "width:100px;" });
+                <button class="btn btn-info" id="tc-kimlik-sorgula">Sorgula</button>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Customer_Type</label>
+            <span class="required">*</span>
+            <div class="controls">
+                @Html.DropDownListFor(m => m.MusteriTipKodu, Model.MusteriTipleri, new { style = "width:100px;" })
+                @Html.ValidationMessageFor(m => m.MusteriTipKodu)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Nationality</label>
+            <span class="required">*</span>
+            <div class="controls">
+                @Html.RadioButtonListFor(m => m.Uyruk, Model.UyrukTipleri)
+                @Html.ValidationMessageFor(m => m.Uyruk)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Customer_Name_Title</label>
+            <span class="required">*</span>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.AdiUnvan, new { maxlength = 50, style = "" })
+                @Html.ValidationMessageFor(m => m.Uyruk)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Customer_Surname_Title</label>
+            <span class="required">*</span>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.SoyadiUnvan, new { maxlength = 50, style = "" })
+                @Html.ValidationMessageFor(m => m.Uyruk)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.DateOfBirth</label>
+            <span class="required">*</span>
+            <div class="controls">
+                @Html.DateTextBoxFor(m => m.DogumTarihi, new { style = "width:100px;" })
+                @Html.ValidationMessageFor(m => m.DogumTarihi)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.DateOfBirth</label>
+            <span class="required">*</span>
+            <div class="controls">
+                @Html.DateTextBoxFor(m => m.DogumTarihi, new { style = "width:100px;" })
+                @Html.ValidationMessageFor(m => m.DogumTarihi)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+    </div>
+</div>
+

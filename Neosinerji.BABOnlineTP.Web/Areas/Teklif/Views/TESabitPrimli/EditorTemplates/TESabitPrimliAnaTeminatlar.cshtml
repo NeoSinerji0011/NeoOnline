@@ -1,0 +1,32 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.TESabitPrimliAnaTeminatlar
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.MainCoverage<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.AnaTeminat, Model.AnaTeminatlar, new { style = "width:200px !important;" })
+                @Html.ValidationMessageFor(s => s.AnaTeminat)
+            </div>
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">
+                <span id="hesaplama-secenegi-text">
+                @babonline.HomeGuaranteeCost
+                    </span>
+                <i class="icon-info-sign tooltips" data-container="body" data-placement="bottom" data-original-title="Örnek Format : 1,500.20"></i>
+                <span class="required">*</span></label>
+            <div class="controls">
+                <div class="input-append">
+                    @Html.TextBoxFor(m => m.AnaTeminatSigortaBedeli, new { @class = "m-wrap autoNumeric-custom", placeholder = "1,500.20", style = "width:90px; text-align:right", data_val_number = "Örnek format : 1,500.20" })<span class="add-on para-birimi-icon"> $</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.AnaTeminatSigortaBedeli)
+            </div>
+        </div>
+    </div>
+</div>

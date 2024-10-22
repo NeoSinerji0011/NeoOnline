@@ -1,0 +1,92 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Musteri.Models
+@using Neosinerji.BABOnlineTP.Business
+@model Neosinerji.BABOnlineTP.Web.Areas.Musteri.Models.MusteriTelefonModel
+
+@{
+    ViewBag.numara = Model.Numara;
+}
+
+@if (Model.sayfaadi != "guncelle")
+{
+    <script>
+        $(document).ready(function () {
+            $('form input[type="text"].bfh-phone, form input[type="tel"].bfh-phone, span.bfh-phone').each(function () {
+                var $phone = $(this)
+                $phone.bfhphone($phone.data())
+            })
+
+            //setTimeout(setnumara, 500);
+            //function setnumara() { $("#Numara").val("90"); }
+        });
+    </script>
+}
+else
+{
+    <script>
+        $(document).ready(function () {
+            $('form input[type="text"].bfh-phone, form input[type="tel"].bfh-phone, span.bfh-phone').each(function () {
+                var $phone = $(this)
+                $phone.bfhphone($phone.data())
+            })
+            setTimeout(setnumara, 100);
+            function setnumara() { $("#Numara").val($("#no").val()); }
+        });
+    </script>
+}
+
+<div id="telefon-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>
+            @if (Model.sayfaadi != "guncelle")
+            {  @babonline.Phone_Add}
+            else
+            { @babonline.Edit}
+        </h3>
+    </div>
+    <div class="modal-body">
+        <form id="telefon-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.HiddenFor(m => m.MusteriKodu)
+            @Html.HiddenFor(m => m.SiraNo)
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" id="no" value="@ViewBag.numara" />
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            <div class="control-group">
+                <label class="control-label">@babonline.Contact_Number_Type   <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.IletisimNumaraTipi, Model.IletisimNumaraTipleri, new { style = "width:211px;" })
+                    @Html.ValidationMessageFor(m => m.IletisimNumaraTipi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Number   <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Numara, new { style = "width:200px", tabindex = 17, data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", placeholder = "90-212-5554477", title = babonline.Message_PhoneFormat })
+                    @Html.ValidationMessageFor(m => m.Numara)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Number_Owner</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.NumaraSahibi, new { style = "width:200px;", maxlength = 50, autocompletetype = "disabled", @class = "onlyalpha" })
+                    @Html.ValidationMessageFor(m => m.NumaraSahibi)
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        @if (Model.sayfaadi == "guncelle")
+        { <a href="javascript:void(0)" class="btn btn-success" id="telefon-guncelle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+        }
+        else
+        { <a href="javascript:void(0)" class="btn btn-success" id="telefon-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+        }
+    </div>
+</div>
+
+
+

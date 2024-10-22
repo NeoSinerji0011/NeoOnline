@@ -1,0 +1,90 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.TeminatModel
+
+@{
+    bool guncellemeYetkisi = false;
+
+    List<KullaniciYetkiModel> sekmeler = ViewBag.Sekmeler;
+    KullaniciYetkiModel sekme = sekmeler.Where(s => s.SekmeKodu == menu.AltMenuSekmeler.TeminatTanimlama).FirstOrDefault();
+
+    if (sekme != null)
+    {
+        if (sekme.Degistirme == 1)
+        { guncellemeYetkisi = true; }
+    }
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/Teminat/Liste">@babonline.Collateral_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Detail<span class="selected"></span></a>
+        </li>
+        @if (guncellemeYetkisi)
+        {
+            <li>
+                <a href="~/Manage/Teminat/Guncelle/@Model.TeminatKodu">@babonline.Update<span></span></a>
+            </li>
+        }
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+
+            <div class="box-body">
+                <div class="portlet box light-grey " style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-reorder"></i>@babonline.Collateral_Info</div>
+                        @if (guncellemeYetkisi)
+                        {
+                            <div class="actions">
+                                <a href="~/Manage/Teminat/Guncelle/@Model.TeminatKodu" class="btn yellow"><i class="icon-pencil">&nbsp;</i>@babonline.Update</a>
+                            </div>
+                        }
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal form-view">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Collateral_Code</label>
+                                <div class="controls">
+                                    <label class="control">@Model.TeminatKodu</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Collateral_Name</label>
+                                <div class="controls">
+                                    <label class="control">@Model.TeminatAdi</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

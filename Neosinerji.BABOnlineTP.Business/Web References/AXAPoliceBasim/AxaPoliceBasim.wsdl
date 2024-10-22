@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="PoliceBasim">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PoliceBasimParametre" type="tns:AOCPoliceBasimParametre" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AOCPoliceBasimParametre">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PoliceNo" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ZeylSiraNo" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Kullanici" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DilSecimi" type="tns:BasimDil" />
+          <s:element minOccurs="1" maxOccurs="1" name="BasimTipi" type="tns:BasimType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="BasimDil">
+        <s:restriction base="s:string">
+          <s:enumeration value="Turkce" />
+          <s:enumeration value="Ingilizce" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="BasimType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Binary" />
+          <s:enumeration value="Path" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PoliceBasimResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PoliceBasimResult" type="tns:AOCPoliceBasimSonuc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AOCPoliceBasimSonuc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Binary" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="PolicePath" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ID" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="HataMesajlari" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DenizBankPoliceBasim">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PoliceBasimParametre" type="tns:AOCPoliceBasimParametre" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DenizBankPoliceBasimResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DenizBankPoliceBasimResult" type="tns:AOCPoliceBasimSonuc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="PoliceBasimSoapIn">
+    <wsdl:part name="parameters" element="tns:PoliceBasim" />
+  </wsdl:message>
+  <wsdl:message name="PoliceBasimSoapOut">
+    <wsdl:part name="parameters" element="tns:PoliceBasimResponse" />
+  </wsdl:message>
+  <wsdl:message name="DenizBankPoliceBasimSoapIn">
+    <wsdl:part name="parameters" element="tns:DenizBankPoliceBasim" />
+  </wsdl:message>
+  <wsdl:message name="DenizBankPoliceBasimSoapOut">
+    <wsdl:part name="parameters" element="tns:DenizBankPoliceBasimResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AxaPoliceBasimSoap">
+    <wsdl:operation name="PoliceBasim">
+      <wsdl:input message="tns:PoliceBasimSoapIn" />
+      <wsdl:output message="tns:PoliceBasimSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DenizBankPoliceBasim">
+      <wsdl:input message="tns:DenizBankPoliceBasimSoapIn" />
+      <wsdl:output message="tns:DenizBankPoliceBasimSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AxaPoliceBasimHttpGet" />
+  <wsdl:portType name="AxaPoliceBasimHttpPost" />
+  <wsdl:binding name="AxaPoliceBasimSoap" type="tns:AxaPoliceBasimSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PoliceBasim">
+      <soap:operation soapAction="http://tempuri.org/PoliceBasim" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DenizBankPoliceBasim">
+      <soap:operation soapAction="http://tempuri.org/DenizBankPoliceBasim" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AxaPoliceBasimSoap12" type="tns:AxaPoliceBasimSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PoliceBasim">
+      <soap12:operation soapAction="http://tempuri.org/PoliceBasim" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DenizBankPoliceBasim">
+      <soap12:operation soapAction="http://tempuri.org/DenizBankPoliceBasim" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AxaPoliceBasimHttpGet" type="tns:AxaPoliceBasimHttpGet">
+    <http:binding verb="GET" />
+  </wsdl:binding>
+  <wsdl:binding name="AxaPoliceBasimHttpPost" type="tns:AxaPoliceBasimHttpPost">
+    <http:binding verb="POST" />
+  </wsdl:binding>
+  <wsdl:service name="AxaPoliceBasim">
+    <wsdl:port name="AxaPoliceBasimSoap" binding="tns:AxaPoliceBasimSoap">
+      <soap:address location="https://appt.axasigorta.com.tr/PoliceBasimSrv_V29/AxaPoliceBasim.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AxaPoliceBasimSoap12" binding="tns:AxaPoliceBasimSoap12">
+      <soap12:address location="https://appt.axasigorta.com.tr/PoliceBasimSrv_V29/AxaPoliceBasim.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AxaPoliceBasimHttpGet" binding="tns:AxaPoliceBasimHttpGet">
+      <http:address location="https://appt.axasigorta.com.tr/PoliceBasimSrv_V29/AxaPoliceBasim.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AxaPoliceBasimHttpPost" binding="tns:AxaPoliceBasimHttpPost">
+      <http:address location="https://appt.axasigorta.com.tr/PoliceBasimSrv_V29/AxaPoliceBasim.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

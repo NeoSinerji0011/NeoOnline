@@ -1,0 +1,131 @@
+﻿@model Neosinerji.BABOnlineTP.Web.Models.LoginModel
+
+@{
+    Layout = "~/Views/Shared/_Metlife.cshtml";
+    //ViewBag.Title = babonline.Title_Login;
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+<body class="claro bodyBg">
+    <div id="wrapper">
+        <!-- container Div-->
+
+        <div id="container">
+            <!--<div class="top_shadow"></div>-->
+
+            <div id="loginHeader">
+
+                <div class="wrapper_bg header_div">
+                    <div class="header">
+                        <div class="fl logo"></div>
+                    </div>
+                    <!-- Header Div-->
+                    <!--Main Menu -->
+
+
+                    <div class="main_menu_BG"></div>
+                    <!--Main Menu -->
+                    <!--Sub Menu -->
+
+
+                    <div class="sub_menu"></div>
+                    <!--Sub Menu -->
+
+                </div>
+            </div>
+            <!--content -->
+
+            <div class="wrapper_bg content_div height470px">
+                <div class="content top0px">
+                    <div class="fl slice">
+                        <div class="fragment_section home_section">
+                            <div id="loginForm">
+                                <form action="@Url.Content("~/Metlife/Login")" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="pageData" id="pageData" /><!--Sub Menu -->
+
+                                    <div class="login_box fl marTop30 marLeft50">
+                                        <div class="fl">
+                                            <span class="redFont">Şubeye Giriş</span>
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <div id="otpGenerationResult">
+                                            <div>
+                                            </div>
+
+                                        </div>
+                                        <div class="login_row">
+                                            @Html.TextBoxFor(s => s.Email, new { placeholder = "Email", style = "width:250px;", autocomplete = "off" })
+                                        </div>
+                                        <div class="login_row psswdField">
+                                            @Html.PasswordFor(s => s.Password, new { style = "width:253px;", placeholder = "Şifre", maxlength = "30" })
+                                        </div>
+
+                                        <div class="fl login_button_link marTop10">
+                                            <div class="fl marginLeft75px">
+                                                <input type="submit" id="loginBtn" class="width110px" value="Giriş" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="fr marTop30 marRight40">
+                                        <img alt="banner" width="370" height="304" src="https://servicing.metlife.com.tr/DataCenter_TUR//Tenant_TURKEY/WebContent/images/metlife_login.jpg" />
+                                    </div>
+                                    <div class="fr marRight40">
+                                        <form>
+                                            <a id="nortonSecurityUrl" href="#">
+                                                <img alt="logo" src="https://servicing.metlife.com.tr/DataCenter_TUR//Tenant_TURKEY/WebContent/images/norton_logo_132x68.jpg" />
+                                            </a>
+                                        </form>
+                                    </div>
+
+
+                                    <div class="login_box_footer fl marLeft50 ">
+                                        <div class="GrayFont font10  width300px">
+                                            <span>Bilgi için     </span>
+                                            <span class="bold_text_blue">MetLife Emeklilik İletişim</span>
+                                        </div>
+                                        <div class="GrayFont font10 fl width300px">
+                                            <span class="bold_text_blue">Merkezi'ni </span>
+                                            <span>arayabilirsiniz. (444 0 638)</span>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </form>
+                            </div>
+                        </div>
+                        <!--fragment-->
+
+                        <input type="hidden" id="wt_NID" value="test" />
+                        <input type="hidden" id="wt_IPAddr" value="IP" />
+                    </div>
+                    <!--slice-->
+
+                </div>
+            </div>
+            <div id="appFooter">
+                <div class="btm_shadow"></div>
+                <div id="footerCopy">
+                    <!-- footer start -->
+                    <p>
+                        @*&#169; Copyright MetLife T&#252;m Haklar&#305; Sakl&#305;d&#305;r. PEANUTS &#169; Peanuts Worldwide LLC*@
+                        ©2020 Neosinerji / NeoOnline
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+@*<script>
+        /*<![CDATA[*/
+        var webResource = 'https:\/\/servicing.metlife.com.tr\/DataCenter_TUR\/';
+
+        /*]]>*/
+    </script>*@
+@* <script type="text/javascript" data-dojo-config="parseOnLoad: true, async: true,locale:&#39;tr-tr&#39;" src="https://servicing.metlife.com.tr/DataCenter_TUR//GS_CORE/WebContent/scripts/dojo/dojo.js"></script>
+    <script type="text/javascript" src="https://servicing.metlife.com.tr/DataCenter_TUR//Tenant_TURKEY/WebContent/scripts/webtrendsInit.js"></script>
+    <script type="text/javascript" src="https://servicing.metlife.com.tr/DataCenter_TUR//Tenant_TURKEY/WebContent/scripts/webtrends.js"></script>
+
+    <script type="text/javascript" src="https://servicing.metlife.com.tr/DataCenter_TUR//Tenant_TURKEY/WebContent/scripts/main.js"></script>*@

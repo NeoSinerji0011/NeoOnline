@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AxaExternalProductionService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="WSHttpBinding_IAxaExternalProduction_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <http:NegotiateAuthentication xmlns:http="http://schemas.microsoft.com/ws/06/2004/policy/http" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/Axa.External.Contracts" />
+      <xs:element name="FiyatCalismasiOlustur">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Axa.External.Contracts" minOccurs="0" name="param" nillable="true" type="q1:CFiyatCalismasiParametre" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="FiyatCalismasiOlusturResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Axa.External.Contracts" minOccurs="0" name="FiyatCalismasiOlusturResult" nillable="true" type="q2:CFiyatCalismasiSonuc" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="FiyatCalismasiOnayRed">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Axa.External.Contracts" minOccurs="0" name="param" nillable="true" type="q3:CPoliceOnayRedParametre" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="FiyatCalismasiOnayRedResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Axa.External.Contracts" minOccurs="0" name="FiyatCalismasiOnayRedResult" nillable="true" type="q4:CPoliceOnayRedSonuc" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TeklifRevizeYap">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Axa.External.Contracts" minOccurs="0" name="param" nillable="true" type="q5:CTeklifRevizeParametre" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TeklifRevizeYapResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Axa.External.Contracts" minOccurs="0" name="TeklifRevizeYapResult" nillable="true" type="q6:CFiyatCalismasiSonuc" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Axa.External.Contracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Axa.External.Contracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xs:complexType name="CFiyatCalismasiParametre">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AlternatifTeklifler" nillable="true" type="tns:ArrayOfCAlternatifTeklif" />
+          <xs:element minOccurs="0" name="ClientIPAddress" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Doviz_Kod" nillable="true" type="xs:string" />
+          <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="IngEkAciklamalar" nillable="true" type="q1:ArrayOfstring" />
+          <xs:element minOccurs="0" name="MTKod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MatbuBilgiler" nillable="true" type="tns:ArrayOfCMatbuBilgi" />
+          <xs:element minOccurs="0" name="OtomatikYenileme" type="tns:CEvetHayirTpe" />
+          <xs:element minOccurs="0" name="OtorizasyonBilgi" nillable="true" type="tns:COtorizasyonBilgi" />
+          <xs:element minOccurs="0" name="PoliceCinsi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RefKullanici" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Riziko" nillable="true" type="tns:CMusteri" />
+          <xs:element minOccurs="0" name="SigortaEttiren" nillable="true" type="tns:CMusteri" />
+          <xs:element minOccurs="0" name="Sigortali" nillable="true" type="tns:CMusteri" />
+          <xs:element minOccurs="0" name="Sorular" nillable="true" type="tns:ArrayOfCSoru" />
+          <xs:element minOccurs="0" name="SubeKaynakAcente" nillable="true" type="tns:CSubeKaynakAcente" />
+          <xs:element minOccurs="0" name="TarihBilgileri" nillable="true" type="tns:CTarihBilgileri" />
+          <xs:element minOccurs="0" name="TeknikPersonel" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Teminatlar" nillable="true" type="tns:ArrayOfCTeminat" />
+          <xs:element minOccurs="0" name="TramerBilgileri" nillable="true" type="tns:CTramerBilgileri" />
+          <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TurceEkAciklamalar" nillable="true" type="q2:ArrayOfstring" />
+          <xs:element minOccurs="0" name="UretimYeri" type="tns:CUretimYeriTipi" />
+          <xs:element minOccurs="0" name="UrunKodu" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CFiyatCalismasiParametre" nillable="true" type="tns:CFiyatCalismasiParametre" />
+      <xs:complexType name="ArrayOfCAlternatifTeklif">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CAlternatifTeklif" nillable="true" type="tns:CAlternatifTeklif" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCAlternatifTeklif" nillable="true" type="tns:ArrayOfCAlternatifTeklif" />
+      <xs:complexType name="CAlternatifTeklif">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Deger" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Kod" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CAlternatifTeklif" nillable="true" type="tns:CAlternatifTeklif" />
+      <xs:complexType name="ArrayOfCMatbuBilgi">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CMatbuBilgi" nillable="true" type="tns:CMatbuBilgi" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCMatbuBilgi" nillable="true" type="tns:ArrayOfCMatbuBilgi" />
+      <xs:complexType name="CMatbuBilgi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Aciklama" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BilgiAdi" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CMatbuBilgi" nillable="true" type="tns:CMatbuBilgi" />
+      <xs:simpleType name="CEvetHayirTpe">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Evet" />
+          <xs:enumeration value="Hayir" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="CEvetHayirTpe" nillable="true" type="tns:CEvetHayirTpe" />
+      <xs:complexType name="COtorizasyonBilgi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Otorizasyon" type="tns:CEvetHayirTpe" />
+          <xs:element minOccurs="0" name="OtorizasyonMail" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="COtorizasyonBilgi" nillable="true" type="tns:COtorizasyonBilgi" />
+      <xs:complexType name="CMusteri">
+        <xs:sequence>
+          <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BilgiMesajlari" nillable="true" type="q3:ArrayOfstring" />
+          <xs:element minOccurs="0" name="GenelBilgiler" nillable="true" type="tns:CMusteriGenelBilgiler" />
+          <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HataMesajlari" nillable="true" type="q4:ArrayOfstring" />
+          <xs:element minOccurs="0" name="IletisimBilgileri" nillable="true" type="tns:CMusteriIletisimBilgi" />
+          <xs:element minOccurs="0" name="PartnerBilgiler" nillable="true" type="tns:ArrayOfCPartnerBilgi" />
+          <xs:element minOccurs="0" name="UavtAdres" nillable="true" type="tns:CMusteri_Uavt_Adres" />
+          <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="UyariMesajlari" nillable="true" type="q5:ArrayOfstring" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CMusteri" nillable="true" type="tns:CMusteri" />
+      <xs:complexType name="CMusteriGenelBilgiler">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdUnvan1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AdUnvan2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BankaMustNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BankaMusteriTipi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Cinsiyet" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DogumTarih" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Musteri_Kod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PartnerMustNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PasaportNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SF" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Sifati" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Soyad" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TcNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UlkeKod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="VergiNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="YabanciTcNo" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CMusteriGenelBilgiler" nillable="true" type="tns:CMusteriGenelBilgiler" />
+      <xs:complexType name="CMusteriIletisimBilgi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Fax_No" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="GSM_No" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Tel_No" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CMusteriIletisimBilgi" nillable="true" type="tns:CMusteriIletisimBilgi" />
+      <xs:complexType name="ArrayOfCPartnerBilgi">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CPartnerBilgi" nillable="true" type="tns:CPartnerBilgi" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCPartnerBilgi" nillable="true" type="tns:ArrayOfCPartnerBilgi" />
+      <xs:complexType name="CPartnerBilgi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Aciklama" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BilgiKod" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CPartnerBilgi" nillable="true" type="tns:CPartnerBilgi" />
+      <xs:complexType name="CMusteri_Uavt_Adres">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AcentaId" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="AcikAdres" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Aciklama" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Aktif" type="xs:boolean" />
+          <xs:element minOccurs="0" name="AxaAdresNo" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="BagimsizBolum" nillable="true" type="tns:CUAVTBagimsizBolum" />
+          <xs:element minOccurs="0" name="Bina" nillable="true" type="tns:CUAVTBina" />
+          <xs:element minOccurs="0" name="Bucak" nillable="true" type="tns:CUAVTBucak" />
+          <xs:element minOccurs="0" name="CSBM" nillable="true" type="tns:CUAVTCSBM" />
+          <xs:element minOccurs="0" name="GeoCode_Id" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Il" nillable="true" type="tns:CIl" />
+          <xs:element minOccurs="0" name="Ilce" nillable="true" type="tns:CUAVTIlce" />
+          <xs:element minOccurs="0" name="Koy" nillable="true" type="tns:CUAVTKoy" />
+          <xs:element minOccurs="0" name="Mahalle" nillable="true" type="tns:CUAVTMahalle" />
+          <xs:element minOccurs="0" name="PostaKodu" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TCdenUvatAdresGetir" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Ulke" nillable="true" type="tns:CUlke" />
+          <xs:element minOccurs="0" name="YazismaAdresi" type="tns:CEvetHayirTpe" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CMusteri_Uavt_Adres" nillable="true" type="tns:CMusteri_Uavt_Adres" />
+      <xs:complexType name="CUAVTBagimsizBolum">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdresNo" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="IcKapiNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Kod" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="KullanimTipKodu" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TUIKKod" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CUAVTBagimsizBolum" nillable="true" type="tns:CUAVTBagimsizBolum" />
+      <xs:complexType name="CUAVTBina">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Ada" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BlokAdi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DisKapiNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Kod" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="KullanimTipKodu" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Pafta" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Parsel" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SiteAdi" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CUAVTBina" nillable="true" type="tns:CUAVTBina" />
+      <xs:complexType name="CUAVTBucak">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CAxKodAcikBase">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CUAVTBucak" nillable="true" type="tns:CUAVTBucak" />
+      <xs:complexType name="CAxKodAcikBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Adi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Kod" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CAxKodAcikBase" nillable="true" type="tns:CAxKodAcikBase" />
+      <xs:complexType name="CUAVTCSBM">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CAxaKodAclTipBase">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CUAVTCSBM" nillable="true" type="tns:CUAVTCSBM" />
+      <xs:complexType name="CAxaKodAclTipBase">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CAxKodAcikBase">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="TipAciklama" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="TipKodu" nillable="true" type="xs:decimal" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CAxaKodAclTipBase" nillable="true" type="tns:CAxaKodAclTipBase" />
+      <xs:complexType name="CIl">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Il_Ad" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Il_Hyt_Kod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Il_Kod" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CIl" nillable="true" type="tns:CIl" />
+      <xs:complexType name="CUAVTIlce">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CAxKodAcikBase">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CUAVTIlce" nillable="true" type="tns:CUAVTIlce" />
+      <xs:complexType name="CUAVTKoy">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CAxKodAcikBase">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="BucakAdi" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="BucakKod" nillable="true" type="xs:decimal" />
+              <xs:element minOccurs="0" name="BucakKoyAdi" nillable="true" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CUAVTKoy" nillable="true" type="tns:CUAVTKoy" />
+      <xs:complexType name="CUAVTMahalle">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CAxaKodAclTipBase">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CUAVTMahalle" nillable="true" type="tns:CUAVTMahalle" />
+      <xs:complexType name="CUlke">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Ulke_Ad" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Ulke_Hyt_Kod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Ulke_Kod" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CUlke" nillable="true" type="tns:CUlke" />
+      <xs:complexType name="ArrayOfCSoru">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CSoru" nillable="true" type="tns:CSoru" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCSoru" nillable="true" type="tns:ArrayOfCSoru" />
+      <xs:complexType name="CSoru">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CevapAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CevapKod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SoruAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SoruKod" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CSoru" nillable="true" type="tns:CSoru" />
+      <xs:complexType name="CSubeKaynakAcente">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AcenteAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AcenteNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="KaynakAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="KaynakKod" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="SubeAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SubeKod" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TaliAcente" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TaliKaynak" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CSubeKaynakAcente" nillable="true" type="tns:CSubeKaynakAcente" />
+      <xs:complexType name="CTarihBilgileri">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Baslama_Tarih" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Bitis_Tarih" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Tanzim_Tarih" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Teklif_Tarih" nillable="true" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CTarihBilgileri" nillable="true" type="tns:CTarihBilgileri" />
+      <xs:complexType name="ArrayOfCTeminat">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CTeminat" nillable="true" type="tns:CTeminat" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCTeminat" nillable="true" type="tns:ArrayOfCTeminat" />
+      <xs:complexType name="CTeminat">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Adet" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Bedel" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Iptal" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Komisyon" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="NetPrim" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TLBedel" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TLKomisyon" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TLNetPrim" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TeminatAdi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TeminatKod" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CTeminat" nillable="true" type="tns:CTeminat" />
+      <xs:complexType name="CTramerBilgileri">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="EskiPlakaNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PlakaNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TescilBelgeNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TramerAcenteNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TramerPoliceNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TramerSirketKod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TramerYenilemeNo" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CTramerBilgileri" nillable="true" type="tns:CTramerBilgileri" />
+      <xs:simpleType name="CUretimYeriTipi">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Merkez" />
+          <xs:enumeration value="CallCenter" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="CUretimYeriTipi" nillable="true" type="tns:CUretimYeriTipi" />
+      <xs:complexType name="CFiyatCalismasiSonuc">
+        <xs:sequence>
+          <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BilgiMesajlari" nillable="true" type="q6:ArrayOfstring" />
+          <xs:element minOccurs="0" name="FiyatCalismalari" nillable="true" type="tns:ArrayOfCFiyatCalismasiType" />
+          <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HataMesajlari" nillable="true" type="q7:ArrayOfstring" />
+          <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="UyariMesajlari" nillable="true" type="q8:ArrayOfstring" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CFiyatCalismasiSonuc" nillable="true" type="tns:CFiyatCalismasiSonuc" />
+      <xs:complexType name="ArrayOfCFiyatCalismasiType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CFiyatCalismasiType" nillable="true" type="tns:CFiyatCalismasiType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCFiyatCalismasiType" nillable="true" type="tns:ArrayOfCFiyatCalismasiType" />
+      <xs:complexType name="CFiyatCalismasiType">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CPoliceType">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CFiyatCalismasiType" nillable="true" type="tns:CFiyatCalismasiType" />
+      <xs:complexType name="CPoliceType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AnaBilgiler" nillable="true" type="tns:CFiyatCalismasiAnabilgiler" />
+          <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BilgiMesajlari" nillable="true" type="q9:ArrayOfstring" />
+          <xs:element minOccurs="0" name="COtoIptalIade" nillable="true" type="tns:COtoIptalIade" />
+          <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HataMesajlari" nillable="true" type="q10:ArrayOfstring" />
+          <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="IngAciklamalar" nillable="true" type="q11:ArrayOfstring" />
+          <xs:element minOccurs="0" name="IngMatbuBilgiler" nillable="true" type="tns:ArrayOfCMatbuBilgi" />
+          <xs:element minOccurs="0" name="Riziko" nillable="true" type="tns:CMusteri" />
+          <xs:element minOccurs="0" name="SigortaEttiren" nillable="true" type="tns:CMusteri" />
+          <xs:element minOccurs="0" name="Sigortali" nillable="true" type="tns:CMusteri" />
+          <xs:element minOccurs="0" name="Sorular" nillable="true" type="tns:ArrayOfCSoru" />
+          <xs:element minOccurs="0" name="Taksitler" nillable="true" type="tns:ArrayOfCTaksit" />
+          <xs:element minOccurs="0" name="Teminatlar" nillable="true" type="tns:ArrayOfCTeminat" />
+          <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TurceAciklamalar" nillable="true" type="q12:ArrayOfstring" />
+          <xs:element minOccurs="0" name="TurkceMatbuBilgiler" nillable="true" type="tns:ArrayOfCMatbuBilgi" />
+          <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="UyariMesajlari" nillable="true" type="q13:ArrayOfstring" />
+          <xs:element minOccurs="0" name="Vergiler" nillable="true" type="tns:ArrayOfCVergi" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CPoliceType" nillable="true" type="tns:CPoliceType" />
+      <xs:complexType name="CFiyatCalismasiAnabilgiler">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BankaKod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BankaSubeKod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BransAdi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BransKodu" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Doviz_Kod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EkBelgeNumarasi_I" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="EkBelgeNumarasi_T" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="FiyatCalismaNo" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="MTKod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MaviLacivert" type="tns:CMaviLacivertType" />
+          <xs:element minOccurs="0" name="OtomatikYenileme" type="tns:CEvetHayirTpe" />
+          <xs:element minOccurs="0" name="Otorizasyon" type="xs:boolean" />
+          <xs:element minOccurs="0" name="PrimBorcu" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="SubeKaynakAcente" nillable="true" type="tns:CSubeKaynakAcente" />
+          <xs:element minOccurs="0" name="TLPrimBorcu" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="T_I" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TarihBilgileri" nillable="true" type="tns:CTarihBilgileri" />
+          <xs:element minOccurs="0" name="TeklifOnay" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TramerBilgileri" nillable="true" type="tns:CTramerBilgileri" />
+          <xs:element minOccurs="0" name="UrunKodu" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ZeylAdi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ZeylKodu" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CFiyatCalismasiAnabilgiler" nillable="true" type="tns:CFiyatCalismasiAnabilgiler" />
+      <xs:simpleType name="CMaviLacivertType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Mavi" />
+          <xs:enumeration value="Lacivert" />
+          <xs:enumeration value="Diger" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="CMaviLacivertType" nillable="true" type="tns:CMaviLacivertType" />
+      <xs:complexType name="COtoIptalIade">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AxaTutar" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="DigerServisCagir" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="IptalCalisti" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="OdemeDoviz" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OdemeTutar" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="OtoTalimatIptal" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="PesinatTarih" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Police" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="PosIadeCalisti" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="PosIadeTutar" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="PosIptalCalisti" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Zeyil" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="COtoIptalIade" nillable="true" type="tns:COtoIptalIade" />
+      <xs:complexType name="ArrayOfCTaksit">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CTaksit" nillable="true" type="tns:CTaksit" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCTaksit" nillable="true" type="tns:ArrayOfCTaksit" />
+      <xs:complexType name="CTaksit">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Komisyon" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TLKomisyon" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TLTutar" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Tutar" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Vade" nillable="true" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CTaksit" nillable="true" type="tns:CTaksit" />
+      <xs:complexType name="ArrayOfCVergi">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CVergi" nillable="true" type="tns:CVergi" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCVergi" nillable="true" type="tns:ArrayOfCVergi" />
+      <xs:complexType name="CVergi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="TLTutar" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Tutar" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="VergiKod" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CVergi" nillable="true" type="tns:CVergi" />
+      <xs:complexType name="CPoliceOnayRedParametre">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="IslemTip" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="MustTahsilatBilgileriList" nillable="true" type="tns:CMustTahsilatBilgileri_List" />
+          <xs:element minOccurs="0" name="PoliceNo" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="RedNedeni" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RefKullanici" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ZeylNo" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CPoliceOnayRedParametre" nillable="true" type="tns:CPoliceOnayRedParametre" />
+      <xs:complexType name="CMustTahsilatBilgileri_List">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Items" nillable="true" type="tns:ArrayOfCMustTahsilatBilgileri" />
+          <xs:element minOccurs="0" name="Load" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CMustTahsilatBilgileri_List" nillable="true" type="tns:CMustTahsilatBilgileri_List" />
+      <xs:complexType name="ArrayOfCMustTahsilatBilgileri">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CMustTahsilatBilgileri" nillable="true" type="tns:CMustTahsilatBilgileri" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCMustTahsilatBilgileri" nillable="true" type="tns:ArrayOfCMustTahsilatBilgileri" />
+      <xs:complexType name="CMustTahsilatBilgileri">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CTahsilatBilgileri">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="SiraNo" type="xs:int" />
+              <xs:element minOccurs="0" name="Tutar" nillable="true" type="xs:decimal" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="CMustTahsilatBilgileri" nillable="true" type="tns:CMustTahsilatBilgileri" />
+      <xs:complexType name="CTahsilatBilgileri">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BorcluIlkAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BorcluOrtaAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BorcluSoyadAd" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CVC" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CardNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Kart_Id" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="LastExpDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Load" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Tckn" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Token_id" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CTahsilatBilgileri" nillable="true" type="tns:CTahsilatBilgileri" />
+      <xs:complexType name="CPoliceOnayRedSonuc">
+        <xs:sequence>
+          <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BilgiMesajlari" nillable="true" type="q14:ArrayOfstring" />
+          <xs:element minOccurs="0" name="COtoIptalIade" nillable="true" type="tns:COtoIptalIade" />
+          <xs:element minOccurs="0" name="DaskPoliceBilgileri" nillable="true" type="tns:CDaskPoliceBilgi" />
+          <xs:element minOccurs="0" name="Durum" nillable="true" type="xs:decimal" />
+          <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HataMesajlari" nillable="true" type="q15:ArrayOfstring" />
+          <xs:element minOccurs="0" name="PoliceNo" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Taksitler" nillable="true" type="tns:ArrayOfCTaksit" />
+          <xs:element minOccurs="0" name="Teminatlar" nillable="true" type="tns:ArrayOfCTeminat" />
+          <xs:element xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="UyariMesajlari" nillable="true" type="q16:ArrayOfstring" />
+          <xs:element minOccurs="0" name="ZeylNo" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CPoliceOnayRedSonuc" nillable="true" type="tns:CPoliceOnayRedSonuc" />
+      <xs:complexType name="CDaskPoliceBilgi">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DaskGrupNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DaskPoliceNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DaskSeriNo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DaskYenilemeNo" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CDaskPoliceBilgi" nillable="true" type="tns:CDaskPoliceBilgi" />
+      <xs:complexType name="CTeklifRevizeParametre">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ClientIPAddress" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Doviz_Kod" nillable="true" type="xs:string" />
+          <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="IngEkAciklamalar" nillable="true" type="q17:ArrayOfstring" />
+          <xs:element minOccurs="0" name="MTKod" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MatbuBilgiler" nillable="true" type="tns:ArrayOfCMatbuBilgi" />
+          <xs:element minOccurs="0" name="OtomatikYenileme" type="tns:CEvetHayirTpe" />
+          <xs:element minOccurs="0" name="OtorizasyonBilgi" nillable="true" type="tns:COtorizasyonBilgi" />
+          <xs:element minOccurs="0" name="PoliceCinsi" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PoliceNo" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="RefKullanici" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Riziko" nillable="true" type="tns:CMusteri" />
+          <xs:element minOccurs="0" name="SigortaEttiren" nillable="true" type="tns:CMusteri" />
+          <xs:element minOccurs="0" name="Sigortali" nillable="true" type="tns:CMusteri" />
+          <xs:element minOccurs="0" name="Sorular" nillable="true" type="tns:ArrayOfCSoru" />
+          <xs:element minOccurs="0" name="SubeKaynakAcente" nillable="true" type="tns:CSubeKaynakAcente" />
+          <xs:element minOccurs="0" name="TarihBilgileri" nillable="true" type="tns:CTarihBilgileri" />
+          <xs:element minOccurs="0" name="TeknikPersonel" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Teminatlar" nillable="true" type="tns:ArrayOfCTeminat" />
+          <xs:element minOccurs="0" name="TramerBilgileri" nillable="true" type="tns:CTramerBilgileri" />
+          <xs:element xmlns:q18="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TurceEkAciklamalar" nillable="true" type="q18:ArrayOfstring" />
+          <xs:element minOccurs="0" name="UretimYeri" type="tns:CUretimYeriTipi" />
+          <xs:element minOccurs="0" name="UrunKodu" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ZeylNo" nillable="true" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CTeklifRevizeParametre" nillable="true" type="tns:CTeklifRevizeParametre" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfstring">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="IAxaExternalProduction_FiyatCalismasiOlustur_InputMessage">
+    <wsdl:part name="parameters" element="tns:FiyatCalismasiOlustur" />
+  </wsdl:message>
+  <wsdl:message name="IAxaExternalProduction_FiyatCalismasiOlustur_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FiyatCalismasiOlusturResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAxaExternalProduction_FiyatCalismasiOnayRed_InputMessage">
+    <wsdl:part name="parameters" element="tns:FiyatCalismasiOnayRed" />
+  </wsdl:message>
+  <wsdl:message name="IAxaExternalProduction_FiyatCalismasiOnayRed_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FiyatCalismasiOnayRedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAxaExternalProduction_TeklifRevizeYap_InputMessage">
+    <wsdl:part name="parameters" element="tns:TeklifRevizeYap" />
+  </wsdl:message>
+  <wsdl:message name="IAxaExternalProduction_TeklifRevizeYap_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TeklifRevizeYapResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IAxaExternalProduction">
+    <wsdl:operation name="FiyatCalismasiOlustur">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAxaExternalProduction/FiyatCalismasiOlustur" message="tns:IAxaExternalProduction_FiyatCalismasiOlustur_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAxaExternalProduction/FiyatCalismasiOlusturResponse" message="tns:IAxaExternalProduction_FiyatCalismasiOlustur_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FiyatCalismasiOnayRed">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAxaExternalProduction/FiyatCalismasiOnayRed" message="tns:IAxaExternalProduction_FiyatCalismasiOnayRed_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAxaExternalProduction/FiyatCalismasiOnayRedResponse" message="tns:IAxaExternalProduction_FiyatCalismasiOnayRed_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TeklifRevizeYap">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAxaExternalProduction/TeklifRevizeYap" message="tns:IAxaExternalProduction_TeklifRevizeYap_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAxaExternalProduction/TeklifRevizeYapResponse" message="tns:IAxaExternalProduction_TeklifRevizeYap_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSHttpBinding_IAxaExternalProduction" type="tns:IAxaExternalProduction">
+    <wsp:PolicyReference URI="#WSHttpBinding_IAxaExternalProduction_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FiyatCalismasiOlustur">
+      <soap12:operation soapAction="http://tempuri.org/IAxaExternalProduction/FiyatCalismasiOlustur" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FiyatCalismasiOnayRed">
+      <soap12:operation soapAction="http://tempuri.org/IAxaExternalProduction/FiyatCalismasiOnayRed" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TeklifRevizeYap">
+      <soap12:operation soapAction="http://tempuri.org/IAxaExternalProduction/TeklifRevizeYap" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AxaExternalProductionService">
+    <wsdl:port name="WSHttpBinding_IAxaExternalProduction" binding="tns:WSHttpBinding_IAxaExternalProduction">
+      <soap12:address location="https://appt.axasigorta.com.tr/AxaExternalProduction-Prod/AxaExternalProductionService.svc" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>https://appt.axasigorta.com.tr/AxaExternalProduction-Prod/AxaExternalProductionService.svc</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Spn>
+          </Spn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

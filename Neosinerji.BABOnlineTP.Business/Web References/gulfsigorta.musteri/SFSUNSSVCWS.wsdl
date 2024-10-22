@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="EntityDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EntityDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EntityDetailResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchEntity">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchEntityResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchEntityResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveEntity">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveEntityResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveEntityResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryIdentityByCitizenshipNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryIdentityByCitizenshipNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryIdentityByCitizenshipNumberResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryIdentityByForeignCitizenshipNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryIdentityByForeignCitizenshipNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryIdentityByForeignCitizenshipNumberResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryIdentityByTaxNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryIdentityByTaxNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryIdentityByTaxNumberResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryAddressByCitizenshipNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryAddressByCitizenshipNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryAddressByCitizenshipNumberResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryAddressByForeignCitizenshipNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryAddressByForeignCitizenshipNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryAddressByForeignCitizenshipNumberResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="EntityDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:EntityDetail" />
+  </wsdl:message>
+  <wsdl:message name="EntityDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:EntityDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchEntitySoapIn">
+    <wsdl:part name="parameters" element="tns:SearchEntity" />
+  </wsdl:message>
+  <wsdl:message name="SearchEntitySoapOut">
+    <wsdl:part name="parameters" element="tns:SearchEntityResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveEntitySoapIn">
+    <wsdl:part name="parameters" element="tns:SaveEntity" />
+  </wsdl:message>
+  <wsdl:message name="SaveEntitySoapOut">
+    <wsdl:part name="parameters" element="tns:SaveEntityResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByCitizenshipNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryIdentityByCitizenshipNumber" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByCitizenshipNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryIdentityByCitizenshipNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByForeignCitizenshipNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryIdentityByForeignCitizenshipNumber" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByForeignCitizenshipNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryIdentityByForeignCitizenshipNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByTaxNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryIdentityByTaxNumber" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByTaxNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryIdentityByTaxNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryAddressByCitizenshipNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryAddressByCitizenshipNumber" />
+  </wsdl:message>
+  <wsdl:message name="QueryAddressByCitizenshipNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryAddressByCitizenshipNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryAddressByForeignCitizenshipNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryAddressByForeignCitizenshipNumber" />
+  </wsdl:message>
+  <wsdl:message name="QueryAddressByForeignCitizenshipNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryAddressByForeignCitizenshipNumberResponse" />
+  </wsdl:message>
+  <wsdl:message name="EntityDetailHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EntityDetailHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="SearchEntityHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SearchEntityHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="SaveEntityHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveEntityHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByCitizenshipNumberHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByCitizenshipNumberHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByForeignCitizenshipNumberHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByForeignCitizenshipNumberHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByTaxNumberHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByTaxNumberHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QueryAddressByCitizenshipNumberHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryAddressByCitizenshipNumberHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QueryAddressByForeignCitizenshipNumberHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryAddressByForeignCitizenshipNumberHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="EntityDetailHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EntityDetailHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="SearchEntityHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SearchEntityHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="SaveEntityHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SaveEntityHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByCitizenshipNumberHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByCitizenshipNumberHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByForeignCitizenshipNumberHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByForeignCitizenshipNumberHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByTaxNumberHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryIdentityByTaxNumberHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QueryAddressByCitizenshipNumberHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryAddressByCitizenshipNumberHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QueryAddressByForeignCitizenshipNumberHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryAddressByForeignCitizenshipNumberHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:portType name="SFSEntityIntegrationServiceSoap">
+    <wsdl:operation name="EntityDetail">
+      <wsdl:input message="tns:EntityDetailSoapIn" />
+      <wsdl:output message="tns:EntityDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchEntity">
+      <wsdl:input message="tns:SearchEntitySoapIn" />
+      <wsdl:output message="tns:SearchEntitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveEntity">
+      <wsdl:input message="tns:SaveEntitySoapIn" />
+      <wsdl:output message="tns:SaveEntitySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByCitizenshipNumber">
+      <wsdl:input message="tns:QueryIdentityByCitizenshipNumberSoapIn" />
+      <wsdl:output message="tns:QueryIdentityByCitizenshipNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByForeignCitizenshipNumber">
+      <wsdl:input message="tns:QueryIdentityByForeignCitizenshipNumberSoapIn" />
+      <wsdl:output message="tns:QueryIdentityByForeignCitizenshipNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByTaxNumber">
+      <wsdl:input message="tns:QueryIdentityByTaxNumberSoapIn" />
+      <wsdl:output message="tns:QueryIdentityByTaxNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByCitizenshipNumber">
+      <wsdl:input message="tns:QueryAddressByCitizenshipNumberSoapIn" />
+      <wsdl:output message="tns:QueryAddressByCitizenshipNumberSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByForeignCitizenshipNumber">
+      <wsdl:input message="tns:QueryAddressByForeignCitizenshipNumberSoapIn" />
+      <wsdl:output message="tns:QueryAddressByForeignCitizenshipNumberSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SFSEntityIntegrationServiceHttpGet">
+    <wsdl:operation name="EntityDetail">
+      <wsdl:input message="tns:EntityDetailHttpGetIn" />
+      <wsdl:output message="tns:EntityDetailHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchEntity">
+      <wsdl:input message="tns:SearchEntityHttpGetIn" />
+      <wsdl:output message="tns:SearchEntityHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveEntity">
+      <wsdl:input message="tns:SaveEntityHttpGetIn" />
+      <wsdl:output message="tns:SaveEntityHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByCitizenshipNumber">
+      <wsdl:input message="tns:QueryIdentityByCitizenshipNumberHttpGetIn" />
+      <wsdl:output message="tns:QueryIdentityByCitizenshipNumberHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByForeignCitizenshipNumber">
+      <wsdl:input message="tns:QueryIdentityByForeignCitizenshipNumberHttpGetIn" />
+      <wsdl:output message="tns:QueryIdentityByForeignCitizenshipNumberHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByTaxNumber">
+      <wsdl:input message="tns:QueryIdentityByTaxNumberHttpGetIn" />
+      <wsdl:output message="tns:QueryIdentityByTaxNumberHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByCitizenshipNumber">
+      <wsdl:input message="tns:QueryAddressByCitizenshipNumberHttpGetIn" />
+      <wsdl:output message="tns:QueryAddressByCitizenshipNumberHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByForeignCitizenshipNumber">
+      <wsdl:input message="tns:QueryAddressByForeignCitizenshipNumberHttpGetIn" />
+      <wsdl:output message="tns:QueryAddressByForeignCitizenshipNumberHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SFSEntityIntegrationServiceHttpPost">
+    <wsdl:operation name="EntityDetail">
+      <wsdl:input message="tns:EntityDetailHttpPostIn" />
+      <wsdl:output message="tns:EntityDetailHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchEntity">
+      <wsdl:input message="tns:SearchEntityHttpPostIn" />
+      <wsdl:output message="tns:SearchEntityHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveEntity">
+      <wsdl:input message="tns:SaveEntityHttpPostIn" />
+      <wsdl:output message="tns:SaveEntityHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByCitizenshipNumber">
+      <wsdl:input message="tns:QueryIdentityByCitizenshipNumberHttpPostIn" />
+      <wsdl:output message="tns:QueryIdentityByCitizenshipNumberHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByForeignCitizenshipNumber">
+      <wsdl:input message="tns:QueryIdentityByForeignCitizenshipNumberHttpPostIn" />
+      <wsdl:output message="tns:QueryIdentityByForeignCitizenshipNumberHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByTaxNumber">
+      <wsdl:input message="tns:QueryIdentityByTaxNumberHttpPostIn" />
+      <wsdl:output message="tns:QueryIdentityByTaxNumberHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByCitizenshipNumber">
+      <wsdl:input message="tns:QueryAddressByCitizenshipNumberHttpPostIn" />
+      <wsdl:output message="tns:QueryAddressByCitizenshipNumberHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByForeignCitizenshipNumber">
+      <wsdl:input message="tns:QueryAddressByForeignCitizenshipNumberHttpPostIn" />
+      <wsdl:output message="tns:QueryAddressByForeignCitizenshipNumberHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SFSEntityIntegrationServiceSoap" type="tns:SFSEntityIntegrationServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EntityDetail">
+      <soap:operation soapAction="http://tempuri.org/EntityDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchEntity">
+      <soap:operation soapAction="http://tempuri.org/SearchEntity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveEntity">
+      <soap:operation soapAction="http://tempuri.org/SaveEntity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByCitizenshipNumber">
+      <soap:operation soapAction="http://tempuri.org/QueryIdentityByCitizenshipNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByForeignCitizenshipNumber">
+      <soap:operation soapAction="http://tempuri.org/QueryIdentityByForeignCitizenshipNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByTaxNumber">
+      <soap:operation soapAction="http://tempuri.org/QueryIdentityByTaxNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByCitizenshipNumber">
+      <soap:operation soapAction="http://tempuri.org/QueryAddressByCitizenshipNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByForeignCitizenshipNumber">
+      <soap:operation soapAction="http://tempuri.org/QueryAddressByForeignCitizenshipNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SFSEntityIntegrationServiceSoap12" type="tns:SFSEntityIntegrationServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EntityDetail">
+      <soap12:operation soapAction="http://tempuri.org/EntityDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchEntity">
+      <soap12:operation soapAction="http://tempuri.org/SearchEntity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveEntity">
+      <soap12:operation soapAction="http://tempuri.org/SaveEntity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByCitizenshipNumber">
+      <soap12:operation soapAction="http://tempuri.org/QueryIdentityByCitizenshipNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByForeignCitizenshipNumber">
+      <soap12:operation soapAction="http://tempuri.org/QueryIdentityByForeignCitizenshipNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByTaxNumber">
+      <soap12:operation soapAction="http://tempuri.org/QueryIdentityByTaxNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByCitizenshipNumber">
+      <soap12:operation soapAction="http://tempuri.org/QueryAddressByCitizenshipNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByForeignCitizenshipNumber">
+      <soap12:operation soapAction="http://tempuri.org/QueryAddressByForeignCitizenshipNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SFSEntityIntegrationServiceHttpGet" type="tns:SFSEntityIntegrationServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="EntityDetail">
+      <http:operation location="/EntityDetail" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchEntity">
+      <http:operation location="/SearchEntity" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveEntity">
+      <http:operation location="/SaveEntity" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByCitizenshipNumber">
+      <http:operation location="/QueryIdentityByCitizenshipNumber" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByForeignCitizenshipNumber">
+      <http:operation location="/QueryIdentityByForeignCitizenshipNumber" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByTaxNumber">
+      <http:operation location="/QueryIdentityByTaxNumber" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByCitizenshipNumber">
+      <http:operation location="/QueryAddressByCitizenshipNumber" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByForeignCitizenshipNumber">
+      <http:operation location="/QueryAddressByForeignCitizenshipNumber" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SFSEntityIntegrationServiceHttpPost" type="tns:SFSEntityIntegrationServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="EntityDetail">
+      <http:operation location="/EntityDetail" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchEntity">
+      <http:operation location="/SearchEntity" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveEntity">
+      <http:operation location="/SaveEntity" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByCitizenshipNumber">
+      <http:operation location="/QueryIdentityByCitizenshipNumber" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByForeignCitizenshipNumber">
+      <http:operation location="/QueryIdentityByForeignCitizenshipNumber" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryIdentityByTaxNumber">
+      <http:operation location="/QueryIdentityByTaxNumber" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByCitizenshipNumber">
+      <http:operation location="/QueryAddressByCitizenshipNumber" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryAddressByForeignCitizenshipNumber">
+      <http:operation location="/QueryAddressByForeignCitizenshipNumber" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SFSEntityIntegrationService">
+    <wsdl:port name="SFSEntityIntegrationServiceSoap" binding="tns:SFSEntityIntegrationServiceSoap">
+      <soap:address location="http://testwebapp01.gulfsigorta.com.tr/UNSSVC/SFSUNSSVCWS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SFSEntityIntegrationServiceSoap12" binding="tns:SFSEntityIntegrationServiceSoap12">
+      <soap12:address location="http://testwebapp01.gulfsigorta.com.tr/UNSSVC/SFSUNSSVCWS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SFSEntityIntegrationServiceHttpGet" binding="tns:SFSEntityIntegrationServiceHttpGet">
+      <http:address location="http://testwebapp01.gulfsigorta.com.tr/UNSSVC/SFSUNSSVCWS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SFSEntityIntegrationServiceHttpPost" binding="tns:SFSEntityIntegrationServiceHttpPost">
+      <http:address location="http://testwebapp01.gulfsigorta.com.tr/UNSSVC/SFSUNSSVCWS.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

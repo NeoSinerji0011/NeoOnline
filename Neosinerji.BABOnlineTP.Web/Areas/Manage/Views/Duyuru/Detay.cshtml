@@ -1,0 +1,176 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.DuyuruDetayModel
+
+@{
+    bool guncellemeYetkisi = false;
+
+    List<KullaniciYetkiModel> sekmeler = ViewBag.Sekmeler;
+    KullaniciYetkiModel sekme = sekmeler.Where(s => s.SekmeKodu == menu.AltMenuSekmeler.DuyuruYayinlama).FirstOrDefault();
+
+    if (sekme != null)
+    {
+        if (sekme.Degistirme == 1)
+        { guncellemeYetkisi = true; }
+    }
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="/Manage/Duyuru/Liste">@babonline.Notification_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="/Manage/Duyuru/Ekle">@babonline.Detail<span class="selected"></span></a>
+        </li>
+        @if (guncellemeYetkisi)
+        {
+            <li>
+                <a href="/Manage/Duyuru/Guncelle/@Model.DuyuruId">@babonline.Update<span></span></a>
+            </li>
+        }
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey " style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-reorder"></i>@babonline.Notification_Info</div>
+                        @if (guncellemeYetkisi)
+                        {
+                            <div class="actions">
+                                <a href="/Manage/Duyuru/Guncelle/@Model.DuyuruId" class="btn yellow"><i class="icon-pencil">&nbsp;</i>@babonline.Update</a>
+                            </div>
+                        }
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal form-view">
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Topic</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.Konu</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Add_Date</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.EklemeTarihi.ToString("dd.MM.yyyy")</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Preference</label>
+                                        <div class="controls">
+                                            @if (Model.Oncelik == babonline.High)
+                                            {
+                                                <label class="control">
+                                                    <label class="label label-important">@Model.Oncelik </label>
+                                                </label>
+                                            }
+                                            else if (Model.Oncelik == babonline.Medium)
+                                            {
+                                                <label class="control">
+                                                    <label class="label label-info">@Model.Oncelik </label>
+                                                </label>
+                                            }
+                                            else if (Model.Oncelik == babonline.Low)
+                                            {
+                                                <label class="control">
+                                                    <label class="label label-success">@Model.Oncelik </label>
+                                                </label>
+                                            }
+                                            else
+                                            {<label class="control">@Model.Oncelik</label>}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.StartDate</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.BaslangisTarihi.ToString("dd.MM.yyyy")</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Added_User</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.Ekleyen</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.EndDate</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.BitisTarihi.ToString("dd.MM.yyyy")</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TVM_List</label>
+                                        <div class="controls">
+                                            @foreach (var item in Model.EkliTVMler)
+                                            {
+                                                @item <br />
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Description</label>
+                                        <div class="controls">
+                                            <label class="control">@Html.Raw(Model.Aciklama)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

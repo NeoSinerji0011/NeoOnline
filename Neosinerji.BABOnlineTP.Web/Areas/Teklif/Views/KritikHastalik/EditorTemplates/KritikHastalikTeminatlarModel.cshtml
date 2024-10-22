@@ -1,0 +1,62 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.KritikHastalikTeminatlarModel
+
+
+<div class="control-group">
+    <label class="control-label">Teminat Tutarı<span class="required">*</span></label>
+    <div class="controls">
+        @Html.DropDownListFor(s => s.teminatTutari, Model.teminatTutarlari, new { style = "width:90%"  })
+        @Html.ValidationMessageFor(s => s.teminatTutari)
+    </div>
+</div>
+<div class="control-group" id="teminatTutarDiger" style="display: none">
+    <label class="control-label">Teminat Tutarı Diğer <span class="required">*</span></label>
+    <div class="controls">
+        <div class="input-append">
+            @Html.TextBoxFor(s => s.teminatTutariDiger, new { @class = "m-wrap onlynumbers autoNumeric", style = "width:120px;text-align:right" })<span class="add-on paraBirimi">TL</span>
+        </div>
+        @Html.ValidationMessageFor(s => s.teminatTutariDiger)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Vefat Teminatı</label>
+    <div class="controls">
+        @Html.SwitchButtonFor(m => m.vefatTeminati, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small" })
+<div class="input-append tutar" id="vefat">
+            @Html.TextBoxFor(m => m.VefatBedeli, new { @class = "m-wrap onlynumbers autoNumeric", style = "width:90px; text-align:right" })<span class="add-on paraBirimi">TL</span>
+        </div>
+        @Html.ValidationMessageFor(s => s.VefatBedeli)
+</div>
+</div>
+<div class="control-group">
+    <label class="control-label">Kaza Sonucu Maluliyet </label>
+    <div class="controls">
+        @Html.SwitchButtonFor(m => m.kazaSonucuMaluliyet, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small" })
+<div class="input-append tutar" id="kaza-sonucu-maluliyet">
+            @Html.TextBoxFor(m => m.kazaSonucuMaluliyetBedeli, new { @class = "m-wrap onlynumbers autoNumeric", style = "width:90px; text-align:right" })<span class="add-on paraBirimi">TL</span>
+        </div>
+        @Html.ValidationMessageFor(s => s.kazaSonucuMaluliyetBedeli)
+</div>
+</div>
+
+<div class="control-group">
+    <label class="control-label">Hastalık Sonucu Maluliyet</label>
+    <div class="controls">
+        @Html.SwitchButtonFor(m => m.hastalikSonucuMaluliyet, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small" })
+<div class="input-append tutar" id="hastalik-sonucu-maluliyet">
+            @Html.TextBoxFor(m => m.hastalikSonucuMaluliyetBedeli, new { @class = "m-wrap onlynumbers autoNumeric", style = "width:90px; text-align:right" })<span class="add-on paraBirimi">TL</span>
+        </div>
+        @Html.ValidationMessageFor(s => s.hastalikSonucuMaluliyetBedeli)
+</div>
+</div>
+<div class="control-group">
+    <label class="control-label">Tehlikeli Hastalık 13</label>
+    <div class="controls">
+        @Html.SwitchButtonFor(m => m.tehlikeliHastalik, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small" })
+<div class="input-append tutar" id="tehlikeli-hastalik">
+            @Html.TextBoxFor(m => m.tehlikeliHastalikBedeli, new { @class = "m-wrap onlynumbers autoNumeric", style = "width:90px; text-align:right" })<span class="add-on paraBirimi">TL</span>
+        </div>
+        @Html.ValidationMessageFor(s => s.tehlikeliHastalikBedeli)
+</div>
+</div>
+

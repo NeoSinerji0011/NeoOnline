@@ -1,0 +1,1156 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Muhasebe.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model CariHesapEkstreListModel
+<head>
+    <title>CariHesapEkstresi</title>
+</head>
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">@babonline.CurrentAccountStatement<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.OtherReport<span class="arrow"></span></a>
+            <ul class="dropdown-menu"></ul>
+            <b class="caret-out"></b>
+        </li>
+
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <style type="text/css">
+        .baslikRow:hover {
+            background-color: #99CCFF !important;
+        }
+
+        .baslikRow {
+            background-color: #99CCFF !important;
+        }
+
+        .table > thead > tr > th {
+            padding-bottom: 10px !important;
+        }
+
+        #sample_2 > tbody > tr > td {
+            text-align: right;
+        }
+    </style>
+}
+
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/switch")
+    <link href="~/Content/css/bootstrapSwitch.min.css" rel="stylesheet" />
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    <script src="~/Content/js/moment.js"></script>
+    <script src="~/Content/js/mask.js" type="text/javascript"></script>
+    <script src="~/Content/js/customDataTable.js" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function () {
+            createTable("#sample_1", [6, 7, 8],[],"carihesaptekstresi");
+            createTable("#sample_2", [1, 2, 3, 4]);
+             
+              
+        //       $("#sample_1_wrapper > .dt-buttons > .buttons-pdf").remove();
+        $("#id_donemseluretimpdf").css("display", "none");
+        var link = $("#id_donemseluretimpdf").attr('href');
+       // $("#sample_1_wrapper > .dt-buttons").append('<a href="'+link+'"><button class="dt-button" tabindex="0" aria-controls="DataTables_Table_1" type="button"><img src="/content/img/pdf.png" width="25" height="25"></button></a>')
+
+            $("#BitisGunAy").mask("99.99");
+            $("#BaslangicGunAy").mask("99.99");
+            $('input[name="AramaTip"]').change(function () {
+                var aramamTipi = $(this).val();
+                if (aramamTipi == 0) {
+                    $("#CariHesapKod").show();
+                    $("#MusteriGrupKod").hide();
+                    $("#CariHesapKodu").removeClass("ignore");
+                    $("#CariHesapAdi").removeClass("ignore");
+                    $("#MusteriGurpKodu").addClass("ignore");
+                    $("#CariHesapKodu").attr("required", "required");
+                    $("#CariHesapAdi").attr("required", "required");
+                    $("#MusteriGurpKodu").removeAttr('required');
+                    $("#MusteriGurpKodu").val("");
+                }
+                else {
+                    $("#CariHesapKod").hide();
+                    $("#MusteriGrupKod").show();
+                    $("#CariHesapKodu").val("");
+                    $("#CariHesapAdi").val("");
+                    $("#CariHesapKodu").addClass("ignore");
+                    $("#CariHesapAdi").addClass("ignore");
+                    $("#MusteriGurpKodu").removeClass("ignore");
+                    $("#CariHesapKodu").removeAttr("required");
+                    $("#CariHesapAdi").removeAttr("required");
+                    $("#MusteriGurpKodu").attr("required", "required");
+                }
+            });
+            //Arama Yapıyor..
+            //var oTable = $('#sample_1').dataTable
+            //    "bSort": false,
+            //    "bPaginate": false,
+            //    "bInfo": false,
+            //    "bLengthChange": false,
+            //    "sDom": 'T<"clear">lfrtip',
+            //    "oTableTools": { "aButtons": ["xls", "print", "copy"] }
+            //});
+            //var oTable = $('#sample_2').dataTable({
+            //    "bSort": false,
+            //    "bPaginate": false,
+            //    "bInfo": false,
+            //    "bLengthChange": false,
+            //    "sDom": 'T<"clear">lfrtip',
+            //    "oTableTools": { "aButtons": ["xls", "print", "copy"] }
+            //});
+
+
+
+            $("#cariHesapAra").click(function () {
+                $(this).button("loading");
+                var carihesapadi = $("#CariHesapAdi").val();
+                if (carihesapadi != null || carihesapadi != "") {
+                    $.getJSON('/Muhasebe/Muhasebe/GetCariHesaplar', { hesapAdi: carihesapadi },
+                        function (result) {
+                            if (result.success) {
+                                $("#CariHesapKodu").empty();
+                                $("#CariHesapKodu").dropDownFill(result.list);
+                                $("#cariHesapAra").button("reset");
+                                $("#CariHesapKodu").focus();
+                                $("#cariHesapVar").html(result.list.length + " tane hesap bulundu.");
+                                $("#cariHesapVar").show();
+                            }
+                            else {
+                                swal("Uyarı!", "Aranılan cari hesap bulunmadı.");
+                                $("#CariHesapKodu").empty();
+                                $("#CariHesapKodu").dropDownFill(result.list);
+                                $("#CariHesapKodu").val("");
+                                $("#cariHesapAra").button("reset");
+                                $("#cariHesapVar").html("");
+                                $("#cariHesapVar").hide();
+                            }
+                        });
+                }
+            });
+            $("#searchl").click(function () {
+                var cariTipi = String($("#CariHesapKodu").val()).substring(0, 3);
+
+                //if ((cariTipi == "320" || cariTipi == "600" || cariTipi == "610")) {
+                //    if ($("#BaslangicGunAy").val() == "" || $("#BaslangicGunAy").val() == null) {
+                //        swal("Uyarı!", "Şirket Hesabı Seçildiğinde İki tarih aralığı zorunludur.");
+                //        return false;
+                //    }
+                //    if ($("#BitisGunAy").val() == "" || $("#BitisGunAy").val() == null) {
+                //        swal("Uyarı!", "Şirket Hesabı Seçildiğinde İki tarih aralığı zorunludur.");
+                //        return false;
+                //    }
+                //    var bitisGun = String($("#BitisGunAy").val()).substring(0, 2);
+                //    var bitisAy = String($("#BitisGunAy").val()).substring(3,6);
+                //    var baslangıcGun = String($("#BaslangicGunAy").val()).substring(0,2);
+                //    var baslangicAy = String($("#BaslangicGunAy").val()).substring(3,6);
+                //    var bitisT = Date.parse($("#Donem").val().substring(0, 4)+"-"+ bitisAy+"-"+bitisGun);
+                //    var baslamaT = Date.parse($("#Donem").val().substring(0, 4) + "-" + baslangicAy + "-" + baslangıcGun);
+                //    var aralik = bitisT - baslamaT;
+                //    var monthMillisec = 31 * 24 * 60 * 60 * 1000;
+
+                //    if (aralik > monthMillisec) {
+                //        swal("Uyarı!", "İki tarih aralığı bir aydan fazla olamaz.");
+                //        return false;
+                //    }
+                //}
+                var bitisGun = String($("#BitisGunAy").val()).substring(0, 2);
+                var bitisAy = String($("#BitisGunAy").val()).substring(3, 6);
+                var baslangıcGun = String($("#BaslangicGunAy").val()).substring(0, 2);
+                var baslangicAy = String($("#BaslangicGunAy").val()).substring(3, 6);
+                var bitisT = ($("#Donem").val().substring(0, 4) + "-" + bitisAy + "-" + bitisGun).toString();
+                var baslamaT = ($("#Donem").val().substring(0, 4) + "-" + baslangicAy + "-" + baslangıcGun).toString();
+                if (!validDate(bitisT) || !validDate(baslamaT) )
+                {
+                    swal("Uyarı!", "İki Tarih Aralığını Gün.Ay Şeklinde yazınız.\nÖrnek: 31.12");
+                    return false;
+                }
+            });
+
+            var validDate = function (strDate) {
+                var formats = ["YYYY-M-D", "YYYY-MM-DD"];
+                var valid = moment(strDate, formats).isValid();
+                return valid;
+            };
+
+            $("#csearchl").click(function () {
+                var aramamTipi = $('input[name="AramaTip"]').val();
+                if (aramamTipi == 0) {
+                    $("#CariHesapKod").show();
+                    $("#MusteriGrupKod").hide();
+                    $("#CariHesapKodu").removeClass("ignore");
+                    $("#CariHesapAdi").removeClass("ignore");
+                    $("#MusteriGurpKodu").addClass("ignore");
+                    $("#CariHesapKodu").attr("required", "required");
+                    $("#CariHesapAdi").attr("required", "required");
+                    $("#MusteriGurpKodu").removeAttr('required');
+                }
+                else {
+                    $("#CariHesapKod").hide();
+                    $("#MusteriGrupKod").show();
+                    $("#CariHesapKodu").addClass("ignore");
+                    $("#CariHesapAdi").addClass("ignore");
+                    $("#MusteriGurpKodu").removeClass("ignore");
+                    $("#CariHesapKodu").removeAttr("required");
+                    $("#CariHesapAdi").removeAttr("required");
+                    $("#MusteriGurpKodu").attr("required", "required");
+                }
+
+                var isvalid = $("#formPoliceListe").valid();
+                if (!isvalid) {
+                    return false;
+                }
+            });
+
+            if (@Model.AramaTip == 0) {
+                $("#CariHesapKod").show();
+                $("#MusteriGrupKod").hide();
+                $("#CariHesapKodu").removeClass("ignore");
+                $("#CariHesapAdi").removeClass("ignore");
+                $("#MusteriGurpKodu").addClass("ignore");
+                $("#CariHesapKodu").attr("required", "required");
+                $("#CariHesapAdi").attr("required", "required");
+                $("#MusteriGurpKodu").removeAttr('required');
+            }
+            else {
+                $("#CariHesapKod").hide();
+                $("#MusteriGrupKod").show();
+                $("#CariHesapKodu").addClass("ignore");
+                $("#CariHesapAdi").addClass("ignore");
+                $("#MusteriGurpKodu").removeClass("ignore");
+                $("#CariHesapKodu").removeAttr("required");
+                $("#CariHesapAdi").removeAttr("required");
+                $("#MusteriGurpKodu").attr("required", "required");
+            }
+        });
+    </script>
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">@babonline.CurrentAccountStatement </span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @using (Html.BeginForm("CariHesapHareketEktresi", "Muhasebe", FormMethod.Post, new { @class = "form-horizontal", id = "formPoliceListe", enctype = "multipart/form-data" }))
+                {
+                    <div class="row-fluid">
+                        <div class="span8">
+                            @*<div class="control-group">
+                                    <label class="control-label">Sig. Et. Kimlik No</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.TcknVkn, new { maxlenght = 11, id = "texttcvkn", @class = "onlynumbers" })
+                                    </div>
+                                </div>*@
+                            <div class="control-group">
+                                <label class="control-label">@babonline.SearchType</label>
+                                <div class="controls radio-custom">
+                                    @Html.RadioButtonListFor(m => m.AramaTip, Model.AramaTipTipleri)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TrialBalanceType</label>
+                                <div class="controls radio-custom">
+                                    @Html.RadioButtonListFor(m => m.MizanTip, Model.MizanTipleri)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.PdfType</label>
+                                <div class="controls radio-custom">
+                                    @Html.RadioButtonListFor(m => m.PdfTip, Model.PdfTipleri)
+                                </div>
+                            </div>
+                            <div id="CariHesapKod" style="display:none">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.SearchCurrentAccount<span class="required">*</span></label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(s => s.CariHesapAdi, new { minlength = 3, maxlength = 30, style = "width:50%", required = "required", placeHolder = @babonline.EnterCurrentAccountName })
+                                        @Html.ValidationMessageFor(m => m.CariHesapAdi)
+                                        <button class="btn btn-info " id="cariHesapAra" type="button" data-loading-text="Aranıyor">@babonline.Search</button><br />
+
+                                    </div>
+                                </div>
+                                <div class="control-group" id="CariHesapSecimi" style="">
+                                    <label class="control-label">@babonline.CurrentAccount<span class="required">*</span></label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(s => s.CariHesapKodu, Model.CariHesapList, new { style = "width:50%", required = "required" })<span style="color:red;display:none;" id="cariHesapVar"></span>
+                                        @Html.ValidationMessageFor(m => m.CariHesapKodu)
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="MusteriGrupKod" style="display:none">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.CustomerGroupCode<span class="required">*</span></label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(s => s.MusteriGurpKodu, new { minlength = 3, maxlength = 30, style = "width:50%", placeHolder = "Müşteri grup adı/kodu giriniz.", required = "required" })
+                                        @Html.ValidationMessageFor(m => m.MusteriGurpKodu)
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Period</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.Donem, Model.Donemler, new { style = "width:125px" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.StartToEndRange</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(s => s.BaslangicGunAy, new { minlength = 5, maxlength = 5, style = "width:20%", placeHolder = @babonline.Day+"."+@babonline.Month }) &nbsp-&nbsp
+                                        @Html.TextBoxFor(s => s.BitisGunAy, new { minlength = 5, maxlength = 5, style = "width:20%", placeHolder = @babonline.Day+"."+@babonline.Month })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">
+                        </div>
+                        <div class="form-actions">
+                            <a href="~/Muhasebe/Muhasebe/CariHesapHareketEktresi" class="btn ligth-grey">@babonline.Clear</a>
+                            <input type="submit" id="searchl" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="@babonline.Search" />
+                        </div>
+                    </div>
+                }
+                <div class="row-fluid" style="margin-top: 20px;">
+                    <div class="span12">
+
+
+                        <div>
+                            @if (Model.pdfVar)
+                            {
+                                <div><a href="@Model.PDFURL" id="id_donemseluretimpdf" style="display:none" title="Ekstre Pdf" target="_blank"><img src="/content/img/pdf_icon.png" width="25" height="25"> </a></div>
+                            }
+
+                            @if (Model.BorcToplam.HasValue)
+                            {
+                                <h2 id="h2_donem">@babonline.Period - @Model.Donem   </h2>
+                                <h3 id="h3_carihesaptitle">@babonline.CurrentAccountStatement</h3>
+                                if (!String.IsNullOrEmpty(Model.CariHesapKodu))
+                                {
+                                    <h5 id="h5_cariHesapText">
+                                        @Model.CariHesapText
+                                    </h5>
+                                }
+                                else if (!String.IsNullOrEmpty(Model.MusteriGurpKodu))
+                                {
+                                    <h5 id="h5_cariHesapText">
+                                        @Model.MusteriGurpKodu
+                                    </h5>
+                                }
+                            }
+                        </div>
+                        <div id="table-div" style="overflow-x: auto; margin-top: 15px;">
+                            @if (ViewBag.AnaTVM)
+                            {
+                                <table class="table table-bordered table-hover dataTable data-table" id="sample_1" style="table-layout: inherit ; margin-bottom:5%;">
+                                    <thead>
+                                        @*@if (Model.BorcToplam.HasValue)
+                                            {
+                                                <tr style="background-color:white; border-color :white; font-style: italic;font-size:18px;">
+                                                    <th style="width: auto; border-color :white; ">DÖNEM - @Model.Donem</th>
+                                                    <th style="width: auto; border-color :white;"> </th>
+                                                    <th style="width: auto; border-color :white;"> </th>
+                                                    <th style="width: 10%; border-color :white;font-size:20px;">CARİ HESAP EKSTRESİ  </th>
+
+                                                    @if (!String.IsNullOrEmpty(Model.CariHesapKodu))
+                                                    {
+
+                                                        <th style="width: 14%; border-color :white;">@Model.CariHesapText </th>
+                                                        <th style="width: 5%; border-color :white;"> </th>
+                                                        <th style="width: auto; border-color :white;">   </th>
+                                                    }
+                                                    else if (!String.IsNullOrEmpty(Model.MusteriGurpKodu))
+                                                    {
+
+                                                        <th style="width: 14%; border-color :white;"> @Model.MusteriGurpKodu  </th>
+                                                        <th style="width: 5%; border-color :white;"> </th>
+                                                        <th style="width: auto; border-color :white;">   </th>
+                                                    }
+                                                    else
+                                                    {
+                                                        <th style="width: auto; border-color :white;"> </th>
+                                                        <th style="width: auto; border-color :white;">   </th>
+                                                        <th style="width:9%; border-color :white; text-align:center;"> </th>
+                                                    }
+
+                                                    <th style="width:9%; border-color :white; text-align:center;"> </th>
+                                                    <th style="width: auto; border-color :white;">   </th>
+                                                    <th style="width: auto; border-color :white;">   </th>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr style="background-color:white; border-color :white; font-style: italic;font-size:18px;">
+                                                    <th style="width: auto; border-color :white; "></th>
+                                                    <th style="width: auto; border-color :white;">  </th>
+                                                    <th style="width: auto; border-color :white;"> </th>
+                                                    <th style="width: 15%; border-color :white;">  </th>
+                                                    <th style="width: 14%; border-color :white;"></th>
+                                                    <th style="width: 5%; border-color :white;">    </th>
+                                                    <th style="width:auto;  border-color :white;"> </th>
+                                                    <th style="width: auto; border-color :white;">   </th>
+                                                    <th style="width: auto; border-color :white;">   </th>
+                                                    <th style="width: auto; border-color :white;">   </th>
+                                                </tr>
+                                            }*@
+                                        <tr class="baslikRow">
+                                            <th style="width: auto;"> @babonline.Due_Date</th>
+                                            <th style="width: auto;"> @babonline.DocumentDate</th>
+                                            <th style="width: auto;"> @babonline.DocumentPaymentType</th>
+                                            <th style="width: 15%;"> @babonline.DocumentNumber </th>
+                                            <th style="width: 14%;"> @babonline.Explanation  </th>
+                                            <th style="width: 5%;"> @babonline.Currency </th>
+                                            <th style="width:auto; "> @babonline.Debt      </th>
+                                            <th style="width:auto;"> @babonline.Receivables    </th>
+                                            <th style="width: auto;"> @babonline.Balance    </th>
+                                            <th style="width: auto;"> @babonline.Debt/@babonline.Receivables  </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @if (Model.list != null && Model.list.Count > 0)
+                                        {
+
+                                            foreach (var item in Model.list)
+                                            {
+                                                if (item.BorcTipi == "A")
+                                                {
+                                                    var trBackColor = "";
+                                                    if (item.OdemeTipi != "" && item.OdemeTipi != null)
+                                                    {
+                                                        trBackColor = "#cce6ff !important";
+                                                    }
+                                                    else
+                                                    {
+                                                        trBackColor = "#ffe6e6 !important";
+                                                    }
+                                                    <tr style="color:#d70000; background-color:@trBackColor;">
+                                                        <td style="width: 6%;">@item.VadeTarihi.ToString("dd.MM.yyyy")</td>
+                                                        @if (item.OdemeTarihi.HasValue)
+                                                        {
+                                                            <td style="width: 6%;">@item.OdemeTarihi.Value.ToString("dd.MM.yyyy")</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="width: 6%;"></td>
+                                                        }
+                                                        <td style="width: 6%;">@item.EvrakTipi @item.OdemeTipi</td>
+                                                        <td style="width: 5%;">@item.EvrakNo   </td>
+                                                        <td style="width: 10%"> @item.Aciklama  </td>
+                                                        <td style="width: 3%;"> @item.ParaBirimi  </td>
+                                                        <td style="width: 5%; text-align: right;">@item.Borc.Value.ToString("N")      </td>
+                                                        <td style="width: 5%; text-align: right;"> @item.Alacak.Value.ToString("N")    </td>
+                                                        @if (item.Bakiye < 0)
+                                                        {
+                                                            item.Bakiye = item.Bakiye * -1;
+                                                            <td style="width: 5%; text-align: right;">@item.Bakiye.Value.ToString("N")    </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="width: 5%; text-align: right;">@item.Bakiye.Value.ToString("N")    </td>
+                                                        }
+                                                        <td style="width: 1%;">@item.BorcTipi  </td>
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+                                                    var trBackColor = "";
+
+                                                    if (item.OdemeTipi != "" && item.OdemeTipi != null)
+                                                    {
+                                                        trBackColor = "#cce6ff !important";
+                                                    }
+                                                    else
+                                                    {
+                                                        trBackColor = "#ffe6e6 !important";
+                                                    }
+                                                    <tr style=" background-color:@trBackColor;">
+                                                        <td style="width: 6%;">@item.VadeTarihi.ToString("dd.MM.yyyy")</td>
+                                                        @if (item.OdemeTarihi.HasValue)
+                                                        {
+                                                            <td style="width: 6%;">@item.OdemeTarihi.Value.ToString("dd.MM.yyyy")</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="width: 6%;"></td>
+                                                        }
+                                                        <td style="width: 6%;">@item.EvrakTipi @item.OdemeTipi</td>
+                                                        <td style="width: 5%;">@item.EvrakNo   </td>
+                                                        <td style="width: 10%"> @item.Aciklama  </td>
+                                                        <td style="width: 3%;"> @item.ParaBirimi  </td>
+                                                        <td style="width: 5%; text-align: right;">@item.Borc.Value.ToString("N")      </td>
+                                                        <td style="width: 5%; text-align: right;"> @item.Alacak.Value.ToString("N")    </td>
+                                                        @if (item.Bakiye < 0)
+                                                        {
+                                                            item.Bakiye = item.Bakiye * -1;
+                                                            <td style="width: 5%; text-align: right;">@item.Bakiye.Value.ToString("N")    </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="width: 5%; text-align: right;">@item.Bakiye.Value.ToString("N")    </td>
+                                                        }
+                                                        <td style="width: 1%;">@item.BorcTipi  </td>
+
+                                                    </tr>
+                                                }
+                                            }
+                                            <tr>
+                                                <td><b>Genel Toplam</b></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                @if (Model.BorcToplam.HasValue)
+                                                {
+                                                    <td style="text-align: right;"><b>@Model.BorcToplam.Value.ToString("N") </b></td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                @if (Model.AlacakToplam.HasValue)
+                                                {
+                                                    <td style="text-align: right;"><b>@Model.AlacakToplam.Value.ToString("N") </b></td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                @{ 
+                                                    var tempBakiyeToplam = Model.BakiyeToplam;
+                                                }
+                                                @if (Model.BakiyeToplam.HasValue)
+                                                {
+                                                    if (Model.BakiyeToplam < 0)
+                                                    {
+                                                        Model.BakiyeToplam = Model.BakiyeToplam * -1;
+                                                        <td style="width: 5%; text-align: right;">@Model.BakiyeToplam.Value.ToString("N")    </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 5%; text-align: right;">@Model.BakiyeToplam.Value.ToString("N")    </td>
+                                                    }
+                                                }
+                                                @if (tempBakiyeToplam.HasValue && tempBakiyeToplam < 0)
+                                                {
+                                                    <td>A</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>B</td>
+                                                }
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                                <h4 style="padding-top:2%;" class="form-section"></h4>
+
+                                if (Model.BorcToplam.HasValue)
+                                {
+                                    <h2 id="h2_donem2"> @babonline.Period - @Model.Donem.Substring(0, 4)  </h2>
+                                    <h3 id="h3_carihesaptitle2">@babonline.MonthlyCurrentAccountSummary</h3>
+
+                                    if (!String.IsNullOrEmpty(Model.CariHesapKodu))
+                                    {
+                                        <h5 id="h5_cariHesapText2">
+                                            @Model.CariHesapText
+                                        </h5>
+
+                                    }
+                                    else if (!String.IsNullOrEmpty(Model.MusteriGurpKodu))
+                                    {
+                                        <h5 id="h5_cariHesapText2">
+                                            @Model.MusteriGurpKodu
+                                        </h5>
+                                    }
+                                }
+
+                                if (Model.list != null && Model.list.Count > 0)
+                                {
+                                    <table class="table table-bordered table-hover dataTable data-table" id="sample_2" style="table-layout: inherit;">
+                                        <thead>
+                                            @*@if (Model.BorcToplam.HasValue)
+                                                {
+                                                    <tr style="background-color:white; border-color :white; font-style: italic;font-size:18px;">
+                                                        <th style="width:15%; border-color :white; "> DÖNEM - @Model.Donem.Substring(0, 4)</th>
+                                                        <th style="width: 15%; border-color :white;"></th>
+                                                        <th style="width: 25%; border-color :white;font-size:20px;">AYLIK CARİ HESAP ÖZETİ   </th>
+                                                        @if (!String.IsNullOrEmpty(Model.CariHesapKodu))
+                                                        {
+
+                                                            <th style="width: 25%; border-color :white;">@Model.CariHesapText </th>
+                                                            <th style="width: 20%; border-color :white; text-align:center;"> </th>
+                                                        }
+                                                        else if (!String.IsNullOrEmpty(Model.MusteriGurpKodu))
+                                                        {
+
+                                                            <th style="width: auto; border-color :white;"> @Model.MusteriGurpKodu  </th>
+                                                            <th style="width: auto; border-color :white; text-align:center;"> </th>
+                                                        }
+                                                        else
+                                                        {
+                                                            <th style="width: auto; border-color :white; "> </th>
+                                                            <th style="width: auto; border-color :white;"> </th>
+                                                        }
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <th style="width: auto;"></th>
+                                                        <th style="width: auto;">  </th>
+                                                        <th style="width: auto;">  </th>
+                                                        <th style="width: auto;"> </th>
+                                                        <th style="width: 10%;border-color :white;"></th>
+                                                    </tr>
+                                                }*@
+                                            <tr class="baslikRow">
+                                                <th style="width: auto;">@babonline.Month</th>
+                                                <th style="width: auto;"> @babonline.AmountPayableDebt</th>
+                                                <th style="width: auto;"> @babonline.Paid – @babonline.Receivables</th>
+                                                <th style="width: auto;"> @babonline.Debt</th>
+                                                <th style="width: auto;"> @babonline.Balance </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+
+                                            @if (Model.cariHesapBA != null)
+                                            {
+                                                decimal yuruyenBakiye = 0;
+                                                decimal borcToplam = 0;
+                                                decimal ocakBorc = 0;
+                                                decimal subatBorc = 0;
+                                                decimal martBorc = 0;
+                                                decimal nisanBorc = 0;
+                                                decimal mayisBorc = 0;
+                                                decimal haziranBorc = 0;
+                                                decimal temmuzBorc = 0;
+                                                decimal agustosBorc = 0;
+                                                decimal eylulBorc = 0;
+                                                decimal ekimBorc = 0;
+                                                decimal kasimBorc = 0;
+                                                decimal aralikBorc = 0;
+                                                <tr>
+                                                    <td style="text-align:left !important;">@babonline.January</td>
+                                                    <td>@Model.cariHesapBA.Borc1.ToString("N2")</td>
+                                                    <td>@Model.cariHesapBA.Alacak1.ToString("N2")</td>
+                                                    @{
+                                                        ocakBorc = Model.cariHesapBA.Borc1 - Model.cariHesapBA.Alacak1;
+                                                        yuruyenBakiye += ocakBorc;
+                                                        borcToplam += ocakBorc;
+                                                    }
+                                                    @if (ocakBorc < 0)
+                                                    {
+                                                        ocakBorc = ocakBorc * -1;
+                                                        <td style="color:#d70000;">
+                                                            @ocakBorc.ToString("N2")
+                                                        </td>
+                                                        ocakBorc = ocakBorc * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @ocakBorc.ToString("N2")
+                                                        </td>
+                                                    }
+                                                    @if (yuruyenBakiye < 0)
+                                                    {
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                        <td style="color:#d70000;">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                    }
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left !important;">@babonline.February</td>
+                                                    <td>@Model.cariHesapBA.Borc2.ToString("N2")</td>
+                                                    <td>@Model.cariHesapBA.Alacak2.ToString("N2")</td>
+                                                    @{
+                                                        subatBorc = Model.cariHesapBA.Borc2 - Model.cariHesapBA.Alacak2;
+                                                        yuruyenBakiye += subatBorc;
+                                                        borcToplam += subatBorc;
+                                                    }
+                                                    @if (subatBorc < 0)
+                                                    {
+                                                        subatBorc = subatBorc * -1;
+                                                        <td style="color:#d70000;">
+                                                            @subatBorc.ToString("N2")
+                                                        </td>
+                                                        subatBorc = subatBorc * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @subatBorc.ToString("N2")
+                                                        </td>
+                                                    }
+                                                    @if (yuruyenBakiye < 0)
+                                                    {
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                        <td style="color:#d70000;">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                    }
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left !important;">@babonline.March</td>
+                                                    <td>@Model.cariHesapBA.Borc3.ToString("N2")</td>
+                                                    <td>@Model.cariHesapBA.Alacak3.ToString("N2")</td>
+                                                    @{martBorc = Model.cariHesapBA.Borc3 - Model.cariHesapBA.Alacak3;
+                                                        yuruyenBakiye += martBorc;
+                                                        borcToplam += martBorc;
+                                                    }
+                                                    @if (martBorc < 0)
+                                                    {
+                                                        martBorc = martBorc * -1;
+                                                        <td style="color:#d70000;">
+                                                            @martBorc.ToString("N2")
+                                                        </td>
+                                                        martBorc = martBorc * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @martBorc.ToString("N2")
+                                                        </td>
+                                                    }
+                                                    @if (yuruyenBakiye < 0)
+                                                    {
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                        <td style="color:#d70000;">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                    }
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left !important;">@babonline.April</td>
+                                                    <td>@Model.cariHesapBA.Borc4.ToString("N2")</td>
+                                                    <td>@Model.cariHesapBA.Alacak4.ToString("N2")</td>
+
+                                                    @{
+                                                        nisanBorc = Model.cariHesapBA.Borc4 - Model.cariHesapBA.Alacak4;
+                                                        yuruyenBakiye += nisanBorc;
+                                                        borcToplam += nisanBorc;
+                                                    }
+                                                    @if (nisanBorc < 0)
+                                                    {
+                                                        nisanBorc = nisanBorc * -1;
+                                                        <td style="color:#d70000;">
+                                                            @nisanBorc.ToString("N2")
+                                                        </td>
+                                                        nisanBorc = nisanBorc * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @nisanBorc.ToString("N2")
+                                                        </td>
+                                                    }
+                                                    @if (yuruyenBakiye < 0)
+                                                    {
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                        <td style="color:#d70000;">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                    }
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left !important;">@babonline.May</td>
+                                                    <td>@Model.cariHesapBA.Borc5.ToString("N2")</td>
+                                                    <td>@Model.cariHesapBA.Alacak5.ToString("N2")</td>
+                                                    @{
+                                                        mayisBorc = (Model.cariHesapBA.Borc5 - Model.cariHesapBA.Alacak5);
+                                                        yuruyenBakiye += mayisBorc;
+                                                        borcToplam += mayisBorc;
+                                                    }
+                                                    @if (mayisBorc < 0)
+                                                    {
+                                                        mayisBorc = mayisBorc * -1;
+                                                        <td style="color:#d70000;">
+                                                            @mayisBorc.ToString("N2")
+                                                        </td>
+                                                        mayisBorc = mayisBorc * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @mayisBorc.ToString("N2")
+                                                        </td>
+                                                    }
+                                                    @if (yuruyenBakiye < 0)
+                                                    {
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                        <td style="color:#d70000;">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                    }
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left !important;">@babonline.June</td>
+                                                    <td>@Model.cariHesapBA.Borc6.ToString("N2")</td>
+                                                    <td>@Model.cariHesapBA.Alacak6.ToString("N2")</td>
+                                                    @{
+                                                        haziranBorc = Model.cariHesapBA.Borc6 - Model.cariHesapBA.Alacak6;
+                                                        yuruyenBakiye += haziranBorc;
+                                                        borcToplam += haziranBorc;
+                                                    }
+                                                    @if (haziranBorc < 0)
+                                                    {
+                                                        haziranBorc = haziranBorc * -1;
+                                                        <td style="color:#d70000;">
+                                                            @haziranBorc.ToString("N2")
+                                                        </td>
+                                                        haziranBorc = haziranBorc * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @haziranBorc.ToString("N2")
+                                                        </td>
+                                                    }
+                                                    @if (yuruyenBakiye < 0)
+                                                    {
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                        <td style="color:#d70000;">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                    }
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left !important;">@babonline.July </td>
+                                                    <td>@Model.cariHesapBA.Borc7.ToString("N2")</td>
+                                                    <td>@Model.cariHesapBA.Alacak7.ToString("N2")</td>
+                                                    @{
+                                                        temmuzBorc = Model.cariHesapBA.Borc7 - Model.cariHesapBA.Alacak7;
+                                                        yuruyenBakiye += temmuzBorc;
+                                                        borcToplam += temmuzBorc;
+                                                    }
+                                                    @if (temmuzBorc < 0)
+                                                    {
+                                                        temmuzBorc = temmuzBorc * -1;
+                                                        <td style="color:#d70000;">
+                                                            @temmuzBorc.ToString("N2")
+                                                        </td>
+                                                        temmuzBorc = temmuzBorc * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @temmuzBorc.ToString("N2")
+                                                        </td>
+                                                    }
+                                                    @if (yuruyenBakiye < 0)
+                                                    {
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                        <td style="color:#d70000;">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                    }
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left !important;">@babonline.August</td>
+                                                    <td>@Model.cariHesapBA.Borc8.ToString("N2")</td>
+                                                    <td>@Model.cariHesapBA.Alacak8.ToString("N2")</td>
+                                                    @{
+                                                        agustosBorc = Model.cariHesapBA.Borc8 - Model.cariHesapBA.Alacak8;
+                                                        yuruyenBakiye += agustosBorc;
+                                                        borcToplam += agustosBorc;
+                                                    }
+                                                    @if (agustosBorc < 0)
+                                                    {
+                                                        agustosBorc = agustosBorc * -1;
+                                                        <td style="color:#d70000;">
+                                                            @agustosBorc.ToString("N2")
+                                                        </td>
+                                                        agustosBorc = agustosBorc * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @agustosBorc.ToString("N2")
+                                                        </td>
+                                                    }
+                                                    @if (yuruyenBakiye < 0)
+                                                    {
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                        <td style="color:#d70000;">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                    }
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left !important;">@babonline.September</td>
+                                                    <td>@Model.cariHesapBA.Borc9.ToString("N2")</td>
+                                                    <td>@Model.cariHesapBA.Alacak9.ToString("N2")</td>
+                                                    @{
+                                                        eylulBorc = Model.cariHesapBA.Borc9 - Model.cariHesapBA.Alacak9;
+                                                        yuruyenBakiye += eylulBorc;
+                                                        borcToplam += eylulBorc;
+                                                    }
+                                                    @if (eylulBorc < 0)
+                                                    {
+                                                        eylulBorc = eylulBorc * -1;
+                                                        <td style="color:#d70000;">
+                                                            @eylulBorc.ToString("N2")
+                                                        </td>
+                                                        eylulBorc = eylulBorc * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @eylulBorc.ToString("N2")
+                                                        </td>
+                                                    }
+                                                    @if (yuruyenBakiye < 0)
+                                                    {
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                        <td style="color:#d70000;">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                    }
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left !important;">@babonline.October</td>
+                                                    <td>@Model.cariHesapBA.Borc10.ToString("N2")</td>
+                                                    <td>@Model.cariHesapBA.Alacak10.ToString("N2")</td>
+                                                    @{ekimBorc = Model.cariHesapBA.Borc10 - Model.cariHesapBA.Alacak10;
+                                                        yuruyenBakiye += ekimBorc;
+                                                        borcToplam += ekimBorc;
+                                                    }
+                                                    @if (ekimBorc < 0)
+                                                    {
+                                                        ekimBorc = ekimBorc * -1;
+                                                        <td style="color:#d70000;">
+                                                            @ekimBorc.ToString("N2")
+                                                        </td>
+                                                        ekimBorc = ekimBorc * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @ekimBorc.ToString("N2")
+                                                        </td>
+                                                    }
+                                                    @if (yuruyenBakiye < 0)
+                                                    {
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                        <td style="color:darkred">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                    }
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left !important;">@babonline.November</td>
+                                                    <td>@Model.cariHesapBA.Borc11.ToString("N2")</td>
+                                                    <td>@Model.cariHesapBA.Alacak11.ToString("N2")</td>
+                                                    @{
+                                                        kasimBorc = Model.cariHesapBA.Borc11 - Model.cariHesapBA.Alacak11;
+                                                        yuruyenBakiye += kasimBorc;
+                                                        borcToplam += kasimBorc;
+                                                    }
+                                                    @if (kasimBorc < 0)
+                                                    {
+                                                        kasimBorc = kasimBorc * -1;
+                                                        <td style="color:#d70000;">
+                                                            @kasimBorc.ToString("N2")
+                                                        </td>
+                                                        kasimBorc = kasimBorc * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @kasimBorc.ToString("N2")
+                                                        </td>
+                                                    }
+                                                    @if (yuruyenBakiye < 0)
+                                                    {
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                        <td style="color:#d70000;">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                    }
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align:left !important;">@babonline.December</td>
+                                                    <td>@Model.cariHesapBA.Borc12.ToString("N2")</td>
+                                                    <td>@Model.cariHesapBA.Alacak12.ToString("N2")</td>
+                                                    @{
+                                                        aralikBorc = Model.cariHesapBA.Borc12 - Model.cariHesapBA.Alacak12;
+                                                        yuruyenBakiye += aralikBorc;
+                                                        borcToplam += aralikBorc;
+                                                    }
+                                                    @if (aralikBorc < 0)
+                                                    {
+                                                        aralikBorc = aralikBorc * -1;
+                                                        <td style="color:#d70000;">
+                                                            @aralikBorc.ToString("N2")
+                                                        </td>
+                                                        aralikBorc = aralikBorc * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @aralikBorc.ToString("N2")
+                                                        </td>
+                                                    }
+                                                    @if (yuruyenBakiye < 0)
+                                                    {
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                        <td style="color:#d70000;">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="color:black">
+                                                            @yuruyenBakiye.ToString("N2")
+                                                        </td>
+                                                    }
+                                                </tr>
+
+                                                <tr>
+                                                    <td><b>@babonline.OverallTotal</b></td>
+                                                    <td><b>@Model.cariHesapBA.toplamBorc.ToString("N2")</b></td>
+                                                    <td><b>@Model.cariHesapBA.toplamAlacak.ToString("N2")</b></td>
+                                                    @if (borcToplam < 0)
+                                                    {
+                                                        <td style="font: bold;color:#d70000;"><b>@borcToplam.ToString("N2")</b></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="font: bold;color:black"><b>@borcToplam.ToString("N2")</b></td>
+                                                    }
+                                                    @if (yuruyenBakiye < 0)
+                                                    {
+                                                        yuruyenBakiye = yuruyenBakiye * -1;
+                                                        <td style="font: bold;color:#d70000;"><b>@yuruyenBakiye.ToString("N2")</b></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="font: bold;color:black"><b>@yuruyenBakiye.ToString("N2")</b></td>
+                                                    }
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

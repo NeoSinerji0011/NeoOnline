@@ -1,0 +1,49 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.AnaMenuModel
+
+<div id="anamenudetay-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>@Model.Aciklama </h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Description</label>
+                <div class="controls">
+                    <label class="control">@Model.Aciklama</label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Help_description</label>
+                <div class="controls">
+                    <label class="control">@Model.YardimAciklama</label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Operation_Code </label>
+                <div class="controls">
+                    <label class="control">@Model.URL</label>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Status</label>
+                <div class="controls">
+                    <label class="control">
+                        @if (Model.Durum == 1)
+                        {
+                            <span class="label label-success">@babonline.Active  </span>
+                        }
+                        else
+                        {
+                            <span class="label label-important pull-right">@babonline.Pasive </span>
+                        }
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

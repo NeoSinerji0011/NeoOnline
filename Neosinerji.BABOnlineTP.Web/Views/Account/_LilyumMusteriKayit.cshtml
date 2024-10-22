@@ -1,0 +1,98 @@
+﻿@model Neosinerji.BABOnlineTP.Web.Models.LilyumMusteriKayitModel
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+<div id="stackLilyumMusteri" class="modal hide fade">
+    <div class="modal-header">
+        <button id="close1" type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3 style="text-align:center; margin-left: 10%;  margin-right: 10%; color:white;background-color: #a64dff;">Bireysel Müşteri Kayıt Bilgileri</h3>
+    </div>
+    <div class="modal-body">
+        <form id="form2" class="form-horizontal" method="post">
+            @Html.HiddenFor(s => s.TVMKodu)
+            @{ Html.EnableClientValidation(true); }
+            @Html.ValidationSummary(true, "")
+            <div class="control-group">
+                <label class="control-label">@babonline.TCKN / VKN / YKN<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.tcVkn, new { maxlength = 11, style = "width:90%;", placeholder = "TCKN/VKN giriniz.", @class = "onlynumbers" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Name_Surname   <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.AdSoyad, new { style = "width:90%;", placeholder = "Ad Soyad", @class = "m-wrap" })</br>
+                    @Html.ValidationMessageFor(s => s.AdSoyad)
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">@babonline.EMail_Address <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.EMail, new { style = "width:90%;", placeholder = "Email", @class = "m-wrap" })</br>
+                    @Html.ValidationMessageFor(s => s.EMail)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Phone  </label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.Telefon, new { style = "width:90%;", data_format = "dd-ddd-ddddddd", placeholder = "90(555)9999999", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", title = babonline.Message_PhoneFormat })
+                </div>
+            </div>
+            <div><span style="color:red;">*Lilyum Kart satın alabilmeniz için lütfen üyelik kaydınızı gerçekleştiriniz.</span></div>
+            <h6>Bilgileriniz güvencemiz altındadır.</h6>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn">@babonline.Cancel</button>
+        @*<button type="button" class="btn" style="color:white !important;background-color: #6815b1 !important;border :2px solid #a64dff  !important;border-radius: 10px !important;" id="lilyum-kayit">@babonline.Save</button>*@
+
+        <a id="lilyum-kayit" href="javascript:;" class="btn link login-yazi-tip" style="color:white !important;background-color: #6815b1 !important;border :2px solid #a64dff  !important;border-radius: 10px !important;  " data-loading-text="Kaydediliyor.">@babonline.Save</a>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#lilyum-kayit").live("click", function () {
+            //$("#form2").validate().form();
+            //if ($("#form2").valid()) {
+            //var formData = $("#form2").serialize();
+            $(this).button("loading");
+            var kimlikno = $("#musteriModel_tcVkn").val();
+            var adSoyad = $("#musteriModel_AdSoyad").val();
+            var email = $("#musteriModel_EMail").val();
+            var telefon = $("#musteriModel_Telefon").val();
+
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/Account/InternetLilyumKullaniciAktivasyon",
+                    data: { tcVkn: kimlikno, adSoyad: adSoyad, email: email, telefon: telefon },
+                    success: function (data) {
+                        if (data.KayitYapildiMi) {
+                            //swal("İşlem Başarılı !", data.KayitMesaj, "success");
+                            swal({
+                                title: "İşlem Başarılı!",
+                                text: data.KayitMesaj,
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "OK",
+                                closeOnConfirm: false,
+                                closeOnCancel: false
+                            },
+                                function (isConfirm) {
+                                    if (isConfirm) {
+                                        window.location.href = "/Home/Harita";
+                                    }
+                                });
+                        }
+                        else {
+                            swal("Hata !", data.KayitMesaj, "error");
+                            $(this).button("reset");
+                        }}
+                });
+
+
+            //}
+        });
+    });
+</script>

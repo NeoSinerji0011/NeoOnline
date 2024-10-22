@@ -1,0 +1,116 @@
+﻿@model Neosinerji.BABOnlineTP.Business.Common.IslerimListeModel
+
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="#">İş Takip Listesi<span class="selected"></span></a>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+@section PageScripts
+{
+
+}
+
+<div class="portlet box light-grey" style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>İş Takip Listesi</div>
+    </div>
+    <div class="portlet-body form">
+        <div class="form-horizontal">
+            <div role="grid" class="dataTables_wrapper form-inline" id="DataTables_Table_0_wrapper">
+
+                <div class="clear"></div>
+                <div id="DataTables_Table_0_length" class="dataTables_length">
+                    <label>
+                        Sayfada
+            <select name="DataTables_Table_0_length" size="1" aria-controls="DataTables_Table_0">
+                <option value="10" selected="selected">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+                        Kayıt Göster</label>
+                </div>
+                <div id="DataTables_Table_0_processing" class="dataTables_processing" style="visibility: hidden;">
+                    &nbsp;
+        <img alt="işleniyor" src="/Content/img/loading.gif">
+                </div>
+                <table id="dokumanlar-table" class="table table-striped table-bordered table-hover dataTable data-table">
+                    <thead>
+                        <tr>
+                            <th>İş No</th>
+                            <th>Tarih</th>
+                            <th>Müşteri</th>
+                            <th>İş Tipi</th>
+                            <th>İş Tipi Detay</th>
+                            <th>Aşama</th>
+                            <th>Ekleyen Kullanıcı</th>
+                        </tr>
+                    </thead>
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                @if (@item.Asama == 1)
+                                {
+                                    <td><a href="/Teklif/FerdiKazaPlus/Detay/@item.TeklifId">@item.IsTakipId</a><a class="pull-right" target="_blank" title="Teklif PDF" href="https://neobabstoragetest.blob.core.windows.net/musteri-dokuman/176/KritikHastalik_Karsilastirma1.pdf">
+                                        <img src="/content/img/pdf_icon.png"></a></td>
+                                }
+                                @if (@item.Asama == 2)
+                                {
+                                    <td class=""><a href="/Teklif/FerdiKazaPlus/IsDetay?adim=@item.Asama&isTakipId=@item.IsTakipId">@item.IsTakipId</a> <a class="pull-right" target="_blank" title="Teklif PDF" href="https://neobabstoragetest.blob.core.windows.net/musteri-dokuman/176/KritikHastalik_Karsilastirma1.pdf">
+                                        <img src="/content/img/pdf_icon.png"></a></td> 
+                                }
+                                @if (@item.Asama == 3)
+                                {
+                                    <td class=""><a href="/Teklif/FerdiKazaPlus/IsDetay?adim=@item.Asama&isTakipId=@item.IsTakipId">@item.IsTakipId</a> <a class="pull-right" target="_blank" title="Teklif PDF" href="https://neobabstoragetest.blob.core.windows.net/musteri-dokuman/176/KritikHastalik_Karsilastirma1.pdf">
+                                        <img src="/content/img/pdf_icon.png"></a></td> 
+                                }
+                                @if (@item.Asama == 4)
+                                { 
+                                    <td class=""><a href="/Teklif/FerdiKazaPlus/IsDetay?adim=@item.Asama&isTakipId=@item.IsTakipId">@item.IsTakipId</a> <a class="pull-right" target="_blank" title="Teklif PDF" href="https://neobabstoragetest.blob.core.windows.net/musteri-dokuman/176/KritikHastalik_Karsilastirma1.pdf">
+                                        <img src="/content/img/pdf_icon.png"></a></td> 
+                                }
+                                <td>@item.KayitTarihi</td>
+                                <td>@item.MusteriAdiSoyadi</td>
+                                <td>@item.IsTipi</td>
+                                <td>@item.IsTipiDetay</td>
+
+                                @if (@item.Asama == 1)
+                                {
+                                    <td>
+                                        <label class="label ">1. adım</label></td>
+                                }
+                                else if (@item.Asama == 2)
+                                {
+                                    <td>
+                                        <label class="label label-warning">2. adım</label></td>
+                                }
+                                else if (@item.Asama == 3)
+                                {
+                                    <td>
+                                        <label class="label label-info">3. adım</label></td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <label class="label label-success">4. adım</label></td>
+                                }
+                             <td>@item.EkleyenKullanici</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @*<div class="dataTables_info" id="DataTables_Table_0_info">4 Kayıttan 1 - 4 Arası Kayıtlar</div>*@
+            </div>
+        </div>
+    </div>
+</div>

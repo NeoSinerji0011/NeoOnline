@@ -1,0 +1,114 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using Neosinerji.BABOnlineTP.Business
+@model EPostaFormatModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/EPosta/Liste">@babonline.EPosta_Search<span></span></a>
+        </li>
+        <li>
+            <a href="~/Manage/EPosta/Detay/@Model.FormatId">@babonline.Detail<span></span></a>
+        </li>
+        <li class="active">
+            <a href="">@babonline.Update<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageStyles
+{
+    @Styles.Render("~/Content/wysihtml")
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/wysihtml")
+    <script>
+        $(document).ready(function () {
+            $("#Icerik").wysihtml5();
+            $("#menu-EPosta").addClass("active");
+        });
+
+        $(".delete-format").click(function () {
+            var formatId = $(this).attr("format-id");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/EPosta/Sil/", { id: formatId },
+                       function (data) { window.location.href = '@Url.Action("Liste")'; });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+    </script>
+}
+
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.EPosta_Info</div>
+        <div class="actions">
+            <a href="javascript:void(0)" format-id="@Model.FormatId" class="btn btn-danger delete-format">@babonline.Delete</a>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("Guncelle", "EPosta", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            Html.EnableClientValidation(true);
+            @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+            @Html.HiddenFor(m => m.FormatId);
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">@babonline.EMailFormat_Name <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.FormatAdi, new { maxlength = 50, autcompletetype = "off", style = "width:200px;" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Topic <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Konu, new { maxlength = 100, autcompletetype = "off", style = "width:400px;" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.EMailFormat_Content <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextAreaFor(m => m.Icerik, new { maxlength = 4000, autcompletetype = "off", style = "width:98%; height:200px;" })
+                </div>
+            </div>
+            <div class="form-actions">
+                <table style="width: 100%;">
+                    <tr>
+                        <td>
+                            <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                            <a class="btn" href="~/Manage/EPosta/Liste">@babonline.Cancel</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+
+@*Silme İşlemi*@
+@Html.Partial("_DeleteConfirmation")

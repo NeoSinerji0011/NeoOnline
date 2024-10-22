@@ -1,0 +1,436 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model MapfreKaskoModel
+
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+
+@section PageStyles
+{
+    @Styles.Render("~/Content/switch")
+    <style>
+        .w90 {
+            width: 90% !important;
+        }
+        .radio, .checkbox {
+            padding-left: 17px !important;
+        }
+
+        .controls .inline {
+            margin-top: 0;
+        }
+        .modal-size {
+            width:750px;
+            margin-left:-375px;
+        }
+    </style>
+    <link rel="stylesheet" href="~/Content/css/TLsimgesi.css" />
+    <link href="~/content/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
+}
+
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li>
+            <a href="/Teklif/Teklif/Liste">@babonline.Proposal_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Insurance_Quote<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+}
+
+@section PageScripts
+{
+    <script src="@Url.Content("~/Content/js/autoNumeric.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/neosinerji.babonlinetp.teklif.js?v=3")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.bootstrap.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Content/js/jquery.validate.custom.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.bootstrap.wizard.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Mapfre/kasko.js?v=26")" type="text/javascript"></script>
+
+    @if (lang == "en")
+    {<script src="@Url.Content("~/Content/js/customlang.en.js")" type="text/javascript"></script>}
+    else
+    {<script src="@Url.Content("~/Content/js/customlang.tr.js")" type="text/javascript"></script>}
+
+    <script src="@Url.Content("~/Content/js/form-wizard.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.inputmask.bundle.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.gritter.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/underscore.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/switch")
+    @Scripts.Render("~/bundles/dataTable")
+
+    <script type="text/javascript" >
+        var thisYear = @(DateTime.Today.Year);
+        var bugunTarih = '@(DateTime.Today.ToString("dd.MM.yyyy"))';
+        var loaded = @(Model.TekrarTeklif ? "true" : "false");
+        var akseusarSatir = @(Model.Teminat.Aksesuarlar != null ? Model.Teminat.Aksesuarlar.Count : 0 );
+        var elekcihazSatir = @(Model.Teminat.Cihazlar != null ? Model.Teminat.Cihazlar.Count : 0 );
+        var tasinanSatir = @(Model.Teminat.TasinanYukler != null ? Model.Teminat.TasinanYukler.Count : 0 );
+        var satirEkleme = false;
+        $(document).ready(function () {
+
+            sigortaliKontrol.init();
+            FormWizard.init(trafikTeklifWizardCallback);
+            mapfeKaskoOdeme.init();
+
+            $("#btn-teklif-tekrar").live("click", teklifFiyat.teklifTekrar);
+
+            var cepTel="@Model.Musteri.SigortaEttiren.CepTelefonu";
+            if(cepTel==""){ cepTel="90";}            
+            setTimeout(function () {$("#Musteri_SigortaEttiren_CepTelefonu").val(cepTel);}, 2000);
+
+            if (!loaded) {
+                $("#EskiPolice_EskiPoliceVar_control").bootstrapSwitch('setState', false);
+                $("#Tasiyici_Sorumluluk_control").bootstrapSwitch('setState', false);
+                $("#DainiMurtein_DainiMurtein_control").bootstrapSwitch('setState', false);
+            }
+            else {
+                $("#Arac_AracBilgileri_Acik").val("1");
+                $("#step1").collapse('hide');
+                $("#step2").collapse('show');
+
+                var ilKodu = $("#Musteri_SigortaEttiren_IlKodu").val();
+                var ilceKodu = $("#Musteri_SigortaEttiren_IlceKodu").val();
+                if (ilKodu && ilKodu > 0 && ilceKodu && ilceKodu != 0 && ilceKodu != "undefined") {
+                    $("#Musteri_SigortaEttiren_IlKodu").prop('disabled', true);
+                    $("#Musteri_SigortaEttiren_IlceKodu").prop('disabled', true);
+                }
+                ilKodu = $("#Musteri_Sigortali_IlKodu").val();
+                ilceKodu = $("#Musteri_Sigortali_IlceKodu").val();
+                if (ilKodu && ilKodu > 0 && ilceKodu && ilceKodu != 0 && ilceKodu != "undefined") {
+                    $("#Musteri_Sigortali_IlKodu").prop('disabled', true);
+                    $("#Musteri_Sigortali_IlceKodu").prop('disabled', true);
+                }
+
+                var eskiPolice = $("#EskiPolice_EskiPoliceVar_control").bootstrapSwitch('status');
+                if (eskiPolice) {
+                    $("#EskiPolice_EskiPoliceVar_control").bootstrapSwitch('setState', true);
+                }
+                var tasiyiciSorumluluk = $("#Tasiyici_Sorumluluk_control").bootstrapSwitch('status');
+                if (tasiyiciSorumluluk) {
+                    $("#Tasiyici_Sorumluluk_control").bootstrapSwitch('setState', true);
+                }
+                var dainiMurtein = $("#DainiMurtein_DainiMurtein_control").bootstrapSwitch('status');
+                if (dainiMurtein) {
+                    $("#DainiMurtein_DainiMurtein_control").bootstrapSwitch('setState', true);   
+                }
+                var aksesuar = $("#Teminat_Aksesuar_Teminati_control").bootstrapSwitch('status');
+                if (aksesuar) {
+                    satirEkleme = true;
+                    $("#Teminat_Aksesuar_Teminati_control").bootstrapSwitch('setState', true);
+                }
+                var cihazlar = $("#Teminat_ElektronikCihaz_Teminati_control").bootstrapSwitch('status');
+                if (cihazlar) {
+                    satirEkleme = true;
+                    $("#Teminat_ElektronikCihaz_Teminati_control").bootstrapSwitch('setState', true);
+                }
+                var yukler = $("#Teminat_TasinanYuk_Teminati_control").bootstrapSwitch('status');
+                if (yukler) {
+                    satirEkleme = true;
+                    $("#Teminat_TasinanYuk_Teminati_control").bootstrapSwitch('setState', true);
+                }
+                var tedavi = $("#Teminat_Tedavi_control").bootstrapSwitch('status');
+                if(tedavi) {
+                    $("#Teminat_Tedavi_control").bootstrapSwitch('setState', true);
+                }
+                var yurtDisi = $("#Teminat_Yutr_Disi_Teminat_control").bootstrapSwitch('status');
+                if(yurtDisi) {
+                    $("#Teminat_Yutr_Disi_Teminat_control").bootstrapSwitch('setState', true);
+                }
+                var yurtDisi = $("#Teminat_Yutr_Disi_Teminat_control").bootstrapSwitch('status');
+                if(yurtDisi) {
+                    $("#Teminat_Yutr_Disi_Teminat_control").bootstrapSwitch('setState', true);
+                }
+
+                $("#Musteri_SigortaEttiren_AdiUnvan").prop('disabled', true);
+                $("#Musteri_SigortaEttiren_SoyadiUnvan").prop('disabled', true);
+                $("#Cinsiyet_E").prop('disabled', true);
+                $("#Cinsiyet_K").prop('disabled', true);
+                $("#Musteri_Sigortali_AdiUnvan").prop('disabled', true);
+                $("#Musteri_Sigortali_SoyadiUnvan").prop('disabled', true);
+            }
+
+            $('#acente-sec-modal').on('show', function () {
+                var loading = $("#div-loading-temp").html();
+                $("#acente-sec-modal").find(".modal-body").html(loading);
+            });
+            $('#acente-sec-modal').on('shown', function () {
+                $.post("/Teklif/MapfreTrafik/TVM", "", function (data) {
+                    $("#acente-sec-modal").find(".modal-body").html(data);
+                    oTVMTable = $('#tvm-table').dataTable({
+                        "bAutoWidth": false,
+                        "bPaginate": true,
+                        "bLengthChange": false,
+                        "iDisplayLength": 10,
+                        "bFilter": true,
+                        "bSort": true,
+                        "bInfo": true,
+                        "bProcessing": false,
+                        aoColumns : [
+                              { "sWidth": "15%"},
+                              { "sWidth": "15%"},
+                              { "sWidth": "70%"}]
+                    });
+                });
+            });
+            $('#acente-sec-modal').on('hide', function () {
+                oTVMTable.fnDestroy();
+                $("#acente-sec-modal").find(".modal-body").html("");                
+            });
+            $(".acente-sec-btn").live("click", function () {
+                var kodu = $(this).data("kodu");
+                var unvani = $(this).data("unvani");
+
+                $("#Hazirlayan_TVMKodu").val(kodu);
+                $("#TVMKodu").val(kodu);
+                $("#TVMUnvani").val(unvani);
+                $('#acente-sec-modal').modal("hide");
+            });
+            $("#acente-kodu-degis").click(function () {
+                var input = $("#TVMKodu");
+                var tvmKodu = input.val();
+
+                if(tvmKodu == "") {
+                    $("#tvm-sorgu-hata").html("Lütfen partaj numarasını giriniz.");
+                    $("#tvm-sorgu-hata").show();
+                    return;
+                }
+                $("#tvm-sorgu-hata").hide();
+
+                input.attr("readonly", true)
+                     .attr("disabled", true)
+                     .addClass("spinner");
+
+                $.post("/Teklif/MapfreTrafik/TVMKodu", 
+                       { tvmKodu : tvmKodu }, 
+                       function (data) {
+
+                           input.attr("readonly", false)
+                                .attr("disabled", false)
+                                .removeClass("spinner");
+
+                           if(data.success) {
+                               $("#Hazirlayan_TVMKodu").val(data.tvmKodu);
+                               $("#TVMKodu").val(data.tvmKodu);
+                               $("#TVMUnvani").val(data.tvmUnvani);
+                           } else {
+                               var defaultTVM = $("#Hazirlayan_TVMKodu").val();
+                               $("#TVMKodu").val(defaultTVM);
+                               $("#tvm-sorgu-hata").html(data.message);
+                               $("#tvm-sorgu-hata").show();
+                           }
+                });
+            });
+        });
+
+        var oTVMTable;
+
+    </script>
+}
+
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" id="form_wizard_1" style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>@babonline.Insurance - <span class="step-title">@babonline.Step 1 / 4</span>
+                </div>
+                <div class="tools hidden-phone">
+                    <a class="collapse" href="javascript:;"></a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="form-wizard">
+                    <div class="navbar steps">
+                        <div class="navbar-inner">
+                            <ul class="row-fluid nav nav-pills">
+                                <li class="span3 active">
+                                    <a class="step" href="#tab2" data-toggle="tab">
+                                        <span class="number">1</span>
+                                        <span class="desc"><i class="icon-ok"></i>@babonline.Insured</span>
+                                    </a>
+                                </li>
+                                <li class="span3">
+                                    <a class="step" href="#tab3" data-toggle="tab">
+                                        <span class="number">2</span>
+                                        <span class="desc"><i class="icon-ok"></i>@babonline.Vehicle</span>
+                                    </a>
+                                </li>
+                                <li class="span3">
+                                    <a class="step" href="#tab4" data-toggle="tab">
+                                        <span class="number">3</span>
+                                        <span class="desc"><i class="icon-ok"></i>@babonline.Proposal</span>
+                                    </a>
+                                </li>
+                                <li class="span3">
+                                    <a class="step" href="#tab5" data-toggle="tab">
+                                        <span class="number">4</span>
+                                        <span class="desc"><i class="icon-ok"></i>@babonline.BuyPolicy</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="progress progress-success progress-striped" id="bar">
+                        <div class="bar" style="width: 20%;"></div>
+                    </div>
+                    <div class="tab-content">
+
+                        <div class="tab-pane active" id="tab2">
+                            <form class="form-horizontal" id="form2">
+                                @if (Model.Hazirlayan.FarkliAcenteSecebilir)
+                                {
+                                    <div id="acente-sec" class="row-fluid">
+                                        <div class="span6">
+                                            <div class="row-fluid">
+                                                <div class="span4">
+                                                    <label class="control-label" style="width:100%;">Acente</label>
+                                                </div>
+                                                <div class="span8">
+                                                    @Html.HiddenFor(m => m.Hazirlayan.TVMKodu)
+                                                    <div class="input-append">
+                                                        @Html.TextBox("TVMKodu", Model.Hazirlayan.TVMKodu, new { @class="m-wrap input-small form-control" })
+                                                        <div class="btn-group">
+                                                            <a class="btn blue" id="acente-kodu-degis"><i class="icon-ok"></i></a>
+                                                            <a class="btn blue" href="#acente-sec-modal" data-toggle="modal"><i class="icon-search"></i></a>
+                                                        </div>
+                                                        @Html.TextBox("TVMUnvani", Model.Hazirlayan.TVMUnvani, new { @class="m-wrap input-xlarge form-control", disabled="", style="background-color:#F4F4F4 !important;" })
+                                                    </div>
+                                                    <div id="tvm-sorgu-hata" style="display: none; color: #b94a48;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                @Html.EditorFor(m => m.Musteri)
+                            </form>
+                        </div>
+
+                        <div class="tab-pane" id="tab3">
+                            <form class="form-horizontal" id="form3">
+                                <h3 class="form-section">@babonline.VehicleInfo</h3>
+                                @Html.EditorFor(m => m.Arac)
+                                <div class="row-fluid arac-bilgileri" style="display: none">
+                                    <div class="span6">
+                                        <h3 class="form-section">@babonline.OldPolicyInfo</h3>
+                                        @Html.EditorFor(m => m.EskiPolice)
+                                    </div>
+                                    <div class="span6">
+                                        <h3 class="form-section">@babonline.CarryingResponsibility</h3>
+                                        @Html.EditorFor(m => m.Tasiyici)
+                                    </div>
+                                </div>
+                                <div class="row-fluid arac-bilgileri" style="display: none">
+                                    <div class="span6">
+                                        <h3 class="form-section">@babonline.DainiMurtein</h3>
+                                        @Html.EditorFor(m => m.DainiMurtein)
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tab-pane" id="tab4">
+                            <form class="form-horizontal" id="form4">
+                                <div class="row-fluid">
+                                    @Html.EditorFor(m => m.Teminat)
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <h3 class="form-section">@babonline.Description</h3>
+                                        @Html.TextAreaFor(m => m.Aciklama, 3, 80, new { maxlength=250, @style="width:90%;" })
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <h3 class="form-section">@babonline.PaymentOptions</h3>
+                                        @Html.EditorFor(s => s.Odeme)
+                                    </div>
+                                    <div class="span6">
+                                        <h3 class="form-section">@babonline.DiscountOptions</h3>
+                                        @Html.EditorFor(s => s.IndirimSurprim)
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="tab5">
+                            <div class="row-fluid">
+                                <div id="teklif-fiyat-progress" class="span12" style="padding-bottom: 20px;">
+                                    <div style="margin: 20px auto; width: 500px; text-align: center;">
+                                        <h4>@babonline.PreparingProposal</h4>
+                                    </div>
+                                    <div style="margin: 20px auto; width: 500px; text-align: center;">
+                                        <img src="/Content/img/loading9.gif" width="32" height="32" title="@babonline.PreparingProposal" alt="@babonline.PreparingProposal" />
+                                    </div>
+                                    <div style="margin: 20px auto; width: 500px; text-align: center;">
+                                        @foreach (var item in Model.TeklifUM)
+                                        {
+                                            <img id="sg-icon-@(item.TUMKodu)" src="@item.TUMLogo" title="@item.TUMUnvani" alt="@item.TUMUnvani" style="width:64px;height:64px;" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid" id="teklif-container">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-actions clearfix">
+                        <a class="btn button-previous" style="display: none;" href="javascript:;">
+                            <i class="m-icon-swapleft"></i>@babonline.Back
+                        </a>
+                        <button id="button-next" class="btn blue button-next" type="button" data-loading-text="@babonline.QueryIndicator">
+                            @babonline.Next
+                            <i class="m-icon-swapright m-icon-white"></i>
+                        </button>
+                        <a id="btn-hesapla" class="btn green button-submit" style="display: none;" href="javascript:;" data-loading-text="@babonline.Calculating">@babonline.Calculate <i class="m-icon-swapright m-icon-white"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.EditorFor(m => m.KrediKarti)
+
+@*Mail gönderme modal form*@
+<div id="mail-gonder-modal-div"></div>
+
+<div id="div-loading-temp" style="display:none;">
+<div style="margin: 20px auto; width: 400px; text-align: center;">
+    <img src="/Content/img/loading9.gif" width="32" height="32" />
+</div>
+</div>
+@if(Model.Hazirlayan.FarkliAcenteSecebilir)
+{
+<div id="acente-sec-modal" class="modal hide fade modal-size">
+    <div class="modal-body">
+    </div>
+	<div class="modal-footer">
+		<button type="button" data-dismiss="modal" class="btn">@babonline.Close</button>
+	</div>
+</div>
+}

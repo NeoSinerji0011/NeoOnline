@@ -1,0 +1,354 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Police.Models
+@using Neosinerji.BABOnlineTP.Database.Models
+@model Neosinerji.BABOnlineTP.Database.Models.PoliceYaslandirmaTablosuModel
+@{
+    ViewBag.Title = "PoliceYaslandirmaTablosu";
+}
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">@babonline.Policy_Payable_Table @*Poliçe Yaşlandırma Tablosu*@<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.OtherReport<span class="arrow"></span></a>
+            <ul class="dropdown-menu"></ul>
+            <b class="caret-out"></b>
+        </li>
+
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+@section PageHeader
+{
+
+}
+@section PageStyles
+{
+    <style type="text/css">
+        .table td.right {
+            text-align: right;
+        }
+    </style>
+}
+@section PageScripts
+{
+
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    <script src="~/Content/js/customDataTable.js" type="text/javascript"></script>
+    <script>
+         $('.multiselect').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                maxHeight: 170,
+                nonSelectedText: '@babonline.PleaseSelect',
+                selectAllText: '@babonline.Select_All',
+                filterPlaceholder: '@babonline.Search',
+                nSelectedText: '@babonline.Selected'
+            });
+        $(document).ready(function () {
+            createTable(".data-table", [3, 4, 5, 6, 7, 8]);
+            // ====Tvm listesini Dolduruyor ====//
+            //var tvm = $("#TVMKodu").tvmfinder();
+            //tvm.enable();
+
+            //var customerfinder = $("#MusteriKodu").customerfinder("TVMKodu");
+            //customerfinder.enable();
+            // ====Tvm listesini Dolduruyor ====//
+
+            // ==== Tarih ayarları ==== //
+            var modelMesaj = "@Model.Mesaj"
+            if (modelMesaj.length>0) {
+                console.log(modelMesaj);
+                $("#span_modelMesaj").css("display","block")
+            }
+
+            @*$("#BaslangicTarihi").datepicker("option", "dateFormat", '@babonline.date_format.Replace("yyyy","yy")');
+            $("#BitisTarihi").datepicker("option", "dateFormat", '@babonline.date_format.Replace("yyyy","yy")');*@
+            $('#BaslangicTarihi').change(function () {
+                var d1 = $(this).datepicker("getDate");
+                $("#BitisTarihi").datepicker("option", "minDate", d1);
+                //$("#BitisTarihi").datepicker("option", "maxDate", d1.setMonth(d1.getMonth() + 7));
+
+                setTimeout(function () { $("#BitisTarihi").datepicker("show"); }, 100);
+
+                var res = BaslangicTarihi.value.split(".")
+                var temp = res[1] + "." + res[0] + "." + res[2]
+                $("#enBaslangicTarihi").val(temp)
+            });
+            $('#BitisTarihi').change(function () {
+                var res = BitisTarihi.value.split(".")
+                var temp = res[1] + "." + res[0] + "." + res[2]
+                $("#enBitisTarihi").val(temp)
+            });
+
+
+
+        });
+    </script>
+
+
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">@babonline.Policy_Payable_Table @*Poliçe Yaşlandırma Tablosu*@ </span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @using (Html.BeginForm("PoliceYaslandirmaTablosu", "Police", FormMethod.Post, new { @class = "form-horizontal", id = "formPoliceListe", enctype = "multipart/form-data" }))
+                {
+                    @*@Html.HiddenFor(s => s.TVMKodu);
+                        @Html.HiddenFor(s => s.TvmUnvani);*@
+
+                    <div class="row-fluid" style="padding-top: 10px;">
+                        <div class="span4">
+                            <div class="control-group">
+                                <label class="control-label">&nbsp;  @babonline.Report_Inception_Date</label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(s => s.BaslangicTarihi, new { style = "width:100px", @value = Model.BaslangicTarihi })
+                                    @Html.ValidationMessageFor(s => s.BaslangicTarihi)
+                                    <input type="hidden" id="enBaslangicTarihi" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="control-group">
+
+                                <label class="control-label">&nbsp;  @babonline.Report_Expiry_Date</label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(s => s.BitisTarihi, new { style = "width:100px", @value = Model.BitisTarihi })
+                                    @Html.ValidationMessageFor(s => s.BitisTarihi)
+                                    <input type="hidden" id="enBitisTarihi" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Type_of_Report @*Rapor Tipi*@</label>
+                                <div class="control-group">
+                                    <div class="controls radio-custom">
+                                        @Html.RadioButtonListFor(m => m.RaporTipi, Model.RaporTipleri)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span5">
+                            <div class="control-group">
+                                <label class="control-label">
+                                    @*@babonline.InsuranceCompany @(ViewBag.AcenteTipi==1? "/ UW Reasuror":"")*@
+                                    @babonline.LocalSedan
+                                </label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.SigortaSirketleriSelectList, Model.SigortaSirketleri, new { @class = "multiselect", multiple = "multiple" })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <span id="span_modelMesaj" style="color:red;font-size:15px;font-weight:bold;display:none">@Model.Mesaj</span>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+
+                        <div class="span4">
+                        </div>
+
+                        <div class="form-actions">
+                            <a href="~/Police/Police/PoliceYaslandirmaTablosu" class="btn ligth-grey">@babonline.Clear</a>
+                            <input type="submit" id="searchl" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="@babonline.Search" />
+                        </div>
+                    </div>
+                }
+
+                <div class="row-fluid" style="margin-top: 20px;">
+
+                    <div class="span12">
+                        <div id="table-div" style="overflow-x: auto; margin-top: 15px;">
+                            @*<p style="color: red; font-size: 16px; font: bolder;">Tahsilat işlemi için Poliçe Numarasına tıklayınız.</p>*@
+                            <h3 style="text-align:center">
+                                @babonline.Policy_Payable_Debt_Receivable_Table @*Poliçe Yaşlandırma (Borç-Alacak) Tablosu*@
+                            </h3>
+                            <h3 style="text-align:center">
+                               @babonline.Period @*Dönem*@: @(Model.BaslangicTarihi.HasValue?Model.BaslangicTarihi.Value.ToString("dd/MM/yyyy"):"")  - @(Model.BitisTarihi.HasValue?Model.BitisTarihi.Value.ToString("dd/MM/yyyy") : "")
+                            </h3>
+                            <table class="table table-bordered table-hover dataTable data-table" id="table_police_broker" style="table-layout: inherit ;">
+                                <thead>
+                                    <tr style="visibility:hidden">
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.policeYaslandirmaTablosuPolice.Count > 0 || Model.policeYaslandirmaTablosuPolice != null)
+                                    {
+                                        List<PoliceYaslandirmaGenelToplam> geneltoplams = new List<PoliceYaslandirmaGenelToplam>();
+                                        int geneltoplamindis = 0;
+                                        foreach (var item in Model.policeYaslandirmaTablosuPolice)
+                                        {
+                                            geneltoplamindis++;
+                                            PoliceYaslandirmaGenelToplam itemGenelToplam = new PoliceYaslandirmaGenelToplam();
+                                            <tr style="background-color: #cff9ff;">
+                                                <td><b>@babonline.PolicyNo.ToUpper() :</b></td>
+                                                <td style="width: auto; border-width: 0px;">@item.PoliceNumarasi.ToUpper() </td>
+                                                <td style="width: auto; border-width: 0px;"><b>@babonline.Insured.ToUpper() :</b>@item.SigortaliAdSoyad</td>
+                                                <td style="width: auto; border-width: 0px;"><b>@babonline._policyHolder.ToUpper() :</b>@item.SigortaEttirenAdSoyad</td>
+                                                <td style="width: auto; border-width: 0px;"><b>@babonline.Currency.ToUpper() :</b>@item.ParaBirimi</td>
+                                                <td style="width: auto; border-width: 0px;"><b>@babonline.SalesChannel.ToUpper() :</b></td>
+                                                <td style="width: auto; border-width: 0px;">@item.SatisKanali</td>
+                                                <td style="width: auto; border-width: 0px;"></td>
+                                                <td style="width: auto; border-width: 0px;"><b>@babonline.Accounting.ToUpper() :</b>@(item.MuhasebeIslimi?"E":"H")</td  >
+
+                                            </tr>
+                                            <tr style="background-color: #e7fcff;">
+                                                <td colspan="2"><b>@babonline.LocalSedan.ToUpper() @*Sigorta Şirketi  /UW REASUROR*@:</b></td>
+                                                <td style="display: none;"></td>
+
+                                                <td style="width: auto; border-width: 0px;text-align:left;" colspan="4">@item.SigortaSirketi </td>
+                                                <td style="display: none;"></td>
+                                                <td style="display: none;"></td>
+                                                <td style="display: none;"></td>
+                                                <td style="display: none;"></td>
+                                                <td style="width: auto; border-width: 0px;"></td>
+                                                <td style="width: auto; border-width: 0px;"></td>
+                                                <td style="width: auto; border-width: 0px;"></td>
+
+                                            </tr>
+                                            <tr style="background-color: #9ddee7;">
+                                                <td style="font-weight:bold;width: auto;">@babonline.Reinsurer.ToUpper()</td>
+                                                <td style="font-weight:bold;width: auto;">@babonline.Installment.ToUpper()</td>
+                                                <td style="font-weight:bold;width: auto;">@babonline.InstallmentNo.ToUpper() </td>
+                                                <td style="font-weight:bold;width: auto;">@babonline.Premium.ToUpper() @*PRİM*@</td>
+                                                <td style="font-weight:bold;width: auto;">@babonline.Paid.ToUpper() @*ÖDENEN*@</td>
+                                                <td style="font-weight:bold;width: auto;">@babonline.Remainder.ToUpper() @*KALAN*@</td>
+                                                <td style="font-weight:bold;width: auto;">@babonline.Overseas_Brokerage_Commission.ToUpper() @*Y.D.BRKR.KOM.*@</td>
+                                                <td style="font-weight:bold;width: auto;">@babonline.Overseas_Brokerage_Commission_Paid.ToUpper() @*Y.D.BRKR.ÖDENEN KOM.*@</td>
+                                                <td style="font-weight:bold;width: auto;">@babonline.Overseas_Brokerage_Remaining_Commission.ToUpper() @*Y.D.BRKR.KALAN KOM.*@</td>
+
+                                            </tr>
+                                            var indis = 0;
+                                            itemGenelToplam.ParaBirimi = item.ParaBirimi;
+                                            foreach (var itemPolice in item.PoliceYaslandirmaTablosuList)
+                                            {
+                                                indis++;
+                                                //genelToplamPrim += itemPolice.Prim;
+                                                //genelToplamOdenen += itemPolice.Odenen;
+                                                //genelToplamKalan += itemPolice.Kalan;
+                                                //genelToplamYDBKom += itemPolice.YurtDisiBrokerKomisyon;
+                                                //genelToplamAlinanKom += itemPolice.AlinanKomisyon;
+                                                //genelToplamKalanKom += itemPolice.KalanKomisyon;
+                                                var tempitemgeneltoplam = geneltoplams.Where(x => x.ParaBirimi == item.ParaBirimi).FirstOrDefault();
+                                                if (tempitemgeneltoplam != null)
+                                                {
+                                                    tempitemgeneltoplam.GenelToplamPrim += itemPolice.Prim;
+                                                    tempitemgeneltoplam.GenelToplamOdenen += itemPolice.Odenen;
+                                                    tempitemgeneltoplam.GenelToplamKalan += itemPolice.Kalan;
+                                                    tempitemgeneltoplam.GenelToplamYurtDisiBrokerKomisyon += itemPolice.YurtDisiBrokerKomisyon;
+                                                    tempitemgeneltoplam.GenelToplamAlinanKomisyon += itemPolice.AlinanKomisyon;
+                                                    tempitemgeneltoplam.GenelToplamKalanKomisyon += itemPolice.KalanKomisyon;
+                                                }
+                                                else
+                                                {
+                                                    itemGenelToplam.GenelToplamPrim += itemPolice.Prim;
+                                                    itemGenelToplam.GenelToplamOdenen += itemPolice.Odenen;
+                                                    itemGenelToplam.GenelToplamKalan += itemPolice.Kalan;
+                                                    itemGenelToplam.GenelToplamYurtDisiBrokerKomisyon += itemPolice.YurtDisiBrokerKomisyon;
+                                                    itemGenelToplam.GenelToplamAlinanKomisyon += itemPolice.AlinanKomisyon;
+                                                    itemGenelToplam.GenelToplamKalanKomisyon += itemPolice.KalanKomisyon;
+                                                    geneltoplams.Add(itemGenelToplam);
+                                                }
+                                                if (item.PoliceYaslandirmaTablosuList.Count == indis)
+                                                {
+                                                    <tr style="font-weight:bold">
+                                                        <td style="font-weight:bold;width: 5%;"></td>
+                                                        <td style="width: 5%;"></td>
+                                                        <td style="width: 10%;">@babonline.Total.ToUpper()</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemPolice.ToplamPrim.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemPolice.ToplamOdenen.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemPolice.ToplamKalan.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemPolice.ToplamYurtDisiBrokerKomisyon.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemPolice.ToplamAlinanKomisyon.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemPolice.ToplamKalanKomisyon.ToString("0.00")</td>
+
+
+                                                    </tr>
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td style="width: 5%;">@itemPolice.ReasurorAd</td>
+                                                        <td style="width: 5%;">@itemPolice.TaksitTarihi.ToString("dd/MM/yyyy")</td>
+                                                        <td style="width: 10%;">@itemPolice.TaksitNo </td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemPolice.Prim.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemPolice.Odenen.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemPolice.Kalan.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemPolice.YurtDisiBrokerKomisyon.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemPolice.AlinanKomisyon.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemPolice.KalanKomisyon.ToString("0.00")</td>
+
+
+                                                    </tr>
+                                                }
+
+                                            }
+                                            if (Model.policeYaslandirmaTablosuPolice.Count == geneltoplamindis)
+                                            {
+                                                foreach (var itemGToplam in geneltoplams)
+                                                {
+                                                    <tr style="font-weight: bold; background-color: #c1c1c1;">
+                                                        <td style="font-weight:bold;width: 5%;"></td>
+                                                        <td style="width: 5%;"></td>
+                                                        <td style="width: 10%;">@babonline.TotalAmount.ToUpper() (@itemGToplam.ParaBirimi)</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemGToplam.GenelToplamPrim.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemGToplam.GenelToplamOdenen.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemGToplam.GenelToplamKalan.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemGToplam.GenelToplamYurtDisiBrokerKomisyon.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemGToplam.GenelToplamAlinanKomisyon.ToString("0.00")</td>
+                                                        <td class="tutar" style="width: 10%; text-align: right;">@itemGToplam.GenelToplamKalanKomisyon.ToString("0.00")</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

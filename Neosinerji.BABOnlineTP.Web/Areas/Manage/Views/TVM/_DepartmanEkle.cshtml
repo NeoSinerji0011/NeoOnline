@@ -1,0 +1,76 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.TVMDepartmanlarModel
+
+<div id="departman-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        @if (!string.IsNullOrEmpty(Model.Adi))
+        {
+            <h3>@babonline.Edit</h3>
+        }
+        else
+        {
+            <h3>@babonline.TVMDepartment_Add</h3>
+        }
+    </div>
+
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="departman-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="departman-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <form id="departman-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.HiddenFor(m => m.TVMKodu)
+            @Html.HiddenFor(m => m.DepartmanKodu)
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_Code</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.TVMKodu, new { autocompletetype = "disabled", disabled = "true" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVMDepartment_DepartmentName <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Adi, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.Adi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVMDepartment_RegionName</label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.BolgeKodu, Model.Bolgeler, new { style = "width=220px;" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.CentralAuthority</label>
+                <div class="controls" style="margin-left: 200px;">
+                    @Html.RadioButtonListFor(m => m.MerkezYetkisi, Model.MerkezYetkileri)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Status</label>
+                <div class="controls" style="margin-left: 200px;">
+                    @Html.RadioButtonListFor(m => m.Durum, Model.Durumlar)
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        @if (!string.IsNullOrEmpty(Model.Adi))
+        {
+            <a href="#" class="btn btn-success" id="departman-guncelle-btn">@babonline.Edit</a>
+        }
+        else
+        {
+            <a href="#" class="btn btn-success" id="departman-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+        }
+    </div>
+</div>

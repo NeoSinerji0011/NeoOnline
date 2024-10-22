@@ -1,0 +1,268 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.GorevTakip.Models
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model GorevTakipModel
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="~/TVM/TVM/Index">Görev Takip<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search..." class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+@section PageStyles{}
+
+@section PageScripts
+{
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    <script src="~/Content/js/bootstrap-formhelpers-phone.js"></script>
+    <script src="@Url.Content("~/Content/js/jquery.inputmask.bundle.min.js")" type="text/javascript"></script>
+    <script>
+        $("#IsTipi").change(function () {
+            var isTipi = $(this).val();
+            if (isTipi == 1) {
+                $(".policeYenileme").show();
+                $(".polZorunlu").removeClass("ignore");
+            } else {
+                $(".policeYenileme").hide();
+                $(".polZorunlu").addClass("ignore");
+            }
+        });
+        $("#TalepYapanAcente").blur(function () {
+            $(this).val($(this).val().toUpperCase());
+        });
+        $("#GonderenTCVKN").blur(function () {
+            if ($("#GonderenTCVKN").val() != "" && $("#GonderenTCVKN") != null) {
+
+                $(this).append('<img class="loading-gif" src="/Content/img/loading7.gif">');
+                $.getJSON('/GorevTakip/GorevTakip/GetMusteriBilgi', { kimlikNo: $(this).val(), tvmKodu: parseInt($("#IsAlanTvmKodu").val()) },
+                    function (data) {
+                        var musteriBilgi = "";
+                        if (data.Adi != "" && data.Adi != null) {
+                            musteriBilgi = data.Adi;
+                        }
+                        if (data.Soyadi != "" && data.Soyadi != null) {
+                            musteriBilgi += " " + data.Soyadi;
+                        }
+                        if ((data.Soyadi == "" || data.Soyadi == null) && (data.Adi == "" || data.Adi == null)) {
+                            $(".kimlikBilgi").show();
+                        }
+                        else {
+                            $(".kimlikBilgi").hide();
+                        }
+
+                        $("#GonderenAdiSoyadi").val(musteriBilgi);
+                        $(".loading-gif").remove();
+                    });
+
+            }
+        });
+        $("#GonderenAdiSoyadi").blur(function () {
+            $(this).val($(this).val().toUpperCase());
+        });
+        $("#TalepYapanAcente").blur(function () {
+            $(this).val($(this).val().toUpperCase());
+        });
+    </script>
+}
+
+<div class="row-fluid">
+    <div class="portlet box light-grey" style="margin-top: 24px;">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-reorder"></i>
+                <span class="hidden-480">Görev Atama</span>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            @using (Html.BeginForm("Ekle", "GorevTakip", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                Html.EnableClientValidation(true);
+                @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+                @Html.AntiForgeryToken()
+                <div class="row-fluid" style="padding-top: 10px;">
+                    <div class="span6">
+                        <h4 class="form-section">Genel Bilgiler<span class="required">*</span></h4>
+                        <div class="control-group">
+                            <label class="control-label">Satış Kanalı<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.IsAlanTvmKodu, Model.IsAlanTvmKodlari, new { style = "width:50%", required = "required" })
+                                @Html.ValidationMessageFor(m => m.IsAlanTvmKodu)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Kullanıcı<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.IsAlanKullaniciKodu, Model.IsAlanKullaniciKodlari, new { style = "width:50%" })
+                                @Html.ValidationMessageFor(m => m.IsAlanKullaniciKodu)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Başlık</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.Baslik, new { maxlength = 30, style = "width:50%" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">İş Tipi</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.IsTipi, Model.IsTipleri, new { style = "width:50%" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Talep Kanalı</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.TalepKanalKodu, Model.TalepKanallari, new { style = "width:50%" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Öncelik Seviyesi</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.OncelikSeviyesi, Model.OncelikSeviyeleri, new { style = "width:50%" })
+                            </div>
+                        </div>
+                        <div class="control-group policeYenileme">
+                            <label class="control-label">@babonline.InsuranceCompany<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.SigortaSirketiKodu, Model.SigortaSirketeri, new { style = "width:50%", @class = "polZorunlu", required = "required" })
+                                @Html.ValidationMessageFor(m => m.SigortaSirketiKodu)
+                            </div>
+                        </div>
+                        <div class="control-group policeYenileme">
+                            <label class="control-label">@babonline.Branch<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.BransKodu, Model.BransKodlari, new { style = "width:50%", @class = "polZorunlu", required = "required" })
+                                @Html.ValidationMessageFor(m => m.BransKodu)
+                            </div>
+                        </div>
+                        <div class="control-group policeYenileme">
+                            <label class="control-label">@babonline.PolicyNo<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.PoliceNumarasi, new { @class = "polZorunlu", required = "required" })
+                                @Html.ValidationMessageFor(m => m.PoliceNumarasi)
+                            </div>
+                        </div>
+                        <div class="control-group policeYenileme">
+                            <label class="control-label">@babonline.Endorsement<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.ZeylNumarasi, new { @class = "polZorunlu", required = "required" })
+                                @Html.ValidationMessageFor(m => m.ZeylNumarasi)
+                            </div>
+                        </div>
+                        <div class="control-group policeYenileme">
+                            <label class="control-label">@babonline.RenewalNo<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.YenilemeNumarasi, new { @class = "polZorunlu", required = "required" })
+                                @Html.ValidationMessageFor(m => m.YenilemeNumarasi)
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">Açıklama</label>
+                            <div class="controls">
+                                @Html.TextAreaFor(m => m.Aciklama, new { maxlength = 500, autocompletetype = "disabled", style = "width:90%; height:100px" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <h4 class="form-section">Tarih Bilgileri<span class="required">*</span></h4>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.StartDate<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DateTextBoxFor(s => s.BaslamaTarihi, new { required = "required" })
+                                @Html.ValidationMessageFor(m => m.BaslamaTarihi)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Tahmini Bitiş Tarihi<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DateTextBoxFor(s => s.TahminiBitisTarihi, new { required = "required" })
+                                @Html.ValidationMessageFor(m => m.BaslamaTarihi)
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <label class="control-label">Tamamlama Tarihi</label>
+                            <div class="controls">
+                                @Html.DateTextBoxNotValidFor(s => s.TamamlamaTarihi, new { })
+                            </div>
+                        </div>
+                        <h4 class="form-section">Talep Yapan Bilgileri</h4>
+                        <div class="control-group">
+                            <label class="control-label">Acente Ünvanı</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.TalepYapanAcente, new { style = "width:60%" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">TC/VKN</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.GonderenTCVKN, new { minlength = 10, maxlength = 11, @class = "onlynumbers" })
+                            </div>
+                        </div>
+                        <div class="kimlikBilgi control-group" style="display:none">  <label class="controls" style="color:red">Kimlik Bilgisine ait kayıt bulunamadı. Lütfen manuel yazınız.</label>  </div>
+                        <div class="control-group">
+                            <label class="control-label">Adı Soyadı</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.GonderenAdiSoyadi, new { style = "width:60%" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Email</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.GonderenEmail, new { style = "width:60%" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Telefon</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.GonderenTelefon, new { style = "width:30%", placeholder = "90-555-5554477", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", title = "Format 90-212-5994949" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Evrak No</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.EvrakNo, new { style = "width:30%" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="form-actions clearfix">
+                        <a href="#" class="btn btn-success" id="IsKaydet"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+                    </div>*@
+                <div class="form-actions">
+                    <button class="btn btn-success" id="IsKaydet"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                    <a class="btn" href="~/GorevTakip/GorevTakip/Ekle">@babonline.Cancel</a>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#IsKaydet").click(function () {
+        $("#tamamlanmaTarihi").removeClass("error");
+    });
+</script>

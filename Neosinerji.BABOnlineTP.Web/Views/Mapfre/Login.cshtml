@@ -1,0 +1,51 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Models.LoginModelMAPFRE
+
+@{
+    Layout = "~/Views/Shared/_Mapfre.cshtml";
+    ViewBag.Title = babonline.Title_Login;
+    var lang = "tr";
+}
+<script>
+    $(document).ready(function () {
+        $("[rel='tooltip']").tooltip();
+    });
+</script>
+
+@using (Html.BeginForm("Login", "Mapfre", FormMethod.Post, new { id = "form1", ReturnUrl = ViewBag.ReturnUrl }))
+{
+    { Html.EnableClientValidation(true); }
+    @Html.AntiForgeryToken()
+    <div class="custom-content">
+        <div class="left-img"></div>
+        <div class="login-hub-center" style="padding-top: 50px;">
+            <div style="padding-bottom: 20px;">
+                Dikkat: Lütfen sisteme giriş için tronweb kullanıcı adı ve şifre bilgilerini kullanınız.
+            </div>
+            <div class="login-hub-top">
+                <div class="login-white-content">
+                    <div class="hizli-giris">
+                        Giriş
+                    </div>
+                    <div style="clear: left"></div>
+                    <div class="textbox-group">
+                        @Html.TextBoxFor(s => s.PartajNo, new { @class = "text-box", placeholder = "TW KULLANICI ADI", autocompletetype = "disabled" })
+                        @Html.ValidationMessageFor(s => s.PartajNo)
+                    </div>
+                    <div class="textbox-group">
+                        @Html.TextBoxFor(s => s.Password, new { @class = "text-box", placeholder = "TW ŞİFRE", type = "Password", minlength = 2, maxlength = 20, autocompletetype = "disabled" })
+                        @Html.ValidationMessageFor(s => s.Password)                    
+                    <div>
+                        <input id="btn-ok" type="submit" class="tamam-button-div" value="Tamam" />
+                    </div>
+                </div>
+            </div>
+            <div style="width: 281px; height: 233px;">
+            </div>
+            <div class="error-div">
+                @Html.ValidationSummary(true)
+            </div>
+        </div>
+        </div>
+    </div>
+}

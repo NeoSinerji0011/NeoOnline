@@ -1,0 +1,1404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:ns0="http://policy.thirdparty.service.insyst.ergo.com/" targetNamespace="http://policy.thirdparty.service.insyst.ergo.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="commissionWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="benefitId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="commAmount" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="commAmountTrl" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="commRatio" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="coverageId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="partnerBankAccountWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="accountName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="accountNo" type="xsd:string" />
+      <xsd:element minOccurs="0" name="bankBranch" type="ns0:bankBranchWsDto" />
+      <xsd:element minOccurs="0" name="ibanNo" type="xsd:string" />
+      <xsd:element minOccurs="0" name="partnerBankAccountId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="swiftNo" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="financeBankWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="financeBankCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="financeBankId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="financeBankName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="taxWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="taxAmount" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="taxDesc" type="xsd:string" />
+      <xsd:element minOccurs="0" name="taxRate" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="taxType" type="ns0:taxTypeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="pPropertyWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="propertyCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="propertyId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="propertyValueId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="propertyValueStr" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="authStatusWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="authStatusId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveBanksResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:bankWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProposal">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="proposalNo" type="xsd:int" />
+      <xsd:element minOccurs="0" name="proposalVerNo" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveExistsOrCreateAgencyCustomer">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="identityNo" type="xsd:string" />
+      <xsd:element minOccurs="0" name="identityTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="agencyNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencySubNumber" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="prodRiskDisSurWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="discountSurcharge" type="ns0:discountSurchargeWsDto" />
+      <xsd:element minOccurs="0" name="prodDisSur" type="ns0:prodDisSurWsDto" />
+      <xsd:element minOccurs="0" name="riskValue" type="ns0:riskValueWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="printPolicy">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="endorsementKey" type="ns0:endorsementKeyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveAgencyPoliciesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:agencyPolicyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePolicyResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:policyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveLastProductVersionResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:productVersionWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductPropertiesLastVersionResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:prodPropertyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProfileResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:profileWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProposalLastVersion">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="proposalNo" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="premiumTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+      <xsd:element minOccurs="0" name="premiumTypeId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="currencyWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="currencyCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="currencyId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="pCollectiveWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="isCoinsurance" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isFrontline" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isIhtiyari" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="regionWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="regionId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="regionName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePropertyValuesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:propertyValueWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="agencySellerWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="agencySellerId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="partner" type="ns0:partnerWsDto" />
+      <xsd:element minOccurs="0" name="sellerName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="sellerNumber" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="bankWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="bankCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="bankId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="bankName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="savePartnerResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:partnerWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="propertyInputTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+      <xsd:element minOccurs="0" name="propertyInputTypeId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="productWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="productName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveCurrencies">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="currencyCode" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="riskWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="riskDescription" type="xsd:string" />
+      <xsd:element minOccurs="0" name="riskId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ruleWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+      <xsd:element minOccurs="0" name="ruleId" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="paymentTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+      <xsd:element minOccurs="0" name="paymentTypeId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveAgencySubsResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:agencySubWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="prodDisSurWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="disSurId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="isAutoRun" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isDefaultSelect" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isGradeChangeable" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isGradeDefaultSelected" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isRider" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isSelectChange" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isVisible" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="orderNo" type="xsd:short" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="prodDisSurDependentList" nillable="true" type="ns0:discountSurchargeWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="prodDisSurRestrictedList" nillable="true" type="ns0:discountSurchargeWsDto" />
+      <xsd:element minOccurs="0" name="productVersion" type="ns0:productVersionWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="partnerPhoneWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="isActive" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isCommunication" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isSendSms" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="partnerPhoneId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="phoneNumber" type="xsd:string" />
+      <xsd:element minOccurs="0" name="phoneType" type="ns0:phoneTypeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePaymentTypes" />
+  <xsd:complexType name="prodRiskValueWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="productVerId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="riskId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="riskValueId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="pCollectionWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="collectionNo" type="xsd:short" />
+      <xsd:element minOccurs="0" name="instalmentCount" type="xsd:short" />
+      <xsd:element minOccurs="0" name="isCancelled" type="xsd:short" />
+      <xsd:element minOccurs="0" name="orderId" type="xsd:string" />
+      <xsd:element minOccurs="0" name="policyId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="policyNo" type="xsd:int" />
+      <xsd:element minOccurs="0" name="totalAmount" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="totalAmountTrl" type="xsd:decimal" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="uavtCityWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="cityName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="insertDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="isActive" type="xsd:short" />
+      <xsd:element minOccurs="0" name="uavtCityId" type="xsd:decimal" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="proposalWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="agencyNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencySellerNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencySubNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="authorizationCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="beginDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="benefitList" nillable="true" type="ns0:benefitWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="coverageList" nillable="true" type="ns0:coverageWsDto" />
+      <xsd:element minOccurs="0" name="currencyCode" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="customerList" nillable="true" type="ns0:customerWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="discountSurchargeList" nillable="true" type="ns0:discountSurchargeWsDto" />
+      <xsd:element minOccurs="0" name="endDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="issueDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="lossPayee" type="ns0:lossPayeeWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="pPropertyList" nillable="true" type="ns0:pPropertyWsDto" />
+      <xsd:element minOccurs="0" name="paymentPlanId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="productNumber" type="xsd:short" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="profileIdList" nillable="true" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductRiskValues">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="productVerId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="benefitCoverageWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="benefit" type="ns0:benefitWsDto" />
+      <xsd:element minOccurs="0" name="coverage" type="ns0:coverageWsDto" />
+      <xsd:element minOccurs="0" name="premium" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="premiumTrl" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="suminsured" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="suminsuredTrl" type="xsd:decimal" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePaymentPlanResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:paymentPlanWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="profileWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="profileId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="profileName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="profileType" type="ns0:profileTypeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveAgencySellerListResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:agencySellerWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveLossPayeeResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:pLossPayeeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="prodPropertyWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="isMandatory" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isProductValueList" type="xsd:short" />
+      <xsd:element minOccurs="0" name="productVersion" type="ns0:productVersionWsDto" />
+      <xsd:element minOccurs="0" name="property" type="ns0:propertyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveIdentityTypes" />
+  <xsd:complexType name="printPolicyResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:printPolicyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="printLastProposal">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="proposalNo" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePremiumTypes" />
+  <xsd:complexType name="saveAgencyCustomer">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="identityNo" type="xsd:string" />
+      <xsd:element minOccurs="0" name="identityTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="agencyNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencySubNumber" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="calculatePremiumPolicyResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:policyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="savePolicyResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:policyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="saveAgencyCustomerResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:agencyCustomerWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="covStatusTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="covStatusTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveAgencyPolicies">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="agencyNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencySubNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="isProposal" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="date" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="dateType" type="ns0:dateTypeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="paymentPlanWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="depositRate" type="xsd:short" />
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+      <xsd:element minOccurs="0" name="installmentCount" type="xsd:short" />
+      <xsd:element minOccurs="0" name="paymentPlanId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="paymentType" type="ns0:paymentTypeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="agencyTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="agencyTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="pInstalmentWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="instalmentAmount" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="instalmentAmountTrl" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="instalmentDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="isPaid" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="orderNo" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="pDiscountSurchargeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="discountSurcharge" type="ns0:discountSurchargeWsDto" />
+      <xsd:element minOccurs="0" name="displayName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="isRider" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="rate" type="xsd:decimal" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePartner">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="identityNo" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="uavtApartmentWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="activecode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="apartmentNumber" type="xsd:string" />
+      <xsd:element minOccurs="0" name="apartmentTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="createuserid" type="xsd:string" />
+      <xsd:element minOccurs="0" name="currentcode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="insertDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="instanceid" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="isActive" type="xsd:short" />
+      <xsd:element minOccurs="0" name="referenceid" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="tuikId" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="uavtAddressId" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="uavtApartmentId" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="uavtBuildingId" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="uavtversion" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="updateuserid" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveBankBranchesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:bankBranchWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveAgencyCustomer">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="identityNo" type="xsd:string" />
+      <xsd:element minOccurs="0" name="identityTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="agencyNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencySubNumber" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="taxTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="taxTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="taxTypeName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveEndorsementResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:policyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductRiskDiscountSurchargesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:prodRiskDisSurWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveAgencyCustomerResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:agencyCustomerWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePremiumTypesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:premiumTypeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="uavtQuarterWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="activecode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="authoritycontrolcode" type="xsd:int" />
+      <xsd:element minOccurs="0" name="createuserid" type="xsd:string" />
+      <xsd:element minOccurs="0" name="currentcode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="identificationcode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="insertDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="instanceid" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="isActive" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="quarterName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="quarterTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="referenceid" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="uavtQuarterId" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="uavtVersion" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="uavtVillageId" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="updateuserid" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePaymentPlansResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:paymentPlanWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveClientAgenciesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:agencyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="emailTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+      <xsd:element minOccurs="0" name="emailTypeId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="partnerTramerAddressWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="addressText" type="xsd:string" />
+      <xsd:element minOccurs="0" name="cityCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="districtCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="partnerTramerAddressId" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProposalLastVersionResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:policyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="printProposal">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="proposalNo" type="xsd:int" />
+      <xsd:element minOccurs="0" name="proposalVerNo" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="createPaymentResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:pCollectionWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductRiskBenefitCoverages">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="productVerId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="riskValueId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="uavtDistrictWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="districtName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="insertDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="isActive" type="xsd:short" />
+      <xsd:element minOccurs="0" name="tramerDistrictId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="uavtCityId" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="uavtDistrictId" type="xsd:decimal" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveAllFinanceBankResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:financeBankWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductProfiles">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="profileTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="riskValueId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductPropertiesLastVersion">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="createPayment">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="payment" type="ns0:paymentWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="prodBenWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="isHasSumInsured" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isSuminsuredManual" type="xsd:boolean" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="prodBenDependentList" nillable="true" type="ns0:benefitWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="prodBenRestrictedList" nillable="true" type="ns0:benefitWsDto" />
+      <xsd:element minOccurs="0" name="productVersion" type="ns0:productVersionWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="savePartner">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="identityNo" type="xsd:string" />
+      <xsd:element minOccurs="0" name="identityTypeId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="dateTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="value" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="savePolicy">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="proposalNo" type="xsd:int" />
+      <xsd:element minOccurs="0" name="creditCard" type="ns0:creditCardWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="riskValueWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="propertyValue" type="ns0:propertyValueWsDto" />
+      <xsd:element minOccurs="0" name="risk" type="ns0:riskWsDto" />
+      <xsd:element minOccurs="0" name="riskValueId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveAllFinanceBank" />
+  <xsd:complexType name="pLossPayeeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="bank" type="ns0:bankWsDto" />
+      <xsd:element minOccurs="0" name="bankBranch" type="ns0:bankBranchWsDto" />
+      <xsd:element minOccurs="0" name="financeBank" type="ns0:financeBankWsDto" />
+      <xsd:element minOccurs="0" name="identityNo" type="xsd:string" />
+      <xsd:element minOccurs="0" name="identityTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="institutionName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="lossPayeeType" type="ns0:lossPayeeTypeWsDto" />
+      <xsd:element minOccurs="0" name="partner" type="ns0:partnerWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="premiumOutputWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="appliedRate" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="benefitId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="coverageId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="coverageMinimumPremiumApplicable" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="minimumPremiumApplied" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="premium" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="suminsured" type="xsd:decimal" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="benefitWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="benefitCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="benefitId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="benefitName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="suminsured" type="xsd:decimal" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="saveRenewal">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="policyNo" type="xsd:int" />
+      <xsd:element minOccurs="0" name="renewalNo" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="pCustomerWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="customerName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="customerSurname" type="xsd:string" />
+      <xsd:element minOccurs="0" name="customerType" type="ns0:customerTypeWsDto" />
+      <xsd:element minOccurs="0" name="partner" type="ns0:partnerWsDto" />
+      <xsd:element minOccurs="0" name="partnerAddress" type="ns0:partnerAddressWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="agencyWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="agencyId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="agencyName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="agencyNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="inscribedCardNo" type="xsd:string" />
+      <xsd:element minOccurs="0" name="partner" type="ns0:partnerWsDto" />
+      <xsd:element minOccurs="0" name="region" type="ns0:regionWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="agencyCustomerWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="agencyCustomerId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencySub" type="ns0:agencySubWsDto" />
+      <xsd:element minOccurs="0" name="noteText" type="xsd:string" />
+      <xsd:element minOccurs="0" name="partner" type="ns0:partnerWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductProfilesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:profileWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePropertyValues">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="propertyId" type="xsd:int" />
+      <xsd:element name="startIndex" type="xsd:int" />
+      <xsd:element name="endIndex" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="premiumWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="commissionDtoList" nillable="true" type="ns0:commissionWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="premiumOutputList" nillable="true" type="ns0:premiumOutputWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="taxWsDtoList" nillable="true" type="ns0:taxWsDto" />
+      <xsd:element minOccurs="0" name="totalComm" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="totalGrossPremium" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="totalPremium" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="totalSocialInsurance" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="totalTax" type="xsd:decimal" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveAgencySubProductsResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:productWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveBanks" />
+  <xsd:complexType name="retrieveClientAgencies" />
+  <xsd:complexType name="discountSurchargeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="disSurCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="disSurId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="disSurName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveAgencySubProducts">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="agencyNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencySubNumber" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePropertyValueResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:propertyValueWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveRegions">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="searchText" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="productVersionWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="endDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="productName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="productVerId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="startDate" type="xsd:dateTime" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="calculatePremiumEndersoment">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="policyNo" type="xsd:int" />
+      <xsd:element minOccurs="0" name="renewalNo" type="xsd:short" />
+      <xsd:element minOccurs="0" name="endDate" type="xsd:dateTime" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="lossPayeeTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="value" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ExternalServiceException">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="code" type="xsd:string" />
+      <xsd:element minOccurs="0" name="exceptionId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="message" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveEndorsement">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="endorsementKey" type="ns0:endorsementKeyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveAgencySellerList">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="agencyNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencySubNumber" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="printPolicyWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="bytes" type="xsd:base64Binary" />
+      <xsd:element minOccurs="0" name="printType" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="uavtCsbmWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="activecode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="authoritycontrolcode" type="xsd:int" />
+      <xsd:element minOccurs="0" name="createuserid" type="xsd:string" />
+      <xsd:element minOccurs="0" name="csbmAciklama" type="xsd:string" />
+      <xsd:element minOccurs="0" name="csbmAd" type="xsd:string" />
+      <xsd:element minOccurs="0" name="csbmTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="currentcode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="identificationcode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="insertDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="instanceid" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="isActive" type="xsd:short" />
+      <xsd:element minOccurs="0" name="referenceid" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="uavtCsbmId" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="uavtQuarterId" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="uavtversion" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="updateuserid" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="phoneTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+      <xsd:element minOccurs="0" name="phoneTypeId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveLossPayee">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="identityNo" type="xsd:string" />
+      <xsd:element minOccurs="0" name="identityTypeId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="calculatePremiumEndersomentResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:policyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProposalResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:policyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="bankBranchWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="bankBranchId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="branchCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="branchName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="uavtCity" type="ns0:uavtCityWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="printLastProposalResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:printPolicyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="agencySalesChannelTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="agencySalesChannelTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="saveProposalResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:policyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductRiskBenefitCoveragesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:prodRiskBenCovWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveAgencySubs">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="agencyNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="searchText" type="xsd:string" />
+      <xsd:element name="startIndex" type="xsd:int" />
+      <xsd:element name="endIndex" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="prodRiskBenCovWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="benefit" type="ns0:benefitWsDto" />
+      <xsd:element minOccurs="0" name="covStatusType" type="ns0:covStatusTypeWsDto" />
+      <xsd:element minOccurs="0" name="coverage" type="ns0:coverageWsDto" />
+      <xsd:element minOccurs="0" name="prodCov" type="ns0:prodCovWsDto" />
+      <xsd:element minOccurs="0" name="riskValue" type="ns0:riskValueWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="propertyValueWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="propertyValueCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="propertyValueId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="valString" type="xsd:string" />
+      <xsd:element minOccurs="0" name="valStringEnd" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="profileTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+      <xsd:element minOccurs="0" name="profileTypeId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="saveRenewalResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:policyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveIdentityTypesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:identityTypeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveCustomerTypes" />
+  <xsd:complexType name="retrievePaymentPlans">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="paymentTypeId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductRiskBenefits">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="productVerId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="riskValueId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="agencySubWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="agencySalesChannelType" type="ns0:agencySalesChannelTypeWsDto" />
+      <xsd:element minOccurs="0" name="agencySubId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencySubName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="agencySubNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencyType" type="ns0:agencyTypeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveExistsOrCreateAgencyCustomerResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:agencyCustomerWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePartnerResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:partnerWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="creditCardWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="cardHolder" type="xsd:string" />
+      <xsd:element minOccurs="0" name="creditCardNumber" type="xsd:string" />
+      <xsd:element minOccurs="0" name="cvvNumber" type="xsd:string" />
+      <xsd:element minOccurs="0" name="expireMonth" type="xsd:string" />
+      <xsd:element minOccurs="0" name="expireYear" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="educationStatusWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+      <xsd:element minOccurs="0" name="educationStatusId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="saveProposal">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="proposal" type="ns0:proposalWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="pCurrencyWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="currencyDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="currencyParity" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="currencyRate" type="xsd:decimal" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePaymentTypesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:paymentTypeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="identityTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="identityTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="identityTypeName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="prodCovWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="isReturnInCancellation" type="xsd:boolean" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="prodCovDependentList" nillable="true" type="ns0:coverageWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="prodCovRestrictedList" nillable="true" type="ns0:coverageWsDto" />
+      <xsd:element minOccurs="0" name="productVersion" type="ns0:productVersionWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="calculatePremiumPolicy">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="proposal" type="ns0:proposalWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="uavtVillageWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="creatZoneCode" type="xsd:short" />
+      <xsd:element minOccurs="0" name="earthquakeZoneCode" type="xsd:short" />
+      <xsd:element minOccurs="0" name="insertDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="isActive" type="xsd:short" />
+      <xsd:element minOccurs="0" name="uavtCityId" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="uavtDistrictId" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="uavtVillageId" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="villageName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="addressTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="addressTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="uavtBuildingWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="activecode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="buildingName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="buildingNumber" type="xsd:string" />
+      <xsd:element minOccurs="0" name="buildingTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="createuserid" type="xsd:string" />
+      <xsd:element minOccurs="0" name="currentcode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="insertDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="instanceid" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="isActive" type="xsd:short" />
+      <xsd:element minOccurs="0" name="landBlock" type="xsd:string" />
+      <xsd:element minOccurs="0" name="landLot" type="xsd:string" />
+      <xsd:element minOccurs="0" name="landSheet" type="xsd:string" />
+      <xsd:element minOccurs="0" name="postalCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="referenceid" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="similarBuildingId" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="siteName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="uavtBuildingId" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="uavtCsbmId" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="uavtQuarterId" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="uavtversion" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="updateuserid" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePropertyValue">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="propertyCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="propertyValueCode" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductRiskBenefitCoveragesByBenefits">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="productVerId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="riskValueId" type="xsd:short" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="benefitList" type="ns0:benefitWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="policyWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="agencyEmployeeId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencyNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencySellerNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencySubNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="beginDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="benefitCoverageList" nillable="true" type="ns0:benefitCoverageWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="benefitList" nillable="true" type="ns0:benefitWsDto" />
+      <xsd:element minOccurs="0" name="currency" type="ns0:currencyWsDto" />
+      <xsd:element minOccurs="0" name="endDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="endorsementNo" type="xsd:short" />
+      <xsd:element minOccurs="0" name="isProposal" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="issueDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="pAuthList" nillable="true" type="ns0:pAuthWsDto" />
+      <xsd:element minOccurs="0" name="pCollective" type="ns0:pCollectiveWsDto" />
+      <xsd:element minOccurs="0" name="pCurrency" type="ns0:pCurrencyWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="pCustomerList" nillable="true" type="ns0:pCustomerWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="pDiscountSurchargeList" nillable="true" type="ns0:pDiscountSurchargeWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="pInstalmentList" nillable="true" type="ns0:pInstalmentWsDto" />
+      <xsd:element minOccurs="0" name="pLossPayee" type="ns0:pLossPayeeWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="pPropertyList" nillable="true" type="ns0:pPropertyWsDto" />
+      <xsd:element minOccurs="0" name="paymentPlan" type="ns0:paymentPlanWsDto" />
+      <xsd:element minOccurs="0" name="policyId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="policyNo" type="xsd:int" />
+      <xsd:element minOccurs="0" name="premium" type="ns0:premiumWsDto" />
+      <xsd:element minOccurs="0" name="premiumType" type="ns0:premiumTypeWsDto" />
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="proposalExpiryDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="proposalRenewalNo" type="xsd:short" />
+      <xsd:element minOccurs="0" name="proposalVerNo" type="xsd:short" />
+      <xsd:element minOccurs="0" name="regionId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="renewalNo" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveCustomerTypesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:customerTypeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="propertyDataTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+      <xsd:element minOccurs="0" name="propertyDataTypeId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="prodRiskBenWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="benStatusType" type="ns0:benStatusTypeWsDto" />
+      <xsd:element minOccurs="0" name="benefit" type="ns0:benefitWsDto" />
+      <xsd:element minOccurs="0" name="prodBen" type="ns0:prodBenWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductRiskDiscountSurcharges">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="productVerId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="riskValueId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="customerWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="customerName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="customerSurname" type="xsd:string" />
+      <xsd:element minOccurs="0" name="customerTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="identityNo" type="xsd:string" />
+      <xsd:element minOccurs="0" name="identityTypeId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProfile">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="profileId" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveCurrenciesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:currencyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="partnerWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="fullName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="identityNo" type="xsd:string" />
+      <xsd:element minOccurs="0" name="identityType" type="ns0:identityTypeWsDto" />
+      <xsd:element minOccurs="0" name="isLocal" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isPerson" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="name" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="partnerAddressList" nillable="true" type="ns0:partnerAddressWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="partnerBankAccountList" nillable="true" type="ns0:partnerBankAccountWsDto" />
+      <xsd:element minOccurs="0" name="partnerDetail" type="ns0:partnerDetailWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="partnerEmailList" nillable="true" type="ns0:partnerEmailWsDto" />
+      <xsd:element minOccurs="0" name="partnerId" type="xsd:int" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="partnerPhoneList" nillable="true" type="ns0:partnerPhoneWsDto" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="partnerTramerAddressList" nillable="true" type="ns0:partnerTramerAddressWsDto" />
+      <xsd:element minOccurs="0" name="surname" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="coverageWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="coverageCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="coverageId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="coverageName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="lossPayeeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="bankCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="branchCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="financeBankCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="identityNo" type="xsd:string" />
+      <xsd:element minOccurs="0" name="identityTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="lossPayeeType" type="ns0:lossPayeeTypeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="endorsementKeyWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="endorsementNo" type="xsd:short" />
+      <xsd:element minOccurs="0" name="policyNo" type="xsd:int" />
+      <xsd:element minOccurs="0" name="renewalNo" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveLossPayeeTypesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProfileTypesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:profileTypeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePaymentPlan">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="paymentTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="depositRate" type="xsd:short" />
+      <xsd:element minOccurs="0" name="installmentCount" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductRiskBenefitsResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:prodRiskBenWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="partnerAddressWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="addressText" type="xsd:string" />
+      <xsd:element minOccurs="0" name="addressType" type="ns0:addressTypeWsDto" />
+      <xsd:element minOccurs="0" name="creatZoneCode" type="xsd:short" />
+      <xsd:element minOccurs="0" name="csbmTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="earthquakeZoneCode" type="xsd:short" />
+      <xsd:element minOccurs="0" name="isActive" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isCommunication" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="partnerAddressId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="postalCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="quarterTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="uavtAddressId" type="xsd:integer" />
+      <xsd:element minOccurs="0" name="uavtApartment" type="ns0:uavtApartmentWsDto" />
+      <xsd:element minOccurs="0" name="uavtBuilding" type="ns0:uavtBuildingWsDto" />
+      <xsd:element minOccurs="0" name="uavtCity" type="ns0:uavtCityWsDto" />
+      <xsd:element minOccurs="0" name="uavtCsbm" type="ns0:uavtCsbmWsDto" />
+      <xsd:element minOccurs="0" name="uavtDistrict" type="ns0:uavtDistrictWsDto" />
+      <xsd:element minOccurs="0" name="uavtQuarter" type="ns0:uavtQuarterWsDto" />
+      <xsd:element minOccurs="0" name="uavtVersion" type="xsd:short" />
+      <xsd:element minOccurs="0" name="uavtVillage" type="ns0:uavtVillageWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="pAuthWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="authStatus" type="ns0:authStatusWsDto" />
+      <xsd:element minOccurs="0" name="pAuthId" type="xsd:decimal" />
+      <xsd:element minOccurs="0" name="requestDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="responseDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="rule" type="ns0:ruleWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrievePolicy">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="policyNo" type="xsd:int" />
+      <xsd:element minOccurs="0" name="renewalNo" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductRiskBenefitCoveragesByBenefitsResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:prodRiskBenCovWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="agencyPolicyWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="agencyNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="agencySubNumber" type="xsd:int" />
+      <xsd:element minOccurs="0" name="isProposal" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="policyKey" type="ns0:endorsementKeyWsDto" />
+      <xsd:element minOccurs="0" name="sellerNumber" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveLastProductVersion">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="productId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="printProposalResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:printPolicyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="paymentWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="creditCard" type="ns0:creditCardWsDto" />
+      <xsd:element minOccurs="0" name="endorsementKey" type="ns0:endorsementKeyWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProductRiskValuesResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:prodRiskValueWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveProfileTypes" />
+  <xsd:complexType name="customerTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="customerTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="partnerEmailWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="email" type="xsd:string" />
+      <xsd:element minOccurs="0" name="emailType" type="ns0:emailTypeWsDto" />
+      <xsd:element minOccurs="0" name="isActive" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isCommunication" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="isSendEmail" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="partnerEmailId" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="benStatusTypeWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="benStatusTypeId" type="xsd:short" />
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="occupationWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+      <xsd:element minOccurs="0" name="occupationId" type="xsd:short" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveRegionsResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:regionWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="retrieveLossPayeeTypes" />
+  <xsd:complexType name="retrieveBankBranches">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="bankCode" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="propertyWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="description" type="xsd:string" />
+      <xsd:element minOccurs="0" name="propertyCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="propertyDataType" type="ns0:propertyDataTypeWsDto" />
+      <xsd:element minOccurs="0" name="propertyId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="propertyInputType" type="ns0:propertyInputTypeWsDto" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="partnerDetailWsDto">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="birthDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="birthPlace" type="xsd:string" />
+      <xsd:element minOccurs="0" name="corporateType" type="xsd:string" />
+      <xsd:element minOccurs="0" name="deathDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="driverLicenseDate" type="xsd:dateTime" />
+      <xsd:element minOccurs="0" name="driverLicenseNo" type="xsd:string" />
+      <xsd:element minOccurs="0" name="educationStatus" type="ns0:educationStatusWsDto" />
+      <xsd:element minOccurs="0" name="fatherName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="gender" type="xsd:string" />
+      <xsd:element minOccurs="0" name="inquiryTerminal" type="xsd:string" />
+      <xsd:element minOccurs="0" name="isMarried" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="motherName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="occupation" type="ns0:occupationWsDto" />
+      <xsd:element minOccurs="0" name="partnerDetailId" type="xsd:int" />
+      <xsd:element minOccurs="0" name="status" type="xsd:string" />
+      <xsd:element minOccurs="0" name="taxOfficeName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="retrieveBanksResponse" type="ns0:retrieveBanksResponse" />
+  <xsd:element name="retrieveProposal" type="ns0:retrieveProposal" />
+  <xsd:element name="retrieveExistsOrCreateAgencyCustomer" type="ns0:retrieveExistsOrCreateAgencyCustomer" />
+  <xsd:element name="printPolicy" type="ns0:printPolicy" />
+  <xsd:element name="retrieveAgencyPoliciesResponse" type="ns0:retrieveAgencyPoliciesResponse" />
+  <xsd:element name="retrievePolicyResponse" type="ns0:retrievePolicyResponse" />
+  <xsd:element name="retrieveLastProductVersionResponse" type="ns0:retrieveLastProductVersionResponse" />
+  <xsd:element name="retrieveProductPropertiesLastVersionResponse" type="ns0:retrieveProductPropertiesLastVersionResponse" />
+  <xsd:element name="retrieveProfileResponse" type="ns0:retrieveProfileResponse" />
+  <xsd:element name="retrieveProposalLastVersion" type="ns0:retrieveProposalLastVersion" />
+  <xsd:element name="retrievePropertyValuesResponse" type="ns0:retrievePropertyValuesResponse" />
+  <xsd:element name="savePartnerResponse" type="ns0:savePartnerResponse" />
+  <xsd:element name="retrieveCurrencies" type="ns0:retrieveCurrencies" />
+  <xsd:element name="retrieveAgencySubsResponse" type="ns0:retrieveAgencySubsResponse" />
+  <xsd:element name="retrievePaymentTypes" type="ns0:retrievePaymentTypes" />
+  <xsd:element name="retrieveProductRiskValues" type="ns0:retrieveProductRiskValues" />
+  <xsd:element name="retrievePaymentPlanResponse" type="ns0:retrievePaymentPlanResponse" />
+  <xsd:element name="retrieveAgencySellerListResponse" type="ns0:retrieveAgencySellerListResponse" />
+  <xsd:element name="retrieveLossPayeeResponse" type="ns0:retrieveLossPayeeResponse" />
+  <xsd:element name="retrieveIdentityTypes" type="ns0:retrieveIdentityTypes" />
+  <xsd:element name="printPolicyResponse" type="ns0:printPolicyResponse" />
+  <xsd:element name="printLastProposal" type="ns0:printLastProposal" />
+  <xsd:element name="retrievePremiumTypes" type="ns0:retrievePremiumTypes" />
+  <xsd:element name="saveAgencyCustomer" type="ns0:saveAgencyCustomer" />
+  <xsd:element name="calculatePremiumPolicyResponse" type="ns0:calculatePremiumPolicyResponse" />
+  <xsd:element name="savePolicyResponse" type="ns0:savePolicyResponse" />
+  <xsd:element name="saveAgencyCustomerResponse" type="ns0:saveAgencyCustomerResponse" />
+  <xsd:element name="retrieveAgencyPolicies" type="ns0:retrieveAgencyPolicies" />
+  <xsd:element name="retrievePartner" type="ns0:retrievePartner" />
+  <xsd:element name="retrieveBankBranchesResponse" type="ns0:retrieveBankBranchesResponse" />
+  <xsd:element name="retrieveAgencyCustomer" type="ns0:retrieveAgencyCustomer" />
+  <xsd:element name="retrieveEndorsementResponse" type="ns0:retrieveEndorsementResponse" />
+  <xsd:element name="retrieveProductRiskDiscountSurchargesResponse" type="ns0:retrieveProductRiskDiscountSurchargesResponse" />
+  <xsd:element name="retrieveAgencyCustomerResponse" type="ns0:retrieveAgencyCustomerResponse" />
+  <xsd:element name="retrievePremiumTypesResponse" type="ns0:retrievePremiumTypesResponse" />
+  <xsd:element name="retrievePaymentPlansResponse" type="ns0:retrievePaymentPlansResponse" />
+  <xsd:element name="retrieveClientAgenciesResponse" type="ns0:retrieveClientAgenciesResponse" />
+  <xsd:element name="retrieveProposalLastVersionResponse" type="ns0:retrieveProposalLastVersionResponse" />
+  <xsd:element name="printProposal" type="ns0:printProposal" />
+  <xsd:element name="createPaymentResponse" type="ns0:createPaymentResponse" />
+  <xsd:element name="retrieveProductRiskBenefitCoverages" type="ns0:retrieveProductRiskBenefitCoverages" />
+  <xsd:element name="retrieveAllFinanceBankResponse" type="ns0:retrieveAllFinanceBankResponse" />
+  <xsd:element name="retrieveProductProfiles" type="ns0:retrieveProductProfiles" />
+  <xsd:element name="retrieveProductPropertiesLastVersion" type="ns0:retrieveProductPropertiesLastVersion" />
+  <xsd:element name="createPayment" type="ns0:createPayment" />
+  <xsd:element name="savePartner" type="ns0:savePartner" />
+  <xsd:element name="savePolicy" type="ns0:savePolicy" />
+  <xsd:element name="retrieveAllFinanceBank" type="ns0:retrieveAllFinanceBank" />
+  <xsd:element name="saveRenewal" type="ns0:saveRenewal" />
+  <xsd:element name="retrieveProductProfilesResponse" type="ns0:retrieveProductProfilesResponse" />
+  <xsd:element name="retrievePropertyValues" type="ns0:retrievePropertyValues" />
+  <xsd:element name="retrieveAgencySubProductsResponse" type="ns0:retrieveAgencySubProductsResponse" />
+  <xsd:element name="retrieveBanks" type="ns0:retrieveBanks" />
+  <xsd:element name="retrieveClientAgencies" type="ns0:retrieveClientAgencies" />
+  <xsd:element name="retrieveAgencySubProducts" type="ns0:retrieveAgencySubProducts" />
+  <xsd:element name="retrievePropertyValueResponse" type="ns0:retrievePropertyValueResponse" />
+  <xsd:element name="retrieveRegions" type="ns0:retrieveRegions" />
+  <xsd:element name="calculatePremiumEndersoment" type="ns0:calculatePremiumEndersoment" />
+  <xsd:element name="ExternalServiceException" type="ns0:ExternalServiceException" />
+  <xsd:element name="retrieveEndorsement" type="ns0:retrieveEndorsement" />
+  <xsd:element name="retrieveAgencySellerList" type="ns0:retrieveAgencySellerList" />
+  <xsd:element name="retrieveLossPayee" type="ns0:retrieveLossPayee" />
+  <xsd:element name="calculatePremiumEndersomentResponse" type="ns0:calculatePremiumEndersomentResponse" />
+  <xsd:element name="retrieveProposalResponse" type="ns0:retrieveProposalResponse" />
+  <xsd:element name="printLastProposalResponse" type="ns0:printLastProposalResponse" />
+  <xsd:element name="saveProposalResponse" type="ns0:saveProposalResponse" />
+  <xsd:element name="retrieveProductRiskBenefitCoveragesResponse" type="ns0:retrieveProductRiskBenefitCoveragesResponse" />
+  <xsd:element name="retrieveAgencySubs" type="ns0:retrieveAgencySubs" />
+  <xsd:element name="saveRenewalResponse" type="ns0:saveRenewalResponse" />
+  <xsd:element name="retrieveIdentityTypesResponse" type="ns0:retrieveIdentityTypesResponse" />
+  <xsd:element name="retrieveCustomerTypes" type="ns0:retrieveCustomerTypes" />
+  <xsd:element name="retrievePaymentPlans" type="ns0:retrievePaymentPlans" />
+  <xsd:element name="retrieveProductRiskBenefits" type="ns0:retrieveProductRiskBenefits" />
+  <xsd:element name="retrieveExistsOrCreateAgencyCustomerResponse" type="ns0:retrieveExistsOrCreateAgencyCustomerResponse" />
+  <xsd:element name="retrievePartnerResponse" type="ns0:retrievePartnerResponse" />
+  <xsd:element name="saveProposal" type="ns0:saveProposal" />
+  <xsd:element name="retrievePaymentTypesResponse" type="ns0:retrievePaymentTypesResponse" />
+  <xsd:element name="calculatePremiumPolicy" type="ns0:calculatePremiumPolicy" />
+  <xsd:element name="retrievePropertyValue" type="ns0:retrievePropertyValue" />
+  <xsd:element name="retrieveProductRiskBenefitCoveragesByBenefits" type="ns0:retrieveProductRiskBenefitCoveragesByBenefits" />
+  <xsd:element name="policyWsDto" type="ns0:policyWsDto" />
+  <xsd:element name="retrieveCustomerTypesResponse" type="ns0:retrieveCustomerTypesResponse" />
+  <xsd:element name="retrieveProductRiskDiscountSurcharges" type="ns0:retrieveProductRiskDiscountSurcharges" />
+  <xsd:element name="retrieveProfile" type="ns0:retrieveProfile" />
+  <xsd:element name="retrieveCurrenciesResponse" type="ns0:retrieveCurrenciesResponse" />
+  <xsd:element name="endorsementKeyWsDto" type="ns0:endorsementKeyWsDto" />
+  <xsd:element name="retrieveLossPayeeTypesResponse" type="ns0:retrieveLossPayeeTypesResponse" />
+  <xsd:element name="retrieveProfileTypesResponse" type="ns0:retrieveProfileTypesResponse" />
+  <xsd:element name="retrievePaymentPlan" type="ns0:retrievePaymentPlan" />
+  <xsd:element name="retrieveProductRiskBenefitsResponse" type="ns0:retrieveProductRiskBenefitsResponse" />
+  <xsd:element name="retrievePolicy" type="ns0:retrievePolicy" />
+  <xsd:element name="retrieveProductRiskBenefitCoveragesByBenefitsResponse" type="ns0:retrieveProductRiskBenefitCoveragesByBenefitsResponse" />
+  <xsd:element name="retrieveLastProductVersion" type="ns0:retrieveLastProductVersion" />
+  <xsd:element name="printProposalResponse" type="ns0:printProposalResponse" />
+  <xsd:element name="retrieveProductRiskValuesResponse" type="ns0:retrieveProductRiskValuesResponse" />
+  <xsd:element name="retrieveProfileTypes" type="ns0:retrieveProfileTypes" />
+  <xsd:element name="retrieveRegionsResponse" type="ns0:retrieveRegionsResponse" />
+  <xsd:element name="retrieveLossPayeeTypes" type="ns0:retrieveLossPayeeTypes" />
+  <xsd:element name="retrieveBankBranches" type="ns0:retrieveBankBranches" />
+</xsd:schema>

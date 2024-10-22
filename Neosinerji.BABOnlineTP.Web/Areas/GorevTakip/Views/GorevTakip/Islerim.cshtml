@@ -1,0 +1,150 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.GorevTakip.Models
+@model IslerimDetayModel
+
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">İşlerim <span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <title>İşlerim</title>
+}
+
+@section PageStyles
+{
+    <style type="text/css">
+        .table td.right {
+            text-align: right;
+        }
+
+        .dataTables_length, .dataTables_paginate {
+            display: none;
+        }
+    </style>
+}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/dataTable")
+    <script>
+        $(document).ready(function () {
+
+            //Arama Yapıyor..
+            var oTable = $('#sample_1').dataTable({
+                "sDom": 'T<"clear">lfrtip',
+                "oTableTools": { "aButtons": ["pdf", "xls", "print", "copy"] }
+            });
+        });
+    </script>
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">Devam Eden ve Beklemedeki İşlerim</span>
+                </div>
+            </div>
+
+            <div class="portlet-body form">
+                <form class="form-horizontal">
+                    <div class="row-fluid" style="margin-top: 20px;">
+                        <div class="span12">
+                            <div id="table-div" style="display: normal;">
+                                <table id="sample_1" class="table table-striped table-bordered table-hover dataTable data-table dataTables_wrapper" style="table-layout: inherit">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:2%; text-align:center;">İş Numarası</th>
+                                            <th style="width: 5%; text-align:center;">Başlık</th>
+                                            <th style="width: 5%; text-align:center;">Talep Yapan Acente</th>
+                                            <th style="width: 4%; text-align:center;">İş Tipi</th>
+                                            <th style="width: 3%; text-align:center;">Talep Kanalı</th>
+                                            <th style="width: 4%; text-align:center;">@babonline.Status</th>
+                                            <th style="width: 5%; text-align:center;">Öncelik Seviyesi</th>
+                                            <th style="width: 6%; text-align:center;">Başlama Tarihi</th>
+                                            <th style="width: 6%; text-align:center;">Tahmini Bitiş Tarihi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @if (Model.list != null)
+                                        {
+                                            for (int i = 0; i < Model.list.Count; i++)
+                                            {
+                                                <tr>
+                                                    <td style="text-align:center;"><a href='/GorevTakip/GorevTakip/Detay/@Model.list[i].IsNumarasi'>@Model.list[i].IsNumarasi </a></td>
+                                                    <td style="text-align:center;">@Model.list[i].Baslik</td>
+                                                    <td style="text-align:center;">@Model.list[i].TalepYapanAcenteUnvani</td>
+                                                    <td style="text-align:center;">@Model.list[i].IsTipi</td>
+                                                    <td style="text-align:center;">@Model.list[i].TalepKanali</td>
+                                                    @if (@Model.list[i].DurumKodu == 1)
+                                                    {
+                                                        <td style="text-align:center;"><span style="background-color:#ff80ff;color:white;">@Model.list[i].Durum</span></td>
+                                                    }
+                                                    else if (@Model.list[i].DurumKodu == 2)
+                                                    {
+                                                        <td style="text-align:center;"><span style="background-color:#ff9933;color:white;">@Model.list[i].Durum</span></td>
+                                                    }
+                                                    else if (@Model.list[i].DurumKodu == 3)
+                                                    {
+                                                        <td style="text-align:center;"><span style="background-color:#FF7F7F;color:white;">@Model.list[i].Durum</span></td>
+                                                    }
+                                                    else if (@Model.list[i].DurumKodu == 4)
+                                                    {
+                                                        <td style="text-align:center;"><span style="background-color:#66b3ff;color:white;">@Model.list[i].Durum</span></td>
+                                                    }
+                                                    else if (@Model.list[i].DurumKodu == 5)
+                                                    {
+                                                        <td style="text-align:center;"><span style="background-color:#ff0000;color:white;">@Model.list[i].Durum</span></td>
+                                                    }
+                                                    @if (@Model.list[i].OncelikSeviyeKodu == 1) //Yüksek
+                                                    {
+                                                        <td style="text-align:center;"><span style="background-color:#ff0000;color:white;">@Model.list[i].OncelikSeviyesi</span></td>
+                                                    }
+                                                    else if (@Model.list[i].OncelikSeviyeKodu == 2) //Orta
+                                                    {
+                                                        <td style="text-align:center;"><span style="background-color:#993300;color:white;">@Model.list[i].OncelikSeviyesi</span></td>
+                                                    }
+                                                    else if (@Model.list[i].OncelikSeviyeKodu == 3)//Düşük
+                                                    {
+                                                        <td style="text-align:center;"><span style="background-color:#009900;color:white;">@Model.list[i].OncelikSeviyesi</span></td>
+                                                    }
+                                                    <td style="text-align:center;">@Model.list[i].BaslamaTarihi</td>
+                                                    <td style="text-align:center;">@Model.list[i].TahminiBitisTarihi</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

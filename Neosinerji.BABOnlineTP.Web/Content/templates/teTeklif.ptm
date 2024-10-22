@@ -1,0 +1,268 @@
+﻿<table>
+	<width=520><column=170><column=350>
+	<tbody>
+	<tr><height=15>
+		<td><img><width=130><height=40> <path=$TVMLogo$><left></img></td>
+		<td>
+		<size=16><strong>Turuncu Elma Hayat Sigortası
+		</td>
+	</tr>	
+	<tr><height=15>
+			<td><size=13><colspan=2><center><normal>Teklif Tablosu </td>
+	</tr>
+	<tr><height=20><border=clear>
+			<td><size=12><colspan=2><normal><center><backgroundColor=clear> Tüm tutarlar $ParaBirimiTuru$ olarak gösterilmektedir. </td>
+	</tr>
+	</tbody>
+</table>
+
+<table>
+	<width=520><column=220><column=20><column=280>
+	<tbody><size=12>
+		<tr><height=20>
+			<td><strong><center><backgroundColor=192,192,192>Sigortalı Adayı İle İlgili Bilgiler</td>
+			<td><backgroundColor=clear></td>			
+			<td><strong><center><backgroundColor=192,192,192>Sigorta İle İlgili Bilgiler</td>
+		</tr>
+</tbody>
+</table>
+<table>
+	<width=520><column=100><column=120><column=20><column=200><column=80>
+	<tbody><size=12>
+		
+		<tr><height=15><left><backgroundColor=clear><border=clear>
+			<td><strong>Adı Soyadı</td>
+			<td><normal><right>$AdiSoyadi$</td>
+			<td></td>
+			<td><strong><left>Sigorta Süresi (Yıl)</td>
+			<td><normal><right>$SigortaSuresi$</td>				
+		</tr>
+		<tr><left>
+			<td><strong>Doğum Tarihi</td>
+			<td><normal><right>$DogumTarihi$</td>
+			<td></td>
+			<td><strong><left>Başlangıç Tarihi</td>
+			<td><normal><right>$BaslangicTarihi$</td>			
+		</tr>
+		<tr><left>
+			<td><strong>Cinsiyeti</td>
+			<td><normal><right>$Cinsiyeti$</td>
+			<td></td>
+			<td><strong><left>Prim Ödeme Sıklığı</td>
+			<td><normal><right>$PrimOdemesi$</td>			
+		</tr>	
+		<tr><left>
+			<td><strong>Yaş</td>
+			<td><normal><right>$Yas$</td>
+			<td></td>
+			<td><strong><left>Para Birimi</td>
+			<td><normal><right>$ParaBirimi$</td>			
+		</tr>	
+</table>
+<table>
+	<width=525><column=525>
+	<tbody><size=12>
+		<tr><height=20>
+			<td><strong><center><backgroundColor=192,192,192>Teminat Bilgileri</td>			
+		</tr>
+</tbody>
+</table>
+
+<table>
+	<width=520><column=160><column=10><column=230><column=120>
+	<tbody>
+		<tr>
+			<td><backgroundColor=clear><strong><left>Ana Teminat / Sigorta Bedeli</td>
+			<td><normal><left>:</td>
+			<td>$AnaTeminati$</td>
+			<td><right>$AnaTeminatiBedeli$</td>
+		</tr>
+		<tr>
+			<td><strong><left>Ek Teminat / Sigorta bedeli</td>
+			<td><normal><left>:</td>
+			<td>Kritik Hastalıklar Teminatı</td>
+			<td><right>$KritikHastaliklarEkTeminatPrice$</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td><normal><left>Tam ve Daimi Maluliyet Teminatı</td>
+			<td><right>$TamVeDaimiMaluliyetEkTeminatPrice$</td>
+		</tr>		
+		<tr>
+			<td></td>
+			<td></td>
+			<td><normal><left>Maluliyet Yıllık Destek Teminatı</td>
+			<td><right>$MaluliyetTillikDestekEkTeminatPrice$</td>
+		</tr>		
+		<tr>
+			<td></td>
+			<td></td>
+			<td><normal><left>Kaza Sonucu Vefat Teminatı</td>
+			<td><right>$KazaSonucuVefatEkTeminatPrice$</td>
+		</tr>	
+		<tr><height=30>
+			<td></td>
+			<td></td>
+			<td><normal><left>Toplu Taşıtta Kaza Sonucu Vefat Teminatı</td>
+			<td><right>$TopluTasimaAraclarindaKazaEkTeminatPrice$</td>
+		</tr>		
+		<tr>
+			<td></td>
+			<td></td>
+			<td><normal><left>Kaza Sonucu Tedavi Masrafları Teminatı</td>
+			<td><right>$KazaSonucuTedaviMasraflariEkTeminatPrice$</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td><normal><left>Kaza Sonucu Hastanede Yatarak Tedavi Durumunda Haftalık Ödeme Teminatı</td>
+			<td><right>$KS_HastanedeYatarakTedaviDurumunda_HO_EkTeminatPrice$</td>
+		</tr>
+		
+	</tbody>
+	</table>
+	
+	
+	
+<table>
+	<width=525><column=525>
+	<tbody><size=12>
+		<tr><height=20>
+			<td><strong><center><backgroundColor=192,192,192>Vergi İle İlgili Bilgiler (Bknz. Not 4)</td>			
+		</tr>
+	</tbody>
+</table>
+	
+<table><backgroundColor=clear>
+<width=520><column=190><column=60><column=20><column=190><column=60>
+<tbody>	
+	<tr>
+		<td><strong><left>Beyan Edilen Gelir Vergisi Oranı</td>
+		<td><normal><right>$BEGVO$</td>
+		<td></td>
+		<td><strong><left>Vergi Avantajı Sonrası Prim Maliyeti</td>
+		<td><normal><right>$VASPM$</td>
+		
+	</tr>
+	<tr>
+		<td><strong><left>Primden Vergi Avantajı</td>
+		<td><normal><right>$PrimdenVergiAvantaji$</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+</tbody>
+</table>
+
+
+<table>
+	<width=525><column=525>
+	<tbody><size=12>
+		<tr>
+			<td><height=20><strong><center><backgroundColor=192,192,192>Sigorta Primleri </td>			
+		</tr>
+</tbody>
+</table>
+<table>
+	<width=520><column=220><column=80><column=110><column=110>
+	<tbody>
+	<tr><height=15><backgroundColor=clear>
+		<td><left><strong>Teminatlar</td>
+		<td></td>
+		<td><right><strong>Yıllık Prim</td>
+		<td><strong><right>Dönem Primi<normal></td>
+	</tr>
+	
+	<tr>
+		<td><colspan=2><left><normal>$PRIM_AnaTeminatBaslik$</td>
+		<td><right>$PRIM_AnaTeminat_Yillik$</td>
+		<td><right>$PRIM_AnaTeminat_Donemsel$</td>
+	</tr>	
+
+	<tr>
+		<td><colspan=2><left><normal>Kritik Hastalıklar Teminatı</td>
+		<td><right>$PRIM_KritikHastalik_Yillik$</td>
+		<td><right>$PRIM_KritikHastalik_Donemsel$</td>
+	</tr>	
+	<tr>
+		<td><colspan=2><left><normal>Tam ve Daimi Maluliyet Teminatı</td>
+		<td><right>$PRIM_TamVeDaimiMaluliyet_Yillik$</td>
+		<td><right>$PRIM_TamVeDaimiMaluliyet_Donemsel$</td>
+	</tr>	
+	<tr>
+		<td><colspan=2><left><normal>Maluliyet Yıllık Destek Teminatı</td>
+		<td><right>$PRIM_MaluliyetYillikDestek_Yillik$</td>
+		<td><right>$PRIM_MaluliyetYillikDestek_Donemsel$</td>
+	</tr>	
+	<tr>
+		<td><colspan=2><left><normal>Kaza Sonucu Vefat Teminatı</td>
+		<td><right>$PRIM_KazaSonucuVefat_Yillik$</td>
+		<td><right>$PRIM_KazaSonucuVefat_Donemsel$</td>
+	</tr>	
+	<tr>
+		<td><colspan=2><left><normal>Toplu Taşıtta Kaza Sonucu Vefat Teminatı</td>
+		<td><right>$PRIM_TTAKSV_Yillik$</td>
+		<td><right>$PRIM_TTAKSV_Donemsel$</td>
+	</tr>		
+	<tr>
+		<td><colspan=2><left><normal>Kaza Sonucu Tedavi Masrafları Teminatı</td>
+		<td><right>$PRIM_KSTMEK_Yillik$</td>
+		<td><right>$PRIM_KSTMEK_Donemsel$</td>
+	</tr>		
+	<tr><height=30>
+		<td><colspan=2><left><normal>Kaza Sonucu Hastanede Yatarak Tedavi Durumunda Haftalık Ödeme Teminatı</td>
+		<td><right>$PRIM_KSHYTDHO_Yillik$</td>
+		<td><right>$PRIM_KSHYTDHO_Donemsel$</td>
+	</tr>	
+		
+	<tr><height=15>
+		<td><colspan=2><strong><right>Toplam Prim :</td>
+		<td><right>$YillikPrimToplam$</td>
+		<td><right>$DonemselPrimToplam$</td>
+	</tr>
+	<tr>
+		<td><colspan=2><strong><right>Süre Boyunca  Ödenecek Toplam Prim :</td>		
+		<td><right>$SureBoyuncaOdenecekToplam$</td>
+		<td></td>
+	</tr>
+</table>
+
+<pagebreak></pagebreak>
+<p><strong>Önemli Notlar:</p>
+<p><normal>1-Yukarıdaki tablo, Başlangıç Tarihi itibarıyla hesaplanan yaşa göre hazırlanmıştır. Poliçenin başlığı tarih itibarıyla yaşın değişmesi durumunda yukarıdaki tabloda gösterilen değerler değişecektir.</p>
+<p>2-Aegon Emeklilik ve Hayat A.Ş.' ye yapılacak sigorta başvurusunun neticesinde yapılacak değerlendirme sonucu, yukarıda gösterilen prim tutarları arttırılabilir.</p>
+<p>3-Yukarıda yer alan prim, her poliçe yılı için aynı olup “Vefat”, “Kaza Sonucu Vefat”, “Toplu Taşıma Araçlarında Kaza Sonucu Vefat”, “Tam ve Daimi Maluliyet” ve “Maluliyet Yıllık Destek” teminatları için poliçe süresi boyunca garanti edilmektedir. “Vefat veya Kritik Hastalıklar Teminatı” ile “Kritik Hastalıklar Teminatı”nın primleri 20 yıl boyunca garanti edilmektedir. Aegon Emeklilik ve Hayat A.Ş., yirminci senenin sonunda bu iki teminat için primi yeniden hesaplama hakkına sahiptir. "Kaza Sonucu Tedavi Masrafları" ile "Kaza Sonucu Hastanede Yatarak Tedavi Durumunda Haftalık Ödeme" ek teminatları için Aegon Emeklilik ve Hayat A.Ş., her yıl primi yeniden hesaplama hakkına sahiptir. Bu hesaplama ile sigortanın kalan yıllarına ilişkin prim artışı yapılabilecektir. Ancak bu prim artışı hesaplanırken, sigortalıdan yeniden Sağlık Beyanı ya da Tıbbi Tetkik istenmeyecek ve sigortalının değişen sağlık durumu dikkate alınmayacaktır.</p>
+<p>4-Sigorta Ettiren'in, ödemiş olduğu primleri vergi  matrahından indirmesi ile oluşacak vergi avantajının hesaplanmasında, Sigorta Ettiren'in biriktirme dönemi boyunca beyan ettiği vergi oranına tabi olduğu varsayılmıştır. Sigorta Ettiren'in vergi oranını beyan etmemiş olduğu durumlarda %27'lik vergi oranı kullanılmıştır. 193 sayılı Gelir Vergisi Kanunu'na göre 1 Ocak 2013 tarihinden itibaren ölüm, kaza, hastalık, engellilik gibi şahıs hayat sigortası için ödenen primlerin tamamı vergiye tabi matrahtan düşülebilmektedir. Bu konuda sigortacınıza ve/veya vergi uzmanına danışabilirsiniz.</p>
+<p>5-Bu teklif, teklif tarihinden itibaren 30 gün geçerlidir.</p>
+
+
+<table><width=520><column=120><column=400>
+	<tbody>
+		<tr><height=15><border=clear>
+			<td><strong><left>Teklif Tarihi :</td>
+			<td><normal>$TeklifTarihi$</td>
+		</tr>
+		
+		<tr>
+			<td><strong><left>Teklif Numarası :</td>
+			<td><normal>$TeklifNo$</td>
+		</tr>
+	</tbody>
+</table>
+<img><path=$aegonFooter$><width=500><height=200><left></img>
+
+<p>Yukarıdaki tablo gösterge niteliğinde olup, sigorta sözleşmesinin bir parçasını teşkil etmez. Teminatlar ile ilgili koşullar, size ayrıca verilecek olan sigorta sözleşmesinde belirtilecektir.</p>
+<p></p>
+<p><strong>Yapılması Gereken Tetkikler
+<p><normal>$Tetkikler$</p>
+
+
+
+
+
+
+
+
+
+

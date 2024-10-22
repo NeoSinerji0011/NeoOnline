@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ServiceConfiguration serviceName="Neosinerji.BABOnlineTP" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="2" osVersion="*" schemaVersion="2015-04.2.6">
+    <Role name="Neosinerji.BABOnlineTP.Web">
+        <Instances count="1" />
+        <ConfigurationSettings>
+            <Setting name="Microsoft.WindowsAzure.Plugins.Caching.NamedCaches" value="{&quot;caches&quot;:[{&quot;name&quot;:&quot;default&quot;,&quot;policy&quot;:{&quot;eviction&quot;:{&quot;type&quot;:0},&quot;expiration&quot;:{&quot;defaultTTL&quot;:10,&quot;isExpirable&quot;:true,&quot;type&quot;:1},&quot;serverNotification&quot;:{&quot;isEnabled&quot;:false}},&quot;secondaries&quot;:0}]}" />
+            <Setting name="Microsoft.WindowsAzure.Plugins.Caching.DiagnosticLevel" value="1" />
+            <Setting name="Microsoft.WindowsAzure.Plugins.Caching.CacheSizePercentage" value="30" />
+            <Setting name="Microsoft.WindowsAzure.Plugins.Caching.ConfigStoreConnectionString" value="UseDevelopmentStorage=true" />
+            <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=neobabstoragetest;AccountKey=CgW6RPw4l07fkqMm8iQLJmwkAoyMQHHCDlbyctwylN3iPe61TQFfDOTRaaPZl/oKyZaojAkFvu1cv3D7kfN/Ug==" />
+            <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+            <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="NeosinerjiCloud" />
+            <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIID4QYJKoZIhvcNAQcDoIID0jCCA84CAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEGAThawptMelRx0LLNlGeSUwDQYJKoZIhvcNAQEBBQAEggEArCSG90h1TtNp0YuOSddZD0ucsW1JAACE9s3wts83cayzcVBNaGlLQ3TvDbzeg3BN2Aa8HQK+hWzFxIEZDlK+5PRCTLxehTnXekteBsK1/Suq4BoJTcMeLvUETllFnPa0GnFtZStWV8SyChhjSMso42dRgpn2VeXdQPN8SZIsDfTuKusFDOAlbNXNcgT0imRT4zQ82ajXdnoTZNJj3BoSGBGqxtffWb3WpV6/VscfAUR+y9Xx1ioSiysKM+bmr5phSZ9ousoAifqwhrfjuDbiTc8hX+F/4wrOec8nXO0o3ANW5WHSdayQPlBjNKVeRBzLjnyamMKHtYqHzzKSL7VMzjCCAnUGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQI2gvD44CoNviAggJQTPjKdRbcmNZvVUhzBDe2kdSrIJFwUuUhb2gLYN3LOKXCgeQ0MqrZvnbmi6DsxiqdLF1SPj3pFJSMsdNvPT/mZDFUZEP0qu+x1mrnBK9j8kDJVf9CQhZCGjxZWERHeIofWWYXhTqicYotydTi5xom4LzXSgBQhP55MPLea8KUUneN4ZytdUm4BfuD9C5V+zWNDvOWqA5sYW1r0cik2OX2qF5f+SAYl0NKuRMsq4vVEK4emrVJp8LE8KtYTO8SI7oOB6nUjQqcbH+N18sGGNq2yJHUN0CPAEuq2L2q0J3OFibycdjcgRV2XWT6sH0uonzshFxIXKmpr96TwHOuhr4YuqS/8vfqsEVf1kuLgFT2XkXuVBssW+QaMDbP/2SRVc4zUP0cDTFDw5Tjl0mmpooXKIA6XDmsufmtaGWUG3sm4/CdXUlF0MpSrq6Z96kkbtK1eygrVIgTt+5vefWwKoOY0FST8eFpWaqxmW/1AnvoO2KI9QShJbfh+SSV2+ugMNUu5vrz15J+IRXamQyoODPketVBn2OtXObc8bKqn7wyw+zpUq3kez+q08aYUdmyaI18CqprVLaCFAhwxXhTZ1Zbrciu2fNrMeZ6loj4z07K6SbxfV1tPLPh+3VMTweHL4dRSe3eF07flvWfej+opOJs2FUfPpHhPHGIpzo/KjoxkqUitjSwlYZ+OlgBq7139gZu+YtcDcb4hco3svWZWLSXoaA2aN6XCfTA4S8Ef4s0qVN8c3Ju6HO2dawUd8wdYi0BLYX3m/GwQoeKWQldhve4hg==" />
+            <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2014-03-14T23:59:59.0000000+02:00" />
+            <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+            <Setting name="Microsoft.WindowsAzure.Plugins.Caching.ClientDiagnosticLevel" value="1" />
+        </ConfigurationSettings>
+        <Certificates>
+            <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="5B0513822F2A25EBE87CB283AD194C31EBBB5531" thumbprintAlgorithm="sha1" />
+            <Certificate name="NeosinerjiCloud" thumbprint="4A567B46982C27EF621E4319159169F093CBCA6B" thumbprintAlgorithm="sha1" />
+        </Certificates>
+    </Role>
+</ServiceConfiguration>

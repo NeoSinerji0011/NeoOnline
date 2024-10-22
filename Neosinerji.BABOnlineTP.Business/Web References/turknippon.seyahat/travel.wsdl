@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="Travel" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="Travel" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Türk Nippon Sigorta travel product application services.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="Travel">
+      <s:element name="Compute">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:TravelInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TravelInput">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:SharedInput">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ClientNo" nillable="true" type="s:long" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientCitizenshipNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientTaxNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientPhoneNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="InsuredType" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Nationality" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="PassportNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Firstname" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Lastname" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FatherName" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Birthday" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Birthplace" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="MobilePhoneCountry" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="MobilePhone" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsDomestic" nillable="true" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="BeginDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="Scope" nillable="true" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="TravelPocket" nillable="true" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Alternative" nillable="true" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Country" nillable="true" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsSkiing" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="PlanCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PersonalOrParticular" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CancelAlternative" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SharedInput" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PrintType" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsTestMode" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Channel" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TrackingCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CitizenshipNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnitNo" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="PolicyNo" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CashPaymentType" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UseCreditCard" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCard" type="tns:CreditCardInput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CreditCardInput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CardType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Month" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Year" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CVV" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Installment" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardHolderFirstname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardHolderLastname" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ComputeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ComputeResult" type="tns:TravelOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TravelOutput">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:SharedOutput">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ExchangeRate" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ClientNo" type="s:long" />
+              <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:TravelInput" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SharedOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IsSuccess" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TrackingCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnitNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="UnitName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Premium" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BeginDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PolicyNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrintDownloadUrl" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Proposal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:TravelInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProposalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProposalResult" type="tns:TravelOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Approve">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:TravelInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApproveResult" type="tns:TravelOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Print">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:TravelInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrintResult" type="tns:TravelOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetScopeOrPocket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsDomestic" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetScopeOrPocketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetScopeOrPocketResult" type="tns:ArrayOfScopeOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfScopeOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ScopeOutput" nillable="true" type="tns:ScopeOutput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ScopeOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IsDomestic" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ScopeOrPocket" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCountry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Alternative" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCountryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCountryResult" type="tns:ArrayOfCountryOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCountryOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CountryOutput" nillable="true" type="tns:CountryOutput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CountryOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="CountryCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CountryName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAlternative">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsDomestic" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="ScopeOrPocket" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAlternativeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAlternativeResult" type="tns:ArrayOfAlternativeOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAlternativeOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AlternativeOutput" nillable="true" type="tns:AlternativeOutput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AlternativeOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IsDomestic" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ScopeOrPocket" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Alternative" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ComputeSoapIn">
+    <wsdl:part name="parameters" element="tns:Compute" />
+  </wsdl:message>
+  <wsdl:message name="ComputeSoapOut">
+    <wsdl:part name="parameters" element="tns:ComputeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProposalSoapIn">
+    <wsdl:part name="parameters" element="tns:Proposal" />
+  </wsdl:message>
+  <wsdl:message name="ProposalSoapOut">
+    <wsdl:part name="parameters" element="tns:ProposalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApproveSoapIn">
+    <wsdl:part name="parameters" element="tns:Approve" />
+  </wsdl:message>
+  <wsdl:message name="ApproveSoapOut">
+    <wsdl:part name="parameters" element="tns:ApproveResponse" />
+  </wsdl:message>
+  <wsdl:message name="PrintSoapIn">
+    <wsdl:part name="parameters" element="tns:Print" />
+  </wsdl:message>
+  <wsdl:message name="PrintSoapOut">
+    <wsdl:part name="parameters" element="tns:PrintResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetScopeOrPocketSoapIn">
+    <wsdl:part name="parameters" element="tns:GetScopeOrPocket" />
+  </wsdl:message>
+  <wsdl:message name="GetScopeOrPocketSoapOut">
+    <wsdl:part name="parameters" element="tns:GetScopeOrPocketResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCountrySoapIn">
+    <wsdl:part name="parameters" element="tns:GetCountry" />
+  </wsdl:message>
+  <wsdl:message name="GetCountrySoapOut">
+    <wsdl:part name="parameters" element="tns:GetCountryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAlternativeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAlternative" />
+  </wsdl:message>
+  <wsdl:message name="GetAlternativeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAlternativeResponse" />
+  </wsdl:message>
+  <wsdl:portType name="TravelServiceSoap">
+    <wsdl:operation name="Compute">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Show travel premium with minimum input.</wsdl:documentation>
+      <wsdl:input message="tns:ComputeSoapIn" />
+      <wsdl:output message="tns:ComputeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Proposal">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get travel proposal with minimum input.</wsdl:documentation>
+      <wsdl:input message="tns:ProposalSoapIn" />
+      <wsdl:output message="tns:ProposalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Approve">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Approve travel proposal with minimum input.</wsdl:documentation>
+      <wsdl:input message="tns:ApproveSoapIn" />
+      <wsdl:output message="tns:ApproveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Print">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get print file address with minimum input.</wsdl:documentation>
+      <wsdl:input message="tns:PrintSoapIn" />
+      <wsdl:output message="tns:PrintSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetScopeOrPocket">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List travel scope or travel pocket types by product.</wsdl:documentation>
+      <wsdl:input message="tns:GetScopeOrPocketSoapIn" />
+      <wsdl:output message="tns:GetScopeOrPocketSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCountry">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List countries by alternative.</wsdl:documentation>
+      <wsdl:input message="tns:GetCountrySoapIn" />
+      <wsdl:output message="tns:GetCountrySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAlternative">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List travel alternative types by product.</wsdl:documentation>
+      <wsdl:input message="tns:GetAlternativeSoapIn" />
+      <wsdl:output message="tns:GetAlternativeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TravelServiceSoap" type="tns:TravelServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Compute">
+      <soap:operation soapAction="Travel/Compute" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Proposal">
+      <soap:operation soapAction="Travel/Proposal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Approve">
+      <soap:operation soapAction="Travel/Approve" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Print">
+      <soap:operation soapAction="Travel/Print" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetScopeOrPocket">
+      <soap:operation soapAction="Travel/GetScopeOrPocket" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountry">
+      <soap:operation soapAction="Travel/GetCountry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlternative">
+      <soap:operation soapAction="Travel/GetAlternative" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TravelServiceSoap12" type="tns:TravelServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Compute">
+      <soap12:operation soapAction="Travel/Compute" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Proposal">
+      <soap12:operation soapAction="Travel/Proposal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Approve">
+      <soap12:operation soapAction="Travel/Approve" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Print">
+      <soap12:operation soapAction="Travel/Print" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetScopeOrPocket">
+      <soap12:operation soapAction="Travel/GetScopeOrPocket" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountry">
+      <soap12:operation soapAction="Travel/GetCountry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlternative">
+      <soap12:operation soapAction="Travel/GetAlternative" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TravelService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Türk Nippon Sigorta travel product application services.</wsdl:documentation>
+    <wsdl:port name="TravelServiceSoap" binding="tns:TravelServiceSoap">
+      <soap:address location="https://galaksi.turknippon.com/appservice/travel.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TravelServiceSoap12" binding="tns:TravelServiceSoap12">
+      <soap12:address location="https://galaksi.turknippon.com/appservice/travel.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

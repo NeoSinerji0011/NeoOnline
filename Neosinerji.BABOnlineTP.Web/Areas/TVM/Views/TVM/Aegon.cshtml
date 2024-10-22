@@ -1,0 +1,647 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@using Neosinerji.BABOnlineTP.Business.Common
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.YonetimModel
+
+@{
+    var menu = ViewBag.Menuler;
+    var islemId = ViewBag.IslemId;
+    var urunyetkileri = ViewBag.UrunYetkileri;
+
+
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="~/TVM/TVM/Index">@babonline.MyPerformance<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search..." class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <div class="pull-right no-text-shadow" style="float: left; margin-top: 62px;">
+        <div id="dashboard-report-range" class="dashboard-date-range tooltips no-tooltip-on-touch-device responsive" data-tablet="" data-desktop="tooltips" data-placement="right" data-original-title="@babonline.PleaseSelectDate" style="width: auto; height: 26px;">
+            <i class="icon-calendar"></i>
+            <span></span>
+            <i class="icon-angle-down"></i>
+        </div>
+    </div>
+}
+
+@section PageStyles{
+    <link rel="stylesheet" href="~/Content/css/daterangepicker.css" />
+    <style type="text/css">
+        .stats .stat {
+            width: 16%;
+        }
+
+            .stats .stat .main-detail {
+                font-size: 16px;
+            }
+
+        .bilgi-paragrafi {
+            margin: 0 0 4px;
+        }
+
+        .popover {
+            width: 530px;
+        }
+
+        .popover-inner {
+            width: 530px;
+        }
+
+        .dashboard-date-range {
+            background-color: #E02222;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: none;
+            margin-right: 0;
+            margin-top: -8px;
+            padding: 8px 8px 7px;
+            margin-bottom: 10px;
+        }
+    </style>
+}
+
+@section PageScripts
+{
+    @if (lang == "en")
+    {
+        <script type="text/javascript" src="~/content/js/pages/neosinerji.babonlinetp.performans.en.js"></script>
+        <script type="text/ecmascript" src="~/Content/js/date.en.js"></script>
+    }
+    else
+    {
+        <script type="text/javascript" src="~/content/js/pages/neosinerji.babonlinetp.performans.js"></script>
+        <script type="text/ecmascript" src="~/Content/js/date.js"></script>
+    }
+
+    <script type="text/javascript" src="~/Content/js/highcharts.js"></script>
+    <script type="text/javascript" src="~/Content/js/exporting.js"></script>
+    <script type="text/javascript" src="~/Content/js/daterangepicker.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.flot.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.flot.resize.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // ==== Performans tarih aralığı ayarlanıyor. ==== //
+            var basTarihi = "@Model.BaslangicTarihi.ToString("dd.MM.yyyy")";
+            var bitTarihi = "@Model.BitisTarihi.ToString("dd.MM.yyyy")";
+
+            var Basdate = Date.today();
+            Basdate.setFullYear(basTarihi.substring(6, 11), (basTarihi.substring(3, 5) - 1), basTarihi.substring(0, 2));
+
+            var Bitdate = Date.today();
+            Bitdate.setFullYear(bitTarihi.substring(6, 11), (bitTarihi.substring(3, 5) - 1), bitTarihi.substring(0, 2));
+
+            Performans.initDaterange(Basdate, Bitdate);
+
+
+            //KullaniciNot Ekleme
+            $("#btn-not-ekle").click(function () {
+
+                $.get("/TVM/TVM/NotEkle", "", function (data) {
+                    $("#not-ekle-modal-div").html(data);
+
+                    $.validator.unobtrusive.parse($("#not-ekle-modal-div"));
+                    $("#not-ekle-modal").modal("show");
+                }, "html");
+            });
+
+            $("#btn-not-kaydet").live("click", function () {
+                $("#not-ekle-form").validate().form();
+                if ($("#not-ekle-form").valid()) {
+                    var formdata = $("#not-ekle-form").serialize();
+                    $.post("/TVM/TVM/NotEkle", formdata, function (data) {
+                        if (data == "Null") {
+                            $("#not-ekle-modal").modal("hide");
+                        }
+                        else {
+                            $("#not-ekle-modal").modal("hide");
+                            $("#kullanici-notlari").html(data);
+                            $("#not-ekle-modal-div").html("");
+                        }
+                    });
+                }
+            });
+
+            //Not Detay
+            $("#not-detay").live("click", function () {
+                var notid = $(this).attr("not-id");
+                $.post("/TVM/TVM/NotDetay",
+                           { NotId: notid },
+                           function (data) {
+                               if (data != "Null")
+                                   $("#not-detay-div").html(data);
+                               $("#not-detay-modal").modal("show");
+                           });
+
+            });
+
+            //Not Silme İşlemleri
+            $("#btn-not-sil").live("click", function () {
+                var notid = $(this).attr("not-id");
+                $("#delete-confirmation").modal('show');
+                $('#delete-confirm-btn').unbind('click');
+                $("#delete-confirm-btn").click(function () {
+                    $.post("/TVM/TVM/NotSil",
+                           { NotId: notid },
+                           function (data) {
+                               $("#delete-confirmation").modal('hide');
+                               $("#kullanici-notlari").html("");
+
+                               if (data != "Null")
+                                   $("#kullanici-notlari").html(data);
+                           });
+                });
+            });
+
+            //Duyuru Detay
+            $("#btn-duyuru-detay").live("click", function () {
+                var duyuruid = $(this).attr("duyuru-id");
+                $.post("/TVM/TVM/DuyuruDetay", { DuyuruId: duyuruid }, function (data) {
+                    if (data != "" && data != "null") {
+                        $("#duyuru-detay-div").html(data);
+                        $("#duyuru-detay-modal").modal("show");
+                    }
+                    else { alert("Duyuru bulunamadı"); }
+
+                }, 'html');
+            });
+
+            $("#yeni-teklif").popover({
+                html: true,
+                placement: 'bottom',
+                delay: { show: 500, hide: 100 },
+                content: function () {
+                    return $("#teklif-tiles").html();
+                },
+                width: '400px',
+                height: '400px'
+            });
+
+
+            $("#tile-turuncu-elma").live("click", function () {
+                $("#form1").attr("action", "/Teklif/TESabitPrimli/Ekle");
+                $("#form1").submit();
+            });
+            $("#tile-prim-iadeli").live("click", function () {
+                $("#form1").attr("action", "/Teklif/PrimIadeli/Ekle");
+                $("#form1").submit();
+            });
+            $("#title-odullu-birikim").live("click", function () {
+                $("#form1").attr("action", "/Teklif/OdulluBirikim/Ekle");
+                $("#form1").submit();
+            });
+            $("#title-egitim").live("click", function () {
+                $("#form1").attr("action", "/Teklif/Egitim/Ekle");
+                $("#form1").submit();
+            });
+            $("#title-odemeguvence").live("click", function () {
+                $("#form1").attr("action", "/Teklif/OdemeGuvence/Ekle");
+                $("#form1").submit();
+            });
+            $("#title-korunangelecek").live("click", function () {
+                $("#form1").attr("action", "/Teklif/KorunanGelecek/Ekle");
+                $("#form1").submit();
+            });
+            $("#title-primiadeli2").live("click", function () {
+                $("#form1").attr("action", "/Teklif/PrimIadeli2/Ekle");
+                $("#form1").submit();
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            @Html.Raw(ViewBag.JScript)
+
+            var previousPoint = null;
+
+            function plothover(event, pos, item) {
+                $("#x").text(pos.x.toFixed(2));
+                $("#y").text(pos.y.toFixed(2));
+
+                if (item) {
+                    if (previousPoint != item.datapoint) {
+                        previousPoint = item.datapoint;
+                        $("#tooltip").remove();
+                        var x = item.datapoint[0].toFixed(2), y = item.datapoint[1].toFixed(2);
+                        showTooltip(item.pageX, item.pageY, item.series.label);
+                    }
+                }
+                else {
+                    $("#tooltip").remove();
+                    previousPoint = null;
+                }
+            }
+
+            // show the tooltip
+            function showTooltip(x, y, contents) {
+                $('<div id="tooltip">' + contents + '</div>').css({
+                    position: 'absolute',
+                    display: 'none',
+                    top: y - 35,
+                    left: x + 5,
+                    border: '1px solid #fdd',
+                    padding: '2px',
+                    'background-color': '#E6E8ED',
+                    opacity: 0.80
+                }).appendTo("body").fadeIn(200);
+            }
+        });
+    </script>
+}
+
+<style>
+    .oval-kenar {
+        border-radius: 15px !important;
+    }
+
+    .zoom-icon:hover {
+        transform: scale(1.2);
+    }
+
+    #chartdiv {
+        width: 100%;
+        height: 400px;
+        font-size: 11px;
+        border: 2px lightgray solid;
+        border-radius: 20px !important;
+        background-color: #fffaf3;
+    }
+
+    #chartdiv-police {
+        width: 100%;
+        height: 400px;
+        font-size: 11px;
+        border: 2px lightgray solid;
+        border-radius: 20px !important;
+        background-color: #fffaf3;
+    }
+
+    #balloontext {
+        font-size: 14px;
+    }
+</style>
+
+
+<div class="row-fluid">
+    <div class="span3 responsive" data-desktop="span3" data-tablet="span6">
+        <div class="dashboard-stat oval-kenar" style="background-color: #04B404">
+            <div class="visual">
+                <img src="~/Content/img/Product/musteri-icon.png" alt="@babonline.Customer" width="80" height="80" />
+                @*<i class="icon-user"></i>*@
+            </div>
+            <div class="details">
+                <div class="number">@Model.ToplamMusteri</div>
+                <div class="desc">@babonline.Total_Customer</div>
+            </div>
+            <a class="more oval-kenar" style="background-color: #0B610B" href="~/Musteri/Musteri/Ekle">@babonline.NewCustomer<i class="m-icon-swapright m-icon-white"></i></a>
+        </div>
+    </div>
+    <div class="span3 responsive" data-desktop="span3" data-tablet="span6">
+        <div class="dashboard-stat oval-kenar" style="background-color: #01DF01;">
+            <div class="visual">
+                <img src="~/Content/img/Product/new-proposal.png" alt="@babonline.Offer" width="80" height="50" style="border:1px solid green; border-radius:10px !important; background: transparent;" />
+
+                @* <img src="~/Content/img/Product/teklif-icon.png" alt="Teklif" width="80" height="60" />*@
+                @*<i class="icon-shopping-cart"></i>*@
+            </div>
+            <div class="details">
+                <div class="number">@Model.ToplamTeklif</div>
+                <div class="desc">@babonline.Total_Proposal_Number</div>
+            </div>
+            <a id="yeni-teklif" class="more oval-kenar" style="background-color: #298A08;" href="#">@babonline.NewProposal<i class="m-icon-swapright m-icon-white"></i></a>
+        </div>
+    </div>
+    <div class="span3 responsive" data-desktop="span3" data-tablet="span6  fix-offset">
+        <div class="dashboard-stat oval-kenar" style="background-color: #FAAC58;">
+            <div class="visual">
+                <img src="~/Content/img/Product/policy-life-icon.png" alt="Police" width="110" height="50" style="border:1px solid green; border-radius:10px !important; background: transparent; margin-top:5%;" />
+                @*  <img src="~/Content/img/Product/policy-icon.png" alt="police" width="80" height="80" />*@
+                @*  <i class="icon-file"></i>*@
+            </div>
+            <div class="details">
+                <div class="number">@Model.ToplamPolice</div>
+                <div class="desc">@babonline.Total_Policy_Number</div>
+            </div>
+            <a class="more oval-kenar" style="background-color: #FF4000;" href="~/Police/Police/Liste">@babonline.PolicySearch<i class="m-icon-swapright m-icon-white"></i></a>
+        </div>
+    </div>
+    <div class="span3 responsive" data-desktop="span3" data-tablet="span6">
+        <div class="dashboard-stat oval-kenar" style="background-color: #FF8000;">
+            <div class="visual">
+                <img src="~/Content/img/Product/salesprojections_icon.png" alt="Alternate Text" width="110" height="90" style="border:1px solid white; border-radius:10px !important; margin-top:5%;" />
+                @*<img src="~/Content/img/Product/pol-oran2.jpg" alt="Alternate Text" width="70" height="80" style="border-radius: 15px !important;" />*@
+                @*  <i class="icon-ok-sign"></i>*@
+            </div>
+            <div class="details">
+                <div class="number">%@Model.PolicelesmeOrani</div>
+                <div class="desc">@babonline.Success_Rate_Offer</div>
+            </div>
+            <a class="more oval-kenar" style="background-color: #FF4000;" href="#">&nbsp;<i class="m-icon-swapright m-icon-white"></i></a>
+        </div>
+    </div>
+</div>
+<div id="teklif-tiles" style="display: none;">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="tiles">
+                @foreach (var urun in urunyetkileri)
+                {
+                    if (urun.UrunKodu == UrunKodlari.TESabitPrimli)
+                    {
+                        <div id="tile-turuncu-elma" class="tile" style="border: 2px solid orange; border-radius: 10px !important;">
+                            <div class="tile-body">
+                                @*<i class=" icon-trophy"></i>*@
+                                <img class="zoom-icon" src="~/Content/img/Product/turuncu-elma.jpg" alt="Alternate Text" width="130" height="130" />
+                            </div>
+                            <div class="tile-object">
+                                <div class="name" style="color: black">
+                                    Turuncu Elma
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (urun.UrunKodu == UrunKodlari.PrimIadeli)
+                    {
+                        <div id="tile-prim-iadeli" class="tile" style="border: 2px solid green; border-radius: 10px !important;">
+                            <div class="tile-body">
+                                @*<i class="icon-retweet"></i>*@
+                                <img class="zoom-icon" src="~/Content/img/Product/prim-iadeli.png" alt="Alternate Text" width="130" height="110" />
+                            </div>
+                            <div class="tile-object">
+                                <div class="name" style="color: black">
+                                    Prim İadeli
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (urun.UrunKodu == UrunKodlari.OdulluBirikim)
+                    {
+                        <div id="title-odullu-birikim" class="tile" style="border: 2px solid gold; border-radius: 10px !important;">
+                            <div class="tile-body">
+                                @*  <i class="icon-money"></i>*@
+                                <img class="zoom-icon" src="~/Content/img/Product/odullu-birikim.png" alt="Alternate Text" width="130" height="110" />
+                            </div>
+                            <div class="tile-object">
+                                <div class="name" style="color: black">
+                                    Ödüllü Birikim
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (urun.UrunKodu == UrunKodlari.Egitim)
+                    {
+                        <div id="title-egitim" class="tile" style="border: 2px solid red; border-radius: 10px !important;">
+                            <div class="tile-body">
+                                @*    <i class="icon-book"></i>*@
+                                <img class="zoom-icon" src="~/Content/img/Product/egitim-sigortasi.jpg" alt="Alternate Text" width="130" height="110" />
+                            </div>
+                            <div class="tile-object">
+                                <div class="name" style="color: black">
+                                    Eğitim İçin Hayat
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (urun.UrunKodu == UrunKodlari.OdemeGuvence)
+                    {
+                        <div id="title-odemeguvence" class="tile" style="border: 2px solid yellow; border-radius: 10px !important;">
+                            <div class="tile-body">
+                                @*  <i class="icon-umbrella"></i>*@
+                                <img class="zoom-icon" src="~/Content/img/Product/odeme-guvence.png" alt="Alternate Text" width="130" height="110" />
+                            </div>
+                            <div class="tile-object">
+                                <div class="name" style="color: black">
+                                    Ödeme Güvence
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (urun.UrunKodu == UrunKodlari.KorunanGelecek)
+                    {
+                        <div id="title-korunangelecek" class="tile" style="border: 2px solid green; border-radius: 10px !important;">
+                            <div class="tile-body">
+                                @*  <i class="icon-retweet"></i>*@
+                                <img class="zoom-icon" src="~/Content/img/Product/korunan-gelecek.png" alt="Alternate Text" width="130" height="110" />
+                            </div>
+                            <div class="tile-object">
+                                <div class="name" style="color: black">
+                                    Korunan Gelecek
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else if (urun.UrunKodu == UrunKodlari.PrimIadeli2)
+                    {
+                        <div id="title-primiadeli2" class="tile" class="tile" style="border: 2px solid red; border-radius: 10px !important;">
+                            <div class="tile-body">
+                                @*  <i class="icon-retweet"></i>*@
+                                <img class="zoom-icon" src="~/Content/img/Product/prim-iadeli.png" alt="Alternate Text" width="130" height="110" />
+                            </div>
+                            <div class="tile-object">
+                                <div class="name" style="color: black">
+                                    Prim Iadeli(5 Yıllık)
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <span>@babonline.Number_of_Offers</span>
+        <div id="chartdiv"></div>
+
+    </div>
+    <div class="span6">
+        <span>@babonline.Number_of_Policies</span>
+        <div id="chartdiv-police"></div>
+    </div>
+
+</div>
+
+@*<div class="row-fluid">
+        <div class="span6">
+            <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption"><i class="icon-reorder"></i>@babonline.ProposalCount</div>
+                </div>
+                <div class="portlet-body">
+                    <div id="site_teklif_loading">
+                        <img src="~/Content/img/loading.gif" alt="loading" />
+                    </div>
+                    <div id="site_teklif_content" class="hide">
+                        <div id="site_teklif" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="span6">
+            <div class="portlet box purple">
+                <div class="portlet-title">
+                    <div class="caption"><i class="icon-reorder"></i>@babonline.Policy_Count</div>
+                </div>
+                <div class="portlet-body">
+                    <div id="site_police_loading">
+                        <img src="~/Content/img/loading.gif" alt="loading" />
+                    </div>
+                    <div id="site_police_content" class="hide">
+                        <div id="site_police" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet paddingless">
+            <div class="portlet-title line">
+                <div class="caption"><i class="icon-bell"></i>@babonline.Notifications</div>
+                <div class="tools">
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!--BEGIN TABS-->
+                <div class="tabbable tabbable-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_1_1" data-toggle="tab">@babonline.Notifications</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1_1">
+                            <div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible="0" style="overflow: hidden; width: auto; height: 290px;">
+                                <ul class="feeds">
+                                    @foreach (var item in Model.Duyurular)
+                                    {
+                                        <li>
+                                            <div class="col1">
+                                                <div class="cont">
+                                                    <div class="cont-col1">
+                                                        <div class="label label-info">
+                                                            <i class="icon-bullhorn"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="cont-col2">
+                                                        <div class="desc">
+                                                            <a href="javascript:;" id="btn-duyuru-detay" duyuru-id="@item.DuyuruId">@item.Konu</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col2" style="width: 160px; float: right">
+                                                <div class="date">
+                                                    @item.BaslangisTarihi.ToString("dd.MM.yyyy") - @item.BitisTarihi.ToString("dd.MM.yyyy")
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--END TABS-->
+        </div>
+    </div>
+    <!-- END PORTLET-->
+    <div class="span6">
+        <!-- BEGIN PORTLET-->
+        <div class="portlet paddingless">
+            <div class="portlet-title line">
+                <div class="caption"><i class="icon-bell"></i>@babonline.Node</div>
+                <div class="tools">
+                </div>
+            </div>
+            <div class="portlet-body">
+                <!--BEGIN TABS-->
+                <div class="tabbable tabbable-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_2_2" data-toggle="tab">@babonline.Node</a></li>
+                        <div class="row"><a href="javascript:;" class="btn green" style="float: right;" id="btn-not-ekle">@babonline.Node_Add</a></div>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_2_2">
+                            <div class="scroller" data-height="290px" data-always-visible="1" data-rail-visible1="1" style="overflow: hidden; width: auto; height: 247px;">
+                                <ul class="feeds" id="kullanici-notlari">
+                                    @Html.Partial("_KullaniciNotlarPartial", Model.KullaniciNotlari)
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--END TABS-->
+            </div>
+        </div>
+        <!-- END PORTLET-->
+    </div>
+
+</div>
+<div id="teklif-al" style="display: none;">
+    <div style="width: 200px;">
+        <button type="button" id="teklif-trafik" class="btn btn-success" style="width: 100%;"><i class="icon-star icon-white"></i>@babonline.Insurance_Traffic</button>
+    </div>
+</div>
+<div id="not-ekle-modal-div"></div>
+<div id="not-detay-div"></div>
+<div id="duyuru-detay-div"></div>
+@Html.Partial("_DeleteConfirmation")
+<form id="form1" action="" method="post"></form>
+<script src="~/Content/js/graphics/amcharts.js"></script>
+<script src="~/Content/js/graphics/pie.js"></script>
+<script src="~/Content/js/graphics/light.js"></script>
+<script>
+
+
+    $(document).ready(function () {
+
+            @Html.Raw(ViewBag.JScript)
+
+        jQuery('.chart-input').off().on('input change', function () {
+            var property = jQuery(this).data('property');
+            var target = chart;
+            var value = Number(this.value);
+            chart.startDuration = 0;
+            chartPolice.startDuration = 0;
+            chartPrim.startDuration = 0;
+            if (property == 'innerRadius') {
+                value += "Adet";
+            }
+
+            target[property] = value;
+            chart.validateNow();
+            chartPolice.validateNow();
+            chartPrim.validateNow();
+            chartKomisyon.validateNow();
+        });
+    });
+</script>

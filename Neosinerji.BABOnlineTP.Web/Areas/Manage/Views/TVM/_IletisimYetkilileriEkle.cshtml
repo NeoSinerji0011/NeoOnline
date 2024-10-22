@@ -1,0 +1,78 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.TVMIletisimYetkilileriModel
+
+
+<div id="iletisimyetkilileri-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        @if (!string.IsNullOrEmpty(Model.GorusulenKisi))
+        {
+            <h3>@babonline.Edit</h3>
+        }
+        else
+        {
+            <h3>@babonline.TVMContactAuthorities_Add</h3>
+        }
+    </div>
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="iletisimyetkilileri-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="iletisimyetkilileri-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <form id="iletisimyetkilileri-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.HiddenFor(m => m.TVMKodu)
+            @Html.HiddenFor(m => m.SiraNo)
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">@babonline.User<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.GorusulenKisi, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.GorusulenKisi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Job<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Gorevi, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.Gorevi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Status</label>
+                <div class="controls" style="margin-left: 200px;">
+                    @Html.RadioButtonListFor(m => m.TelefonTipi, Model.TelefonTipleri)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Phone<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.TelefonNo, new { maxlength = 20, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.TelefonNo)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Email_Adress</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Email, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        @if (!string.IsNullOrEmpty(Model.GorusulenKisi))
+        {
+            <a href="#" class="btn btn-info" id="iletisimyetkilileri-guncelle-btn">@babonline.Update</a>
+        }
+        else
+        {
+            <a href="#" class="btn btn-success" id="iletisimyetkilileri-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+        }
+    </div>
+</div>

@@ -1,0 +1,69 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Musteri.Models
+
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model MusteriTelefonListModel
+
+@{
+    bool silme = false;
+
+    List<KullaniciYetkiModel> altMenuler = ViewBag.AltMenuler;
+    KullaniciYetkiModel altmenu = altMenuler.Where(s => s.MenuKodu == menu.AltMenuler.AraGuncelle).FirstOrDefault();
+
+    if (altmenu != null)
+    {
+        if (altmenu.Silme == 1)
+        { silme = true; }
+    }
+}
+
+<table id="telefonlar-table" class="table table-striped table-bordered table-hover dataTable data-table">
+    <thead>
+        <tr>
+            <th>@babonline.Number_Type</th>
+            <th>@babonline.Number</th>
+            <th>@babonline.Number_Owner</th>
+            @if (Model.sayfaAdi == "guncelle")
+            {
+                <th style="width: 30px;">&nbsp;</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.IletisimNumaraText</td>
+                @if (Model.sayfaAdi == "guncelle")
+                {
+                    <td><a href="javascript:void(0)" musteri-kodu="@item.MusteriKodu" sira-no="@item.SiraNo" class="guncelle-telefon">@item.Numara</a></td> }
+                else
+                {
+                    <td>@item.Numara</td>}
+                <td>@item.NumaraSahibi</td>
+                @if (Model.sayfaAdi == "guncelle")
+                {
+                    <td>
+                        <div class="btn-group">
+                            @*anayetkili güncelleme yapabilsin diye elseif kullandık*@
+                            @if (item.guncellenebilecekMi )
+                            {
+                                <a href="javascript:void(0)" musteri-kodu="@item.MusteriKodu" sira-no="@item.SiraNo" class="btn btn-mini btn-success guncelle-telefon">@babonline.Edit</a>
+                            }
+                            else if (silme)
+                            {
+                                <a href="javascript:void(0)" musteri-kodu="@item.MusteriKodu" sira-no="@item.SiraNo" class="btn btn-mini btn-success guncelle-telefon">@babonline.Edit</a>
+                            }
+                            @if (silme)
+                            {
+                                <a href="javascript:void(0)" musteri-kodu="@item.MusteriKodu" sira-no="@item.SiraNo" class="btn btn-mini btn-danger delete-telefon">@babonline.Delete</a>
+                            }
+                        </div>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

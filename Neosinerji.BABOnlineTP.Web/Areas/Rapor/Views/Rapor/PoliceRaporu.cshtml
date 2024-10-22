@@ -1,0 +1,343 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Rapor.Models
+
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model PoliceRaporuModel
+
+@{
+    List<KullaniciYetkiModel> altMenuler = ViewBag.AltMenuler;
+    List<KullaniciYetkiModel> raporlar = altMenuler.Where(s => s.AnaMenu == menu.AnaMenuler.Rapor).ToList();
+}
+<head>
+    <title>PoliçeRaporu</title>
+</head>
+
+@section HorizontalMenu
+{<ul class="nav">
+        <li class="active">
+            <a href="javascript:;">@babonline.Policy_Sales_Report <span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.OtherReport<span class="arrow"></span></a>
+            <ul class="dropdown-menu">
+                @foreach (var rapor in raporlar)
+                {
+                    if (rapor.MenuKodu != menu.AltMenuler.PoliceRaporu)
+                    {
+                        <li><a href="@rapor.URL">@rapor.Aciklama<span></span></a></li>
+                    }
+                }
+            </ul>
+            <b class="caret-out"></b>
+        </li>
+
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageStyles
+{
+    <style type="text/css">
+        .table td.right {
+            text-align: right;
+        }
+    </style>
+}
+
+@section PageScripts
+{
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    <script src="~/Content/js/customDataTable2.js" type="text/javascript"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            createTable([9,10], [], "policelistesi", "DÖNEMSEL ÜRETİM RAPORU");
+            // ==== Tarih ayarları ==== //
+            //policeraporu load olduğunda başlangıç tarihini bitiş tarihinin min date ine atıyor
+            var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+            $("#BitisTarihi").datepicker("option", "minDate", baslamaT);
+
+            //başlama tarihi değiştiğinde başlama tarihinin bir ay sonrasını bitiş tarihine atıyor
+            $('#BaslangicTarihi').change(function () {
+                var bas = $(this).datepicker("getDate");
+                $("#BitisTarihi").datepicker("option", "minDate", bas);
+
+                var monthMillisec = 31 * 24 * 60 * 60 * 1000;
+                var maxDate = new Date();
+                maxDate.setTime(bas.getTime() + monthMillisec);
+
+                $("#BitisTarihi").datepicker("setDate", maxDate);
+
+                var d2 = $('#BitisTarihi').datepicker("getDate");
+                var max = d2 - bas;
+
+            });
+
+            //bitiş tarihi değiştiğinde tarih aralığının 1 ay aralığında olup olmadığının kontrolünü yapıyor
+            $('#BitisTarihi').change(function () {
+                var bitisT = $(this).datepicker("getDate");
+                var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+                var aralik = bitisT - baslamaT;
+                var monthMillisec = 31 * 24 * 60 * 60 * 1000;
+
+                var maxDate = new Date();
+                maxDate.setTime(baslamaT.getTime() + monthMillisec);
+
+                if (aralik > monthMillisec) {
+                    alert("İki tarih aralığı 1 aydan fazla olamaz");
+                    $("#BitisTarihi").datepicker("setDate", maxDate);
+                }
+
+            });
+
+
+            $("[rel=tooltip]").tooltip();
+           ///
+
+
+            ///
+
+            //Multi SElectlist Scritps
+            $('.multiselect').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                maxHeight: 170,
+                nonSelectedText: '@babonline.PleaseSelect',
+                selectAllText: '@babonline.Select_All',
+                filterPlaceholder: '@babonline.Search',
+                nSelectedText: '@babonline.Selected'
+            });
+        });
+
+
+                       //$(function () {
+                       //    $("#btPDFeAktar").on("click", function () {
+
+                       //        $('<iframe src="/Rapor/Rapor/PDFOlustur"></iframe>').appendTo('#sonuc').hide();
+                       //    });
+                       //});
+
+
+
+    </script>
+}
+
+<div class="row-fluid">
+
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">Poliçe Listesi (Online)</span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form class="form-horizontal" action="~/Rapor/Rapor/PoliceRaporu" method="post">
+                    <div class="row-fluid" style="padding-top: 10px;">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVM_Title</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.TVMLerSelectList, Model.TVMLerItems, new { @class = "multiselect", multiple = "multiple" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.ReportStartDate</label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(s => s.BaslangicTarihi, new { style = "width:100px", Id = "BaslangisTarihi" })
+
+                                    @Html.ValidationMessageFor(s => s.BaslangicTarihi)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group" style="display:none">
+                                <label class="control-label">@babonline.Branch</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.BransSelectList, Model.BranslarItems, new { @class = "multiselect", multiple = "multiple" })
+
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" id="tckn">@babonline.Product</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.UrunSelectList, Model.UrunlerItems, new { @class = "multiselect", multiple = "multiple" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.ReportEndDate</label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(s => s.BitisTarihi, new { style = "width:100px", Id = "BitisTarihi" })
+                                    @Html.ValidationMessageFor(s => s.BitisTarihi)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.PolicyNo</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(s => s.PoliceNo, new { style = "width:90%" })
+                                </div>
+                            </div>
+                        </div>
+                        @* <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Tah_Ipt</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(s => s.TahsIptal, Model.TahsilatIptalList, new { style = "width:81%" })
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.PolicyDateType</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.PoliceTarihi, Model.PoliceTarihiTipleri.Take(2).Reverse(), new { style = "width:81%" })
+                                </div>
+                            </div>
+                        </div>
+                        @*    <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Doviz_TL</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(s => s.DovizTL, Model.DovizTlList, new { style = "width:81%" })
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.PaymentStyle</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.OdemeSekli, Model.OdemeSekilleri, new { style = "width:81%" })
+                                </div>
+                            </div>
+                        </div>
+                        @* <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.StatePolicies</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(s => s.Durumu, Model.Durumlari, new { style = "width:81%" })
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.PaymentType</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.OdemeTipi, Model.OdemeTipleri, new { style = "width:81%" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div id="alert" class="alert fade" style="display: none">
+                        <button type="button" class="close" id="close-alert">×</button>
+                        <strong>@babonline.Warning</strong>  @babonline.Message_Customer_SearchError
+                    </div>
+                    <div class="form-actions">
+                        <a href="~/Rapor/Rapor/PoliceRaporu" class="btn ligth-grey">@babonline.Clear</a>
+                        <a id="search" class="btn green" data-loading-text="@babonline.Message_Loading">@babonline.Search</a>
+
+                    </div>
+                    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+
+
+                    <div class="row-fluid" style="margin-top: 30px;">
+                        @*<input id="btPDFeAktar" type="button" value="PDF'e Aktar" />*@
+
+                        @* @Html.ActionLink("DenemePDF", "DenemePDFOlustur", "Rapor", new { Area = "Rapor" }, new{})
+                            @Html.ActionLink("DenemeExcel", "DenemeExcelOlustur", "Rapor", new { Area = "Rapor" }, new{})*@
+
+                        @*  @Html.ActionLink("DenemePDFOlustur", "DenemePDF", new { area = "Rapor", controller = "Rapor" })*@
+
+                        @*<div id="sonuc"></div>*@
+                        <div class="span12">
+                            <div id="table-div" style="overflow-x: auto; margin-top: 15px;">
+                                <table class="table table-striped table-bordered table-hover dataTable data-table" style=" width: 2350px;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 5%;">@babonline.PolicyNo</th>
+                                            <th style="width: 4%;">@babonline.Endorsement</th>
+                                            <th style="width: 4%;">@babonline.NoRenovation</th>
+                                            <th style="width: 5%;">@babonline.InsuranceCompanyProposalNo</th>
+                                            <th style="width: 3%">@babonline.Proposal_No</th>
+                                            <th style="width: 6%">@babonline.Product_Name</th>
+                                            <th style="width: 6%;">@babonline.Insured</th>
+                                            <th style="width: 6%;">@babonline.InsuredBy</th>
+                                            <th style="width: 7%;">@babonline.CustomField</th>
+                                            <th style="width: 3%;">@babonline.Gross_Premium</th>
+                                            <th style="width: 4%;">Komisyon</th>
+                                            <th style="width: 4%;">@babonline.PolicyStartDate</th>
+                                            <th style="width: 4%;">@babonline.PolicyFinishDate</th>
+                                            <th style="width: 4%;">@babonline.Date_Of_the_Establishment</th>
+                                            <th style="width: 3%;">@babonline.PaymentType</th>
+                                            <th style="width: 3%;">@babonline.PaymentStyle</th>
+                                            <th style="width: 4%;">@babonline.HirePurchaseCount</th>
+                                            <th style="width: 4%;">@babonline.PolicyPeriod</th>
+                                            <th style="width: 6%;">@babonline.InsuranceCompany</th>
+                                            <th style="width: 6%;">@babonline.SalesChannel</th>
+                                            <th style="width: 6%;">Kullanıcı</th>
+
+                                            @*  <th style="width: 7%;">@babonline.CreditCardBankName</th>*@
+                                            @*  <th style="width: 40px;">Satış Türü</th>*@
+                                            @*<th style="width: 3%;">@babonline.Status</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

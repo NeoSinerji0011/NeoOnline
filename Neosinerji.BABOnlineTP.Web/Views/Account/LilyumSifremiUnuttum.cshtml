@@ -1,0 +1,100 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Models.RecoverPassword
+
+@{
+    Layout = "~/Views/Shared/_LayoutEski.cshtml";
+}
+<head>
+    <title>LilyumSifremiUnuttum</title>
+</head>
+<link href="~/Content/css/YeniTemaLogin.css" rel="stylesheet" />
+<style>
+    body {
+        margin: 0px;
+        padding: 0px;
+        background: url('../../Content/img/YeniTasarim/lilyum-login.jpg.jpg') no-repeat center center fixed !important;
+    }
+
+    html {
+        background: url('../../Content/img/YeniTasarim/lilyum-login.jpg.jpg') no-repeat center center fixed !important;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-attachment: cover;
+        z-index: -1;
+    }
+
+    .sifremi-unuttum {
+        color: #1999CE;
+        font-size: 18px;
+        font-weight: bold;
+        height: 41px;
+        padding-left: 22px;
+        padding-top: 10px;
+        font-family: Helvetica;
+    }
+
+    .logo-content {
+        width: 1000px;
+        height: 200px !important;
+        margin-left: 10%;
+        margin-top: 1.7%;
+    }
+
+    .login-yazi-tip {
+        font-family: Calibri !important;
+        font-size: 20px !important;
+    }
+</style>
+
+
+
+<div class="logo-content">
+    <a href="http://www.lilyumkart.com/">
+        <img src="@Url.Content("~/Content/img/YeniTasarim/lilyumkart.png")" style="width :31%; height:40%; background-color:transparent !important; opacity:inherit" />
+    </a>
+    <div id="global-sign" style="width: 15%;">
+        <div style="margin-left: 16%;">
+            <img style="width:50%;" src="@Url.Content("~/Content/img/YeniTasarim/comodosecure.png")" alt="comodo-secure" />
+        </div>
+
+    </div>
+</div>
+@using (Html.BeginForm("LilyumSifremiUnuttum", "Account", FormMethod.Post, new { id = "form1" }))
+{
+    { Html.EnableClientValidation(false); }
+    <div class="custom-content">
+
+        <div class="login-hub-center">
+            <div class="login-hub-top">
+                <div class="login-white-content-sifremi-unuttum" style="height: 167px !important; margin-top:3%; margin-left:-5%;">
+                    <div class="sifremi-unuttum login-yazi-tip">
+                        ŞİFREMİ UNUTTUM
+                    </div>
+                    <div class="textbox-group">
+                        @Html.TextBoxFor(s => s.Email, new { @class = "text-box login-yazi-tip", placeholder = "Email Adresi" })
+                        @Html.ValidationMessageFor(s => s.Email)
+                    </div>
+                    <div>
+                        <input type="submit" id="btn-ok" class="tamam-button-div login-yazi-tip" style=" background-color:#E73626 !important; margin-left: 0px; margin-right: 27px; float: right; margin-top: 3px;" value="Yeni Şifre Gönder"></input>
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 281px; height: 170px;">
+            </div>
+            <div class="error-div">
+                @Html.ValidationSummary(true)
+            </div>
+            <div class="error-div" style="padding-top:25%;">
+                @if (!String.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <div class="alert alert-success login-yazi-tip">
+                        @ViewBag.Message
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

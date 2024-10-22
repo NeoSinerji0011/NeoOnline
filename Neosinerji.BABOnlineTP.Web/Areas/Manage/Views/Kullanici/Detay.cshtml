@@ -1,0 +1,146 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Business.Common
+@model KullaniciModel
+
+@{
+    bool guncellemeYetkisi = false;
+
+    List<KullaniciYetkiModel> sekmeler = ViewBag.Sekmeler;
+    KullaniciYetkiModel sekme = sekmeler.Where(s => s.SekmeKodu == menu.AltMenuSekmeler.KullaniciTanimlama).FirstOrDefault();
+
+    if (sekme != null)
+    {
+        if (sekme.Degistirme == 1)
+        { guncellemeYetkisi = true; }
+    }
+}
+
+@section HorizontalMenu
+{
+    <div id="pageMenu">
+        @Html.Partial("_PageMenuPartial", Model)
+    </div>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageScripts
+{
+    @if (guncellemeYetkisi)
+    {
+        <script>
+            $(document).ready(function () {
+                //Kullanici Kilitleme Ve Acma İşlemleri
+                $("#kilitle").live("click", (function () {
+                    $("#kilitle-modal").modal('show');
+                }));
+
+                $("#btn-onay").live("click", function () {
+                    var kullanicikodu = $("#kilitle").attr("kullanici-kodu");
+                    var action = $("#kilitle").attr("action");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Manage/Kullanici/Kilitle/",
+                        data: { KullaniciKodu: kullanicikodu, action: action },
+                        dataType: "html",
+                        success: function (data) {
+
+                            if (data != "" && data != null) {
+                                $("#main").html(data);
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/Manage/Kullanici/GetPageMenu/",
+                                    data: { KullaniciKodu: kullanicikodu },
+                                    dataType: "html",
+                                    success: function (data) { if (data != "" && data != null) { $("#pageMenu").html(data); } },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        var response = jQuery.parseJSON(jqXHR.responseText);
+                                        alert(response.message);
+                                    }
+                                });
+
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            var response = jQuery.parseJSON(jqXHR.responseText);
+                            alert(response.message);
+                        }
+                    });
+                });
+
+
+                //Şifre Sıfırlama işlemleri
+                $("#sifirla").live("click", function () {
+                    $("#sifre-sifirla-modal").modal("show");
+                });
+
+                $("#btn-onay-sifre").live("click", function () {
+                    var kullanicikodu = $("#sifirla").attr("kullanici-kodu");
+
+                    $.post("/Manage/Kullanici/SifreSifirla/",
+                        { KullaniciKodu: kullanicikodu },
+                        function (data) {
+                            if (data == "True") {
+                                $("#sifre-sifirla-rapor").modal("show");
+                            }
+                            else { alert("Şifre Sıfırlanamadı"); }
+                        });
+                });
+
+                $("#btn-onay-sifre-mapfre").live("click", function () {
+                    var kullanicikodu = $("#sifirla").attr("kullanici-kodu");
+
+                    $.post("/Manage/Kullanici/SifreSifirlaMapfre/",
+                        { KullaniciKodu: kullanicikodu },
+                        function (data) {
+                            if (data == "True") {
+                                $("#sifre-sifirla-rapor").modal("show");
+                            }
+                            else {
+                                alert("Şifre Sıfırlanamadı");
+                            }
+                        });
+                });
+            });
+        </script>
+    }
+}
+
+@if (Model.KullaniciKodu > 0)
+{
+    <div id="main">@Html.Partial("_DetayPartial", Model)</div>
+}
+else
+{
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box corner-all">
+
+                <div class="box-body">
+                    <div class="portlet box light-grey " style="margin-top: 24px;">
+                        <div class="portlet-title">
+                            <div class="caption"><i class="icon-reorder"></i>@babonline.UserInfo</div>
+                        </div>
+                        <div class="portlet-body form">
+
+                            <form class="form-horizontal form-view">
+                                <div class="alert alert-info">
+                                    <strong>@babonline.Info ! </strong>Böyle bir kullanıcı yok.
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}

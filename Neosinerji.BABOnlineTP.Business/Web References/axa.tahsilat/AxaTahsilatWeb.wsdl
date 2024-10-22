@@ -1,0 +1,3112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s1="http://www.axaoyak.com/data" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://www.axaoyak.com/data" />
+      <s:element name="NakitIadePolice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:NakitTahsilatIadePolice" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="NakitTahsilatIadePolice">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Sirket_Kod" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Banka_Sube_Kod" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Kaynak_Kod" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Cari_Pol_No" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Zeyl_Sira_No" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Banka_Referans" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Islem_Op_Id" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Axa_Tutar" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Odeme_Tutar" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Odeme_Doviz" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="NakitIadePoliceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NakitIadePoliceResult" type="tns:NakitTahsilatResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="NakitTahsilatResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RETURN_VALUE" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="RESULT" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ERROR_DESC" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Talimat_No" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Talimat_Sira_No" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BankaIptalPoliceSonDurum">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:BnkPoliceSonDurum" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BnkPoliceSonDurum">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Sirket_Kod" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Banka_Sube_Kod" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Kaynak_Kod" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Cari_Pol_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Zeyl_Sira_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Islem_Op_Id" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BnkPoliceSonDurumResult">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Sirket_Kod" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Banka_Sube_Kod" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Kaynak_Kod" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Cari_Pol_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Zeyl_Sira_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Islem_Op_Id" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Alacakli" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Alacak_Doviz" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Alacak_Tutar" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Tahsil_Tarihi" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="BankaIptalPoliceSonDurumResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BankaIptalPoliceSonDurumResult" type="tns:BnkPoliceSonDurumResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BankaIptalPoliceSonDurumOdeme">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:IptalSonrasiOdeme" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="IptalSonrasiOdeme">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Banka_Sube_kod" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Cari_Pol_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Zeyl_Sira_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Alacakli" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Alacakli_Doviz" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Alacak_tutar" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Banka_Islem_Referans" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="BankaIptalPoliceSonDurumOdemeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BankaIptalPoliceSonDurumOdemeResult" type="tns:IptalSonrasiOdemeResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="IptalSonrasiOdemeResult">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Err_Code" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Axa_Islem_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Axa_Islem_Sira_no" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="NakitIadeTalimat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:NakitTahsilatIade" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="NakitTahsilatIade">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PtalimatNo" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="PislemTar" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Popid" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="NakitIadeTalimatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NakitIadeTalimatResult" type="tns:NakitTahsilatResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SanalPosIade">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:BnkSanalPosIadePolice" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BnkSanalPosIadePolice">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="pSirket_Kod" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="pBanka_Sube_Kod" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="pKaynak_Kod" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="pCari_Pol_No" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="pZeyl_Sira_No" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="pIslem_Op_Id" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SanalPosIadeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SanalPosIadeResult" type="tns:NakitTahsilatResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CPPLOGYAZ">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Pparam" type="s1:CPPLOGYAZPARAM" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CPPLOGYAZResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CPPLOGYAZResult" type="s1:TahsilatLogResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SanalPosTahsilat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PosParams" type="tns:CAOCTahPosParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CAOCTahPosParam">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RefKullanici" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Caripolno" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Zeylsirano" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cardnumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tokenId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Borclu_Ilk_Ad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Borclu_Orta_Ad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Borclu_Soyad_Ad" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Lastexpdate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Poscek" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Talimatnosid" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="ResApproved" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SiparisNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TalimatSiraNo" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TalimatDetaySiraNo" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="HataMesajlari" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="BilgiMesajlari" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SanalPosTahsilatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SanalPosTahsilatResult" type="tns:CAOCTahPosParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BKMGetToken">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PosParams" type="tns:EntegGetTokenParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EntegGetTokenParam">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RefKullanici" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="first_6_digits" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="last_4_digits" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tckn" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BKMGetTokenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BKMGetTokenResult" type="tns:EntegGetTokenResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EntegGetTokenResult">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="bkmYonlen" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="tokenId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="transactionId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="uniqueReferans" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="bkmUrl" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseObject">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Mesajlar" type="tns:Mesajlar" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Mesajlar">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Hatalar" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Bilgiler" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Uyarilar" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BKMQueryToken">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PosParams" type="tns:QueryTokenParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="QueryTokenParam">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="RefKullanici" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="uniqueReferans" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="transactionId" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BKMQueryTokenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BKMQueryTokenResult" type="tns:EntegGetTokenResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TahsilatIptalByPolice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:TahsilatTalimatIptalByPolicepParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TahsilatTalimatIptalByPolicepParam">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="KAYNAK_KOD" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="CARI_POL_NO" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ZEYL_SIRA_NO" nillable="true" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TahsilatIptalByPoliceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TahsilatIptalByPoliceResult" type="s1:TahsilatIptalParametreResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="KomisyonIptal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:TahsilatTalimatIptalByTalimatParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TahsilatTalimatIptalByTalimatParam">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="KaynakKod" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TalimatNo" nillable="true" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="KomisyonIptalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KomisyonIptalResult" type="tns:Sonuc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Sonuc">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Basarili" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mesaj" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SanalPosIptal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PosParams" type="tns:CAOCTahPosParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SanalPosIptalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SanalPosIptalResult" type="tns:CAOCTahPosParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TalimatIptalGenel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PosParams" type="tns:CAOCTahPosParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TalimatIptalGenelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TalimatIptalGenelResult" type="tns:CAOCTahPosParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NakitTahsilatBrut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:NakitTahsilatParametre" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="NakitTahsilatParametre">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="psirket" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pbanka_kod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pbanka_sube_kod" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pcari_pol_no" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pzeyl_sira_no" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pvade" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Ptutar" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Paciklama" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pmakbuz_no" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="NakitTahsilatBrutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NakitTahsilatBrutResult" type="tns:NakitTahsilatResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPoliceBorcuOnayli">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="s1:PoliceBorcuParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPoliceBorcuOnayliResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPoliceBorcuOnayliResult" type="s1:PoliceBorcuList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPoliceBorcuOnayli_V2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="s1:PoliceBorcuParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPoliceBorcuOnayli_V2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPoliceBorcuOnayli_V2Result" type="s1:PoliceBorcuList_V2" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GETPOLICEBORCU">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="s1:PoliceBorcuParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GETPOLICEBORCUResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GETPOLICEBORCUResult" type="s1:PoliceBorcuList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GETTOPLAMBORC">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="s1:PoliceBorcuParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GETTOPLAMBORCResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GETTOPLAMBORCResult" type="s1:ToplamBorcResults" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="KismiNakitTahsilat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:KismiNakitTahsilatParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="KismiNakitTahsilatParam">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="PBANKA_SUBE_KOD" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="PCARI_POL_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="PZEYL_SIRA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="PDOVIZ_KOD" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="PTAHSIL_TUTAR" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="KismiNakitTahsilatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KismiNakitTahsilatResult" type="tns:KismiNakitTahsilatResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="KismiNakitTahsilatResult">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="MESSAGE" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ERR_CODE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TALIMAT_NO_SID" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TALIMAT_SIRA_NO" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="OdenecekKomisyonListesi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:OdenecekKomisyonParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OdenecekKomisyonParam">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="PSIRKET_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="PKAYNAK_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="PISLEM_TAR1" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="PISLEM_TAR2" nillable="true" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="OdenecekKomisyonListesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OdenecekKomisyonListesiResult" type="tns:OdenecekKomisyonReturn_List" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OdenecekKomisyonReturn_List">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfOdenecekKomisyonReturn" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfOdenecekKomisyonReturn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OdenecekKomisyonReturn" nillable="true" type="tns:OdenecekKomisyonReturn" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OdenecekKomisyonReturn">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ERR_CODE" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="MESSAGE" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="POL_SIRKET_KOD" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="POL_SUBE_KOD" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="POL_KAYNAK_KOD" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="POL_ACENTA_NO" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CARI_POL_NO" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ZEYL_SIRA_NO" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TAKSIT_VADE" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ISLEM_TAR" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="TARIFE_KOD" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MUST_KOD" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MUST_UNVAN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TAH_DOVIZ_KOD" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TUTAR" nillable="true" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="KomisyonOdemeListesi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:KomisyonOdemeListesiParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="KomisyonOdemeListesiParam">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="PKAYNAK_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="PTARIH1" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="PTARIH2" nillable="true" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="KomisyonOdemeListesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KomisyonOdemeListesiResult" type="tns:KomisyonOdemeListesiResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="KomisyonOdemeListesiResult">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Detay_Rec" type="tns:ArrayOfKomisyonOdemeListesi" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfKomisyonOdemeListesi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="KomisyonOdemeListesi" nillable="true" type="tns:KomisyonOdemeListesi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="KomisyonOdemeListesi">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ERR_CODE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="MESSAGE" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CARI_POL_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ZEYL_SIRA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ODENEN_KOMISYON" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ODEME_TARIHI" nillable="true" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="NakitTahsilat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:NakitTahsilatParametre" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NakitTahsilatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NakitTahsilatResult" type="tns:NakitTahsilatResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UretimList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:GetIngUretimHeaderDSParametre" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetIngUretimHeaderDSParametre">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="psirket" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ptarih1" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ptarih2" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UretimListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UretimListResult" type="tns:AOCUretimBilgiListheader" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AOCUretimBilgiListheader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Liste" type="tns:ArrayOfAOCUretimBilgiHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="Hatalar" type="tns:ArrayOfAOCTahsilatHata" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAOCUretimBilgiHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AOCUretimBilgiHeader" nillable="true" type="tns:AOCUretimBilgiHeader" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AOCUretimBilgiHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="policy_ref" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="version_no" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="signature_date" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAOCTahsilatHata">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AOCTahsilatHata" nillable="true" type="tns:AOCTahsilatHata" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AOCTahsilatHata">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="sonuc" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="aciklama" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="OtoTalimatIslemleri">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:OtoTalimatIslemleriParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OtoTalimatIslemleriParam">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="SIRKET" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ISLEM_TUR" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="GIRIS_TUR" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="OTO_TALIMAT_NO_SID" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="OTO_TALIMAT_SIRA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="CARI_POL_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ZEYL_SIRA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="HESAP_BANKA_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="HESAP_BANKA_SUBE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="HESAP_BANKA_HESAP" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="HESAP_BANKA_MUST" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IBAN" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BELGE_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="KART_TURU" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="SON_KUL_TAR" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="HESAP_SAHIBI1" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="HESAP_SAHIBI2" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="BASLAMA_TARIH" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="BITIS_TARIH" nillable="true" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="OtoTalimatIslemleriResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OtoTalimatIslemleriResult" type="tns:OtoTalimatIslemleriParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UretimDetay">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:GetIngUretimDSParametre" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetIngUretimDSParametre">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="psirket" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ptarih1" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ptarih2" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ppolice" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="pzeyil" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UretimDetayResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UretimDetayResult" type="tns:AOCUretimBilgiList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AOCUretimBilgiList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Liste" type="tns:ArrayOfAOCUretimBilgi" />
+          <s:element minOccurs="0" maxOccurs="1" name="Hatalar" type="tns:ArrayOfAOCTahsilatHata" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAOCUretimBilgi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AOCUretimBilgi" nillable="true" type="tns:AOCUretimBilgi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AOCUretimBilgi">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="policy_status_flag" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="policy_ref" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="contract_id" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="version_no" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="istihsal_iptal" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="t_gross_premium" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="t_final_premium" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="commission" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="reference_code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sub_reference_code" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="endors_reason_code" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="endors_reason_exp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="branch_ext_ref" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="branch_ext_ref_exp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="product_id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="product_id_exp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="partition_type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="partition_type_exp" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="start_date" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="end_date" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="signature_date" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="reversing_date" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="swift_code" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="curr_exchg_rate" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="policy_holder_name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="partner_type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="identity_no" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tax_number" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="lcr_name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="lcr_partner_type" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="lcr_identity_no" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="lcr_tax_number" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="old_reference_code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="old_policy_ref" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="date_of_birth" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="passport_number" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="city_code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="city_name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="district_code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="district_name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="police_uretim_cinsi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="police_tahsilat_tipi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="semt_kodu" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="taksit_sayisi" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="ulke_kod" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TahsilatList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:GetIngUretimHeaderDSParametre" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TahsilatListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TahsilatListResult" type="tns:AOCTahsilatBilgiListheader" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AOCTahsilatBilgiListheader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Liste" type="tns:ArrayOfAOCTahsilatBilgiHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="Hatalar" type="tns:ArrayOfAOCTahsilatHata" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAOCTahsilatBilgiHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AOCTahsilatBilgiHeader" nillable="true" type="tns:AOCTahsilatBilgiHeader" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AOCTahsilatBilgiHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="police_no" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="version_no" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="islem_tar" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TahakkukKomisyonMuhasebesi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="s1:KomisyonTediyeParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TahakkukKomisyonMuhasebesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TahakkukKomisyonMuhasebesiResult" type="s1:KomisyonTediyeResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PoliceOdemeAraci">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:OdemeAraciParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OdemeAraciParam">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CARI_POL_NO" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ZEYL_SIRA_NO" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PoliceOdemeAraciResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PoliceOdemeAraciResult" type="s1:SonucParametre" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IadeKomisyonMuhasebesi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="s1:KomisyonOdemeParams" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IadeKomisyonMuhasebesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IadeKomisyonMuhasebesiResult" type="s1:KomisyonTediyeResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TahsilatDetay">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:GetIngUretimDSParametre" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TahsilatDetayResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TahsilatDetayResult" type="tns:AOCTahsilatBilgiList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AOCTahsilatBilgiList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Liste" type="tns:ArrayOfAOCTahsilatBilgi" />
+          <s:element minOccurs="0" maxOccurs="1" name="Hatalar" type="tns:ArrayOfAOCTahsilatHata" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAOCTahsilatBilgi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AOCTahsilatBilgi" nillable="true" type="tns:AOCTahsilatBilgi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AOCTahsilatBilgi">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="islem_tar" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="taksit_tipi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="policy_status" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="police_no" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklif_no" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="versiyon_no" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="zeyil_tipi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="taksit_no" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="taksit_tarihi" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="taksit_tutar" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="kalan_taksit_tutar" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="komisyon_tutar" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="kalan_komisyon_tutar" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="receipt_id" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="order_no" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="makbuz_tipi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="makbuz_tarih" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="odenen_taksit_tutar" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="odenen_komisyon_tutar" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="doviz_kuru" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="uretim_cinsi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="taksit_tahsilat_tipi" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPolTahDurum">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:GetOdemeAraciParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GetOdemeAraciParam">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="SIRKET_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="CARI_POL_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ZEYL_SIRA_NO" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetPolTahDurumResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPolTahDurumResult" type="s1:TahsilatLogResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BankaDetayliUretimRaporu">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="s1:BankaDetayliUretimParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BankaDetayliUretimRaporuResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BankaDetayliUretimRaporuResult" type="s1:BankaDetayliUretimList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BankaDetayliKomisyonRaporu">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="s1:BankaDetayliUretimParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BankaDetayliKomisyonRaporuResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BankaDetayliKomisyonRaporuResult" type="s1:BankaDetayliUretimList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BankaDetayliKomisyonRaporuTah">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:BankaDetayliUretimTahParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BankaDetayliUretimTahParam">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="SIRKET_KOD" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="KAYNAK_KOD" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TANZIM_TARIHI_BAS" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="TANZIM_TARIHI_BIT" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="TAHSIL_TARIHI_BAS" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="TAHSIL_TARIHI_BIT" nillable="true" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="BankaDetayliKomisyonRaporuTahResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BankaDetayliKomisyonRaporuTahResult" type="s1:BankaDetayliUretimList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="_BankaDetayliKomisyonRaporuTest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SIRKET_KOD" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="KAYNAK_KOD" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="TANZIM_TARIHI1" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="TANZIM_TARIHI2" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="_BankaDetayliKomisyonRaporuTestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_BankaDetayliKomisyonRaporuTestResult" type="s1:BankaDetayliUretimList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="KrediKartiTahsilatIslemRapor">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParams" type="tns:KKTahIslemRapParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="KKTahIslemRapParam">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="REFKULLANICI" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TANZIM_TARIHI1" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TANZIM_TARIHI2" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="KrediKartiTahsilatIslemRaporResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KrediKartiTahsilatIslemRaporResult" type="s1:KrediKartTahIslemRaporList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAcenteAdi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pAcenteNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAcenteAdiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAcenteAdiResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BankaAcenteAFT">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pParam" type="s1:BankaAcentaAftParam" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BankaAcenteAFTResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BankaAcenteAFTResult" type="s1:BankaAcentaAftReturn" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPoliceTahsilatBilgi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CariPolNo" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="ZeylSiraNo" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPoliceTahsilatBilgiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPoliceTahsilatBilgiResult" type="tns:OdemeAraci_List" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OdemeAraci_List">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfOdemeAraci" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfOdemeAraci">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OdemeAraci" nillable="true" type="tns:OdemeAraci" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OdemeAraci">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ERR_CODE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="MESSAGE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ODEME_TURU" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ODEME_TURU_ACK" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="KART_NO" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="TahakkukMakbuzBasim">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Cari_Pol_No" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="Zeyl_Sira_No" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TahakkukMakbuzBasimResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TahakkukMakbuzBasimResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankaDetayliUretim">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TANZIM_TARIHI1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TANZIM_TARIHI2" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankaDetayliUretimResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBankaDetayliUretimResult" type="tns:Odea_Banka_Detayli_List" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Odea_Banka_Detayli_List">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Items" type="tns:ArrayOfOdea_Banka_Detayli" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfOdea_Banka_Detayli">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Odea_Banka_Detayli" nillable="true" type="tns:Odea_Banka_Detayli" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Odea_Banka_Detayli">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ERR_CODE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="MESSAGE" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TANZIM_TARIHI" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTALI_KIMLIK_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTALI_VERGI_NO" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CARI_POL_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ADET" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="TARIFE_KOD" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TL_BRUT_PRIM" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TL_KOMISYON" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="kredi_turu" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="police_gonderim_sekli" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="yenileme_bildirim_sekli" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="kredi_cep_tel" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="referans_no" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="yenileme_cep_tel" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="yenileme_email" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="kredi_sube_kod" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="BASLAMA_TARIH" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="BITIS_TARIH" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="POLICE_DOVIZ_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="MUST_AD_UNVAN" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTA_ETT_MUST_UNVAN" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="police_guncel_durum" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TARIFE_ADI" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="BankaDetayliUretimList" nillable="true" type="s1:BankaDetayliUretimList" />
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="OdemeAraci_List" nillable="true" type="tns:OdemeAraci_List" />
+      <s:element name="base64Binary" nillable="true" type="s:base64Binary" />
+      <s:element name="Odea_Banka_Detayli_List" nillable="true" type="tns:Odea_Banka_Detayli_List" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.axaoyak.com/data">
+      <s:complexType name="AOBaseObject">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="USERGUID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mesajlar" type="s1:ArrayOfAOMesaj" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAOMesaj">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AOMesaj" nillable="true" type="s1:AOMesaj" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AOMesaj">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Tip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Yer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Kod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AOMesaj" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CPPLOGYAZPARAM">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="PKAYNAK_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="PCARI_POL_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="PZEYL_SIRA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="PTUTAR" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="PTAHSILAT_TARIH" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="PDURUM_KOD" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="TahsilatLogResult">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ERR_CODE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="MESSAGE" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseObject">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Mesajlar" type="s1:Mesajlar" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Mesajlar">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Hatalar" type="s1:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Bilgiler" type="s1:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Uyarilar" type="s1:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TahsilatIptalParametreResult">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="CariPolNo" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ZeylSiraNo" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Basarili" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IptalTalimat" type="s1:ArrayOfTahsilatTalimatBilgi" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfTahsilatTalimatBilgi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TahsilatTalimatBilgi" nillable="true" type="s1:TahsilatTalimatBilgi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TahsilatTalimatBilgi">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Talimat_No_Sid" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Talimat_Sira_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Talimat_Detay_Sira_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Tah_Turu" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PoliceBorcuParams">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Banka_kod" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Cari_Pol_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="zeyl_Sira_No" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PoliceBorcuList">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="PoliceBorclar" type="s1:ArrayOfPoliceBorcuResult" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfPoliceBorcuResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PoliceBorcuResult" nillable="true" type="s1:PoliceBorcuResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PoliceBorcuResult">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="TALEP_SID" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TALEP_DETAY_SID" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="CARI_POL_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ZEYL_SIRA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TAKSIT_VADE" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="VADE_BAKIYE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="KOMISYON_BAKIYE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="VERGI_BAKIYE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="TARIFE_KOD" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="VK" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="TARIFE_ADI" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTALI_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTALI_ADI" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ETTIREN_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ETTIREN_ADI" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DOVIZ_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TAHSIL_BANKA_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TAHSIL_BANKA_SUBE_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TAHSIL_BANKA_HESAP_NO" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="BOLGE_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="KAYNAK_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ACENTA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TALI_KAYNAK_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TALI_ACENTA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="POL_BANKA_SUBE_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="POL_BANKA_UYDU_SUBE" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PoliceBorcuList_V2">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="PoliceBorclar" type="s1:ArrayOfPoliceBorcuResult_V2" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfPoliceBorcuResult_V2">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PoliceBorcuResult_V2" nillable="true" type="s1:PoliceBorcuResult_V2" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PoliceBorcuResult_V2">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="TALEP_SID" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TALEP_DETAY_SID" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="CARI_POL_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ZEYL_SIRA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TAKSIT_VADE" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="VADE_BAKIYE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="KOMISYON_BAKIYE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="VERGI_BAKIYE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="TARIFE_KOD" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="VK" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="TARIFE_ADI" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTALI_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTALI_ADI" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ETTIREN_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ETTIREN_ADI" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DOVIZ_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TAHSIL_BANKA_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TAHSIL_BANKA_SUBE_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TAHSIL_BANKA_HESAP_NO" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="BOLGE_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="KAYNAK_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ACENTA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TALI_KAYNAK_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TALI_ACENTA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="POL_BANKA_SUBE_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="POL_BANKA_UYDU_SUBE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TAKSIT_SIRA_NO" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ToplamBorcResults">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="RETURN_VALUE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="RESULT" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CARI_POL_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ZEYL_SIRA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="DOVIZ_KOD" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TOPLAM_BORC_ACN" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TOPLAM_BORC_MUST" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TAHSIL_TARIHI" nillable="true" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="KomisyonTediyeParams">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Sirket_Kod" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Banka_Kod" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Kaynak_Kod" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Cari_Pol_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Zeyl_Sira_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Taksit_vade" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Islem_Op_Id" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Tediye_Tutar" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="KomisyonTediyeResult">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="v_err_code" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="v_message" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Talimat_No_Sid" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SonucParametre">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ErrorCode" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="ErrMessage" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="KomisyonOdemeParams">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Sirket_Kod" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Sube_kod" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Kaynak_Kod" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Acenta_No" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Tali_Kaynak" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Tali_Acenta_No" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Banka_Kod" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Cari_Pol_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="zeyl_Sira_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="taksit_vade" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Islem_Op_Id" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Tahakkuk_Tutar" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BankaDetayliUretimParam">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="SIRKET_KOD" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="KAYNAK_KOD" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TANZIM_TARIHI1" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="TANZIM_TARIHI2" nillable="true" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BankaDetayliUretimList">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Items" type="s1:ArrayOfBankaDetayliUretim" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfBankaDetayliUretim">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BankaDetayliUretim" nillable="true" type="s1:BankaDetayliUretim" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BankaDetayliUretim">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="V_ERR_CODE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="V_MESSAGE" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="SIRKET_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="SUBE_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="KAYNAK_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="ACENTA_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ACENTA_UNVAN" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ACENTA_BANKA_SUBE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TALI_ACENTA_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TALI_ACENTA_UNVAN" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TALI_BANKA_SUBE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="MUST_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="MUST_AD_UNVAN" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTA_ETT_MUST_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTA_ETT_MUST_UNVAN" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CARI_POL_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="ZEYL_KODU" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ZEYL_SIRA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="TARIFE_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BRANS_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TARIFE_ADI" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="VK" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="BASLAMA_TARIH" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="BITIS_TARIH" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="TANZIM_TARIHI" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="TAHSILAT_KODU" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ESKI_POL_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="POL_CINSI" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ADET" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="PAZ_SUBE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="PAZ_KAYNAK" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="PAZ_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PAZ_UNVAN" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="KURUM_SICIL_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IS_KOLU" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TL_NET_PRIM" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TL_KOMISYON" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="BRUT_PRIM" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="PESIN_TUTAR" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TL_VERGI_FON" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="BANKA_BOLGE_KODU" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BANKA_BOLGE_IST_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BANKA_BOLGE_ADI" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BANKA_SUBE_KODU" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PARTNER_INTERNAL_MUST_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PARTNER_INTERNAL_REFERANS" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PARTNER_INTERNAL_REFERANS_AD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PARTNER_INTERNAL_TIP" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="I_KREDILI" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="I_KREDI_BANKA" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="I_KREDI_BANKA_SUBE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="I_KULLANIM_TARZI" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="I_SATIS_KANALI" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="M_KREDI_REF_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="M_TUZEL_KISI_RIM_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="M_KREDI_KART_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="M_SIPARIS_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="T_I" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PARTNER_INTERNAL_MUST_SUBE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTALI_KIMLIK_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTALI_VERGI_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTA_ETT_KIMLIK_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTA_ETT_VERGI_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ZEYL_KOD_ACIKLAMA" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="OP_ID" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="MUST_PESIN_TAH" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ID" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="I_MUST_SEGMENT" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="BAGLANTI_KAYNAK_KOD" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="BAGLANTI_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BAGLANTI_KURUM_SICIL_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SICIL_TIP" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PERSONEL_POLICE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTA_ETT_PARTNER_INTERNAL" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTA_ETT_SEGMENT" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="POLICE_DOVIZ_KOD" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="POLICE_KUR" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TL_BRUT_PRIM" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="KOMISYON" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="YSV" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TL_YSV" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="BSMV" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TL_BSMV" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="VERGI_FON" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="VERGI_DIGER" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TL_VERGI_DIGER" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="SIGORTA_ETT_INTERNAL_TIP" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TL_PESIN_TUTAR" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="OGRETMEN_POLICE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="I_RIM_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="NET_BRUT" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TAHSILAT_KOD_ACK" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="BINA_BEDEL" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="DEPREM_BEDEL" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="TAH_TURU" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="KK_BANKA_ADI" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TARSIM_POLICE_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="BANKA_KOMISYON" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="CPP_KOMISYON" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="TEMINAT_KOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BIREYSEL_AILE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CPP_POLICE_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="POLICE_TIPI" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="DAHILI_NO" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TARIH_SAAT" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="POLICE_SONDURUM" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TAHSILAT_TARIH" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="BRUT_PRIM_PESINAT_TAHSILAT_TUTARI" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="CALL_CENTER" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="kredi_turu" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="police_gonderim_sekli" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="yenileme_bildirim_sekli" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="kredi_cep_tel" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="referans_no" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="yenileme_cep_tel" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="yenileme_email" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="kredi_sube_kod" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="KrediKartTahIslemRaporList">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Items" type="s1:ArrayOfKrediKartTahIslemRapor" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfKrediKartTahIslemRapor">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="KrediKartTahIslemRapor" nillable="true" type="s1:KrediKartTahIslemRapor" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="KrediKartTahIslemRapor">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="V_ERR_CODE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="V_MESSAGE" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Axa_Islem_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Axa_Islem_Grup_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Axa_Islem_Orj_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Acente_No" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Islem_tarih" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Tahsilat_Turu" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Islem_Referans_Tipi" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Islem_Orj_Tip" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Islem_Referans_No" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Islem_Durumu" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="T_I" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Odeme_Tarzi" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Police_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Ekbelge_No" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Musteri_No" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Musteri_Adi" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Kart_No" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Son_Kullanma_Tarihi" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Kart_Sahibi" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TC_Kimlik_No" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Vergi_No" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Kart_Tahsil_Tarihi" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="Taksit_Vade" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Police_Doviz" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Tahsilat_Doviz" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Tahsilat_Tutar" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Police_Tutar" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TL_Tutar" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Aciklama" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Liste_Tarihi" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Listeyi_Alan" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="KK_Tahsilat_ID" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BankaAcentaAftParam">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="PSIRKETKOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PBANKAKOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PACENTEKOD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PDOVIZKOD" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="PTUTAR" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BankaAcentaAftReturn">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ERR_CODE" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="MESSAGE" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TALIMAT_NO_SID" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TALIMAT_SIRA_NO" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="TALIMAT_DETAY_SIRA_NO" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="NakitIadePoliceSoapIn">
+    <wsdl:part name="parameters" element="tns:NakitIadePolice" />
+  </wsdl:message>
+  <wsdl:message name="NakitIadePoliceSoapOut">
+    <wsdl:part name="parameters" element="tns:NakitIadePoliceResponse" />
+  </wsdl:message>
+  <wsdl:message name="BankaIptalPoliceSonDurumSoapIn">
+    <wsdl:part name="parameters" element="tns:BankaIptalPoliceSonDurum" />
+  </wsdl:message>
+  <wsdl:message name="BankaIptalPoliceSonDurumSoapOut">
+    <wsdl:part name="parameters" element="tns:BankaIptalPoliceSonDurumResponse" />
+  </wsdl:message>
+  <wsdl:message name="BankaIptalPoliceSonDurumOdemeSoapIn">
+    <wsdl:part name="parameters" element="tns:BankaIptalPoliceSonDurumOdeme" />
+  </wsdl:message>
+  <wsdl:message name="BankaIptalPoliceSonDurumOdemeSoapOut">
+    <wsdl:part name="parameters" element="tns:BankaIptalPoliceSonDurumOdemeResponse" />
+  </wsdl:message>
+  <wsdl:message name="NakitIadeTalimatSoapIn">
+    <wsdl:part name="parameters" element="tns:NakitIadeTalimat" />
+  </wsdl:message>
+  <wsdl:message name="NakitIadeTalimatSoapOut">
+    <wsdl:part name="parameters" element="tns:NakitIadeTalimatResponse" />
+  </wsdl:message>
+  <wsdl:message name="SanalPosIadeSoapIn">
+    <wsdl:part name="parameters" element="tns:SanalPosIade" />
+  </wsdl:message>
+  <wsdl:message name="SanalPosIadeSoapOut">
+    <wsdl:part name="parameters" element="tns:SanalPosIadeResponse" />
+  </wsdl:message>
+  <wsdl:message name="CPPLOGYAZSoapIn">
+    <wsdl:part name="parameters" element="tns:CPPLOGYAZ" />
+  </wsdl:message>
+  <wsdl:message name="CPPLOGYAZSoapOut">
+    <wsdl:part name="parameters" element="tns:CPPLOGYAZResponse" />
+  </wsdl:message>
+  <wsdl:message name="SanalPosTahsilatSoapIn">
+    <wsdl:part name="parameters" element="tns:SanalPosTahsilat" />
+  </wsdl:message>
+  <wsdl:message name="SanalPosTahsilatSoapOut">
+    <wsdl:part name="parameters" element="tns:SanalPosTahsilatResponse" />
+  </wsdl:message>
+  <wsdl:message name="BKMGetTokenSoapIn">
+    <wsdl:part name="parameters" element="tns:BKMGetToken" />
+  </wsdl:message>
+  <wsdl:message name="BKMGetTokenSoapOut">
+    <wsdl:part name="parameters" element="tns:BKMGetTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="BKMQueryTokenSoapIn">
+    <wsdl:part name="parameters" element="tns:BKMQueryToken" />
+  </wsdl:message>
+  <wsdl:message name="BKMQueryTokenSoapOut">
+    <wsdl:part name="parameters" element="tns:BKMQueryTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="TahsilatIptalByPoliceSoapIn">
+    <wsdl:part name="parameters" element="tns:TahsilatIptalByPolice" />
+  </wsdl:message>
+  <wsdl:message name="TahsilatIptalByPoliceSoapOut">
+    <wsdl:part name="parameters" element="tns:TahsilatIptalByPoliceResponse" />
+  </wsdl:message>
+  <wsdl:message name="KomisyonIptalSoapIn">
+    <wsdl:part name="parameters" element="tns:KomisyonIptal" />
+  </wsdl:message>
+  <wsdl:message name="KomisyonIptalSoapOut">
+    <wsdl:part name="parameters" element="tns:KomisyonIptalResponse" />
+  </wsdl:message>
+  <wsdl:message name="SanalPosIptalSoapIn">
+    <wsdl:part name="parameters" element="tns:SanalPosIptal" />
+  </wsdl:message>
+  <wsdl:message name="SanalPosIptalSoapOut">
+    <wsdl:part name="parameters" element="tns:SanalPosIptalResponse" />
+  </wsdl:message>
+  <wsdl:message name="TalimatIptalGenelSoapIn">
+    <wsdl:part name="parameters" element="tns:TalimatIptalGenel" />
+  </wsdl:message>
+  <wsdl:message name="TalimatIptalGenelSoapOut">
+    <wsdl:part name="parameters" element="tns:TalimatIptalGenelResponse" />
+  </wsdl:message>
+  <wsdl:message name="NakitTahsilatBrutSoapIn">
+    <wsdl:part name="parameters" element="tns:NakitTahsilatBrut" />
+  </wsdl:message>
+  <wsdl:message name="NakitTahsilatBrutSoapOut">
+    <wsdl:part name="parameters" element="tns:NakitTahsilatBrutResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPoliceBorcuOnayliSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPoliceBorcuOnayli" />
+  </wsdl:message>
+  <wsdl:message name="GetPoliceBorcuOnayliSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPoliceBorcuOnayliResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPoliceBorcuOnayli_V2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetPoliceBorcuOnayli_V2" />
+  </wsdl:message>
+  <wsdl:message name="GetPoliceBorcuOnayli_V2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetPoliceBorcuOnayli_V2Response" />
+  </wsdl:message>
+  <wsdl:message name="GETPOLICEBORCUSoapIn">
+    <wsdl:part name="parameters" element="tns:GETPOLICEBORCU" />
+  </wsdl:message>
+  <wsdl:message name="GETPOLICEBORCUSoapOut">
+    <wsdl:part name="parameters" element="tns:GETPOLICEBORCUResponse" />
+  </wsdl:message>
+  <wsdl:message name="GETTOPLAMBORCSoapIn">
+    <wsdl:part name="parameters" element="tns:GETTOPLAMBORC" />
+  </wsdl:message>
+  <wsdl:message name="GETTOPLAMBORCSoapOut">
+    <wsdl:part name="parameters" element="tns:GETTOPLAMBORCResponse" />
+  </wsdl:message>
+  <wsdl:message name="KismiNakitTahsilatSoapIn">
+    <wsdl:part name="parameters" element="tns:KismiNakitTahsilat" />
+  </wsdl:message>
+  <wsdl:message name="KismiNakitTahsilatSoapOut">
+    <wsdl:part name="parameters" element="tns:KismiNakitTahsilatResponse" />
+  </wsdl:message>
+  <wsdl:message name="OdenecekKomisyonListesiSoapIn">
+    <wsdl:part name="parameters" element="tns:OdenecekKomisyonListesi" />
+  </wsdl:message>
+  <wsdl:message name="OdenecekKomisyonListesiSoapOut">
+    <wsdl:part name="parameters" element="tns:OdenecekKomisyonListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="KomisyonOdemeListesiSoapIn">
+    <wsdl:part name="parameters" element="tns:KomisyonOdemeListesi" />
+  </wsdl:message>
+  <wsdl:message name="KomisyonOdemeListesiSoapOut">
+    <wsdl:part name="parameters" element="tns:KomisyonOdemeListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="NakitTahsilatSoapIn">
+    <wsdl:part name="parameters" element="tns:NakitTahsilat" />
+  </wsdl:message>
+  <wsdl:message name="NakitTahsilatSoapOut">
+    <wsdl:part name="parameters" element="tns:NakitTahsilatResponse" />
+  </wsdl:message>
+  <wsdl:message name="UretimListSoapIn">
+    <wsdl:part name="parameters" element="tns:UretimList" />
+  </wsdl:message>
+  <wsdl:message name="UretimListSoapOut">
+    <wsdl:part name="parameters" element="tns:UretimListResponse" />
+  </wsdl:message>
+  <wsdl:message name="OtoTalimatIslemleriSoapIn">
+    <wsdl:part name="parameters" element="tns:OtoTalimatIslemleri" />
+  </wsdl:message>
+  <wsdl:message name="OtoTalimatIslemleriSoapOut">
+    <wsdl:part name="parameters" element="tns:OtoTalimatIslemleriResponse" />
+  </wsdl:message>
+  <wsdl:message name="UretimDetaySoapIn">
+    <wsdl:part name="parameters" element="tns:UretimDetay" />
+  </wsdl:message>
+  <wsdl:message name="UretimDetaySoapOut">
+    <wsdl:part name="parameters" element="tns:UretimDetayResponse" />
+  </wsdl:message>
+  <wsdl:message name="TahsilatListSoapIn">
+    <wsdl:part name="parameters" element="tns:TahsilatList" />
+  </wsdl:message>
+  <wsdl:message name="TahsilatListSoapOut">
+    <wsdl:part name="parameters" element="tns:TahsilatListResponse" />
+  </wsdl:message>
+  <wsdl:message name="TahakkukKomisyonMuhasebesiSoapIn">
+    <wsdl:part name="parameters" element="tns:TahakkukKomisyonMuhasebesi" />
+  </wsdl:message>
+  <wsdl:message name="TahakkukKomisyonMuhasebesiSoapOut">
+    <wsdl:part name="parameters" element="tns:TahakkukKomisyonMuhasebesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="PoliceOdemeAraciSoapIn">
+    <wsdl:part name="parameters" element="tns:PoliceOdemeAraci" />
+  </wsdl:message>
+  <wsdl:message name="PoliceOdemeAraciSoapOut">
+    <wsdl:part name="parameters" element="tns:PoliceOdemeAraciResponse" />
+  </wsdl:message>
+  <wsdl:message name="IadeKomisyonMuhasebesiSoapIn">
+    <wsdl:part name="parameters" element="tns:IadeKomisyonMuhasebesi" />
+  </wsdl:message>
+  <wsdl:message name="IadeKomisyonMuhasebesiSoapOut">
+    <wsdl:part name="parameters" element="tns:IadeKomisyonMuhasebesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="TahsilatDetaySoapIn">
+    <wsdl:part name="parameters" element="tns:TahsilatDetay" />
+  </wsdl:message>
+  <wsdl:message name="TahsilatDetaySoapOut">
+    <wsdl:part name="parameters" element="tns:TahsilatDetayResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPolTahDurumSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPolTahDurum" />
+  </wsdl:message>
+  <wsdl:message name="GetPolTahDurumSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPolTahDurumResponse" />
+  </wsdl:message>
+  <wsdl:message name="BankaDetayliUretimRaporuSoapIn">
+    <wsdl:part name="parameters" element="tns:BankaDetayliUretimRaporu" />
+  </wsdl:message>
+  <wsdl:message name="BankaDetayliUretimRaporuSoapOut">
+    <wsdl:part name="parameters" element="tns:BankaDetayliUretimRaporuResponse" />
+  </wsdl:message>
+  <wsdl:message name="BankaDetayliKomisyonRaporuSoapIn">
+    <wsdl:part name="parameters" element="tns:BankaDetayliKomisyonRaporu" />
+  </wsdl:message>
+  <wsdl:message name="BankaDetayliKomisyonRaporuSoapOut">
+    <wsdl:part name="parameters" element="tns:BankaDetayliKomisyonRaporuResponse" />
+  </wsdl:message>
+  <wsdl:message name="BankaDetayliKomisyonRaporuTahSoapIn">
+    <wsdl:part name="parameters" element="tns:BankaDetayliKomisyonRaporuTah" />
+  </wsdl:message>
+  <wsdl:message name="BankaDetayliKomisyonRaporuTahSoapOut">
+    <wsdl:part name="parameters" element="tns:BankaDetayliKomisyonRaporuTahResponse" />
+  </wsdl:message>
+  <wsdl:message name="_BankaDetayliKomisyonRaporuTestSoapIn">
+    <wsdl:part name="parameters" element="tns:_BankaDetayliKomisyonRaporuTest" />
+  </wsdl:message>
+  <wsdl:message name="_BankaDetayliKomisyonRaporuTestSoapOut">
+    <wsdl:part name="parameters" element="tns:_BankaDetayliKomisyonRaporuTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="KrediKartiTahsilatIslemRaporSoapIn">
+    <wsdl:part name="parameters" element="tns:KrediKartiTahsilatIslemRapor" />
+  </wsdl:message>
+  <wsdl:message name="KrediKartiTahsilatIslemRaporSoapOut">
+    <wsdl:part name="parameters" element="tns:KrediKartiTahsilatIslemRaporResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAcenteAdiSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAcenteAdi" />
+  </wsdl:message>
+  <wsdl:message name="GetAcenteAdiSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAcenteAdiResponse" />
+  </wsdl:message>
+  <wsdl:message name="BankaAcenteAFTSoapIn">
+    <wsdl:part name="parameters" element="tns:BankaAcenteAFT" />
+  </wsdl:message>
+  <wsdl:message name="BankaAcenteAFTSoapOut">
+    <wsdl:part name="parameters" element="tns:BankaAcenteAFTResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPoliceTahsilatBilgiSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPoliceTahsilatBilgi" />
+  </wsdl:message>
+  <wsdl:message name="GetPoliceTahsilatBilgiSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPoliceTahsilatBilgiResponse" />
+  </wsdl:message>
+  <wsdl:message name="TahakkukMakbuzBasimSoapIn">
+    <wsdl:part name="parameters" element="tns:TahakkukMakbuzBasim" />
+  </wsdl:message>
+  <wsdl:message name="TahakkukMakbuzBasimSoapOut">
+    <wsdl:part name="parameters" element="tns:TahakkukMakbuzBasimResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBankaDetayliUretimSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBankaDetayliUretim" />
+  </wsdl:message>
+  <wsdl:message name="GetBankaDetayliUretimSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBankaDetayliUretimResponse" />
+  </wsdl:message>
+  <wsdl:message name="_BankaDetayliKomisyonRaporuTestHttpGetIn">
+    <wsdl:part name="SIRKET_KOD" type="s:string" />
+    <wsdl:part name="KAYNAK_KOD" type="s:string" />
+    <wsdl:part name="TANZIM_TARIHI1" type="s:string" />
+    <wsdl:part name="TANZIM_TARIHI2" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="_BankaDetayliKomisyonRaporuTestHttpGetOut">
+    <wsdl:part name="Body" element="tns:BankaDetayliUretimList" />
+  </wsdl:message>
+  <wsdl:message name="GetAcenteAdiHttpGetIn">
+    <wsdl:part name="pAcenteNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAcenteAdiHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPoliceTahsilatBilgiHttpGetIn">
+    <wsdl:part name="CariPolNo" type="s:string" />
+    <wsdl:part name="ZeylSiraNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPoliceTahsilatBilgiHttpGetOut">
+    <wsdl:part name="Body" element="tns:OdemeAraci_List" />
+  </wsdl:message>
+  <wsdl:message name="TahakkukMakbuzBasimHttpGetIn">
+    <wsdl:part name="Cari_Pol_No" type="s:string" />
+    <wsdl:part name="Zeyl_Sira_No" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TahakkukMakbuzBasimHttpGetOut">
+    <wsdl:part name="Body" element="tns:base64Binary" />
+  </wsdl:message>
+  <wsdl:message name="GetBankaDetayliUretimHttpGetIn">
+    <wsdl:part name="TANZIM_TARIHI1" type="s:string" />
+    <wsdl:part name="TANZIM_TARIHI2" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetBankaDetayliUretimHttpGetOut">
+    <wsdl:part name="Body" element="tns:Odea_Banka_Detayli_List" />
+  </wsdl:message>
+  <wsdl:message name="_BankaDetayliKomisyonRaporuTestHttpPostIn">
+    <wsdl:part name="SIRKET_KOD" type="s:string" />
+    <wsdl:part name="KAYNAK_KOD" type="s:string" />
+    <wsdl:part name="TANZIM_TARIHI1" type="s:string" />
+    <wsdl:part name="TANZIM_TARIHI2" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="_BankaDetayliKomisyonRaporuTestHttpPostOut">
+    <wsdl:part name="Body" element="tns:BankaDetayliUretimList" />
+  </wsdl:message>
+  <wsdl:message name="GetAcenteAdiHttpPostIn">
+    <wsdl:part name="pAcenteNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAcenteAdiHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPoliceTahsilatBilgiHttpPostIn">
+    <wsdl:part name="CariPolNo" type="s:string" />
+    <wsdl:part name="ZeylSiraNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPoliceTahsilatBilgiHttpPostOut">
+    <wsdl:part name="Body" element="tns:OdemeAraci_List" />
+  </wsdl:message>
+  <wsdl:message name="TahakkukMakbuzBasimHttpPostIn">
+    <wsdl:part name="Cari_Pol_No" type="s:string" />
+    <wsdl:part name="Zeyl_Sira_No" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TahakkukMakbuzBasimHttpPostOut">
+    <wsdl:part name="Body" element="tns:base64Binary" />
+  </wsdl:message>
+  <wsdl:message name="GetBankaDetayliUretimHttpPostIn">
+    <wsdl:part name="TANZIM_TARIHI1" type="s:string" />
+    <wsdl:part name="TANZIM_TARIHI2" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetBankaDetayliUretimHttpPostOut">
+    <wsdl:part name="Body" element="tns:Odea_Banka_Detayli_List" />
+  </wsdl:message>
+  <wsdl:portType name="AxaTahsilatWebSoap">
+    <wsdl:operation name="NakitIadePolice">
+      <wsdl:input message="tns:NakitIadePoliceSoapIn" />
+      <wsdl:output message="tns:NakitIadePoliceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BankaIptalPoliceSonDurum">
+      <wsdl:input message="tns:BankaIptalPoliceSonDurumSoapIn" />
+      <wsdl:output message="tns:BankaIptalPoliceSonDurumSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BankaIptalPoliceSonDurumOdeme">
+      <wsdl:input message="tns:BankaIptalPoliceSonDurumOdemeSoapIn" />
+      <wsdl:output message="tns:BankaIptalPoliceSonDurumOdemeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NakitIadeTalimat">
+      <wsdl:input message="tns:NakitIadeTalimatSoapIn" />
+      <wsdl:output message="tns:NakitIadeTalimatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SanalPosIade">
+      <wsdl:input message="tns:SanalPosIadeSoapIn" />
+      <wsdl:output message="tns:SanalPosIadeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CPPLOGYAZ">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">CPP tahsilatlari loglanir</wsdl:documentation>
+      <wsdl:input message="tns:CPPLOGYAZSoapIn" />
+      <wsdl:output message="tns:CPPLOGYAZSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SanalPosTahsilat">
+      <wsdl:input message="tns:SanalPosTahsilatSoapIn" />
+      <wsdl:output message="tns:SanalPosTahsilatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BKMGetToken">
+      <wsdl:input message="tns:BKMGetTokenSoapIn" />
+      <wsdl:output message="tns:BKMGetTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BKMQueryToken">
+      <wsdl:input message="tns:BKMQueryTokenSoapIn" />
+      <wsdl:output message="tns:BKMQueryTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatIptalByPolice">
+      <wsdl:input message="tns:TahsilatIptalByPoliceSoapIn" />
+      <wsdl:output message="tns:TahsilatIptalByPoliceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="KomisyonIptal">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Komisyon iptali - TahsilatIptalByTalimat</wsdl:documentation>
+      <wsdl:input message="tns:KomisyonIptalSoapIn" />
+      <wsdl:output message="tns:KomisyonIptalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SanalPosIptal">
+      <wsdl:input message="tns:SanalPosIptalSoapIn" />
+      <wsdl:output message="tns:SanalPosIptalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TalimatIptalGenel">
+      <wsdl:input message="tns:TalimatIptalGenelSoapIn" />
+      <wsdl:output message="tns:TalimatIptalGenelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NakitTahsilatBrut">
+      <wsdl:input message="tns:NakitTahsilatBrutSoapIn" />
+      <wsdl:output message="tns:NakitTahsilatBrutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPoliceBorcuOnayli">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sadece onaylı poliçelerin borçları sorgulanabilir.</wsdl:documentation>
+      <wsdl:input message="tns:GetPoliceBorcuOnayliSoapIn" />
+      <wsdl:output message="tns:GetPoliceBorcuOnayliSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPoliceBorcuOnayli_V2">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sadece onaylı poliçelerin borçları sorgulanabilir..</wsdl:documentation>
+      <wsdl:input message="tns:GetPoliceBorcuOnayli_V2SoapIn" />
+      <wsdl:output message="tns:GetPoliceBorcuOnayli_V2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GETPOLICEBORCU">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Poliçe borçları sorgulanabilir.</wsdl:documentation>
+      <wsdl:input message="tns:GETPOLICEBORCUSoapIn" />
+      <wsdl:output message="tns:GETPOLICEBORCUSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GETTOPLAMBORC">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Poliçe toplam borcunu verir Acente - Musteri</wsdl:documentation>
+      <wsdl:input message="tns:GETTOPLAMBORCSoapIn" />
+      <wsdl:output message="tns:GETTOPLAMBORCSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="KismiNakitTahsilat">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Kalan kismi borç nakit olarak kapatılır.</wsdl:documentation>
+      <wsdl:input message="tns:KismiNakitTahsilatSoapIn" />
+      <wsdl:output message="tns:KismiNakitTahsilatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OdenecekKomisyonListesi">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Odenecek Komisyon Bilgisi Liste</wsdl:documentation>
+      <wsdl:input message="tns:OdenecekKomisyonListesiSoapIn" />
+      <wsdl:output message="tns:OdenecekKomisyonListesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="KomisyonOdemeListesi">
+      <wsdl:input message="tns:KomisyonOdemeListesiSoapIn" />
+      <wsdl:output message="tns:KomisyonOdemeListesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NakitTahsilat">
+      <wsdl:input message="tns:NakitTahsilatSoapIn" />
+      <wsdl:output message="tns:NakitTahsilatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UretimList">
+      <wsdl:input message="tns:UretimListSoapIn" />
+      <wsdl:output message="tns:UretimListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OtoTalimatIslemleri">
+      <wsdl:input message="tns:OtoTalimatIslemleriSoapIn" />
+      <wsdl:output message="tns:OtoTalimatIslemleriSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UretimDetay">
+      <wsdl:input message="tns:UretimDetaySoapIn" />
+      <wsdl:output message="tns:UretimDetaySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatList">
+      <wsdl:input message="tns:TahsilatListSoapIn" />
+      <wsdl:output message="tns:TahsilatListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TahakkukKomisyonMuhasebesi">
+      <wsdl:input message="tns:TahakkukKomisyonMuhasebesiSoapIn" />
+      <wsdl:output message="tns:TahakkukKomisyonMuhasebesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PoliceOdemeAraci">
+      <wsdl:input message="tns:PoliceOdemeAraciSoapIn" />
+      <wsdl:output message="tns:PoliceOdemeAraciSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IadeKomisyonMuhasebesi">
+      <wsdl:input message="tns:IadeKomisyonMuhasebesiSoapIn" />
+      <wsdl:output message="tns:IadeKomisyonMuhasebesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatDetay">
+      <wsdl:input message="tns:TahsilatDetaySoapIn" />
+      <wsdl:output message="tns:TahsilatDetaySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPolTahDurum">
+      <wsdl:input message="tns:GetPolTahDurumSoapIn" />
+      <wsdl:output message="tns:GetPolTahDurumSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BankaDetayliUretimRaporu">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Banka Detaylı üretim bilgilerini içerir</wsdl:documentation>
+      <wsdl:input message="tns:BankaDetayliUretimRaporuSoapIn" />
+      <wsdl:output message="tns:BankaDetayliUretimRaporuSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BankaDetayliKomisyonRaporu">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Banka Detaylı Komisyon bilgilerini içerir</wsdl:documentation>
+      <wsdl:input message="tns:BankaDetayliKomisyonRaporuSoapIn" />
+      <wsdl:output message="tns:BankaDetayliKomisyonRaporuSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BankaDetayliKomisyonRaporuTah">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Banka Detaylı Komisyon bilgilerini, tahsilat tarihi bazında içerir</wsdl:documentation>
+      <wsdl:input message="tns:BankaDetayliKomisyonRaporuTahSoapIn" />
+      <wsdl:output message="tns:BankaDetayliKomisyonRaporuTahSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="_BankaDetayliKomisyonRaporuTest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Banka Detaylı Komisyon bilgilerini içerir</wsdl:documentation>
+      <wsdl:input message="tns:_BankaDetayliKomisyonRaporuTestSoapIn" />
+      <wsdl:output message="tns:_BankaDetayliKomisyonRaporuTestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="KrediKartiTahsilatIslemRapor">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Kredi Kartı Tahsilat İşlem Raporu</wsdl:documentation>
+      <wsdl:input message="tns:KrediKartiTahsilatIslemRaporSoapIn" />
+      <wsdl:output message="tns:KrediKartiTahsilatIslemRaporSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAcenteAdi">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Acente adı</wsdl:documentation>
+      <wsdl:input message="tns:GetAcenteAdiSoapIn" />
+      <wsdl:output message="tns:GetAcenteAdiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BankaAcenteAFT">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Bankadan Acente Tahsilatı AFT</wsdl:documentation>
+      <wsdl:input message="tns:BankaAcenteAFTSoapIn" />
+      <wsdl:output message="tns:BankaAcenteAFTSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPoliceTahsilatBilgi">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Poliçe ödeme araçı bilgisi</wsdl:documentation>
+      <wsdl:input message="tns:GetPoliceTahsilatBilgiSoapIn" />
+      <wsdl:output message="tns:GetPoliceTahsilatBilgiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TahakkukMakbuzBasim">
+      <wsdl:input message="tns:TahakkukMakbuzBasimSoapIn" />
+      <wsdl:output message="tns:TahakkukMakbuzBasimSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankaDetayliUretim">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Odeabank banka detaylı üretim</wsdl:documentation>
+      <wsdl:input message="tns:GetBankaDetayliUretimSoapIn" />
+      <wsdl:output message="tns:GetBankaDetayliUretimSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AxaTahsilatWebHttpGet">
+    <wsdl:operation name="_BankaDetayliKomisyonRaporuTest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Banka Detaylı Komisyon bilgilerini içerir</wsdl:documentation>
+      <wsdl:input message="tns:_BankaDetayliKomisyonRaporuTestHttpGetIn" />
+      <wsdl:output message="tns:_BankaDetayliKomisyonRaporuTestHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAcenteAdi">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Acente adı</wsdl:documentation>
+      <wsdl:input message="tns:GetAcenteAdiHttpGetIn" />
+      <wsdl:output message="tns:GetAcenteAdiHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPoliceTahsilatBilgi">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Poliçe ödeme araçı bilgisi</wsdl:documentation>
+      <wsdl:input message="tns:GetPoliceTahsilatBilgiHttpGetIn" />
+      <wsdl:output message="tns:GetPoliceTahsilatBilgiHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TahakkukMakbuzBasim">
+      <wsdl:input message="tns:TahakkukMakbuzBasimHttpGetIn" />
+      <wsdl:output message="tns:TahakkukMakbuzBasimHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankaDetayliUretim">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Odeabank banka detaylı üretim</wsdl:documentation>
+      <wsdl:input message="tns:GetBankaDetayliUretimHttpGetIn" />
+      <wsdl:output message="tns:GetBankaDetayliUretimHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AxaTahsilatWebHttpPost">
+    <wsdl:operation name="_BankaDetayliKomisyonRaporuTest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Banka Detaylı Komisyon bilgilerini içerir</wsdl:documentation>
+      <wsdl:input message="tns:_BankaDetayliKomisyonRaporuTestHttpPostIn" />
+      <wsdl:output message="tns:_BankaDetayliKomisyonRaporuTestHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAcenteAdi">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Acente adı</wsdl:documentation>
+      <wsdl:input message="tns:GetAcenteAdiHttpPostIn" />
+      <wsdl:output message="tns:GetAcenteAdiHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPoliceTahsilatBilgi">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Poliçe ödeme araçı bilgisi</wsdl:documentation>
+      <wsdl:input message="tns:GetPoliceTahsilatBilgiHttpPostIn" />
+      <wsdl:output message="tns:GetPoliceTahsilatBilgiHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TahakkukMakbuzBasim">
+      <wsdl:input message="tns:TahakkukMakbuzBasimHttpPostIn" />
+      <wsdl:output message="tns:TahakkukMakbuzBasimHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankaDetayliUretim">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Odeabank banka detaylı üretim</wsdl:documentation>
+      <wsdl:input message="tns:GetBankaDetayliUretimHttpPostIn" />
+      <wsdl:output message="tns:GetBankaDetayliUretimHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AxaTahsilatWebSoap" type="tns:AxaTahsilatWebSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NakitIadePolice">
+      <soap:operation soapAction="http://tempuri.org/NakitIadePolice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BankaIptalPoliceSonDurum">
+      <soap:operation soapAction="http://tempuri.org/BankaIptalPoliceSonDurum" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BankaIptalPoliceSonDurumOdeme">
+      <soap:operation soapAction="http://tempuri.org/BankaIptalPoliceSonDurumOdeme" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NakitIadeTalimat">
+      <soap:operation soapAction="http://tempuri.org/NakitIadeTalimat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SanalPosIade">
+      <soap:operation soapAction="http://tempuri.org/SanalPosIade" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CPPLOGYAZ">
+      <soap:operation soapAction="http://tempuri.org/CPPLOGYAZ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SanalPosTahsilat">
+      <soap:operation soapAction="http://tempuri.org/SanalPosTahsilat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BKMGetToken">
+      <soap:operation soapAction="http://tempuri.org/BKMGetToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BKMQueryToken">
+      <soap:operation soapAction="http://tempuri.org/BKMQueryToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatIptalByPolice">
+      <soap:operation soapAction="http://tempuri.org/TahsilatIptalByPolice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KomisyonIptal">
+      <soap:operation soapAction="http://tempuri.org/KomisyonIptal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SanalPosIptal">
+      <soap:operation soapAction="http://tempuri.org/SanalPosIptal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TalimatIptalGenel">
+      <soap:operation soapAction="http://tempuri.org/TalimatIptalGenel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NakitTahsilatBrut">
+      <soap:operation soapAction="http://tempuri.org/NakitTahsilatBrut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPoliceBorcuOnayli">
+      <soap:operation soapAction="http://tempuri.org/GetPoliceBorcuOnayli" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPoliceBorcuOnayli_V2">
+      <soap:operation soapAction="http://tempuri.org/GetPoliceBorcuOnayli_V2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GETPOLICEBORCU">
+      <soap:operation soapAction="http://tempuri.org/GETPOLICEBORCU" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GETTOPLAMBORC">
+      <soap:operation soapAction="http://tempuri.org/GETTOPLAMBORC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KismiNakitTahsilat">
+      <soap:operation soapAction="http://tempuri.org/KismiNakitTahsilat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OdenecekKomisyonListesi">
+      <soap:operation soapAction="http://tempuri.org/OdenecekKomisyonListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KomisyonOdemeListesi">
+      <soap:operation soapAction="http://tempuri.org/KomisyonOdemeListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NakitTahsilat">
+      <soap:operation soapAction="http://tempuri.org/NakitTahsilat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UretimList">
+      <soap:operation soapAction="http://tempuri.org/UretimList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OtoTalimatIslemleri">
+      <soap:operation soapAction="http://tempuri.org/OtoTalimatIslemleri" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UretimDetay">
+      <soap:operation soapAction="http://tempuri.org/UretimDetay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatList">
+      <soap:operation soapAction="http://tempuri.org/TahsilatList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahakkukKomisyonMuhasebesi">
+      <soap:operation soapAction="http://tempuri.org/TahakkukKomisyonMuhasebesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PoliceOdemeAraci">
+      <soap:operation soapAction="http://tempuri.org/PoliceOdemeAraci" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IadeKomisyonMuhasebesi">
+      <soap:operation soapAction="http://tempuri.org/IadeKomisyonMuhasebesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatDetay">
+      <soap:operation soapAction="http://tempuri.org/TahsilatDetay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPolTahDurum">
+      <soap:operation soapAction="http://tempuri.org/GetPolTahDurum" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BankaDetayliUretimRaporu">
+      <soap:operation soapAction="http://tempuri.org/BankaDetayliUretimRaporu" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BankaDetayliKomisyonRaporu">
+      <soap:operation soapAction="http://tempuri.org/BankaDetayliKomisyonRaporu" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BankaDetayliKomisyonRaporuTah">
+      <soap:operation soapAction="http://tempuri.org/BankaDetayliKomisyonRaporuTah" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="_BankaDetayliKomisyonRaporuTest">
+      <soap:operation soapAction="http://tempuri.org/_BankaDetayliKomisyonRaporuTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KrediKartiTahsilatIslemRapor">
+      <soap:operation soapAction="http://tempuri.org/KrediKartiTahsilatIslemRapor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAcenteAdi">
+      <soap:operation soapAction="http://tempuri.org/GetAcenteAdi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BankaAcenteAFT">
+      <soap:operation soapAction="http://tempuri.org/BankaAcenteAFT" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPoliceTahsilatBilgi">
+      <soap:operation soapAction="http://tempuri.org/GetPoliceTahsilatBilgi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahakkukMakbuzBasim">
+      <soap:operation soapAction="http://tempuri.org/TahakkukMakbuzBasim" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankaDetayliUretim">
+      <soap:operation soapAction="http://tempuri.org/GetBankaDetayliUretim" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AxaTahsilatWebSoap12" type="tns:AxaTahsilatWebSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NakitIadePolice">
+      <soap12:operation soapAction="http://tempuri.org/NakitIadePolice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BankaIptalPoliceSonDurum">
+      <soap12:operation soapAction="http://tempuri.org/BankaIptalPoliceSonDurum" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BankaIptalPoliceSonDurumOdeme">
+      <soap12:operation soapAction="http://tempuri.org/BankaIptalPoliceSonDurumOdeme" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NakitIadeTalimat">
+      <soap12:operation soapAction="http://tempuri.org/NakitIadeTalimat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SanalPosIade">
+      <soap12:operation soapAction="http://tempuri.org/SanalPosIade" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CPPLOGYAZ">
+      <soap12:operation soapAction="http://tempuri.org/CPPLOGYAZ" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SanalPosTahsilat">
+      <soap12:operation soapAction="http://tempuri.org/SanalPosTahsilat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BKMGetToken">
+      <soap12:operation soapAction="http://tempuri.org/BKMGetToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BKMQueryToken">
+      <soap12:operation soapAction="http://tempuri.org/BKMQueryToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatIptalByPolice">
+      <soap12:operation soapAction="http://tempuri.org/TahsilatIptalByPolice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KomisyonIptal">
+      <soap12:operation soapAction="http://tempuri.org/KomisyonIptal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SanalPosIptal">
+      <soap12:operation soapAction="http://tempuri.org/SanalPosIptal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TalimatIptalGenel">
+      <soap12:operation soapAction="http://tempuri.org/TalimatIptalGenel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NakitTahsilatBrut">
+      <soap12:operation soapAction="http://tempuri.org/NakitTahsilatBrut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPoliceBorcuOnayli">
+      <soap12:operation soapAction="http://tempuri.org/GetPoliceBorcuOnayli" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPoliceBorcuOnayli_V2">
+      <soap12:operation soapAction="http://tempuri.org/GetPoliceBorcuOnayli_V2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GETPOLICEBORCU">
+      <soap12:operation soapAction="http://tempuri.org/GETPOLICEBORCU" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GETTOPLAMBORC">
+      <soap12:operation soapAction="http://tempuri.org/GETTOPLAMBORC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KismiNakitTahsilat">
+      <soap12:operation soapAction="http://tempuri.org/KismiNakitTahsilat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OdenecekKomisyonListesi">
+      <soap12:operation soapAction="http://tempuri.org/OdenecekKomisyonListesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KomisyonOdemeListesi">
+      <soap12:operation soapAction="http://tempuri.org/KomisyonOdemeListesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NakitTahsilat">
+      <soap12:operation soapAction="http://tempuri.org/NakitTahsilat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UretimList">
+      <soap12:operation soapAction="http://tempuri.org/UretimList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OtoTalimatIslemleri">
+      <soap12:operation soapAction="http://tempuri.org/OtoTalimatIslemleri" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UretimDetay">
+      <soap12:operation soapAction="http://tempuri.org/UretimDetay" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatList">
+      <soap12:operation soapAction="http://tempuri.org/TahsilatList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahakkukKomisyonMuhasebesi">
+      <soap12:operation soapAction="http://tempuri.org/TahakkukKomisyonMuhasebesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PoliceOdemeAraci">
+      <soap12:operation soapAction="http://tempuri.org/PoliceOdemeAraci" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IadeKomisyonMuhasebesi">
+      <soap12:operation soapAction="http://tempuri.org/IadeKomisyonMuhasebesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatDetay">
+      <soap12:operation soapAction="http://tempuri.org/TahsilatDetay" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPolTahDurum">
+      <soap12:operation soapAction="http://tempuri.org/GetPolTahDurum" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BankaDetayliUretimRaporu">
+      <soap12:operation soapAction="http://tempuri.org/BankaDetayliUretimRaporu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BankaDetayliKomisyonRaporu">
+      <soap12:operation soapAction="http://tempuri.org/BankaDetayliKomisyonRaporu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BankaDetayliKomisyonRaporuTah">
+      <soap12:operation soapAction="http://tempuri.org/BankaDetayliKomisyonRaporuTah" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="_BankaDetayliKomisyonRaporuTest">
+      <soap12:operation soapAction="http://tempuri.org/_BankaDetayliKomisyonRaporuTest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KrediKartiTahsilatIslemRapor">
+      <soap12:operation soapAction="http://tempuri.org/KrediKartiTahsilatIslemRapor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAcenteAdi">
+      <soap12:operation soapAction="http://tempuri.org/GetAcenteAdi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BankaAcenteAFT">
+      <soap12:operation soapAction="http://tempuri.org/BankaAcenteAFT" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPoliceTahsilatBilgi">
+      <soap12:operation soapAction="http://tempuri.org/GetPoliceTahsilatBilgi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahakkukMakbuzBasim">
+      <soap12:operation soapAction="http://tempuri.org/TahakkukMakbuzBasim" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankaDetayliUretim">
+      <soap12:operation soapAction="http://tempuri.org/GetBankaDetayliUretim" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AxaTahsilatWebHttpGet" type="tns:AxaTahsilatWebHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="_BankaDetayliKomisyonRaporuTest">
+      <http:operation location="/_BankaDetayliKomisyonRaporuTest" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAcenteAdi">
+      <http:operation location="/GetAcenteAdi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPoliceTahsilatBilgi">
+      <http:operation location="/GetPoliceTahsilatBilgi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahakkukMakbuzBasim">
+      <http:operation location="/TahakkukMakbuzBasim" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankaDetayliUretim">
+      <http:operation location="/GetBankaDetayliUretim" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AxaTahsilatWebHttpPost" type="tns:AxaTahsilatWebHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="_BankaDetayliKomisyonRaporuTest">
+      <http:operation location="/_BankaDetayliKomisyonRaporuTest" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAcenteAdi">
+      <http:operation location="/GetAcenteAdi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPoliceTahsilatBilgi">
+      <http:operation location="/GetPoliceTahsilatBilgi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahakkukMakbuzBasim">
+      <http:operation location="/TahakkukMakbuzBasim" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankaDetayliUretim">
+      <http:operation location="/GetBankaDetayliUretim" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AxaTahsilatWeb">
+    <wsdl:port name="AxaTahsilatWebSoap" binding="tns:AxaTahsilatWebSoap">
+      <soap:address location="https://appt.axasigorta.com.tr/AxaApplicationWebSrv_DevTest/AxaTahsilatWeb.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AxaTahsilatWebSoap12" binding="tns:AxaTahsilatWebSoap12">
+      <soap12:address location="https://appt.axasigorta.com.tr/AxaApplicationWebSrv_DevTest/AxaTahsilatWeb.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AxaTahsilatWebHttpGet" binding="tns:AxaTahsilatWebHttpGet">
+      <http:address location="https://appt.axasigorta.com.tr/AxaApplicationWebSrv_DevTest/AxaTahsilatWeb.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AxaTahsilatWebHttpPost" binding="tns:AxaTahsilatWebHttpPost">
+      <http:address location="https://appt.axasigorta.com.tr/AxaApplicationWebSrv_DevTest/AxaTahsilatWeb.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,62 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.IkinciElGarantiGenelBilgiler
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.VehicleModel<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(m => m.Model, Model.Modeller)
+                @Html.ValidationMessageFor(m => m.Model)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.CylinderCapacity<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(m => m.SilindirHacmi, Model.SilindirHacimleri)
+                @Html.ValidationMessageFor(m => m.SilindirHacmi)
+            </div>
+        </div>
+    </div>
+
+
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.PolicyTime<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(m => m.PoliceSuresi, Model.PoliceSureleri, new { tabindex = "11" })
+                @Html.ValidationMessageFor(m => m.PoliceSuresi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.CollateralType<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(m => m.TeminatTuru, Model.TeminatTurleri)
+                @Html.ValidationMessageFor(m => m.TeminatTuru)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid" style="margin-bottom: 10px">
+    <div class="span6"></div>
+    <div class="span6">
+        <div class="span3">
+            <button id="pdf-3stars" onclick="window.open('https://neobabstoragetest.blob.core.windows.net/musteri-dokuman/176/Advisory%20Office%20-%20Tasit%20-%203%20Star%20Cover%20Summary.pdf');return false;" class="btn btn-primary" type="button"><i class="icon-file icon-white"></i>&nbsp; 3 Star </button>
+        </div>
+        <div class="span3">
+            <button id="pdf-5stars" onclick="window.open('https://neobabstoragetest.blob.core.windows.net/musteri-dokuman/176/Advisory%20Office%20-%20Tasit%20-%205%20Star%20Cover%20Summary.pdf');return false;" class="btn btn-primary" type="button"><i class="icon-file icon-white"></i>&nbsp; 5 Star</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

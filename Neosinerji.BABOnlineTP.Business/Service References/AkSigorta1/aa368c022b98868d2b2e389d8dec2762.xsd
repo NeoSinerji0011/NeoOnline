@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://kasko.v2.genel.webServices.aksigorta.tr.com/" targetNamespace="http://kasko.v2.genel.webServices.aksigorta.tr.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="kaskoPoliceOlustur" type="tns:kaskoPoliceOlustur" />
+  <xs:element name="kaskoPoliceOlusturResponse" type="tns:kaskoPoliceOlusturResponse" />
+  <xs:element name="kaskoPoliceOlusturmaOutput" type="tns:kaskoPoliceOlusturmaOutput" />
+  <xs:element name="kaskoPrimHesapla" type="tns:kaskoPrimHesapla" />
+  <xs:element name="kaskoPrimHesaplaResponse" type="tns:kaskoPrimHesaplaResponse" />
+  <xs:element name="kaskoPrimHesaplamaOutput" type="tns:kaskoPrimHesaplamaOutput" />
+  <xs:element name="kaskoTeklifOlustur" type="tns:kaskoTeklifOlustur" />
+  <xs:element name="kaskoTeklifOlusturResponse" type="tns:kaskoTeklifOlusturResponse" />
+  <xs:element name="kaskoTeklifOlusturmaOutput" type="tns:kaskoTeklifOlusturmaOutput" />
+  <xs:element name="kaskoTeklifOnayla" type="tns:kaskoTeklifOnayla" />
+  <xs:element name="kaskoTeklifOnayla3dTahsilatUrlOlustur" type="tns:kaskoTeklifOnayla3dTahsilatUrlOlustur" />
+  <xs:element name="kaskoTeklifOnayla3dTahsilatUrlOlusturResponse" type="tns:kaskoTeklifOnayla3dTahsilatUrlOlusturResponse" />
+  <xs:element name="kaskoTeklifOnayla3dUrlOlustur" type="tns:kaskoTeklifOnayla3dUrlOlustur" />
+  <xs:element name="kaskoTeklifOnayla3dUrlOlusturResponse" type="tns:kaskoTeklifOnayla3dUrlOlusturResponse" />
+  <xs:element name="kaskoTeklifOnaylaResponse" type="tns:kaskoTeklifOnaylaResponse" />
+  <xs:element name="sanalpos3DUrlOlusutrmaOutput" type="tns:sanalpos3DUrlOlusutrmaOutput" />
+  <xs:complexType name="kaskoTeklifOnayla3dTahsilatUrlOlustur">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="kaskoTeklifOnayla3dTahsilatUrlOlusturmaInput" type="tns:kaskoTeklifOnayla3DTahsilatUrlOlusturmaInput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kaskoTeklifOnayla3DTahsilatUrlOlusturmaInput">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:kaskoTeklifOnaylamaInput">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="kaskoTeklifOnaylamaInput">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseTeklifOnaylamaInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="tarifeKod" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="baseTeklifOnaylamaInput" abstract="true">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:basePoliceOlusturmaInput">
+        <xs:sequence>
+          <xs:element name="teklifNo" type="xs:string" />
+          <xs:element minOccurs="0" name="returnUrl" type="xs:string" />
+          <xs:element minOccurs="0" name="tahsilatBilgileri" type="tns:tahsilatBilgileriType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="basePoliceOlusturmaInput" abstract="true">
+    <xs:sequence>
+      <xs:element name="kanalBilgileri" type="tns:kanalBilgileriType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tahsilatBilgileriType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="pesinVadeli" type="xs:string" />
+          <xs:element minOccurs="0" name="kartHesapSahibiAdSoyad" type="xs:string" />
+          <xs:element minOccurs="0" name="hesapDovizKodu" type="xs:string" />
+          <xs:element minOccurs="0" name="hesapIban" type="xs:string" />
+          <xs:element minOccurs="0" name="hesapNumarasi" type="xs:string" />
+          <xs:element minOccurs="0" name="hesapSubeAdi" type="xs:string" />
+          <xs:element minOccurs="0" name="hesapSubeKodu" type="xs:string" />
+          <xs:element minOccurs="0" name="krediKartNoSon4Hane" type="xs:string" />
+          <xs:element minOccurs="0" name="krediKartNo" type="xs:string" />
+          <xs:element minOccurs="0" name="cvvNo" type="xs:string" />
+          <xs:element minOccurs="0" name="sonKullanmaTarihi" type="xs:string" />
+          <xs:element minOccurs="0" name="taksitSayisi" type="xs:string" />
+          <xs:element minOccurs="0" name="orderToken" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="baseWSType" abstract="true">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="kanalBilgileriType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSType">
+        <xs:sequence>
+          <xs:element name="kanalId" type="xs:string" />
+          <xs:element name="branchId" type="xs:string" />
+          <xs:element name="token" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="kaskoTeklifOnayla3dTahsilatUrlOlusturResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:sanalpos3DUrlOlusutrmaOutput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sanalpos3DUrlOlusutrmaOutput">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSPoliceOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="sanalpos3dUrl" type="xs:string" />
+          <xs:element minOccurs="0" name="orderToken" type="xs:string" />
+          <xs:element minOccurs="0" name="geciciPoliceNo" type="xs:long" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="baseWSPoliceOutput">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="errorCode" type="xs:string" />
+      <xs:element minOccurs="0" name="errorMessage" type="xs:string" />
+      <xs:element minOccurs="0" name="errorType" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kaskoPoliceOlustur">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="kaskoPoliceOlusturmaInput" type="tns:kaskoPoliceOlusturmaInput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kaskoPoliceOlusturmaInput">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseKaskoPoliceOlusturmaInput">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="baseKaskoPoliceOlusturmaInput" abstract="true">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:basePoliceOlusturmaInput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="policeBilgileri" type="tns:kaskoPoliceBilgileriType" />
+          <xs:element minOccurs="0" name="sigortaEttiren" type="tns:sigortaEttirenType" />
+          <xs:element name="sigortali" type="tns:sigortaliType" />
+          <xs:element minOccurs="0" name="dainiMurtehinBilgileri" type="tns:dainiMurtehinType" />
+          <xs:element name="aracBilgileri" type="tns:aracBilgileriType" />
+          <xs:element minOccurs="0" name="istatistikListesi" type="tns:istatistikListesiType" />
+          <xs:element minOccurs="0" name="teminatListesi" type="tns:teminatListesiType" />
+          <xs:element name="tahsilatBilgileri" type="tns:tahsilatBilgileriType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="kaskoPoliceBilgileriType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSType">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="oncekiAcenteNo" type="xs:string" />
+          <xs:element minOccurs="0" name="oncekiPoliceNo" type="xs:string" />
+          <xs:element minOccurs="0" name="oncekiSirketKodu" type="xs:string" />
+          <xs:element minOccurs="0" name="oncekiYenilemeNo" type="xs:string" />
+          <xs:element minOccurs="0" name="policeBaslamaTarihi" type="xs:string" />
+          <xs:element minOccurs="0" name="kaskoTarifeKod" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="sigortaEttirenType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSType">
+        <xs:sequence>
+          <xs:element name="sigortaliSigortaEttirenFarkliMi" type="xs:string" />
+          <xs:element name="kimlikNo" type="xs:string" />
+          <xs:element minOccurs="0" name="email" type="xs:string" />
+          <xs:element minOccurs="0" name="cepNo" type="xs:string" />
+          <xs:element minOccurs="0" name="adresIlKodu" type="xs:string" />
+          <xs:element minOccurs="0" name="adresBeldeKodu" type="xs:string" />
+          <xs:element minOccurs="0" name="mahalle" type="xs:string" />
+          <xs:element minOccurs="0" name="cadde" type="xs:string" />
+          <xs:element minOccurs="0" name="sokak" type="xs:string" />
+          <xs:element minOccurs="0" name="binaKapiNo" type="xs:string" />
+          <xs:element minOccurs="0" name="daireNo" type="xs:string" />
+          <xs:element minOccurs="0" name="mbbNo" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="sigortaliType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSType">
+        <xs:sequence>
+          <xs:element name="kimlikNo" type="xs:string" />
+          <xs:element minOccurs="0" name="email" type="xs:string" />
+          <xs:element minOccurs="0" name="cepNo" type="xs:string" />
+          <xs:element minOccurs="0" name="adresIlKodu" type="xs:string" />
+          <xs:element minOccurs="0" name="adresBeldeKodu" type="xs:string" />
+          <xs:element minOccurs="0" name="mahalle" type="xs:string" />
+          <xs:element minOccurs="0" name="cadde" type="xs:string" />
+          <xs:element minOccurs="0" name="sokak" type="xs:string" />
+          <xs:element minOccurs="0" name="binaKapiNo" type="xs:string" />
+          <xs:element minOccurs="0" name="daireNo" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="dainiMurtehinType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSType">
+        <xs:sequence>
+          <xs:element name="dainiMurtehinMevcutMu" type="xs:string" />
+          <xs:element minOccurs="0" name="bankaKodu" type="xs:string" />
+          <xs:element minOccurs="0" name="subeKodu" type="xs:string" />
+          <xs:element minOccurs="0" name="krediDovizTuru" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="aracBilgileriType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSType">
+        <xs:sequence>
+          <xs:element name="yeniAracMi" type="xs:string" />
+          <xs:element name="plakaIlKodu" type="xs:string" />
+          <xs:element minOccurs="0" name="plakaNo" type="xs:string" />
+          <xs:element minOccurs="0" name="tescilBelgeSeriNo" type="xs:string" />
+          <xs:element minOccurs="0" name="kullanimTarzi" type="xs:string" />
+          <xs:element minOccurs="0" name="aracMarkaKodu" type="xs:string" />
+          <xs:element minOccurs="0" name="aracTipKodu" type="xs:string" />
+          <xs:element minOccurs="0" name="modelYili" type="xs:string" />
+          <xs:element minOccurs="0" name="koltukSayisi" type="xs:string" />
+          <xs:element minOccurs="0" name="motorNo" type="xs:string" />
+          <xs:element minOccurs="0" name="sasiNo" type="xs:string" />
+          <xs:element minOccurs="0" name="tescilTarihi" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="istatistikListesiType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="istatistik" type="tns:istatistikType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="istatistikType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSType">
+        <xs:sequence>
+          <xs:element name="kod" type="xs:string" />
+          <xs:element name="deger" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="teminatListesiType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="teminat" type="tns:teminatType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="teminatType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSType">
+        <xs:sequence>
+          <xs:element name="kod" type="xs:string" />
+          <xs:element name="bedel" type="xs:decimal" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="kaskoPoliceOlusturResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:kaskoPoliceOlusturmaOutput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kaskoPoliceOlusturmaOutput">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseKaskoPoliceOlusturmaOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="affinity" type="xs:string" />
+          <xs:element minOccurs="0" name="affinityIndirimOrani" type="xs:string" />
+          <xs:element minOccurs="0" name="teklifPoliceDurumu" type="tns:teklifOnay" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="baseKaskoPoliceOlusturmaOutput" abstract="true">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseKaskoPrimHesaplamaOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="tahsilEdilenTutar" type="xs:decimal" />
+          <xs:element minOccurs="0" name="policeNo" type="xs:long" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="baseKaskoPrimHesaplamaOutput">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSPoliceOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="primBilgileri" type="tns:primBilgileri" />
+          <xs:element minOccurs="0" name="teminatBilgileri" type="tns:teminatSonucBilgileri" />
+          <xs:element minOccurs="0" name="yetkiDurumu" type="tns:evetHayir" />
+          <xs:element minOccurs="0" name="yetkiAciklama" type="xs:string" />
+          <xs:element minOccurs="0" name="hasarsizlikIndirimi" type="xs:string" />
+          <xs:element minOccurs="0" name="hasarsizlikIndirimOrani" type="xs:string" />
+          <xs:element minOccurs="0" name="kullanimTarzi" type="xs:string" />
+          <xs:element minOccurs="0" name="aracKodu" type="xs:string" />
+          <xs:element minOccurs="0" name="aracModelYili" type="xs:int" />
+          <xs:element minOccurs="0" name="motorNo" type="xs:string" />
+          <xs:element minOccurs="0" name="sasiNo" type="xs:string" />
+          <xs:element minOccurs="0" name="aracMarkasi" type="xs:string" />
+          <xs:element minOccurs="0" name="aracTipi" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="primBilgileri">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="primBilgisi" nillable="true" type="tns:primBilgisi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="primBilgisi">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="pesinVadeli" type="xs:string" />
+      <xs:element minOccurs="0" name="prim" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="teminatSonucBilgileri">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="teminatBilgisi" nillable="true" type="tns:teminatSonucBilgisi" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="teminatSonucBilgisi">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="teminatKodu" type="xs:string" />
+      <xs:element minOccurs="0" name="teminatAdi" type="xs:string" />
+      <xs:element minOccurs="0" name="bedel" type="xs:decimal" />
+      <xs:element minOccurs="0" name="netPrim" type="xs:decimal" />
+      <xs:element minOccurs="0" name="brutPrim" type="xs:decimal" />
+      <xs:element minOccurs="0" name="komisyonTutari" type="xs:decimal" />
+      <xs:element minOccurs="0" name="vergiTutari" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kaskoTeklifOlustur">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="kaskoTeklifOlusturmaInput" type="tns:kaskoTeklifOlusturmaInput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kaskoTeklifOlusturmaInput">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseKaskoPoliceOlusturmaInput">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="kaskoTeklifOlusturResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:kaskoTeklifOlusturmaOutput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kaskoTeklifOlusturmaOutput">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseKaskoPoliceOlusturmaOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="affinity" type="xs:string" />
+          <xs:element minOccurs="0" name="affinityIndirimOrani" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="kaskoTeklifOnayla">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="kaskoTeklifOnaylamaInput" type="tns:kaskoTeklifOnaylamaInput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kaskoTeklifOnaylaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:kaskoPoliceOlusturmaOutput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kaskoTeklifOnayla3dUrlOlustur">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="kaskoTeklifOnaylamaInput" type="tns:kaskoTeklifOnayla3DUrlOlusturmaInput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kaskoTeklifOnayla3DUrlOlusturmaInput">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:kaskoTeklifOnaylamaInput">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="kaskoTeklifOnayla3dUrlOlusturResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:sanalpos3DUrlOlusutrmaOutput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kaskoPrimHesapla">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="kaskoPrimHesaplamaInput" type="tns:kaskoPrimHesaplamaInput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kaskoPrimHesaplamaInput">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseKaskoPoliceOlusturmaInput">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="kaskoPrimHesaplaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:kaskoPrimHesaplamaOutput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kaskoPrimHesaplamaOutput">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseKaskoPrimHesaplamaOutput">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="affinity" type="xs:string" />
+          <xs:element minOccurs="0" name="affinityIndirimOrani" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="teklifOnay">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TEKLIF" />
+      <xs:enumeration value="POLICE" />
+      <xs:enumeration value="RED" />
+      <xs:enumeration value="SANAL" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="evetHayir">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="E" />
+      <xs:enumeration value="H" />
+      <xs:enumeration value="R" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

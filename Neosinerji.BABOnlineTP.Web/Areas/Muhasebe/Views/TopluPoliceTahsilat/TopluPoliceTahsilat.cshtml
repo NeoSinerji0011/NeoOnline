@@ -1,0 +1,290 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Muhasebe.Models
+@model TopluPoliceTahsilatModel
+
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="~/TVM/TVM/Index">Toplu Poliçe Tahsilatı<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search..." class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+@section PageStyles{
+    <link rel="stylesheet" href="~/Content/css/TLsimgesi.css" />
+}
+
+@section PageScripts
+{    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+
+    <script>
+          var myArray = [];
+
+@if (Model.TVMLerSelectList != null)
+    {
+        foreach (var d in Model.TVMLerSelectList)
+        {
+@:myArray.push("@d");
+
+                        }
+                    }
+
+    var myArraySigortaSirket = [];
+
+@if (Model.SigortaSirketleriSelectList != null)
+    {
+
+        foreach (var d in Model.SigortaSirketleriSelectList)
+        {
+@:myArraySigortaSirket.push("@d");
+
+                        }
+                    }
+
+    var myArrayBrans = [];
+
+@if (Model.BransSelectList != null)
+    {
+        foreach (var d in Model.BransSelectList)
+        {
+@:myArrayBrans.push("@d");
+
+                        }
+                    }
+                    //Multi SElectlist Scritps
+            $('.multiselect').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                maxHeight: 170,
+                nonSelectedText: '@babonline.PleaseSelect',
+                selectAllText: '@babonline.Select_All',
+                filterPlaceholder: '@babonline.Search',
+                nSelectedText: '@babonline.Selected'
+            });
+        $(document).ready(function () {
+            // ==== Tarih ayarları ==== //
+            //policeraporu load olduğunda başlangıç tarihini bitiş tarihinin min date ine atıyor
+            var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+            $("#BitisTarihi").datepicker("option", "minDate", baslamaT);
+
+            //başlama tarihi değiştiğinde başlama tarihinin bir ay sonrasını bitiş tarihine atıyor
+            $('#BaslangicTarihi').change(function () {
+                var bas = $(this).datepicker("getDate");
+                $("#BitisTarihi").datepicker("option", "minDate", bas);
+
+                var monthMillisec = (31 * 24 * 60 * 60 * 1000)/2;
+                var maxDate = new Date();
+                maxDate.setTime(bas.getTime() + monthMillisec);
+
+                $("#BitisTarihi").datepicker("setDate", maxDate);
+
+                var d2 = $('#BitisTarihi').datepicker("getDate");
+                var max = d2 - bas;
+
+            });
+
+            //bitiş tarihi değiştiğinde tarih aralığının 1 ay aralığında olup olmadığının kontrolünü yapıyor
+            $('#BitisTarihi').change(function () {
+                var bitisT = $(this).datepicker("getDate");
+                var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+                var aralik = bitisT - baslamaT;
+                var monthMillisec = (31 * 24 * 60 * 60 * 1000)/2;
+
+                var maxDate = new Date();
+                maxDate.setTime(baslamaT.getTime() + monthMillisec);
+
+                if (aralik > monthMillisec) {
+                    alert("İki tarih aralığı 1 aydan fazla olamaz");
+                    $("#BitisTarihi").datepicker("setDate", maxDate);
+                }
+
+            });
+
+
+            $("[rel=tooltip]").tooltip();
+
+
+            if (myArray.length > 0) {
+                $('#TVMLerSelectList').val(myArray);
+            }
+            $("#TVMLerSelectList").multiselect("refresh");
+
+            if (myArraySigortaSirket.length > 0) {
+                $('#SigortaSirketleriSelectList').val(myArraySigortaSirket);
+            }
+            $("#SigortaSirketleriSelectList").multiselect("refresh");
+
+            if (myArrayBrans.length > 0) {
+                $('#BransSelectList').val(myArrayBrans);
+            }
+            $("#BransSelectList").multiselect("refresh");
+            $("#PoliceListesiOfflineSearch").click(function () {
+    $(this).button("loading");
+    //if ($("#tvmList").val() == null) {
+    //    $(this).button('reset');
+    //}
+        if ($("#BransSelectList").val() == null) {
+        $(this).button('reset');
+    }
+    if ($("#SigortaSirketleriSelectList").val() == null) {
+        $(this).button('reset');
+    }
+
+
+});
+
+            //Arama Yapıyor..
+            var oTable = $('.data-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": true,
+                "bFilter": false,
+                "bSort": false,
+                "bInfo": true,
+                "bProcessing": true,
+                "bServerSide": true,
+                "sAjaxSource": "/Rapor/Rapor/PoliceListesi",
+                "bDeferLoading": true,
+                "iDeferLoading": 0,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap",
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap",
+                "sDom": 'T<"clear">lfrtip',
+                "oTableTools": { "aButtons": ["pdf", "xls", "print", "copy"] },
+                "fnDrawCallback": function () {
+                    $("#search").button("reset");
+                }
+            });
+
+            $("#search").click(function () {
+                $(this).button("loading");
+                oTable.fnDraw();
+            });
+
+
+        });
+        if (myArray.length > 0) {
+            $('#TVMLerSelectList').val(myArray);
+        }
+        $("#TVMLerSelectList").multiselect("refresh");
+
+        if (myArraySigortaSirket.length > 0) {
+            $('#SigortaSirketleriSelectList').val(myArraySigortaSirket);
+        }
+        $("#SigortaSirketleriSelectList").multiselect("refresh");
+
+        if (myArrayBrans.length > 0) {
+            $('#BransSelectList').val(myArrayBrans);
+        }
+        $("#BransSelectList").multiselect("refresh");
+    </script>
+
+}
+
+
+<div class="row-fluid">
+
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">Toplu Poliçe Tahsilat Kapatma</span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @*//  <form class="form-horizontal" action="~/Rapor/Rapor/PoliceListesi" method="post">*@
+                @using (Html.BeginForm("TopluPoliceTahsilat", "TopluPoliceTahsilat", FormMethod.Post, new { @class = "form-horizontal", id = "TopluPoliceTahsilat", enctype = "multipart/form-data" }))
+                {
+                    <div class="row-fluid" style="padding-top: 10px;">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVM</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.tvmList, Model.tvmler, new { @class = "multiselect", multiple = "multiple", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.tvmList)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Branch</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.BransSelectList, Model.BranslarItems, new { @class = "multiselect", multiple = "multiple" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.InsuranceCompany</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.SigortaSirketleriSelectList, Model.SigortaSirketleri, new { @class = "multiselect", multiple = "multiple" })
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.ReportStartDate</label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(s => s.BaslangicTarihi, new { style = "width:100px", Id = "BaslangisTarihi" })
+
+                                    @Html.ValidationMessageFor(s => s.BaslangicTarihi)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.ReportEndDate</label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(s => s.BitisTarihi, new { style = "width:100px", Id = "BitisTarihi" })
+                                    @Html.ValidationMessageFor(s => s.BitisTarihi)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="alert" class="alert fade" style="display: none">
+                        <button type="button" class="close" id="close-alert">×</button>
+                        <strong>@babonline.Warning</strong>  @babonline.Message_Customer_SearchError
+                    </div>
+                    <div class="form-actions">
+                        <a href="~/Muhasebe/TopluPoliceTahsilat/TopluPoliceTahsilat" class="btn ligth-grey">@babonline.Clear</a>
+                        <input type="submit" id="PoliceListesiOfflineSearch" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="@babonline.Search" />
+
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>

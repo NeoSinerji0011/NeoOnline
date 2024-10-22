@@ -1,0 +1,64 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.LehtarBilgileriModel
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.UserCount<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.kisiSayisi, Model.kisiSayilari, new { style = "width:100px" })
+                @Html.ValidationMessageFor(s => s.kisiSayisi)
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.LehterList != null)
+{
+    for (int i = 0; i < Model.LehterList.Count; i++)
+    {
+    
+    <div id="Lehtar-ana-div_@i" style="display: none">
+        <h4 class="form-section">@(i + 1). Lehtar </h4>
+
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="control-group">
+                    <label class="control-label">@babonline.Name</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(s => s.LehterList[i].Adi, new { @class = "upper-letter" })
+                        @Html.ValidationMessageFor(s => s.LehterList[i].Adi)
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">@babonline.Lastname</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(s => s.LehterList[i].Soyadi, new { @class = "upper-letter" })
+                        @Html.ValidationMessageFor(s => s.LehterList[i].Soyadi)
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="control-group">
+                    <label class="control-label">@babonline.DateOfBirth</label>
+                    <div class="controls">
+                        @Html.DateTextBoxFor(s => s.LehterList[i].DogumTarihi, new { })
+                        @Html.ValidationMessageFor(s => s.LehterList[i].DogumTarihi)
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">% Oranı</label>
+                    <div class="controls">
+                        <div class="input-append">
+                            @Html.TextBoxFor(s => s.LehterList[i].Oran, new { @class = "m-wrap onlynumbers autoNumeric", style = "width:120px;text-align:right" })<span class="add-on">%</span>
+                        </div>
+                        @Html.ValidationMessageFor(s => s.LehterList[i].Oran)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    }
+}

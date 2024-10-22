@@ -1,0 +1,197 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model DetayKrediliHayatModel
+
+@section PageStyles
+{
+    <link href="~/content/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li>
+            <a href="/Teklif/Teklif/Liste">@babonline.Proposal_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Detail<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.NewProposal<span class="arrow"></span></a>
+            <ul class="dropdown-menu">
+                @foreach (var item in ViewBag.UrunYetkileri)
+                {
+                    <li><a href="@item.UrunURL">@item.UrunAdi</a></li>
+                }
+            </ul>
+            <b class="caret-out"></b>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/switch")
+    <script src="@Url.Content("~/Content/js/neosinerji.babonlinetp.teklif.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/neosinerji.babonlinetp.kredilihayat.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.bootstrap.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Content/js/jquery.validate.custom.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.gritter.min.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#step3").collapse('show');
+            $("#step1").collapse('hide');
+
+            $("#btn-teklif-tekrar").click(function () {
+                $("#id").val(@Model.SigortaEttiren.MusteriKodu);
+                $("#formTeklif").submit();
+            });
+        });
+    </script>
+}
+
+<form id="formTeklif" action="/Teklif/KrediliHayat/Ekle" method="post">
+    @Html.Hidden("id", Model.SigortaEttiren.MusteriKodu)
+    @Html.Hidden("teklifId", Model.TeklifId)
+</form>
+
+<form class="form-horizontal">
+    @Html.HiddenFor(m => m.TeklifId)
+    <div class="portlet box light-grey" style="margin-top: 24px;">
+        <div class="portlet-title">
+            <div class="caption"><i class="icon-reorder"></i>@babonline.ProposalInfo</div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="accordion" id="accordion">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step1">
+                            <i class="icon-angle-left"></i>
+                            @babonline.UserInfo
+                        </a>
+                    </div>
+                    <div id="step1" class="accordion-body collapse in">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+                                <div class="row-fluid">
+
+                                    @Html.EditorFor(m => m.Hazirlayan)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step2">
+                            <i class="icon-angle-left"></i>
+                            @babonline.ProposalInfo
+                        </a>
+                    </div>
+                    <div id="step2" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+                                <div class="form-section-header">
+                                    <h3 class="form-section">@babonline.Insured</h3>
+                                </div>                                        
+                                @Html.EditorFor(s => s.Sigortali)
+                                <div class="form-section-header">
+                                    <h3 class="form-section">@babonline.CreditDetails</h3>
+                                </div>
+                                @Html.EditorFor(m => m.Kredi)
+                                <div class="form-section-header">
+                                    <h3 class="form-section">@babonline.Address_Info</h3>
+                                </div>
+                                @Html.EditorFor(m => m.Adres)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-group" id="step3group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step3">
+                            <i class="icon-angle-left"></i>
+                            @babonline.Proposal
+                        </a>
+                    </div>
+                    <div id="step3" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+                                <div id="teklif-no-container" class="row-fluid">
+                                    <div class="span12">
+                                        <h4>@babonline.Proposal_No: @Model.TeklifNo</h4>
+                                    </div>
+                                </div>
+                                <div id="teklif-fiyatlar">
+                                    <div class="row-fluid" style="margin-top: 20px; border-bottom: 1px solid #e5e5e5;">
+                                        <div class="span2" style="text-align: center;">@babonline.InsuranceCompany</div>
+                                        <div class="span7" style="text-align: center;">@babonline.SinglePayment</div>
+                                    </div>
+                                    <div class="fiyat-container">
+                                        @for (int i = 0; i < Model.Fiyat.Fiyatlar.Count; i++)
+                                        {
+                                            if (Model.Fiyat.Fiyatlar[i].Hatalar == null || Model.Fiyat.Fiyatlar[i].Hatalar.Count == 0)
+                                            {
+                                            <div class="row-fluid" id="fiyat-container-@(i)" style="margin-top:20px; padding-bottom:20px; border-bottom: 1px solid #e5e5e5;">
+                                                <div class="span2" style="text-align: center;">
+                                                    <img id="tum-unvan-@(i)" src="@Model.Fiyat.Fiyatlar[i].TUMLogoUrl" alt="@Model.Fiyat.Fiyatlar[i].TUMUnvani" title="@Model.Fiyat.Fiyatlar[i].TUMUnvani" />
+                                                </div>
+                                                <div id="div-fiyat-1-@(i)" class="span7" style="text-align:center;">
+                                                    <span id="tum-fiyat-1-@(i)" style="font-weight:bold;" class="fiyat">@Model.Fiyat.Fiyatlar[i].Fiyat1</span>
+                                                    <button id="tum-satial-1-@(i)" type="button" class="btn btn-success teklif-satin-al" teklif-id="@Model.Fiyat.Fiyatlar[i].Fiyat1_TeklifId" fiyat="@Model.Fiyat.Fiyatlar[i].Fiyat1" style="padding-left:10px;">
+                                                        <i class="icon-ok icon-white"></i>
+                                                        <span>@babonline.Buy</span>
+                                                    </button>
+                                                </div>
+                                                <div class="span3">
+                                                    <a id="bilgilendirme-formu-@(i)" class="btn btn-primary" href="/Teklif/Teklif/BilgilendirmeFormu?fn=DemirHayatBilgilendirmeFormu&id=@Model.Fiyat.Fiyatlar[i].Fiyat1_TeklifId" target="_blank"><i class="icon-file icon-white"></i> @babonline.InformationForm</a>
+                                                </div>
+                                            </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <div id="teklif-button-container" class="row-fluid" style="padding-top: 20px; padding-bottom: 20px; margin-top: 20px;">
+                                    <div class="span4">
+                                        <button id="email-gonder" class="btn btn-primary" type="button" data-loading-text="@babonline.Message_Loading"><i class="icon-envelope icon-white"></i> @babonline.EmailSend</button>
+                                    </div>
+                                    <div class="span4">
+                                        <button id="btn-teklif-tekrar" class="btn btn-warning" type="button"><i class="icon-star-empty icon-white"></i> @babonline.RepeatProposal</button>
+                                    </div>
+                                    <div class="offset6"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@Html.EditorFor(m => m.KrediKarti)
+
+@*Mail gönderme modal form*@
+<div id="mail-gonder-modal-div"></div>

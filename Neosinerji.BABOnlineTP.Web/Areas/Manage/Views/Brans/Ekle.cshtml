@@ -1,0 +1,73 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.BransModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/Brans/Liste">@babonline.Branch_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Branch_Add<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.Branch_Add</div>
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("Ekle", "Brans", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            Html.EnableClientValidation(true);
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Branch_Code    <span class="required">*</span></label>
+
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.BransKodu, new { maxlength = 6, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.BransKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Branch_Name   <span class="required">*</span></label>
+
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.BransAdi, new { maxlength = 30, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.BransAdi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Status   <span class="required">*</span></label>
+
+                <div class="controls radio-custom">
+                    @Html.RadioButtonListFor(m => m.Durum, Model.Durumlar)
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                <a class="btn" href="~/Manage/Brans/Liste">@babonline.Cancel</a>
+            </div>
+        }
+    </div>
+</div>
+

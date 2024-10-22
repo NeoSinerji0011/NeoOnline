@@ -1,0 +1,84 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@model DetayNipponSeyahatKrediBilgileriModel
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.FatherName</label>
+            <div class="controls">
+                <label class="control">@Model.UserCreditCard</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.StartDate<span class="required">*</span></label>
+            <div class="controls">
+                <label class="control">@Model.BeginDate.ToString("dd.MM.yyyy")</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.EndDate<span class="required">*</span></label>
+            <div class="controls">
+                <label class="control">@Model.EndDate.ToString("dd.MM.yyyy")</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.CreditAmount<span class="required">*</span></label>
+            <div class="controls">
+                <label class="control">@Model.IsDomestic</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.ScopeOfCoverage<span class="required">*</span></label>
+            <div class="controls">
+                <label class="control">@Model.Scope</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.CreditType<span class="required">*</span></label>
+            <div class="controls">
+                <label class="control">@Model.TravelPocket</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.CreditType<span class="required">*</span></label>
+            <div class="controls">
+                <label class="control">@Model.Alternative</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.CreditType<span class="required">*</span></label>
+            <div class="controls">
+                <label class="control">@Model.Country</label>
+            </div>
+        </div>
+    </div>
+</div>

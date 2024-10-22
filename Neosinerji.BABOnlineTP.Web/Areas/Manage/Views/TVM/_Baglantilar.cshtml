@@ -1,0 +1,64 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model TVMIPBaglantiListModel
+
+<script>
+    $(document).ready(function () {
+        var baglantiTable;
+        function baglantiTableSet() {
+            baglantiTable = $('#baglantilar-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        baglantiTableSet();
+    });
+</script>
+
+<table id="baglantilar-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 150px;">@babonline.Order</th>
+            <th>@babonline.TVMIPConnection_StartIP</th>
+            <th>@babonline.TVMIPConnection_EndIP</th>
+            <th style="width: 100px;">@babonline.Add_Date</th>
+            <th style="width: 50px;">@babonline.Status</th>
+            <th style="width: 50px;">&nbsp;</th>
+            <th style="width: 40px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td style="text-align: center; width: 100px;">@item.SiraNo</td>
+                <td>@item.BaslangicIP</td>
+                <td>@item.BitisIP</td>
+                <td>@item.KayitTarihi.ToShortDateString()</td>
+                <td style="text-align: center;">
+                    @if (item.Durum == 1)
+                    {
+                        <span class="label label-success">@babonline.Active</span>
+                    }
+                    else
+                    {
+                        <span class="label label-important">@babonline.Pasive</span>
+                    }
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" baglanti-kodu="@item.SiraNo" tvm-kodu="@item.TVMKodu" class="btn btn-mini btn-info edit-baglanti">@babonline.Edit</a>
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" baglanti-kodu="@item.SiraNo" tvm-kodu="@item.TVMKodu" class="btn btn-mini btn-danger delete-baglanti">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

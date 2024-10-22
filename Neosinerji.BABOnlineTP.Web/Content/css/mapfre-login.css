@@ -1,0 +1,408 @@
+﻿body {
+    margin-left: 0pt;
+    margin-top: 0pt;
+    margin-right: 0pt;
+    margin-bottom: 0pt;
+    background-color: #E6E6E6;
+    background-image: url(/Content/img/Mapfre/anasayfa_new2.jpg);
+}
+
+.footer {
+    background-image: url(/Content/img/Mapfre/alt.png);
+    width: 800px;
+    height: 110px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header {
+    background-image: url(/Content/img/Mapfre/header.png);
+    width: 800px;
+    height: 92px;
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+}
+
+
+.left-img {
+    background-image: url(/Content/img/Mapfre/login.jpg);
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 300px;
+    float: left;
+    margin-top: 71px;
+    margin-left: 15px;
+}
+
+
+/* MVC Error */
+.field-validation-error {
+    color: #b94a48;
+    display: block;
+    margin-left: 26px;
+    margin-top: -17px;
+    position: absolute;
+}
+
+.error-div {
+    width: 284px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.validation-summary-errors {
+    margin-bottom: 20px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    opacity: 1;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+    padding: 14px;
+}
+
+    .validation-summary-errors > ul {
+        margin-bottom: 0;
+        margin-left: 0;
+        list-style-type: none;
+        padding: 0px;
+        margin-top: 0px;
+    }
+
+.field-validation-error span {
+    background: rgb(185, 74, 72);
+    padding: 4px 8px;
+    border-radius: 3px;
+    top: 5px;
+    color: rgb(255, 255, 255);
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 1em;
+    position: relative;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.35);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+span.field-validation-error span::after,
+span.input-validation-error::after,
+span.error::after {
+    left: 7px;
+    top: -6px;
+    border-right-color: transparent;
+    border-bottom-color: rgb(185, 74, 72);
+    border-left-color: transparent;
+    border-right-width: 6px;
+    border-bottom-width: 6px;
+    border-left-width: 6px;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    display: inline-block;
+    position: absolute;
+    content: "";
+}
+
+
+.custom-content {
+    width: 800px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+}
+
+.description-photo {
+    width: 700px;
+    float: left;
+    margin-left: 20px;
+}
+
+.login-hub {
+    width: 280px;
+    float: left;
+}
+
+.login-hub-center {
+    width: 280px;
+    margin-left: 420px;
+    padding-top: 90px;
+}
+
+
+
+
+.link A:hover {
+    color: blue;
+}
+
+.link {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    font-size: 100%;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+.login-white-content {
+    background-color: #CCCCCC;
+    border-radius: 5px;
+    position: absolute;
+    background-repeat: no-repeat;
+    width: 283px;
+    height: 226px;
+}
+
+.login-white-content-sifre-degistir {
+    background-color: #CCCCCC;
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    width: 283px;
+    height: auto !important;
+    padding-bottom: 10px;
+    float: left;
+}
+
+.login-white-content-sifremi-unuttum {
+    background-color: #CCCCCC;
+    position: absolute;
+    background-repeat: no-repeat;
+    width: 283px;
+    height: 226px;
+    border-radius: 5px;
+}
+
+.hizli-giris {
+    width: 157px;
+    float: left;
+    height: 40px;
+    margin-left: 30px;
+    position: relative;
+    margin-top: 20px;
+    color: white;
+    font-size: 23px;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.hizli-giris-en-us {
+    width: 157px;
+    float: left;
+    height: 40px;
+    margin-left: 30px;
+    position: relative;
+    margin-top: 20px;
+    color: white;
+    font-size: 23px;
+    font-family: Arial,;
+}
+
+.text-box {
+    display: block;
+    width: 223px;
+    height: 30px;
+    margin-left: 25px;
+    margin-bottom: 15px;
+}
+
+.sifremi-unuttum-div {
+    float: right;
+    margin-right: 31px;
+    margin-top: 24px;
+}
+
+.tamam-button-div {
+    background-color: #EA312A !important;
+    width: 80px;
+    height: 39px;
+    margin-left: 26px;
+    float: left;
+    margin-top: 8px;
+    text-align: center;
+    color: white;
+}
+
+    .tamam-button-div:hover {
+        background-color: #EA312A;
+    }
+
+.ust-logo {
+    background: url(../img/YeniTasarim/01_giris_v3_ust_1.png);
+    position: fixed;
+    margin-top: 0px;
+    padding-top: 0px;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.babonline-logo {
+    float: left;
+    width: 999px;
+    height: 170px;
+    background: url(../img/YeniTasarim/ust-banner-2.png);
+    background-repeat: no-repeat;
+    margin-top: -1px;
+}
+
+.login-page-logo {
+    margin-left: auto;
+    margin-right: auto;
+    background: url(../img/YeniTasarim/only_logo.png);
+    background-repeat: no-repeat;
+    width: 222px;
+    height: 180px;
+}
+
+
+.all-background-line-left {
+    background: url(../img/YeniTasarim/ust_header_bgr.png);
+    background-repeat: repeat-x;
+    width: 100%;
+    height: 43px;
+    left: 0px;
+    z-index: -1;
+    position: absolute;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+}
+
+.slide-down {
+    width: 700px;
+    height: 300px;
+}
+
+.down-icon {
+    margin-left: 66px;
+    margin-top: 0px;
+    width: 41px;
+    background: url(../img/YeniTasarim/01_giris_V3_10.png);
+    height: 41px;
+}
+
+.down-description {
+    background: url(../img/YeniTasarim/01_giris_V3_6.png);
+    height: 279px;
+    margin-top: -45px;
+    position: absolute;
+    width: 493px;
+    z-index: -1;
+    background-repeat: no-repeat;
+}
+
+.down-description_en-us {
+    background: url(../img/YeniTasarim/01_giris_V3_15_en-us.png);
+    height: 279px;
+    margin-left: 2px;
+    margin-top: -42px;
+    position: absolute;
+    width: 493px;
+    z-index: -1;
+    background-repeat: no-repeat;
+}
+
+.down-description_it {
+    background: url(../img/YeniTasarim/01_giris_V3_6-it.png);
+    height: 279px;
+    margin-left: 2px;
+    margin-top: -42px;
+    position: absolute;
+    width: 493px;
+    z-index: -1;
+    background-repeat: no-repeat;
+}
+
+.tooltip {
+    position: absolute;
+    z-index: 1030;
+    display: block;
+    padding: 5px;
+    font-size: 11px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    visibility: visible;
+}
+
+    .tooltip.in {
+        opacity: 0.8;
+        filter: alpha(opacity=80);
+    }
+
+    .tooltip.top {
+        margin-top: -3px;
+    }
+
+    .tooltip.right {
+        margin-left: 3px;
+    }
+
+    .tooltip.bottom {
+        margin-top: 3px;
+    }
+
+    .tooltip.left {
+        margin-left: -3px;
+    }
+
+.tooltip-inner {
+    max-width: 200px;
+    padding: 3px 8px;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    background-color: #000000;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.tooltip-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.tooltip.top .tooltip-arrow {
+    bottom: 0;
+    left: 50%;
+    margin-left: -5px;
+    border-top-color: #000000;
+    border-width: 5px 5px 0;
+}
+
+.tooltip.right .tooltip-arrow {
+    top: 50%;
+    left: 0;
+    margin-top: -5px;
+    border-right-color: #000000;
+    border-width: 5px 5px 5px 0;
+}
+
+.tooltip.left .tooltip-arrow {
+    top: 50%;
+    right: 0;
+    margin-top: -5px;
+    border-left-color: #000000;
+    border-width: 5px 0 5px 5px;
+}
+
+.tooltip.bottom .tooltip-arrow {
+    top: 0;
+    left: 50%;
+    margin-left: -5px;
+    border-bottom-color: #000000;
+    border-width: 0 5px 5px;
+}

@@ -1,0 +1,355 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Database.Models
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.NeoConnectGrupTanımlama
+
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li class="active">
+            <a href="~/Manage/TVM/NeoConnectSifreIslemleri">NeoConnect Grup Tanımlama<span class="selected"></span></a>
+        </li>
+
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+
+
+@section PageScripts
+{
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/dataTable")
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".delete-neotvmwebservis").click(function () {
+                var grupKodu = $(this).attr("kayit-id");
+                swal({
+                    title: "Silmek istiyor musunuz?",
+                    type: "warning",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "/Manage/TVM/NeoConnectGrupKullaniciSil",
+                            data: { id: grupKodu },
+                            success: function (data) {
+                                if (data.success == "true") {
+                                    swal({
+                                        title: "Başarılı",
+                                        text: "Silindi!",
+                                        type: "success",
+                                        showCancelButton: false,
+                                        confirmButtonColor: "#DD6B55",
+                                        confirmButtonText: "Tamam",
+                                        closeOnConfirm: false
+                                    },
+                                        function (isConfirm) {
+                                            if (isConfirm) {
+                                                window.location.href = "/Manage/TVM/NeoConnectGrupTanimlama"
+                                            }
+                                        });
+                                }
+                                else {
+                                    swal({
+                                        title: "Başarısız",
+                                        text: "Silinmedi!",
+                                        type: "error",
+                                        showCancelButton: false,
+                                        confirmButtonColor: "#DD6B55",
+                                        confirmButtonText: "Tamam",
+                                        closeOnConfirm: false
+                                    },
+                                        function (isConfirm) {
+                                            if (isConfirm) {
+                                                window.location.href = "/Manage/TVM/NeoConnectGrupTanimlama"
+                                            }
+                                        });
+
+                                }
+                            }
+                        });
+                }
+                );
+
+            });
+            $(".edit-neotvmwebservis").click(function () {
+                $("#GrupAdi").val($(this).attr("grup-adi"));
+                $("#KullaniciAdi").val($(this).attr("kullanici-Adi"));
+                $("#Sifre").val($(this).attr("sifre"));
+                $("select#TUMKodu").val($(this).attr("sirket-kodu"));
+                $("#neoEkle").attr("data-loading-text", "Güncelleniyor..");
+                $("#neoEkle").html("Güncelle");
+                $("#neoEkle").attr("kayitId", $(this).attr("kayit-id"));
+            });
+
+            $("#neoEkle").click(function () {
+
+                debugger;
+                if ($("#neoEkle").html() == "Kaydet") {
+                    var sirketKodu = $("#TUMKodu").val();
+                    var GrupAdi = $.trim($("#GrupAdi").val());
+                    var KullaniciAdi = $.trim($("#KullaniciAdi").val());
+                    var sifre = $("#Sifre").val();
+
+                    if (sirketKodu == null || sirketKodu == "") {
+                        swal("Uyarı ", "Şirket Seçiniz.", "warning")
+                        return false;
+                    }
+
+                    if (GrupAdi == null || GrupAdi == "") {
+                        swal("Uyarı ", "Grup Adı Giriniz.", "warning")
+                        return false;
+                    }
+
+                    if (KullaniciAdi == null || KullaniciAdi == "") {
+                        swal("Uyarı ", "Kullanıcı Adı Giriniz.", "warning")
+                        return false;
+                    }
+
+                    if (sifre == null || sifre == "") {
+                        swal("Uyarı ", "Şifre Giriniz.", "warning")
+                        return false;
+                    }
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "/Manage/TVM/NeoConnectGrupKullaniciEkle",
+                            data: { sirketKodu: sirketKodu, GrupAdi: GrupAdi, KullaniciAdi: KullaniciAdi, sifre: sifre },
+                            success: function (data) {
+                                if (data.success == "true") {
+                                    swal({
+                                        title: "Başarılı",
+                                        text: "Kayıt Edildi!",
+                                        type: "success",
+                                        showCancelButton: false,
+                                        confirmButtonColor: "#DD6B55",
+                                        confirmButtonText: "Tamam",
+                                        closeOnConfirm: false
+                                    },
+                                        function (isConfirm) {
+                                            if (isConfirm) {
+                                                window.location.href = "/Manage/TVM/NeoConnectGrupTanimlama"
+                                            }
+                                        });
+                                }
+                                else if (data.success == "false") {
+                                    swal({
+                                        title: "Başarısız",
+                                        text: "Kayıt edilemedi!",
+                                        type: "error",
+                                        showCancelButton: false,
+                                        confirmButtonColor: "#DD6B55",
+                                        confirmButtonText: "Tamam",
+                                        closeOnConfirm: false
+                                    },
+                                        function (isConfirm) {
+                                            if (isConfirm) {
+                                                window.location.href = "/Manage/TVM/NeoConnectGrupTanimlama"
+                                            }
+                                        });
+
+                                }
+                            }
+                        });
+                }
+                else if ($("#neoEkle").html() == "Güncelle") {
+                    var sirketKodu = $("#TUMKodu").val();
+                    var GrupAdi = $.trim($("#GrupAdi").val());
+                    var KullaniciAdi = $.trim($("#KullaniciAdi").val());
+                    var sifre = $("#Sifre").val();
+                    var id = $("#neoEkle").attr("kayitId");
+
+                    if (sirketKodu == null || sirketKodu == "") {
+                        swal("Uyarı ", "Şirket Seçiniz.", "warning")
+                        return false;
+                    }
+
+                    if (GrupAdi == null || GrupAdi == "") {
+                        swal("Uyarı ", "Grup Adı Giriniz.", "warning")
+                        return false;
+                    }
+
+                    if (KullaniciAdi == null || KullaniciAdi == "") {
+                        swal("Uyarı ", "Kullanıcı Adı Giriniz.", "warning")
+                        return false;
+                    }
+
+                    if (sifre == null || sifre == "") {
+                        swal("Uyarı ", "Şifre Giriniz.", "warning")
+                        return false;
+                    }
+
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "/Manage/TVM/NeoConnectGrupKullaniciGuncelleByGrupKodu",
+                            data: { sirketKodu: sirketKodu, GrupAdi: GrupAdi, KullaniciAdi: KullaniciAdi, sifre: sifre, id: id },
+                            success: function (data) {
+                                if (data.success == "true") {
+                                    swal({
+                                        title: "Başarılı",
+                                        text: "Güncellendi!",
+                                        type: "success",
+                                        showCancelButton: false,
+                                        confirmButtonColor: "#DD6B55",
+                                        confirmButtonText: "Tamam",
+                                        closeOnConfirm: false
+                                    },
+                                        function (isConfirm) {
+                                            if (isConfirm) {
+                                                window.location.href = "/Manage/TVM/NeoConnectGrupTanimlama"
+                                            }
+                                        });
+                                }
+                                else if (data.success == "false") {
+                                    swal({
+                                        title: "Başarısız",
+                                        text: "Güncellenemedi!",
+                                        type: "error",
+                                        showCancelButton: false,
+                                        confirmButtonColor: "#DD6B55",
+                                        confirmButtonText: "Tamam",
+                                        closeOnConfirm: false
+                                    },
+                                        function (isConfirm) {
+                                            if (isConfirm) {
+                                                window.location.href = "/Manage/TVM/NeoConnectGrupTanimlama"
+                                            }
+                                        });
+
+                                }
+                            }
+                        });
+                }
+            });
+
+
+
+        });
+
+
+    </script>
+}
+
+
+
+
+<link href="~/Content/css/bootstrapSwitch.min.css" rel="stylesheet" />
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey " style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">NeoConnect Grup Tanımlama</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey" style="margin-top: 24px;">
+
+                    <div class="portlet-body form">
+                        <form class="form-horizontal">
+
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TUM_Title <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.TUMKodu, Model.TUMListesi)
+                                    @Html.ValidationMessageFor(m => m.TUMKodu)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Grup Adı<span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.GrupAdi, new { autocompletetype = "disabled", style = "width:150px;" })
+                                    @Html.ValidationMessageFor(m => m.GrupAdi)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVMUser_Name<span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.KullaniciAdi, new { autocompletetype = "disabled", style = "width:150px;" })
+                                    @Html.ValidationMessageFor(m => m.KullaniciAdi)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Password<span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.Sifre, new { autocompletetype = "disabled", style = "width:150px;" })
+                                    @Html.ValidationMessageFor(m => m.Sifre)
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <a href="/Manage/TVM/NeoConnectGrupTanimlama" id="clean" class="btn ligth-grey">@babonline.Clear</a>
+                                        @*<input type="submit" id="neoEkle" class="btn btn-success" data-loading-text="@babonline.adding" value="@babonline.Save" />*@
+                                        <a id="neoEkle" href="javascript:void(0)" data-loading-text="@babonline.adding" class="btn btn-success" value="@babonline.Save">@babonline.Save</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        @*}*@
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table id="neoconnectsirketgrupkullanici-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th>Şirket Adı</th>
+            <th>Grup Adı</th>
+            <th>Kullanıcı @babonline.TVMUser_Name</th>
+            <th>@babonline.Password</th>
+            <th style="width: 50px;">&nbsp;</th>
+            <th style="width: 40px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.grupListesi)
+        {
+            <tr>
+                @{
+                    var sirketadi = Model.TUMListesi.Where(m => m.Value == item.SirketKodu).FirstOrDefault();
+                }
+                <td>@sirketadi.Text</td>
+                <td>@item.GrupAdi</td>
+                <td>@item.KullaniciAdi</td>
+                <td>@item.Sifre</td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" kayit-id="@item.id" sirket-kodu="@item.SirketKodu" grup-adi="@item.GrupAdi" kullanici-Adi="@item.KullaniciAdi" sifre="@item.Sifre" class="btn btn-mini btn-info edit-neotvmwebservis">@babonline.Edit</a>
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" kayit-id="@item.id" class="btn btn-mini btn-danger delete-neotvmwebservis">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

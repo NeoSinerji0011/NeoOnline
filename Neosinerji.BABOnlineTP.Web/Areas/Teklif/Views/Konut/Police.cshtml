@@ -1,0 +1,1213 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model DetayKonutModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li>
+            <a href="#">@babonline.Proposal<span></span></a>
+        </li>
+        <li>
+            <a href="/Teklif/Teklif/Liste">@babonline.Proposal_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Policy<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.NewProposal<span class="arrow"></span></a>
+            <ul class="dropdown-menu">
+                @foreach (var item in ViewBag.UrunYetkileri)
+                {
+                    <li><a href="@item.UrunURL">@item.UrunAdi</a></li>
+                }
+            </ul>
+            <b class="caret-out"></b>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search..." class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+}
+
+@section PageStyles
+{
+    <link href="~/content/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
+}
+
+@section PageScripts
+{
+    <script src="@Url.Content("~/Content/js/jquery.gritter.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.bootstrap.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Content/js/jquery.validate.custom.js")" type="text/javascript"></script>
+
+    <script>
+        $("#pdf").click(function () {
+            var pdfURL = $(this).attr("pdf");
+            if (pdfURL != undefined && pdfURL != "") {
+                window.open(pdfURL, "_blank");
+            }
+            else {
+                $.gritter.add({
+                    title: 'Bilgi Mesajı!',
+                    text: 'Bu poliçenin pdf dosyası bulunamadı. Lütfen sistem yöneticinize danışınız'
+                });
+            }
+        });
+
+
+        // ==== Email Gönderme İşlemleri ==== //
+        $("#email-gonder").live("click", function () {
+            var teklifId = $(this).attr("teklif-id");
+            $("#email-gonder").button("loading");
+            $.get("/Teklif/Teklif/TeklifEposta",
+                  { id: teklifId },
+                  function (data) {
+                      $("#mail-gonder-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#mail-gonder-modal-div");
+                      $("#email-modal").modal('show');
+                      $("#email-gonder").button("reset");
+                  },
+                  "html");
+        });
+        $("#mail-gonder-btn").live("click", function () {
+            $("#mail-gonder-form").validate().form();
+            if ($("#mail-gonder-form").valid()) {
+                $("#email-modal").modal('hide');
+                $.gritter.add({
+                    title: 'Bilgi Mesajı!',
+                    text: 'Mail gönderiliyor. Lütfen bekleyiniz.'
+                });
+                $(".switcher").find(":input").switchFix();
+                var formData = $("#mail-gonder-form").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/Teklif/Teklif/TeklifEPosta",
+                    data: formData,
+                    timeout: 60000,
+                    traditional: true,
+                    success: function (data) {
+                        $("#email-gonder").button("reset");
+                        $("#email-modal").modal('hide');
+                        if (data.Success) {
+                            $.gritter.add({
+                                title: 'İşlem Başarılı!',
+                                text: data.Message
+                            });
+                            return;
+                        }
+                        else {
+                            $.gritter.add({
+                                title: 'Bir hata oluştu!',
+                                text: 'Mail gönderilemedi, lütfen tekrar deneyin.'
+                            });
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#email-gonder").button("reset");
+                        $("#mail-modal").modal('hide');
+                        var response = jQuery.parseJSON(jqXHR.responseText);
+                        if (response == null) {
+                            $.gritter.add({
+                                title: 'Bir hata oluştu!',
+                                text: errorThrown
+                            });
+                        }
+                        else {
+                            $.gritter.add({
+                                title: 'Bir hata oluştu!',
+                                text: response.Message
+                            });
+                        }
+                    }
+                });
+            }
+        });
+        // ==== Email Gönderme İşlemleri ==== //
+
+
+
+        //Tutar Değiştirme İşlemleri 100000 / 100,000
+
+        //Tutar Değiştirme İşlemleri 100000 / 100,000
+        $(".tutar").each(function () {
+
+            var length = $(this).html().length;
+            var sayac = 0;
+            var result = "";
+
+            if (length > 3 && length < 8) {
+                for (var i = 0; i < length; i++) {
+                    sayac++;
+                    result += $(this).html()[i];
+                    if (sayac == (length - 3) || sayac == (length - 6))
+                        result += ",";
+                }
+                $(this).html(result + " TL");
+            } else if (length > 0 && length < 4) $(this).html($(this).html() + " TL");
+        });
+
+
+    </script>
+}
+
+<form class="form-horizontal">
+    <div class="portlet box light-grey" style="margin-top: 24px;">
+        <div class="portlet-title">
+            <div class="caption"><i class="icon-reorder"></i>@babonline.Policy_Info</div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+
+            <div class="accordion" id="accordion">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step1">
+                            <i class="icon-angle-left"></i>
+                            @babonline.UserInfo
+                        </a>
+
+                    </div>
+                    <div id="step1" class="accordion-body collapse in">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+                                @Html.EditorFor(m => m.Hazirlayan)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step3">
+                            <i class="icon-angle-left"></i>
+                            @babonline.PaymentOptions
+                        </a>
+                    </div>
+                    <div id="step3" class="accordion-body collapse in">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+
+                                <div class="row-fluid">
+                                    <div id="teklif-fiyatlar">
+                                        <div class="row-fluid" style="margin-top: 20px; border-bottom: 1px solid #e5e5e5;">
+                                            <div class="span2" style="text-align: center;">@babonline.InsuranceCompany</div>
+                                            <div class="span2" style="text-align: center;">@babonline.PolicyPrice + @babonline.Tax</div>
+                                            <div class="span3" style="text-align: center;">@babonline.Payment</div>
+                                            <div class="span2" style="text-align: center;">@babonline.PolicyNo</div>
+                                        </div>
+                                        <div id="fiyat-container" class="fiyat-container">
+                                        </div>
+                                        <div id="fiyat-container-template">
+                                            <div class="row-fluid" id="fiyat-container" style="margin-top: 20px; padding-bottom: 20px; border-bottom: 1px solid #e5e5e5;">
+                                                <div class="span2" style="text-align: center;">
+                                                    <img id="tum-unvan" alt="@Model.OdemeBilgileri.TUMUnvani" src="@Model.OdemeBilgileri.TUMLogoURL" />
+                                                </div>
+                                                <div class="span2" style="text-align: center;">@Model.OdemeBilgileri.NetPrim + @Model.OdemeBilgileri.Vergi TL</div>
+                                                <div class="span3" style="text-align: center;">
+                                                    <span style="font-weight: bold;" class="fiyat"></span>
+                                                    @if (Model.OdemeBilgileri.TaksitSayisi < 2)
+                                                    {
+                                                        <span>@Model.OdemeBilgileri.BrutPrim TL
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        int taksitS = Model.OdemeBilgileri.TaksitSayisi;
+                                                        
+                                                        <span><strong>@Model.OdemeBilgileri.BrutPrim TL</strong> ( @taksitS Taksit )
+                                                        </span>
+                                                    }
+                                                </div>
+                                                <div class="span2" style="text-align: center;">
+                                                    @Model.OdemeBilgileri.TUMPoliceNo
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="teklif-button-container" class="row-fluid" style="margin-left: 33px; padding-top: 20px; padding-bottom: 20px;">
+                                        <div class="span4">
+                                            <button id="pdf" pdf="@Model.OdemeBilgileri.PoliceURL" class="btn btn-primary" type="button"><i class="icon-file icon-white"></i>@babonline.PolicyPDF</button>
+                                        </div>
+                                        <div class="span4">
+                                            <button id="email-gonder" teklif-id="@Model.OdemeBilgileri.teklifId" class="btn btn-primary" type="button" data-loading-text="GÖNDERİLİYOR..."><i class="icon-envelope icon-white"></i>@babonline.EmailSend</button>
+                                        </div>
+                                        <div class="span4">
+                                            <button id="btn-teklif-tekrar" disabled class="btn btn-warning" type="button"><i class="icon-star-empty icon-white"></i>@babonline.Refresh</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step2">
+                            <i class="icon-angle-left"></i>
+                            @babonline.ProposalInfo
+                        </a>
+                    </div>
+
+                    <div id="step2" class="accordion-body collapse in">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+                                <div class="row-fluid">
+                                    <div class="form-section-header">
+                                        <h4 class="form-section">@babonline.General_Information</h4>
+                                    </div>
+                                    <div class="row-fluid">
+
+
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.IsTherePledgedCreditorDainLossPayee</label>
+                                                <div class="controls">
+                                                    @if (Model.RizikoGenelBilgiler.RehinliAlacakliDainMurtehinVarmi)
+                                                    {
+                                                        <label class="control"><span class="label label-success">@babonline.Yes</span></label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="control"><span class="label label-important">@babonline.No</span></label>
+                                                    }
+                                                </div>
+                                            </div>
+
+                                            @if (Model.RizikoGenelBilgiler.RehinliAlacakliDainMurtehinVarmi == true)
+                                            {
+                                                <div class="control-group">
+                                                    <label class="control-label">@babonline.VehicleType</label>
+                                                    <div class="controls">
+                                                        <label class="control">@Model.RizikoGenelBilgiler.Tipi</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label">@babonline.InstitutionBank</label>
+                                                    <div class="controls">
+                                                        <label class="control">@Model.RizikoGenelBilgiler.KurumBankaAdi</label>
+                                                    </div>
+                                                </div>       
+
+                                                <div class="control-group">
+                                                    <label class="control-label">@babonline.Office</label>
+                                                    <div class="controls">
+                                                        <label class="control">@Model.RizikoGenelBilgiler.SubeAdi</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label">@babonline.CreditReferenceNumberAccountContractNo</label>
+                                                    <div class="controls">
+                                                        <label class="control">@Model.RizikoGenelBilgiler.KrediReferansNo_HesapSozlesmeNo</label>
+                                                    </div>
+                                                </div>       
+
+                                                <div class="control-group">
+                                                    <label class="control-label">@babonline.CreditEndDate</label>
+                                                    <div class="controls">
+                                                        <label class="control">@(Model.RizikoGenelBilgiler.KrediBitisTarihi.HasValue ? Model.RizikoGenelBilgiler.KrediBitisTarihi.Value.ToString("dd.MM.yyyy") : "") </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label">@babonline.CreditAmount</label>
+                                                    <div class="controls">
+                                                        <label class="control tutar">@Model.RizikoGenelBilgiler.KrediTutari</label>
+                                                    </div>
+                                                </div>     
+                                                <div class="control-group">
+                                                    <label class="control-label">@babonline.CurrencyCode</label>
+                                                    <div class="controls">
+                                                        <label class="control">@Model.RizikoGenelBilgiler.DovizKoduText</label>
+                                                    </div>
+                                                </div> 
+                                            }
+                                        </div>
+
+
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.IsThereDaskPolicy</label>
+                                                <div class="controls">
+                                                    @if (Model.RizikoGenelBilgiler.YururlukteDaskPolicesiVarmi)
+                                                    {
+                                                        <label class="control"><span class="label label-success">@babonline.Yes</span></label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="control"><span class="label label-important">@babonline.No</span></label>
+                                                    }
+                                                </div>
+                                            </div>
+
+                                            @if (Model.RizikoGenelBilgiler.YururlukteDaskPolicesiVarmi == true)
+                                            {
+                                                <div class="control-group">
+                                                    <label class="control-label">@babonline.InsuranceCompany</label>
+                                                    <div class="controls">
+                                                        <label class="control">@Model.RizikoGenelBilgiler.SigortaSirketi</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="control-group">
+                                                    <label class="control-label">@babonline.DaskPolicyMaturityDate</label>
+                                                    <div class="controls">
+                                                        <label class="control">
+                                                            @if (Model.RizikoGenelBilgiler.PoliceninVadeTarihi.HasValue)
+                                                            {
+                                                                <span>@Model.RizikoGenelBilgiler.PoliceninVadeTarihi.Value.ToString("dd.MM.yyyy")</span>
+                                                            }
+                                                        </label>
+                                                    </div>
+                                                </div>      
+
+                                                <div class="control-group">
+                                                    <label class="control-label">@babonline.PolicyNo</label>
+                                                    <div class="controls">
+                                                        <label class="control">@Model.RizikoGenelBilgiler.PoliceNumarasi</label>
+                                                    </div>
+                                                </div> 
+                                                <div class="control-group">
+                                                    <label class="control-label">@babonline.DaskInsuranceValue</label>
+                                                    <div class="controls">
+                                                        <label class="control tutar">@Model.RizikoGenelBilgiler.DaskSigortaBedeli</label>
+                                                    </div>
+                                                </div> 
+                                            }
+
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="form-section-header">
+                                        <h4 class="form-section">@babonline.Address_Info</h4>
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.City</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoAdresBilgiler.IlAdi</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Avenue</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoAdresBilgiler.Cadde</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.District</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoAdresBilgiler.IlceAdi</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Street</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoAdresBilgiler.Sokak</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.DistrictTowns</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoAdresBilgiler.SemtBelde</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Building</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoAdresBilgiler.Bina</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Parish</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoAdresBilgiler.Mahalle</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Home_Apartment</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoAdresBilgiler.Daire </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Apartment</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoAdresBilgiler.Apartman </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Postal_Code</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoAdresBilgiler.PostaKodu</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="form-section-header">
+                                        <h4 class="form-section">@babonline.OtherInformation</h4>
+                                    </div>
+
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.MunicipalCode</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoDigerBilgiler.BelediyeAdi</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.IsTheDoor</label>
+                                                <div class="controls">
+                                                    @if (Model.RizikoDigerBilgiler.CelikKapiVarMi)
+                                                    {<label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                    else
+                                                    {<label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.BuildingStyle</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoDigerBilgiler.YapiTarzi</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.IsIronFence</label>
+                                                <div class="controls">
+                                                    @if (Model.RizikoDigerBilgiler.DemirParmaklikVarMi)
+                                                    {<label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                    else
+                                                    {<label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.IdleTime</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoDigerBilgiler.BosKalmaSuresi</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.PrivateSecurityAlarmExist</label>
+                                                <div class="controls">
+                                                    @if (Model.RizikoDigerBilgiler.OzelGuvenlikAlarmVarMi)
+                                                    {<label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                    else
+                                                    {<label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.InflationRatio</label>
+                                                <div class="controls">
+
+                                                    @if (Model.RizikoDigerBilgiler.EnflasyonOrani.HasValue)
+                                                    {
+                                                        <label class="control">
+                                                            % @Model.RizikoDigerBilgiler.EnflasyonOrani.Value.ToString()
+                                                        </label>
+                                                    }
+                                                    else
+                                                    {  <label class="control"></label>}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Is_WinterWeight</label>
+                                                <div class="controls">
+                                                    @if (Model.RizikoDigerBilgiler.KislikMi)
+                                                    {<label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                    else
+                                                    {<label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.NoClaimDiscountRate</label>
+                                                <div class="controls">
+                                                    @if (Model.RizikoDigerBilgiler.HasarsizlikIndirimOrani.HasValue)
+                                                    {
+                                                        <label class="control">
+                                                            % @Model.RizikoDigerBilgiler.HasarsizlikIndirimOrani.Value.ToString()
+                                                        </label>
+                                                    }
+                                                    else
+                                                    {  <label class="control"></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.FlatGrossFloorArea</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoDigerBilgiler.DaireBrutYuzOlcumu.ToString() M2</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.AnnualRateOfInflationProtection</label>
+                                                <div class="controls">
+                                                    @if (Model.RizikoDigerBilgiler.YillikEnflasyonKorumaOrani.HasValue)
+                                                    {
+                                                        <label class="control">
+                                                            % @Model.RizikoDigerBilgiler.YillikEnflasyonKorumaOrani.Value.ToString()
+                                                        </label>
+                                                    }
+                                                    else
+                                                    {  <label class="control"></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.WhatFloorIsInsuredIn</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.RizikoDigerBilgiler.SigortalanacakYerKacinciKatta.ToString(). kat</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-section-header">
+                                        <h4 class="form-section">@babonline.HousingImprovements</h4>
+                                    </div>
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.AddGoods</label>
+                                                <div class="controls">
+                                                    <label class="control tutar">@Model.KonutTeminatBedelBilgileri.EsyaBedeli</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.BuildingCost</label>
+                                                <div class="controls">
+                                                    <label class="control tutar">@Model.KonutTeminatBedelBilgileri.BinaBedeli</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-section-header">
+                                        <h4 class="form-section">@babonline.Guarantees</h4>
+                                    </div>
+                                    <h5 class="form-section">@babonline.Main_Guarantees </h5>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.GoodsFire</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBedelBilgileri.EsyaBedeli</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.BuildingFire</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBedelBilgileri.BinaBedeli.HasValue & Model.KonutTeminatBedelBilgileri.BinaBedeli.Value > 0)
+                                                    {<label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBedelBilgileri.BinaBedeli</span>
+                                                    </label>}
+                                                    else
+                                                    {
+                                                        if (Model.KonutTeminatBilgileri.BinaYangin)
+                                                        { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                        else
+                                                        { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.GoodsEarthquake</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBedelBilgileri.EsyaBedeli</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.BuildingEarthquake</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBedelBilgileri.BinaBedeli.HasValue & Model.KonutTeminatBedelBilgileri.BinaBedeli.Value > 0)
+                                                    {<label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBilgileri.BinaDepremBedel</span>
+                                                    </label>}
+                                                    else
+                                                    {<label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-section-header">
+                                        <h4 class="form-section">@babonline.Guarantees</h4>
+                                    </div>
+
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.AdditionalCollateralGoods</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBedelBilgileri.EsyaBedeli</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.BuildingAdditionalCoverage</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBedelBilgileri.BinaBedeli.HasValue & Model.KonutTeminatBedelBilgileri.BinaBedeli.Value > 0)
+                                                    {<label class="control"><span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBedelBilgileri.BinaBedeli</span>
+                                                    </label>}
+                                                    else
+                                                    {
+                                                        if (Model.KonutTeminatBilgileri.EkTeminatBina)
+                                                        { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                        else
+                                                        { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Theft</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBedelBilgileri.EsyaBedeli</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Landslide</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@(Model.KonutTeminatBedelBilgileri.EsyaBedeli + Model.KonutTeminatBedelBilgileri.BinaBedeli)</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Storm</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@(Model.KonutTeminatBedelBilgileri.EsyaBedeli + Model.KonutTeminatBedelBilgileri.BinaBedeli)</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.EarthquakeVolcanicEruption</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@(Model.KonutTeminatBedelBilgileri.EsyaBedeli + Model.KonutTeminatBedelBilgileri.BinaBedeli)</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.EarthquakeVolcanicEruptionGoods</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBedelBilgileri.EsyaBedeli</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.EarthquakeVolcanicEruptionBuilding</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBedelBilgileri.BinaBedeli.HasValue & Model.KonutTeminatBedelBilgileri.BinaBedeli.Value > 0)
+                                                    {<label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBedelBilgileri.BinaBedeli</span></label>}
+                                                    else
+                                                    {
+                                                        if (Model.KonutTeminatBilgileri.DepremYanardagPuskurmesiBina)
+                                                        { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                        else
+                                                        { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.FloodAndFlood</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@(Model.KonutTeminatBedelBilgileri.EsyaBedeli + Model.KonutTeminatBedelBilgileri.BinaBedeli)</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.GLKHHKNHTerror</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@(Model.KonutTeminatBedelBilgileri.EsyaBedeli + Model.KonutTeminatBedelBilgileri.BinaBedeli)</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.GlassBreakage</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBilgileri.CamKirilmasiBedel > 0)
+                                                    {<label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBilgileri.CamKirilmasiBedel</span></label>}
+                                                    else
+                                                    { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.AssistantService</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBilgileri.AsistanHizmeti)
+                                                    { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                    else
+                                                    { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.BuiltInWater</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@(Model.KonutTeminatBedelBilgileri.EsyaBedeli + Model.KonutTeminatBedelBilgileri.BinaBedeli.Value)</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Legal_Protection</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBilgileri.AsistanHizmeti)
+                                                    { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                    else
+                                                    { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.MotorVehicleShock</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@(Model.KonutTeminatBedelBilgileri.EsyaBedeli + Model.KonutTeminatBedelBilgileri.BinaBedeli.Value)</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Smoke</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@(Model.KonutTeminatBedelBilgileri.EsyaBedeli + Model.KonutTeminatBedelBilgileri.BinaBedeli.Value)</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.WeightOfSnow</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@(Model.KonutTeminatBedelBilgileri.EsyaBedeli + Model.KonutTeminatBedelBilgileri.BinaBedeli.Value)</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.ShockAircraft</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@(Model.KonutTeminatBedelBilgileri.EsyaBedeli + Model.KonutTeminatBedelBilgileri.BinaBedeli.Value)</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.PersonalAccident</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBilgileri.FerdiKaza)
+                                                    { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                    else
+                                                    { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.BasicsOfFire</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBedelBilgileri.BinaBedeli.HasValue & Model.KonutTeminatBedelBilgileri.BinaBedeli.Value > 0)
+                                                    {<label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBedelBilgileri.BinaBedeli</span></label>}
+                                                    else
+                                                    {
+                                                        if (Model.KonutTeminatBilgileri.TemellerYangin)
+                                                        { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                        else
+                                                        { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.PersonalAccidentDeath</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBilgileri.FerdiKazaOlum)
+                                                    { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                    else
+                                                    { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.ContinuousAccidentInjury</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBilgileri.FerdiKazaSurekliSakatlik)
+                                                    { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                    else
+                                                    { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.LiabilityFire</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBilgileri.MaliMesuliyetYangin)
+                                                    { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                    else
+                                                    { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.AdditionalCoverageLiability</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBilgileri.MaliSorumlulukEkTeminatBedel > 0)
+                                                    {<label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBilgileri.MaliSorumlulukEkTeminatBedel</span></label>}
+                                                    else
+                                                    { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        @* <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.ValuableGoodsFire</label>
+                                            <div class="controls">
+                                                @if (Model.KonutTeminatBilgileri.DegerliEsyaYanginBedel > 0)
+                                                {<label class="control"><span class="label label-success">@babonline.Yes</span> @Model.KonutTeminatBilgileri.DegerliEsyaYanginBedel TL</label>}
+                                                else
+                                                { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.InsulatedEventBSYear</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBilgileri.IzolasOlayBsYilBedel > 0)
+                                                    {<label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBilgileri.IzolasOlayBsYilBedel</span></label>}
+                                                    else
+                                                    { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.DebrisRemovalGoods</label>
+                                                <div class="controls">
+                                                    <label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBedelBilgileri.EsyaBedeli</span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.BuildingDebrisRemoval</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBedelBilgileri.BinaBedeli.HasValue & Model.KonutTeminatBedelBilgileri.BinaBedeli.Value > 0)
+                                                    {<label class="control">
+                                                        <span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBedelBilgileri.BinaBedeli</span></label>}
+                                                    else
+                                                    {
+                                                        if (Model.KonutTeminatBilgileri.EnkazKaldirmaBina)
+                                                        { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                        else
+                                                        { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.LossofRent</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBilgileri.KiraKaybiBedel > 0)
+                                                    {<label class="control"><span class="label label-success">@babonline.Yes</span>
+                                                        <span class="tutar">@Model.KonutTeminatBilgileri.KiraKaybiBedel</span></label>}
+                                                    else
+                                                    { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">Medline</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBilgileri.Medline)
+                                                    { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                    else
+                                                    { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Pickpocketing</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBilgileri.Kapkac)
+                                                    { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                    else
+                                                    { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span6">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.EmergencyMedicalHospitalPersonalAccident</label>
+                                                <div class="controls">
+                                                    @if (Model.KonutTeminatBilgileri.AcilTibbiHastaneFerdiKaza)
+                                                    { <label class="control"><span class="label label-success">@babonline.Yes</span></label>}
+                                                    else
+                                                    { <label class="control"><span class="label label-important">@babonline.No</span></label>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-section-header">
+                                        <h4 class="form-section">@babonline.Node</h4>
+                                    </div>
+
+
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <div class="control-group">
+                                                <label class="control-label">@babonline.Node</label>
+                                                <div class="controls">
+                                                    <label class="control">@Model.KonutNotModel.Not
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*Mail gönderme modal form*@
+<div id="mail-gonder-modal-div"></div>
+

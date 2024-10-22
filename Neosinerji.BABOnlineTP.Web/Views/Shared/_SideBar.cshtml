@@ -1,0 +1,349 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Database.Models
+
+@{
+    var anamenu = ViewBag.AnaMenuler;
+    var altmenu = ViewBag.ALtMenuler;
+    var sekme = ViewBag.Sekmeler;
+    var islemId = ViewBag.IslemId;
+
+    var urunyetkileri = ViewBag.UrunYetkileri;
+    var muhasebe = ViewBag.TvmMuhasebeEntg;
+    var projekodu = ViewBag.ProjeKodu;
+    //var InternetMenu = ViewBag.InternetMenu;
+
+    var tvmKodu = ViewBag.BagliOlduguTvmKodu;
+
+    List<TVMUrunYetkileriProcedureModel> VarlikSigortalari = ViewBag.VarlikSigortalari as List<TVMUrunYetkileriProcedureModel>;
+    List<TVMUrunYetkileriProcedureModel> BireyselGuvence = ViewBag.BireyselGuvence as List<TVMUrunYetkileriProcedureModel>;
+    List<TVMUrunYetkileriProcedureModel> CanSigortalari = ViewBag.CanSigortalari as List<TVMUrunYetkileriProcedureModel>;
+    List<TVMUrunYetkileriProcedureModel> BirikimliSigortalari = ViewBag.BirikimliSigortalari as List<TVMUrunYetkileriProcedureModel>;
+    List<TVMUrunYetkileriProcedureModel> RiskSigortalari = ViewBag.RiskSigortalari as List<TVMUrunYetkileriProcedureModel>;
+}
+
+@section PageScripts
+{
+    <script type="text/javascript">
+
+    </script>
+
+}
+<ul>
+    <li>
+        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+        <div id="btn-event" class="sidebar-toggler sidebar-toggler-right hidden-phone" style="padding-bottom: 10px;"></div>
+        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+    </li>
+
+    @if (anamenu != null)
+    {
+        foreach (var item in anamenu)
+        {
+            <li class="@(item.Active ? "active open" : "")">
+                <a href="javascript:;" class="@(item.Active ? "acvite open" : "")">
+                    <i class="@item.Icon"></i>
+                    <span class="title">@item.Aciklama</span>
+                    <span class="@(item.Active ? "selected" : "")"></span>
+                    <span class="@(item.Active ? "arrow open" : "arrow")"></span>
+                </a>
+                <ul class="sub-menu">
+                    @if (item.UrunYetki != null & item.UrunYetki == 1)
+                    {
+                        <li>
+                            <a href="/Teklif/Teklif/Liste">@babonline.Proposal_Search</a>
+                        </li>
+                        if (projekodu == TVMProjeKodlari.Mapfre)
+                        {
+                            <li>
+                                <a href="/Teklif/MapfreKasko/Otorizasyon">Otorizasyon</a>
+                            </li>
+                        }
+                        //Test
+                        if (projekodu == "Metlife")
+                        {
+                            <li>
+                                <a href="/Teklif/KritikHastalik/Ekle">Kritik Hastalık</a>
+                                <a href="/Teklif/FerdiKazaPlus/Ekle">Ferdi Kaza Plus</a>
+                            </li>
+                        }
+
+                        if (projekodu == TVMProjeKodlari.Aegon)
+                        {
+                            if (RiskSigortalari != null && RiskSigortalari.Count > 0)
+                            {
+                                <li>
+                                    <a href="javascript:;">
+                                        @babonline.Risk_Insurances
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu" style="display: none;">
+                                        @foreach (var urun in RiskSigortalari)
+                                        {
+                                            <li class="@(urun.Active ? "urun-menu active" : "urun-menu")"><a href="@urun.UrunURL">@urun.Aciklama </a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+
+                            if (BirikimliSigortalari != null && BirikimliSigortalari.Count > 0)
+                            {
+                                <li>
+                                    <a href="javascript:;">
+                                        @babonline.Cumulative_Insurance
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu" style="display: none;">
+                                        @foreach (var urun in BirikimliSigortalari)
+                                        {
+                                            <li class="@(urun.Active ? "urun-menu active" : "urun-menu")"><a href="@urun.UrunURL">@urun.Aciklama </a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            if (VarlikSigortalari != null && VarlikSigortalari.Count > 0)
+                            {
+                                <li>
+                                    <a href="javascript:;">
+                                        @babonline.Asset_Insurance
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu" style="display: none;">
+                                        @foreach (var urun in VarlikSigortalari)
+                                        {
+                                            <li class="@(urun.Active ? "urun-menu active" : "urun-menu")"><a href="@urun.UrunURL">@urun.Aciklama </a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+
+                            if (projekodu == "Mapfre")
+                            {
+                                foreach (var urun in BireyselGuvence)
+                                {
+                                    <li class="@(urun.Active ? "urun-menu active" : "urun-menu")"><a href="@urun.UrunURL">@urun.Aciklama </a></li>
+                                }
+                            }
+                            else
+                            {
+                                if (BireyselGuvence != null && BireyselGuvence.Count > 0)
+                                {
+                                    <li>
+                                        <a href="javascript:;">
+                                            @babonline.Individual_Assurance
+                                            <span class="arrow"></span>
+                                        </a>
+                                        <ul class="sub-menu" style="display: none;">
+                                            @foreach (var urun in BireyselGuvence)
+                                            {
+                                                <li class="@(urun.Active ? "urun-menu active" : "urun-menu")"><a href="@urun.UrunURL">@urun.Aciklama </a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            }
+
+                            if (CanSigortalari != null && CanSigortalari.Count > 0)
+                            {
+                                <li>
+                                    <a href="javascript:;">
+                                        @babonline.Life_Insurance
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu" style="display: none;">
+                                        @foreach (var urun in CanSigortalari)
+                                        {
+                                            <li class="@(urun.Active ? "urun-menu active" : "urun-menu")"><a href="@urun.UrunURL">@urun.Aciklama </a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var alt in altmenu)
+                        {
+                            if (alt.AnaMenu == item.MenuKodu && alt.SekmeKodu == 0)
+                            {
+                                <li class="@(alt.Active ? "active" : "")">
+                                    <a href="@alt.URL">
+                                        @alt.Aciklama
+                                        @if (alt.HasChild)
+                                        {<span class="arrow open"></span>}
+                                    </a>
+                                    @if (alt.HasChild)
+                                    {
+                                        <ul class="sub-menu">
+                                            @foreach (var sekmeitem in sekme)
+                                            {
+                                                if (sekmeitem.MenuKodu == alt.MenuKodu && sekmeitem.AnaMenu == item.MenuKodu)
+                                                {
+                                                    <li class="@(sekmeitem.Active ? "active" : "")">
+                                                        <a href="@sekmeitem.URL">@sekmeitem.Aciklama </a>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        }
+                    }
+                </ul>
+            </li>
+        }
+        if (projekodu == TVMProjeKodlari.Mapfre_DisAcente)
+        {
+            <li>
+                <a href="javascript:;">
+                    <i class="icon-briefcase"></i>
+                    <span class="title">@babonline.User_Guide @*Kullanım Klavuzları*@</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a class="" onclick="window.open('https://neoonlinestrg.blob.core.windows.net/musteri-dokuman/4609/NeoOnline%20Sigortacilik%20Portali_%20Kullanim%20Klavuzu_Admin.pdf');return false;">
+                            <i class="icon-table"></i>
+                            <span class="title">NeoOnline @babonline.User_Guide @*Kullanım Klavuzu*@</span>
+                            <span class=""></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        }
+
+
+        if (projekodu == TVMProjeKodlari.Mapfre_DisAcente && tvmKodu == 136)
+        {
+            <li>
+                <a href="javascript:;">
+                    <i class="icon-briefcase"></i>
+                    <span class="title">Arkman Cari</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a class="" id="arkmanBaglan" href="javascript:;" onclick="window.open('https://app.arkman.com.tr/')">
+                            <i class="icon-table"></i>
+                            <span class="title" style="cursor: pointer">Cari Hesap</span>
+                            <span class=""></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        }
+
+        if (projekodu == TVMProjeKodlari.Aegon)
+        {
+            <li>
+                <a href="javascript:;">
+                    <i class="icon-briefcase"></i>
+                    <span class="title">Yararlı Bilgiler</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu" style="display: none;">
+                    <li class="">
+                        <a href="javascript:;" onclick="window.open('http://www.youtube.com/embed/qhVX7jlvN7E')">Aegon Global Tanıtım Videosu</a>
+                    </li>
+                    <li class="">
+                        <a href="javascript:;" onclick="window.open('https://neoonlinestrg.blob.core.windows.net/musteri-dokuman/AegonDokuman/R%C4%B0Z%C4%B0KO%20%20KABUL%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0.pdf');return false;">Riziko Kabul Şartları</a>
+                    </li>
+                    <li class="">
+                        <a href="javascript:;" onclick="window.open('https://neoonlinestrg.blob.core.windows.net/musteri-dokuman/AegonDokuman/ANLA%C5%9EMALI%20HASTANELER.pdf');return false;">Anlaşmalı Hastaneler</a>
+                    </li>
+                    <li class="">
+                        <a href="javascript:;" onclick="window.open('https://neoonlinestrg.blob.core.windows.net/musteri-dokuman/AegonDokuman/Tibbi%20limit%20tablosu.xlsx');return false;">Tıbbi Limit Tablosu</a>
+                    </li>
+                    <li class="">
+                        <a href="javascript:;" onclick="window.open('https://neoonlinestrg.blob.core.windows.net/musteri-dokuman/AegonDokuman/Hastane%20panelleri.xlsx');return false;">Hastane - Tetkik Panel İsimleri</a>
+                    </li>
+                </ul>
+            </li>
+        }
+        @*
+            }
+
+            if (muhasebe == "1" && projekodu != TVMProjeKodlari.Aegon)
+            {
+            <li>
+                <a class="" target="_blank" href="http://muhasebe.babonline.com">
+                    <i class="icon-table"></i>
+                    <span class="title">Muhasebe</span>
+                    <span class=""></span>
+                </a>
+            </li>
+            }
+        *@
+        if (projekodu == TVMProjeKodlari.Mapfre)
+        {
+
+            <li>
+                <a href="javascript:;" onclick="window.open('http://wtw.mapfregenelsigorta.com/wtw/pages/wtw/workplace/wtwInicio.jsf');return false;">
+                    <i class="icon-share-alt"></i>
+                    <span class="title">TRONWEB</span>
+                    <span class=""></span>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:;" onclick="window.open('http://neoonlinestrg.blob.core.windows.net/tvm-dokuman/MapfreGS_babonlineKullanimKlavuzu.pdf');return false;">
+                    <i class="icon-question-sign"></i>
+                    <span class="title">Kullanım Klavuzu</span>
+                    <span class=""></span>
+                </a>
+            </li>
+        }
+
+        if (projekodu == "Metlife")
+        {
+            <li>
+                <a href="javascript:;">
+                    <i class="icon-briefcase"></i>
+                    <span class="title">İş Takip Sistemi</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu" style="display: none;">
+
+                    <li>
+                        <a class="" href="/Teklif/FerdiKazaPlus/Islerim">İşlerim</a>
+                    </li>
+                    <li>
+                        <a class="" href="/Teklif/FerdiKazaPlus/IsAra">İş Ara</a>
+                    </li>
+                    <li>
+                        <a class="" href="/Teklif/FerdiKazaPlus/Onayladiklarim">Onayladıklarım</a>
+                    </li>
+                </ul>
+            </li>
+        }
+        @*
+            if (InternetMenu=="true")
+            {
+                 <li>
+                <a href="javascript:;">
+                    <i class="icon-briefcase"></i>
+                    <span class="title">İş Takip Sistemi</span>
+                    <span class="arrow"></span></a>
+                <ul class="sub-menu" style="display: none;">
+                    <li>
+                        <a class="" href="/Teklif/Teklif/Liste">Tekliflerim</a>
+                    </li>
+                    <li>
+                        <a class="" href="/Teklif/FerdiKazaPlus/IsAra">İş Ara</a>
+                    </li>
+                </ul>
+            </li>
+            }*@
+    }
+</ul>
+
+<form id="arkmanloginForm" target="genericLogin" method="post" action="https://app.arkman.com.tr/">
+    <input type="hidden" name="cEmail" value="demo@arkman.com.tr" />
+    <input type="hidden" name="cPassword" value="xxx111222" />
+    <input type="hidden" name="RememberMe" value="false" />
+    <input type="hidden" name="SafelyLogin" value="false" />
+    <input type="hidden" name="Captcha" value="false" />
+</form>

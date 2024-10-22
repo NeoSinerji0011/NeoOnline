@@ -1,0 +1,79 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model EskiPoliceModel
+
+<div class="control-group">
+    <label class="control-label">@babonline.OldPolicy</label>
+    <div class="controls">
+        @Html.SwitchButtonFor(m => m.EskiPoliceVar, new string[] { "VAR", "YOK" }, new { })
+    </div>
+</div>
+<div id="eski-police" style="display:none;">
+    <div class="control-group">
+        <label class="control-label">@babonline.InsuranceCompany</label>
+        <div class="controls">
+            @Html.DropDownListFor(m => m.SigortaSirketiKodu, Model.SigortaSirketleri, new { style = "width:200px;", @class="ignore" })
+            @Html.ValidationMessageFor(m => m.SigortaSirketiKodu)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">@babonline.AgencyNo</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.AcenteNo, new { maxlength=30, autocompletetype="off", style = "width:150px;", @class="ignore" })
+            @Html.ValidationMessageFor(m => m.AcenteNo)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">@babonline.PolicyNo</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.PoliceNo, new { maxlength=30, autocompletetype="off", style = "width:150px;", @class="ignore" })
+            @Html.ValidationMessageFor(m => m.PoliceNo)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">@babonline.RenewalNo</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.YenilemeNo, new { maxlength=5, autocompletetype="off", style = "width:150px;", @class="ignore" })
+            @Html.ValidationMessageFor(m => m.YenilemeNo)
+        </div> 
+    </div>
+    <div class="control-group">
+        <label class="control-label">@babonline.TransactionType</label>
+        <div class="controls">
+            @Html.DropDownListFor(m => m.TramerIslemTipi, Model.TramerIslemTipleri, new { style = "width:200px;", @class="ignore" })
+        </div> 
+    </div>
+    <div class="control-group" style="display:none" id="div-hasarsizlik-sorgula">
+        <div class="controls">
+            <button type="button" class="btn blue" id="btn-hasarsizlik-sorgula" data-loading-text="@babonline.QueryIndicator">Hasarsızlık Sorgula</button>
+            <div id="hasarsizlik-sorgu-hata" style="display: none; color: #b94a48;"></div>
+        </div> 
+    </div>
+    <div id="eski-police-hasarsizlik" style="display:none;" class="row-fluid">
+        <div class="span4" id="eski-police-indirim" style="display:none;">
+            <div style="text-align:center;">
+                <label style="color:#0d638f">Hasarsızlık İndirimi</label>
+            </div>            
+            <div style="text-align:center;">
+                <span class='label label-success'></span>
+            </div>
+        </div>
+        <div class="span4" id="eski-police-surprim" style="display:none;">
+            <div style="text-align:center;">
+                <label style="color:#0d638f">Hasar Surprim</label>
+            </div>            
+            <div style="text-align:center;">
+                <span class='label label-warning'></span>
+            </div>
+        </div>
+        <div class="span4" id="eski-police-kademe" style="display:none;">
+            <div style="text-align:center;">
+                <label style="color:#0d638f">Uygulanacak Kademe</label>
+            </div>            
+            <div style="text-align:center;">
+                <span class='label'></span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.TVM.Models
+@model List<KullaniciNotListeleModel>
+
+@foreach (var item in Model)
+{
+    if (item.Oncelik == "Düşük")
+    {  <p class="title">
+        <label class="label label-success">@item.Konu </label>
+    </p>  }
+    else if (item.Oncelik == "Orta")
+    {<p class="title">
+        <label class="label label-info">@item.Konu </label>
+    </p>  }
+    else if (item.Oncelik == "Yüksek")
+    { <p class="title">
+        <label class="label label-important">@item.Konu </label>
+    </p>  }
+
+
+
+    <p class="info" style="padding-bottom: 7px;">@item.Aciklama</p>
+
+    <div style="width: &100; height: 35px; text-align: right;">
+        @if (item.BitisTarihi.HasValue)
+        {
+            @item.BitisTarihi.Value.ToString("dd.MM.yyyy")
+        }
+        <a id="btn-not-sil" class="btn btn-mini btn-warning" not-id="@item.NotId">@babonline.Delete</a>
+    </div>
+
+
+
+}

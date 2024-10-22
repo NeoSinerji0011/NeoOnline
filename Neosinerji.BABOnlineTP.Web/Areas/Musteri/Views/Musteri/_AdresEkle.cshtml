@@ -1,0 +1,261 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Musteri.Models.AdresModel
+
+<script>
+    $(document).ready(function () {
+        //Ülke - il - ilçe
+        $('#UlkeKodu').ulke({ il: '#IlKodu', ilce: '#IlceKodu' });
+
+        $("#Sokak").change(function () {
+
+            var sokak = $("#Sokak").val();
+            var cadde = $("#Cadde").val();
+
+            if (sokak == "") {
+                if (cadde == "") {
+                    $("#Cadde").removeClass("ignore");
+                    $("#Sokak").removeClass("ignore");
+                }
+                else {
+                    $("#Sokak").removeClass("ignore");
+                }
+            }
+            else {
+                $("#Cadde").addClass("ignore");
+            }
+        });
+
+        $("#Cadde").change(function () {
+
+            var sokak = $("#Sokak").val();
+            var cadde = $("#Cadde").val();
+
+            if (cadde == "") {
+                if (sokak == "") {
+                    $("#Cadde").removeClass("ignore");
+                    $("#Sokak").removeClass("ignore");
+                }
+                else {
+                    $("#Cadde").removeClass("ignore");
+                }
+            }
+            else {
+                $("#Sokak").addClass("ignore");
+            }
+        });
+    });
+</script>
+<div id="adres-modal" class="modal hide fade wide" style="width: 900px; margin-left: -450px;">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>@babonline.Address_Add</h3>
+    </div>
+    <div class="modal-body">
+        <form id="adres-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            @Html.HiddenFor(m => m.MusteriKodu)
+            @Html.HiddenFor(m => m.SiraNo)
+            @Html.AntiForgeryToken()
+
+            @*ADres tipi ve Mahalle*@
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Address_Type<span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.AdresTipi, Model.AdresTipleri, new { tabindex = 1 })
+                            @Html.ValidationMessageFor(m => m.AdresTipi)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Parish  <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Mahalle, new { maxlength = 100, autocompletetype = "disabled", style = "width:200px;", tabindex = 8 })
+                            @Html.ValidationMessageFor(m => m.Mahalle)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*Ulke Ve Cadde Alanlari*@
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Country   <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.UlkeKodu, Model.UlkeLer, new { style = "width:220px;", tabindex = 2 })
+                            @Html.ValidationMessageFor(m => m.UlkeKodu)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Avenue <span class="required">**</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Cadde, new { maxlength = 100, autocompletetype = "disabled", style = "width:200px;", tabindex = 9 })
+                            @Html.ValidationMessageFor(m => m.Cadde)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @* İl Ve sokak Alanları*@
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.City    <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.IlKodu, Model.Iller, new { style = "width:220px;", tabindex = 3 })
+                            @Html.ValidationMessageFor(m => m.IlKodu)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Street   <span class="required">**</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Sokak, new { maxlength = 100, autocompletetype = "disabled", style = "width:200px;", tabindex = 10 })
+                            @Html.ValidationMessageFor(m => m.Sokak)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*İlce Ve Bina no Daire no alanları*@
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.District   <span class="required">*</span></label>
+
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.IlceKodu, Model.IlceLer, new { style = "width:220px;", tabindex = 4 })
+                                @Html.ValidationMessageFor(m => m.IlceKodu, "", new { style = "width: 200px" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Apartment <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Apartman, new { maxlength = 50, autocompletetype = "disabled", style = "width:200px;", tabindex = 11 })
+                            @Html.ValidationMessageFor(m => m.Apartman)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*Semt ve  bino no daire no alanları*@
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Neighborhood</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Semt, new { maxlength = 50, autocompletetype = "disabled", style = "width:200px;", tabindex = 5 })
+                            @Html.ValidationMessageFor(m => m.Semt)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Apartment_No   <span class="required">*</span></label>
+
+                        <div class="controls">
+                            <div>
+                                @Html.TextBoxFor(m => m.DaireNo, new { maxlength = 20, autocompletetype = "disabled", style = "width:50px; float:left;", tabindex = 12 })
+                                <label style="float: left; margin-top: 4px; color: #0D638F; margin-left: 13px;">@babonline.Building_No</label>
+                                <span style="float: left" class="required">* &nbsp; &nbsp; </span>
+                                @Html.TextBoxFor(m => m.BinaNo, new { maxlength = 20, autocompletetype = "disabled", style = "width:50px; float:left;", tabindex = 13 })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.DaireNo, "", new { style = "margin-left:-20px; float:left;" })
+                            @Html.ValidationMessageFor(m => m.BinaNo, "", new { style = "margin-left:-20px; float:right;" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            @*Han APt -FAb   ve Diğer alanı*@
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Han_Apt_Fab</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.HanAptFab, new { maxlength = 20, autocompletetype = "disabled", style = "width:200px;", tabindex = 6 })
+                            @Html.ValidationMessageFor(m => m.HanAptFab)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Postal_Code   <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.PostaKodu, new { maxlength = 5, minlength = 5, pattern = ".{5,5}", title = babonline.Message_PostCode, autocompletetype = "disabled", style = "width:200px;", tabindex = 14, @class = "onlynumbers" })
+                            @Html.ValidationMessageFor(m => m.PostaKodu)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            @*Diğer Ve Adres Alanı*@
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Address   </label>
+
+                        <div class="controls">
+                            @Html.TextAreaFor(m => m.Adres, new { maxlength = 100, autocompletetype = "disabled", style = "width:200px; height:50px;", tabindex = 7 })
+                            @Html.ValidationMessageFor(m => m.Adres)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Other</label>
+                        <div class="controls">
+                            @Html.TextAreaFor(m => m.Diger, new { maxlength = 20, autocompletetype = "disabled", style = "width:200px; ; height:50px;", tabindex = 15 })
+                            @Html.ValidationMessageFor(m => m.Diger)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Contact_Address</label>
+                        <div class="controls">
+                            @Html.CheckBoxFor(m => m.Varsayilan)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+                @if (Model.sayfaadi == "guncelle")
+                {   <a href="#" class="btn btn-success" id="adres-guncelle-btn" tabindex="16"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>}
+                else
+                {   <a href="#" class="btn btn-success" id="adres-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>}
+            </div>
+        </form>
+    </div>
+</div>

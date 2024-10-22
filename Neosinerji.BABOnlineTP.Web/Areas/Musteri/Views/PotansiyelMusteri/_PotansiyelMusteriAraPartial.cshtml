@@ -1,0 +1,286 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.PotansiyelMusteri.Models.PotansiyelMusteriListeModel
+
+<script>
+    $(document).ready(function () {
+        //Tvm listesini Dolduruyor....
+        var tvm = $("#TVMKodu").tvmfinder();
+        tvm.enable();
+
+        var oTable = $('.data-table').dataTable({
+            "bPaginate": true,
+            "bLengthChange": false,
+            "iDisplayLength": 5,
+            "bFilter": true,
+            "bSort": true,
+            "bInfo": false,
+            "bProcessing": true,
+            "bServerSide": true,
+            "bAutoWidth": false,
+            "sAjaxSource": "/Musteri/PotansiyelMusteri/ListePager",
+            "bDeferLoading": true,
+            "iDeferLoading": 0,
+            "sPaginationType": "full_numbers",
+            "sPaginationType": "bootstrap",
+            "sScrollX": "100%",
+            "sScrollXInner": "110%",
+            "aoColumnDefs": [
+                    {
+                        "aTargets": [0],
+                        "mRender": function (data, type, full) {
+
+                            return '<a id="btn-musteri-sec"   tip="@Model.Tip"  musteri-id="' + data + '" class="btn btn-mini btn-success">@babonline.Choose</a>';
+                        },
+                        "mDataProp": "0"
+                    },
+                    { "aTargets": [1], "mDataProp": "0" },
+                    { "aTargets": [2], "mDataProp": "1" },
+                    { "aTargets": [3], "mDataProp": "2" },
+                    { "aTargets": [4], "mDataProp": "3" },
+                    { "aTargets": [5], "mDataProp": "4" },
+                    { "aTargets": [6], "mDataProp": "5" },
+                    { "aTargets": [7], "mDataProp": "6" },
+                    { "aTargets": [8], "mDataProp": "7" },
+                    { "aTargets": [9], "mDataProp": "8" }
+            ],
+            "bScrollCollapse": true,
+            "fnServerParams": function (aoData) {
+                aoData.push({ "name": "AdiUnvan", "value": $("#AdiUnvan").val() });
+                aoData.push({ "name": "SoyadiUnvan", "value": $("#SoyadiUnvan").val() });
+                aoData.push({ "name": "EMail", "value": $("#EMail").val() });
+                aoData.push({ "name": "KimlikNo", "value": $("#KimlikNo").val() });
+                aoData.push({ "name": "MusteriKodu", "value": $("#MusteriKodu").val() });
+                aoData.push({ "name": "TVMMusteriKodu", "value": $("#TVMMusteriKodu").val() });
+                aoData.push({ "name": "MusteriTipKodu", "value": $("#MusteriTipKodu").val() });
+                aoData.push({ "name": "TVMKodu", "value": $("#TVMKodu").val() });
+            }
+        });
+
+
+        $("#MusteriTipKodu").change(function () {
+            var tipKodu = $("#MusteriTipKodu").val();
+            if (tipKodu == "2" || tipKodu == "3") {
+                $("#tckn").text("@babonline.TaxNumber");
+                $("#KimlikNo").attr("maxlength", "10");
+            }
+            else if (tipKodu == "4") {
+                $("#tckn").text("@babonline.Foreign_Identification_Number");
+                $("#KimlikNo").attr("maxlength", "11");
+            }
+            else {
+                $("#tckn").text("@babonline.Identification_Number")
+                $("#KimlikNo").attr("maxlength", "11");
+            }
+        });
+
+
+        $("#close-alert").live("click", function () {
+            $("#alert").attr("style", "display:none");
+            $("#alert").removeClass("in");
+        });
+
+        $("#btn-musteri-sec").live("click", function () {
+            var tip = $(this).attr("tip");
+            var id = $(this).attr("musteri-id");
+
+            var kimlikno = "";
+            var musteriadi = "";
+
+            $.post("/Musteri/PotansiyelMusteri/PotansiyelMusteriAraPartialModel", { MusteriId: id }, function (data) {
+                if (data != null) {
+                    debugger; kimlikno = data.tckn;
+                    musteriadi = data.adi;
+
+                    if (tip == "sigortali") {
+                        $("#Sigortali_KimlikNo").val(kimlikno);
+                        $("#Sigortali_AdSoyadUnvan").val(musteriadi)
+
+                    }
+                    else if (tip == "sigortaEttiren") {
+                        $("#SigortaEttiren_KimlikNo").val(kimlikno);
+                        $("#SigortaEttiren_AdSoyadUnvan").val(musteriadi);
+                    }
+                    $("#musteriara-modal").modal('hide');
+                    $("#sigortali-partial").html("");
+                }
+            });
+        });
+
+
+        $("#search").live("click", function () {
+            var adi = $("#AdiUnvan").val();
+            var soyadi = $("#SoyadiUnvan").val();
+            var email = $("#EMail").val();
+            var musteriKodu = $("#MusteriKodu").val();
+            var tvmKodu = $("#TVMKodu").val();
+            var tckn = $("#KimlikNo").val();
+            var tvmMusteriKodu = $("#TVMMusteriKodu").val();
+
+            if ($("#MusteriTipKodu").val() != 0 && tvmKodu != "") {
+                if (adi != "" || soyadi != "" || email != "" || musteriKodu != "" || tckn != "" || tvmMusteriKodu != "") {
+                    oTable.fnDraw();
+
+                    $("#table-div").attr("style", "display:normal; padding: 15px;");
+                    $("#alert").attr("style", "display:none");
+                    $("#ara-form").slideUp("slow");
+                }
+                else {
+                    $("#alert").addClass("in");
+                    $("#alert").attr("style", "display:normal");
+                }
+            }
+            else {
+                $("#alert").addClass("in");
+                $("#alert").attr("style", "display:normal");
+            }
+        });
+
+        $("#btn-geri").live("click", function () {
+            $("#ara-form").slideDown("slow");
+            $("#table-div").slideUp("slow");
+        });
+    });
+</script>
+
+
+<div id="musteriara-modal" style="width: 1000px; margin-left: -500px; top: 2%" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>@babonline.Customer_Search</h3>
+    </div>
+    <div class="modal-body" style="padding: 0px;">
+
+        <div class="span12">
+            <div class="box corner-all">
+                <div>
+                    <form class="form-horizontal" id="ara-form">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.TVM_Title</label>
+                                    <div class="controls">
+
+                                        @Html.TVMFinderFor(m => m.TVMKodu, Model.TVMUnvani)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Customer_Type_Code</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.MusteriTipKodu, Model.MusteriTipleri, new { style = "width:215px;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Customer_Name_Title</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.AdiUnvan, new { maxlength = 50, autocompletetype = "disabled", style = "width:710px;", @class = "onlyalpha" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Customer_Surname_Title</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.SoyadiUnvan, new { maxlength = 50, autocompletetype = "disabled", style = "width:710px;", @class = "onlyalpha" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label" id="tckn">@babonline.Identification_Number</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.KimlikNo, new { maxlength = 11, autocompletetype = "disabled", style = "width:200px;", @class = "onlynumbers" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Customer_No</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.MusteriKodu, new { maxlength = 11, autocompletetype = "disabled", style = "width:200px;", @class = "onlynumbers" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.TVM_Customer_Code</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.TVMMusteriKodu, new { maxlength = 11, autocompletetype = "disabled", style = "width:200px;", @class = "onlynumbers" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Email_Adress</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.EMail, new { maxlength = 50, autocompletetype = "disabled", style = "width:200px;" })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div id="alert" class="alert fade" style="display: none">
+                            <button type="button" class="close" id="close-alert">×</button>
+                            <strong>@babonline.Warning</strong>  @babonline.Message_Customer_SearchError
+                        </div>
+
+                        <div class="form-actions">
+                            <a id="search" style="margin-left: -12px;" class="btn btn-primary">@babonline.Search</a>
+                        </div>
+                    </form>
+
+                    <div id="table-div" style="display: none; padding: 20px;">
+                        <button style="margin-left: 15px;" id="btn-geri" type="button" class="btn" value="Geri" id="btn-geri">@babonline.Back</button>
+                        <table class="table table-first-column-number data-table">
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th style="width: 100px;">@babonline.Customer_Code</th>
+                                    <th style="width: 80px;">@babonline.TVM_Customer_Code</th>
+                                    <th style="width: 100px;">@babonline.Customer_Type</th>
+                                    <th style="width: 200px;">@babonline.Customer_Name_Title</th>
+                                    <th style="width: 200px;">@babonline.Email_Adress</th>
+                                    <th style="width: 100px;">@babonline.Gender</th>
+                                    <th style="width: 80px;">@babonline.DateOfBirth</th>
+                                    <th style="width: 200px;">@babonline.TVM_Name</th>
+                                    <th style="width: 50px;">&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @*<div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="#" class="btn btn-success" data-dismiss="modal" aria-hidden="true">@babonline.OK</a>
+    </div>*@
+</div>
+
+
+

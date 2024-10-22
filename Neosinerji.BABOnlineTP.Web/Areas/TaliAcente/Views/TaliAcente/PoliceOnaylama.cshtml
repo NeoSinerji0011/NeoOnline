@@ -1,0 +1,570 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@using Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Web.Areas.TaliAcente.Models
+@model PoliceOnaylamaModel
+
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+
+}
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">Satış Kanalı Poliçe Onaylama<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+}
+@section PageScripts
+{
+    <script type="text/javascript">
+
+        var myArray = [];
+        @if (Model.tvmMultiLists != null)
+        {
+            foreach (var d in Model.tvmMultiLists)
+            {
+                   @:myArray.push("@d");
+                    }
+        }
+        var myArraySigortaSirket = [];
+        @if (Model.sirketMultiLists != null)
+        {
+
+            foreach (var d in Model.sirketMultiLists)
+            {
+                   @:myArraySigortaSirket.push("@d");
+             }
+        }
+
+        $(document).ready(function () {
+
+            $('.multiselect').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                maxHeight: 170,
+                nonSelectedText: '@babonline.PleaseSelect',
+                selectAllText: '@babonline.Select_All',
+                filterPlaceholder: '@babonline.Search',
+                nSelectedText: '@babonline.Selected'
+            });
+
+            if (myArray.length > 0) {
+                $('#tvmMultiLists').val(myArray);
+            }
+            $("#tvmMultiLists").multiselect("refresh");
+
+            if (myArraySigortaSirket.length > 0) {
+                $('#sirketMultiLists').val(myArraySigortaSirket);
+            }
+            $("#sirketMultiLists").multiselect("refresh");
+
+            var ckbox = $(".police-ok");
+            $('input').on('click', function () {
+                var policeId = $(this).attr("policeId");
+                var police = $(this).attr("id");
+                if ($("#" + police).is(':checked')) {
+                    $("#guncelle-" + policeId).show();
+                }
+                else {
+                    $("#guncelle-" + policeId).hide();
+                }
+            });
+
+            $(".guncelle").live("click", function () {
+                $(this).button("loading");
+                var policeId = $(this).attr("polId");
+                var talitvmKodu = $(this).attr("taliTvmKodu");
+                var taliKomisyonOrani = parseFloat($(this).attr("taliKomisyonOrani").replace(",", ".")).toFixed(2);
+                var taliKomisyonTutari = $(this).attr("talikomisyonTutari");
+                //var MerkezAcenKodu = $("#MerkezAcenKodu").val();
+                if (taliKomisyonTutari != undefined) {
+                    taliKomisyonTutari = parseFloat($(this).attr("talikomisyonTutari").replace(/\s/g, "").replace(",", "."));
+                }
+                if ((talitvmKodu != null || talitvmKodu != "") && (taliKomisyonOrani != undefined) && (taliKomisyonTutari != undefined)) {
+                    $.ajax({
+                        timeout: 10000000,
+                        method: "post",
+                        url: "/TaliAcente/TaliAcente/PoliceOnayGuncelleme",
+                        data: { policeId: policeId, taliAcenteKomisyonOrani: taliKomisyonOrani, komisyonTutari: taliKomisyonTutari, taliAcenteKodu: talitvmKodu },
+                        success: function (res) {
+                            if (res.Success = "True") {
+                                $(this).button("reset");
+                                swal({
+                                    title: "İşlem Başarılı! Poliçeniz başarılı bir şekilde güncellenmiştir.",
+                                    type: "success",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "OK",
+                                    closeOnConfirm: false,
+                                    closeOnCancel: false
+                                },
+                                  function (isConfirm) {
+                                      if (isConfirm) {
+                                          window.location.href = "/TaliAcente/TaliAcente/PoliceOnaylama";
+                                          $.ajax(
+                                            {
+                                                type: "POST",
+                                                url: "/TaliAcente/TaliAcente/PoliceOnaylama",
+                                                data: $("#formListe").serialize()
+                                            });
+                                      }
+                                  });
+                            }
+                            else {
+                                swal("!Hata" + res.mesaj, "error");
+                            }
+                        },
+                        error: function () {
+                            swal("@babonline.Message_UnknownError", "error");
+                            $(this).button("reset");
+                        }
+                    });
+                }
+                else {
+                    swal("Hata: Poliçe bilgileri eksik veya hatalıdır!", "error");
+                    $(this).button("reset");
+                }
+                $(this).button("reset");
+            });
+
+            $("#search").click(function () {
+                var islemTip = $('input[name="IslemTipi"]:checked').val();
+                $(this).button("loading");
+                if ($("#SigortaSirketiKodu").val() != "" || $("#SigortaSirketiKodu").val() != null) {
+                    $(this).button("reset");
+                }
+                if ($("#PoliceNo").val() != "" || $("#PoliceNo").val() != null) {
+                    $(this).button("reset");
+                }
+                if ($("#tcVkn").val() != "" || $("#tcVkn").val() != null) {
+                    $(this).button("reset");
+                }
+                if ($("#plaka").val() != "" || $("#plaka").val() != null) {
+                    $(this).button("reset");
+                }
+                //if (($("#tcVkn").val() == "" || $("#tcVkn").val() == null) && ($("#plaka").val() == "" || $("#plaka").val() == null) && islemTip==0) {
+                //    $(this).button("reset");
+                //    swal("Hata!", "Kimlik Numarası veya Plaka Numarasını Giriniz.", "error");
+                //    return false;
+                //}
+                if (Model.MerkezAcentemi) {
+                    if ($("#tvmKodu").val() != "" || $("#tvmKodu").val() != null) {
+                        $(this).button("reset");
+                        $("#tvmKodu").removeClass("ignore");
+                    }
+                    else {
+                        $("#tvmKodu").addClass("ignore");
+                    }
+                }
+                var basAy = $("#BaslangicTarihi").datepicker("getDate").getMonth();
+                var bitAy = $("#BitisTarihi").datepicker("getDate").getMonth();
+                if (basAy != bitAy) {
+                    swal("Hata! Bitiş tarihini aynı ay içerisinde bir gün seçiniz.", "error");
+                    $(this).button("reset");
+                }
+            });
+
+            var islemTip = $('input[name="IslemTipi"]:checked').val();
+            if (islemTip == 0) {
+                $(".hesaplanmis").hide();
+                $(".policeonay").show();
+
+                $("#tvmMultiLists").addClass("ignore");
+                $("#sirketMultiLists").addClass("ignore");
+                $("#BaslangicTarihi").addClass("ignore");
+                $("#BitisTarihi").addClass("ignore");
+
+                $("#TVMKodu").removeClass("ignore");
+                $("#SigortaSirketiKodu").removeClass("ignore");
+                $("#PoliceNo").removeClass("ignore");
+            }
+            else if (islemTip == 1) {
+                $(".hesaplanmis").show();
+                $(".policeonay").hide();
+
+                $("#tvmMultiLists").removeClass("ignore");
+                $("#sirketMultiLists").removeClass("ignore");
+                $("#BaslangicTarihi").removeClass("ignore");
+                $("#BitisTarihi").removeClass("ignore");
+
+                $("#TVMKodu").addClass("ignore");
+                $("#SigortaSirketiKodu").addClass("ignore");
+                $("#PoliceNo").addClass("ignore");
+
+            }
+
+            //Table Özellikleri
+            var oTable = $('.data-table').dataTable({
+
+                "bFilter": false,
+                "bSort": false,
+                "bInfo": false,
+                "bProcessing": false,
+                "bServerSide": true,
+                "sAjaxSource": "/TaliAcente/PoliceOnaylama",
+                "bDeferLoading": false,
+                "iDeferLoading": 0,
+                "sDom": 'T<"clear">lfrtip',
+                "oTableTools": { "aButtons": ["xls", "print", "copy", "pdf"] },
+
+            });
+
+            //--Sayfada kayıt gösterme sayısı alanı çalışmadığı için gizleniyor
+            $("#DataTables_Table_0_length").css({ "display": "none" });
+            $(".dataTables_paginate.paging_bootstrap.pagination").css({ "display": "none" });
+        });
+
+        $('input[name="IslemTipi"]').change(function () {
+            if ($("#IslemTipi_0").is(':checked')) {
+                $(".hesaplanmis").hide();
+                $(".policeonay").show();
+
+                $("#tvmMultiLists").addClass("ignore");
+                $("#sirketMultiLists").addClass("ignore");
+                $("#BaslangicTarihi").addClass("ignore");
+                $("#BitisTarihi").addClass("ignore");
+
+                $("#TVMKodu").removeClass("ignore");
+                $("#SigortaSirketiKodu").removeClass("ignore");
+                $("#PoliceNo").removeClass("ignore");
+
+                $("#tvmMultiLists").val("null");
+                $("#tvmMultiLists").multiselect("refresh");
+
+                $("#sirketMultiLists").val("null");
+                $("#sirketMultiLists").multiselect("refresh");
+
+                $("#BaslangicTarihi").val("");
+                $("#BitisTarihi").val("");
+            }
+            else {
+                $(".hesaplanmis").show();
+                $(".policeonay").hide();
+
+                $("#tvmMultiLists").removeClass("ignore");
+                $("#sirketMultiLists").removeClass("ignore");
+                $("#BaslangicTarihi").removeClass("ignore");
+                $("#BitisTarihi").removeClass("ignore");
+
+                $("#TVMKodu").addClass("ignore");
+                $("#SigortaSirketiKodu").addClass("ignore");
+                $("#PoliceNo").addClass("ignore");
+
+                $("#TVMKodu").val("");
+                $("#SigortaSirketiKodu").val("");
+                $("#PoliceNo").val("");
+                $("#tcVkn").val("");
+            }
+        });
+    </script>
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey" style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-reorder"></i>
+                            <span class="hidden-480">Satış Kanalı Poliçe Onaylama</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        @using (Html.BeginForm("PoliceOnaylama", "TaliAcente", FormMethod.Post, new { @class = "form-horizontal", id = "formListe", enctype = "multipart/form-data" }))
+                        {
+                            @Html.HiddenFor(m => m.MerkezAcenKodu)
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.StatePolicies</label>
+                                            <div class="controls radio-custom">
+                                                @Html.RadioButtonListFor(m => m.IslemTipi, Model.Islemler)
+                                            </div>
+                                        </div>
+                                        @if (Model.MerkezAcentemi)
+                                        {
+                                            <div class="control-group policeonay" style="display: none">
+                                                <label class="control-label">@babonline.TVM<span class="required">*</span></label>
+                                                <div class="controls">
+                                                    @Html.DropDownListFor(s => s.TVMKodu, Model.Tvmler, new { style = "width:50%;", id = "TVMKodu", required = "required" })
+                                                    @Html.ValidationMessageFor(m => m.TVMKodu)
+                                                </div>
+                                            </div>
+                                        }
+                                        <div class="control-group hesaplanmis" style="display: none">
+                                            <label class="control-label">@babonline.TVM<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.DropDownListFor(s => s.tvmMultiLists, Model.tvmMultiList, new { @class = "multiselect", multiple = "multiple", required = "required" })
+                                                @Html.ValidationMessageFor(m => m.tvmMultiLists)
+                                            </div>
+                                        </div>
+                                        <div class="control-group hesaplanmis" style="display: none">
+                                            <label class="control-label">Sigorta Şirketi<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.DropDownListFor(s => s.sirketMultiLists, Model.sirketMultiList, new { @class = "multiselect", multiple = "multiple", required = "required" })
+                                                @Html.ValidationMessageFor(m => m.sirketMultiLists)
+                                            </div>
+                                        </div>
+                                        <div class="control-group policeonay" style="display: none">
+                                            <label class="control-label">Dış Kaynak</label>
+                                            <div class="controls">
+                                                @Html.DropDownListFor(s => s.DisKaynakKodu, Model.DisKaynakList, new { style = "width:50%;", })
+
+                                            </div>
+                                        </div>
+                                        <div class="control-group policeonay" style="display: none">
+                                            <label class="control-label">@babonline.InsuranceCompany<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.DropDownListFor(s => s.SigortaSirketiKodu, Model.SigortaSirketleri, new { style = "width:50%;", @required = "required", id = "SigortaSirketiKodu" })
+                                                @Html.ValidationMessageFor(m => m.SigortaSirketiKodu)
+                                            </div>
+                                        </div>
+                                        <div class="control-group policeonay" style="display: none">
+                                            <label class="control-label">@babonline.PolicyNo<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(s => s.PoliceNo, new { required = "required" })
+                                                @Html.ValidationMessageFor(m => m.PoliceNo)
+                                            </div>
+                                        </div>
+                                        <div class="control-group policeonay" style="display: none">
+                                            <label class="control-label">@babonline.IDNumber</label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(s => s.tcVkn, new { maxlength = 11, style = "width:120px;" })
+                                            </div>
+                                        </div>
+                                        <div class="control-group policeonay" style="display: none">
+                                            <label class="control-label">@babonline.Plate</label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(s => s.plaka, new { maxlength = 10, style = "width:120px;" })
+                                            </div>
+                                        </div>
+                                        <div class="control-group hesaplanmis" style="display: none">
+                                            <label class="control-label">@babonline.PolicyStartDate<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.DateTextBoxFor(s => s.BaslangicTarihi, new { style = "width:100px", Id = "BasT" })
+                                                @Html.ValidationMessageFor(m => m.BaslangicTarihi)
+                                            </div>
+                                        </div>
+                                        <div class="control-group hesaplanmis" style="display: none">
+                                            <label class="control-label">@babonline.PolicyFinishDate<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.DateTextBoxFor(s => s.BitisTarihi, new { style = "width:100px", Id = "BitT" })
+                                                @Html.ValidationMessageFor(m => m.BitisTarihi)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row-fluid" style="margin-top: 20px;">
+                                    <div class="span12">
+                                        <input type="submit" id="search" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="@babonline.Search" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="row-fluid" style="margin-top: 20px;">
+                            <div class="span12">
+                                <div id="table-div" style="display: normal;">
+                                    <table class="table table-striped table-bordered table-hover dataTable data-table" style="table-layout: inherit">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 10%;">@babonline.Operation</th>
+                                                <th style="width: 10%;">@babonline.TVM_Code</th>
+                                                <th style="width: 10%;">@babonline.TVM_Title</th>
+                                                <th style="width: 10%;">Dış Kaynak Ünvanı</th>
+                                                <th style="width: 10%;">@babonline.InsuranceCompany</th>
+                                                <th style="width: 10%;">@babonline.PolicyNo</th>
+                                                <th style="width: 10%;">@babonline.Endorsement</th>
+                                                <th style="width: 10%;">Dövizli @babonline.Gross_Premium</th>
+                                                <th style="width: 10%;">Dövizli @babonline.Net_Premium</th>
+                                                <th style="width: 10%;">@babonline.IDNumber</th>
+                                                <th style="width: 10%;">@babonline.Name  @babonline.Surname</th>
+                                                <th style="width: 10%;">@babonline.Date_Of_the_Establishment</th>
+                                                <th style="width: 10%;">@babonline.StartDate</th>
+                                                <th style="width: 10%;">@babonline.EndDate</th>
+                                                <th style="width: 10%;">@babonline.Net_Premium</th>
+                                                <th style="width: 10%;">@babonline.CommissionRate</th>
+                                                <th style="width: 10%;">@babonline.Commission Tutarı</th>
+                                                <th style="width: 10%;">@babonline.Operation</th>
+                                            </tr>
+                                        </thead>
+                                        @if (Model.policeListesi != null)
+                                        {
+                                            var kontrol = 0;
+                                            var tvmSayac = 0;
+                                            var tvmPoliceToplam = 0;
+                                            var toplamPoliceSayisi = 0;
+
+                                            foreach (var items in Model.taliPoliceGrupListe)
+                                            {
+                                                tvmSayac = 0;
+                                                tvmPoliceToplam = 0;
+                                                kontrol = 0;
+                                                if (kontrol == 0)
+                                                {
+                                                    foreach (var itemTVM in Model.policeListesi)
+                                                    {
+                                                        if (itemTVM.TVMKodu == items.TVMKodu)
+                                                        {
+                                                            tvmSayac++;
+                                                            tvmPoliceToplam++;
+                                                            kontrol = 1;
+                                                        }
+                                                    }
+                                                }
+                                                DateTime SuankiTarih = Convert.ToDateTime(TurkeyDateTime.Now.ToShortDateString());
+                                                DateTime GecenAy = SuankiTarih.AddMonths(-1);
+                                                DateTime SonPoliceOnayTarihi = Convert.ToDateTime(Model.SonPoliceOnayTarihi + "." + SuankiTarih.Month + "." + SuankiTarih.Year);
+                                                foreach (var item in Model.policeListesi)
+                                                {
+                                                    if (tvmSayac > 0 && kontrol == 1 && items.TVMKodu == item.TVMKodu)
+                                                    {
+                                                        <tr>
+                                                            @if (@item.PoliceDurumu == "Hesaplanmamış")
+                                                            {
+                                                                DateTime itemTarihi = Convert.ToDateTime(item.TanzimTarihi);
+                                                                if (Model.SonPoliceOnayTarihi != null)
+                                                                {
+                                                                    if (itemTarihi.Month >= SuankiTarih.Month && itemTarihi.Year >= SuankiTarih.Year)
+                                                                    {
+                                                                        <td style="width: 10%;">
+                                                                            <input type="checkbox" policeId="@item.PoliceId" id="police-@item.PoliceId" class="police-ok" value="@item.PoliceId" />
+                                                                        </td>
+                                                                    }
+                                                                    else if (SonPoliceOnayTarihi < SuankiTarih && itemTarihi.Month <= SuankiTarih.Month && itemTarihi.Year <= SuankiTarih.Year )
+                                                                    {
+                                                                        <td style="width: 10%; color: red;">Her ayın @Model.SonPoliceOnayTarihi. gününden sonra <br /> eski bir tarihe onay yapamazsınız.<br /> Lütfen Merkeziniz ile görüşünüz. </td>
+                                                                    }
+                                                                    else if (SonPoliceOnayTarihi >= SuankiTarih && itemTarihi.Month == GecenAy.Month && itemTarihi.Year == GecenAy.Year)
+                                                                    {
+                                                                        <td style="width: 10%;">
+                                                                            <input type="checkbox" policeId="@item.PoliceId" id="police-@item.PoliceId" class="police-ok" value="@item.PoliceId" />
+                                                                        </td>
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td style="width: 10%;">
+                                                                        <input type="checkbox" policeId="@item.PoliceId" id="police-@item.PoliceId" class="police-ok" value="@item.PoliceId" />
+                                                                    </td>
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="width: 10%; color: red; font-size: medium">@item.PoliceDurumu</td>
+                                                            }
+                                                            <td style="width: 10%;">@item.TVMKodu</td>
+                                                            <td style="width: 10%;">@item.TVMUnvani</td>
+                                                            @if (@item.DisKaynakKodu.HasValue)
+                                                            {
+                                                                <td style="width: 10%;">@item.DisKaynakUnvani</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="width: 10%;"></td>
+                                                            }
+                                                            <td style="width: 10%;">@item.SigortaSirketiUnvani</td>
+                                                            <td style="width: 10%;">@item.PoliceNo</td>
+                                                            <td style="width: 10%;">@item.EkNo</td>
+                                                            <td style="width: 10%;">@item.DovizliBrütPrim</td>
+                                                            <td style="width: 10%;">@item.DovizliNetPrim</td>
+                                                            <td style="width: 10%;">@item.tcVkn</td>
+                                                            <td style="width: 10%;">@item.Ad @item.Soyad</td>
+                                                            <td style="width: 10%;">@item.TanzimTarihi</td>
+                                                            <td style="width: 10%;">@item.BaslangicTarihi</td>
+                                                            <td style="width: 10%;">@item.BitisTarihi</td>
+                                                            <td style="width: 10%;">@item.NetPrim</td>
+                                                            <td style="width: 10%;">% @item.KomisyonOrani</td>
+                                                            <td style="width: 10%;">@item.KomisyonTutari</td>
+                                                            <td style="width: 10%;"><a href="javascript:void(0)" class="btn green guncelle" style="display:none;" polId="@item.PoliceId" taliTvmKodu="@item.TVMKodu" taliKomisyonOrani="@item.KomisyonOrani" talikomisyonTutari="@item.KomisyonTutari" id="guncelle-@item.PoliceId">Güncelle</a></td>
+                                                        </tr>
+
+                                                        tvmSayac--;
+                                                    }
+                                                    if (tvmSayac == 0)
+                                                    {
+                                                        kontrol = 0;
+                                                        break;
+                                                    }
+                                                }
+                                                if (kontrol == 0 && Model.IslemTipi == 1)
+                                                {
+                                                    <tr class="background">
+                                                        <td style="width: 10%; font-weight: bold; font-size: medium;">Satış Kanalı Toplam Kayıt Sayısı: </td>
+                                                        <td style="width: 5%; font-weight: bold; font-size: medium;">@tvmPoliceToplam</td>
+                                                        <td style="width: 10%;"></td>
+                                                        <td style="width: 10%;"></td>
+                                                        <td style="width: 8%;"></td>
+                                                        <td style="width: 8%;"></td>
+                                                        <td style="width: 10%;"></td>
+                                                        <td style="width: 10%;"></td>
+                                                        <td style="width: 10%;"></td>
+                                                        <td style="width: 5%;"></td>
+                                                        <td style="width: 10%;"></td>
+                                                        <td style="width: 10%;"></td>
+                                                        <td style="width: 10%;"></td>
+                                                        <td style="width: 5%;"></td>
+                                                        <td style="width: 10%;"></td>
+                                                        <td style="width: 10%;"></td>
+                                                        <td style="width: 10%;"></td>
+                                                        <td style="width: 10%;"></td>
+                                                    </tr>
+                                                    toplamPoliceSayisi += tvmPoliceToplam;
+                                                }
+                                            }
+                                            if (Model.taliPoliceGrupListe.Count > 1 && Model.IslemTipi == 1)
+                                            {
+                                                <tr class="background">
+                                                    <td style="width: 10%; font-weight: bold; font-size: medium;">Toplam Poliçe Sayısı: </td>
+                                                    <td style="width: 5%; font-weight: bold; font-size: medium;">@toplamPoliceSayisi</td>
+                                                    <td style="width: 10%;"></td>
+                                                    <td style="width: 10%;"></td>
+                                                    <td style="width: 8%;"></td>
+                                                    <td style="width: 8%;"></td>
+                                                    <td style="width: 10%;"></td>
+                                                    <td style="width: 10%;"></td>
+                                                    <td style="width: 10%;"></td>
+                                                    <td style="width: 5%;"></td>
+                                                    <td style="width: 10%;"></td>
+                                                    <td style="width: 10%;"></td>
+                                                    <td style="width: 10%;"></td>
+                                                    <td style="width: 5%;"></td>
+                                                    <td style="width: 10%;"></td>
+                                                    <td style="width: 10%;"></td>
+                                                    <td style="width: 10%;"></td>
+                                                    <td style="width: 10%;"></td>
+                                                </tr>
+                                            }
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

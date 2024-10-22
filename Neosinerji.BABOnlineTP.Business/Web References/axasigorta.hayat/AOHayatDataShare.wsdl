@@ -1,0 +1,989 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://www.axaoyak.com/data" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s2="http://tempuri.org/PoliceSchema.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://www.axaoyak.com/data" />
+      <s:import namespace="http://tempuri.org/PoliceSchema.xsd" />
+      <s:element name="PolicyBills">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Policies_Id" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="Renewals_Id" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="Groups_Id" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="IssueDateMin" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="IssueDateMax" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PolicyBillsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PolicyBillsResult" type="tns:PolBills" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PolBills">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BasePolicy">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="unbounded" name="BillDetails" nillable="true" type="tns:PolBillDetails" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PolBillDetails">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IssueDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="BillingDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AmountBrut" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Units_Id" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount_Local" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="BillPolicies">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IssueDateMin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IssueDateMax" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BillPoliciesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BillPoliciesResult" type="tns:PolicyList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PolicyList">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="List" type="tns:PolBillsCollection" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PolBillsCollection">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PolBills" nillable="true" type="tns:PolBills" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UretimListesi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IssueDateMin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IssueDateMax" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UretimListesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s2:PoliceListesi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PolBills" nillable="true" type="tns:PolBills" />
+      <s:element name="PolicyList" nillable="true" type="tns:PolicyList" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.axaoyak.com/data">
+      <s:complexType name="BasePolicy">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Policies_Id" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Renewals_Id" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Groups_Id" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="PolTrans_Id" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="PolicyNo" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="ProposalNo" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="FormItems_Id_Appli" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="StartDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="EndDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="IssueDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Insurers" type="s1:PolRole" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Insureds" type="s1:PolRole" />
+          <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="Error" type="s1:Error" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Products" type="s1:Product" />
+          <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="PolProducers" type="s1:PolProducer" />
+          <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="PolBenefits" type="s1:Benefits" />
+          <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="CommonVariables" type="s1:Variables" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="SumSP" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="SumTP" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="SumBP" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Units_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Represent" type="s1:PolRole" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="GroupFounder" type="s1:PolRole" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="GroupResponsibleFirst" type="s1:PolRole" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="GroupResponsibleSecond" type="s1:PolRole" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PolRole">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:Person">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Address" type="s1:PerAddresses" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="RegisterNo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="PolRelations_Name" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Person">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Persons_Id" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Revisions_Id" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Persons_Name" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="TaxNo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="CitizenShipNo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsCorporate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="TaxNoVoidReason" type="s1:TaxNoVoidReason" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Country" type="s1:Country" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="CanDocumentSend" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Education" type="s1:PersonEducations" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IncomeLevels" type="s1:IncomeLevels" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="AOBaseObject">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="USERGUID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mesajlar" type="s1:ArrayOfAOMesaj" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAOMesaj">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AOMesaj" nillable="true" type="s1:AOMesaj" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AOMesaj">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Tip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Yer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Kod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AOMesaj" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CreditCard">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="CardTypes" type="s1:CardTypes" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="CreditCardNo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="ValidityMonth" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="ValidityYear" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Banks" type="s1:Banks" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="SecurityCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Owner" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="CardToken" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CardTypes">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="CardTypes_Id" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="CardTypes_Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Mask" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Banks">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Banks_Id" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="EftCode" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Banks_Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BankBranches">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:Banks">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="BankBranches_Id" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="BankBranches_Name" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PerCreditCards">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:CreditCard">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="PerCreditCards_Id" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Revisions_Id_Card" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="IncomeLevels">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="IncomeLevels_Id" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IncomeLevels_Name" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PersonEducations">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:AOBaseObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Education_Id" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Education_Name" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Axa_education_Id" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="TaxNoVoidReason">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="VoidReason_Id" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="VoidReason_Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Country">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Countries_Id" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Countries_Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Beneficiary">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:Person">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Beneficiarytype" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Ratio" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PerAddresses">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Addresses_Id" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Revisions_Id_Adr" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="AddressesText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="CityRegions" type="s1:CityRegion" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="City" type="s1:City" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Countries" type="s1:Country" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CityRegion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="CityRegions_Id" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="CityRegions_Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="City">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Countries_Id" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Regions_Id" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Cities_Id" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Cities_Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Payer">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:PolRole">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Instruments_Id_Fir" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Instruments_Id_Fol" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Ratio" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="CreditCard" type="s1:PerCreditCards" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="BankAccount" type="s1:PersonalAccount" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="PaymentDay" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="PersonalAccount">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="PerAccounts_Id" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Revisions_Id_Account" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="BankBranches" type="s1:BankBranches" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Banks" type="s1:Banks" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Units_Id" type="s1:Units" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="AccountNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="SecurityCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="AccountName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsDefForPayment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsDefForCommisions" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IsDefForClaim" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Persons_Id_Src" nillable="true" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Units">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Units_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Units_Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="UnitRates_Id" nillable="true" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Error">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Error_Id" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Sender" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Message" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Severity" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Product">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:BaseProduct">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Products_Type" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="ProPayPlans" type="s1:PayPlans" />
+              <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="ProUnits" type="s1:Units" />
+              <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="ProBillPeriods" type="s1:VarValues" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsProfitProduct" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsALongtermproduct" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsHealthFormNeeded" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsInitialPaymentAllowed" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsForGroups" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseProduct">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Branches" type="s1:Branches" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Products_Id" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="MainProducts_Id" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Products_Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Branches">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Branches_Id" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Branches_Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Company" type="s1:Company" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Company">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Companies_Id" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Companies_Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PayPlans">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="PayPlans_Id" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="PayPlans_Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsSelected" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PayPlanDetails">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:PayPlans">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="DiscountFactor" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Units_Id" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="UnitRates_Id" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="CashRatio" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="InstalmentsCnt" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Instalmentsperiod" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Periodtype" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Rounding" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="MinInstalment" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="VarValues">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="ValueText" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Value" nillable="true" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProductDetails">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:Product">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="ApprovalDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="ExpiryDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="LaunchDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="MinAge" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="MaxAge" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="MaxDuration" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="MaxDurationType" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="MinDuration" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="MinDurationType" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="MinEntryAge" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="MaxEntryAge" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsCommChangeByYear" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsGroupClosed" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Products_Id_Follow" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Minpremium" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Maxpremium" nillable="true" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="BillPeriodMinPremiums" type="s1:BillPeriodMinPremium" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BillPeriodMinPremium">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Units_Id" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="BillPeriod" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="MinPremium" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PolProducer">
+        <s:complexContent mixed="false">
+          <s:extension base="s1:Producer">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="ProductionLevel" nillable="true" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Producer">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Producers_Id" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Producers_Code" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="EProducers_Code" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Producers_Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Zones" type="s1:Zones" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Channels" type="s1:Channels" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Cities_Id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="ProducerAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Tel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Fax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="BesLicenseno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="PlateRegisterno" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Zones">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Zones_Id" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Zones_Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Channels">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Channels_Id" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Channels_Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="MainChannels_Id" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Benefits">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Benefits_Id" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Revisions_Id" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Benefits_Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsRequired" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="Variables" type="s1:Variables" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsSelected" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="TP" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="TPLocal" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="SP" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="SPLocal" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="BP" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="BPLocal" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Capital" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Commision" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="CommisionLocal" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="BenLimits" nillable="true" type="s1:BenLimits" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsABenefitGrp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsBeneficiable" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="BeneficiaryType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="Beneficiaries" type="s1:Beneficiary" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="BenefitType" type="s1:eBenefitType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Variables">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Variables_Id" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Variables_Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="Value" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsSystemVar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsManualEntry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="DeterminAt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="ValueList" type="s1:VarValues" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="ValueText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="IsAMidResult" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BenLimits">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="LimitType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="LimitTypes_Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Networks_Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Geographies_Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Limit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="Units_Id" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="eBenefitType">
+        <s:restriction base="s:string">
+          <s:enumeration value="AT" />
+          <s:enumeration value="YT" />
+          <s:enumeration value="E" />
+          <s:enumeration value="F" />
+          <s:enumeration value="Diger" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/PoliceSchema.xsd">
+      <s:element name="PoliceListesi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="unbounded" name="Police">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="1" maxOccurs="1" name="PoliceNo" type="s:decimal" />
+                  <s:element minOccurs="1" maxOccurs="1" name="TeklifNo" type="s:decimal" />
+                  <s:element minOccurs="1" maxOccurs="1" name="SertifikaNo" type="s:decimal" />
+                  <s:element minOccurs="1" maxOccurs="1" name="YenilemeNo" type="s:decimal" />
+                  <s:element minOccurs="1" maxOccurs="1" name="EkbelgeNo" type="s:decimal" />
+                  <s:element minOccurs="1" maxOccurs="1" name="EkbelgeKodu" type="s:decimal" />
+                  <s:element minOccurs="0" maxOccurs="1" name="EkbelgeAdi" type="s:string" />
+                  <s:element minOccurs="0" maxOccurs="1" name="TenzilIptalat" type="s:string" />
+                  <s:element minOccurs="1" maxOccurs="1" name="PolTrans_Id" type="s:decimal" />
+                  <s:element minOccurs="0" maxOccurs="1" name="Urun">
+                    <s:complexType>
+                      <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="UrunKodu" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="UrunAdi" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="BransKodu" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="BransAdi" type="s:string" />
+                      </s:sequence>
+                    </s:complexType>
+                  </s:element>
+                  <s:element minOccurs="0" maxOccurs="1" name="GrupBilgi">
+                    <s:complexType>
+                      <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="AnaSigortaliAdi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="AnaSigortaliSoyadi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="SigortaliCepTel" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="SigortaliCinsiyet" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="SigortaliDogumTarih" type="s:dateTime" />
+                        <s:element minOccurs="0" maxOccurs="1" name="SigortaliEMail" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="SigortaliPlan" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="PoliceBaslangıcTarih" type="s:dateTime" />
+                        <s:element minOccurs="1" maxOccurs="1" name="PoliceBitisTarih" type="s:dateTime" />
+                        <s:element minOccurs="1" maxOccurs="1" name="PoliceTanzimTarih" type="s:dateTime" />
+                        <s:element minOccurs="1" maxOccurs="1" name="Prim" type="s:decimal" />
+                        <s:element minOccurs="1" maxOccurs="1" name="PoliceNo" type="s:decimal" />
+                        <s:element minOccurs="1" maxOccurs="1" name="TeklifNo" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="AltMusteriAdi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="AnaMusteriAdi" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="AnaMusteriKodu" type="s:decimal" />
+                        <s:element minOccurs="1" maxOccurs="1" name="SiraNo" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="SigortaliAdi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="SigortaliSoyadi" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="SigortaliNo" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="SigortaliTCKimlikNo" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Uyruk" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Yakinlik" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="ZeyilBaslangicTarih" type="s:dateTime" />
+                        <s:element minOccurs="1" maxOccurs="1" name="ZeyilNo" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="ZeyilTipAdi" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="ZeyilTipKodu" type="s:decimal" />
+                        <s:element minOccurs="1" maxOccurs="1" name="ZeyilTanzimTarih" type="s:dateTime" />
+                      </s:sequence>
+                    </s:complexType>
+                  </s:element>
+                  <s:element minOccurs="1" maxOccurs="1" name="BaslamaTarihi" type="s:date" />
+                  <s:element minOccurs="1" maxOccurs="1" name="BitisTarihi" type="s:date" />
+                  <s:element minOccurs="1" maxOccurs="1" name="TanzimTarihi" type="s:date" />
+                  <s:element minOccurs="1" maxOccurs="1" name="UretimTarihi" type="s:date" />
+                  <s:element minOccurs="1" maxOccurs="1" name="BasvuruTarihi" type="s:date" />
+                  <s:element minOccurs="1" maxOccurs="1" name="NetPrim" type="s:decimal" />
+                  <s:element minOccurs="0" maxOccurs="1" name="ParaBirimi" type="s:string" />
+                  <s:element minOccurs="1" maxOccurs="1" name="NetPrimTL" type="s:decimal" />
+                  <s:element minOccurs="1" maxOccurs="1" name="BrutPrim" type="s:decimal" />
+                  <s:element minOccurs="1" maxOccurs="1" name="BrutPrimTL" type="s:decimal" />
+                  <s:element minOccurs="1" maxOccurs="1" name="Vergi" type="s:decimal" />
+                  <s:element minOccurs="1" maxOccurs="1" name="VergiTL" type="s:decimal" />
+                  <s:element minOccurs="1" maxOccurs="1" name="Kur" type="s:decimal" />
+                  <s:element minOccurs="1" maxOccurs="1" name="Komisyon" type="s:decimal" />
+                  <s:element minOccurs="1" maxOccurs="1" name="KomisyonTL" type="s:decimal" />
+                  <s:element minOccurs="0" maxOccurs="1" name="OdemePlaniAdi" type="s:string" />
+                  <s:element minOccurs="0" maxOccurs="1" name="Sigortali">
+                    <s:complexType>
+                      <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="MusteriNo" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="TcKimlikNo" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="VergiKimlikNo" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="TuzelMi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="MusteriTamAdi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Adi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Soyadi" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="DogumTarihi" type="s:date" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Cinsiyet" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="ReferansNo" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Adres" type="s:string" />
+                      </s:sequence>
+                    </s:complexType>
+                  </s:element>
+                  <s:element minOccurs="0" maxOccurs="1" name="Lehdar">
+                    <s:complexType>
+                      <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="LehdarMusteriNo" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="LehdarAdi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="LehdarDogumTarih" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="LehdarTCKimlikNo" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="TeminatAdi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="LehdarVergiNo" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="LehdarOran" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="LehdarTip" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="LehdarTipAd" type="s:string" />
+                      </s:sequence>
+                    </s:complexType>
+                  </s:element>
+                  <s:element minOccurs="0" maxOccurs="1" name="SigortaEttiren">
+                    <s:complexType>
+                      <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="MusteriNo" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="TcKimlikNo" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="VergiKimlikNo" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="TuzelMi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="MusteriTamAdi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Adi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Soyadi" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="DogumTarihi" nillable="true" type="s:date" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Cinsiyet" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="ReferansNo" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Adres" type="s:string" />
+                      </s:sequence>
+                    </s:complexType>
+                  </s:element>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="Acente">
+                    <s:complexType>
+                      <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="AcenteKodu" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="AcenteAdi" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="Seviye" type="s:int" />
+                        <s:element minOccurs="0" maxOccurs="1" name="ReferansNo" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="AcenteID" type="s:decimal" />
+                        <s:element minOccurs="1" maxOccurs="1" name="BolgeKodu" type="s:decimal" />
+                      </s:sequence>
+                    </s:complexType>
+                  </s:element>
+                  <s:element minOccurs="0" maxOccurs="1" name="SatisTemsilcisi">
+                    <s:complexType>
+                      <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="TemsilciKodu" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="TemsilciAdi" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="ReferansKodu" type="s:decimal" />
+                      </s:sequence>
+                    </s:complexType>
+                  </s:element>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="Teminatlar" nillable="true">
+                    <s:complexType>
+                      <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="TeminatKodu" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="TeminatAdi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="TeminatRevizyonu" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="unbounded" name="TeminatLimitleri" nillable="true">
+                          <s:complexType>
+                            <s:sequence>
+                              <s:element minOccurs="0" maxOccurs="1" name="LimitTipi" type="s:string" />
+                              <s:element minOccurs="0" maxOccurs="1" name="LimitAdi" type="s:string" />
+                              <s:element minOccurs="0" maxOccurs="1" name="Limiti" type="s:string" />
+                              <s:element minOccurs="0" maxOccurs="1" name="LimitParaBirimi" type="s:string" />
+                              <s:element minOccurs="0" maxOccurs="1" name="Cografya" type="s:string" />
+                              <s:element minOccurs="0" maxOccurs="1" name="Network" type="s:string" />
+                            </s:sequence>
+                          </s:complexType>
+                        </s:element>
+                      </s:sequence>
+                    </s:complexType>
+                  </s:element>
+                  <s:element minOccurs="1" maxOccurs="1" name="SaglikBeyani" nillable="true">
+                    <s:complexType>
+                      <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="AdiSoyadi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Boy" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Kilo" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="SigaraKullaniyormu" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="SigaraGunlukAdedi" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="SigaraKullanimSuresiYil" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="AlkolKullaniyormu" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="HaftalikKadeh" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="MotorsikletKullanimi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="unbounded" name="SaglikBeyaniSorulari" nillable="true">
+                          <s:complexType>
+                            <s:sequence>
+                              <s:element minOccurs="0" maxOccurs="1" name="Soru" type="s:string" />
+                              <s:element minOccurs="0" maxOccurs="1" name="Cevap" type="s:string" />
+                            </s:sequence>
+                          </s:complexType>
+                        </s:element>
+                      </s:sequence>
+                    </s:complexType>
+                  </s:element>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="OdemePlani" nillable="true">
+                    <s:complexType>
+                      <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="VadeTarihi" type="s:date" />
+                        <s:element minOccurs="1" maxOccurs="1" name="VadeTutari" type="s:decimal" />
+                        <s:element minOccurs="0" maxOccurs="1" name="ParaBirimi" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="OdemeAraci" type="s:string" />
+                      </s:sequence>
+                    </s:complexType>
+                  </s:element>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="Hata" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="PolicyBillsSoapIn">
+    <wsdl:part name="parameters" element="tns:PolicyBills" />
+  </wsdl:message>
+  <wsdl:message name="PolicyBillsSoapOut">
+    <wsdl:part name="parameters" element="tns:PolicyBillsResponse" />
+  </wsdl:message>
+  <wsdl:message name="BillPoliciesSoapIn">
+    <wsdl:part name="parameters" element="tns:BillPolicies" />
+  </wsdl:message>
+  <wsdl:message name="BillPoliciesSoapOut">
+    <wsdl:part name="parameters" element="tns:BillPoliciesResponse" />
+  </wsdl:message>
+  <wsdl:message name="UretimListesiSoapIn">
+    <wsdl:part name="parameters" element="tns:UretimListesi" />
+  </wsdl:message>
+  <wsdl:message name="UretimListesiSoapOut">
+    <wsdl:part name="parameters" element="tns:UretimListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="PolicyBillsHttpGetIn">
+    <wsdl:part name="Policies_Id" type="s:string" />
+    <wsdl:part name="Renewals_Id" type="s:string" />
+    <wsdl:part name="Groups_Id" type="s:string" />
+    <wsdl:part name="IssueDateMin" type="s:string" />
+    <wsdl:part name="IssueDateMax" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PolicyBillsHttpGetOut">
+    <wsdl:part name="Body" element="tns:PolBills" />
+  </wsdl:message>
+  <wsdl:message name="BillPoliciesHttpGetIn">
+    <wsdl:part name="IssueDateMin" type="s:string" />
+    <wsdl:part name="IssueDateMax" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BillPoliciesHttpGetOut">
+    <wsdl:part name="Body" element="tns:PolicyList" />
+  </wsdl:message>
+  <wsdl:message name="UretimListesiHttpGetIn">
+    <wsdl:part name="IssueDateMin" type="s:string" />
+    <wsdl:part name="IssueDateMax" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UretimListesiHttpGetOut">
+    <wsdl:part name="Body" element="s2:PoliceListesi" />
+  </wsdl:message>
+  <wsdl:message name="PolicyBillsHttpPostIn">
+    <wsdl:part name="Policies_Id" type="s:string" />
+    <wsdl:part name="Renewals_Id" type="s:string" />
+    <wsdl:part name="Groups_Id" type="s:string" />
+    <wsdl:part name="IssueDateMin" type="s:string" />
+    <wsdl:part name="IssueDateMax" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PolicyBillsHttpPostOut">
+    <wsdl:part name="Body" element="tns:PolBills" />
+  </wsdl:message>
+  <wsdl:message name="BillPoliciesHttpPostIn">
+    <wsdl:part name="IssueDateMin" type="s:string" />
+    <wsdl:part name="IssueDateMax" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BillPoliciesHttpPostOut">
+    <wsdl:part name="Body" element="tns:PolicyList" />
+  </wsdl:message>
+  <wsdl:message name="UretimListesiHttpPostIn">
+    <wsdl:part name="IssueDateMin" type="s:string" />
+    <wsdl:part name="IssueDateMax" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UretimListesiHttpPostOut">
+    <wsdl:part name="Body" element="s2:PoliceListesi" />
+  </wsdl:message>
+  <wsdl:portType name="AOHayatDataShareSoap">
+    <wsdl:operation name="PolicyBills">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Hayat Poliçe Tahakkuk Bilgisi</wsdl:documentation>
+      <wsdl:input message="tns:PolicyBillsSoapIn" />
+      <wsdl:output message="tns:PolicyBillsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BillPolicies">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Hayat Poliçe Tahakkuk Listesi</wsdl:documentation>
+      <wsdl:input message="tns:BillPoliciesSoapIn" />
+      <wsdl:output message="tns:BillPoliciesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UretimListesi">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Poliçe Tahakkuk Listesi</wsdl:documentation>
+      <wsdl:input message="tns:UretimListesiSoapIn" />
+      <wsdl:output message="tns:UretimListesiSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AOHayatDataShareHttpGet">
+    <wsdl:operation name="PolicyBills">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Hayat Poliçe Tahakkuk Bilgisi</wsdl:documentation>
+      <wsdl:input message="tns:PolicyBillsHttpGetIn" />
+      <wsdl:output message="tns:PolicyBillsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BillPolicies">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Hayat Poliçe Tahakkuk Listesi</wsdl:documentation>
+      <wsdl:input message="tns:BillPoliciesHttpGetIn" />
+      <wsdl:output message="tns:BillPoliciesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UretimListesi">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Poliçe Tahakkuk Listesi</wsdl:documentation>
+      <wsdl:input message="tns:UretimListesiHttpGetIn" />
+      <wsdl:output message="tns:UretimListesiHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AOHayatDataShareHttpPost">
+    <wsdl:operation name="PolicyBills">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Hayat Poliçe Tahakkuk Bilgisi</wsdl:documentation>
+      <wsdl:input message="tns:PolicyBillsHttpPostIn" />
+      <wsdl:output message="tns:PolicyBillsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BillPolicies">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Hayat Poliçe Tahakkuk Listesi</wsdl:documentation>
+      <wsdl:input message="tns:BillPoliciesHttpPostIn" />
+      <wsdl:output message="tns:BillPoliciesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UretimListesi">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Poliçe Tahakkuk Listesi</wsdl:documentation>
+      <wsdl:input message="tns:UretimListesiHttpPostIn" />
+      <wsdl:output message="tns:UretimListesiHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AOHayatDataShareSoap" type="tns:AOHayatDataShareSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PolicyBills">
+      <soap:operation soapAction="http://tempuri.org/PolicyBills" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BillPolicies">
+      <soap:operation soapAction="http://tempuri.org/BillPolicies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UretimListesi">
+      <soap:operation soapAction="http://tempuri.org/UretimListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AOHayatDataShareSoap12" type="tns:AOHayatDataShareSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PolicyBills">
+      <soap12:operation soapAction="http://tempuri.org/PolicyBills" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BillPolicies">
+      <soap12:operation soapAction="http://tempuri.org/BillPolicies" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UretimListesi">
+      <soap12:operation soapAction="http://tempuri.org/UretimListesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AOHayatDataShareHttpGet" type="tns:AOHayatDataShareHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="PolicyBills">
+      <http:operation location="/PolicyBills" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BillPolicies">
+      <http:operation location="/BillPolicies" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UretimListesi">
+      <http:operation location="/UretimListesi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AOHayatDataShareHttpPost" type="tns:AOHayatDataShareHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="PolicyBills">
+      <http:operation location="/PolicyBills" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BillPolicies">
+      <http:operation location="/BillPolicies" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UretimListesi">
+      <http:operation location="/UretimListesi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AOHayatDataShare">
+    <wsdl:port name="AOHayatDataShareSoap" binding="tns:AOHayatDataShareSoap">
+      <soap:address location="https://datashare.axasigorta.com.tr/AOPublicServices_v5/AOHayatDataShare.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AOHayatDataShareSoap12" binding="tns:AOHayatDataShareSoap12">
+      <soap12:address location="https://datashare.axasigorta.com.tr/AOPublicServices_v5/AOHayatDataShare.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AOHayatDataShareHttpGet" binding="tns:AOHayatDataShareHttpGet">
+      <http:address location="https://datashare.axasigorta.com.tr/AOPublicServices_v5/AOHayatDataShare.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AOHayatDataShareHttpPost" binding="tns:AOHayatDataShareHttpPost">
+      <http:address location="https://datashare.axasigorta.com.tr/AOPublicServices_v5/AOHayatDataShare.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,330 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@using Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Web.Areas.TaliAcente.Models
+@model TaliAcenteModel
+
+@{
+    ViewBag.Title = "TaliAcenteRaporEkrani";
+    Layout = "~/Areas/TaliAcente/Views/Shared/_Layout.cshtml";
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        @* <li>
+                <a href="/Musteri/Musteri/Liste">@babonline.Customer_Search<span></span></a>
+            </li>*@
+        <li class="active">
+            <a href="#">@babonline.ProductionPayrollControlReport<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/switch")
+    <script type="text/javascript">
+        var myArray = [];
+        @if (Model.tvmList != null)
+        {
+            foreach (var d in Model.tvmList)
+            {
+                   @:myArray.push("@d");
+            }
+        }
+
+        $(document).ready(function () {
+            $('#tumDurumlarSelect').change(function () {
+                if ($('#tumDurumlarSelect').val() == "1") {
+                    $(".label-success").parent().parent().show();
+                    $(".label-important").parent().parent().show();
+                    $(".label-warning").parent().parent().show();
+                }
+                if ($('#tumDurumlarSelect').val() == "2") {
+                    $(".label-success").parent().parent().show();
+                    $(".label-important").parent().parent().hide();
+                    $(".label-warning").parent().parent().hide();
+                }
+                if ($('#tumDurumlarSelect').val() == "3") {
+                    $(".label-important").parent().parent().show();
+                    $(".label-success").parent().parent().hide();
+                    $(".label-warning").parent().parent().hide();
+                }
+                if ($('#tumDurumlarSelect').val() == "4") {
+                    $(".label-important").parent().parent().hide();
+                    $(".label-success").parent().parent().hide();
+                    $(".label-warning").parent().parent().show();
+                }
+            });
+
+            var tarih = $('#BaslangicTarihi').datepicker("getDate");
+            if (tarih != null) {
+                var d = tarih.getDate();
+                var m = tarih.getMonth() + 1;
+                var y = tarih.getFullYear();
+                var bastarh = d + "/" + m + "/" + y;
+                //var trh = year+""+month+""+day;
+                $("#tarih").val(bastarh);
+            }
+
+            $('#BaslangicTarihi').change(function () {
+                var bas = $(this).datepicker("getDate");
+                var day = bas.getDate();
+                var month = bas.getMonth() + 1;
+                var year = bas.getFullYear();
+                var trh = day + "/" + month + "/" + year;
+                //var trh = year+""+month+""+day;
+                $("#tarih").val(trh);
+            });
+
+            $('.multiselect').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                maxHeight: 170,
+                nonSelectedText: '@babonline.PleaseSelect',
+                selectAllText: '@babonline.Select_All',
+                filterPlaceholder: '@babonline.Search',
+                nSelectedText: '@babonline.Selected'
+            });
+
+            if (myArray.length > 0) {
+                $('#tvmList').val(myArray);
+            }
+            $("#tvmList").multiselect("refresh");
+
+            var raporTip = $('input[name="RaporTipi"]:checked').val();
+            if (raporTip == 0) {
+                $("#tarihAraligi").hide();
+                $("#gunlukListe").show();
+
+            }
+            else if (raporTip == 1) {
+                $("#tarihAraligi").show();
+                $("#gunlukListe").hide();
+            }
+        });
+
+        $('input[name="RaporTipi"]').change(function () {
+            if ($("#RaporTipi_0").is(':checked')) {
+                $("#tarihAraligi").hide();
+                $("#gunlukListe").show();
+            }
+            else {
+                $("#tarihAraligi").show();
+                $("#gunlukListe").hide();
+            }
+        });
+        $("#search").click(function () {
+            if ($("#RaporTipi_1").is(':checked')) {
+                $(this).button("loading");
+                if ($("#tvmList").val() == null) {
+                    $(this).button('reset');
+                }
+                if ($("#KayitBaslangicTarihi").val() == null || $("#KayitBaslangicTarihi").val() == "") {
+                    $(this).button('reset');
+                }
+                if ($("#KayitBitisTarihi").val() == null || $("#KayitBitisTarihi").val() == "") {
+                    $(this).button('reset');
+                }
+                $("#tvmList").removeClass("ignore");
+                $("#KayitBaslangicTarihi").removeClass("ignore");
+                $("#KayitBitisTarihi").removeClass("ignore");
+            }
+            else {
+                $("#tvmList").addClass("ignore");
+                $("#KayitBaslangicTarihi").addClass("ignore");
+                $("#KayitBitisTarihi").addClass("ignore");
+            }
+        });
+
+    </script>
+}
+
+<link href="~/Content/css/bootstrapSwitch.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrapSwitch.min.css" rel="stylesheet" />
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey" style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-reorder"></i>
+                            <span class="hidden-480">@babonline.ProductionPayrollControlReport</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body form" id="formTali">
+                        @using (Html.BeginForm("TaliAcenteRaporEkrani", "TaliAcente", FormMethod.Post, new { @class = "form-horizontal", id = "formTali", enctype = "multipart/form-data" }))
+                        {
+
+                            @Html.HiddenFor(s => s.KayitId);
+                            @Html.HiddenFor(s => s.KayitTarihi);
+                            @Html.HiddenFor(s => s.tarih);
+
+                            @*/ **************Tarih Alanı*******************/*@
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.ReportType</label>
+                                        <div class="controls radio-custom">
+                                            @Html.RadioButtonListFor(m => m.RaporTipi, Model.RaporTipleri)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                </div>
+                            </div>
+                            <div class="row-fluid" id="gunlukListe">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">Poliçe Bordro Listele</label>
+                                        <div class="controls">
+                                            <div class="span6">
+                                                @Html.DateTextBoxFor(s => s.BaslangicTarihi, new { style = "width:100px", Id = "RaporListele" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row-fluid" style="padding-top: 10px; display: none" id="tarihAraligi">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TVM<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(s => s.tvmList, Model.tvmler, new { @class = "multiselect", multiple = "multiple", required = "required" })
+                                            @Html.ValidationMessageFor(m => m.tvmList)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Başlangıç Bordro Tarihi<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DateTextBoxFor(s => s.KayitBaslangicTarihi, new { style = "width:100px", Id = "BasT" })
+                                            @Html.ValidationMessageFor(m => m.KayitBaslangicTarihi)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Bitiş Bordro Tarihi<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DateTextBoxFor(s => s.KayitBitisTarihi, new { style = "width:100px", Id = "BitT" })
+                                            @Html.ValidationMessageFor(m => m.KayitBitisTarihi)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="span2">
+                                    <input type="submit" id="search" class="btn btn-success" value="@babonline.Search" />
+                                </div>
+                            </div>
+                            if (Model.RaporTipi == 0)
+                            {
+                                <div class="row-fluid" style="margin-top: 3%;">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.ProductionStatus</label>
+                                            <div class="controls">
+                                                <select id="tumDurumlarSelect" name="PeopleClass">
+                                                    <option selected="selected" value="1">@babonline.All</option>
+                                                    <option value="2">@babonline.Have</option>
+                                                    <option value="3">@babonline.Havent</option>
+                                                    <option value="4">@babonline.Unclear</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span6" style="font: bold 18px arial; color: red">
+                                        @ViewBag.durumMesaj
+                                    </div>
+                                </div>
+                            }
+
+                            @*/**************Tarih Alanı****************/*@
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <div id="table-div" style="overflow-x: auto;">
+                                        <table class="table table-striped table-bordered table-hover dataTable data-table" style="table-layout: inherit">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 15%;">@babonline.SubAgencyCode</th>
+                                                    <th style="width: 15%;">@babonline.SubAgencyName</th>
+                                                    @if (Model.RaporTipi == 0)
+                                                    {
+                                                        <th style="width: 15%;">@babonline.ProductionStatus</th>
+                                                        <th style="width: 15%;">Gün Kapama Durumu</th>
+                                                    }
+                                                    <th style="width: 15%;">@babonline.Policy/@babonline.Addendum @babonline.Piece</th>
+                                                    <th style="width: 15%;">Poliçe Bordro @babonline.DateOfRegistration</th>
+                                                    <th style="width: 15%;">@babonline.DateOfUpdate</th>
+                                                </tr>
+                                            </thead>
+                                            @foreach (var item in Model.taliAcenteRaporEkranListe)
+                                            {
+                                                <tr>
+                                                    <th style="width: 15%;">@item.TVMKodu</th>
+                                                    <th style="width: 15%;">@item.TVMAdi </th>
+                                                    @if (Model.RaporTipi == 0)
+                                                    {
+                                                        <th style="width: 15%;">
+                                                            @if (@item.UretimVAR_YOK == 1)
+                                                        {
+                                                            <span class="label label-success">Var</span>
+                                                        }
+                                                        else if (@item.UretimVAR_YOK == 0)
+                                                        {
+                                                            <span class="label label-important">Yok</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="label label-warning" style="color: darkblue">Belirsiz</span>
+                                                        }
+                                                    </th>
+                                                        <th style="width: 15%;">
+                                                            @if (@item.GunKapandimi == 1)
+                                                        {
+                                                            <img src="~/Content/img/yesiltik.png" style="width: 10%" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="~/Content/img/red.ico" style="width: 10%" />
+                                                        }
+                                                    </th>
+                                                    }
+                                                    <th style="width: 15%;">@item.Police_EkAdedi</th>
+                                                    <th style="width: 15%;">@(item.KayitTarihi != null ? item.KayitTarihi.Value.ToShortDateString() : null)</th>
+                                                    <th style="width: 15%;">@(item.GuncellemeTarihi != null ? item.GuncellemeTarihi.Value.ToShortDateString() : null)</th>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

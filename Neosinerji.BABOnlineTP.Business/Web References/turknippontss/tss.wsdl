@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="Tss" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="Tss" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Türk Nippon Sigorta Tss product application services.</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="Tss">
+      <s:element name="Compute">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:TssInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TssInput">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:SharedInput">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ClientNo" nillable="true" type="s:long" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientCitizenshipNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientTaxNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientPhoneNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="BeginDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="EndDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="Size" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Weight" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Job" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ChronicIllnessorSurgery" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsRenewal" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="OldPolicyNo" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FirstPolicyBeginDate" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="OldInsuranceCompany" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IdentityNo" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="outPatient" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="ChronicIllnessorSurgExplanation" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TariffGroup" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PersonalOrGroup" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="PersonCount" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientIL" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientIC" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientBD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientMH" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientSM" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientCD" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientSK" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientAP" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SharedInput" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PrintType" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsTestMode" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Channel" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TrackingCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CitizenshipNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnitNo" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="PolicyNo" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CashPaymentType" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UseCreditCard" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCard" type="tns:CreditCardInput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CreditCardInput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CardType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Month" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Year" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CVV" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Installment" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardHolderFirstname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardHolderLastname" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ComputeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ComputeResult" type="tns:TssOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TssOutput">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:SharedOutput">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ExchangeRate" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ClientNo" type="s:long" />
+              <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:TssInput" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SharedOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IsSuccess" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TrackingCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnitNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="UnitName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Premium" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BeginDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PolicyNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrintDownloadUrl" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Proposal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:TssInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProposalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProposalResult" type="tns:TssOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Approve">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:TssInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApproveResult" type="tns:TssOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Print">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:TssInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrintResult" type="tns:TssOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetJobList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetJobListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetJobListResult" type="tns:ArrayOfJobOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfJobOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="JobOutput" nillable="true" type="tns:JobOutput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="JobOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="JobCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="JobDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetTariffGroupList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetTariffGroupListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTariffGroupListResult" type="tns:ArrayOfTariffGroupOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTariffGroupOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TariffGroupOutput" nillable="true" type="tns:TariffGroupOutput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TariffGroupOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TariffGroupCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TariffGroupDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ComputeSoapIn">
+    <wsdl:part name="parameters" element="tns:Compute" />
+  </wsdl:message>
+  <wsdl:message name="ComputeSoapOut">
+    <wsdl:part name="parameters" element="tns:ComputeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProposalSoapIn">
+    <wsdl:part name="parameters" element="tns:Proposal" />
+  </wsdl:message>
+  <wsdl:message name="ProposalSoapOut">
+    <wsdl:part name="parameters" element="tns:ProposalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApproveSoapIn">
+    <wsdl:part name="parameters" element="tns:Approve" />
+  </wsdl:message>
+  <wsdl:message name="ApproveSoapOut">
+    <wsdl:part name="parameters" element="tns:ApproveResponse" />
+  </wsdl:message>
+  <wsdl:message name="PrintSoapIn">
+    <wsdl:part name="parameters" element="tns:Print" />
+  </wsdl:message>
+  <wsdl:message name="PrintSoapOut">
+    <wsdl:part name="parameters" element="tns:PrintResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetJobListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetJobList" />
+  </wsdl:message>
+  <wsdl:message name="GetJobListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetJobListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTariffGroupListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTariffGroupList" />
+  </wsdl:message>
+  <wsdl:message name="GetTariffGroupListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTariffGroupListResponse" />
+  </wsdl:message>
+  <wsdl:portType name="TssServiceSoap">
+    <wsdl:operation name="Compute">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Show Tss premium with minimum input.</wsdl:documentation>
+      <wsdl:input message="tns:ComputeSoapIn" />
+      <wsdl:output message="tns:ComputeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Proposal">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Tss proposal with minimum input.</wsdl:documentation>
+      <wsdl:input message="tns:ProposalSoapIn" />
+      <wsdl:output message="tns:ProposalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Approve">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Approve Tss proposal with minimum input.</wsdl:documentation>
+      <wsdl:input message="tns:ApproveSoapIn" />
+      <wsdl:output message="tns:ApproveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Print">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get print file address with minimum input.</wsdl:documentation>
+      <wsdl:input message="tns:PrintSoapIn" />
+      <wsdl:output message="tns:PrintSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetJobList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List Tss Job Types By Product</wsdl:documentation>
+      <wsdl:input message="tns:GetJobListSoapIn" />
+      <wsdl:output message="tns:GetJobListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTariffGroupList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">List Tss TariffGroup By Product</wsdl:documentation>
+      <wsdl:input message="tns:GetTariffGroupListSoapIn" />
+      <wsdl:output message="tns:GetTariffGroupListSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TssServiceSoap" type="tns:TssServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Compute">
+      <soap:operation soapAction="Tss/Compute" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Proposal">
+      <soap:operation soapAction="Tss/Proposal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Approve">
+      <soap:operation soapAction="Tss/Approve" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Print">
+      <soap:operation soapAction="Tss/Print" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobList">
+      <soap:operation soapAction="Tss/GetJobList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTariffGroupList">
+      <soap:operation soapAction="Tss/GetTariffGroupList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TssServiceSoap12" type="tns:TssServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Compute">
+      <soap12:operation soapAction="Tss/Compute" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Proposal">
+      <soap12:operation soapAction="Tss/Proposal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Approve">
+      <soap12:operation soapAction="Tss/Approve" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Print">
+      <soap12:operation soapAction="Tss/Print" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetJobList">
+      <soap12:operation soapAction="Tss/GetJobList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTariffGroupList">
+      <soap12:operation soapAction="Tss/GetTariffGroupList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TssService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Türk Nippon Sigorta Tss product application services.</wsdl:documentation>
+    <wsdl:port name="TssServiceSoap" binding="tns:TssServiceSoap">
+      <soap:address location="https://galaksi.turknippon.com/appservice/tss.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TssServiceSoap12" binding="tns:TssServiceSoap12">
+      <soap12:address location="https://galaksi.turknippon.com/appservice/tss.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

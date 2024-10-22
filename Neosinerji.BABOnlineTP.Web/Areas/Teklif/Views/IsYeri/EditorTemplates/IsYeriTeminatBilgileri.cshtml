@@ -1,0 +1,665 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model IsYeriTeminatBilgileri
+
+<style>
+    .tutar-demirbas {
+        border-top-width: 0;
+        height: 34px;
+        margin-left: 10px;
+        margin-top: -17px;
+        padding-top: 0;
+    }
+
+    .tutar {
+        border-top-width: 0;
+        height: 34px;
+        margin-left: 10px;
+        margin-top: -17px;
+        padding-top: 0;
+    }
+
+    .tutar-disabled {
+        background-color: #D3D3D3 !important;
+    }
+
+    .tutar-text {
+        width: 90px;
+        text-align: right;
+    }
+</style>
+
+<h5 class="form-section">@babonline.Main_Guarantees </h5>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.StockFire</label>
+            <div class="controls ">
+                @Html.SwitchButtonFor(m => m.DemirbasYangin, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small deactivate" })
+                <div class="input-append tutar-demirbas">
+                    @Html.TextBoxFor(m => m.DemirbasYanginBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled demirbas-bedel", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.BuildingFire</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.BinaYangin, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat bina-switch bina-disabled" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.BinaYanginBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled bina-bedel", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.EarthquakeinStock</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.DemirbasDeprem, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat demirbas-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.DemirbasDepremBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled demirbas-bedel", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.BuildingEarthquake</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.BinaDeprem, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat bina-switch bina-disabled" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.BinaDepremBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled bina-bedel", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.DecoratingFire</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.DekorasyonYangin, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dekorason-switch dekorasyon-disabled" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.DekorasyonYanginBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled dekorasyon-bedel", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.CommodityFire</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.EmteaYangin, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat emtea-switch emtea-disabled " })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.EmteaYanginBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled emtea-bedel", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.DecoratingEarthquake</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.DekorasyonDeprem, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dekorason-switch dekorasyon-disabled" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.DekorasyonDepremBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled dekorasyon-bedel", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.CommodityEarthquake</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.EmteaDeprem, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat emtea-switch emtea-disabled" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.EmteaDepremBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled emtea-bedel", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.MechanicalEquipment</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.MakinaTechizat, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.MakinaTechizatBedel, new { @class = "m-wrap autoNumeric tutar-text" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(m => m.MakinaTechizatBedel)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.BoxContainsFire</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.KasaMuhteviyatYangin, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.KasaMuhteviyatYanginBedel, new { @class = "m-wrap autoNumeric tutar-text" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(m => m.KasaMuhteviyatYanginBedel)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.PartyGoodsFire</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.SahisMallariYangin3, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.SahisMallariYangin3Bedel, new { @class = "m-wrap  tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(m => m.SahisMaliSorumlulukKazaBasinaBedeni3Bedel)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.BasicsOfFire</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.TemellerYangin, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.TemellerYanginBedel, new { @class = "m-wrap  tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(m => m.TemellerYanginBedel)
+            </div>
+        </div>
+    </div>
+</div>
+<h5 class="form-section">@babonline.Additional_Guarantees </h5>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.AdditionalCollateralIngredient</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.EkTeminatMuhteviyat, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dekorason-switch demirbas-switch emtea-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.EkTeminatMuhteviyatBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled uclu-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.BuildingAdditionalCoverage</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.EkTeminatBina, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat bina-switch bina-disabled" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.EkTeminatBinaBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled bina-bedel", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Theft</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.Hirsizlik, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat demirbas-switch emtea-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.HirsizlikBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled ikili-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.CashTheft</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.KasaHirsizlik, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.KasaHirsizlikBedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.KasaHirsizlikBedel)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.MachineryBreakdown</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.MakinaKirilmasi, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.MakinaKirilmasiBedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.MakinaKirilmasiBedel)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.ElectronicEquipment</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.ElektronikCihaz, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.ElektronikCihazBedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.ElektronikCihazBedel)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Storm</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.Firtina, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dekorason-switch demirbas-switch emtea-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.FirtinaBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled uclu-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.EarthquakeVolcanicEruption</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.DepremYanardagPuskurmesi, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dortlu-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.DepremYanardagPuskurmesiBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled dortlu-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.ContainsEarthquakeVolcanicEruption</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.DepremYanardagPuskurmesiMuhteviyat, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dekorason-switch demirbas-switch emtea-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.DepremYanardagPuskurmesiMuhteviyatBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled uclu-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.EarthquakeVolcanicEruptionBuilding</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.DepremYanardagPuskurmesiBina, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat bina-switch bina-disabled" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.DepremYanardagPuskurmesiBinaBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled bina-bedel", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.FloodAndFlood</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.SelVeSuBaskini, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dekorason-switch demirbas-switch emtea-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.SelVeSuBaskiniBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled uclu-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.GLKHHKNHTerror</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.GLKHHKNHTeror, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dekorason-switch demirbas-switch emtea-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.GLKHHKNHTerorBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled uclu-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.GlassBreakage</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.CamKirilmasi, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div id="cam-kirilmasi-tutar" class="input-append tutar">
+                    @Html.TextBoxFor(m => m.CamKirilmasiBedel, new { @class = "m-wrap autoNumeric tutar-text" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(m => m.CamKirilmasiBedel)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.AssistantService</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.AsistanHizmeti, new string[] { "EVET", "HAYIR" }, new { })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.BuiltInWater</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.DahiliSu, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dortlu-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.DahiliSuBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled dortlu-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Legal_Protection</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.HukuksalKoruma, new string[] { "EVET", "HAYIR" }, new { })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.MotorVehicleShock</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.KaraTasitlariCarpmasi, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dortlu-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.KaraTasitlariCarpmasiBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled dortlu-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Smoke</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.Duman, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dortlu-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.DumanBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled dortlu-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.WeightOfSnow</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.KarAgirligi, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dekorason-switch demirbas-switch emtea-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.KarAgirligiBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled uclu-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.ShockAircraft</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.HavaTasitlariCarpmasi, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dortlu-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.HavaTasitlariCarpmasiBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled dortlu-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.PersonalAccident</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.FerdiKaza, new string[] { "EVET", "HAYIR" }, new { })
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.SummerArrest</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.YazDurmasi, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.YazDurmasiBedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.YazDurmasiBedel)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.PersonalAccidentDeath</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.FerdiKazaOlum, new string[] { "EVET", "HAYIR" }, new { })
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.ContinuousAccidentInjury</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.FerdiKazaSurekliSakatlik, new string[] { "EVET", "HAYIR" }, new { })
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.LiabilityFire</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.MaliSorumlulukYangin, new string[] { "EVET", "HAYIR" }, new { })
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.AdditionalCoverageLiability</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.MaliSorumlulukEkTeminat, new string[] { "EVET", "HAYIR" }, new { })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.DebrisRemovalGoods</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.EnkazKaldirma, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dekorason-switch demirbas-switch emtea-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.EnkazKaldirmaBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled uclu-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.BuildingDebrisRemoval</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.EnkazKaldirmaBina, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat bina-switch bina-disabled" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.EnkazKaldirmaBinaBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled bina-bedel", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.LossofRent</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.KiraKaybi, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div id="kira-kaybi-tutar" class="input-append tutar">
+                    @Html.TextBoxFor(m => m.KiraKaybiBedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.KiraKaybiBedel)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Landslide</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.YerKaymasi, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat dekorason-switch demirbas-switch emtea-switch" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.YerKaymasiBedel, new { @class = "m-wrap autoNumeric tutar-text tutar-disabled uclu-teminat", disabled = "disabled" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.EmployerLiabilityPerAccidentPersonal</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.IsverenMaliMesuliyetKazaBasinaBedeni, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.IsverenMaliMesuliyetKazaBasinaBedeniBedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.IsverenMaliMesuliyetKazaBasinaBedeniBedel)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.EmployerLiabilityPerCapitaPersonal</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.IsverenMaliMesuliyetKisiBasinaBedeni, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.IsverenMaliMesuliyetKisiBasinaBedeniBedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.IsverenMaliMesuliyetKisiBasinaBedeniBedel)
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.PerCapitaPersonalPartyLiability</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.SahisMaliSorumlulukKisiBasinaBedeni3, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.SahisMaliSorumlulukKisiBasinaBedeni3Bedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.SahisMaliSorumlulukKisiBasinaBedeni3Bedel)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.BodyOfPartyLiabilityPerAccident</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.SahisMaliSorumlulukKazaBasinaBedeni3, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.SahisMaliSorumlulukKazaBasinaBedeni3Bedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.SahisMaliSorumlulukKazaBasinaBedeni3Bedel)
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.PartyLiabilityPerAccidentProperty</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.SahisMaliSorumlulukKazaBasinaMaddi3, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.SahisMaliSorumlulukKazaBasinaMaddi3Bedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.SahisMaliSorumlulukKazaBasinaMaddi3Bedel)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.LiabilityNeighborhoodOfTerror</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.KomsulukMaliSorumlulukTeror, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.KomsulukMaliSorumlulukTerorBedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.KomsulukMaliSorumlulukTerorBedel)
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.TheNeighborhoodincludedFiscalResponsibilityFireSmokeWater</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.KomsulukMaliSorumlulukYanginDahiliSuDuman, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.KomsulukMaliSorumlulukYanginDahiliSuDumanBedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.KomsulukMaliSorumlulukYanginDahiliSuDumanBedel)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.TenantLiabilityTerrorism</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.KiraciMaliSorumlulukTeror, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.KiraciMaliSorumlulukTerorBedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.KiraciMaliSorumlulukTerorBedel)
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.TenantLiabilityIncludingFireSmokeWater</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.KiraciMaliSorumlulukYanginDahiliSuDuman, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small switch-teminat-tutar" })
+                <div class="input-append tutar">
+                    @Html.TextBoxFor(m => m.KiraciMaliSorumlulukYanginDahiliSuDumanBedel, new { @class = "m-wrap tutar-text autoNumeric" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.KiraciMaliSorumlulukYanginDahiliSuDumanBedel)
+            </div>
+        </div>
+    </div>
+</div>
+
+

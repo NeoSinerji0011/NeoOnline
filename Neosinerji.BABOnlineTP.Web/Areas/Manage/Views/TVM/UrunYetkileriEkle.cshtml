@@ -1,0 +1,196 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model TVMUrunYetkileriEkleModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="/Manage/TVM/UrunYetkileriListe">@babonline.TVM_ProductAuth_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.TVM_ProductAuth_Add<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageStyles
+{
+    @Styles.Render("~/Content/switch")
+}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/dataTable")
+    @Scripts.Render("~/bundles/switch")
+    <script>
+        $(document).ready(function () {
+            $("[rel=tooltip]").tooltip();
+
+            var tvm = $("#TVMKodu").tvmfinder();
+            tvm.enable();
+
+            $("#form0").submit(function () {
+                $(".switcher").find(":input").switchFix();
+            });
+        });
+    </script>
+
+    <style type="text/css">
+        .aciklama {
+            display: block;
+            list-style-type: none;
+            line-height: 15px;
+            margin: 5px 0 3px 6px;
+            float: left;
+            text-align: center;
+            font-size: 12px;
+            width: 100px;
+        }
+
+        .menuler {
+            font-size: small;
+            list-style-type: none;
+        }
+
+        .anamenu-ismi {
+            float: left;
+            font-size: 20px;
+            color: blue;
+        }
+
+        .altmenu-ismi {
+            float: left;
+            font-size: 14px;
+            color: maroon;
+            width: 100px;
+        }
+
+        .sekme-ismi {
+            float: left;
+            font-size: 14px;
+        }
+
+        .buton-container {
+            margin-left: 100px;
+            display: block;
+            list-style-type: none;
+            float: none;
+        }
+
+        .buton-container-ana {
+            margin-top: -35px;
+        }
+
+        .custom {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .switcher.switcher-small {
+            min-width: 70px !important;
+        }
+
+        .accordion-inner {
+            padding: 0 15px !important;
+        }
+    </style>
+}
+
+<div class="portlet box light-grey " style="margin-top: 24px; min-width: 997px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.AuthorityGroup_Add</div>
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("UrunYetkileriEkle", "TVM", FormMethod.Post, new { id = "form0", @class = "form-horizontal" }))
+        {
+
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_Name  <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TVMFinderFor(m => m.TVMKodu, Model.TVMUnvani)
+                    @Html.ValidationMessageFor(m => m.TVMKodu)
+                </div>
+            </div>
+            <br />
+            <ul class="nav nav-list item-summary">
+                <li class="nav-header">
+                    <div style="width: 100%; padding-left: 100px;">
+                        <label class="aciklama">@babonline.Proposal</label>
+                        <label class="aciklama">@babonline.Policy</label>
+                        <label class="aciklama">@babonline.Report</label>
+                        <label class="aciklama">@babonline.Manual_Transfer</label>
+                        <label class="aciklama">@babonline.Manual_Integration</label>
+                        <label class="aciklama">@babonline.CreditCard_Collection</label>
+                        <label class="aciklama">@babonline.Account_Collection_real</label>
+                        <label class="aciklama">@babonline.Account_Collection_judical</label>
+                        <br />
+                    </div>
+                </li>
+            </ul>
+            <br />
+            <div id="accordion" class="accordion">
+                @if (Model.BabOnlineUrunListesi != null)
+                {
+                    for (int j = 0; j < Model.BabOnlineUrunListesi.Count(); j++)
+                    {
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu-@Model.BabOnlineUrunListesi[j].BabOnlineUrunKodu" href="#menu-@Model.BabOnlineUrunListesi[j].BabOnlineUrunKodu">@Model.BabOnlineUrunListesi[j].BabOnlineUrunAdi</a>
+                            </div>
+                            <div id="menu-@Model.BabOnlineUrunListesi[j].BabOnlineUrunKodu" class="accordion-body collapse">
+                                <div class="accordion-inner">
+
+                                    <br />
+                                    @for (int i = 0; i < Model.BabOnlineUrunListesi[j].TUMUrunList.Count(); i++)
+                                    {
+
+                                        <div>
+                                            <div class="altmenu-ismi">
+                                                <label>@Model.BabOnlineUrunListesi[j].TUMUrunList[i].TUMUrunAdi</label>
+                                            </div>
+                                            @Html.SwitchButtonFor(m => Model.BabOnlineUrunListesi[j].TUMUrunList[i].Teklif, new string[] { "E", "H" }, new { style = "margin-left: 30px; margin-right: 14px;" })
+                                            @Html.SwitchButtonFor(m => Model.BabOnlineUrunListesi[j].TUMUrunList[i].Police, new string[] { "E", "H" }, new { style = "margin-left: 10px; margin-right: 15px;" })
+                                            @Html.SwitchButtonFor(m => Model.BabOnlineUrunListesi[j].TUMUrunList[i].Rapor, new string[] { "E", "H" }, new { style = "margin-left: 10px; margin-right: 17px;" })
+                                            @Html.SwitchButtonFor(m => Model.BabOnlineUrunListesi[j].TUMUrunList[i].ManuelHavale, new string[] { "E", "H" }, new { style = "margin-left: 10px; margin-right: 19px;" })
+                                            @Html.SwitchButtonFor(m => Model.BabOnlineUrunListesi[j].TUMUrunList[i].HavaleEntegrasyon, new string[] { "E", "H" }, new { style = "margin-left: 10px; margin-right: 21px;" })
+                                            @Html.SwitchButtonFor(m => Model.BabOnlineUrunListesi[j].TUMUrunList[i].KrediKartiTahsilat, new string[] { "E", "H" }, new { style = "margin-left: 10px; margin-right: 23px;" })
+                                            @Html.SwitchButtonFor(m => Model.BabOnlineUrunListesi[j].TUMUrunList[i].AcikHesapTahsilatGercek, new string[] { "E", "H" }, new { style = "margin-left: 10px; margin-right: 25px;" })
+                                            @Html.SwitchButtonFor(m => Model.BabOnlineUrunListesi[j].TUMUrunList[i].AcikHesapTahsilatTuzel, new string[] { "E", "H" }, new { style = "margin-left: 10px; margin-right: 27px;" })
+
+                                            @Html.HiddenFor(m => Model.BabOnlineUrunListesi[j].TUMUrunList[i].TUMUrunKodu)
+                                            @Html.HiddenFor(m => Model.BabOnlineUrunListesi[j].BabOnlineUrunKodu)
+                                            @Html.HiddenFor(m => Model.BabOnlineUrunListesi[j].TUMUrunList[i].TUMKodu);
+                                        </div>
+                                    }
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                <a class="btn" href="~/Manage/TVM/UrunYetkileriListe">@babonline.Cancel</a>
+            </div>
+        }
+    </div>
+</div>

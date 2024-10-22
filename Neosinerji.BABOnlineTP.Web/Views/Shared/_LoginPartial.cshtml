@@ -1,0 +1,27 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+
+@if (Request.IsAuthenticated)
+{
+    <li class="dropdown">
+        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            Hoşgeldiniz<b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a tabindex="-1" href="/TVM/PRofil/Detay/@ViewBag.KullaniciKodu"><i class="icon-user"></i>@babonline.MyProfile</a></li>
+            <li><a href="/TVM/TVM/Index">TVM Merkezi</a></li>
+            <li><a id="cikis" href="javascript:document.getElementById('logoutForm').submit()">Çıkış</a></li>
+        </ul>
+    </li>
+
+    <form action="/Account/LogOff" id="logoutForm" method="post">
+        @Html.AntiForgeryToken()
+    </form>
+    @*@using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }*@
+}
+else
+{
+    <li>@Html.ActionLink("Giriş", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "btn-header" })</li>
+}

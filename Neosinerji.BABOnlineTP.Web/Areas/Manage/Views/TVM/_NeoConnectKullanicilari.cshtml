@@ -1,0 +1,61 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model List<Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.SirketWebEkranModel>
+
+<script>
+    $(document).ready(function () {
+        var webservisKullanicilariTable;
+        function webservisKullanicilariTableSet() {
+            webservisKullanicilariTable = $('#neoconnectkullanicilari-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        webservisKullanicilariTableSet();
+    });
+</script>
+
+<table id="neoconnectkullanicilari-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 20%;">@babonline.TUM_Title</th>
+            <th>Satış Kanalı</th>
+            <th>Grup Adı</th>
+            <th>Kullanıcı @babonline.TVMUser_Name</th>
+            <th>Acente Kodu</th>
+            <th>@babonline.Password</th>
+            <th>Proxy (Ip Adresi / Port)</th>
+            @*  <th> SWAP @babonline.Password</th>*@
+            @*<th> Partaj No</th>*@
+            <th style="width: 50px;">&nbsp;</th>
+            <th style="width: 40px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TUMUnvan</td>
+                <td>@item.AltTvmUnvan</td>
+                <td>@item.GrupAdi</td>
+                <td>@item.KullaniciAdi</td>
+                <td>@item.AcenteKodu</td>
+                <td>@item.Sifre</td>
+                <td>@item.ProxyIpPort</td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" tvm-kodu="@item.TVMKodu" tum-kodu="@item.TUMKodu" kayit-id="@item.Id" class="btn btn-mini btn-info edit-neotvmwebservis">@babonline.Edit</a>
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" tvm-kodu="@item.TVMKodu" tum-kodu="@item.TUMKodu" kayit-id="@item.Id" class="btn btn-mini btn-danger delete-neotvmwebservis">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

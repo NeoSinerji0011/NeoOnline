@@ -1,0 +1,117 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model KaskoDigerTeklifModel
+
+
+<script type="text/template" class="template-teklif">
+    <div class="row-fluid DigerTeklif-row control-group" style="padding-bottom: 10px;" id="DigerTeklif-row-<%- rc.no %>">
+        <div class="span2">
+            <select name="KaskoDigerTeklif.DigerTeklifler[<%- rc.no %>].SirketKod" id="KaskoDigerTeklif_DigerTeklifler_<%- rc.no %>__SirketKod" style="width: 90%">
+                @foreach (var item in Model.SigortaSirketleri)
+            {
+                <option value="@item.Value">@item.Text</option>
+        }
+            </select>
+        </div>
+        <div class="span2">
+            <input name="KaskoDigerTeklif.DigerTeklifler[<%- rc.no %>].SirketTeklifNo" class="input-medium" 
+                   id="KaskoDigerTeklif_DigerTeklifler_<%- rc.no %>__SirketTeklifNo" type="text" value="" style="width: 90%">
+        </div>
+        <div class="span2">
+            <input name="KaskoDigerTeklif.DigerTeklifler[<%- rc.no %>].HasarsizlikIndirimSurprim" class="input-small" 
+                   id="Teminat_DigerTeklifler_<%- rc.no %>__HasarsizlikIndirimSurprim" type="text" value=""style="width: 90%">
+        </div>
+        <div class="span2">
+            <input name="KaskoDigerTeklif.DigerTeklifler[<%- rc.no %>].TeklifTutar" class="input-small" 
+                   id="KaskoDigerTeklif_DigerTeklifler_<%- rc.no %>__TeklifTutar" type="text" value="" style="width: 90%"
+                   data-val-required="Tutar alanı gereklidir." data-val="true" data-val-number="The field Bedel must be a number.">
+        </div>
+        <div class="span2">
+            <input name="KaskoDigerTeklif.DigerTeklifler[<%- rc.no %>].KomisyonTutari" class="input-small" 
+                   id="KaskoDigerTeklif_DigerTeklifler_<%- rc.no %>__KomisyonTutari" type="text" value="" style="width: 90%"
+                   data-val-required="Tutar alanı gereklidir." data-val="true" data-val-number="The field Bedel must be a number.">
+        </div>
+        <div class="span1">
+            <input name="KaskoDigerTeklif.DigerTeklifler[<%- rc.no %>].TaksitSayisi" class="input-small" 
+                   id="KaskoDigerTeklif_DigerTeklifler_<%- rc.no %>__TaksitSayisi" type="text" value="" style="width: 90%"
+                   data-val-required="Tutar alanı gereklidir." data-val="true" data-val-number="The field Bedel must be a number.">
+        </div>
+        <div class="span1">
+            <button class="btn btn-mini btn-danger remove-digerTeklif" data-id="<%- rc.no %>" style="margin-left: 10px; margin-top: 3px;" type="button"><i class="icon-white icon-remove"></i></button>
+        </div>
+
+    </div>
+</script>
+
+<div class="control-group" style="margin-top: 3%; display:none" id="digerTeklifVarmi">
+    <label class="control-label">Diğer Şirket Teklifi Var Mı</label>
+    <div class="controls">
+        @Html.SwitchButtonFor(m => m.DigerTeklifVarMi, new string[] { "EVET", "HAYIR" }, new { })
+    </div>
+</div>
+@Html.HiddenFor(s => s.TeklifId)
+<div class="row-fluid control-group" id="teklifler" style="display: none;">
+    <div class="span12">
+        <div class="row-fluid" id="teklif-header">
+            <div class="span2">
+                <strong>Sigorta Şirketi</strong>
+            </div>
+            <div class="span2">
+                <strong>Sigorta Şirketi Teklif No</strong>
+            </div>
+            <div class="span2">
+                <strong>Hasarsızlık İndirim/Surprim</strong>
+            </div>
+            <div class="span2">
+                <strong>Ödenecek Tutar</strong>
+            </div>
+            <div class="span2">
+                <strong>Komisyon Tutari</strong>
+            </div>
+            <div class="span1">
+                <strong>Taksit Sayısı</strong>
+            </div>
+            <div class="span1">
+                <button class="btn btn-mini btn-success add-digerTeklif" style="margin-left: 10px;" type="button"><i class="icon-white icon-plus"></i></button>
+            </div>
+        </div>
+        @if (Model.DigerTeklifler != null && Model.DigerTeklifler.Count > 0)
+        {
+            for (int i = 0; i < Model.DigerTeklifler.Count; i++)
+            {
+        <div class="row-fluid DigerTeklif-row control-group" style="padding-bottom:10px;" id="DigerTeklif-row-@(i)">
+
+            <div class="span2">
+                @Html.DropDownListFor(m => m.DigerTeklifler[i].SirketKod, new SelectList(Model.SigortaSirketleri, "Value", "Text", Model.DigerTeklifler[i].SirketKod), new { style = "width:90%" })
+            </div>
+            <div class="span2">
+                @Html.TextBoxFor(m => m.DigerTeklifler[i].SirketTeklifNo, new { @class = "input-medium" , style = "width:90%" })
+            </div>
+            <div class="span2">
+                @Html.TextBoxFor(m => m.DigerTeklifler[i].HasarsizlikIndirimSurprim, new { @class = "input-small ", style = "width:90%" })
+            </div>
+            <div class="span2">
+                @Html.TextBoxFor(m => m.DigerTeklifler[i].TeklifTutar, new { @class = "input-small auto-bedel" , style = "width:90%" })
+            </div>
+            <div class="span2">
+                @Html.TextBoxFor(m => m.DigerTeklifler[i].KomisyonTutari, new { @class = "input-small auto-bedel" , style = "width:90%" })
+            </div>
+            <div class="span1">
+                @Html.TextBoxFor(m => m.DigerTeklifler[i].TaksitSayisi, new { @class = "input-small" , style = "width:90%" })
+            </div>
+            <div class="span1">
+                <button class="btn btn-mini btn-danger remove-digerTeklif" data-id="@(i)" style="margin-left:10px;margin-top:3px;" type="button"><i class="icon-white icon-remove"></i></button>
+            </div>
+        </div>
+            }
+        }
+
+    </div>
+    <div class="row-fluid" id="teklif-ekle">
+        <a id="btn-digerTeklifEkle" class="btn green button-submit" href="javascript:;" style="display:normal">
+            @babonline.Add <i class="m-icon-swapright m-icon-white"></i>
+    </a>
+</div>
+</div>
+

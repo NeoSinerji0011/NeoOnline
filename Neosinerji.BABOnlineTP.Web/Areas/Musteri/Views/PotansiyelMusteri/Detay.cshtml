@@ -1,0 +1,391 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+@model Neosinerji.BABOnlineTP.Web.Areas.PotansiyelMusteri.Models.PotansiyelMusteriModel
+
+
+@{
+    bool guncellemeYetkisi = false;
+
+    List<KullaniciYetkiModel> altMenuSekmeler = ViewBag.Sekmeler;
+    KullaniciYetkiModel altmenusekme = altMenuSekmeler.Where(s => s.SekmeKodu == menu.AltMenuSekmeler.AraGuncelle).FirstOrDefault();
+
+    if (altmenusekme != null)
+    {
+        if (altmenusekme.Degistirme == 1)
+        { guncellemeYetkisi = true; }
+    }
+}
+<title>PotansiyelMüşteriDetay</title>
+
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">@babonline.Detail<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.Other<span class="arrow"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="~/Musteri/PotansiyelMusteri/Liste">@babonline.Customer_Search<span></span></a></li>
+                @if (guncellemeYetkisi)
+                {
+                    <li><a href="~/Musteri/PotansiyelMusteri/Guncelle/@Model.PotansiyelGenelBilgiler.PotansiyelMusteriKodu">@babonline.Update<span></span></a></li>
+                }
+            </ul>
+            <b class="caret-out"></b>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+@section PageScripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#urun-tab a:first").tab("show");
+            DropDownListTest();
+
+            //Musteri tipine gore ekranlar değişiyor....
+            function DropDownListTest() {
+                var val = $("#PotansiyelGenelBilgiler_MusteriTipKodu").val();
+                if (val == "1") { //Gerçek TC Uyruklu Müşteri
+                    $("#sahis").slideDown("fast");
+                    $("#tckn").text("@babonline.Identification_Number");
+                    $("[adi ='pasaportno-tarihi']").slideUp("fast");
+                    $("[adi ='vergidairesi']").slideUp("fast");
+                    $("[adi='web-url']").slideUp("fast");
+                }
+                else if (val == "2" || val == "3") { //Tüzel  ve şahıs kişiler için
+                    $("[adi ='vergidairesi']").slideDown("fast");
+                    $("#sahis").slideUp("fast");
+                    $("#tckn").text("@babonline.TaxNumber");
+                }
+                else if (val == "4") { //Gerçek Yabancı Uyruklu Müşteri
+                    $("#sahis").slideDown("fast");
+                    $("[adi ='pasaportno-tarihi']").slideDown("fast");
+                    $("[adi ='vergidairesi']").slideUp("fast");
+                    $("[adi='web-url']").slideUp("fast");
+                    $("#tckn").text("@babonline.Foreign_Identification_Number");
+                    if ($("#pasaport-no").text() != "")
+                        $("[adi ='pasaport-tarihi']").slideDown("fast");
+                    else
+                        $("[adi ='pasaport-tarihi']").slideUp("fast");
+                }
+    };
+
+            $("#outlook").click(function () {
+                $.post("/Musteri/PotansiyelMusteri/DownloadCSV", "", function (data) { window });
+            });
+
+        });
+    </script>
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey" style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-reorder"></i>@babonline.PotentialCustomerInfo</div>
+                        <div class="actions">
+                            <a href="~/Musteri/Musteri/Ekle/@Model.PotansiyelGenelBilgiler.PotansiyelMusteriKodu" class="btn yellow"><i class="icon-upload-alt">&nbsp;</i>@babonline.SetAsMainCustomer</a>
+                            <a href="~/Musteri/PotansiyelMusteri/DownloadVcard/@Model.PotansiyelGenelBilgiler.PotansiyelMusteriKodu" target="_blank" class="btn yellow"><i class="icon-credit-card">&nbsp;</i>@babonline.ExportToOutlook</a>
+                            @if (guncellemeYetkisi)
+                            {
+                                <a href="~/Musteri/PotansiyelMusteri/Guncelle/@Model.PotansiyelGenelBilgiler.PotansiyelMusteriKodu" class="btn yellow"><i class="icon-pencil">&nbsp;</i>@babonline.Update</a>
+                            }
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal form-view">
+                            @Html.HiddenFor(m => m.PotansiyelGenelBilgiler.MusteriTipKodu)
+                            @Html.HiddenFor(m => m.PotansiyelGenelBilgiler.PotansiyelMusteriKodu)
+
+                            @*Tvm Ünvanı ve Tvm müşteri kodu*@
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TVM_Title</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.PotansiyelGenelBilgiler.TVMUnvani</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.PotentialCustomerCode</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.PotansiyelGenelBilgiler.PotansiyelMusteriKodu</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            @*Müşteri tipi alanı*@
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Customer_Type</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.PotansiyelGenelBilgiler.MusteriTipiText</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TVM_Customer_Code</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.PotansiyelGenelBilgiler.TVMMusteriKodu</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            @*Veergi  Dairesi alanı*@
+                            <div class="row-fluid" adi="vergidairesi">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TaxOffice</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.PotansiyelGenelBilgiler.VergiDairesi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            @*Kimki numaraaı alanı*@
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label" id="tckn">@babonline.Identification_Number</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.PotansiyelGenelBilgiler.KimlikNo</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            @*Ad Alanı*@
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Customer_Name_Title</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.PotansiyelGenelBilgiler.AdiUnvan</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*Soyad Alanı*@
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Customer_Surname_Title</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.PotansiyelGenelBilgiler.SoyadiUnvan</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*Email Adres ve Web Adresi*@
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Email_Adress</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.PotansiyelGenelBilgiler.EMail</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6" adi="web-url">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Web_URL</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.PotansiyelGenelBilgiler.WebUrl</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*Uyruk bölümü*@
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Nationality</label>
+                                        <div class="controls">
+                                            <label class="control">@(Model.PotansiyelGenelBilgiler.Uyruk == 0 ? "TC" : @babonline.Foreign) </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="sahis">
+                                @*Meslek Ve Dogum Tarihi *@
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Job</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.PotansiyelGenelBilgiler.MeslekKoduText</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.DateOfBirth</label>
+                                            <div class="controls">
+                                                @if (Model.PotansiyelGenelBilgiler.DogumTarihi.HasValue)
+                                                {
+                                                    <label class="control">@Model.PotansiyelGenelBilgiler.DogumTarihi.Value.ToString("dd.MM.yyyy") </label>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*  Egitim Durumu ve Cinsiyet*@
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Education_Level</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.PotansiyelGenelBilgiler.EgitimDurumuText </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Gender</label>
+                                            <div class="controls">
+                                                <label class="control">
+                                                    @if (Model.PotansiyelGenelBilgiler.Cinsiyet == "E")
+                                                    {
+                                                        @babonline.Man
+                                                    }
+                                                    else if (Model.PotansiyelGenelBilgiler.Cinsiyet == "K")
+                                                    {
+                                                        @babonline.Women
+                                                    }
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*Medeni Durumu *@
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Marital_Status</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.PotansiyelGenelBilgiler.MedeniDurumText</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*Pasaport bolumu*@
+                                <div class="row-fluid" adi="pasaportno-tarihi" style="display: none;">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Passport_Number</label>
+                                            <div class="controls">
+                                                <label id="pasaport-no" class="control">@Model.PotansiyelGenelBilgiler.PasaportNo</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span6">
+                                        <div class="control-group" adi="pasaport-tarihi">
+                                            <label class="control-label">@babonline.Passport_Expiry_Date</label>
+                                            <div class="controls">
+                                                @if (Model.PotansiyelGenelBilgiler.PasaportGecerlilikBitisTarihi.HasValue)
+                                                {
+                                                    <label class="control">@Model.PotansiyelGenelBilgiler.PasaportGecerlilikBitisTarihi.Value.ToString("dd.MM.yyyy")</label>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--BEGIN TABS-->
+                            <div class="tabbable tabbable-custom" style="margin-top: 15px;">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tab_1_1" data-toggle="tab">@babonline.Address</a></li>
+                                    <li class=""><a href="#tab_1_2" data-toggle="tab">@babonline.TVMUser_Phone</a></li>
+                                    <li><a href="#tab_1_3" data-toggle="tab">@babonline.Document</a></li>
+                                    <li><a href="#tab_1_4" data-toggle="tab">@babonline.Node</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_1_1">
+
+                                        <div class="row-fluid">
+                                            <div class="span12" id="adresler-container">
+                                                @Html.Partial("_Adresler", Model.Adresleri)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab_1_2">
+
+                                        <div class="row-fluid">
+                                            <div class="span12" id="telefonlar-container">
+                                                @Html.Partial("_Telefonlar", Model.Telefonlari)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab_1_3">
+
+                                        <div class="row-fluid">
+                                            <div class="span12" id="dokumanlar-container">
+                                                @Html.Partial("_Dokumanlar", Model.Dokumanlari)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab_1_4">
+
+                                        <div class="row-fluid">
+                                            <div class="span12" id="notlar-container">
+                                                @Html.Partial("_Notlar", Model.Notlari)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--END TABS-->
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+

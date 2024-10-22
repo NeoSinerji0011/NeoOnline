@@ -1,0 +1,151 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model TeklifFiyatModel
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Insured</label>
+            <div class="controls">
+                <label class="control">@Model.AdSoyadUnvan</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.LicenceNumber</label>
+            <div class="controls">
+                <label class="control">@Model.PlakaNo</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.VehicleBrand</label>
+            <div class="controls">
+                <label class="control">@Model.MarkaAdi</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.VehicleType</label>
+            <div class="controls">
+                <label class="control">@Model.TipAdi</label>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <div class="controls">
+                <label class="control">&nbsp;</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="control">&nbsp;</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.VehicleUsageType</label>
+            <div class="controls">
+                <label class="control">@Model.KullanimTarziAdi</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.PolicyStartDate</label>
+            <div class="controls">
+                <label class="control">@Model.PoliceBaslangicTarihi</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="teklif-pdf-container" class="row-fluid" style="padding-top: 20px; padding-bottom: 20px;">
+    <div class="span5">
+        <button id="pdf-karsilastirma" class="btn btn-success" type="button" pdf="@Model.PDFDosyasi"><i class="icon-file icon-white"></i>@babonline.ProposalCompareTable</button>
+    </div>
+</div>
+
+<div class="row-fluid" style="margin-top: 20px; border-bottom: 1px solid #e5e5e5;">
+    <div class="span2" style="text-align: center;">@babonline.InsuranceCompany</div>
+    <div class="span2" style="text-align: center;">@babonline.InsuranceCompany @babonline.Proposal_No</div>
+    <div class="span1" style="text-align: center;">@babonline.NoDamage</div>
+    <div class="span2" style="text-align: center;">@babonline.IndirimSurprim</div>
+    <div class="span2" style="text-align: center;">@babonline.Payment_Amount</div>
+    <div class="span1" style="text-align: center;">@babonline.TotalCommission</div>
+    <div class="span2 merkezacente" style="text-align: center;">@babonline.CommissionRate</div>
+</div>
+
+@foreach (var item in Model.Fiyatlar)
+{
+    <div class="row-fluid" style="margin-top: 20px; padding-bottom: 20px; border-bottom: 1px solid #e5e5e5;">
+        <div class="span2" style="text-align: center;">
+            <img src="@item.TUMLogoUrl" alt="@item.TUMUnvani", title="@item.TUMUnvani" />
+        </div>
+        @if (item.Hatalar == null || item.Hatalar.Count == 0)
+        {
+            <div class="span2" style="text-align: center;">
+                @item.TUMTeklifNo
+            </div>
+            <div class="span1" style="text-align: center;">
+                @if (item.HasarIndirimSurprim == "I")
+                {
+                    <span class="label label-success" style="margin-top: 25px">@item.Hasarsizlik</span>
+                }
+                @if (item.HasarIndirimSurprim == "S")
+                {
+                    <span class="label label-important" style="margin-top: 25px">@item.Hasarsizlik</span>
+                }
+            </div>
+            <div class="span2" style="text-align: center;">
+                <div style="display: table-cell; vertical-align: middle; height: 65px;">
+                    @foreach (var surp in item.Surprimler)
+                    {
+                        <div class="row" style="width: 200px; margin-left: auto; margin-right: auto;">
+                            <div class="span10" style="text-align: center;">@surp.SurprimAciklama</div>
+                            @if (surp.SurprimIS == "I")
+                            {
+                                <div class="span2" style="text-align: center;"><span class="label label-success">@surp.Surprim</span></div>
+                            }
+                            @if (surp.SurprimIS == "S")
+                            {
+                                <div class="span2" style="text-align: center;"><span class="label label-important">@surp.Surprim</span></div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="span2" style="text-align: center;">
+                <span>@item.Fiyat1</span><br />
+                @if (item.Fiyat1 != "-")
+                {
+                    <button type="button" class="btn btn-success teklif-satin-al" style="margin-top:15px;" teklif-id="@item.Fiyat1_TeklifId">
+                        <i class="icon-ok icon-white"></i>
+                        <span>@babonline.Buy</span>
+                    </button>
+                }
+            </div>
+            <div class="span1 merkezacente" style="text-align: center;">
+                 @item.KomisyonTutari
+            </div>
+            <div class="span2 merkezacente" style="text-align: center;">
+            @item.KomisyonOrani
+            </div>
+        }
+        else
+        {
+            <div class="span12 alert alert-error" style="text-align: left; margin-bottom: 0px;">
+                <strong>@babonline.ErrorProporsal</strong><br />
+
+                @foreach (var hata in item.Hatalar)
+                {
+@* if (hata.Length > 150)
+                    {
+                        <span title="@hata">@hata.Substring(0, 150)</span><br/>
+		            }
+                    else
+                    {
+                    }  *@
+                    <span title="@hata">@hata</span><br />
+                    
+                }
+            </div>
+        }
+    </div>
+}

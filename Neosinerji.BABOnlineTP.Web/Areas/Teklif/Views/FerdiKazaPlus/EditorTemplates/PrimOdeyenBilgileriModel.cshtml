@@ -1,0 +1,52 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.PrimOdeyenBilgileriModel
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Insurance_Start_Date<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(s => s.SigortaBaslangicTarihi, new { })
+                @Html.ValidationMessageFor(s => s.SigortaBaslangicTarihi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.CreditCard_Number <span class="required">*</span></label>
+            <div class="controls">
+                @Html.EditorFor(m => m.KartNo)
+                @Html.CheckBoxFor(m => m.KartNoMevcut)<span style="position:relative; left:2px; top:2px;">Mevcut</span></>
+                @Html.ValidationMessageFor(m => m.KartNo)
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">@babonline.ExpirationDate</label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.ay, Model.Aylar, new { style = "width:60px !important;" })
+                @Html.ValidationMessageFor(s => s.ay)
+                @Html.DropDownListFor(s => s.yil, Model.Yillar, new { style = "width:100px !important;" })
+                @Html.ValidationMessageFor(s => s.yil)
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(".credit-card").keyup(function (event) {
+        var key = event.which;
+
+        if (key !== 0) {
+            var c = String.fromCharCode(key);
+            if (c.match("[0-9]")) {
+                if (this.value.length == 4)
+                    $(this).next("input[type=text]").focus();
+
+                if (this.value.length == 0)
+                    $(this).prev("input[type=text]").focus();
+            }
+        }
+    });
+
+</script>

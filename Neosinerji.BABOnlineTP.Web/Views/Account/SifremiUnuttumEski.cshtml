@@ -1,0 +1,61 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Models.RecoverPassword
+
+@{
+    Layout = "~/Views/Shared/_LayoutEski.cshtml";
+}
+
+<style>
+    .sifremi-unuttum {
+        color: #1999CE;
+        font-size: 18px;
+        font-weight: bold;
+        height: 41px;
+        padding-left: 22px;
+        padding-top: 10px;
+        font-family: Helvetica;
+    }
+</style>
+
+<link href="~/Content/css/YeniTemaLogin.css" rel="stylesheet" />
+@using (Html.BeginForm("SifremiUnuttumEski", "Account", FormMethod.Post, new { id = "form1" }))
+{
+    { Html.EnableClientValidation(true); }
+    @Html.AntiForgeryToken()
+
+    <div class="custom-content">
+        <a href="/">
+            <div class="login-page-logo">
+            </div>
+        </a>
+        <div class="login-hub-center">
+            <div class="login-hub-top">
+                <div class="login-white-content-sifremi-unuttum" style="height: 167px !important;">
+                    <div class="sifremi-unuttum">
+                        ŞİFREMİ UNUTTUM     
+                    </div>
+                    <div class="textbox-group">
+                        @Html.TextBoxFor(s => s.Email, new { @class = "text-box", placeholder = "Email Adresi" })
+                        @Html.ValidationMessageFor(s => s.Email)
+                    </div>
+                    <div>
+                        <input type="submit" id="btn-ok" class="tamam-button-div" style="margin-left: 0px; margin-right: 27px; float: right; margin-top: 3px;" value="Tamam"></input>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 281px; height: 170px;">
+            </div>
+            <div class="error-div">
+                @Html.ValidationSummary(true)
+            </div>
+            <div class="error-div">
+                @if (!String.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <div class="alert alert-success">
+                        @ViewBag.Message
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

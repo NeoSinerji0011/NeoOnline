@@ -1,0 +1,231 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Business.Common
+@model Neosinerji.BABOnlineTP.Web.Models.HizliTeklifModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = babonline.Title_Login;
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        //$("[rel='tooltip']").tooltip();
+        //// ====Tvm listesini Dolduruyor ====//
+        //var tvm = $("#TVMKodu").tvmfinder();
+        //tvm.enable();
+
+        $("#btn-ok").click(function () {
+            var isvalid = $("#form1").valid();
+            if (isvalid) {
+                var contents = $("#form1").serialize();
+                $.ajax({
+                    url: "@Url.Content("~/HizliTeklif/Kaydet")",
+                    data: contents,
+                    method: "post",
+                    success: function (result) {
+                       
+                    },
+                    error: function () { }
+                });
+            }
+        });
+    });
+</script>
+<style>
+    .sifremi-unuttum-div {
+        float: right;
+        margin-right: 31px;
+        margin-top: 24px;
+    }
+
+    .login-yazi-tip {
+        font-family: Calibri !important;
+        font-size: 20px !important;
+    }
+</style>
+ <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/style-metro.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/style-responsive.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/themes/ram_sigorta.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="~/Content/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/css/DT_bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/css/custom.css" rel="stylesheet" />
+    <link href="@Url.Content("~/favicon.ico")" rel="shortcut icon" />
+    <link href="~/Content/css/teklif-custom.css" rel="stylesheet" />
+    <link href="~/Content/css/jquery.smoothness.css" rel="stylesheet" />
+    @*<link href="~/Content/css/font-awosome.3.2.css" rel="stylesheet" /> <!--Menü iconları için yeni css-->*@
+   <link href="~/Content/css/YeniTemaLogin.css" rel="stylesheet" />
+    <!-- BEGIN CORE PLUGINS -->
+    <script src="~/Content/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+    <script src="~/Content/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+
+
+
+<div class="logo-content">
+    <a href="http://www.neoonline.com.tr/">
+        <img src="@Url.Content("~/Content/img/YeniTasarim/ust-banner-2.jpg")" style="width :25%; height:80%; background-color:transparent; opacity:inherit" />
+    </a>
+
+    <div id="global-sign" style="width: 40%;">
+        <div style="float: left; margin-top: 0.5%; width: 25.5%; margin-left: 3%;">
+            <a href="http://www.neosinerji.com.tr" target="_blank">
+                <img style="width: 100%;" src="@Url.Content("~/Content/img/YeniTasarim/neoSinerji_logo.jpg")" alt="neosinerji" /></a>
+        </div>
+        <div style="margin-left: 16%;">
+            <img  style="width:31%;" src="@Url.Content("~/Content/img/YeniTasarim/global-sign-img.png")" alt="global-sign" />
+        </div>
+
+    </div>
+</div>
+<!-- .logo-content -->
+@using (Html.BeginForm("Login", "HizliTeklif", FormMethod.Post, new { id = "form1", ReturnUrl = ViewBag.ReturnUrl, @class = "form-horizontal" }))
+{
+    { Html.EnableClientValidation(false); }
+    <div class="custom-content" style="width: 80%;">
+        <div class="login-hub" style="width: 50%; margin-left: 30%; padding-top: 20px;">
+            <div class="login-hub-top" style="width: 700px; height: 350px !important; background-color: white; opacity: 0.9; border: solid 2px lightgray; border-radius: 20px; -moz-border-radius: 25px; -webkit-border-radius: 5px; -border-radius: 5px;">
+                <div style="">
+                    <div style="margin-top: 10px; float: right; margin-right: 10px;">
+                        <a href="@Url.Action("ChangeCulture", "Home", new { lang = Neosinerji.BABOnlineTP.Web.Models.Culture.tr, returnUrl = this.Request.RawUrl })" rel="tooltip" title="Türkçe">
+                            <img style="border: none;" src="~/Content/img/YeniTasarim/Turkey.png" /></a>
+                        <a href="@Url.Action("ChangeCulture", "Home", new { lang = Neosinerji.BABOnlineTP.Web.Models.Culture.en, returnUrl = this.Request.RawUrl })" rel="tooltip" title="English">
+                            <img style="border: none;" src="~/Content/img/YeniTasarim/the_United_Kingdom.png" /></a>
+                    </div>
+
+                    @* @if (lang == "en")
+                    {
+                        <div>
+                            <img style="width:50%; height:100px;  margin-left:20%" src="@Url.Content("~/Content/img/YeniTasarim/giris-kilit-eu.png")" alt="login Logo" />
+                        </div>
+                    }
+                    else
+                    {
+                        <img style="width:50%; height:100px;  margin-left:20%" src="@Url.Content("~/Content/img/YeniTasarim/giris-kilit-tr.png")" alt="Giriş Logo" />    
+                    }*@
+
+                </div>
+
+                <div style="width: 100%; height: 50%; margin-top: 3%;">
+                    @*  <div style="width: 30%; height: 100%; float: left;">
+                        <img src="~/Content/img/YeniTasarim/login-left.jpg" style="width: 100%; height: 100%;" />
+                    </div>*@
+
+                    <div style="width: 60%; margin-left: 5%;">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                @*<div class="control-group">
+                                    <label class="control-label">@babonline.TVM_Code  <span class="required">*</span></label>
+                                    <div class="controls">
+                                        @Html.TVMFinderFor(m => m.TVMKodu, Model.TVMUnvani)
+                                        @Html.ValidationMessageFor(m => m.TVMKodu)
+                                    </div>
+                                </div>*@
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Proposal_TVM</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.TVMKodu, Model.TVMList, new { style = "width:400px;" })
+                                          @Html.ValidationMessageFor(m => m.TVMKodu)
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.IDNumber<span class="required">*</span></label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.kimlikNo, new { maxlength = 11, style = "width:120px;", @class = "onlynumbers" })
+                                        @Html.ValidationMessageFor(m => m.kimlikNo)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Name<span class="required">*</span></label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.adi)
+                                        @Html.ValidationMessageFor(m => m.adi)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Surname<span class="required">*</span></label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.soyadi)
+                                        @Html.ValidationMessageFor(m => m.soyadi)
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.EMail_Address<span class="required">*</span></label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.email, new { maxlength = 50, autocompletetype = "disabled", style = "" })
+                                        @Html.ValidationMessageFor(m => m.email)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <input id="btn-ok" type="submit" class="tamam-button-div login-yazi-tip" style="background-color:#E73626 !important" value="@babonline.OK"/>
+                        </div>
+
+                        <div class="sifremi-unuttum-div">
+                            <a href="/Account/SifremiUnuttum" class="link login-yazi-tip" style="color: #272649 !important;">@babonline.ForgotPassword</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="error-div" style="width: 281px; height: 100px; margin-left: 100px;">
+                    @Html.ValidationSummary(true)
+                </div>
+            </div>
+            <!-- .login-hub-top- -->
+
+            <div style="width: 281px; height: 61px; margin-top: 0px;">
+                <div class="basvur-div">
+                    &nbsp;
+                </div>
+
+                <div class="basvur-link-div">
+                    <a href="/Home/Harita" style="position: relative" class="link login-yazi-tip">@babonline.Find_Agency</a>
+                </div>
+
+                <div class="basvur-div" style="margin-top: 0px;">
+                    &nbsp;
+                </div>
+
+                <div class="basvur-link-div">
+                    <a href="@Url.Content("~/Files/NeoOnline_Tanitim_Dokumani_12042016.pdf")" target="_blank" style="position: relative" class="link login-yazi-tip">@babonline.IntroductoryGuide</a>
+                </div>
+            </div>
+        </div>
+        <!-- .login Hub -->
+        <div style="clear: left"></div>
+    </div>
+    <!-- .Custom Content -->
+}
+
+
+  <script src="~/Content/js/jquery-ui.js" type="text/javascript"></script>
+    <script src="~/content/js/bootstrap.js" type="text/javascript"></script>
+    <script src="~/Content/js/twitter-bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+    <!--[if lt IE 9]>
+	<script src="~/Content/js/excanvas.min.js"></script>
+	<script src="~/Content/js/respond.min.js"></script>  
+	<![endif]-->
+    <script src="~/content/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="~/content/js/jquery.blockui.js" type="text/javascript"></script>
+    <script src="~/content/js/jquery.cookie.js" type="text/javascript"></script>
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    <script src="~/Content/js/breakpoints.js" type="text/javascript"></script>
+
+    <script src="~/Content/js/jquery.validate.js"></script>
+    <script src="~/Content/js/jquery.validate.bootstrap.js"></script>
+    <script src="~/Content/js/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/js/jquery.validate.custom.js"></script>
+    <script src="~/Content/js/neosinerji.babonlinetp.common.js"></script>
+    <script src="~/Content/js/jquery.gritter.min.js"></script>
+    <script src="~/Content/js/skype-uri.js" type="text/javascript"></script>
+    <script src="~/Content/js/jquery.alphanumeric.pack.js"></script>
+
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="~/content/js/app.js" type="text/javascript"></script>

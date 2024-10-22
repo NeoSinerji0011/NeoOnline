@@ -1,0 +1,103 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Areas.Muhasebe.Models
+@model MuhasebeAktarimModel
+
+@{
+    ViewBag.Title = "MuhasebeAktarimListesi";
+}
+@section HorizontalMenu
+{
+    <ul class="nav">
+        
+    </ul>
+}
+
+@section PageHeader
+{
+    <style>
+        table, th, td {
+            text-align: center !important;
+        }
+    </style>
+}
+    <head>
+        <title>MuhasebeAktarımListesi</title>
+    </head>
+
+@section PageScripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var oTable = $('#table').dataTable({
+                "bSort": false,
+                "bPaginate": false,
+                "bInfo": false,
+                "bLengthChange": false,
+                "sDom": 'T<"clear">lfrtip',
+                "oTableTools": { "aButtons": ["pdf", "xls", "print", "copy"] }
+            });
+        }        );
+    </script>
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">Muhasebe Aktarım Listesi</span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="row-fluid" style="margin-top: 20px;">
+                    <div class="span10">
+                        <div id="table-div">
+                            <table id="table" style="margin-left:5%;" class="table table-striped table-bordered table-hover dataTable data-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 6%;"> Satış Kanalı </th>
+                                        <th style="width: 6%;"> Tarih Aralığı </th>
+                                        <th style="width: 6%;"> Şirket</th>
+                                        <th style="width: 6%;">  Branş</th>
+                                        <th style="width: 6%;">  Aktarım Durumu</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.list.Count(); i++)
+
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Model.list[i].TVMUnvani
+                                            </td>
+                                            <td>
+                                                @Model.list[i].BaslangicTarihi.ToString("dd.MM.yyyy") / @Model.list[i].BitisTarihi.ToString("dd.MM.yyyy")
+                                            </td>
+                                            <td>
+                                                @Model.list[i].SirketUnvan
+                                            </td>
+                                            <td>
+                                                @Model.list[i].BransAdi
+                                            </td>
+                                            <td>
+                                                @if (Model.list[i].AktarimTamamlandi == 1)
+                                                {
+                                                    <span class="label-success" style="color:white;">@Model.list[i].AktarimTamamlandiText</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="label-important" style="color:white;">@Model.list[i].AktarimTamamlandiText</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

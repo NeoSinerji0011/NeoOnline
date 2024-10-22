@@ -1,0 +1,42 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model HazirlayanModel
+
+<form class="form-horizontal" id="formHazirlayan">
+    <div class="control-group">
+        <label class="control-label"></label>
+        <div class="controls" style="margin-left: 200px;">
+            @Html.RadioButtonListFor(m => m.KendiAdima, Model.KendiAdimaList)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">@babonline.Proposal_TVM</label>
+        <div class="controls">
+            @Html.TVMFinderFor(m => m.TVMKodu, Model.TVMUnvani)
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">@babonline.Proposal_TVMUser</label>
+        <div class="controls">
+            @Html.TVMKullaniciFinderFor(m => m.TVMKullaniciKodu, Model.TVMKullaniciAdi)
+        </div>
+    </div>
+
+    <div class="control-group" style="display:none">
+        <label class="control-label">Yeni İş mi?</label>
+        <div class="controls ">
+            @Html.SwitchButtonFor(m => m.YeniIsMi, new string[] { babonline.Yes, babonline.No }, new { })
+        </div>
+    </div>
+</form>
+
+<style type="text/css">
+    #Hazirlayan_TVMKodu_text {
+        width: 300px !important;
+    }
+
+    #Hazirlayan_TVMKullaniciKodu_text {
+        width: 300px !important;
+    }
+</style>

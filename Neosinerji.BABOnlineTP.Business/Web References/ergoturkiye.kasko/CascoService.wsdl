@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://casco.thirdparty.service.insyst.ergo.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="CascoService" targetNamespace="http://casco.thirdparty.service.insyst.ergo.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://ergotest.ergoturkiye.com:80/PolicyWeb/thirdParty/external/cascoService?xsd=1" namespace="http://casco.thirdparty.service.insyst.ergo.com/" />
+    </xsd:schema>
+  </types>
+  <message name="printPolicy">
+    <part name="parameters" element="tns:printPolicy" />
+  </message>
+  <message name="printPolicyResponse">
+    <part name="parameters" element="tns:printPolicyResponse" />
+  </message>
+  <message name="ExternalServiceException">
+    <part name="fault" element="tns:ExternalServiceException" />
+  </message>
+  <message name="retrieveVehicleMakes">
+    <part name="parameters" element="tns:retrieveVehicleMakes" />
+  </message>
+  <message name="retrieveVehicleMakesResponse">
+    <part name="parameters" element="tns:retrieveVehicleMakesResponse" />
+  </message>
+  <message name="retrieveSubUsageTypes">
+    <part name="parameters" element="tns:retrieveSubUsageTypes" />
+  </message>
+  <message name="retrieveSubUsageTypesResponse">
+    <part name="parameters" element="tns:retrieveSubUsageTypesResponse" />
+  </message>
+  <message name="saveCascoProposal">
+    <part name="parameters" element="tns:saveCascoProposal" />
+  </message>
+  <message name="saveCascoProposalResponse">
+    <part name="parameters" element="tns:saveCascoProposalResponse" />
+  </message>
+  <message name="retrieveUsageTypes">
+    <part name="parameters" element="tns:retrieveUsageTypes" />
+  </message>
+  <message name="retrieveUsageTypesResponse">
+    <part name="parameters" element="tns:retrieveUsageTypesResponse" />
+  </message>
+  <message name="retrievePropertyValue">
+    <part name="parameters" element="tns:retrievePropertyValue" />
+  </message>
+  <message name="retrievePropertyValueResponse">
+    <part name="parameters" element="tns:retrievePropertyValueResponse" />
+  </message>
+  <message name="printProposal">
+    <part name="parameters" element="tns:printProposal" />
+  </message>
+  <message name="printProposalResponse">
+    <part name="parameters" element="tns:printProposalResponse" />
+  </message>
+  <message name="saveCascoPolicy">
+    <part name="parameters" element="tns:saveCascoPolicy" />
+  </message>
+  <message name="saveCascoPolicyResponse">
+    <part name="parameters" element="tns:saveCascoPolicyResponse" />
+  </message>
+  <message name="printLastProposal">
+    <part name="parameters" element="tns:printLastProposal" />
+  </message>
+  <message name="printLastProposalResponse">
+    <part name="parameters" element="tns:printLastProposalResponse" />
+  </message>
+  <message name="createPayment">
+    <part name="parameters" element="tns:createPayment" />
+  </message>
+  <message name="createPaymentResponse">
+    <part name="parameters" element="tns:createPaymentResponse" />
+  </message>
+  <message name="calculatePremiumPolicy">
+    <part name="parameters" element="tns:calculatePremiumPolicy" />
+  </message>
+  <message name="calculatePremiumPolicyResponse">
+    <part name="parameters" element="tns:calculatePremiumPolicyResponse" />
+  </message>
+  <message name="retrieveVehicleMakeModels">
+    <part name="parameters" element="tns:retrieveVehicleMakeModels" />
+  </message>
+  <message name="retrieveVehicleMakeModelsResponse">
+    <part name="parameters" element="tns:retrieveVehicleMakeModelsResponse" />
+  </message>
+  <message name="calculatePremiumEndorsement">
+    <part name="parameters" element="tns:calculatePremiumEndorsement" />
+  </message>
+  <message name="calculatePremiumEndorsementResponse">
+    <part name="parameters" element="tns:calculatePremiumEndorsementResponse" />
+  </message>
+  <message name="saveCascoProposalForRenewal">
+    <part name="parameters" element="tns:saveCascoProposalForRenewal" />
+  </message>
+  <message name="saveCascoProposalForRenewalResponse">
+    <part name="parameters" element="tns:saveCascoProposalForRenewalResponse" />
+  </message>
+  <message name="retrieveVehicleMakeModelByUsageTypeAssociationNumber">
+    <part name="parameters" element="tns:retrieveVehicleMakeModelByUsageTypeAssociationNumber" />
+  </message>
+  <message name="retrieveVehicleMakeModelByUsageTypeAssociationNumberResponse">
+    <part name="parameters" element="tns:retrieveVehicleMakeModelByUsageTypeAssociationNumberResponse" />
+  </message>
+  <message name="retrieveVehicleMakeModelByAssociationNumber">
+    <part name="parameters" element="tns:retrieveVehicleMakeModelByAssociationNumber" />
+  </message>
+  <message name="retrieveVehicleMakeModelByAssociationNumberResponse">
+    <part name="parameters" element="tns:retrieveVehicleMakeModelByAssociationNumberResponse" />
+  </message>
+  <portType name="CascoServiceImpl">
+    <operation name="printPolicy">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/printPolicyRequest" message="tns:printPolicy" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/printPolicyResponse" message="tns:printPolicyResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/printPolicy/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveVehicleMakes">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveVehicleMakesRequest" message="tns:retrieveVehicleMakes" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveVehicleMakesResponse" message="tns:retrieveVehicleMakesResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveVehicleMakes/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveSubUsageTypes">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveSubUsageTypesRequest" message="tns:retrieveSubUsageTypes" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveSubUsageTypesResponse" message="tns:retrieveSubUsageTypesResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveSubUsageTypes/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="saveCascoProposal">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/saveCascoProposalRequest" message="tns:saveCascoProposal" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/saveCascoProposalResponse" message="tns:saveCascoProposalResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/saveCascoProposal/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveUsageTypes">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveUsageTypesRequest" message="tns:retrieveUsageTypes" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveUsageTypesResponse" message="tns:retrieveUsageTypesResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveUsageTypes/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrievePropertyValue">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrievePropertyValueRequest" message="tns:retrievePropertyValue" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrievePropertyValueResponse" message="tns:retrievePropertyValueResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrievePropertyValue/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="printProposal">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/printProposalRequest" message="tns:printProposal" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/printProposalResponse" message="tns:printProposalResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/printProposal/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="saveCascoPolicy">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/saveCascoPolicyRequest" message="tns:saveCascoPolicy" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/saveCascoPolicyResponse" message="tns:saveCascoPolicyResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/saveCascoPolicy/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="printLastProposal">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/printLastProposalRequest" message="tns:printLastProposal" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/printLastProposalResponse" message="tns:printLastProposalResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/printLastProposal/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="createPayment">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/createPaymentRequest" message="tns:createPayment" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/createPaymentResponse" message="tns:createPaymentResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/createPayment/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="calculatePremiumPolicy">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/calculatePremiumPolicyRequest" message="tns:calculatePremiumPolicy" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/calculatePremiumPolicyResponse" message="tns:calculatePremiumPolicyResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/calculatePremiumPolicy/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveVehicleMakeModels">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveVehicleMakeModelsRequest" message="tns:retrieveVehicleMakeModels" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveVehicleMakeModelsResponse" message="tns:retrieveVehicleMakeModelsResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveVehicleMakeModels/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="calculatePremiumEndorsement">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/calculatePremiumEndorsementRequest" message="tns:calculatePremiumEndorsement" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/calculatePremiumEndorsementResponse" message="tns:calculatePremiumEndorsementResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/calculatePremiumEndorsement/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="saveCascoProposalForRenewal">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/saveCascoProposalForRenewalRequest" message="tns:saveCascoProposalForRenewal" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/saveCascoProposalForRenewalResponse" message="tns:saveCascoProposalForRenewalResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/saveCascoProposalForRenewal/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveVehicleMakeModelByUsageTypeAssociationNumber">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveVehicleMakeModelByUsageTypeAssociationNumberRequest" message="tns:retrieveVehicleMakeModelByUsageTypeAssociationNumber" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveVehicleMakeModelByUsageTypeAssociationNumberResponse" message="tns:retrieveVehicleMakeModelByUsageTypeAssociationNumberResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveVehicleMakeModelByUsageTypeAssociationNumber/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveVehicleMakeModelByAssociationNumber">
+      <input wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveVehicleMakeModelByAssociationNumberRequest" message="tns:retrieveVehicleMakeModelByAssociationNumber" />
+      <output wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveVehicleMakeModelByAssociationNumberResponse" message="tns:retrieveVehicleMakeModelByAssociationNumberResponse" />
+      <fault wsam:Action="http://casco.thirdparty.service.insyst.ergo.com/CascoServiceImpl/retrieveVehicleMakeModelByAssociationNumber/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+  </portType>
+  <binding name="CascoServicePortBinding" type="tns:CascoServiceImpl">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="printPolicy">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveVehicleMakes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveSubUsageTypes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="saveCascoProposal">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveUsageTypes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrievePropertyValue">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="printProposal">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="saveCascoPolicy">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="printLastProposal">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="createPayment">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="calculatePremiumPolicy">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveVehicleMakeModels">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="calculatePremiumEndorsement">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="saveCascoProposalForRenewal">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveVehicleMakeModelByUsageTypeAssociationNumber">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveVehicleMakeModelByAssociationNumber">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+  </binding>
+  <service name="CascoService">
+    <port name="CascoServicePort" binding="tns:CascoServicePortBinding">
+      <soap:address location="http://ergotest.ergoturkiye.com:80/PolicyWeb/thirdParty/external/cascoService" />
+    </port>
+  </service>
+</definitions>

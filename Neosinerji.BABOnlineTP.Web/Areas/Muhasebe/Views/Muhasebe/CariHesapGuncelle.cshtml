@@ -1,0 +1,392 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Muhasebe.Models
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model CariHesapGuncelleModel
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+<head>
+    <title>CariHesapGüncelle</title>
+</head>
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="~/TVM/TVM/Index">Cari Hesap Güncelle<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search..." class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+@section PageStyles{}
+
+@section PageScripts
+{
+    <script src="~/Content/js/bootstrap-formhelpers-phone.js"></script>
+    <script>
+        $(document).ready(function () {
+            //Ülke - il - ilçe
+            //Ülke - il - ilçe
+            $('#UlkeKodu').ulke({ il: '#IlKodu', ilce: '#IlceKodu' });
+
+            //telefon1 , telefon2, ceptel
+        var telefon1 = "@Model.Telefon1"
+        if (telefon1 != "") {
+            setTimeout(function () {
+                $("#Telefon1").val("@Model.Telefon1");
+                }, 2000);
+            }
+            var Telefon2 = "@Model.Telefon2"
+            if (Telefon2 != "") {
+            setTimeout(function () {
+                $("#Telefon2").val("@Model.Telefon2");
+                }, 2000);
+            }
+            var ceptel = "@Model.CepTel"
+               if (ceptel != "") {
+            setTimeout(function () {
+                $("#CepTel").val("@Model.CepTel");
+                }, 2000);
+            }
+
+            //
+            $("#carihesaptipi").change(function () {
+                if ($("#carihesaptipi").val() == "320.01." || $("#carihesaptipi").val() == "600.01." || $("#carihesaptipi").val() == "610.01.") {
+                    $("#SigortaSirketleriControlGroup").show();
+                    $("#sigortaSirketleri").attr("required", "required");
+                }
+                else {
+                    $("#SigortaSirketleriControlGroup").hide();
+                    $("#sigortaSirketleri").removeAttr("required");
+                }
+                var carihesaptipi = $("#carihesaptipi").val();
+                var tcknvkn = $("#TCKNVKN").val();
+                var carihesapkodu = carihesaptipi + tcknvkn;
+                var satisIadeleri = "610.01." + tcknvkn;
+                var komisyon = "600.01." + tcknvkn;
+                if (carihesaptipi != null && carihesaptipi != "" && tcknvkn != null && tcknvkn != "") {
+                    $("#CariHesapKodu").val(carihesapkodu);
+                    if ($("#carihesaptipi").val() == "320.01." || $("#carihesaptipi").val() == "600.01." || $("#carihesaptipi").val() == "610.01.") {
+                        $("#TextboxSatisIadeleri").val(satisIadeleri);
+                        $("#textKomisyonGelirleriMuhasebeKodu").val(komisyon);
+                        $("#komisyongelirlerimuhasebekodu").text("Eğer ilgili muhasebe kartınız yok ise lütfen kartınızı açınız.");
+                        $("#TextSatisIadeleri").text("Eğer ilgili muhasebe kartınız yok ise lütfen kartınızı açınız.");
+
+                    }
+                    else {
+                        $("#TextboxSatisIadeleri").val("");
+                        $("#textKomisyonGelirleriMuhasebeKodu").val("");
+                        $("#komisyongelirlerimuhasebekodu").text("");
+                        $("#TextSatisIadeleri").text("");
+                    }
+                }
+                else
+                    $("#CariHesapKodu").val("");
+            });
+            //
+            if ($("#carihesaptipi").val() == "320.01." || $("#carihesaptipi").val() == "600.01." || $("#carihesaptipi").val() == "610.01.") {
+                $("#SigortaSirketleriControlGroup").show();
+                $("#sigortaSirketleri").attr("required", "required");
+                $("#komisyongelirlerimuhasebekodu").text("Eğer ilgili muhasebe kartınız yok ise lütfen kartınızı açınız.");
+                $("#TextSatisIadeleri").text("Eğer ilgili muhasebe kartınız yok ise lütfen kartınızı açınız.");
+            }
+            else {
+                $("#SigortaSirketleriControlGroup").hide();
+                $("#sigortaSirketleri").removeAttr("required");
+                $("#komisyongelirlerimuhasebekodu").text("");
+                $("#TextSatisIadeleri").text("");
+            }
+            //
+            $("#sigortaSirketleri").change(function () {
+                var sirketKodu = $("#sigortaSirketleri").val();
+                $.getJSON('/Muhasebe/Muhasebe/GetSigortaBilgileri', { SirketKodu: sirketKodu },
+                    function (result) {
+                        if (result.success) {
+                            $("#TCKNVKN").val(result.VergiNo);
+                            $("#Unvan").val(result.SirketinAdi);
+                            $("#VergiDairesi").val(result.VergiDairesi);
+                        }
+                        else {
+                            $("#TCKNVKN").val("");
+                            $("#Unvan").val("");
+                            $("#VergiDairesi").val("");
+                        }
+                        var carihesaptipi = $("#carihesaptipi").val();
+                        var tcknvkn = result.VergiNo;
+                        var carihesapkodu = carihesaptipi + tcknvkn;
+                        var satisIadeleri = "610.01." + tcknvkn;
+                        var komisyon = "600.01." + tcknvkn;
+
+                        if (carihesaptipi != null && carihesaptipi != "" && tcknvkn != null && tcknvkn != "") {
+                            $("#CariHesapKodu").val(carihesapkodu);
+                            if ($("#carihesaptipi").val() == "320.01." || $("#carihesaptipi").val() == "600.01." || $("#carihesaptipi").val() == "610.01.") {
+                                $("#TextboxSatisIadeleri").val(satisIadeleri);
+                                $("#textKomisyonGelirleriMuhasebeKodu").val(komisyon);
+                                $("#komisyongelirlerimuhasebekodu").text("Eğer ilgili muhasebe kartınız yok ise lütfen kartınızı açınız.");
+                                $("#TextSatisIadeleri").text("Eğer ilgili muhasebe kartınız yok ise lütfen kartınızı açınız.");
+
+                            }
+                            else {
+                                $("#TextboxSatisIadeleri").val("");
+                                $("#textKomisyonGelirleriMuhasebeKodu").val("");
+                                $("#komisyongelirlerimuhasebekodu").text("");
+                                $("#TextSatisIadeleri").text("");
+                            }
+                        }
+                        else
+                            $("#CariHesapKodu").val("");
+                    });
+            });
+            //
+            $("#TCKNVKN").keyup(function () {
+                var carihesaptipi = $("#carihesaptipi").val();
+                var tcknvkn = $("#TCKNVKN").val();
+                var carihesapkodu = carihesaptipi + tcknvkn;
+                var satisIadeleri = "610.01." + tcknvkn;
+                var komisyon = "600.01." + tcknvkn;
+                if (carihesaptipi != null && carihesaptipi != "" && tcknvkn != null && tcknvkn != "") {
+                    $("#CariHesapKodu").val(carihesapkodu);
+
+                    if ($("#carihesaptipi").val() == "320.01." || $("#carihesaptipi").val() == "600.01." || $("#carihesaptipi").val() == "610.01.") {
+                        $("#TextboxSatisIadeleri").val(satisIadeleri);
+                        $("#textKomisyonGelirleriMuhasebeKodu").val(komisyon);
+                        $("#komisyongelirlerimuhasebekodu").text("Eğer ilgili muhasebe kartınız yok ise lütfen kartınızı açınız.");
+                        $("#TextSatisIadeleri").text("Eğer ilgili muhasebe kartınız yok ise lütfen kartınızı açınız.");
+
+                    }
+                    else {
+                        $("#TextboxSatisIadeleri").val("");
+                        $("#textKomisyonGelirleriMuhasebeKodu").val("");
+                        $("#komisyongelirlerimuhasebekodu").text("");
+                        $("#TextSatisIadeleri").text("");
+                    }
+                }
+                else {
+                    $("#CariHesapKodu").val("");
+                }
+            });
+        });
+    </script>
+
+}
+
+<div class="row-fluid">
+    <div class="portlet box light-grey" style="margin-top: 24px;">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-reorder"></i>
+                <span class="hidden-480">Cari Hesap Güncelle</span>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <form class="form-horizontal" id="cariHesapGirisi"></form>
+            @using (Html.BeginForm("CariHesapGuncelle", "Muhasebe", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                Html.EnableClientValidation(true);
+                @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+                @Html.AntiForgeryToken()
+                <div class="row-fluid" style="padding-top: 10px;">
+                    <div class="span6">
+                        <h4 class="form-section"></h4>
+                        <div class="control-group">
+                            <label class="control-label">Cari Hesap Tipi<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.CariHesapTipi, Model.CariHesapTipleri, new { style = "width:50%", required = "required", id = "carihesaptipi" })
+                                @Html.ValidationMessageFor(m => m.CariHesapTipi)
+                            </div>
+                        </div>
+                        <div class="control-group" id="SigortaSirketleriControlGroup">
+                            <label class="control-label">Sigorta Şirketleri<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.sigortaSirketi, Model.sigortaSirketleri, new { style = "width:50%", required = "required", id = "sigortaSirketleri" })
+                                @Html.ValidationMessageFor(m => m.sigortaSirketi)
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">Kimlik No TCKN / VKN<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.KimlikNo, Model.KimlikNo, new { maxlength = 11, minlength = 10, style = "width:50%", required = "required", id = "TCKNVKN" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Cari Hesap Kodu</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.CariHesapKodu, Model.CariHesapKodu, new { style = "width:50%", disabled = "disabled", id = "CariHesapKodu" })
+                                @Html.ValidationMessageFor(m => m.CariHesapKodu)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Müşteri Grup Kodu</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.MusteriGrupKodu, Model.MusteriGrupKodu, new { style = "width:50%" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Unvanı<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.Unvan, Model.Unvan, new { style = "width:50%", id = "Unvan" , required = "required"})
+                                @Html.ValidationMessageFor(m => m.Unvan)
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">Vergi Dairesi</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.VergiDairesi, Model.VergiDairesi, new { style = "width:50%", @class = "", id = "VergiDairesi" })
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Telefon No 1</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.Telefon1, new { style = "width:50%", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", placeholder = "90-212-5554477", @class = "bfh-phone", title = babonline.Message_PhoneFormat })
+                                @Html.ValidationMessageFor(m => m.Telefon1)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Telefon No 2</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.Telefon2, new { style = "width:50%", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", placeholder = "90-212-5554477", @class = "input-medium bfh-phone", title = babonline.Message_PhoneFormat })
+                                @Html.ValidationMessageFor(m => m.Telefon2)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Cep Telefon No</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.CepTel, new { style = "width:50%", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", placeholder = "90-212-5554477", @class = "input-medium bfh-phone", title = babonline.Message_PhoneFormat })
+                                @Html.ValidationMessageFor(m => m.CepTel)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">E-mail</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.Email, new { style = "width:50%" })
+                                @Html.ValidationMessageFor(m => m.Email)
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">Web Adresi</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.WebAdresi, new { maxlength = 30, style = "width:50%" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"> Adres</label>
+                            <div class="controls">
+                                @Html.TextAreaFor(s => s.Adres, new { maxlength = 500, style = "width:50%", placeholder = "Adres" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <h4 class="form-section"></h4>
+
+                        <div class="control-group">
+                            <label class="control-label">Dis aktarim Muhasebe Kodu</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.DisaktarimMuhasebeKodu, Model.DisaktarimMuhasebeKodu, new { style = "width:50%" })
+                                @Html.ValidationMessageFor(m => m.DisaktarimMuhasebeKodu)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Dis aktarim Cari Kodu </label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.DisaktarimCariKodu, Model.DisaktarimCariKodu, new { style = "width:50%" })
+                                @Html.ValidationMessageFor(m => m.DisaktarimCariKodu)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Komisyon Gelirleri Muhasebe Kodu</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.KomisyonGelirleriMuhasebeKodu, Model.KomisyonGelirleriMuhasebeKodu, new { style = "width:50%", disabled = "disabled", id = "textKomisyonGelirleriMuhasebeKodu" })
+                                @Html.ValidationMessageFor(m => m.KomisyonGelirleriMuhasebeKodu)
+                            </div>
+                            <span id="komisyongelirlerimuhasebekodu" class="required" style="font-size: 12px; margin-left:20px;"></span>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Satış İadeleri (Komisyon) Muhasebe Kodu</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.SatisIadeleriMuhasebeKodu, Model.SatisIadeleriMuhasebeKodu, new { style = "width:50%", disabled = "disabled", id = "TextboxSatisIadeleri" })
+                                @*@Html.ValidationMessageFor(s => s.SatisIadeleriMuhasebeKodu)*@
+                            </div>
+                            <span id="TextSatisIadeleri" class="required" style="font-size: 12px; margin-left:20px;"></span>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">Posta Kodu</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.PostaKodu, new { @class = "", style = "width:50%" })
+                                @Html.ValidationMessageFor(m => m.PostaKodu)
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Country<span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.UlkeKodu, Model.Ulkeler, new { style = "width:50%;" })
+                                    @Html.ValidationMessageFor(m => m.UlkeKodu)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.City  <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.IlKodu, Model.Iller, new { style = "width:50%;" })
+                                    @Html.ValidationMessageFor(m => m.IlKodu)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.District  <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.IlceKodu, Model.IlceLer, new { style = "width:50%;" })
+                                    @Html.ValidationMessageFor(m => m.IlceKodu)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Açıklama</label>
+                            <div class="controls">
+                                @Html.TextAreaFor(s => s.BilgiNotu, new { maxlength = 500, style = "width:50%", placeholder = "Açıklama" })
+
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Uyarı Notu</label>
+                            <div class="controls">
+                                @Html.TextAreaFor(s => s.UyariNotu, new { maxlength = 500, style = "width:50%", placeholder = "Uyarılar" })
+                                @Html.ValidationMessageFor(m => m.UyariNotu)
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-success" id="kaydet"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                    <a class="btn" href="~/Muhasebe/Muhasebe/CariHesapDetay/@Model.id">@babonline.Cancel</a>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

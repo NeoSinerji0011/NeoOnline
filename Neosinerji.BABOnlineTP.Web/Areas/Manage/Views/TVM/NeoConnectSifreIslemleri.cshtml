@@ -1,0 +1,478 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.SirketWebEkranModel
+
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li class="active">
+            <a href="~/Manage/TVM/NeoConnectSifreIslemleri">NeoConnect Kullanıcı Adı ve Şifre Atama Listesi<span class="selected"></span></a>
+        </li>
+        @*  @if (eklemeYetkisi)
+            {
+                <li>
+                    <a href="~/Manage/TVM/Ekle">@babonline.TVM_Add<span></span></a>
+                </li>
+            }*@
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+
+
+@section PageScripts
+{
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/dataTable")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            //var webservisKullanicilariTable;
+            //function webservisKullanicilariTableSet() {
+            //    webservisKullanicilariTable = $('#neoconnectkullanicilari-table').dataTable({
+            //        "bPaginate": true,
+            //        "bLengthChange": false,
+            //        "iDisplayLength": 5,
+            //        "bFilter": false,
+            //        "bInfo": false,
+            //        "bAutoWidth": false,
+            //        "sPaginationType": "full_numbers",
+            //        "sPaginationType": "bootstrap"
+            //    });
+            //}
+
+            //webservisKullanicilariTableSet();
+        });
+
+        //$("#neoEkle").click(function () {
+        //    $("#WSTVMKodu").
+
+        //});
+
+        $("#TUMKodu").change(function () {
+            //Anadolu Sigorta ise Swap Kullanıcı Bilgi Giriş Ekranı açılıyor
+            if ($(this).val() == 4) {
+                $("#anadolu-ozel").show();
+            }
+            else {
+                $("#anadolu-ozel").hide();
+            }
+            if ($(this).val() != "" && $(this).val() != null) {
+                $("#WSTVMKodu").prop("disabled", false);
+                var tvmkodu = $("#WSTVMKodu").val();
+                var tumkodu = $("#TUMKodu").val();
+                $.get("/Manage/TVM/GetSirketGrupKullaniciListesi", { TVMKodu: tvmkodu, SirketKodu: tumkodu }, function (data) {
+                    if (data != null) {
+                        $("#GrupKodu").dropDownFill(data); $("#KullaniciAdi").val("");
+                        $("#Sifre").val("");
+                    }
+                    else {
+                        $("#KullaniciAdi").val("");
+                        $("#Sifre").val("");
+                    }
+                });
+
+                $("#WSTVMKodu").prop("disabled", true);
+            }
+        });
+
+        $("#GrupKodu").change(function () {
+            if ($(this).val() != "" && $(this).val() != null) {
+                var grupKodu = $("#GrupKodu").val();
+
+                $.get("/Manage/TVM/GetSirketGrupKullaniciDetay", { grupKodu: grupKodu }, function (data) {
+                    if (data != null) {
+                        $("#KullaniciAdi").val(data.KullaniciAdi);
+                        $("#Sifre").val(data.Sifre);
+                    }
+                    else {
+                        $("#KullaniciAdi").val("");
+                        $("#Sifre").val("");
+                    }
+                });
+            }
+            else {
+                $("#KullaniciAdi").val("");
+                $("#Sifre").val("");
+            }
+        });
+
+        //NeoConnect kullanıcıları ekleme - silme işlemleri
+        $("#neoconnectkullanici-ekle").click(function () {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/NeoConnectKullaniciEkle",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#neokullaniciekle-modal-div").html(data);
+                    $.validator.unobtrusive.parse("#neokullaniciekle-modal-div");
+                    $("#neoconnectkullanici-modal").modal('show');
+
+                },
+                "html");
+            //location.reload();
+        });
+
+        $("#neokullanici-ekle-btn").live("click", function () {
+            if ($("#GrupKodu").val() == "" || $("#GrupKodu").val() == null) {
+                $("#GrupKodu").addClass("ignore");
+            }
+            $("#neoconnectkullanici-ekle-form").validate().form();
+
+            if ($("#neoconnectkullanici-ekle-form").valid()) {
+                var formData = $("#neoconnectkullanici-ekle-form").serialize();
+                $.post("/Manage/TVM/NeoConnectKullaniciEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#neoconnectkullanici-modal").modal('hide'); }
+                        else {
+                            $("#neoconnectkullanici-modal").modal('hide');
+                            $("#neokullaniciekle-modal-div").html(data);
+                            $("#neoconnectkullanici-modal").modal('show');
+                        }
+                        //    viewPageNeoConnectSifreKullanici();
+
+                    }, "html");
+
+            }
+        });
+
+
+
+        $("#neoEkle").click(function () {
+            var isvalid = $("#formNeoSifre").valid();
+            if (isvalid) {
+
+                $("#neoEkle").button("loading");
+                var disabled = $("#formNeoSifre").find(':input:disabled').removeAttr('disabled');
+                var contents = $("#formNeoSifre").serialize();
+                disabled.attr('disabled', 'disabled');
+
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Manage/TVM/NeoConnectSifreIslemleri/",
+                        data: contents,
+                        success: function (data) {
+                            $("#neoEkle").button("reset");
+                            //// alert(data.HataMesaji);
+                            //swal("Başarılı", data.HataMesaji, "success");
+                            //location.reload(true);
+                            if (data.Success == "False") {
+                                swal(data.HataMesaji, "", "error");
+                            }
+                            else {
+                                swal({
+                                    title: "İşlem Başarılı!" + data.HataMesaji,
+                                    type: "success",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "OK",
+                                    closeOnConfirm: false,
+                                    closeOnCancel: false
+                                },
+                                    function (isConfirm) {
+                                        if (isConfirm) {
+                                            //location.reload();
+                                            window.location.href = "/Manage/TVM/NeoConnectSifreIslemleri/";
+                                        }
+                                    });
+                            }
+                        }
+                        //error: function () {
+                        //    $("#neoEkle").button("reset");
+                        //}
+                    });
+            }
+        });
+
+        $(".delete-neotvmwebservis").click(function () {
+            var TVMKodu = $(this).attr("tvm-kodu");
+            var id = $(this).attr("kayit-id");
+            swal({
+                title: "Uyarı!",
+                text: " Kaydı silmek istediğiniz emin misiniz?",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Evet",
+                closeOnConfirm: false
+                //closeOnCancel: false
+
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.post("/Manage/TVM/NeoConnectSifreIslemleriKullaniciSil/",
+                            { id: id, tvmKodu: TVMKodu },
+                            function (data) {
+                                if (data.sonuc != "Kayıt silindi.") {
+                                    swal("Hata ", data.sonuc, "warning")
+                                    return false;
+                                }
+                                swal({
+                                    title: "Başarılı",
+                                    text: data.sonuc,
+                                    type: "success",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "Tamam",
+                                    closeOnConfirm: false
+                                },
+                                    function (isConfirm) {
+                                        if (isConfirm) {
+                                            location.reload(true);
+                                            //viewPageNeoConnectSifreKullanici();
+                                        }
+                                    });
+                            });
+                    }
+                    else {
+                        swal("İptal", "Silme işlemi iptal edildi", "error");
+                    }
+                });
+
+
+        });
+
+        $(".edit-neotvmwebservis").live("click", function () {
+            var TVMKodu = $(this).attr("tvm-kodu");
+            var tumKodu = $(this).attr("tum-kodu");
+            var id = $(this).attr("kayit-id");
+
+            $.get("/Manage/TVM/NeoConnectSifreIslemleriKullaniciGuncelle",
+                { tvmKodu: TVMKodu, tumKodu: tumKodu, id: id },
+                function (data) {
+                    $("#neokullaniciekle-modal-div").html(data);
+                    $.validator.unobtrusive.parse("#neokullaniciekle-modal-div");
+                    $("#neoconnectkullanici-modal").modal('show');
+                    if ($("#TUMKodu").val() == 4) {
+                        $("#anadolu-ozel").show();
+                    }
+                    else {
+                        $("#anadolu-ozel").hide();
+                    }
+                    //   viewPageNeoConnectSifreKullanici();
+
+                },
+                "html");
+        });
+
+        $("#neokullanici-guncelle-btn").live("click", function () {
+            if ($("#GrupKodu").val() == "" || $("#GrupKodu").val() == null) {
+                $("#GrupKodu").addClass("ignore");
+            }
+            $("#neoconnectkullanici-ekle-form").validate().form();
+            if ($("#neoconnectkullanici-ekle-form").valid()) {
+                var formData = $("#neoconnectkullanici-ekle-form").serialize();
+                $.post("/Manage/TVM/NeoConnectSifreIslemleriKullaniciGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#neoconnectkullanici-modal").modal('hide'); }
+                        else {
+                            $("#neoconnectkullanici-modal").modal('hide');
+                            $("#neokullaniciekle-modal-div").html(data);
+                            $("#neoconnectkullanici-modal").modal('show');
+                        }
+                        // viewPageNeoConnectSifreKullanici();
+                        location.reload(true);
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        function viewPageNeoConnectSifreKullanici() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/NeoConnectSifreIslemleri",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#neoconnectkullanicilari-table").html(data);
+                },
+                "html");
+        }
+
+    </script>
+}
+
+
+
+
+<link href="~/Content/css/bootstrapSwitch.min.css" rel="stylesheet" />
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey " style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">NeoConnect Kullanıcı Yönetimi</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey" style="margin-top: 24px;">
+
+                    <div class="portlet-body form">
+                        @*@using (Html.BeginForm("NeoConnectSifreİslemleri", "TVM", FormMethod.Post, new { @class = "form-horizontal", id = "formNeoSifre", enctype = "multipart/form-data" }))
+                            {      *@
+                        <form class="form-horizontal" id="formNeoSifre">
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.HiddenFor(m => m.TVMKodu)
+                            @* @Html.HiddenFor(m => m.TUMKodu)*@
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVM_Code</label>
+                                <div class="controls">
+                                    @Html.TextBox("WSTVMKodu", Model.TVMKodu, new { autocompletetype = "disabled", disabled = "true" })
+                                    <input type="hidden" name="postButton" value="neoEkle" />
+
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Satış Kanalları </label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.AltTVMKodu, Model.TVMListesi)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TUM_Title <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.TUMKodu, Model.TUMListesi)
+                                    @Html.ValidationMessageFor(m => m.TUMKodu)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Şirket Grupları</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.GrupKodu, Model.SirketGrupKullaniciListesi)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVMUser_Name</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.KullaniciAdi, new { autocompletetype = "disabled", style = "width:150px;" })
+                                    @Html.ValidationMessageFor(m => m.KullaniciAdi)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Acente Kodu</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.AcenteKodu, new { autocompletetype = "disabled", style = "width:150px;" })
+                                    @Html.ValidationMessageFor(m => m.AcenteKodu)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Password</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.Sifre, new { autocompletetype = "disabled", style = "width:150px;" })
+                                    @Html.ValidationMessageFor(m => m.Sifre)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Proxy(IpAdresi/Port)</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.ProxyIpPort, new { autocompletetype = "disabled", style = "width:150px;", placeholder = "Ip Adresi:Port Numarası" })
+                                    @Html.ValidationMessageFor(m => m.ProxyIpPort)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Proxy Kullanıcı Adı</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.ProxyKullaniciAdi, new { autocompletetype = "disabled", style = "width:150px;", placeholder = "Yok ise boş bırakınız." })
+                                    @Html.ValidationMessageFor(m => m.ProxyKullaniciAdi)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Proxy Şifre</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.ProxySifre, new { autocompletetype = "disabled", style = "width:150px;", placeholder = "Yok ise boş bırakınız." })
+                                    @Html.ValidationMessageFor(m => m.ProxySifre)
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <a href="/Manage/TVM/NeoConnectSifreIslemleri" id="clean" class="btn ligth-grey">@babonline.Clear</a>
+                                        @*<a href="javascript:void(0)" id="neoSifreEkle" class="btn btn-success tali-form" data-loading-text="@babonline.adding">@babonline.Add</a>*@
+                                        <input type="submit" id="neoEkle" class="btn btn-success" data-loading-text="@babonline.adding" value="@babonline.Save" />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        @*}*@
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table id="neoconnectkullanicilari-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 20%;">@babonline.TUM_Title</th>
+            <th>Satış Kanalı</th>
+            <th>Grup Adı</th>
+            <th>Kullanıcı @babonline.TVMUser_Name</th>
+            <th>Acente Kodu</th>
+            <th>@babonline.Password</th>
+            <th>Proxy (Ip Adresi / Port)</th>
+            <th>Proxy Kullanıcı Adı</th>
+            <th>Proxy Şifre</th>
+            @*  <th> SWAP @babonline.Password</th>*@
+            @*<th> Partaj No</th>*@
+            <th style="width: 50px;">&nbsp;</th>
+            <th style="width: 40px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.sifreList)
+        {
+            <tr>
+                <td>@item.TUMUnvan</td>
+                <td>@item.AltTVMUnvani</td>
+                <td>@item.GrupAdi</td>
+                <td>@item.KullaniciAdi</td>
+                <td>@item.AcenteKodu</td>
+                <td>@item.Sifre</td>
+                <td>@item.ProxyIpPort</td>
+                <td>@item.ProxyKullaniciAdi</td>
+                <td>@item.ProxySifre</td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" tvm-kodu="@item.TVMKodu" tum-kodu="@item.TUMKodu" kayit-id="@item.Id" class="btn btn-mini btn-info edit-neotvmwebservis">@babonline.Edit</a>
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" tvm-kodu="@item.TVMKodu" tum-kodu="@item.TUMKodu" kayit-id="@item.Id" class="btn btn-mini btn-danger delete-neotvmwebservis">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@*NeoConnect Ekleme*@
+<div id="neokullaniciekle-modal-div"></div>

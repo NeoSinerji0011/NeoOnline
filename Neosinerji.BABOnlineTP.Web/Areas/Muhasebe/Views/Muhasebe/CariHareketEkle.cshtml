@@ -1,0 +1,1377 @@
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Muhasebe.Models
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model CariHareketEkleModel
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+<head>
+    <title>@babonline.CurrentTransactionEntry</title>
+
+
+</head>
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="~/TVM/TVM/Index">@babonline.CurrentTransactionEntry<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search..." class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+
+
+}
+@section PageStyles{
+    <link rel="stylesheet" href="~/Content/css/TLsimgesi.css" />
+}
+
+@section PageScripts
+{
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    <script src="~/Content/js/bootstrap-formhelpers-phone.js"></script>
+    <script src="@Url.Content("~/Content/js/autoNumeric.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $("#karsi-hareket").click(function () {
+            $(".karsiHareketBilgileri").show();
+        });
+        $("#hareketIptal").click(function () {
+            $(".karsiHareketBilgileri").hide();
+        });
+        //Para Formatı ayarlanıyor
+        $(".autoNumeric-custom").autoNumeric('init', { vMin: '0', vMax: '999999999', mDec: 2, aSep: '.', aDec: ',' });
+        $(".autoNumeric-dovizKur").autoNumeric('init', { vMin: '0', vMax: '999999999', mDec: 4, aSep: '.', aDec: ',' });
+        $(".onlynumbers").live("keypress", function (e) {
+            return ((e.which >= 48 && e.which <= 57) || e.which == 8 || e.which == 0);
+        });
+
+        function ParaBirimiAyarla(name) {
+            name.each(function () {
+                var temp = name.val();
+
+                var valll = parseFloat(name.val());
+                //if (temp.contains("-"))   contains sadece firefox da çalışıyor o yüzden indexof kullanıldı
+                if (temp.valueOf().indexOf("-") > -1) {
+                    var length = name.val().length;
+                    var sayac = 0;
+                    var result = "";
+                    if (length > 7) {
+                        for (var i = 0; i < length; i++) {
+                            sayac++;
+                            result += name.val()[i];
+                            if (sayac == (length - 6) || sayac == (length - 9) || sayac == (length - 11))
+                                result += ",";
+                        }
+                        name.val(result.replace(',', ' ').replace('.', ',').replace(' ', '.'));
+                    }
+                    else {
+                        return name.val().replace('.', ',');
+                    }
+                }
+                else {
+                    var length = name.val().length;
+                    var sayac = 0;
+                    var result = "";
+
+                    if (length > 6) {
+                        for (var i = 0; i < length; i++) {
+                            sayac++;
+                            result += name.val()[i];
+                            if (sayac == (length - 6) || sayac == (length - 9) || sayac == (length - 12))
+                                result += ",";
+                        }
+                        name.val(result.replace(',', ' ').replace('.', ',').replace(' ', '.'));
+                    } else if (length > 0 && length <= 6) name.val(name.val().replace('.', ','));
+                }
+
+            });
+        }
+        $(document).ready(function () {
+            var cariKodu = $("#CariHesapKodu").val();
+            cariKodu = cariKodu.substring(0, 3);
+            switch (cariKodu) {
+                case "120":
+                    $("#EvrakTipi").children("option[value=-1]").hide();
+                    $("#EvrakTipi").children("option[value=16]").show();
+                    $("#EvrakTipi").children("option[value=15]").show();
+                    $("#EvrakTipi").children("option[value=5]").hide();
+                    $("#EvrakTipi").children("option[value=4]").hide();
+                    $("#EvrakTipi").children("option[value=3]").hide();
+                    $("#EvrakTipi").children("option[value=1]").hide();
+                    $("#EvrakTipi").children("option[value=2]").hide();
+                    $("#EvrakTipi").children("option[value=6]").show();
+                    $("#EvrakTipi").children("option[value=7]").show();
+                    $("#EvrakTipi").children("option[value=8]").show();
+                    $("#EvrakTipi").children("option[value=9]").show();
+                    $("#EvrakTipi").children("option[value=14]").show();
+                    $('#EvrakTipi option').each(function () {
+                        if ($(this).css('display') != 'none') {
+                            $(this).prop("selected", true);
+                            return false;
+                        }
+                    });
+                    $("#EvrakTipi").trigger("change");
+                    break;
+                case "320":
+                    $("#EvrakTipi").children("option[value=-1]").hide();
+                    $("#EvrakTipi").children("option[value=16]").hide();
+                    $("#EvrakTipi").children("option[value=15]").show();
+                    $("#EvrakTipi").children("option[value=3]").show();
+                    $("#EvrakTipi").children("option[value=4]").show();
+                    $("#EvrakTipi").children("option[value=5]").hide();
+                    $("#EvrakTipi").children("option[value=1]").show();
+                    $("#EvrakTipi").children("option[value=2]").show();
+                    $("#EvrakTipi").children("option[value=6]").show();
+                    $("#EvrakTipi").children("option[value=7]").show();
+                    $("#EvrakTipi").children("option[value=8]").show();
+                    $("#EvrakTipi").children("option[value=9]").show();
+                    $("#EvrakTipi").children("option[value=14]").show();
+                    $('#EvrakTipi option').each(function () {
+                        if ($(this).css('display') != 'none') {
+                            $(this).prop("selected", true);
+                            return false;
+                        }
+                    });
+                    $("#EvrakTipi").trigger("change");
+                    break;
+                case "600":
+                    $("#EvrakTipi").children("option[value=-1]").hide();
+                    $("#EvrakTipi").children("option[value=16]").hide();
+                    $("#EvrakTipi").children("option[value=15]").show();
+                    $("#EvrakTipi").children("option[value=3]").hide();
+                    $("#EvrakTipi").children("option[value=4]").hide();
+                    $("#EvrakTipi").children("option[value=5]").show();
+                    $("#EvrakTipi").children("option[value=1]").hide();
+                    $("#EvrakTipi").children("option[value=2]").hide();
+                    $("#EvrakTipi").children("option[value=6]").show();
+                    $("#EvrakTipi").children("option[value=7]").show();
+                    $("#EvrakTipi").children("option[value=8]").show();
+                    $("#EvrakTipi").children("option[value=9]").show();
+                    $("#EvrakTipi").children("option[value=14]").show();
+                    swal("@babonline._warningCurrentAccountEntry.", " @babonline._warningCommissionTransactionsVendors."); // Bu hesaplara Cari Hesap Girişi yapılmaması gerekir - Komisyon hareketleri 320-340 satıcılar hesabına girilmelidir
+                    $('#EvrakTipi option').each(function () {
+                        if ($(this).css('display') != 'none') {
+                            $(this).prop("selected", true);
+                            return false;
+                        }
+                    });
+                    $("#EvrakTipi").trigger("change");
+                    break;
+                case "610":
+                    $("#EvrakTipi").children("option[value=-1]").hide();
+                    $("#EvrakTipi").children("option[value=16]").hide();
+                    $("#EvrakTipi").children("option[value=15]").show();
+                    $("#EvrakTipi").children("option[value=5]").hide();
+                    $("#EvrakTipi").children("option[value=4]").show();
+                    $("#EvrakTipi").children("option[value=3]").hide();
+                    $("#EvrakTipi").children("option[value=1]").hide();
+                    $("#EvrakTipi").children("option[value=2]").hide();
+                    $("#EvrakTipi").children("option[value=6]").show();
+                    $("#EvrakTipi").children("option[value=7]").show();
+                    $("#EvrakTipi").children("option[value=8]").show();
+                    $("#EvrakTipi").children("option[value=9]").show();
+                    $("#EvrakTipi").children("option[value=14]").show();
+                    swal("@babonline._warningCurrentAccountEntry.", " @babonline._warningCommissionTransactionsVendors.");  // Bu hesaplara Cari Hesap Girişi yapılmaması gerekir - Komisyon hareketleri 320-340 satıcılar hesabına girilmelidir
+                    $('#EvrakTipi option').each(function () {
+                        if ($(this).css('display') != 'none') {
+                            $(this).prop("selected", true);
+                            return false;
+                        }
+                    });
+                    $("#EvrakTipi").trigger("change");
+                    break;
+                case "":
+                    $("#EvrakTipi").children("option[value=15]").show();
+                    $("#EvrakTipi").children("option[value=14]").hide();
+                    $("#EvrakTipi").children("option[value=5]").hide();
+                    $("#EvrakTipi").children("option[value=4]").hide();
+                    $("#EvrakTipi").children("option[value=3]").hide();
+                    $("#EvrakTipi").children("option[value=1]").hide();
+                    $("#EvrakTipi").children("option[value=2]").hide();
+                    $("#EvrakTipi").children("option[value=6]").hide();
+                    $("#EvrakTipi").children("option[value=7]").hide();
+                    $("#EvrakTipi").children("option[value=8]").hide();
+                    $("#EvrakTipi").children("option[value=9]").hide();
+                    $("#EvrakTipi").children("option[value=16]").hide();
+                    if ($("#EvrakTipi").children("option[value=-1]").text() == null || $("#EvrakTipi").children("option[value=-1]").text() == "") {
+                        $("#EvrakTipi").append("<option value='-1' >" + "@babonline.PleaseSelect." + "</option>");
+                    }
+                    $("#EvrakTipi").val("-1");
+                    $('#EvrakTipi option').each(function () {
+                        if ($(this).css('display') != 'none') {
+                            $(this).prop("selected", true);
+                            return false;
+                        }
+                    });
+                    $("#EvrakTipi").trigger("change");
+                    break;
+                default:
+                    $("#EvrakTipi").children("option[value=-1]").hide();
+                    $("#EvrakTipi").children("option[value=15]").show();
+                    $("#EvrakTipi").children("option[value=16]").hide();
+                    $("#EvrakTipi").children("option[value=6]").show();
+                    $("#EvrakTipi").children("option[value=7]").show();
+                    $("#EvrakTipi").children("option[value=8]").show();
+                    $("#EvrakTipi").children("option[value=9]").show();
+                    $("#EvrakTipi").children("option[value=14]").show();
+                    $("#EvrakTipi").children("option[value=5]").hide();
+                    $("#EvrakTipi").children("option[value=4]").hide();
+                    $("#EvrakTipi").children("option[value=3]").hide();
+                    $("#EvrakTipi").children("option[value=1]").hide();
+                    $("#EvrakTipi").children("option[value=2]").hide();
+                    $('#EvrakTipi option').each(function () {
+                        if ($(this).css('display') != 'none') {
+                            $(this).prop("selected", true);
+                            return false;
+                        }
+                    });
+                    $("#EvrakTipi").trigger("change");
+                    break;
+            }
+            switch ($("#EvrakTipi").val()) {
+                case "1":
+                    // Prim Tahakkuk
+                    $("#BorcAlacakTipi").val("A");
+                    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                    break;
+                case "2":
+                    //Prim İadesi
+                    $("#BorcAlacakTipi").val("B");
+                    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                    break;
+                case "3":
+                    //Komisyon Tahakkuk
+                    $("#BorcAlacakTipi").val("A");
+                    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                    break;
+                case "4":
+                    //Komisyon İadesi
+                    $("#BorcAlacakTipi").val("B");
+                    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                    break;
+                case "5":
+                    //Komisyon Tahsilatı
+                    $("#BorcAlacakTipi").val("A");
+                    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                    break;
+                case "6":
+                    //Komisyon Ödemesi
+                    $("#BorcAlacakTipi").val("A");
+                    $("#BorcAlacakTipi").removeAttr("disabled");
+                    break;
+                //case "7":
+                //    //Alış Faturası
+                //    $("#BorcAlacakTipi").val("");
+                //    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                //    break;
+                //case "8":
+                //    //Satış Faturası
+                //    $("#BorcAlacakTipi").val("");
+                //    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                //    break;
+                //case "9":
+                //    //Devir Kaydı
+                //    $("#BorcAlacakTipi").val("");
+                //    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                //    break;
+                //case "14":
+                //    //Tahsilat İptal
+                //    $("#BorcAlacakTipi").val("");
+                //    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                //    break;
+                case "15":
+                    //Prim Tahsilat
+                    $("#BorcAlacakTipi").val("A");
+                    $("#BorcAlacakTipi").removeAttr("disabled");
+                    break;
+                case "16":
+                    //
+                    $("#BorcAlacakTipi").val("A");
+                    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                    break;
+                default:
+                    $("#BorcAlacakTipi").removeAttr("disabled");
+            }
+
+            $('#CariHareketTarihi').datepicker('setDate', 'getdate');
+            $('#OdemeTarihi').datepicker('setDate', 'getdate');
+
+            $("#dovizTutar").hide();
+            $("#kayitEdildi").hide();
+            if ($("#DovizTipi").val() != "TL") {
+                $("#dovizKur").show();
+                $("#DovizKuru").removeClass("ignore");
+                $("#DovizTutari").removeClass("ignore");
+            }
+            else {
+                $("#dovizKur").hide();
+                $("#DovizKuru").addClass("ignore");
+                $("#DovizTutari").addClass("ignore");
+            }
+            $("#DovizTipi").change(function () {
+                if ($(this).val() != "TL") {
+                    $("#dovizKur").show();
+                    if ($("#frmKarsiHareket").is(":visible")) {
+                        $("#KarsiCari_DovizTipi").val($("#DovizTipi").val());
+                        $("#KarsiCari_dovizKur").show();
+                    }
+                    $("#DovizKuru").removeClass("ignore");
+                    $("#DovizTutari").removeClass("ignore");
+                }
+                else {
+                    if ($("#frmKarsiHareket").is(":visible")) {
+                        $("#KarsiCari_DovizTipi").val($("#DovizTipi").val());
+                        $("#KarsiCari_DovizKuru").val("");
+                        $("#KarsiCari_dovizKur").hide();
+                        $("#KarsiCari_dovizTutar").hide();
+                    }
+                    $("#DovizKuru").val("");
+                    $("#dovizKur").hide();
+                    $("#dovizTutar").hide();
+                    $("#DovizKuru").addClass("ignore");
+                    $("#DovizTutari").addClass("ignore");
+                }
+                //$(".span_parabirimi")[0].innerHTML = "(" + $(this).val() + ")";
+                $(".span_parabirimi").html("(" + $(this).val() + ")")
+            });
+            $("#DovizTipi").trigger("change")
+            $("#Tutar").change(function () {
+                if ($("#KarsiCari_Tutar").is(":visible")) {
+                    $("#KarsiCari_Tutar").val($("#Tutar").val());
+                }
+            });
+            $("#Aciklama").change(function () {
+                if ($("#frmKarsiHareket").is(":visible")) {
+                    $("#KarsiCari_Aciklama").val($("#Aciklama").val());
+                }
+            });
+            $("#EvrakNo").change(function () {
+                if ($("#frmKarsiHareket").is(":visible")) {
+                    $("#KarsiCari_KarsiEvrakNo").val($("#EvrakNo").val());
+                }
+            });
+            $("#DovizKuru").change(function () {
+                if ($("#DovizKuru").val() != "") {
+                    var tutar = $("#Tutar").val().replace(".", "").replace(",", ".");
+                    var dovizkur = $("#DovizKuru").val().replace(".", "").replace(",", ".");
+                    $("#DovizTutari").val((tutar / dovizkur).toFixed(2));
+                    ParaBirimiAyarla($("#DovizTutari"));
+                    $("#dovizTutar").show();
+
+                    if ($("#KarsiCari_DovizKuru").is(":visible")) {
+                        $("#KarsiCari_DovizKuru").val($("#DovizKuru").val());
+                        $("#KarsiCari_DovizTutari").val($("#DovizTutari").val());
+                        $("#KarsiCari_dovizTutar").show();
+                    }
+                }
+                else {
+                    $("#dovizTutar").val("");
+                    $("#dovizTutar").hide();
+                    if ($("#KarsiCari_DovizKuru").is(":visible")) {
+                        $("#KarsiCari_DovizKuru").val($("#DovizKuru").val());
+                        $("#KarsiCari_DovizTutari").val("");
+                        $("#KarsiCari_dovizTutar").hide();
+                    }
+                }
+
+            });
+            $("#BorcAlacakTipi").change(function () {
+                if ($("#KarsiCari_BorcAlacakTipi").is(":visible")) {
+                    var borcAlacakTipi = $("#BorcAlacakTipi").val();
+                    if (borcAlacakTipi == "B") {
+                        $("#KarsiCari_BorcAlacakTipi").val("A");
+                        $("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                    }
+                    else if (borcAlacakTipi == "A") {
+                        $("#KarsiCari_BorcAlacakTipi").val("B");
+                        $("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                    }
+                }
+            });
+            $("#CariHareketTarihi").change(function () {
+                if ($("#KarsiCari_CariHareketTarihi").is(":visible")) {
+                    $("#KarsiCari_CariHareketTarihi").val($("#CariHareketTarihi").val());
+                }
+            });
+            $("#OdemeTarihi").change(function () {
+                if ($("#KarsiCari_OdemeTarihi").is(":visible")) {
+                    $("#KarsiCari_OdemeTarihi").val($("#OdemeTarihi").val());
+                }
+            });
+            $("#OdemeTipi").change(function () {
+                if ($("#KarsiCari_OdemeTipi").is(":visible")) {
+                    $("#KarsiCari_OdemeTipi").val($("#OdemeTipi").val());
+                }
+            });
+
+
+
+            $("#EvrakTipi").change(function () {
+                switch ($("#EvrakTipi").val()) {
+                    case "1":
+                        // Prim Tahakkuk
+                        $("#BorcAlacakTipi").val("A");
+                        $("#BorcAlacakTipi").attr("disabled", "disabled");
+                        break;
+                    case "2":
+                        //Prim İadesi
+                        $("#BorcAlacakTipi").val("B");
+                        $("#BorcAlacakTipi").attr("disabled", "disabled");
+                        break;
+                    case "3":
+                        //Komisyon Tahakkuk
+                        $("#BorcAlacakTipi").val("A");
+                        $("#BorcAlacakTipi").attr("disabled", "disabled");
+                        break;
+                    case "4":
+                        //Komisyon İadesi
+                        $("#BorcAlacakTipi").val("B");
+                        $("#BorcAlacakTipi").attr("disabled", "disabled");
+                        break;
+                    case "5":
+                        //Komisyon Tahsilatı
+                        $("#BorcAlacakTipi").val("A");
+                        $("#BorcAlacakTipi").attr("disabled", "disabled");
+                        break;
+                    case "6":
+                        //Komisyon Ödemesi
+                        $("#BorcAlacakTipi").val("A");
+                        $("#BorcAlacakTipi").removeAttr("disabled");
+                        break;
+                    //case "7":
+                    //    //Alış Faturası
+                    //    $("#BorcAlacakTipi").val("");
+                    //    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                    //    break;
+                    //case "8":
+                    //    //Satış Faturası
+                    //    $("#BorcAlacakTipi").val("");
+                    //    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                    //    break;
+                    //case "9":
+                    //    //Devir Kaydı
+                    //    $("#BorcAlacakTipi").val("");
+                    //    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                    //    break;
+                    //case "14":
+                    //    //Tahsilat İptal
+                    //    $("#BorcAlacakTipi").val("");
+                    //    $("#BorcAlacakTipi").attr("disabled", "disabled");
+                    //    break;
+                    case "15":
+                        //Prim Tahsilat
+                        $("#BorcAlacakTipi").val("A");
+                        $("#BorcAlacakTipi").removeAttr("disabled");
+                        break;
+                    case "16":
+                        //
+                        $("#BorcAlacakTipi").val("A");
+                        $("#BorcAlacakTipi").attr("disabled", "disabled");
+                        break;
+                    default:
+                        $("#BorcAlacakTipi").removeAttr("disabled");
+                }
+                var evrakTipi = $("#EvrakTipi").val();
+                if (evrakTipi == "1" || evrakTipi == "2" || evrakTipi == "3" || evrakTipi == "4" || evrakTipi == "5" || evrakTipi == "15" || evrakTipi == "16") {
+
+                    var carihareketid = $("#OdemeTipi").val();
+                    $("#cariHesapKayitDiv").hide();
+                    $("#KarsiCari_DovizTipi").val($("#DovizTipi").val());
+                    $("#KarsiCari_Aciklama").val($("#Aciklama").val());
+                    $("#KarsiCari_DovizTutari").val($("#DovizTutari").val());
+                    $('#KarsiCari_CariHareketTarihi').datepicker('setDate', $('#CariHareketTarihi').val());
+                    $('#KarsiCari_OdemeTarihi').datepicker('setDate', $('#OdemeTarihi').val());
+                    $("#KarsiCari_Tutar").val($("#Tutar").val());
+                    $("#KarsiCari_KarsiEvrakTipi").val($("#EvrakTipi").val());
+                    $("#KarsiCari_BorcAlacakTipi").val($("#BorcAlacakTipi").val());
+                    $("#KarsiCari_DovizKuru").val($("#DovizKuru").val());
+                    $("#KarsiCari_OdemeTipi").val($("#OdemeTipi").val());
+                    if ($("#CariEvrakNo").is(":visible") && $("#CariEvrakNo option:selected").text() != "@babonline.PleaseSelect") {
+                        $("#KarsiCari_KarsiEvrakNo").val($("#CariEvrakNo option:selected").text());
+                    }
+                    else if ($("#EvrakNo").is(":visible")) {
+                        $("#KarsiCari_KarsiEvrakNo").val($("#EvrakNo").val());
+                    }
+                    $("#KarsiCari_DovizTipi").trigger("change");
+                    $("#KarsiCari_dovizTutar").hide();
+
+                    $("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                    $("#KarsiCari_KarsiEvrakTipi").attr("disabled", "disabled");
+                    $("#KarsiCari_Tutar").attr("disabled", "disabled");
+                    $("#KarsiCari_CariHareketTarihi").attr("disabled", "disabled");
+                    $("#KarsiCari_OdemeTarihi").attr("disabled", "disabled");
+                    $("#KarsiCari_OdemeTipi").attr("disabled", "disabled");
+                    $("#KarsiCari_DovizTipi").attr("disabled", "disabled");
+                    $("#KarsiCari_DovizKuru").attr("disabled", "disabled");
+                    $("#KarsiCari_DovizTutari").attr("disabled", "disabled");
+
+                    var borcAlacakTipi = $("#BorcAlacakTipi").val();
+                    if (borcAlacakTipi == "B") {
+                        $("#KarsiCari_BorcAlacakTipi").val("A");
+                        $("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                    }
+                    else if (borcAlacakTipi == "A") {
+                        $("#KarsiCari_BorcAlacakTipi").val("B");
+                        $("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                    }
+
+                    var CariHesapKodu = $("#CariHesapKodu").val();
+                    var cariHesapTipi = CariHesapKodu.substring(0, 3);
+                    var cariHesapSonKismi = CariHesapKodu.substring(7, CariHesapKodu.length);
+                    var EvrakTipi = $("#EvrakTipi").val();
+
+                    //if (cariHesapTipi == "320" && (EvrakTipi == "1" || EvrakTipi == "2")) {
+                    //    if (borcAlacakTipi == "B") {
+                    //        $("#KarsiCari_BorcAlacakTipi").val("A");
+                    //        $("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                    //    }
+                    //    else if (borcAlacakTipi == "A") {
+                    //        $("#KarsiCari_BorcAlacakTipi").val("B");
+                    //        $("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                    //    }
+                    //}
+                    //else if (cariHesapTipi == "320" && EvrakTipi == "5") {
+                    //    $("#KarsiCari_BorcAlacakTipi").val("B");
+                    //    $("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                    //},
+
+                    if (cariHesapTipi == "120" && EvrakTipi == "16") {
+                        var KarsiCariHesapKodu = "612.02." + "0000000001";
+                        $.getJSON('/Muhasebe/Muhasebe/getCariHesapByHesapKodu', { hesapKodu: KarsiCariHesapKodu },
+                            function (result) {
+                                if (result.success) {
+                                    $("#KarsiCari_KarsiCariHesapAdi").val(result.hesapAdi);
+                                    $("#KarsiCari_KarsiCariHesapKodu").empty();
+                                    $("#KarsiCari_KarsiCariHesapKodu").append("<option value='" + result.hesapKodu + "' >" + result.hesapAdi + " - " + result.hesapKodu + "</option>");
+                                }
+                            });
+                    }
+
+                    if (cariHesapTipi == "600" || cariHesapTipi == "610") {
+                        var KarsiCariHesapKodu = "320.01." + cariHesapSonKismi;
+                        $.getJSON('/Muhasebe/Muhasebe/getCariHesapByHesapKodu', { hesapKodu: KarsiCariHesapKodu },
+                            function (result) {
+                                if (result.success) {
+
+                                    $("#KarsiCari_KarsiCariHesapAdi").val(result.hesapAdi);
+                                    $("#KarsiCari_KarsiCariHesapKodu").empty();
+                                    $("#KarsiCari_KarsiCariHesapKodu").append("<option value='" + result.hesapKodu + "' >" + result.hesapAdi + " - " + result.hesapKodu + "</option>");
+                                }
+                            });
+                    }
+                    else {
+                        $("#KarsiCari_KarsiCariHesapAdi").val("");
+                        $("#KarsiCari_KarsiCariHesapKodu").empty();
+                    }
+
+                    //if (cariHesapTipi == "120" && EvrakTipi == "15") {
+                    //    //$("#KarsiCari_BorcAlacakTipi").val("B");
+                    //    //$("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                    //}
+                    $(".karsiHareketBilgileri").show();
+
+                    if ($("#dovizKur").is(":visible")) {
+                        $("#KarsiCari_dovizKur").show();
+                    }
+                    else {
+                        $("#KarsiCari_dovizKur").hide();
+                    }
+                    if ($("#dovizTutar").is(":visible")) {
+                        $("#KarsiCari_dovizTutar").show();
+                    }
+                    else {
+                        $("#KarsiCari_dovizTutar").hide();
+                    }
+                }
+                else if (evrakTipi == "6" || evrakTipi == "7" || evrakTipi == "8" || evrakTipi == "9" || evrakTipi == "14" || evrakTipi == "16" || evrakTipi == "-1") {
+                    $("#cariHesapKayitDiv").show();
+                    $(".karsiHareketBilgileri").hide();
+                }
+
+                if (evrakTipi == "14" || evrakTipi == "15") {
+                    $("#evrakMusteri").show();
+                    $("#evrak").hide();
+                    $("#EvrakNo").val("");
+                    var kimlikNo = $("#CariHesapKodu").val();
+                    $.getJSON('/Muhasebe/Muhasebe/GetMusteriPoliceleri', { kimlikNo: kimlikNo },
+                        function (result) {
+                            $("#CariEvrakNo").dropDownFill(result.list);
+                        });
+                }
+                else {
+                    $("#evrakMusteri").hide();
+                    $("#evrak").show();
+                    $("#CariEvrakNo").val("");
+
+                }
+            });
+
+            $("#CariEvrakNo").on('change', function () {
+                var cariEvrakValue = $("#CariEvrakNo option:selected").val();
+                var part = cariEvrakValue.split('-');
+                var odemetipi = part[1];
+                if (odemetipi == "0") {
+                    swal("@babonline.Unsuccessful!", "@babonline._warningEnterFromCollectionScreen.", "error"); // Tahsilat ekranından giriş yapınız
+                    $(this).prop('selectedIndex', 0);
+                }
+                if ($("#frmKarsiHareket").is(":visible")) {
+                    if ($("#CariEvrakNo option:selected").text() != "@babonline.PleaseSelect") {
+                        $("#KarsiCari_KarsiEvrakNo").val($("#CariEvrakNo option:selected").text());
+                    }
+                    else {
+                        $("#KarsiCari_KarsiEvrakNo").val("");
+                    }
+                }
+            });
+            $("#CariHesapKodu").on('change', function () {
+                var cariKodu = $("#CariHesapKodu").val();
+                cariKodu = cariKodu.substring(0, 3);
+                switch (cariKodu) {
+                    case "120":
+                        $("#EvrakTipi").children("option[value=-1]").hide();
+                        $("#EvrakTipi").children("option[value=15]").show();
+                        $("#EvrakTipi").children("option[value=5]").hide();
+                        $("#EvrakTipi").children("option[value=4]").hide();
+                        $("#EvrakTipi").children("option[value=3]").hide();
+                        $("#EvrakTipi").children("option[value=1]").hide();
+                        $("#EvrakTipi").children("option[value=2]").hide();
+                        $("#EvrakTipi").children("option[value=6]").show();
+                        $("#EvrakTipi").children("option[value=7]").show();
+                        $("#EvrakTipi").children("option[value=8]").show();
+                        $("#EvrakTipi").children("option[value=9]").show();
+                        $("#EvrakTipi").children("option[value=16]").show();
+                        $("#EvrakTipi").children("option[value=14]").show();
+                        $('#EvrakTipi option').each(function () {
+                            if ($(this).css('display') != 'none') {
+                                $(this).prop("selected", true);
+                                return false;
+                            }
+                        });
+                        $("#EvrakTipi").trigger("change");
+                        break;
+                    case "320":
+                        $("#EvrakTipi").children("option[value=-1]").hide();
+                        $("#EvrakTipi").children("option[value=15]").show();
+                        $("#EvrakTipi").children("option[value=3]").hide();
+                        $("#EvrakTipi").children("option[value=4]").hide();
+                        $("#EvrakTipi").children("option[value=5]").show();
+                        $("#EvrakTipi").children("option[value=1]").show();
+                        $("#EvrakTipi").children("option[value=2]").show();
+                        $("#EvrakTipi").children("option[value=6]").show();
+                        $("#EvrakTipi").children("option[value=7]").show();
+                        $("#EvrakTipi").children("option[value=8]").show();
+                        $("#EvrakTipi").children("option[value=9]").show();
+                        $("#EvrakTipi").children("option[value=16]").hide();
+                        $("#EvrakTipi").children("option[value=14]").show();
+                        $('#EvrakTipi option').each(function () {
+                            if ($(this).css('display') != 'none') {
+                                $(this).prop("selected", true);
+                                return false;
+                            }
+                        });
+                        $("#EvrakTipi").trigger("change");
+                        break;
+                    case "611":
+                        $("#EvrakTipi").children("option[value=-1]").hide();
+                        $("#EvrakTipi").children("option[value=15]").show();
+                        $("#EvrakTipi").children("option[value=3]").hide();
+                        $("#EvrakTipi").children("option[value=4]").hide();
+                        $("#EvrakTipi").children("option[value=5]").show();
+                        $("#EvrakTipi").children("option[value=1]").show();
+                        $("#EvrakTipi").children("option[value=2]").show();
+                        $("#EvrakTipi").children("option[value=6]").show();
+                        $("#EvrakTipi").children("option[value=7]").show();
+                        $("#EvrakTipi").children("option[value=8]").show();
+                        $("#EvrakTipi").children("option[value=9]").show();
+                        $("#EvrakTipi").children("option[value=16]").hide();
+                        $("#EvrakTipi").children("option[value=14]").show();
+                        $('#EvrakTipi option').each(function () {
+                            if ($(this).css('display') != 'none') {
+                                $(this).prop("selected", true);
+                                return false;
+                            }
+                        });
+                        $("#EvrakTipi").trigger("change");
+                        break;
+                    case "612":
+                        $("#EvrakTipi").children("option[value=-1]").hide();
+                        $("#EvrakTipi").children("option[value=15]").show();
+                        $("#EvrakTipi").children("option[value=3]").hide();
+                        $("#EvrakTipi").children("option[value=4]").hide();
+                        $("#EvrakTipi").children("option[value=5]").show();
+                        $("#EvrakTipi").children("option[value=1]").show();
+                        $("#EvrakTipi").children("option[value=2]").show();
+                        $("#EvrakTipi").children("option[value=6]").show();
+                        $("#EvrakTipi").children("option[value=7]").show();
+                        $("#EvrakTipi").children("option[value=8]").show();
+                        $("#EvrakTipi").children("option[value=9]").show();
+                        $("#EvrakTipi").children("option[value=16]").hide();
+                        $("#EvrakTipi").children("option[value=14]").show();
+                        $('#EvrakTipi option').each(function () {
+                            if ($(this).css('display') != 'none') {
+                                $(this).prop("selected", true);
+                                return false;
+                            }
+                        });
+                        $("#EvrakTipi").trigger("change");
+                        break;
+                    case "600":
+                        $("#EvrakTipi").children("option[value=-1]").hide();
+                        $("#EvrakTipi").children("option[value=15]").hide();
+                        $("#EvrakTipi").children("option[value=3]").hide();
+                        $("#EvrakTipi").children("option[value=4]").hide();
+                        $("#EvrakTipi").children("option[value=5]").hide();
+                        $("#EvrakTipi").children("option[value=1]").hide();
+                        $("#EvrakTipi").children("option[value=2]").hide();
+                        $("#EvrakTipi").children("option[value=6]").show();
+                        $("#EvrakTipi").children("option[value=7]").show();
+                        $("#EvrakTipi").children("option[value=8]").show();
+                        $("#EvrakTipi").children("option[value=9]").show();
+                        $("#EvrakTipi").children("option[value=16]").hide();
+                        $("#EvrakTipi").children("option[value=14]").show();
+                        swal("@babonline._warningCurrentAccountEntry.", " @babonline._warningCommissionTransactionsVendors."); // Bu hesaplara Cari Hesap Girişi yapılmaması gerekir - Komisyon hareketleri 320-340 satıcılar hesabına girilmelidir
+                        $('#EvrakTipi option').each(function () {
+                            if ($(this).css('display') != 'none') {
+                                $(this).prop("selected", true);
+                                return false;
+                            }
+                        });
+                        $("#EvrakTipi").trigger("change");
+                        break;
+                    case "610":
+                        $("#EvrakTipi").children("option[value=-1]").hide();
+                        $("#EvrakTipi").children("option[value=15]").show();
+                        $("#EvrakTipi").children("option[value=5]").hide();
+                        $("#EvrakTipi").children("option[value=4]").show();
+                        $("#EvrakTipi").children("option[value=3]").hide();
+                        $("#EvrakTipi").children("option[value=1]").hide();
+                        $("#EvrakTipi").children("option[value=2]").hide();
+                        $("#EvrakTipi").children("option[value=6]").show();
+                        $("#EvrakTipi").children("option[value=7]").show();
+                        $("#EvrakTipi").children("option[value=8]").show();
+                        $("#EvrakTipi").children("option[value=9]").show();
+                        $("#EvrakTipi").children("option[value=16]").hide();
+                        $("#EvrakTipi").children("option[value=14]").show();
+                        swal("@babonline._warningCurrentAccountEntry.", " @babonline._warningCommissionTransactionsVendors."); // Bu hesaplara Cari Hesap Girişi yapılmaması gerekir - Komisyon hareketleri 320-340 satıcılar hesabına girilmelidir
+                        $('#EvrakTipi option').each(function () {
+                            if ($(this).css('display') != 'none') {
+                                $(this).prop("selected", true);
+                                return false;
+                            }
+                        });
+                        $("#EvrakTipi").trigger("change");
+                        break;
+                    case "":
+                        $("#EvrakTipi").children("option[value=15]").show();
+                        $("#EvrakTipi").children("option[value=14]").hide();
+                        $("#EvrakTipi").children("option[value=5]").hide();
+                        $("#EvrakTipi").children("option[value=4]").hide();
+                        $("#EvrakTipi").children("option[value=3]").hide();
+                        $("#EvrakTipi").children("option[value=1]").hide();
+                        $("#EvrakTipi").children("option[value=2]").hide();
+                        $("#EvrakTipi").children("option[value=6]").hide();
+                        $("#EvrakTipi").children("option[value=7]").hide();
+                        $("#EvrakTipi").children("option[value=8]").hide();
+                        $("#EvrakTipi").children("option[value=16]").hide();
+                        $("#EvrakTipi").children("option[value=9]").hide();
+                        if ($("#EvrakTipi").children("option[value=-1]").text() == null || $("#EvrakTipi").children("option[value=-1]").text() == "") {
+                            $("#EvrakTipi").append("<option value='-1' >" + "Lütfen Seçiniz." + "</option>");
+                        }
+                        $("#EvrakTipi").val("-1");
+                        $('#EvrakTipi option').each(function () {
+                            if ($(this).css('display') != 'none') {
+                                $(this).prop("selected", true);
+                                return false;
+                            }
+                        });
+                        $("#EvrakTipi").trigger("change");
+                        break;
+                    default:
+                        $("#EvrakTipi").children("option[value=-1]").hide();
+                        $("#EvrakTipi").children("option[value=15]").show();
+                        $("#EvrakTipi").children("option[value=6]").show();
+                        $("#EvrakTipi").children("option[value=7]").show();
+                        $("#EvrakTipi").children("option[value=8]").show();
+                        $("#EvrakTipi").children("option[value=9]").show();
+                        $("#EvrakTipi").children("option[value=14]").show();
+                        $("#EvrakTipi").children("option[value=16]").hide();
+                        $("#EvrakTipi").children("option[value=5]").hide();
+                        $("#EvrakTipi").children("option[value=4]").hide();
+                        $("#EvrakTipi").children("option[value=3]").hide();
+                        $("#EvrakTipi").children("option[value=1]").hide();
+                        $("#EvrakTipi").children("option[value=2]").hide();
+                        $('#EvrakTipi option').each(function () {
+                            if ($(this).css('display') != 'none') {
+                                $(this).prop("selected", true);
+                                return false;
+                            }
+                        });
+                        $("#EvrakTipi").trigger("change");
+                        break;
+                }
+            });
+
+
+            $("#kaydet").click(function () {
+
+                if ($(this).text().trim() == "Kaydet") {
+                    $(this).button("loading");
+                    var isvalid = $("#cariHareketFrm").valid();
+                    if (isvalid) {
+
+                        $("#BorcAlacakTipi").removeAttr("disabled");
+                        var contents = $("#cariHareketFrm").serialize();
+                        var evrakTipi = $("#EvrakTipi").val();
+                        $.ajax(
+                            {
+                                type: "POST",
+                                url: "/Muhasebe/Muhasebe/CariHareketEkle",
+                                data: contents,
+                                success: function (data) {
+                                    if (data.success && data.hata == "") {
+                                        $(this).button("reset");
+                                        $("#BorcAlacakTipi").attr("disabled", "disabled");
+                                        $("#CariHesapAdi").attr("disabled", "disabled");
+                                        $("#CariHesapKodu").attr("disabled", "disabled");
+                                        $("#EvrakTipi").attr("disabled", "disabled");
+                                        $("#MusteriGrupKodu").attr("disabled", "disabled");
+                                        $("#MasrafMerkezi").attr("disabled", "disabled");
+                                        $("#EvrakNo").attr("disabled", "disabled");
+                                        $("#Aciklama").attr("disabled", "disabled");
+                                        $("#Tutar").attr("disabled", "disabled");
+                                        $("#CariHareketTarihi").attr("disabled", "disabled");
+                                        $("#OdemeTarihi").attr("disabled", "disabled");
+                                        $("#OdemeTipi").attr("disabled", "disabled");
+                                        $("#DovizKuru").attr("disabled", "disabled");
+                                        $("#DovizTipi").attr("disabled", "disabled");
+                                        $("#DovizTutari").attr("disabled", "disabled");
+                                        $("#cariHesapAra").attr("disabled", "disabled");
+                                        $("#cariHesapKayitDiv").hide();
+                                        $("#kayitEdildi").show();
+
+                                        if ((evrakTipi == "6" || evrakTipi == "7" || evrakTipi == "8" || evrakTipi == "9" || evrakTipi == "14" || evrakTipi == "16") || true) {
+                                            swal({
+                                                title: "İşlem Başarılı! ",
+                                                text: "Karşı Hareket Girilecek Mi?",
+                                                type: "success",
+                                                showCancelButton: true,
+                                                confirmButtonColor: "#DD6B55",
+                                                confirmButtonText: "Evet",
+                                                cancelButtonText: "Hayır",
+                                                closeOnConfirm: true,
+                                                closeOnCancel: true
+                                            },
+                                                function (isConfirm) {
+                                                    if (isConfirm) {
+                                                        $("#karsiHareketKaydet").attr("cariHareketId", data.id);
+                                                        $("#KarsiCari_DovizTipi").val(data.model.DovizTipi);
+                                                        $("#KarsiCari_Aciklama").val(data.model.Aciklama);
+                                                        $("#KarsiCari_DovizTutari").val(data.model.DovizTutari);
+                                                        $("#KarsiCari_KarsiEvrakTipi").val($("#EvrakTipi").val());
+                                                        $('#KarsiCari_CariHareketTarihi').datepicker('setDate', $("#CariHareketTarihi").val());
+                                                        $('#KarsiCari_OdemeTarihi').datepicker('setDate', $("#OdemeTarihi").val());
+                                                        $("#KarsiCari_Tutar").val(data.model.Tutar);
+                                                        $("#KarsiCari_BorcAlacakTipi").val(data.model.BorcAlacakTipi);
+                                                        $("#KarsiCari_DovizKuru").val(data.model.DovizKuru);
+                                                        $("#KarsiCari_OdemeTipi").val(data.model.OdemeTipi);
+                                                        $("#KarsiCari_DovizTipi").trigger("change");
+                                                        $("#KarsiCari_dovizTutar").hide();
+
+                                                        $("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                                                        $("#KarsiCari_KarsiEvrakTipi").attr("disabled", "disabled");
+                                                        $("#KarsiCari_Tutar").attr("disabled", "disabled");
+                                                        $("#KarsiCari_CariHareketTarihi").attr("disabled", "disabled");
+                                                        $("#KarsiCari_OdemeTarihi").attr("disabled", "disabled");
+                                                        $("#KarsiCari_OdemeTipi").attr("disabled", "disabled");
+                                                        $("#KarsiCari_DovizTipi").attr("disabled", "disabled");
+                                                        $("#KarsiCari_DovizKuru").attr("disabled", "disabled");
+                                                        $("#KarsiCari_DovizTutari").attr("disabled", "disabled");
+
+
+
+                                                        var borcAlacakTipi = $("#BorcAlacakTipi").val();
+                                                        $("#BorcAlacakTipi").attr("disabled", "disabled");
+                                                        if (borcAlacakTipi == "B") {
+                                                            $("#KarsiCari_BorcAlacakTipi").val("A");
+                                                            $("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                                                        }
+                                                        else if (borcAlacakTipi == "A") {
+                                                            $("#KarsiCari_BorcAlacakTipi").val("B");
+                                                            $("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                                                        }
+                                                        $(".karsiHareketBilgileri").show();
+                                                        if ($("#dovizKur").is(":visible")) {
+                                                            $("#KarsiCari_dovizKur").show();
+                                                        }
+                                                        else {
+                                                            $("#KarsiCari_dovizKur").hide();
+                                                        }
+                                                        if ($("#dovizTutar").is(":visible")) {
+                                                            $("#KarsiCari_dovizTutar").show();
+                                                        }
+                                                        else {
+                                                            $("#KarsiCari_dovizTutar").hide();
+                                                        }
+
+                                                    }
+                                                });
+                                        }
+                                    }
+
+                                    else {
+                                        $(this).button("reset");
+                                    }
+
+                                },
+                                error: function () {
+
+                                    $(this).button("reset");
+                                    swal("", "İşlem Başarısız!", "error");
+                                }
+                            });
+                    }
+                    else {
+                        $(this).button("reset");
+                        swal("Hata!", "Lütfen zorunlu alanları doldurunuz.", "error");
+                    }
+                }
+            });
+
+            $("#KarsiCari_KarsiCariHesapKodu").on('change', function () {
+                var cariKodu = $("#KarsiCari_KarsiCariHesapKodu").val();
+                cariKodu = cariKodu.substring(0, 3);
+                switch (cariKodu) {
+                    case "600":
+                        swal("@babonline._warningCurrentAccountEntry.", " @babonline._warningCommissionTransactionsVendors."); // Bu hesaplara Cari Hesap Girişi yapılmaması gerekir - Komisyon hareketleri 320-340 satıcılar hesabına girilmelidir
+                        break;
+                    case "610":
+                        swal("@babonline._warningCurrentAccountEntry.", " @babonline._warningCommissionTransactionsVendors."); // Bu hesaplara Cari Hesap Girişi yapılmaması gerekir - Komisyon hareketleri 320-340 satıcılar hesabına girilmelidir
+                        break;
+                    default: break;
+                }
+            });
+            $("#karsiHareketKaydet").click(function () {
+                if ($(this).text().trim() == "Kaydet") {
+                    $(this).button("loading");
+                    if ($("#kayitEdildi").is(":visible")) {
+                        var isvalid = $("#frmKarsiHareket").valid();
+                        if (isvalid) {
+                            var CariHesapKodu = $("#CariHesapKodu").val();
+                            var CariHareketBA = $("#BorcAlacakTipi").val();
+                            var KarsiCariHareketBA = $("#KarsiCari_BorcAlacakTipi").val();
+                            var cariHesapTipi = CariHesapKodu.substring(0, 3);
+                            var KarsiCariHesapKodu = $("#KarsiCari_KarsiCariHesapKodu").val();
+                            var KarsicariHesapTipi = KarsiCariHesapKodu.substring(0, 3);
+                            var evrakTipi = $("#EvrakTipi").val();
+                            if (cariHesapTipi == "320" && KarsicariHesapTipi != "120" && (evrakTipi == "1" || evrakTipi == "2")) {
+                                $(this).button("reset");
+                                swal("Başarısız!", "Karşı Cari Hesap 120.01' İle Başlamalıdır.", "error");
+                                return false;
+                            }
+                            if ((cariHesapTipi == "600" && KarsicariHesapTipi != "320" && evrakTipi == "3") || (cariHesapTipi == "610" && KarsicariHesapTipi != "320" && evrakTipi == "4")) {
+                                $(this).button("reset");
+                                swal("@babonline.Unsuccessful!", "@babonline._warningCurrentAccountBeginWith32001.", "error"); // Karşı Cari Hesap 320.01' İle Başlamalıdır
+                                return false;
+                            }
+                            if (CariHareketBA == "A" && KarsiCariHareketBA == "A") {
+                                $(this).button("reset");
+                                swal("Başarısız!", "Karşı Cari Hareket Girişinde Borç/Alacak Tipi Borç Olmalıdır.", "error");
+                                return false;
+                            }
+                            if (CariHareketBA == "B" && KarsiCariHareketBA == "B") {
+                                $(this).button("reset");
+                                swal("Başarısız!", "Karşı Cari Hareket Girişinde Borç/Alacak Tipi Alacak Olmalıdır.", "error");
+                                return false;
+                            }
+
+                            $("#KarsiCari_Tutar").removeAttr('disabled');
+                            $("#KarsiCari_BorcAlacakTipi").removeAttr("disabled");
+                            $("#KarsiCari_KarsiEvrakTipi").removeAttr("disabled");
+                            $("#KarsiCari_CariHareketTarihi").removeAttr("disabled");
+                            $("#KarsiCari_OdemeTarihi").removeAttr("disabled");
+                            $("#KarsiCari_OdemeTipi").removeAttr("disabled");
+                            $("#KarsiCari_DovizTipi").removeAttr("disabled");
+                            $("#KarsiCari_DovizKuru").removeAttr("disabled");
+                            $("#KarsiCari_DovizTutari").removeAttr("disabled");
+                            var contents = $("#frmKarsiHareket").serialize();
+                            $("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                            $("#KarsiCari_KarsiEvrakTipi").attr("disabled", "disabled");
+                            $("#KarsiCari_Tutar").attr("disabled", "disabled");
+                            $("#KarsiCari_CariHareketTarihi").attr("disabled", "disabled");
+                            $("#KarsiCari_OdemeTarihi").attr("disabled", "disabled");
+                            $("#KarsiCari_OdemeTipi").attr("disabled", "disabled");
+                            $("#KarsiCari_DovizTipi").attr("disabled", "disabled");
+                            $("#KarsiCari_DovizKuru").attr("disabled", "disabled");
+                            $("#KarsiCari_DovizTutari").attr("disabled", "disabled");
+                            $.ajax(
+                                {
+                                    type: "POST",
+                                    url: "/Muhasebe/Muhasebe/KarsiCariHareketEkle",
+                                    data: contents,
+                                    success: function (data) {
+                                        if (data.success && data.hata == "") {
+                                            $(this).button("reset");
+                                            $("#KarsiKayitEtmeButonlari").hide();
+                                            $("#KarsikayitEdildi").show();
+                                            swal({
+                                                title: "İşlem Başarılı! ",
+                                                type: "success",
+                                                showCancelButton: false,
+                                                confirmButtonColor: "#DD6B55",
+                                                confirmButtonText: "Tamam",
+                                                closeOnConfirm: true,
+                                            },
+                                                function (isConfirm) {
+                                                    if (isConfirm) {
+                                                        window.location.href = "/Muhasebe/Muhasebe/CariHareketEkle";
+                                                    }
+                                                });
+                                        }
+                                        else {
+                                            $(this).button("reset");
+                                            swal("Hata!", data.HataMesaji, "error");
+                                        }
+                                    }
+                                });
+                        }
+                        else {
+                            $(this).button("reset");
+                            swal("Hata!", "Lütfen zorunlu alanları doldurunuz.", "error");
+                        }
+                    }
+                    // cari hareket ile karşı cari hareketi bir kayıt et butonu ile kayıt etme
+
+                    else {
+                        var isvalid = $("#cariHareketFrm").valid();
+                        var KarsiIsvalid = $("#frmKarsiHareket").valid();
+                        if (isvalid && KarsiIsvalid) {
+                            var CariHesapKodu = $("#CariHesapKodu").val();
+                            var CariHareketBA = $("#BorcAlacakTipi").val();
+                            var KarsiCariHareketBA = $("#KarsiCari_BorcAlacakTipi").val();
+                            var cariHesapTipi = CariHesapKodu.substring(0, 3);
+                            var KarsiCariHesapKodu = $("#KarsiCari_KarsiCariHesapKodu").val();
+                            var KarsicariHesapTipi = KarsiCariHesapKodu.substring(0, 3);
+                            var evrakTipi = $("#EvrakTipi").val();
+                            karsiEvrakTipi = $("#KarsiCari_KarsiEvrakTipi").val();
+                            debugger
+                            if (cariHesapTipi == "320" && (KarsicariHesapTipi != "120" && KarsicariHesapTipi != "340") && (evrakTipi == "1" || evrakTipi == "2")) {
+
+                                $(this).button("reset");
+                                swal("Başarısız!", "Karşı Cari Hesap 120' veya 340' İle Başlamalıdır.", "error");
+                                return false;
+                            }
+                            if ((cariHesapTipi == "600" && KarsicariHesapTipi != "320" && evrakTipi == "3") || (cariHesapTipi == "610" && KarsicariHesapTipi != "320" && evrakTipi == "4")) {
+                                $(this).button("reset");
+                                swal("Başarısız!", "Karşı Cari Hesap 320.01' İle Başlamalıdır.", "error");
+                                return false;
+                            }
+                            if (CariHareketBA == "A" && KarsiCariHareketBA == "A") {
+                                $(this).button("reset");
+                                swal("Başarısız!", "Karşı Cari Hareket Girişinde Borç/Alacak Tipi Borç Olmalıdır.", "error");
+                                return false;
+                            }
+                            if (CariHareketBA == "B" && KarsiCariHareketBA == "B") {
+                                $(this).button("reset");
+                                swal("Başarısız!", "Karşı Cari Hareket Girişinde Borç/Alacak Tipi Alacak Olmalıdır.", "error");
+                                return false;
+                            }
+                            $("#BorcAlacakTipi").removeAttr("disabled");
+                            var contents = $("#cariHareketFrm").serialize();
+                            $("#BorcAlacakTipi").attr("disabled", "disabled");
+                            var evrakTipi = evrakTipi;
+                            $("#KarsiCari_Tutar").removeAttr('disabled');
+                            $("#KarsiCari_BorcAlacakTipi").removeAttr("disabled");
+                            $("#KarsiCari_KarsiEvrakTipi").removeAttr("disabled");
+                            $("#KarsiCari_CariHareketTarihi").removeAttr("disabled");
+                            $("#KarsiCari_OdemeTarihi").removeAttr("disabled");
+                            $("#KarsiCari_OdemeTipi").removeAttr("disabled");
+                            $("#KarsiCari_DovizTipi").removeAttr("disabled");
+                            $("#KarsiCari_DovizKuru").removeAttr("disabled");
+                            $("#KarsiCari_DovizTutari").removeAttr("disabled");
+                            var Karsicontents = $("#frmKarsiHareket").serialize();
+                            $("#KarsiCari_BorcAlacakTipi").attr("disabled", "disabled");
+                            $("#KarsiCari_KarsiEvrakTipi").attr("disabled", "disabled");
+                            $("#KarsiCari_Tutar").attr("disabled", "disabled");
+                            $("#KarsiCari_CariHareketTarihi").attr("disabled", "disabled");
+                            $("#KarsiCari_OdemeTarihi").attr("disabled", "disabled");
+                            $("#KarsiCari_OdemeTipi").attr("disabled", "disabled");
+                            $("#KarsiCari_DovizTipi").attr("disabled", "disabled");
+                            $("#KarsiCari_DovizKuru").attr("disabled", "disabled");
+                            $("#KarsiCari_DovizTutari").attr("disabled", "disabled");
+                            contents = contents + "&" + Karsicontents;
+                            $.ajax(
+                                {
+                                    type: "POST",
+                                    url: "/Muhasebe/Muhasebe/CariHareketveKarsiHareketEkle",
+                                    data: contents,
+                                    success: function (data) {
+                                        if (data.success && data.hata == "") {
+                                            $(this).button("reset");
+                                            $("#KarsiKayitEtmeButonlari").hide();
+                                            $("#KarsikayitEdildi").show();
+                                            swal({
+                                                title: "İşlem Başarılı! ",
+                                                type: "success",
+                                                showCancelButton: false,
+                                                confirmButtonColor: "#DD6B55",
+                                                confirmButtonText: "Tamam",
+                                                closeOnConfirm: true,
+                                            },
+                                                function (isConfirm) {
+                                                    if (isConfirm) {
+                                                        window.location.href = "/Muhasebe/Muhasebe/CariHareketEkle";
+                                                    }
+                                                });
+                                        }
+                                        else {
+                                            $(this).button("reset");
+                                            swal("İşlem Başarısız!", data.hata, "error");
+                                        }
+
+                                    },
+                                    error: function () {
+                                        $(this).button("reset");
+                                        swal("", "İşlem Başarısız!", "error");
+                                    }
+                                });
+                        }
+                        else {
+                            $(this).button("reset");
+                            swal("Hata!", "Lütfen zorunlu alanları doldurunuz.", "error");
+                        }
+                    }
+                }
+            });
+        });
+
+        $("#cariHesapAra").click(function () {
+            $(this).button("loading");
+            var carihesapadi = $("#CariHesapAdi").val();
+            if (carihesapadi != null || carihesapadi != "") {
+                $.getJSON('/Muhasebe/Muhasebe/GetCariHesaplar', { hesapAdi: carihesapadi },
+                    function (result) {
+                        if (result.success) {
+                            $("#CariHesapKodu").empty();
+                            $("#CariHesapKodu").dropDownFill(result.list);
+                            $("#CariHesapKodu").trigger("change");
+                            $("#cariHesapAra").button("reset");
+                            $("#CariHesapKodu").focus();
+                            $("#cariHesapVar").html(result.list.length + " @babonline.AccountsFound.");
+                            $("#cariHesapVar").show();
+                        }
+                        else {
+                            swal("@babonline.Warning!", "@babonline.CurrentAccountNotFound."); // Aranan cari hesap bulunamadı
+                            $("#CariHesapKodu").empty();
+                            $("#CariHesapKodu").dropDownFill(result.list);
+                            $("#CariHesapKodu").trigger("change");
+                            $("#CariHesapKodu").val("");
+                            $("#cariHesapAra").button("reset");
+                            $("#cariHesapVar").html("");
+                            $("#cariHesapVar").hide();
+                        }
+
+                    });
+            }
+        });
+        $("#karsiCariHesapAra").click(function () {
+            $(this).button("loading");
+            var carihesapadi = $("#KarsiCari_KarsiCariHesapAdi").val();
+            if (carihesapadi != null || carihesapadi != "") {
+                $.getJSON('/Muhasebe/Muhasebe/GetCariHesaplar', { hesapAdi: carihesapadi },
+
+                    function (result) {
+                        if (result.success) {
+                            $("#KarsiCari_KarsiCariHesapKodu").empty();
+                            $("#KarsiCari_KarsiCariHesapKodu").dropDownFill(result.list);
+                            var cariKodu = $("#KarsiCari_KarsiCariHesapKodu").val();
+                            cariKodu = cariKodu.substring(0, 3);
+                            $("#karsiCariHesapAra").button("reset");
+                            $("#KarsiCari_KarsiCariHesapKodu").focus();
+                            if (cariKodu == "600" || cariKodu == "610") {
+                                swal("@babonline._warningCurrentAccountEntry.", " @babonline._warningCommissionTransactionsVendors."); // Bu hesaplara Cari Hesap Girişi yapılmaması gerekir - Komisyon hareketleri 320-340 satıcılar hesabına girilmelidir
+                            }
+                        }
+
+
+                        else {
+                            swal("@babonline.Warning!", "@babonline.CounterCurrentAccountNotFound.");
+                            $("#KarsiCari_KarsiCariHesapKodu").empty();
+                            $("#KarsiCari_KarsiCariHesapKodu").dropDownFill(result.list);
+                            $("#KarsiCari_KarsiCariHesapKodu").val("");
+                            $("#karsiCariHesapAra").button("reset");
+                        }
+                    });
+            }
+
+        });
+
+
+
+
+    </script>
+}
+
+<div class="row-fluid">
+    <div class="portlet box light-grey" style="margin-top: 24px;">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-reorder"></i>
+                <span class="hidden-480">@babonline.CurrentTransactionEntry</span>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <form class="form-horizontal" id="cariHareketFrm">
+                <div class="row-fluid" style="padding-top: 10px;">
+                    <div class="span6">
+                        <h4 class="form-section"></h4>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.SearchCurrentAccount<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.CariHesapAdi, new { minlength = 3, maxlength = 30, style = "width:50%", placeHolder = "Cari hesap adi giriniz." })
+                                @Html.ValidationMessageFor(m => m.CariHesapAdi)
+                                <button class="btn btn-info " id="cariHesapAra" type="button" data-loading-text="Aranıyor">@babonline.Search</button><br />
+
+                            </div>
+                        </div>
+                        <div class="control-group" id="CariHesapSecimi" style="">
+                            <label class="control-label">@babonline.CurrentAccount<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.CariHesapKodu, Model.CariHesapList, new { style = "width:50%", required = "required" })<span style="color:red;display:none;" id="cariHesapVar"></span>
+                                @Html.ValidationMessageFor(m => m.CariHesapKodu)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.DocumentType<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.EvrakTipi, Model.EvrakTipleri, new { style = "width:50%" })
+                                @Html.ValidationMessageFor(m => m.EvrakTipi)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Debit_Credit</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.BorcAlacakTipi, Model.BorcAlacakTipler, new { style = "width:50%" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.CustomerGroupCode</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.MusteriGrupKodu, new { maxlength = 30, style = "width:50%" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.CostCenter</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.MasrafMerkezi, Model.MasrafMerkezleri, new { style = "width:50%", @class = "" })
+
+                            </div>
+                        </div>
+                        <div class="control-group" id="evrak">
+                            <label class="control-label">@babonline.DocumentNumber</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.EvrakNo, new { maxlength = 30, style = "width:50%" })
+                            </div>
+                        </div>
+                        <div class="control-group" id="evrakMusteri" style="display:none">
+                            <label class="control-label">@babonline.DocumentNumber</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.CariEvrakNo, Model.CariEvrakList, new { style = "width:50%", @class = "" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Description</label>
+                            <div class="controls">
+                                @Html.TextAreaFor(s => s.Aciklama, new { maxlength = 100, style = "width:50%" })
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Amount<span class="span_parabirimi"></span><span class="required">*</span></label>
+                            <div class="controls">
+                                <div class=" input-append">
+                                    @Html.TextBoxFor(s => s.Tutar, new { @class = "m-wrap autoNumeric-custom", style = "width:90px; text-align:right;border-right: solid !important; border-right-width: 1px!important;border-right-color: #e5e5e5 !important;", tabindex = "14", required = "required" }) 
+                                    @*<span class="add-on simge-tl">&#8378;</span>*@
+                                    @Html.ValidationMessageFor(m => m.Tutar)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <h4 class="form-section"></h4>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.CurrentTransactionDocumentDate<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DateTextBoxFor(s => s.OdemeTarihi, new { required = "required" })
+                                @Html.ValidationMessageFor(m => m.OdemeTarihi)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Expiry_Time<span class="required">*</span></label>
+                            <div class="controls">
+
+                                @Html.DateTextBoxFor(s => s.CariHareketTarihi, new { required = "required" })
+                                @Html.ValidationMessageFor(m => m.CariHareketTarihi)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.PaymentType</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.OdemeTipi, Model.OdemeTipleri, new { style = "width:50%" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Currency<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(s => s.DovizTipi, Model.DovizTipleri, new { style = "", @class = "" })
+                                @Html.ValidationMessageFor(m => m.DovizTipi)
+                            </div>
+                        </div>
+                        <div>
+                            <div class="control-group" id="dovizKur">
+                                <label class="control-label">@babonline.Currency<span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(s => s.DovizKuru, new { @class = "m-wrap autoNumeric-dovizKur", placeholder = "1.000,0000" })
+                                </div>
+                            </div>
+                            @*<div class="control-group" id="dovizTutar">
+                                <label class="control-label">Döviz Tutar<span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(s => s.DovizTutari, new { @class = "m-wrap autoNumeric-custom" })
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions" id="cariHesapKayitDiv">
+                    <a id="kaydet" class="btn green button-submit" href="javascript:;" data-loading-text="Kaydediliyor..">
+                        @babonline.Save <i class="m-icon-swapright m-icon-white"></i>
+                    </a>
+                    <a class="btn" href="~/Muhasebe/Muhasebe/CariHareketEkle">@babonline.Cancel</a>
+                </div>
+                <div class="form-actions" id="kayitEdildi">
+                    <label class="control-group"><img src="~/Content/img/yesiltik.png" style="width: 2.7%" /> @babonline.CurrentTransactionSavedSuccessfully</label>
+                </div>
+            </form>
+            <form class="form-horizontal" id="frmKarsiHareket">
+                @Html.EditorFor(m => m.KarsiCari)
+            </form>
+        </div>
+    </div>
+</div>

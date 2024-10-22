@@ -1,0 +1,70 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.TaliAcenteTransfer.Models
+@model TaliTransferKayitModel
+
+
+<script type="text/javascript">
+
+
+    $("#tali-kayit-btn").click(function () {
+        $("#tali-progress").show();
+
+            if (confirm("Kaydetmeyi onaylıyor musunuz?")) {
+                $("#tali-kayit-btn").button("loading");
+                $.ajax({
+                    timeout: 10000000,
+                    method: "post",
+                    url: "/TaliAcenteTransfer/TaliAcenteTransfer/TaliAcente",
+                    data: $("#taliTransferForm").serialize(),
+                    success: function (res) {
+                        $("#tali-progress").hide();
+                        if (res.Success) {
+                            $("#tali-kayit").modal('hide');
+                            //if (confirm("Başarılı Kayıt Edilen Poliçe Sayısı: " + res.BasariliKayit + " Başarılı Güncellenen Poliçe Sayısı : " + res.BasarisizKayit))
+                            //{
+                            //    window.location.href = '@Url.Action("Liste")'; }
+                            //}
+                            alert("Başarılı Kayıt Edilen Tali Sayısı: " + res.BasariliKayit);
+                        }
+                        else { alert("Bir hata oluştu"); }
+                        $("#tali-kayit-btn").button("reset");
+                    },
+                    error: function () { alert("Bir hata oluştu") }
+                });
+            }
+
+    });
+</script>
+<div id="tali-kayit" class="modal hide fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-header">
+        <h3>Tali Transfer Kayıt</h3>
+    </div>
+    <div class="modal-body">
+        <form id="taliTransferForm" method="post" class="form-horizontal">
+            @Html.HiddenFor(f => f.Path)
+            @Html.HiddenFor(f => f.tvmKodu)
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label class="control-label">Yüklenen Tali Sayısı</label>
+                        <div class="controls">
+                            <span id="toplam-tali">@Model.taliCount</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tali-progress" class="span12" style="padding-bottom: 20px; display: none;">
+                <div style="margin: 20px auto; width: 500px; text-align: center;">
+                    <h4>Lütfen bekleyin, taliler kaydediliyor...</h4>
+                </div>
+                <div style="margin: 20px auto; width: 500px; text-align: center;">
+                    <img src="/Content/img/loading9.gif" width="32" height="32" title="Lütfen bekleyin, taliler kaydediliyor." alt="Lütfen bekleyin, taliler kaydediliyor.">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a id="tali-kayit-cancel" href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a id="tali-kayit-btn" href="#" class="btn btn-danger" data-loading-text="Kayıt ediliyor">Yüklenen Talileri Kaydet</a>
+    </div>
+</div>

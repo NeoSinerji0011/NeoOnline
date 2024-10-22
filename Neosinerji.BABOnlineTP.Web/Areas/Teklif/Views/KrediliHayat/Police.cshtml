@@ -1,0 +1,261 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model DetayKrediliHayatModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li>
+            <a href="#">@babonline.Proposal<span></span></a>
+        </li>
+        <li>
+            <a href="/Teklif/Teklif/Liste">@babonline.Proposal_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Policy<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.NewProposal<span class="arrow"></span></a>
+            <ul class="dropdown-menu">
+                @foreach (var item in ViewBag.UrunYetkileri)
+                {
+                    <li><a href="@item.UrunURL">@item.UrunAdi</a></li>
+                }
+            </ul>
+            <b class="caret-out"></b>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageStyles
+{
+    <link href="~/content/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
+}
+
+@section PageScripts
+{
+    <script src="@Url.Content("~/Content/js/jquery.gritter.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.bootstrap.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Content/js/jquery.validate.custom.js")" type="text/javascript"></script>
+
+    <script>
+        $("#pdf").click(function () {
+            var pdfURL = $(this).attr("pdf");
+            if (pdfURL != undefined && pdfURL != "") {
+                window.open(pdfURL, "_blank");
+            }
+            else {
+
+                $.gritter.add({
+                    title: '@babonline.InformationMessage',
+                    text: '@babonline.PolicysPDFIsNotFound'
+                });
+            }
+        });
+        // ==== Email Gönderme İşlemleri ==== //
+        $("#email-gonder").live("click", function () {
+            var teklifId = $(this).attr("teklif-id");
+
+            $("#email-gonder").button("loading");
+
+            $.get("/Teklif/Teklif/TeklifEposta",
+                  { id: teklifId },
+                  function (data) {
+                      $("#mail-gonder-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#mail-gonder-modal-div");
+                      $("#email-modal").modal('show');
+                      $("#email-gonder").button("reset");
+                  },
+                  "html");
+        });
+        $("#mail-gonder-btn").live("click", function () {
+            $("#mail-gonder-form").validate().form();
+
+            if ($("#mail-gonder-form").valid()) {
+                $("#email-modal").modal('hide');
+
+                $.gritter.add({
+                    title: '@babonline.InformationMessage',
+                    text: '@babonline.MailSendingPleaseWait'
+                });
+                $(".switcher").find(":input").switchFix();
+                var formData = $("#mail-gonder-form").serialize();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Teklif/Teklif/TeklifEPosta",
+                    data: formData,
+                    timeout: 60000,
+                    traditional: true,
+                    success: function (data) {
+                        $("#email-gonder").button("reset");
+                        $("#email-modal").modal('hide');
+                        if (data.Success) {
+                            $.gritter.add({
+                                title: 'İşlem Başarılı!',
+                                text: data.Message
+                            });
+                            return;
+                        }
+                        else {
+                            $.gritter.add({
+                                title: '@babonline.Exception',
+                                text: '@babonline.MailIsNotSendPleaseReSend'
+                            });
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#email-gonder").button("reset");
+                        $("#mail-modal").modal('hide');
+                        var response = jQuery.parseJSON(jqXHR.responseText);
+                        if (response == null) {
+                            $.gritter.add({
+                                title: '@babonline.Exception',
+                                text: errorThrown
+                            });
+                        }
+                        else {
+                            $.gritter.add({
+                                title: '@babonline.Exception',
+                                text: response.Message
+                            });
+                        }
+                    }
+                });
+
+            }
+        });
+        // ==== Email Gönderme İşlemleri ==== //
+    </script>
+
+}
+
+<form class="form-horizontal">
+    <div class="portlet box light-grey" style="margin-top: 24px;">
+        <div class="portlet-title">
+            <div class="caption"><i class="icon-reorder"></i>@babonline.Policy_Info</div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="accordion" id="accordion">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step1">
+                            <i class="icon-angle-left"></i>
+                            @babonline.UserInfo
+                        </a>
+                    </div>
+                    <div id="step1" class="accordion-body collapse in">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+                                @Html.EditorFor(m => m.Hazirlayan)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step3">
+                            <i class="icon-angle-left"></i>
+                            @babonline.PaymentOptions
+                        </a>
+                    </div>
+                    <div id="step3" class="accordion-body collapse in">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+
+                                <div class="row-fluid">
+
+                                    <div id="teklif-fiyatlar">
+                                        <div class="row-fluid" style="margin-top: 20px; border-bottom: 1px solid #e5e5e5;">
+                                            <div class="span2" style="text-align: center;">@babonline.InsuranceCompany</div>
+                                            <div class="span3" style="text-align: center;">@babonline.Net_Premium</div>
+                                            <div class="span2" style="text-align: center;">@babonline.Payment</div>
+                                            <div class="span2" style="text-align: center;">@babonline.PolicyNo</div>
+                                        </div>
+                                        <div id="fiyat-container-template">
+
+                                            <div class="row-fluid" id="fiyat-container" style="margin-top: 20px; padding-bottom: 20px; border-bottom: 1px solid #e5e5e5;">
+                                                <div class="span2" style="text-align: center;">
+                                                    <img id="tum-unvan" alt="@Model.OdemeBilgileri.TUMUnvani" src="@Model.OdemeBilgileri.TUMLogoURL" />
+                                                </div>
+                                                <div class="span3" style="text-align: center;">
+                                                    @Model.OdemeBilgileri.NetPrim
+                                                </div>
+                                                <div class="span2" style="text-align: center;">
+                                                    <span>@Model.OdemeBilgileri.BrutPrim</span>
+                                                </div>
+                                                <div class="span2" style="text-align: center;">
+                                                    @Model.OdemeBilgileri.TUMPoliceNo
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div id="teklif-button-container" class="row-fluid" style="margin-left: 33px; padding-top: 20px; padding-bottom: 20px;">
+                                        <div class="span4">
+                                            <button id="pdf" pdf="@Model.OdemeBilgileri.PoliceURL" class="btn btn-primary" type="button"><i class="icon-file icon-white"></i> @babonline.PolicyPDF</button>
+                                        </div>
+                                        <div class="span4">
+                                            <button id="email-gonder" teklif-id="@Model.OdemeBilgileri.teklifId" class="btn btn-primary" type="button" data-loading-text="@babonline.Message_Loading"><i class="icon-envelope icon-white"></i> @babonline.EmailSend</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step2">
+                            <i class="icon-angle-left"></i>
+                            @babonline.ProposalInfo
+                        </a>
+                    </div>
+                    <div id="step2" class="accordion-body collapse in">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+                                <div class="form-section-header">
+                                    <h3 class="form-section">@babonline.CreditDetails</h3>
+                                </div>
+                                @Html.EditorFor(m => m.Kredi)       
+                                <div class="form-section-header">
+                                    <h3 class="form-section">@babonline.Insured @babonline.Address_Info</h3>
+                                </div>
+                                @Html.EditorFor(m => m.Adres)
+                            </div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*Mail gönderme modal form*@
+<div id="mail-gonder-modal-div"></div>

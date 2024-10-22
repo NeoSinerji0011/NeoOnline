@@ -1,0 +1,197 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.TVM.Models
+
+@model ProfilModel
+
+@{
+    bool sifreDegistirebilir = false;
+    if (ViewBag.SifreDegistirebilir != null)
+    {
+        sifreDegistirebilir = (bool)ViewBag.SifreDegistirebilir;
+    }
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="#">@babonline.MyProfile<span class="selected"></span></a>
+        </li>
+
+        @if (sifreDegistirebilir)
+        {
+            <li>
+                <a href="/TVM/Profil/SifreDegistir">@babonline.ChangePassword<span></span></a>
+            </li>
+        }
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search..." class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <h3 class="page-title">@(Model.Adi + " " + Model.Soyadi)</h3>
+    @*  <ul class="breadcrumb">
+            <li>
+                <i class="icon-user"></i><a href="#">Performansım</a>
+                <i class="icon-angle-right"></i>
+            </li>
+            <li>
+                <a href="#">@babonline.MyProfile</a>
+            </li>
+        </ul>*@
+}
+
+@section PageStyles
+{
+    <link href="/content/css/bootstrap-fileupload.css" rel="stylesheet" type="text/css" />
+}
+
+@section PageScripts
+{
+    <script type="text/javascript" src="/content/js/bootstrap-fileupload.js"></script>
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="alert alert-info">
+            <button class="close" data-dismiss="alert"></button>
+            @babonline.PasswordYour <strong>@Model.SifreGecerlilikSuresi</strong> @babonline.Password_YouMustChangeYour
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12" style="min-height: 500px;">
+        <div class="tabbable tabbable-custom tabbable-full-width">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#tab_1_1" data-toggle="tab">@babonline.MyProfile</a>
+                </li>
+                <li>
+                    <a href="#tab_1_2" data-toggle="tab">@babonline.Photo_Update</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane row-fluid active" id="tab_1_1">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <img id="foto" style="width: 150px;" src="@Model.URL" alt="@Model.Adi" />
+                        </div>
+                        <div class="span10">
+                            <form class="form-horizontal">
+                                @Html.HiddenFor(s => s.KullaniciKodu)
+                                <div class="control-group" style="clear: none">
+                                    <label class="control-label"><strong>@babonline.TCKN</strong></label>
+                                    <div class="controls">
+                                        <label class="control">@Model.TCKN</label>
+                                    </div>
+                                </div>
+                                <div class="control-group" style="clear: none">
+                                    <label class="control-label"><strong>@babonline.TVM_Name</strong></label>
+                                    <div class="controls">
+                                        <label class="control">@Model.TVMAdi</label>
+                                    </div>
+                                </div>
+
+                                <div class="control-group" style="clear: none">
+                                    <label class="control-label"><strong>@babonline.NameLastname</strong></label>
+                                    <div class="controls">
+                                        <label class="control">@Model.Adi @Model.Soyadi</label>
+                                    </div>
+                                </div>
+                                <div class="control-group" style="clear: none">
+                                    <label class="control-label"><strong>@babonline.Email_Adress</strong></label>
+                                    <div class="controls">
+                                        <label class="control">@Model.Email</label>
+                                    </div>
+                                </div>
+                                @if (Model.YetkiGrubu != "")
+                                {
+                                    <div class="control-group" style="clear: none">
+                                        <label class="control-label"><strong>@babonline.TVMUser_AuthorityGroup</strong></label>
+                                        <div class="controls">
+                                            <label class="control">@Model.YetkiGrubu</label>
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.Departman != null)
+                                {
+                                    <div class="control-group" style="clear: none">
+                                        <label class="control-label"><strong>@babonline.TVMUser_Department</strong></label>
+                                        <div class="controls">
+                                            <label class="control">@Model.Departman</label>
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.Gorevi != null)
+                                {
+                                    <div class="control-group" style="clear: none">
+                                        <label class="control-label"><strong>@babonline.TVMUser_Job</strong></label>
+                                        <div class="controls">
+                                            <label class="control">@Model.Gorevi</label>
+                                        </div>
+                                    </div>}
+
+                                @if (Model.Yonetici != null)
+                                {
+                                    <div class="control-group" style="clear: none">
+                                        <label class="control-label"><strong>@babonline.Manager</strong></label>
+                                        <div class="controls">
+                                            <label class="control">@Model.Yonetici</label>
+                                        </div>
+                                    </div>}
+
+                                @if (Model.MTKodu != null)
+                                {
+                                    <div class="control-group" style="clear: none">
+                                        <label class="control-label"><strong>@babonline.MT_Code</strong></label>
+                                        <div class="controls">
+                                            <label class="control">@Model.MTKodu</label>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="control-group" style="clear: none">
+                                    <label class="control-label"><strong>@babonline.CreationDate</strong></label>
+                                    <div class="controls">
+                                        <label class="control">@Model.KayitTarihi.ToString("dd/MM/yyyy")</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane profile-classic" id="tab_1_2">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <form action="/TVM/Profil/UploadPhoto/" enctype="multipart/form-data" method="post">
+                                @Html.HiddenFor(m => m.KullaniciKodu)
+                                @Html.AntiForgeryToken()
+                                <div id="fileupload" class="fileupload fileupload-new" data-provides="fileupload" style="width: 210px;">
+                                    <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                                    <div>
+                                        <span class="btn btn-file"><span class="fileupload-new">@babonline.ChoosePhoto</span><span class="fileupload-exists">@babonline.Change</span><input type="file" id="file" name="file" /></span>
+                                        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">@babonline.Remove</a>
+                                    </div>
+                                </div>
+                                <div class="submit-btn">
+                                    <button class="btn green" type="submit">@babonline.Save</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

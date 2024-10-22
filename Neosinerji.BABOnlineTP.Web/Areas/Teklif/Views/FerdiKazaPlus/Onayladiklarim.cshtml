@@ -1,0 +1,69 @@
+﻿@model Neosinerji.BABOnlineTP.Business.Common.OnayladiklarimListeModel
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="#">@babonline.ListApprovedProjects<span class="selected"></span></a>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+}
+@section PageScripts
+{
+
+}
+<div class="portlet box light-grey" style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.ListApprovedProjects</div>
+    </div>
+    <div class="portlet-body form">
+        <div class="form-horizontal">
+            <div role="grid" class="dataTables_wrapper form-inline" id="DataTables_Table_0_wrapper">
+                <div class="clear"></div>
+                <div id="DataTables_Table_0_length" class="dataTables_length">
+                    <label>
+                        Sayfada
+            <select name="DataTables_Table_0_length" size="1" aria-controls="DataTables_Table_0">
+                <option value="10" selected="selected">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+                        Kayıt Göster</label>
+                </div>
+                <div id="DataTables_Table_0_processing" class="dataTables_processing" style="visibility: hidden;">
+                    &nbsp;
+        <img alt="işleniyor" src="/Content/img/loading.gif">
+                </div>
+                <table class="table table-striped table-bordered table-hover dataTable data-table">
+                    <thead>
+                        <tr>
+                            <th>@babonline.JobNo</th>
+                            <th>@babonline.Proposal</th>
+                            <th>@babonline.Stage</th>
+                            <th>@babonline.Add_Date</th>
+                            <th>@babonline.Added_User</th>
+                        </tr>
+                    </thead>
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>@item.IsTakipId</td>
+                                <td>@item.TeklifId</td>
+                                <td>@item.Asama</td>
+                                <td>@item.KayitTarihi</td>
+                                <td>@item.EkleyenKullanici</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

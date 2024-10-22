@@ -1,0 +1,1520 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Police.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model PoliceTahsilatRaporModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">@babonline.CollectionTrackingReport<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.OtherReport<span class="arrow"></span></a>
+            <ul class="dropdown-menu"></ul>
+            <b class="caret-out"></b>
+        </li>
+
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@{
+    var musterisec = babonline.SelectCustomer;
+}
+
+@section PageScripts
+{
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    <script src="~/Content/js/mask.js" type="text/javascript"></script>
+    <script src="~/Content/js/customDataTable.js" type="text/javascript"></script>
+
+    <script>
+
+         
+            createTable("#toplam-tablo", [1, 2, 3, 4, 6], [0,1,2,3,4,5,6]);
+         
+
+
+
+        var myArray = [];
+        @if (Model.tvmList != null)
+        {
+            foreach (var d in Model.tvmList)
+            {
+                   @:myArray.push("@d");
+             }
+        }
+        var myArraySigortaSirket = [];
+        @if (Model.SigortaSirketleriSelectList != null)
+        {
+
+            foreach (var d in Model.SigortaSirketleriSelectList)
+            {
+                   @:myArraySigortaSirket.push("@d");
+             }
+        }
+         var myArrayDisKaynak = [];
+        @if (Model.DisKaynakTvmList != null)
+        {
+
+            foreach (var d in Model.DisKaynakTvmList)
+            {
+                   @:myArrayDisKaynak.push("@d");
+             }
+        }
+
+
+        $(document).ready(function () {
+
+
+            $("#BaslangicTarihi").mask("99.99.9999");
+            $("#BitisTarihi").mask("99.99.9999");
+
+            var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+            $("#BitisTarihi").datepicker("option", "minDate", baslamaT);
+
+            //başlama tarihi değiştiğinde başlama tarihinin bir ay sonrasını bitiş tarihine atıyor
+            $('#BaslangicTarihi').change(function () {
+                var bas = $(this).datepicker("getDate");
+                $("#BitisTarihi").datepicker("option", "minDate", bas);
+
+                var monthMillisec = 6*31 * 24 * 60 * 60 * 1000;
+                var maxDate = new Date();
+                maxDate.setTime(bas.getTime() + monthMillisec);
+
+                $("#BitisTarihi").datepicker("setDate", maxDate);
+
+                var d2 = $('#BitisTarihi').datepicker("getDate");
+                var max = d2 - bas;
+
+            });
+
+            //bitiş tarihi değiştiğinde tarih aralığının 1 ay aralığında olup olmadığının kontrolünü yapıyor
+            $('#BitisTarihi').change(function () {
+                var bitisT = $(this).datepicker("getDate");
+                var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+                var aralik = bitisT - baslamaT;
+                var monthMillisec = 6*31 * 24 * 60 * 60 * 1000;
+
+                var maxDate = new Date();
+                maxDate.setTime(baslamaT.getTime() + monthMillisec);
+
+                if (aralik > monthMillisec) {
+                    alert("İki tarih aralığı 6 aydan fazla olamaz");
+                    $("#BitisTarihi").datepicker("setDate", maxDate);
+                }
+
+            });
+            var aramamTipi = $('input[name="AramaTip"]:checked').val();
+            if (aramamTipi == 0) {
+                $("#SatisKanali_SigortaSirketi").show();
+                $("#MusteriGrupKod").hide();
+                $("#MusteriGurpKodu").addClass("ignore");
+                $("#MusteriGurpKodu").removeAttr('required');
+
+                $("#tvmList").removeClass("ignore");
+                //$("#tvmList").attr("required", "required");
+                $("#BaslangicTarihi").removeClass("ignore");
+                $("#BaslangicTarihi").attr("required", "required");
+                $("#SigortaSirketleriSelectList").removeClass("ignore");
+                $("#SigortaSirketleriSelectList").attr("required", "required");
+                $("#tcVkn").removeClass("ignore");
+                //$("#tcVkn").attr("required", "required");
+                $("#BitisTarihi").removeClass("ignore");
+                $("#BitisTarihi").attr("required", "required");
+
+
+                $("#DisKaynak").hide();
+                $("#DisKaynakTvmList").val("");
+                $("#DisKaynakTvmList").addClass("ignore");
+                $("#DisKaynakTvmList").removeAttr("required");
+            }
+            else if (aramamTipi ==1) {
+                $("#SatisKanali_SigortaSirketi").hide();
+                $("#MusteriGrupKod").show();
+                $("#MusteriGurpKodu").removeClass("ignore");
+                $("#MusteriGurpKodu").attr("required", "required");
+                $("#tvmList").addClass("ignore");
+                $("#tvmList").removeAttr("required");
+                $("#BaslangicTarihi").addClass("ignore");
+                $("#BaslangicTarihi").removeAttr("required");
+                $("#SigortaSirketleriSelectList").addClass("ignore");
+                $("#SigortaSirketleriSelectList").removeAttr("required");
+                $("#tcVkn").addClass("ignore");
+                $("#tcVkn").removeAttr("required");
+                $("#BitisTarihi").addClass("ignore");
+                $("#BitisTarihi").removeAttr("required");
+
+
+                $("#DisKaynak").hide();
+                $("#DisKaynakTvmList").val("");
+                $("#DisKaynakTvmList").addClass("ignore");
+                $("#DisKaynakTvmList").removeAttr("required");
+            }
+            else if (aramamTipi == 2) {
+                $("#SatisKanali_SigortaSirketi").hide();
+                $("#MusteriGrupKod").hide();
+                $("#MusteriGurpKodu").addClass("ignore");
+                $("#MusteriGurpKodu").removeAttr("required");
+                $("#tvmList").addClass("ignore");
+                $("#tvmList").removeAttr("required");
+                $("#BaslangicTarihi").removeClass("ignore");
+                $("#BaslangicTarihi").attr("required", "required");
+                $("#SigortaSirketleriSelectList").addClass("ignore");
+                $("#SigortaSirketleriSelectList").removeAttr("required");
+                $("#tcVkn").addClass("ignore");
+                $("#tcVkn").removeAttr("required");
+                $("#BitisTarihi").removeClass("ignore");
+                $("#BitisTarihi").attr("required", "required");
+
+                $("#DisKaynak").show();
+                $("#DisKaynakTvmList").removeClass("ignore");
+                $("#DisKaynakTvmList").attr("required", "required");
+            }
+            $('input[name="AramaTip"]').change(function () {
+                var aramamTipi = $(this).val();
+                if (aramamTipi == 0) {
+                    $("#SatisKanali_SigortaSirketi").show();
+
+                    $("#MusteriGrupKod").hide();
+                    $("#MusteriGurpKodu").addClass("ignore");
+                    $("#MusteriGurpKodu").removeAttr('required');
+                    $("#MusteriGurpKodu").val("");
+
+                    $("#tvmList").removeClass("ignore");
+                    //$("#tvmList").attr("required", "required");
+                    $("#BaslangicTarihi").removeClass("ignore");
+                    $("#BaslangicTarihi").attr("required", "required");
+                    $("#SigortaSirketleriSelectList").removeClass("ignore");
+                    $("#SigortaSirketleriSelectList").attr("required", "required");
+                    $("#tcVkn").removeClass("ignore");
+                    //$("#tcVkn").attr("required", "required");
+                    $("#BitisTarihi").removeClass("ignore");
+                    $("#BitisTarihi").attr("required", "required");
+
+                    $("#DisKaynak").hide();
+                    $("#DisKaynakTvmList").val("");
+                    $("#DisKaynakTvmList").addClass("ignore");
+                    $("#DisKaynakTvmList").removeAttr("required");
+                }
+                else if (aramamTipi == 1){
+                    $("#SatisKanali_SigortaSirketi").hide();
+                    $("#MusteriGrupKod").show();
+                    $("#MusteriGurpKodu").removeClass("ignore");
+                    $("#MusteriGurpKodu").attr("required", "required");
+
+                    $("#tvmList").val("");
+                    $("#tvmList").addClass("ignore");
+                    $("#tvmList").removeAttr("required");
+                    $("#BaslangicTarihi").val("");
+                    $("#BaslangicTarihi").addClass("ignore");
+                    $("#BaslangicTarihi").removeAttr("required");
+                    $("#SigortaSirketleriSelectList").val("");
+                    $("#SigortaSirketleriSelectList").addClass("ignore");
+                    $("#SigortaSirketleriSelectList").removeAttr("required");
+                    $("#tcVkn").val("");
+                    $("#tcVkn").addClass("ignore");
+                    $("#tcVkn").removeAttr("required");
+                    $("#BitisTarihi").val("");
+                    $("#BitisTarihi").addClass("ignore");
+                    $("#BitisTarihi").removeAttr("required");
+
+                    $("#DisKaynak").hide();
+                    $("#DisKaynakTvmList").val("");
+                    $("#DisKaynakTvmList").addClass("ignore");
+                    $("#DisKaynakTvmList").removeAttr("required");
+                }
+                else if (aramamTipi == 2) {
+                    $("#SatisKanali_SigortaSirketi").hide();
+                    $("#MusteriGrupKod").hide();
+                    $("#MusteriGurpKodu").addClass("ignore");
+                    $("#MusteriGurpKodu").removeAttr("required");
+
+                    $("#tvmList").val("");
+                    $("#tvmList").addClass("ignore");
+                    $("#tvmList").removeAttr("required");
+                    $("#BaslangicTarihi").val("");
+                    $("#BaslangicTarihi").removeClass("ignore");
+                    $("#BaslangicTarihi").attr("required", "required");
+                    $("#SigortaSirketleriSelectList").val("");
+                    $("#SigortaSirketleriSelectList").addClass("ignore");
+                    $("#SigortaSirketleriSelectList").removeAttr("required");
+                    $("#tcVkn").val("");
+                    $("#tcVkn").addClass("ignore");
+                    $("#tcVkn").removeAttr("required");
+                    $("#BitisTarihi").val("");
+                    $("#BitisTarihi").removeClass("ignore");
+                    $("#BitisTarihi").attr("required", "required");
+
+                    $("#DisKaynak").show();
+                    $("#DisKaynakTvmList").removeClass("ignore");
+                    $("#DisKaynakTvmList").attr("required", "required");
+                }
+            });
+
+            // ====Tvm listesini Dolduruyor ====//
+            var tvm = $("#TVMKodu").tvmfinder();
+            tvm.enable();
+
+            var customerfinder = $("#MusteriKodu").customerfinder("TVMKodu");
+            customerfinder.enable();
+            // ====Tvm listesini Dolduruyor ====//
+            $('.multiselect').multiselect({
+                 includeSelectAllOption: true,
+                enableFiltering: true,
+                maxHeight: 170,
+                nonSelectedText: '@babonline.PleaseSelect',
+                selectAllText: '@babonline.Select_All',
+                filterPlaceholder: '@babonline.Search',
+                nSelectedText: '@babonline.Selected'
+            });
+
+            if (myArray.length > 0) {
+              $('#tvmList').val(myArray);
+            }
+            $("#tvmList").multiselect("refresh");
+
+            if (myArraySigortaSirket.length > 0) {
+                $('#SigortaSirketleriSelectList').val(myArraySigortaSirket);
+            }
+            $("#SigortaSirketleriSelectList").multiselect("refresh");
+
+            if (myArrayDisKaynak.length > 0) {
+                $('#DisKaynakTvmList').val(myArrayDisKaynak);
+            }
+            $("#DisKaynakTvmList").multiselect("refresh");
+
+            $(".closed").hide();
+
+
+
+
+            // ==== Arama Yapıyor ====//
+            var divSayisi = 0;
+            $("html").find(".table").each(function (i) {
+                divSayisi = i + 1;
+            });
+            for (var i = 0; i < divSayisi; i++) {
+                if ($("#RaporTipim_0")[0].checked)
+                    createTable("#" + i + "-datatables", [1, 2, 3], [0, 1, 2, 3]);
+                else
+                    createTable("#" + i + "-datatables", [4, 5, 6], [0, 1, 2, 3,4,5,6]);
+                //var oTable = $(("#"+ i +"-datatables")).dataTable({
+                //    "bPaginate": true,
+                //    "bLengthChange": true,
+                //    "bFilter": false,
+                //    "bSort": false,
+                //    "bInfo": false,
+                //    "bProcessing": true,
+                //    "bServerSide": true,
+                //    "bDeferLoading": true,
+                //    "iDeferLoading": 0,
+                //    "sDom": 'T<"clear">lfrtip',
+                //    "oTableTools": { "aButtons": ["pdf", "xls", "print", "copy"] },
+
+
+                //    });
+
+             // toplam - tablo
+
+            }
+           
+                //var oTable = $(("#toplam-tablo")).dataTable({
+                //    "bPaginate": true,
+                //    "bLengthChange": true,
+                //    "bFilter": false,
+                //    "bSort": false,
+                //    "bInfo": false,
+                //    "bProcessing": true,
+                //    "bServerSide": true,
+                //    "bDeferLoading": true,
+                //    "iDeferLoading": 0,
+                //    "sDom": 'T<"clear">lfrtip',
+                //    "oTableTools": { "aButtons": ["pdf", "xls", "print", "copy"] },
+
+
+                //});
+
+
+            $("#DataTables_Table_0_length").css({ "display": "none" });
+            $(".dataTables_paginate.paging_bootstrap.pagination").css({ "display": "none" });
+            $("#PoliceUretimTahsilatSearch").click(function () {
+                $(this).button("loading");
+                if ($("#tvmList").val() == null) {
+                    $(this).button('reset');
+                }
+                if ($("#SigortaSirketleriSelectList").val() == null) {
+                    $(this).button('reset');
+                }
+                if ($("#DisKaynakTvmList").val() == null) {
+                    $(this).button('reset');
+                }
+            });
+
+            function survey(selector, callback) {
+                var input = $(selector);
+                var oldvalue = input.val();
+                setInterval(function () {
+                    if (input.val() != oldvalue) {
+                        oldvalue = input.val();
+                        callback();
+                    }
+                }, 100);
+            }
+            survey('#TVMKodu', function () {
+                $("#MusteriKodu_text").val("").attr("placeholder", langu.SelectCustomer);
+                $("#MusteriKodu").val(0);
+            });
+            //0 satış kanalı s.şirketi / 1 müşteri grup kodu
+
+
+
+        });
+    </script>
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" style="">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">@babonline.CollectionTrackingReport</span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @using (Html.BeginForm("PoliceTahsilatRaporu", "Police", FormMethod.Post, new { @class = "form-horizontal", id = "PoliceTahsilatRaporu", enctype = "multipart/form-data" }))
+                {
+                    <div class="control-group">
+                        <label class="control-label">@babonline.SearchType</label>
+                        <div class="controls radio-custom">
+                            @Html.RadioButtonListFor(m => m.AramaTip, Model.AramaTipTipleri)
+                        </div>
+                    </div>
+                    <div id="SatisKanali_SigortaSirketi" style="">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.TVM_Title *</label>
+                                    <div class="controls" id="satisKanali">
+                                        @Html.DropDownListFor(s => s.tvmList, Model.tvmler, new { @class = "multiselect", multiple = "multiple", @*required = "required"*@ })
+                                        @Html.ValidationMessageFor(m => m.tvmList)
+                                        @*@Html.TVMFinderFor(m => m.TVMKodu, Model.TVMUnvani)*@
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.InsuranceCompany *</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(s => s.SigortaSirketleriSelectList, Model.SigortaSirketleri, new { @class = "multiselect", multiple = "multiple", required = "required" })
+                                        @Html.ValidationMessageFor(m => m.SigortaSirketleriSelectList)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.IDNumber</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.tcVkn, Model.tcVkn, new { @class = "onlynumbers" })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="MusteriGrupKod" style="display:none">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.CustomerGroupName *</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(s => s.MusteriGurpKodu, new { minlength = 3, maxlength = 30, style = "width:50%", placeHolder = babonline.EnterCustomerGroupNameOrCode })
+                                    @Html.ValidationMessageFor(m => m.MusteriGurpKodu)
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="DisKaynak" style="display:none">
+                        <div class="span6">
+                            <label class="control-label">@babonline.OutsourcedBusiness *</label>
+                            <div class="controls" id="disKaynakDiv">
+                                @Html.DropDownListFor(s => s.DisKaynakTvmList, Model.DisKaynakTvmler, new { @class = "multiselect", multiple = "multiple", required = "required", @id = "DisKaynakTvmList" })
+                                @Html.ValidationMessageFor(m => m.DisKaynakTvmList)
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="span12" style="margin-left:0%">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Installment @babonline.Expiry @babonline.StartDate *</label>
+                            <div class="controls input-append datepicker date" style="margin-left:1.2%">
+                                @Html.DateTextBoxFor(s => s.BaslangicTarihi, new { style = "width:50%", Id = "BaslangicTarihi" })
+                                @Html.ValidationMessageFor(s => s.BaslangicTarihi)
+                                @*<img class="ui-datepicker-trigger" src="/Content/img/glyphicons_045_calendar.png" alt="..." title="...">*@
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="span12" style="margin-left:0%">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Installment @babonline.Expiry @babonline.EndDate *</label>
+                            <div class="controls input-append datepicker date" style="margin-left:1.2%">
+                                @Html.DateTextBoxFor(s => s.BitisTarihi, new { style = "width:50%", Id = "BitisTarihi" })
+                                @Html.ValidationMessageFor(s => s.BitisTarihi)
+                                @* <img class="ui-datepicker-trigger" src="/Content/img/glyphicons_045_calendar.png" alt="..." title="...">*@
+                            </div>
+                            @* <label class="control-label" style="color: red; margin-left: 50%; margin-top: -5%">Tarih aralığı Maksimum 1 ay seçilebilir.</label>*@
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.ReportType</label>
+                                <div class="controls radio-custom">
+                                    @Html.RadioButtonListFor(s => s.RaporTipim, Model.RaporTipleri)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <a href="~/Police/Police/PoliceTahsilatRaporu" class="btn ligth-grey">@babonline.Clear</a>
+                        <input type="submit" id="PoliceUretimTahsilatSearch" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="@babonline.Search" />
+                    </div>
+
+                }
+
+
+                @if (@Model.tvmList != null)
+                {
+                    Nullable<decimal> toplamKalanOdemeGenelToplam = 0;
+                    Nullable<decimal> toplamOdenenTutarGenelToplam = 0;
+                    Nullable<decimal> toplamTaksitTutariGenelToplam = 0;
+                    List<string> liste = new List<string>();
+                    foreach (var item in @Model.tvmList)
+                    {
+                        if (item != "multiselect-all")
+                        {
+                            var tvm = @Model.tvmler.Where(s => s.Value == item).First();
+                            liste.Add(tvm.Text);
+                        }
+                    }
+
+                    <div class="row-fluid" style="margin-top: 30px;">
+                        <div class="span12">
+                            <div id="table-div" style="display: normal;">
+                                <table class="table table-striped table-bordered table-hover dataTable data-table" style="table-layout: inherit" id="toplam-tablo">
+                                    <thead>
+
+                                        <tr style="background-color:white; border-color :white; ">
+                                            <th style="width: 3%; border-color :white;">TOPLU TABLO</th>
+                                            @if (Model.RaporTipim != 0)
+                                            {
+                                                <th style="width: 3%; border-color :white;"></th>
+                                                <th style="width: 7.6%; border-color :white;">@Model.BaslangicTarihi.Value.ToShortDateString() - @Model.BitisTarihi.Value.ToShortDateString()</th>
+                                                if (Model.RaporTipim == 1)
+                                                {
+
+                                                    <th style="width:  5%; border-color :white;">@babonline.PaidInstallmentsList</th>
+                                                }
+                                                else if (Model.RaporTipim == 2)
+                                                {
+                                                    <th style="width:  5%; border-color :white;">@babonline.PartiallyPaidInstallmentsList</th>
+                                                }
+                                                else if (Model.RaporTipim == 0)
+                                                {
+                                                    <th style="width:  5%; border-color :white;">@babonline.ListOfDueInstallments</th>
+                                                }
+
+                                            }
+                                            <th style="width: 5%; border-color :white;"></th>
+                                            <th style="width: 5%; border-color :white;"></th>
+                                            <th style="width: 5%; border-color :white;"></th>
+                                            <th style="width: 2%; border-color :white;"></th>
+                                            <th style="width: 9.5%; border-color :white;"></th>
+                                            <th style="width: 8%; border-color :white;"></th>
+                                            <th style="width: 8%; border-color :white;"></th>
+                                            <th style="width: 8%; border-color :white;"></th>
+                                            <th style="width: 8%; border-color :white;"></th>
+                                            <th style="width: 8%; border-color :white;"></th>
+                                            @if (Model.AramaTip == 2)
+                                            {
+                                                <th style="width: 8%; border-color :white;"></th>
+                                            }
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <th style="width: 3%;text-align: center;background-color: #99CCFF !important;">@babonline.ExpiryDate</th>
+                                            @if (Model.RaporTipim != 0)
+                                            {
+                                                <th style="width: 3%;text-align: center;background-color: #99CCFF !important;">@babonline.PaymentDocumentDate</th>
+                                                <th style="width: 7.6%;text-align: center;background-color: #99CCFF !important;">@babonline.PaymentDocumentNumber</th>
+                                                <th style="width: 7.6%;text-align: center;background-color: #99CCFF !important;">@babonline.PaymentType</th>
+                                            }
+                                            <th style="width: 5%;text-align: center;background-color: #99CCFF !important;">@babonline.Paid @babonline.Amount </th>
+                                            @if (Model.RaporTipim == 1)  //ödenmişse
+                                            {
+                                                <th style="width: 5%;text-align: center;background-color: #99CCFF !important;">@babonline.PaymentStatus</th>
+                                            }
+                                            else
+                                            {
+                                                <th style="width: 5%;text-align: center;background-color: #99CCFF !important;">@babonline.RemainingPayment</th>
+                                            }
+                                            <th style="width: 5%;text-align: center;background-color: #99CCFF !important;">@babonline.InstallmentAmount</th>
+                                            <th style="width: 2%;text-align: center;background-color: #99CCFF !important;">@babonline.InstallmentNo</th>
+                                            <th style="width: 9.5%;text-align: center;background-color: #99CCFF !important;">@babonline.Policy / @babonline.Renovation  / @babonline.Suppl</th>
+                                            <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.Product_Name</th>
+                                            <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.Insured_Title</th>
+                                            <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.TitleOfInsuredBy</th>
+                                            <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.TUM_Title</th>
+                                            <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.UserSavedBy</th>
+                                            @if (Model.AramaTip == 2)
+                                            {
+                                                <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.OutsourceName</th>
+                                            }
+                                        </tr>
+
+                                        @{
+                                            Nullable<decimal> toplamKalanOdeme = 0;
+                                            Nullable<decimal> toplamOdenenTutar = 0;
+                                            Nullable<decimal> toplamTaksitTutari = 0;
+
+                                            foreach (var item in Model.procedureTahsilatList)
+                                            {
+                                                if (item.OdenenTutar >= 0)
+                                                {
+
+                                                    if (!(Model.RaporTipim == 1 && (item.OdemTipi == 5 || item.OdemTipi == 9)))
+                                                    {
+
+                                                        <tr>
+                                                            @if (item.TaksitVadeTarihi != null)
+                                                            {
+                                                                <td style="width: 3%;">@item.TaksitVadeTarihi.Value.ToShortDateString()</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="width: 3%;"></td>
+                                                            }
+                                                            @if (Model.RaporTipim != 0)
+                                                            {
+                                                                if (item.OdemeBelgeTarihi != null)
+                                                                {
+                                                                    <td style="width: 3%;">@item.OdemeBelgeTarihi.Value.ToShortDateString()</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td style="width: 3%;"></td>
+                                                                }
+                                                                <th style="width: 10%;">@item.OdemeBelgeNo</th>
+                                                                if (Model.RaporTipim != 0)
+                                                                {
+                                                                    switch (item.OdemTipi)
+                                                                    {
+                                                                        case 1:
+                                                                            <td style="width: 10%;">@babonline.Cash</td>
+                                                                            break;
+                                                                        case 2:
+                                                                            <td style="width: 10%;">@babonline.Customer @babonline.Credit_Card</td>
+                                                                            break;
+                                                                        case 3:
+                                                                            <td style="width: 10%;">@babonline.Bank_Transfer</td>
+                                                                            break;
+                                                                        case 4:
+                                                                            <td style="width: 10%;">@babonline.Check</td>
+                                                                            break;
+                                                                        case 6:
+                                                                            <td style="width: 10%;">@babonline.AgencyPosAccount</td>
+                                                                            break;
+                                                                        case 7:
+                                                                            <td style="width: 10%;">@babonline.Bond</td>
+                                                                            break;
+                                                                        default:
+                                                                            <td style="width: 10%;"></td>
+                                                                            break;
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td style="width: 10%;"></td>
+                                                                }
+                                                            }
+
+
+                                                            @if (@item.OdenenTutar != 0 && (item.OdemTipi != 5 && item.OdemTipi != 9))
+                                                            {
+                                                                <td style="width: 5%;text-align: right">@item.OdenenTutar.Value.ToString("N")</td>
+                                                                toplamOdenenTutar += item.OdenenTutar;
+                                                                toplamOdenenTutarGenelToplam += item.OdenenTutar;
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="width: 5%;text-align: right">0.00</td>
+                                                            }
+                                                            @if (item.KalanTaksitTutari == 0 && item.OdenenTutar == 0)
+                                                            {
+                                                                <td style="width: 5%;text-align: right">@item.TaksitTutari.Value.ToString("N")</td>
+                                                                toplamKalanOdeme += item.TaksitTutari;
+                                                                toplamKalanOdemeGenelToplam += item.TaksitTutari;
+                                                            }
+                                                            else
+                                                            {
+                                                                if ((item.OdemTipi == 5 || item.OdemTipi == 9))
+                                                                {
+                                                                    toplamKalanOdeme += item.TaksitTutari;
+                                                                    toplamKalanOdemeGenelToplam += item.TaksitTutari;
+                                                                    <td style="width: 5%;text-align: right">@item.TaksitTutari.Value.ToString("N")</td>
+                                                                }
+                                                                if (item.KalanTaksitTutari == 0 && (item.OdemTipi != 5 && item.OdemTipi != 9))
+                                                                {
+                                                                    <td style="width: 5%; text-align: center">
+                                                                        Ödendi
+                                                                        <img src="~/Content/img/yesiltik.png" style="width:30%" />
+                                                                    </td>
+                                                                }
+                                                                else if (@item.KalanTaksitTutari != null && (item.OdemTipi != 5 && item.OdemTipi != 9))
+                                                                {
+                                                                    <td style="width: 5%;text-align: right">@item.KalanTaksitTutari.Value.ToString("N")</td>
+                                                                    toplamKalanOdeme += item.KalanTaksitTutari;
+                                                                    toplamKalanOdemeGenelToplam += item.KalanTaksitTutari;
+                                                                }
+                                                                else if (@item.KalanTaksitTutari == null && (item.OdemTipi != 5 && item.OdemTipi != 9))
+                                                                {
+                                                                    <td style="width: 5%;text-align: right">0.00</td>
+                                                                }
+                                                            }
+                                                            @if (@item.TaksitTutari != null)
+                                                            {
+                                                                <td style="width: 5%;text-align: right">@item.TaksitTutari.Value.ToString("N")</td>
+                                                                toplamTaksitTutari += item.TaksitTutari;
+                                                                toplamTaksitTutariGenelToplam += item.TaksitTutari;
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="width: 5%;text-align: right">0.00</td>
+                                                            }
+                                                            <td style="width: 2%; text-align: center">@item.TaksitNo</td>
+                                                            <td style="width: 9.5%;">@item.PoliceNo / @item.YenilemeNo / @item.EkNo</td>
+                                                            <td style="width: 10%;">@item.TUMUrunAdi </td>
+                                                            <td style="width: 8%;">@item.SigortaliAdi  @item.SigortaliSoyadi</td>
+                                                            <td style="width: 8%;">@item.SigortaEttirenAdi  @item.SigortaEttirenSoyadi</td>
+                                                            <td style="width: 10%;">@item.SigortaSirketi </td>
+                                                            <td style="width: 10%;"></td>
+                                                            @if (Model.AramaTip == 2)
+                                                            {
+                                                                var disKaynak = Model.DisKaynakTvmler.Where(w => w.Value == item.DisKaynakKodu.ToString()).FirstOrDefault();
+                                                                <td style="width: 10%;">@disKaynak.Text</td>
+                                                            }
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                            <tr>
+                                                <td><span style="font-family: 'Adobe Gothic Std';font-size:16px">@babonline.Total:</span></td>
+                                                @if (Model.RaporTipim != 0)
+                                                {
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                }
+                                                @if (toplamOdenenTutar != null)
+                                                {
+                                                    <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white; text-align: right !important;font-size:14px" class="label label-success">@Convert.ToDecimal(toplamOdenenTutar).ToString("N")</span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white; text-align: right !important;font-size:14px" class="label label-success">0.00</span></td>
+                                                }
+                                                @if (@toplamKalanOdeme != null)
+                                                {
+                                                    if (@toplamKalanOdeme == 0)
+                                                    {
+                                                        <td></td>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-important">@Convert.ToDecimal(toplamKalanOdeme).ToString("N")</span></td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-important">0.00</span></td>
+                                                }
+                                                @if (@toplamTaksitTutari != null)
+                                                {
+                                                    <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label"> @Convert.ToDecimal(toplamTaksitTutari).ToString("N")    </span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label">0.00  </span></td>
+                                                }
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                @if (Model.AramaTip == 2)
+                                                {
+                                                    <td></td>
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    for (int i = 0; i < liste.Count; i++)
+                    {
+                        var satisKanaliRaporuVarMi = Model.procedureTahsilatList.Where(s => s.SatisKanaliUnvani == liste[i].ToString()).ToList();
+
+
+                        //   var satisKanaliRaporuVarMi = Model.procedureTahsilatList.Where(s => s.SatisKanaliUnvani == liste[i].ToString()).ToList();
+                        if (Model.procedureTahsilatList != null && Model.procedureTahsilatList.Count > 0 && satisKanaliRaporuVarMi.Count() > 0)
+                        {
+
+                            <div class="row-fluid" style="margin-top: 30px;">
+                                <div class="span12">
+                                    <div id="table-div" style="display: normal;">
+                                        <table class="table table-striped table-bordered table-hover dataTable data-table" id="@i-datatables" style="table-layout: inherit">
+                                            <thead>
+
+                                                <tr style="background-color:white; border-color :white; ">
+                                                    <th style="width: 3%; border-color :white;">@liste[i].ToString()</th>
+                                                    @if (Model.RaporTipim != 0)
+                                                    {
+                                                        <th style="width: 3%; border-color :white;"></th>
+                                                        <th style="width: 7.6%; border-color :white;">@Model.BaslangicTarihi.Value.ToShortDateString() - @Model.BitisTarihi.Value.ToShortDateString()</th>
+                                                        if (Model.RaporTipim == 1)
+                                                        {
+
+                                                            <th style="width:  5%; border-color :white;">@babonline.PaidInstallmentsList</th>
+                                                        }
+                                                        else if (Model.RaporTipim == 2)
+                                                        {
+                                                            <th style="width:  5%; border-color :white;">@babonline.PartiallyPaidInstallmentsList</th>
+                                                        }
+                                                        else if (Model.RaporTipim == 0)
+                                                        {
+                                                            <th style="width:  5%; border-color :white;">@babonline.ListOfDueInstallments</th>
+                                                        }
+
+                                                    }
+                                                    <th style="width: 5%; border-color :white;"></th>
+                                                    <th style="width: 5%; border-color :white;"></th>
+                                                    <th style="width: 5%; border-color :white;"></th>
+                                                    <th style="width: 2%; border-color :white;"></th>
+                                                    <th style="width: 9.5%; border-color :white;"></th>
+                                                    <th style="width: 8%; border-color :white;"></th>
+                                                    <th style="width: 8%; border-color :white;"></th>
+                                                    <th style="width: 8%; border-color :white;"></th>
+                                                    <th style="width: 8%; border-color :white;"></th>
+                                                    <th style="width: 8%; border-color :white;"></th>
+                                                    @if (Model.AramaTip == 2)
+                                                    {
+                                                        <th style="width: 8%; border-color :white;"></th>
+                                                    }
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+
+                                                <tr>
+                                                    <th style="width: 3%;text-align: center;background-color: #99CCFF !important;">@babonline.ExpiryDate</th>
+                                                    @if (Model.RaporTipim != 0)
+                                                    {
+                                                        <th style="width: 3%;text-align: center;background-color: #99CCFF !important;">@babonline.PaymentDocumentDate</th>
+                                                        <th style="width: 7.6%;text-align: center;background-color: #99CCFF !important;">@babonline.PaymentDocumentNumber</th>
+                                                        <th style="width: 7.6%;text-align: center;background-color: #99CCFF !important;">@babonline.PaymentType</th>
+                                                    }
+                                                    <th style="width: 5%;text-align: center;background-color: #99CCFF !important;">@babonline.PaidAmount</th>
+                                                    @if (Model.RaporTipim == 1)  //ödenmişse
+                                                    {
+                                                        <th style="width: 5%;text-align: center;background-color: #99CCFF !important;">@babonline.PaymentStatus</th>
+                                                    }
+                                                    else
+                                                    {
+                                                        <th style="width: 5%;text-align: center;background-color: #99CCFF !important;">@babonline.RemainingPayment</th>
+                                                    }
+                                                    <th style="width: 5%;text-align: center;background-color: #99CCFF !important;">@babonline.InstallmentAmount</th>
+                                                    <th style="width: 2%;text-align: center;background-color: #99CCFF !important;">@babonline.InstallmentNo</th>
+                                                    <th style="width: 9.5%;text-align: center;background-color: #99CCFF !important;">@babonline.Policy / @babonline.Renewal  / @babonline.Suppl</th>
+                                                    <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.Product_Name</th>
+                                                    <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.Insured_Title</th>
+                                                    <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.TitleOfInsuredBy</th>
+                                                    <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.TUM_Title</th>
+                                                    <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.UserSavedBy</th>
+                                                    @if (Model.AramaTip == 2)
+                                                    {
+                                                        <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.OutsourceName</th>
+                                                    }
+                                                </tr>
+
+                                                @{
+                                                    toplamKalanOdeme = 0;
+                                                    toplamOdenenTutar = 0;
+                                                    toplamTaksitTutari = 0;
+
+                                                    foreach (var item in Model.procedureTahsilatList)
+                                                    {
+                                                        var deneme = liste[i].ToString();
+                                                        if (item.SatisKanaliUnvani == liste[i].ToString() && item.OdenenTutar >= 0)
+                                                        {
+
+                                                            if (!(Model.RaporTipim == 1 && (item.OdemTipi == 5 || item.OdemTipi == 9)))
+                                                            {
+
+                                                                <tr>
+                                                                    @if (item.TaksitVadeTarihi != null)
+                                                                    {
+                                                                        <td style="width: 3%;">@item.TaksitVadeTarihi.Value.ToShortDateString()</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td style="width: 3%;"></td>
+                                                                    }
+                                                                    @if (Model.RaporTipim != 0)
+                                                                    {
+                                                                        if (item.OdemeBelgeTarihi != null)
+                                                                        {
+                                                                            <td style="width: 3%;">@item.OdemeBelgeTarihi.Value.ToShortDateString()</td>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td style="width: 3%;"></td>
+                                                                        }
+                                                                        <th style="width: 10%;">@item.OdemeBelgeNo</th>
+                                                                        if (Model.RaporTipim != 0)
+                                                                        {
+                                                                            switch (item.OdemTipi)
+                                                                            {
+                                                                                case 1:
+                                                                                    <td style="width: 10%;">@babonline.Cash</td>
+                                                                                    break;
+                                                                                case 2:
+                                                                                    <td style="width: 10%;">@babonline.Customer @babonline.Credit_Card</td>
+                                                                                    break;
+                                                                                case 3:
+                                                                                    <td style="width: 10%;">@babonline.Bank_Transfer</td>
+                                                                                    break;
+                                                                                case 4:
+                                                                                    <td style="width: 10%;">@babonline.Check</td>
+                                                                                    break;
+                                                                                case 6:
+                                                                                    <td style="width: 10%;">@babonline.AgencyPosAccount</td>
+                                                                                    break;
+                                                                                case 7:
+                                                                                    <td style="width: 10%;">@babonline.Bond</td>
+                                                                                    break;
+                                                                                default:
+                                                                                    <td style="width: 10%;"></td>
+                                                                                    break;
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td style="width: 10%;"></td>
+                                                                        }
+                                                                    }
+
+
+                                                                    @if (@item.OdenenTutar != 0 && (item.OdemTipi != 5 && item.OdemTipi != 9))
+                                                                    {
+                                                                        <td style="width: 5%;text-align: right">@item.OdenenTutar.Value.ToString("N")</td>
+                                                                        toplamOdenenTutar += item.OdenenTutar;
+                                                                        toplamOdenenTutarGenelToplam += item.OdenenTutar;
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td style="width: 5%;text-align: right">0.00</td>
+                                                                    }
+                                                                    @if (item.KalanTaksitTutari == 0 && item.OdenenTutar == 0)
+                                                                    {
+                                                                        <td style="width: 5%;text-align: right">@item.TaksitTutari.Value.ToString("N")</td>
+                                                                        toplamKalanOdeme += item.TaksitTutari;
+                                                                        toplamKalanOdemeGenelToplam += item.TaksitTutari;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if ((item.OdemTipi == 5 || item.OdemTipi == 9))
+                                                                        {
+                                                                            toplamKalanOdeme += item.TaksitTutari;
+                                                                            toplamKalanOdemeGenelToplam += item.TaksitTutari;
+                                                                            <td style="width: 5%;text-align: right">@item.TaksitTutari.Value.ToString("N")</td>
+                                                                        }
+                                                                        if (item.KalanTaksitTutari == 0 && (item.OdemTipi != 5 && item.OdemTipi != 9))
+                                                                        {
+                                                                            <td style="width: 5%; text-align: center">
+                                                                                Ödendi
+                                                                                <img src="~/Content/img/yesiltik.png" style="width:30%" />
+                                                                            </td>
+                                                                        }
+                                                                        else if (@item.KalanTaksitTutari != null && (item.OdemTipi != 5 && item.OdemTipi != 9))
+                                                                        {
+                                                                            <td style="width: 5%;text-align: right">@item.KalanTaksitTutari.Value.ToString("N")</td>
+                                                                            toplamKalanOdeme += item.KalanTaksitTutari;
+                                                                            toplamKalanOdemeGenelToplam += item.KalanTaksitTutari;
+                                                                        }
+                                                                        else if (@item.KalanTaksitTutari == null && (item.OdemTipi != 5 && item.OdemTipi != 9))
+                                                                        {
+                                                                            <td style="width: 5%;text-align: right">0.00</td>
+                                                                        }
+                                                                    }
+                                                                    @if (@item.TaksitTutari != null)
+                                                                    {
+                                                                        <td style="width: 5%;text-align: right">@item.TaksitTutari.Value.ToString("N")</td>
+                                                                        toplamTaksitTutari += item.TaksitTutari;
+                                                                        toplamTaksitTutariGenelToplam += item.TaksitTutari;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td style="width: 5%;text-align: right">0.00</td>
+                                                                    }
+                                                                    <td style="width: 2%; text-align: center">@item.TaksitNo</td>
+                                                                    <td style="width: 9.5%;">@item.PoliceNo / @item.YenilemeNo / @item.EkNo</td>
+                                                                    <td style="width: 10%;">@item.TUMUrunAdi </td>
+                                                                    <td style="width: 8%;">@item.SigortaliAdi  @item.SigortaliSoyadi</td>
+                                                                    <td style="width: 8%;">@item.SigortaEttirenAdi  @item.SigortaEttirenSoyadi</td>
+                                                                    <td style="width: 10%;">@item.SigortaSirketi </td>
+                                                                    <td style="width: 10%;"></td>
+                                                                    @if (Model.AramaTip == 2)
+                                                                    {
+                                                                        var disKaynak = Model.DisKaynakTvmler.Where(w => w.Value == item.DisKaynakKodu.ToString()).FirstOrDefault();
+                                                                        <td style="width: 10%;">@disKaynak.Text</td>
+                                                                    }
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    }
+                                                    <tr>
+                                                        <td><span style="font-family: 'Adobe Gothic Std';font-size:16px">@babonline.Total:</span></td>
+                                                        @if (Model.RaporTipim != 0)
+                                                        {
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        }
+                                                        @if (toplamOdenenTutar != null)
+                                                        {
+                                                            <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white; text-align: right !important;font-size:14px" class="label label-success">@Convert.ToDecimal(toplamOdenenTutar).ToString("N")</span></td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white; text-align: right !important;font-size:14px" class="label label-success">0.00</span></td>
+                                                        }
+                                                        @if (@toplamKalanOdeme != null)
+                                                        {
+                                                            if (@toplamKalanOdeme == 0)
+                                                            {
+                                                                <td></td>
+                                                            }
+                                                            else
+                                                            {
+
+                                                                <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-important">@Convert.ToDecimal(toplamKalanOdeme).ToString("N")</span></td>
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-important">0.00</span></td>
+                                                        }
+                                                        @if (@toplamTaksitTutari != null)
+                                                        {
+                                                            <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label"> @Convert.ToDecimal(toplamTaksitTutari).ToString("N")    </span></td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label">0.00  </span></td>
+                                                        }
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        @if (Model.AramaTip == 2)
+                                                        {
+                                                            <td></td>
+                                                        }
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    if (Model.procedureTahsilatList != null && Model.procedureTahsilatList.Count > 0)
+                    {
+                        <div class="row-fluid" style="margin-top: 30px;">
+                            <div class="span6">
+                                <div id="GenelToplam-table-div" style="display: normal;">
+                                    <table class="table table-striped table-bordered table-hover dataTable data-table" id="GenelToplam-datatables" style="table-layout: inherit">
+                                        <thead>
+                                            <tr style="background-color:white; border-color :white; ">
+                                                <th style="border-color :white;">@Model.BaslangicTarihi.Value.ToShortDateString() - @Model.BitisTarihi.Value.ToShortDateString()</th>
+                                                @if (Model.AramaTip == 2)
+                                                {
+                                                    <th style="border-color :white;">@babonline.OutsourceInstallmentsOverallTotalList</th>
+                                                }
+                                                else
+                                                {
+                                                    if (Model.RaporTipim == 1)
+                                                    {
+                                                        <th style="border-color :white;">@babonline.PaidInstallments @babonline.OverallTotalList</th>
+                                                    }
+                                                    else if (Model.RaporTipim == 2)
+                                                    {
+                                                        <th style="border-color :white;">@babonline.PartiallyPaidInstallments @babonline.OverallTotalList</th>
+                                                    }
+                                                    else if (Model.RaporTipim == 0)
+                                                    {
+                                                        <th style="border-color :white;">@babonline.DueInstallments @babonline.OverallTotalList</th>
+                                                    }
+                                                }
+                                                <th style="border-color :white;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th style="background-color: #99CCFF !important;">@babonline.PaidAmount</th>
+                                                <th style="background-color: #99CCFF !important;">@babonline.RemainingPayment</th>
+                                                <th style="background-color: #99CCFF !important;">@babonline.InstallmentAmount</th>
+                                            </tr>
+                                            <tr>
+                                                @if (@toplamOdenenTutarGenelToplam != null)
+                                                {
+                                                    <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-success">@Convert.ToDecimal(toplamOdenenTutarGenelToplam).ToString("N")</span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-success">0.00</span></td>
+                                                }
+                                                @if (@toplamKalanOdemeGenelToplam != null)
+                                                {
+                                                    <td style="text-align: right !important"> <span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-important">@Convert.ToDecimal(toplamKalanOdemeGenelToplam).ToString("N")</span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="text-align: right !important"> <span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-important">0.00</span></td>
+                                                }
+                                                @if (@toplamTaksitTutariGenelToplam != null)
+                                                {
+                                                    <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label">@Convert.ToDecimal(toplamTaksitTutariGenelToplam).ToString("N")    </span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label">0.00</span></td>
+                                                }
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    Nullable<decimal> toplamKalanOdemeGenelToplam = 0;
+                    Nullable<decimal> toplamOdenenTutarGenelToplam = 0;
+                    Nullable<decimal> toplamTaksitTutariGenelToplam = 0;
+                    List<string> liste = new List<string>();
+                    //foreach (var item in @Model.procedureTahsilatList)
+                    //{
+                    //    if (item != "multiselect-all")
+                    //    {
+                    //        var tvm = @Model.tvmler.Where(s => s.Value == item.).First();
+                    //        liste.Add(tvm.Text);
+                    //    }
+                    //}
+
+                    //for (int i = 0; i < liste.Count; i++)
+                    //{
+                    //var satisKanaliRaporuVarMi = Model.procedureTahsilatList.Where(s => s.SatisKanaliUnvani == liste[i].ToString()).ToList();
+                    if (Model.procedureTahsilatList != null && Model.procedureTahsilatList.Count > 0)
+                    {
+
+                        <div class="row-fluid" style="margin-top: 30px;">
+                            <div class="span12">
+                                <div id="table-div" style="display: normal;">
+                                    <table class="table table-striped table-bordered table-hover dataTable data-table" id="0-datatables" style="table-layout: inherit">
+                                        <thead>
+
+                                            <tr style="background-color:white; border-color :white; ">
+                                                <th style="width: 3%; border-color :white;"></th>
+                                                @if (Model.RaporTipim != 0)
+                                                {
+                                                    <th style="width: 3%; border-color :white;"></th>
+                                                    <th style="width: 7.6%; border-color :white;">@Model.BaslangicTarihi.Value.ToShortDateString() - @Model.BitisTarihi.Value.ToShortDateString()</th>
+                                                    if (Model.RaporTipim == 1)
+                                                    {
+                                                        <th style="width:  5%; border-color :white;">@babonline.PaidInstallmentsList</th>
+                                                    }
+                                                    else if (Model.RaporTipim == 2)
+                                                    {
+                                                        <th style="width:  5%; border-color :white;">@babonline.PartiallyPaidInstallmentsList</th>
+                                                    }
+                                                    else if (Model.RaporTipim == 0)
+                                                    {
+                                                        <th style="width:  5%; border-color :white;">@babonline.ListOfDueInstallments</th>
+                                                    }
+
+                                                }
+
+                                                <th style="width: 5%; border-color :white;"></th>
+                                                <th style="width: 5%; border-color :white;"></th>
+                                                <th style="width: 5%; border-color :white;"></th>
+                                                <th style="width: 2%; border-color :white;"></th>
+                                                <th style="width: 9.5%; border-color :white;"></th>
+                                                <th style="width: 8%; border-color :white;"></th>
+                                                <th style="width: 8%; border-color :white;"></th>
+                                                <th style="width: 8%; border-color :white;"></th>
+                                                <th style="width: 8%; border-color :white;"></th>
+                                                <th style="width: 8%; border-color :white;"></th>
+                                                @if (Model.AramaTip == 2)
+                                                {
+                                                    <th style="width: 8%; border-color :white;"></th>
+                                                }
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <th style="width: 3%;text-align: center;background-color: #99CCFF !important;">@babonline.ExpiryDate</th>
+                                                @if (Model.RaporTipim != 0)
+                                                {
+                                                    <th style="width: 3%;text-align: center;background-color: #99CCFF !important;">@babonline.PaymentDocumentDate</th>
+                                                    <th style="width: 7.6%;text-align: center;background-color: #99CCFF !important;">@babonline.PaymentDocumentNumber</th>
+                                                    <th style="width: 7.6%;text-align: center;background-color: #99CCFF !important;">@babonline.PaymentType</th>
+
+                                                }
+                                                <th style="width: 5%;text-align: center;background-color: #99CCFF !important;">@babonline.PaidAmount</th>
+                                                @if (Model.RaporTipim == 1)  //ödenmişse
+                                                {
+                                                    <th style="width: 5%;text-align: center;background-color: #99CCFF !important;">@babonline.PaymentStatus</th>
+                                                }
+                                                else
+                                                {
+                                                    <th style="width: 5%;text-align: center;background-color: #99CCFF !important;">@babonline.RemainingPayment</th>
+                                                }
+                                                <th style="width: 5%;text-align: center;background-color: #99CCFF !important;">@babonline.InstallmentAmount</th>
+                                                <th style="width: 2%;text-align: center;background-color: #99CCFF !important;">@babonline.InstallmentNo</th>
+                                                <th style="width: 9.5%;text-align: center;background-color: #99CCFF !important;">@babonline.Policy / @babonline.Renewal / @babonline.Suppl</th>
+                                                <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.Product_Name</th>
+                                                <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.Insured_Title</th>
+                                                <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.TitleOfInsuredBy</th>
+                                                <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.TUM_Title</th>
+                                                <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.UserSavedBy </th>
+                                                @if (Model.AramaTip == 2)
+                                                {
+                                                    <th style="width: 8%;text-align: center;background-color: #99CCFF !important;">@babonline.OutsourceName</th>
+                                                }
+                                            </tr>
+
+                                            @{
+                                                Nullable<decimal> toplamKalanOdeme = 0;
+                                                Nullable<decimal> toplamOdenenTutar = 0;
+                                                Nullable<decimal> toplamTaksitTutari = 0;
+
+                                                foreach (var item in Model.procedureTahsilatList)
+                                                {
+                                                    //var deneme = liste[i].ToString();
+                                                    //if (item.SatisKanaliUnvani == liste[i].ToString() && item.OdenenTutar >= 0)
+                                                    //{
+
+
+                                                    if (!(Model.RaporTipim == 1 && (item.OdemTipi == 5 || item.OdemTipi == 9)))
+                                                    {
+                                                        <tr>
+                                                            @if (item.TaksitVadeTarihi != null)
+                                                            {
+                                                                <td style="width: 3%;">@item.TaksitVadeTarihi.Value.ToShortDateString()</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="width: 3%;"></td>
+                                                            }
+                                                            @if (Model.RaporTipim != 0)
+                                                            {
+                                                                if (item.OdemeBelgeTarihi != null)
+                                                                {
+                                                                    <td style="width: 3%;">@item.OdemeBelgeTarihi.Value.ToShortDateString()</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td style="width: 3%;"></td>
+                                                                }
+                                                                <th style="width: 10%;">@item.OdemeBelgeNo</th>
+                                                                switch (item.OdemTipi)
+                                                                {
+                                                                    case 1:
+                                                                        <td style="width: 10%;">@babonline.Cash</td>
+                                                                        break;
+                                                                    case 2:
+                                                                        <td style="width: 10%;">@babonline.Customer @babonline.Credit_Card</td>
+                                                                        break;
+                                                                    case 3:
+                                                                        <td style="width: 10%;">@babonline.Bank_Transfer</td>
+                                                                        break;
+                                                                    case 4:
+                                                                        <td style="width: 10%;">@babonline.Check</td>
+                                                                        break;
+                                                                    case 5:
+                                                                        <td style="width: 10%;">@babonline.Agency @babonline.Credit_Card</td>
+                                                                        break;
+                                                                    case 6:
+                                                                        <td style="width: 10%;">@babonline.AgencyPosAccount</td>
+                                                                        break;
+                                                                    case 7:
+                                                                        <td style="width: 10%;">@babonline.Bond</td>
+                                                                        break;
+                                                                    case 9:
+                                                                        <td style="width: 10%;">@babonline.Agency @babonline.Individual @babonline.Credit_Card</td>
+                                                                        break;
+                                                                    default:
+                                                                        <td style="width: 10%;"></td>
+                                                                        break;
+                                                                }
+
+                                                            }
+
+                                                            @if (@item.OdenenTutar != null)
+                                                            {
+                                                                <td style="width: 5%;text-align: right">@item.OdenenTutar.Value.ToString("N")</td>
+                                                                toplamOdenenTutar += item.OdenenTutar;
+                                                                toplamOdenenTutarGenelToplam += item.OdenenTutar;
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="width: 5%;text-align: right">0.00</td>
+                                                            }
+                                                            @if (item.KalanTaksitTutari == 0 && item.OdenenTutar == 0)
+                                                            {
+                                                                <td style="width: 5%;text-align: right">@item.TaksitTutari.Value.ToString("N")</td>
+                                                                toplamKalanOdeme += item.TaksitTutari;
+                                                                toplamKalanOdemeGenelToplam += item.TaksitTutari;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (item.KalanTaksitTutari == 0)
+                                                                {
+                                                                    <td style="width: 5%; text-align: center">
+                                                                        Ödendi
+                                                                        <img src="~/Content/img/yesiltik.png" style="width:30%" />
+                                                                    </td>
+                                                                }
+                                                                else if (@item.KalanTaksitTutari != null)
+                                                                {
+                                                                    <td style="width: 5%;text-align: right">@item.KalanTaksitTutari.Value.ToString("N")</td>
+                                                                    toplamKalanOdeme += item.KalanTaksitTutari;
+                                                                    toplamKalanOdemeGenelToplam += item.KalanTaksitTutari;
+                                                                }
+                                                                else if (@item.KalanTaksitTutari == null)
+                                                                {
+                                                                    <td style="width: 5%;text-align: right">0.00</td>
+                                                                }
+                                                            }
+                                                            @if (@item.TaksitTutari != null)
+                                                            {
+                                                                <td style="width: 5%;text-align: right">@item.TaksitTutari.Value.ToString("N")</td>
+                                                                toplamTaksitTutari += item.TaksitTutari;
+                                                                toplamTaksitTutariGenelToplam += item.TaksitTutari;
+                                                            }
+                                                            else
+                                                            {
+                                                                <td style="width: 5%;text-align: right">0.00</td>
+                                                            }
+                                                            <td style="width: 2%; text-align: center">@item.TaksitNo</td>
+                                                            <td style="width: 9.5%;">@item.PoliceNo / @item.YenilemeNo / @item.EkNo</td>
+                                                            <td style="width: 10%;">@item.TUMUrunAdi </td>
+                                                            <td style="width: 8%;">@item.SigortaliAdi  @item.SigortaliSoyadi</td>
+                                                            <td style="width: 8%;">@item.SigortaEttirenAdi  @item.SigortaEttirenSoyadi</td>
+                                                            <td style="width: 10%;">@item.SigortaSirketi </td>
+                                                            <td style="width: 10%;"></td>
+                                                            @if (Model.AramaTip == 2)
+                                                            {
+                                                                var disKaynak = Model.DisKaynakTvmler.Where(w => w.Value == item.DisKaynakKodu.ToString()).FirstOrDefault();
+                                                                <td style="width: 10%;">@disKaynak.Text</td>
+                                                            }
+                                                        </tr>
+                                                    }
+                                                    //}
+                                                }
+                                                <tr>
+                                                    <td><span style="font-family: 'Adobe Gothic Std';font-size:16px">@babonline.Total:</span></td>
+                                                    @if (Model.RaporTipim != 0)
+                                                    {
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+
+                                                    }
+                                                    @if (toplamOdenenTutar != null)
+                                                    {
+                                                        <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white; text-align: right !important;font-size:14px" class="label label-success">@Convert.ToDecimal(toplamOdenenTutar).ToString("N")</span></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white; text-align: right !important;font-size:14px" class="label label-success">0.00</span></td>
+                                                    }
+                                                    @if (@toplamKalanOdeme != null)
+                                                    {
+                                                        if (@toplamKalanOdeme == 0)
+                                                        {
+                                                            <td></td>
+                                                        }
+                                                        else
+                                                        {
+
+                                                            <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-important">@Convert.ToDecimal(toplamKalanOdeme).ToString("N")</span></td>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-important">0.00</span></td>
+                                                    }
+                                                    @if (@toplamTaksitTutari != null)
+                                                    {
+                                                        <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label"> @Convert.ToDecimal(toplamTaksitTutari).ToString("N")    </span></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label">0.00  </span></td>
+                                                    }
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    @if (Model.AramaTip == 2)
+                                                    {
+                                                        <td></td>
+                                                    }
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    //}
+                    if (Model.procedureTahsilatList != null && Model.procedureTahsilatList.Count > 0)
+                    {
+                        <div class="row-fluid" style="margin-top: 30px;">
+                            <div class="span6">
+                                <div id="GenelToplam-table-div" style="display: normal;">
+                                    <table class="table table-striped table-bordered table-hover dataTable data-table" id="GenelToplam-datatables" style="table-layout: inherit">
+                                        <thead>
+                                            <tr style="background-color:white; border-color :white; ">
+                                                <th style="border-color :white;">@Model.BaslangicTarihi.Value.ToShortDateString() - @Model.BitisTarihi.Value.ToShortDateString()</th>
+                                                @if (Model.AramaTip == 2)
+                                                {
+                                                    <th style="border-color :white;">@babonline.OutsourceInstallmentsOverallTotalList</th>
+                                                }
+                                                else
+                                                {
+                                                    if (Model.RaporTipim == 1)
+                                                    {
+                                                        <th style="border-color :white;">@babonline.PaidInstallments @babonline.OverallTotalList</th>
+                                                    }
+                                                    else if (Model.RaporTipim == 2)
+                                                    {
+                                                        <th style="border-color :white;">@babonline.PartiallyPaidInstallments @babonline.OverallTotalList</th>
+                                                    }
+                                                    else if (Model.RaporTipim == 0)
+                                                    {
+                                                        <th style="border-color :white;">@babonline.DueInstallments  @babonline.OverallTotalList</th>
+                                                    }
+                                                }
+                                                <th style="border-color :white;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th style="background-color: #99CCFF !important;">@babonline.PaidAmount</th>
+                                                <th style="background-color: #99CCFF !important;">@babonline.RemainingPayment</th>
+                                                <th style="background-color: #99CCFF !important;">@babonline.InstallmentAmount</th>
+                                            </tr>
+                                            <tr>
+                                                @if (@toplamOdenenTutarGenelToplam != null)
+                                                {
+                                                    <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-success">@Convert.ToDecimal(toplamOdenenTutarGenelToplam).ToString("N")</span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-success">0.00</span></td>
+                                                }
+                                                @if (@toplamKalanOdemeGenelToplam != null)
+                                                {
+                                                    <td style="text-align: right !important"> <span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-important">@Convert.ToDecimal(toplamKalanOdemeGenelToplam).ToString("N")</span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="text-align: right !important"> <span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label label-important">0.00</span></td>
+                                                }
+                                                @if (@toplamTaksitTutariGenelToplam != null)
+                                                {
+                                                    <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label">@Convert.ToDecimal(toplamTaksitTutariGenelToplam).ToString("N")    </span></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="text-align: right !important"><span style="font-family: 'Adobe Gothic Std'; color: white;font-size:14px; text-align: right !important" class="label">0.00</span></td>
+                                                }
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

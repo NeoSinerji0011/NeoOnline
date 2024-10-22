@@ -1,0 +1,41 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@model Neosinerji.BABOnlineTP.Web.Areas.TVM.Models.KullaniciNotDetayModel
+
+<div id="not-detay-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>@babonline.NodeDetails</h3>
+    </div>
+    <div class="modal-body">
+        <form id="not-ekle-form" class="form-horizontal" name="not-ekle-form">
+            <div class="control-group">
+                <label class="control-label">@babonline.Topic </label>
+                <div class="controls">
+                    <label>@Model.Konu </label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Description </label>
+                <div class="controls">
+                    <label>@Html.Raw(Model.Aciklama) </label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Add_Date </label>
+                <div class="controls">
+                    <label>@Model.EklemeTarihi</label>
+                </div>
+                @* <div class="control-group">
+                        <label class="control-label">Bitiş tarihi</label>
+                        <div class="controls">
+                            @Html.DateTextBoxFor(s => s.BitisTarihi, new { style = "width:100px;" })
+                            @Html.ValidationMessageFor(s => s.BitisTarihi)
+                        </div>
+                    </div>*@
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+    </div>
+</div>

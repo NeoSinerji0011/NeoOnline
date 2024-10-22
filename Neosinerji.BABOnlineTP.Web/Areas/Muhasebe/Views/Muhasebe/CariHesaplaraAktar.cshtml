@@ -1,0 +1,159 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Muhasebe.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model CariHesaplaraAktarModel
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="~/Muhasebe/Muhasebe/CariHesaplaraAktar">Poliçeleri CH Aktar<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search..." class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+@section PageStyles{
+    <style type="text/css">
+        .baslikRow:hover {
+            background-color: #99CCFF !important;
+        }
+
+        .baslikRow {
+            background-color: #99CCFF !important;
+        }
+    </style>
+}
+
+@section PageScripts
+{}
+<div class="row-fluid">
+    <div class="portlet box light-grey" style="margin-top: 24px;">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="icon-reorder"></i>
+                <span class="hidden-480">Poliçeleri CH Aktar</span>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            @using (Html.BeginForm("CariHesaplaraAktar", "Muhasebe", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                Html.EnableClientValidation(true);
+                @Html.AntiForgeryToken();
+                @Html.HiddenFor(s => s.TvmKodu)
+                <div class="row-fluid" style="padding-top: 10px;">
+                    <div class="span6">
+                        <h4 class="form-section"></h4>
+                        <div class="control-group">
+                            <label class="control-label">Başlangıç Tanzim Tarihi<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DateTextBoxFor(s => s.TanzimBasTarihi, new { required = "required" })
+                                @Html.ValidationMessageFor(m => m.TanzimBasTarihi)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Bitiş Tanzim Tarihi<span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DateTextBoxFor(s => s.TanzimBitTarihi, new { required = "required" })
+                                @Html.ValidationMessageFor(m => m.TanzimBitTarihi)
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn-success" id="Cari-Aktar" data-loading-text="Cari Hesaplar Aktarılıyor..."><i class="icon-ok">&nbsp;</i>Cari Hesaplara Aktar</button>
+                    <a class="btn" href="~/Muhasebe/Muhasebe/CariHesaplaraAktar">@babonline.Cancel</a>
+                </div>
+            }
+
+            @if (!ViewBag.AktarimYok)
+            {
+                if (Model.returnList != null)
+                {
+                    if (Model.returnList.Count > 0)
+                    {
+                        <div class="row-fluid" style="margin-top: 20px;">
+                            <div class="span12">
+                                <div id="table-div" style="overflow-x: auto; margin-top: 15px;">
+                                    <table class="table table-striped table-bordered table-hover dataTable data-table" style="table-layout: inherit" id="cariHesapTable">
+                                        <thead>
+                                            <tr style="background-color:white; border-color :white; font-style: italic;font-size:18px;">
+                                                <th style="width: auto;"></th>
+                                                <th style="width: auto;"> </th>
+                                                <th style="width: auto;">Cari Hesap Aktarım Hata Listesi </th>
+                                                <th style="width: auto;"></th>
+                                                <th style="width: auto;"></th>
+                                                <th style="width: auto;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="baslikRow">
+                                                <th style="width: auto;">Satış Kanalı Ünvanı </th>
+                                                <th style="width: auto;">Cari Hesap </th>
+                                                <th style="width: auto;">Dönem</th>
+                                                <th style="width: auto;">Poliçe/Yenileme/Ek No</th>
+                                                <th style="width: auto;">Sigorta Şirketi</th>
+                                                <th style="width: auto;">Mesaj</th>
+                                            </tr>
+                                            @foreach (var item in Model.returnList)
+                                            {
+                                                <tr>
+                                                    <td style="width: 6%;"> @item.TvmUnvan </td>
+                                                    <td style="width: 6%;"> @item.CariHesapKodu </td>
+                                                    <td style="width: 6%;"> @item.Donem </td>
+                                                    <td style="width: 6%;">@item.PoliceNo / @item.YenilemeNo / @item.EkNo  </td>
+                                                    <td style="width: 6%;"> @item.SigortaSirketUnvan </td>
+                                                    <td style="width: 6%;"> @item.Mesaj</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+                        if (ViewBag.IslemBasarili != null)
+                        {
+                            <div class="row-fluid" style="margin-top: 20px; font-size:16px; color:#e73626;">
+                                @ViewBag.AktarimKaydiMesaj
+                            </div>
+                        }
+
+
+                    }
+                }
+            }
+            else
+            {
+                <div class="row-fluid" style="margin-top: 20px; font-size:16px; color:#e73626;">
+                    @ViewBag.AktarimKaydiMesaj
+                </div>
+            }
+            
+        </div>
+
+    </div>
+</div>

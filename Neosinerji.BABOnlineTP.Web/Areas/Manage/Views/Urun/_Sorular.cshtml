@@ -1,0 +1,27 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model UrunModel
+
+<table id="sorular-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 100px;">@babonline.Question_Code</th>
+            <th>@babonline.Question_Name</th>
+            <th>@babonline.Question_Answer_Type</th>
+            <th style="width: 30px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Sorulari)
+        {
+            <tr>
+                <td>@item.SoruKodu</td>
+                <td>@item.SoruAdi</td>
+                <td>@SoruTipProvider.SoruCevapTipiText(item.SoruCevapTipi)</td>
+                <td>
+                    <a href="javascript:void(0)" soru-kodu="@item.SoruKodu" urun-kodu="@Model.UrunKodu" class="btn btn-mini btn-danger delete-soru">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="PoliceListesi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="acenteNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="baslangicBrans" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bitisBrans" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="baslangicTarihi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bitisTarihi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PoliceListesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PoliceListesiResult" type="tns:GeriyePoliceTransferCevap" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="GeriyePoliceTransferCevap">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ServisCevap">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Policeler">
+                <s:complexType mixed="true">
+                  <s:sequence>
+                    <s:any />
+                  </s:sequence>
+                </s:complexType>
+              </s:element>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ServisCevap">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Hata" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Basarili" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TekPolice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="acenteNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="brans" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="policeNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tecditNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="zeyilNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TekPoliceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TekPoliceResult" type="tns:GeriyePoliceTransferCevap" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GeriyePoliceTransferCevap" nillable="true" type="tns:GeriyePoliceTransferCevap" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="PoliceListesiSoapIn">
+    <wsdl:part name="parameters" element="tns:PoliceListesi" />
+  </wsdl:message>
+  <wsdl:message name="PoliceListesiSoapOut">
+    <wsdl:part name="parameters" element="tns:PoliceListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="TekPoliceSoapIn">
+    <wsdl:part name="parameters" element="tns:TekPolice" />
+  </wsdl:message>
+  <wsdl:message name="TekPoliceSoapOut">
+    <wsdl:part name="parameters" element="tns:TekPoliceResponse" />
+  </wsdl:message>
+  <wsdl:message name="PoliceListesiHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="acenteNo" type="s:string" />
+    <wsdl:part name="baslangicBrans" type="s:string" />
+    <wsdl:part name="bitisBrans" type="s:string" />
+    <wsdl:part name="baslangicTarihi" type="s:string" />
+    <wsdl:part name="bitisTarihi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PoliceListesiHttpGetOut">
+    <wsdl:part name="Body" element="tns:GeriyePoliceTransferCevap" />
+  </wsdl:message>
+  <wsdl:message name="TekPoliceHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="acenteNo" type="s:string" />
+    <wsdl:part name="brans" type="s:string" />
+    <wsdl:part name="policeNo" type="s:string" />
+    <wsdl:part name="tecditNo" type="s:string" />
+    <wsdl:part name="zeyilNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TekPoliceHttpGetOut">
+    <wsdl:part name="Body" element="tns:GeriyePoliceTransferCevap" />
+  </wsdl:message>
+  <wsdl:message name="PoliceListesiHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="acenteNo" type="s:string" />
+    <wsdl:part name="baslangicBrans" type="s:string" />
+    <wsdl:part name="bitisBrans" type="s:string" />
+    <wsdl:part name="baslangicTarihi" type="s:string" />
+    <wsdl:part name="bitisTarihi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PoliceListesiHttpPostOut">
+    <wsdl:part name="Body" element="tns:GeriyePoliceTransferCevap" />
+  </wsdl:message>
+  <wsdl:message name="TekPoliceHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="acenteNo" type="s:string" />
+    <wsdl:part name="brans" type="s:string" />
+    <wsdl:part name="policeNo" type="s:string" />
+    <wsdl:part name="tecditNo" type="s:string" />
+    <wsdl:part name="zeyilNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TekPoliceHttpPostOut">
+    <wsdl:part name="Body" element="tns:GeriyePoliceTransferCevap" />
+  </wsdl:message>
+  <wsdl:portType name="AcenteBilgiServisleriSoap">
+    <wsdl:operation name="PoliceListesi">
+      <wsdl:input message="tns:PoliceListesiSoapIn" />
+      <wsdl:output message="tns:PoliceListesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TekPolice">
+      <wsdl:input message="tns:TekPoliceSoapIn" />
+      <wsdl:output message="tns:TekPoliceSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AcenteBilgiServisleriHttpGet">
+    <wsdl:operation name="PoliceListesi">
+      <wsdl:input message="tns:PoliceListesiHttpGetIn" />
+      <wsdl:output message="tns:PoliceListesiHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TekPolice">
+      <wsdl:input message="tns:TekPoliceHttpGetIn" />
+      <wsdl:output message="tns:TekPoliceHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AcenteBilgiServisleriHttpPost">
+    <wsdl:operation name="PoliceListesi">
+      <wsdl:input message="tns:PoliceListesiHttpPostIn" />
+      <wsdl:output message="tns:PoliceListesiHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TekPolice">
+      <wsdl:input message="tns:TekPoliceHttpPostIn" />
+      <wsdl:output message="tns:TekPoliceHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AcenteBilgiServisleriSoap" type="tns:AcenteBilgiServisleriSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PoliceListesi">
+      <soap:operation soapAction="http://tempuri.org/PoliceListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TekPolice">
+      <soap:operation soapAction="http://tempuri.org/TekPolice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AcenteBilgiServisleriSoap12" type="tns:AcenteBilgiServisleriSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PoliceListesi">
+      <soap12:operation soapAction="http://tempuri.org/PoliceListesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TekPolice">
+      <soap12:operation soapAction="http://tempuri.org/TekPolice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AcenteBilgiServisleriHttpGet" type="tns:AcenteBilgiServisleriHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="PoliceListesi">
+      <http:operation location="/PoliceListesi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TekPolice">
+      <http:operation location="/TekPolice" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AcenteBilgiServisleriHttpPost" type="tns:AcenteBilgiServisleriHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="PoliceListesi">
+      <http:operation location="/PoliceListesi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TekPolice">
+      <http:operation location="/TekPolice" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AcenteBilgiServisleri">
+    <wsdl:port name="AcenteBilgiServisleriSoap" binding="tns:AcenteBilgiServisleriSoap">
+      <soap:address location="http://www.dogasigortaportal.com/WebServisleri/AcenteBilgiServisleri.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AcenteBilgiServisleriSoap12" binding="tns:AcenteBilgiServisleriSoap12">
+      <soap12:address location="http://www.dogasigortaportal.com/WebServisleri/AcenteBilgiServisleri.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AcenteBilgiServisleriHttpGet" binding="tns:AcenteBilgiServisleriHttpGet">
+      <http:address location="http://www.dogasigortaportal.com/WebServisleri/AcenteBilgiServisleri.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AcenteBilgiServisleriHttpPost" binding="tns:AcenteBilgiServisleriHttpPost">
+      <http:address location="http://www.dogasigortaportal.com/WebServisleri/AcenteBilgiServisleri.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,148 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.NipponSeyehatSaglikGenelBilgiler
+
+<script>
+    $("#Sigortalilar_SigortaliList_0__Adi").removeClass("disabled");
+</script>
+<script>
+    $(document).ready(function () {
+        $("#GenelBilgiler_SeyehatBaslangicTarihi").mask("99.99.9999");
+        $("#GenelBilgiler_SeyehatBitisTarihi").mask("99.99.9999");
+        $(".NumbersValue").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl+A,Ctrl+C,Ctrl+V, Command+A
+                ((e.keyCode == 65 || e.keyCode == 86 || e.keyCode == 67 || e.keyCode == 90 || e.keyCode == 22) && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right, down, up
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            @*<label class="control-label">@babonline.OneOfPolicyholdersInsured</label>*@
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.SigortaEttirenSigortalilardanBirimi, new string[] { "EVET", "HAYIR" }, new { style = "display: none" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.SkiDeposit</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.KayakTeminati, new string[] { "EVET", "HAYIR" }, new { })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.TravelStartDate<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(m => m.SeyehatBaslangicTarihi, new { })
+                @Html.ValidationMessageFor(m => m.SeyehatBaslangicTarihi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.TravelEndDate<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(m => m.SeyehatBitisTarihi, new { style = "width:100px" })
+                @Html.ValidationMessageFor(m => m.SeyehatBitisTarihi)
+            </div>
+        </div>
+        @*<div class="control-group" style="display:none">
+                <label class="control-label">@babonline.UserCount<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.KisiSayisi, Model.KisiSayilari, new { style = "width:90%"})
+                    @Html.ValidationMessageFor(m => m.KisiSayisi)
+                </div>
+            </div>*@
+        @*<div class="control-group sigortali-ailedenmi" style="display: none">
+                <label class="control-label">@babonline.InsuredFamily<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.SigortalilarAilemi, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>*@
+    </div>
+</div>
+
+<div class="row-fluid" id="nippon-ozel">
+    <h3 class="form-section">Türk Nippon Sigortaya Özel Alanlar</h3>
+</div>
+
+
+<div class="row-fluid">
+
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">Seyahat Tipi<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.SelectedIsDomestic, new SelectList(Model.IsDomesticList, "Value", "Text"), "Lütfen Seçim Yapınız", new { @Id = "nipponIsDomesticList" })
+                @Html.ValidationMessageFor(m => m.SelectedIsDomestic)
+            </div>
+        </div>
+        <div class="control-group" id="nipponPlanCodeDiv" style="display:none">
+            <label class="control-label">Plan Kodu<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.SelectedPlanCode, new SelectList(Model.PlanCodeList, "Value", "Text"), "Lütfen Seçim Yapınız", new { @Id = "nipponPlanCodeList" })
+                @Html.ValidationMessageFor(m => m.SelectedPlanCode)
+            </div>
+        </div>
+        <div class="control-group" id="nipponScopeDiv" style="display:none">
+            <label class="control-label">Kapsam<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.SelectedScope, new SelectList(Model.ScopeList, "Value", "Text"), "Lütfen Seçim Yapınız", new { @Id = "nipponScopeList" })
+                @Html.ValidationMessageFor(m => m.SelectedScope)
+            </div>
+        </div>
+        <div class="control-group" id="nipponAlternativeDiv" style="display:none">
+            <label class="control-label">Alternatif<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.SelectedAlternative, new SelectList(Model.AlternativeList, "Value", "Text"), "Lütfen Seçim Yapınız", new { @Id = "nipponAlternativeList" })
+                @Html.ValidationMessageFor(m => m.SelectedAlternative)
+            </div>
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="control-group" id="nipponCountryDiv" style="display:none">
+            <label class="control-label">Ülke<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.SelectedCountry, new SelectList(Model.CountryList, "Value", "Text"), new { @Id = "nipponCountryList" })
+                @Html.ValidationMessageFor(m => m.SelectedCountry)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Bugünkü döviz kuru : @Model.DovizKuru TRY / EUR</label>
+        </div>
+    </div>
+    <input type="hidden" id="exchangeRate" value="@Model.DovizKuru">
+
+
+</div>
+<div id="nipponProgress" style="padding-bottom: 20px; display: none;">
+    <div style="font-size: 11PX; margin: 20px auto; width: 50%; text-align: center;">
+        <h4>Lütfen bekleyin, Türk Nippon Alanları Yükleniyor..</h4>
+    </div>
+    <div style="margin: 20px auto; width: 500px; text-align: center;">
+        <img src="/Content/img/loading9.gif" width="32" height="32" title="Lütfen bekleyin, Türk Nippon Alanları Yükleniyor.." alt="Lütfen bekleyin, Türk Nippon Alanları Yükleniyor..">
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

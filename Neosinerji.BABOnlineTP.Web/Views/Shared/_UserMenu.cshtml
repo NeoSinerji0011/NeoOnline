@@ -1,0 +1,355 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web
+@using Neosinerji.BABOnlineTP.Business.Common
+
+@{
+    var projekodu = ViewBag.ProjeKodu;
+    var skypeCount = 0;// ViewBag.AcenteKullanicilari.list.Count;
+}
+
+<style>
+    .badge {
+        background-color: #E02222;
+        border-radius: 12px 12px 12px 12px !important;
+        font-size: 11px !important;
+        font-weight: 300;
+        height: 14px;
+        padding: 2px 6px;
+        position: absolute;
+        right: 24px;
+        text-align: center;
+        text-shadow: none !important;
+        top: 8px;
+        margin-top: 3px;
+        margin-right: -3px;
+    }
+</style>
+
+
+<script>
+    $(".user-skype").live("click", function () {
+        var kullanici = {
+            AdiSoyadi: $(this).attr("adisoyadi"),
+            ImageUrl: $(this).attr("imageurl"),
+            SkypeAdres: $(this).attr("skypeadres"),
+            Yetki: $(this).attr("yetki"),
+            Telefon: $(this).attr("telefon"),
+            TvmUnvani: $(this).attr("tvmunvani")
+        }
+        $("#acente-kullanicisi-mesaj").modal("show");
+        $("#user-modal-image").attr("src", kullanici.ImageUrl);
+        $("#yetkisi").html(kullanici.Yetki);
+        $("#adisoyadi").html(kullanici.AdiSoyadi);
+        $("#telefon").html(kullanici.Telefon);
+        $("#tvmunvani").html(kullanici.TvmUnvani);
+        $("#skype-call").attr("href", ("skype:" + kullanici.SkypeAdres + "?call"));
+        $("#skype-chat").attr("href", ("skype:" + kullanici.SkypeAdres + "?chat"));
+    });
+
+
+    $(document).ready(function () {
+        setTimeout(function () {
+            var scroolDiv = $("#acente-kullanicilari").children("li")
+                .children(".slimScrollDiv");
+            scroolDiv.attr("style", "position: relative; overflow: hidden; width: auto; height: auto; max-height:250px;");
+            scroolDiv.children("ul").attr("style", "overflow: hidden; width: auto; max-height: 250px; height: auto;")
+        }, 1000);
+    });
+</script>
+
+<ul class="nav pull-right">
+    <li class="dropdown" id="header_task_bar">
+        @if (ViewBag.SonGirisTarihi != null)
+        {<span class="badge">@babonline.LastLogin : @ViewBag.SonGirisTarihi</span>}
+    else
+    { <span class="badge">Son giriş : @TurkeyDateTime.Now</span>}
+
+    </li>
+
+    @if (projekodu != TVMProjeKodlari.Mapfre)
+    {
+        if (skypeCount > 0)
+        {
+            <!-- BEGIN INBOX DROPDOWN -->
+            <li class="dropdown" id="header_inbox_bar">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <i class="icon-user"></i>
+
+                    <span class="badge">@skypeCount</span>
+                </a>
+                <ul class="dropdown-menu extended inbox" id="acente-kullanicilari">
+                    <li>
+                        <ul class="dropdown-menu-list scroller" style="overflow: hidden; width: auto; height: auto !important; max-height: 250px;">
+                            @if (ViewBag.AcenteKullanicilari != null)
+                            {
+                                foreach (var user in ViewBag.AcenteKullanicilari.list)
+                                {
+                                    <li>
+                                        <a href="javascript:;" class="user-skype" telefon="@user.Telefon" yetki="@user.Yetki" skypeadres="@user.SkypeNumarasi" adisoyadi="@user.AdiSoyadi" imageurl="@user.FotoURL" tvmunvani="@user.TVMUnvani" style="width: 100%">
+                                            <span class="photo">
+                                                <img src="@user.FotoURL" alt="@user.AdiSoyadi" width="45px;" height="45px;" style="width:45px; height:45px;" />
+                                            </span>
+                                            <span class="subject">
+                                                <span class="from">@user.AdiSoyadi</span>
+                                                <span class="message">
+                                                    @user.Yetki
+                                            </span>
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                        }
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        }
+        <!-- END INBOX DROPDOWN -->
+    }
+
+    <!-- BEGIN LANGUAGE DROPDOWN -->
+    <li class="dropdown language">
+        @if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "en")
+        {
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <img alt="" src="~/Content/img/us.png" />
+                <span class="username">EN</span>
+                <i class="icon-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.es, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/es.png" />
+                        Español
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.fr, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/fr.png" />
+                        Français
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.it, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/it.png" />
+                        Italiano
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.tr, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/tr.png" />
+                        Turkish
+                    </a>
+                </li>
+            </ul>
+        }
+        else if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "tr")
+        {
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <img alt="" src="~/Content/img/tr.png" />
+                <span class="username">TR</span>
+                <i class="icon-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.en, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/us.png" />
+                        English
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.es, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/es.png" />
+                        Español
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.fr, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/fr.png" />
+                        Français
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.it, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/it.png" />
+                        Italiano
+                    </a>
+                </li>
+            </ul>
+        }
+        else if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "it")
+        {
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <img alt="" src="~/Content/img/it.png" />
+                <span class="username">IT</span>
+                <i class="icon-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.en, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/us.png" />
+                        English
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.es, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/es.png" />
+                        Español
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.fr, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/fr.png" />
+                        Français
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.tr, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/tr.png" />
+                        Turkish
+                    </a>
+                </li>
+            </ul>
+        }
+        else if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "fr")
+        {
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <img alt="" src="~/Content/img/fr.png" />
+                <span class="username">FR</span>
+                <i class="icon-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.en, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/us.png" />
+                        English
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.es, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/es.png" />
+                        Español
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.it, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/it.png" />
+                        Italiano
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.tr, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/tr.png" />
+                        Turkish
+                    </a>
+                </li>
+            </ul>
+        }
+        else if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "es")
+        {
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                <img alt="" src="~/Content/img/es.png" />
+                <span class="username">ES</span>
+                <i class="icon-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.en, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/us.png" />
+                        English
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.fr, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/fr.png" />
+                        Français
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.it, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/it.png" />
+                        Italiano
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { area = "", lang = Neosinerji.BABOnlineTP.Web.Models.Culture.tr, returnUrl = this.Request.RawUrl })">
+                        <img alt="" src="~/Content/img/tr.png" />
+                        Turkish
+                    </a>
+                </li>
+            </ul>
+        }
+    </li>
+    <!-- END LANGUAGE DROPDOWN -->
+    <!-- BEGIN USER LOGIN DROPDOWN -->
+    <li class="dropdown user">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <img alt="" width="28px;" height="32px;" style="width:28px; height: 32px;" src="@ViewBag.Kullanici.FotografURL" />
+            <span class="username">
+                @if (ViewBag.Kullanici != null && ViewBag.Kullanici.AdiSoyadi != null)
+                {
+                    @ViewBag.Kullanici.AdiSoyadi
+                }
+            </span>
+            <i class="icon-angle-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            @if (ViewBag.Kullanici.AdiSoyadi != null)
+            {
+                <li><a href="/TVM/PRofil/Detay/@ViewBag.Kullanici.KullaniciKodu"><i class="icon-user"></i>&nbsp;@babonline.MyProfile</a></li>
+                <li class="divider"></li>
+                <li>@*<a href="javascript:document.getElementById('logoutForm').submit()"><i class="icon-off"></i>&nbsp;@babonline.Logoff</a>*@</li>
+                <li><a href="#" onclick="oturumkapat()"><i class="icon-off"></i>&nbsp;@babonline.Logoff</a></li>
+            }
+        </ul>
+    </li>
+    <!-- END USER LOGIN DROPDOWN -->
+</ul>
+
+@*<form action="~/Account/LogOff" id="logoutForm" method="post">
+    @Html.AntiForgeryToken()
+</form>*@
+@using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
+{
+    @Html.AntiForgeryToken()
+    <button style="display:none">x</button>
+}
+<script>
+    function oturumkapat() {
+        $("#logoutForm button")[0].click();
+    }
+</script>
+
+<div id="acente-kullanicisi-mesaj" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>Acente Kullanicisi</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row-fluid">
+            <div class="tab-pane profile-classic row-fluid active">
+                <div class="span2">
+                    <img src="~/Content/img/avatar.png" id="user-modal-image" width="60px;" height="60px;" style="width: 60px; height: 60px;" />
+
+                </div>
+                <ul class="unstyled span10">
+                    <li><span class="span3" style="">@babonline.TVM_Name</span><span class="span7" id="tvmunvani"></span></li>
+                    <li><span class="span3" style="">@babonline.NameLastname </span><span class="span7" id="adisoyadi"></span></li>
+                    <li><span class="span3">@babonline.Authority </span><span class="span7" id="yetkisi"></span></li>
+                    <li><span class="span3">@babonline.Phone</span><span class="span7" id="telefon"></span></li>
+                    <li>
+                        <span class="span3">@babonline.Contact :</span>
+                        <ul class="social-icons ">
+                            <li><a id="skype-call" href="skype:echo123?call" title="Call" data-original-title="skype" class="skype"></a></li>
+                            <li><a id="skype-chat" href="skype:echo123?chat" title="Chat" data-original-title="skype" class="skype"></a></li>
+                            <li><a href="javascript:;" data-original-title="linkedin" class="linkedin"></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+    </div>
+</div>

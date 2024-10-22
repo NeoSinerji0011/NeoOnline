@@ -1,0 +1,15 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@model IsYeriNotModel
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.Node</label>
+            <div class="controls ">
+                @Html.TextAreaFor(m => m.Not, new { style= "width:90%;" })
+               
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,221 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.NeoConnectSirketYetkileriListModel
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/TVM/NeoConnectSirketYetkiListe">NeoConnect Sigorta Şirketi Yetki listesi<span></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageScripts
+{
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    <script type="text/javascript">
+
+        $("#TUMKodu").change(function () {
+            //Anadolu Sigorta ise Swap Kullanıcı Bilgi Giriş Ekranı açılıyor
+            if ($(this).val() == 4) {
+                $("#anadolu-ozel").show();
+            }
+            else {
+                $("#anadolu-ozel").hide();
+            }
+        });
+        $(document).ready(function () {
+            $("[rel=tooltip]").tooltip();
+
+            //Tvm listesini Dolduruyor....
+            var tvm = $("#TVMKodu").tvmfinder();
+            tvm.enable();
+            $(".closed").hide();
+
+        });
+
+        //NeoConnect tvmlere S.şirketi ekleme - silme işlemleri
+
+        $("#neoconnecttvmsirket-ekle").click(function () {
+            var tvmkodu = $("#TVMKodu").val();
+            $.get("/Manage/TVM/NeoConnectTvmSigortaSirketEkle",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#neokullanicitvmsirketekle-modal-div").html(data);
+                    $.validator.unobtrusive.parse("#neokullanicitvmsirketekle-modal-div");
+                    $("#neoconnecttvmsirket-modal").modal('show');
+                },
+                "html");
+        });
+        $("#neotvmsirketkullanici-ekle-btn").live("click", function () {
+            $("#neoconnecttvmsirketkullanici-ekle-form").validate().form();
+            if ($("#neoconnecttvmsirketkullanici-ekle-form").valid()) {
+                var formData = $("#neoconnecttvmsirketkullanici-ekle-form").serialize();
+                $.post("/Manage/TVM/NeoConnectTvmSigortaSirketEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#neoconnecttvmsirket-modal").modal('hide'); }
+                        else {
+                            $("#neoconnecttvmsirket-modal").modal('hide');
+                            $("#neokullanicitvmsirketekle-modal-div").html(data);
+                            $("#neoconnecttvmsirket-modal").modal('show');
+                        }
+                        viewNeoConnectTvmSirketKullanici();
+                    }, "html");
+            }
+        });
+
+        $(".delete-neotvmsirket").live("click", function () {
+            var TVMKodu = $(this).attr("tvm-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TVM/NeoConnectTvmSigortaSirketSil",
+                    { tvmKodu: TVMKodu, tumKodu: TUMKodu },
+                    function (data) {
+                        $("#delete-confirmation").modal('hide');
+                        $("#neoconnecttvmsirket-container").html(data);
+                    });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+        $(".edit-neotvmsirket").live("click", function () {
+            var id = $(this).attr("kayit-id");
+
+            $.get("/Manage/TVM/NeoConnectTvmSigortaSirketGuncelle",
+                { Id: id },
+                function (data) {
+                    $("#neokullanicitvmsirketekle-modal-div").html(data);
+                    $.validator.unobtrusive.parse("#neokullanicitvmsirketekle-modal-div");
+                    $("#neoconnecttvmsirket-modal").modal('show');
+                    if ($("#TUMKodu").val() == 4) {
+                        $("#anadolu-ozel").show();
+                    }
+                    else {
+                        $("#anadolu-ozel").hide();
+                    }
+                },
+                "html");
+        });
+        $("#neotvmsirketikullanici-guncelle-btn").live("click", function () {
+            $("#neoconnecttvmsirketkullanici-ekle-form").validate().form();
+            if ($("#neoconnecttvmsirketkullanici-ekle-form").valid()) {
+                var formData = $("#neoconnecttvmsirketkullanici-ekle-form").serialize();
+                $.post("/Manage/TVM/NeoConnectTvmSigortaSirketGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#neoconnecttvmsirket-modal").modal('hide'); }
+                        else {
+                            $("#neoconnecttvmsirket-modal").modal('hide');
+                            $("#neokullanicitvmsirketekle-modal-div").html(data);
+                            $("#neoconnecttvmsirket-modal").modal('show');
+                        }
+                        viewNeoConnectTvmSirketKullanici();
+                    }, "html");
+            }
+        });
+
+        $("#delete-yetki").live("click", (function () {
+            var id = $(this).attr("kayit-id");
+            var tvmKodu = $("#TVMKodu").val();
+
+            $.post("/Manage/TVM/NeoConnectDeleteSirketSifreYetki/",
+                { id: id, tvmKodu: tvmKodu },
+                function (data) {
+                    location.reload();
+
+                });
+
+        }));
+    </script>
+}
+
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>NeoConnect Sigorta Şirketi Yetki listesi</div>
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("NeoConnectSirketYetkiListe", "TVM", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TVM_Code <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.TVMKodu, Model.TVMListesi)
+                            @Html.ValidationMessageFor(m => m.TVMKodu)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+            <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Search</button>
+
+        }
+        <div class="row-fluid">
+            <label><a id="neoconnecttvmsirket-ekle" href="#" data-toggle="modal" class="btn btn-success">@babonline.Add</a></label>
+
+            @* NeoConnect tvm s.şirket kullanıcıları Burada Ekleniyor
+                <div class="row-fluid">
+                    <div class="span12" id="neoconnecttvmsirket-container">
+                        @Html.Partial("_NeoConnectTvmSigortaSirketi", Model.NeoConnectTvmSigortaSirketiKullanicilari)
+                    </div>
+                </div> *@
+        </div>
+        <div class="row-fluid" style="margin-top: 2%;">
+            <table id="neoconnecttvmsirketkullanicilari-table" class="table table-bordered table-striped responsive data-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">@babonline.TVM_Code</th>
+                        <th style="width: 20%;">@babonline.TVM</th>
+                        <th style="width: 20%;">@babonline.TUM_Title</th>
+                        <th style="width: 10%;">Durum</th>
+                        <th style="width: 50px;">&nbsp;</th>
+                        <th style="width: 40px;">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.sirketYetkliList.Count > 0)
+                    {
+                        foreach (var item in Model.sirketYetkliList)
+                        {
+                            <tr>
+                                <td>@item.TVMKodu</td>
+                                <td>@item.TVMUnvan</td>
+                                <td>@item.TUMUnvan</td>
+                                <td>@item.Durum</td>
+                                <td style="text-align: center;">
+                                    <a href="javascript:void(0)" kayit-id="@item.Id" class="btn btn-mini btn-info edit-neotvmsirket">@babonline.Edit</a>
+                                </td>
+                                <td style="text-align: center;">
+                                    <a href="javascript:void(0)" kayit-id="@item.Id" id="delete-yetki" class="btn btn-mini btn-danger">@babonline.Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@*NeoConnect tvm S.şirketi Ekleme*@
+<div id="neokullanicitvmsirketekle-modal-div"></div>

@@ -1,0 +1,66 @@
+﻿@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="~/Muhasebe/Muhasebe/CariHesaplaraAktar">Poliçeleri CH Aktar<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="ara" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+@section PageStyles{
+    <style type="text/css">
+        .baslikRow:hover {
+            background-color: #99CCFF !important;
+        }
+
+        .baslikRow {
+            background-color: #99CCFF !important;
+        }
+    </style>
+}
+
+@section PageScripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#btn-cariAktar").click(function () {
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Muhasebe/Muhasebe/CariHesaplariYarat",
+                       
+                        success: function (data) {
+                        },
+                        error: function () {
+                        }
+                    });
+            });
+            setTimeout(function () { $("#btn-cariAktar").trigger("click"); }, 10000);          
+            window.setInterval(function () {
+                $("#btn-cariAktar").trigger("click");
+            }, 30000);
+        });
+    </script>
+}
+    <div>
+        
+        <a id="btn-cariAktar" class="btn green button-submit" href="javascript:;" data-loading-text="">
+            Cari Hesaplara Aktar <i class="m-icon-swapright m-icon-white"></i>
+        </a>
+    </div>

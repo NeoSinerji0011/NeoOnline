@@ -1,0 +1,94 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.TESabitPrimliEkTeminatlar
+
+
+<div class="span6">
+
+    <div class="control-group">
+        <label class="control-label">@babonline.Critical_illness_Coverage</label>
+        <div class="controls">
+            @Html.SwitchButtonFor(m => m.KritikHastaliklar, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small" })
+            <div class="input-append tutar" id="kritik-hastalik">
+                @Html.TextBoxFor(m => m.KritikHastaliklarSigortaBedeli, new { @class = "m-wrap autoNumeric", placeholder = "15", style = "width:90px; text-align:right" })<span class="add-on"> %</span>
+            </div>
+            @Html.ValidationMessageFor(s => s.KritikHastaliklarSigortaBedeli)
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">@babonline.Disability_Annual_Support</label>
+        <div class="controls">
+            @Html.SwitchButtonFor(m => m.MaluliyetYillikDestek, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small" })
+            <div class="input-append tutar" id="maluliyet-yillik-destek">
+                @Html.TextBoxFor(m => m.MaluliyetYillikDestekSigortaBedeli, new { @class = "m-wrap autoNumeric", placeholder = "15", style = "width:90px; text-align:right" })
+                <span class="add-on">%</span>
+            </div>
+            @Html.ValidationMessageFor(s => s.MaluliyetYillikDestekSigortaBedeli)
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">@babonline.Full_Permanent_Disability_Benefit</label>
+        <div class="controls">
+            @Html.SwitchButtonFor(m => m.TamVeDaimiMaluliyet, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small" })
+            <div class="input-append tutar" id="tam-ve-daimi-maluliyet">
+                @Html.TextBoxFor(m => m.TamVeDaimiMaluliyetSigortaBedeli, new { @class = "m-wrap autoNumeric", placeholder = "15", style = "width:90px; text-align:right" })
+                <span class="add-on">%</span>
+            </div>
+            @Html.ValidationMessageFor(s => s.TamVeDaimiMaluliyetSigortaBedeli)
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">@babonline.Accidental_Death_Benefit</label>
+        <div class="controls">
+            @Html.SwitchButtonFor(m => m.KazaSonucuVefat, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small" })
+            <div class="input-append tutar" id="kaza-sonucu-vefat">
+                @Html.TextBoxFor(m => m.KazaSonucuVefatSigortaBedeli, new { @class = "m-wrap autoNumeric", placeholder = "15", style = "width:90px; text-align:right" })
+                <span class="add-on">%</span>
+            </div>
+            @Html.ValidationMessageFor(s => s.KazaSonucuVefatSigortaBedeli)
+        </div>
+    </div>
+
+</div>
+<div class="span6">
+
+    <div class="control-group">
+        <label class="control-label">@babonline.Accidental_Death_in_Public_Transportation</label>
+        <div class="controls">
+            @Html.SwitchButtonFor(m => m.TopluTasimaAraclariKSV, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small" })
+            <div class="input-append tutar" id="toplu-tasima-araclari">
+                @Html.TextBoxFor(m => m.TopluTasimaAraclariKSVSigortaBedeli, new { @class = "m-wrap autoNumeric", placeholder = "15", style = "width:90px; text-align:right" })
+                <span class="add-on">%</span>
+            </div>
+            @Html.ValidationMessageFor(s => s.TopluTasimaAraclariKSVSigortaBedeli)
+        </div>
+    </div>
+
+
+    <!-- YENİ EK TEMİNATLAR-->
+    <div class="control-group">
+        <label class="control-label">@babonline.Accidental_Medical_Expenses_Additional_Coverage</label>
+        <div class="controls">
+            @Html.SwitchButtonFor(m => m.KazaSonucu_TedaviMasraflari, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small" })
+            <div class="input-append tutar" id="kaza-sonucu-tedavi-masraflari">
+                @Html.TextBoxFor(m => m.KazaSonucu_TedaviMasraflariBedeli, new { @class = "m-wrap autoNumeric", placeholder = "15", style = "width:90px; text-align:right" })
+                <span class="add-on">%</span>
+            </div>
+            @Html.ValidationMessageFor(s => s.KazaSonucu_TedaviMasraflariBedeli)
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">@babonline.Inpatient_treatment_hospital_Accidental_Weekly_Payment_Additional_Coverage</label>
+        <div class="controls">
+            @Html.SwitchButtonFor(m => m.KazaSonucu_HastanedeYatarakTD_HaftalikEkOdeme, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small" })
+            <div class="input-append tutar" id="kaza-sonucu-yatarak-tedavi-ekodeme">
+                @Html.TextBoxFor(m => m.KazaSonucu_HastanedeYatarakTD_HaftalikEkOdemeBedeli, new { @class = "m-wrap autoNumeric", placeholder = "15", style = "width:90px; text-align:right" })
+                <span class="add-on">%</span>
+            </div>
+            @Html.ValidationMessageFor(s => s.KazaSonucu_HastanedeYatarakTD_HaftalikEkOdemeBedeli)
+        </div>
+    </div>
+</div>

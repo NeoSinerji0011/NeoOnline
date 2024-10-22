@@ -1,0 +1,348 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Database.Models
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.YetkiEklemeModel
+
+
+@{
+    bool guncellemeYetkisi = false;
+
+    List<KullaniciYetkiModel> sekmeler = ViewBag.Sekmeler;
+    KullaniciYetkiModel sekme = sekmeler.Where(s => s.SekmeKodu == menu.AltMenuSekmeler.YetkiAyarlari).FirstOrDefault();
+
+    if (sekme != null)
+    {
+        if (sekme.Degistirme == 1)
+        { guncellemeYetkisi = true; }
+    }
+}
+
+@section PageStyles
+{
+    @Styles.Render("~/Content/switch")
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/Yetki/Liste">@babonline.Authority_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Detail<span class="selected"></span></a>
+        </li>
+        @if (guncellemeYetkisi)
+        {
+            <li>
+                <a href="~/Manage/Yetki/Guncelle/@Model.YetkiGrupKodu">@babonline.Update<span></span></a>
+            </li>
+        }
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/switch")
+    <script>
+        $(document).ready(function () {
+            $("[rel=tooltip]").tooltip();
+            //Tvm listesini Dolduruyor....
+            $("#TVMKodu").tvmfinder();
+            $("#form0").submit(function () {
+                $(".switcher").find(":input").switchFix();
+            });
+        });
+    </script>
+}
+
+<style type="text/css">
+    .buton-container-ana {
+        height: 30px;
+        margin-left: 235px;
+        margin-top: -30px;
+    }
+
+    .buton-container-alt {
+        height: 30px;
+        margin-left: 206px;
+    }
+
+    .buton-container-sekme {
+        height: 30px;
+        margin-left: 181px;
+    }
+
+    .aciklama {
+        display: block;
+        list-style-type: none;
+        line-height: 22px;
+        margin: 3px;
+        float: left;
+        text-align: center;
+        font-size: 13px;
+        width: 95px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+    .altmenu-ismi {
+        color: maroon;
+        float: left;
+        height: 23px;
+        width: 130px;
+    }
+
+    .sekme-ismi {
+        color: #D6A5A5;
+        float: left;
+        height: 23px;
+        width: 130px;
+    }
+
+    .menuler {
+        font-size: medium;
+        list-style-type: none;
+    }
+
+    .div-evet-hayir {
+        float: left;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 62px;
+    }
+
+    .nav-list-custom {
+        padding-left: 203px;
+        height: 30px;
+    }
+
+    .ul-custom {
+        margin: 0 0 10px 10px;
+    }
+</style>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey " style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-reorder"></i>@babonline.Authority_Info</div>
+                        @if (guncellemeYetkisi)
+                        {
+                            <div class="actions">
+                                <a href="~/Manage/Yetki/Guncelle/@Model.YetkiGrupKodu" class="btn yellow"><i class="icon-pencil">&nbsp;</i> @babonline.Update</a>
+                            </div>
+                        }
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal">
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TVM_Code</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.TVMUnvani</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Group_Name</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.GrupAdi </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.HomeTVMIsLegend</label>
+                                        <div class="controls">
+                                            <label class="control">@(Model.YetkiSeviyesi ? babonline.Yes : babonline.No )</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <br />
+                                    <ul class="nav nav-list item-summary">
+                                        <li class="nav-header">
+                                            <div class="nav-list-custom">
+                                                <label class="aciklama">@babonline.See</label>
+                                                <label class="aciklama">@babonline.New_Registry</label>
+                                                <label class="aciklama">@babonline.Change_Right</label>
+                                                <label class="aciklama">@babonline.Delete_Right</label>
+                                                <br />
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div>
+                                        <div id="accordion" class="accordion">
+
+                                            @if (Model.AnaMenuler != null)
+                                            {
+                                                for (int i = 0; i < Model.AnaMenuler.Count; i++)
+                                                {
+
+                                                    <div class="accordion-group">
+                                                        <div class="accordion-heading">
+                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#menu-@Model.AnaMenuler[i].AnaMenuKodu" href="#menu-@Model.AnaMenuler[i].AnaMenuKodu">@Model.AnaMenuler[i].MenuAdi</a>
+
+                                                            <div class="buton-container-ana">
+                                                                <div class="div-evet-hayir">
+                                                                    @if (Model.AnaMenuler[i].Gorme == true)
+                                                                    {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                    else
+                                                                    { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                                </div>
+
+                                                                <div class="div-evet-hayir">
+                                                                    @if (Model.AnaMenuler[i].YeniKayit == true)
+                                                                    {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                    else
+                                                                    { <span class="label label-important ozel-label">@babonline.No</span> }
+
+                                                                </div>
+                                                                <div class="div-evet-hayir">
+                                                                    @if (Model.AnaMenuler[i].Degistirme == true)
+                                                                    {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                    else
+                                                                    { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                                </div>
+                                                                <div class="div-evet-hayir">
+                                                                    @if (Model.AnaMenuler[i].Silme == true)
+                                                                    {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                    else
+                                                                    { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        @Html.HiddenFor(s => s.AnaMenuler[i].AnaMenuKodu)
+                                                        <div id="menu-@Model.AnaMenuler[i].AnaMenuKodu" class="accordion-body collapse">
+                                                            <div class="accordion-inner">
+                                                                <ul class="ul-custom">
+                                                                    @if (Model.AnaMenuler[i].AltMenuler != null)
+                                                                    {
+                                                                        for (int p = 0; p < Model.AnaMenuler[i].AltMenuler.Count; p++)
+                                                                        {
+                                                                            <li class="menuler">
+                                                                                <label class="altmenu-ismi">
+                                                                                    @Model.AnaMenuler[i].AltMenuler[p].MenuAdi
+                                                                            </label>
+                                                                            <div class="buton-container-alt">
+
+                                                                                <div class="div-evet-hayir">
+                                                                                    @if (Model.AnaMenuler[i].AltMenuler[p].Gorme == true)
+                                                                                    {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                                    else
+                                                                                    { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                                                </div>
+
+                                                                                <div class="div-evet-hayir">
+                                                                                    @if (Model.AnaMenuler[i].AltMenuler[p].YeniKayit == true)
+                                                                                    {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                                    else
+                                                                                    { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                                                </div>
+
+                                                                                <div class="div-evet-hayir">
+                                                                                    @if (Model.AnaMenuler[i].AltMenuler[p].Degistirme == true)
+                                                                                    {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                                    else
+                                                                                    { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                                                </div>
+
+                                                                                <div class="div-evet-hayir">
+                                                                                    @if (Model.AnaMenuler[i].AltMenuler[p].Silme == true)
+                                                                                    {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                                    else
+                                                                                    { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </li>
+                                                                        <ul>
+                                                                            @if (Model.AnaMenuler[i].AltMenuler[p].Sekmeler != null)
+                                                                            {
+                                                                                for (int c = 0; c < Model.AnaMenuler[i].AltMenuler[p].Sekmeler.Count; c++)
+                                                                                {
+                                                                                    <li class="menuler">
+                                                                                        <label class="sekme-ismi">
+                                                                                            @Model.AnaMenuler[i].AltMenuler[p].Sekmeler[c].MenuAdi
+                                                                                    </label>
+                                                                                    <div class="buton-container-sekme">
+
+                                                                                        <div class="div-evet-hayir">
+                                                                                            @if (Model.AnaMenuler[i].AltMenuler[p].Sekmeler[c].Gorme == true)
+                                                                                            {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                                            else
+                                                                                            { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                                                        </div>
+
+                                                                                        <div class="div-evet-hayir">
+                                                                                            @if (Model.AnaMenuler[i].AltMenuler[p].Sekmeler[c].YeniKayit == true)
+                                                                                            {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                                            else
+                                                                                            { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                                                        </div>
+
+                                                                                        <div class="div-evet-hayir">
+                                                                                            @if (Model.AnaMenuler[i].AltMenuler[p].Sekmeler[c].Degistirme == true)
+                                                                                            {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                                            else
+                                                                                            { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                                                        </div>
+
+                                                                                        <div class="div-evet-hayir">
+                                                                                            @if (Model.AnaMenuler[i].AltMenuler[p].Sekmeler[c].Silme == true)
+                                                                                            {<span class="label label-success ozel-label">@babonline.Yes</span>  }
+                                                                                            else
+                                                                                            { <span class="label label-important ozel-label">@babonline.No</span> }
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                                }
+                                                                            }
+                                                                        </ul>
+                                                                        }
+                                                                    }
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

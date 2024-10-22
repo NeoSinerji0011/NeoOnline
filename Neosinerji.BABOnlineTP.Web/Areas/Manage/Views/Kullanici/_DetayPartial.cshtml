@@ -1,0 +1,214 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Business.Common
+@model KullaniciModel
+
+@{
+    bool guncellemeYetkisi = false;
+
+    List<KullaniciYetkiModel> sekmeler = ViewBag.Sekmeler;
+    KullaniciYetkiModel sekme = sekmeler.Where(s => s.SekmeKodu == menu.AltMenuSekmeler.KullaniciTanimlama).FirstOrDefault();
+
+    if (sekme != null)
+    {
+        if (sekme.Degistirme == 1)
+        { guncellemeYetkisi = true; }
+    }
+}
+
+@Html.HiddenFor(s => s.KullaniciKodu)
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+
+            <div class="box-body">
+                <div class="portlet box light-grey " style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-reorder"></i>@babonline.UserInfo</div>
+                        @if (guncellemeYetkisi)
+                        {
+                            <div class="actions">
+                                <a href="/Manage/Kullanici/Guncelle/@Model.KullaniciKodu" class="btn yellow"><i class="icon-pencil">&nbsp;</i>@babonline.Update</a>
+                            </div>
+                        }
+                    </div>
+                    <div class="portlet-body form">
+
+                        <form class="form-horizontal form-view">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVM_Code</label>
+                                <div class="controls">
+                                    <label class="control">@(Model.TVMKodu + " " + Model.TVMUnvani)</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVMUser_TCKN</label>
+                                <div class="controls">
+                                    <label class="control">@Model.TCKN</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Name</label>
+                                <div class="controls">
+                                    <label class="control">@Model.Adi</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Lastname</label>
+                                <div class="controls">
+                                    <label class="control">@Model.Soyadi</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVMUser_Department</label>
+                                <div class="controls">
+                                    <label class="control">@Model.DepartmanAdi</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVMUser_AuthorityGroup</label>
+                                <div class="controls">
+                                    <label class="control">@Model.YetkiAdi</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVMUser_Job</label>
+                                <div class="controls">
+                                    <label class="control">@Model.GorevAdi</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Manager</label>
+                                <div class="controls">
+                                    <label class="control">@Model.YoneticiAdi</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVMUser_TechnicalPersonnelCode</label>
+                                <div class="controls">
+                                    <label class="control">@Model.TeknikPersonelKodu</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVMUser_Phone</label>
+                                <div class="controls">
+
+                                    <label class="control">@Model.Telefon</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVMUser_MobilePhone</label>
+                                <div class="controls">
+                                    <label class="control">@Model.CepTelefon</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.SkypeNumber</label>
+                                <div class="controls">
+                                    <label class="control">@Model.SkypeNumara</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Email_Adress</label>
+                                <div class="controls">
+                                    <label class="control">@Model.Email</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVMUser_MTCode</label>
+                                <div class="controls">
+                                    <label class="control">@Model.MTKodu</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Status</label>
+                                <div class="controls">
+                                    <label class="control">
+                                        @if (Model.Durum == KullaniciDurumTipleri.Aktif)
+                                        {
+                                            <span class="label label-success">@babonline.Active</span>
+                                        }
+                                        else if (Model.Durum == KullaniciDurumTipleri.Pasif)
+                                        {
+                                            <span class="label label-important">@babonline.Pasive</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="label label-important">@babonline.Suspended</span>
+                                        }
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVMUser_PasswordStatus</label>
+                                <div class="controls">
+                                    <label class="control">
+                                        @if (Model.SifreDurumKodu == KullaniciSifreDurumTipleri.SorunYok)
+                                        {
+                                            <span class="label label-success">@babonline.Password_OK</span>
+                                        }
+                                        else if (Model.SifreDurumKodu == KullaniciSifreDurumTipleri.GeciciSifre)
+                                        {
+                                            <span class="label label-warning">@babonline.Password_Temporary</span>
+                                        }
+                                        else if (Model.SifreDurumKodu == KullaniciSifreDurumTipleri.YanlisGiris)
+                                        {
+                                            <span class="label label-important">@babonline.Password_Failed</span>
+                                        }
+                                        else if (Model.SifreDurumKodu == KullaniciSifreDurumTipleri.Kilitli)
+                                        {
+                                            <span class="label label-important">@babonline.Password_Locked</span>
+                                        }
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVMUser_ProductionOffer</label>
+                                <div class="controls">
+                                    <label class="control">@Model.TeklifPoliceUretimiText</label>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">@babonline.CreationDate</label>
+                                <div class="controls">
+                                    <label class="control">@Model.KayitTarihi.Value.ToString("dd.MM.yyyy")</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if (guncellemeYetkisi)
+{
+    @Html.Partial("_Kilitle", Model)
+
+    if (Model.ProjeKodu == "Mapfre")
+    {
+        @Html.Partial("_SifreSifirlamaMapfre")
+
+        <div id="sifre-sifirla-rapor" class="modal hide fade">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h3>@babonline.Password_Reset</h3>
+            </div>
+            <div class="modal-body">
+                <p>Kullanıcının şifresi TRONWEB kullanıcı adı ile eşitlendi.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-info" data-dismiss="modal" aria-hidden="true">@babonline.OK</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.Partial("_SifreSifirlama")
+        @Html.Partial("_SifreSifirlamaRapor")
+    }
+}

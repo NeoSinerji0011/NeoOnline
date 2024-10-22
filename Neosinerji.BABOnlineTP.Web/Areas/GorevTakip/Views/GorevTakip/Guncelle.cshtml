@@ -1,0 +1,446 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.GorevTakip.Models
+@model GorevTakipGuncelleModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li>
+            <a href="~/GorevTakip/GorevTakip/Detay/@Model.IsId">Detay<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Update<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+@section PageHeader
+{
+}
+
+<style>
+    .table th, .table td {
+        padding: 2px 8px !important;
+    }
+</style>
+
+@section PageScripts
+{
+    <script src="~/Content/js/bootstrap-formhelpers-phone.js"></script>
+    <script src="@Url.Content("~/Content/js/jquery.inputmask.bundle.min.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/dataTable")
+    <script>
+        $(document).ready(function () {
+            var tel="@Model.GonderenTelefon"
+
+            if (tel==""){ cepTel="90";}
+
+            setTimeout(function () { $("#GonderenTelefon").val(tel);}, 1000);
+            var isTipi = $(this).val();
+            if (isTipi == 1) {
+                $(".policeYenileme").show();
+                $(".polZorunlu").removeClass("ignore");
+            } else {
+                $(".policeYenileme").hide();
+                $(".polZorunlu").addClass("ignore");
+            }
+
+            //Doküman Ekleme - Silme İşlemleri
+            $("#dokuman-ekle").click(function () {
+                var isId = $("#IsId").val();
+                var IsAlanTvmKodu = parseInt($("#IsAlanTvmKodu").val());
+
+                $.get("/GorevTakip/GorevTakip/Dokuman",
+                    { id: isId, isAlanTvmKodu: IsAlanTvmKodu },
+                    function (data) {
+                        $("#dokuman-modal-div").html(data);
+                        $.validator.unobtrusive.parse("#dokuman-modal-div");
+                        $("#dokuman-modal").modal('show');
+                    },
+                    "html");
+            });
+
+            $("#dokuman-ekle-btn").live("click", function () {
+                $(this).button("loading");
+                $("#dokuman-ekle-form").validate().form();
+                if ($("#dokuman-ekle-form").valid()) {
+                    //  var formData = $("#dokuman-ekle-form").serialize();
+                    var formData = new FormData(document.forms.namedItem('dokuman-ekle-form'));
+                    var oReq = new XMLHttpRequest();
+                    oReq.open("POST", "/GorevTakip/GorevTakip/Dokuman", true);
+                    oReq.send(formData);
+                    oReq.onload = function (oEvent) {
+                        if (oReq.status == 200) {
+                            //$("#dokuman-modal").modal('hide');
+                            $("#dokuman-modal").modal('hide');
+                            $("#dokuman-modal-div").html(oEvent);
+                            $("#dokuman-modal").modal('show');
+                            viewGorevTakipDokuman();
+                            $(this).button("reset");
+                        } else {
+                            // oOutput.innerHTML = "Error " + oReq.status + " occurred uploading your file.<br \/>";
+                            $("#dokuman-modal").modal('hide');
+                            $("#dokuman-modal-div").html(oEvent);
+                            $("#dokuman-modal").modal('show');
+                            $(this).button("reset");
+                        }
+                    };
+
+                    //$.post("/Manage/TVM/Dokuman", formData,
+                    //    function (data) {
+                    //        if (data == "null") { $("#dokuman-modal").modal('hide'); }
+                    //        else {
+                    //            $("#dokuman-modal").modal('hide');
+                    //            $("#dokuman-modal-div").html(data);
+                    //            $("#dokuman-modal").modal('show');
+                    //        }
+                    //        viewDokuman();
+                    //       // dokumanTable.fnDraw();
+                    //    }, "html");
+                }
+            });
+
+            $(".delete-dokuman").live("click", (function () {
+                var dokumanKodu = $(this).attr("dokuman-kodu");
+                var isId = $(this).attr("is-id");
+
+                $('#delete-confirm-btn').unbind('click');
+                $("#delete-confirm-btn").click(function () {
+                    $.post("/GorevTakip/GorevTakip/DokumanSil/",
+                        { dokumanKodu: dokumanKodu, isId: isId },
+                        function (data) {
+                            $("#delete-confirmation").modal('hide');
+                            $("#gorevtakip-dokuman-container").html(data);
+                        });
+                });
+                $("#delete-confirmation").modal('show');
+            }));
+
+            //Not Ekleme - Silme İşlemleri
+            $("#not-ekle").click(function () {
+                var isId = $("#IsId").val();
+                if (isId != "" && isId!=null) {
+
+                $.get("/GorevTakip/GorevTakip/NotEkle",
+                    { id: isId },
+                    function (data) {
+                        $("#not-modal-div").html(data);
+                        $.validator.unobtrusive.parse("#not-modal-div");
+                        $("#not-modal").modal('show');
+                    },
+                        "html");
+                }
+                else {
+                    swal("Not ekleme ekranı görüntülenemiyor.");
+                }
+            });
+
+            $("#not-ekle-btn").live("click", function () {
+                $("#not-ekle-form").validate().form();
+                if ($("#not-ekle-form").valid()) {
+                    var formData = $("#not-ekle-form").serialize();
+                    $.post("/GorevTakip/GorevTakip/NotEkle", formData,
+                        function (data) {
+                            if (data == "null") { $("#not-modal").modal('hide'); }
+                            else {
+                                $("#not-modal").modal('hide');
+                                $("#not-modal-div").html(data);
+                                $("#not-modal").modal('show');
+                            }
+                            viewNot();
+                            //notTable.fnDraw();
+                        }, "html");
+                }
+            });
+
+            $(".delete-not").live("click", function () {
+                var notId = $(this).attr("not-id");
+                var isId = $(this).attr("is-id");
+
+                $('#delete-confirm-btn').unbind('click');
+                $("#delete-confirm-btn").click(function () {
+                    $("#delete-confirmation").modal('hide');
+                    $.post("/GorevTakip/GorevTakip/NotSil/", { notId: notId, isId: isId },
+                        function (data) {
+                            if (data.Basarili == "true") { $.gritter.add({ title: 'Bilgi Mesajı!', text: data.Message }); }
+                            else {
+                                if (data.Yetkili == "false") { $.gritter.add({ title: 'Erişim Engellendi!', text: data.Message }); }
+                                else { $.gritter.add({ title: 'Bilgi Mesajı!', text: data.Message }); }
+
+                            }
+                            viewNot();
+                        });
+                });
+                $("#delete-confirmation").modal('show');
+
+                // $("#delete-confirmation").modal('show');
+            });
+
+            ///////////////////////////////////////////////////////////////
+            function viewGorevTakipDokuman() {
+                var isId = $("#IsId").val();
+                $.get("/GorevTakip/GorevTakip/DokumanView",
+                    { id: isId, sayfaAdi: "guncelle" },
+                    function (data) {
+                        $("#gorevtakip-dokuman-container").html(data);
+                    },
+                    "html");
+            }
+            function viewNot() {
+                var isId = $("#IsId").val();
+                $.get("/GorevTakip/GorevTakip/NotView",
+                    { id: isId, sayfaAdi: "guncelle" },
+                    function (data) {
+                        $("#gorevtakip-not-container").html(data);
+                    },
+                    "html");
+            }
+
+            $("#TalepYapanAcente").blur(function () {
+                $(this).val($(this).val().toUpperCase());
+            });
+            $("#GonderenTCVKN").blur(function () {
+                if ($("#GonderenTCVKN").val() != "" && $("#GonderenTCVKN") != null) {
+
+                    $(this).append('<img class="loading-gif" src="/Content/img/loading7.gif">');
+                    $.getJSON('/GorevTakip/GorevTakip/GetMusteriBilgi', { kimlikNo: $(this).val(), tvmKodu: parseInt($("#IsAlanTvmKodu").val()) },
+                        function (data) {
+                            var musteriBilgi = "";
+                            if (data.Adi != "" && data.Adi != null) {
+                                musteriBilgi = data.Adi;
+                            }
+                            if (data.Soyadi != "" && data.Soyadi != null) {
+                                musteriBilgi += " " + data.Soyadi;
+                            }
+                            if ((data.Soyadi == "" || data.Soyadi == null) && (data.Adi == "" || data.Adi == null)) {
+                                $(".kimlikBilgi").show();
+                            }
+                            else {
+                                $(".kimlikBilgi").hide();
+                            }
+
+                            $("#GonderenAdiSoyadi").val(musteriBilgi);
+                            $(".loading-gif").remove();
+                        });
+
+                }
+            });
+            $("#GonderenAdiSoyadi").blur(function () {
+                $(this).val($(this).val().toUpperCase());
+            });
+            $("#TalepYapanAcente").blur(function () {
+                $(this).val($(this).val().toUpperCase());
+            });
+        });
+
+    </script>
+}
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>Görev Takip Güncelle</div>
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("Guncelle", "GorevTakip", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+        {
+            @*Html.EnableClientValidation(true);
+                @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+                @Html.AntiForgeryToken()*@
+            @Html.HiddenFor(m => m.IsId)
+            <div class="row-fluid" style="padding-top: 10px;">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">Satış Kanalı</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.IsAlanTvmKodu, Model.IsAlanTvmKodlari, new { })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Kullanıcı</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.IsAlanKullaniciKodu, Model.IsAlanKullaniciKodlari, new { style = "width:81%" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Başlık</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.Baslik, new { maxlength = 30, style = "width:70%" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">İş Tipi</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.IsTipi, Model.IsTipleri, new { style = "width:81%" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Talep Kanalı</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.TalepKanalKodu, Model.TalepKanallari, new { style = "width:81%" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Öncelik Seviyesi</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.OncelikSeviyesi, Model.OncelikSeviyeleri, new { style = "width:81%" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Durum</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.Durum, Model.DurumTipleri, new { style = "width:81%" })
+                        </div>
+                    </div>
+                    <div class="control-group policeYenileme">
+                        <label class="control-label">@babonline.InsuranceCompany</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.SigortaSirketiKodu, Model.SigortaSirketeri, new { style = "width:81%" })
+                        </div>
+                    </div>
+                    <div class="control-group policeYenileme">
+                        <label class="control-label">@babonline.Branch</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.BransKodu, Model.BransKodlari, new { style = "width:81%" })
+                        </div>
+                    </div>
+                    <div class="control-group policeYenileme">
+                        <label class="control-label">@babonline.PolicyNo</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.PoliceNumarasi, new { })
+                        </div>
+                    </div>
+                    <div class="control-group policeYenileme">
+                        <label class="control-label">@babonline.Endorsement</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.ZeylNumarasi, new { })
+                        </div>
+                    </div>
+                    <div class="control-group policeYenileme">
+                        <label class="control-label">@babonline.RenewalNo</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.YenilemeNumarasi, new { })
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Açıklama</label>
+                        <div class="controls">
+                            @Html.TextAreaFor(m => m.Aciklama, new { maxlength = 500, autocompletetype = "disabled", style = "width:90%; height:100px" })
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.StartDate<span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DateTextBoxFor(s => s.BaslamaTarihi, new { required = "required" })
+                            @Html.ValidationMessageFor(m => m.BaslamaTarihi)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Tahmini Bitiş Tarihi<span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DateTextBoxFor(s => s.TahminiBitisTarihi, new { })
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <label class="control-label">Tamamlama Tarihi</label>
+                        <div class="controls">
+                            @Html.DateTextBoxNotValidFor(s => s.TamamlamaTarihi, new { })
+                        </div>
+                    </div>
+                    <div class="control-group policeYenileme">
+                        <label class="control-label">Evrak No</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.EvrakNo, new { maxlength = 100 })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Gönderen Acente Ünvanı</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.TalepYapanAcente, new { style = "width:81%", maxlength = 50 })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Gönderen TC/VKN</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.GonderenTCVKN, new { minlength = 10, maxlength = 11, @class = "onlynumbers" })
+                        </div>
+                    </div>
+                    <div class="kimlikBilgi control-group" style="display:none">  <label class="controls" style="color:red">Kimlik Bilgisine ait kayıt bulunamadı. Lütfen manuel yazınız.</label>  </div>
+                    <div class="control-group">
+                        <label class="control-label">Gönderen Adı Soyadı</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.GonderenAdiSoyadi, new { style = "width:81%", maxlength = 100 })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Gönderen Email</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.GonderenEmail, new { style = "width:50%", maxlength = 200 })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Gönderen Telefon</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.GonderenTelefon, new { style = "width:35%", placeholder = "90-555-5554477", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", title = "Format 90-212-5994949" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tabbable tabbable-custom" style="margin-top: 15px;">
+                <ul class="nav nav-tabs" id="tvm-tab">
+                    <li class="active"><a href="#not" data-toggle="tab">@babonline.Notes</a></li>
+                    <li><a href="#dokuman" data-toggle="tab">@babonline.Document Listesi</a></li>
+
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="not">
+                        @* Not  !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <label><a id="not-ekle" href="#" data-toggle="modal" class="btn btn-success">@babonline.AddNote</a></label>
+                            @*Dokumanlarlar Burada Ekleniyor *@
+                            <div class="row-fluid">
+                                <div class="span12" id="gorevtakip-not-container">
+                                    @Html.Partial("_Notlar", Model.NotlarList)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="dokuman">
+                        @* Dokuman  !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <label><a id="dokuman-ekle" href="#" data-toggle="modal" class="btn btn-success">@babonline.Document_Add</a></label>
+                            @*Dokumanlarlar Burada Ekleniyor *@
+                            <div class="row-fluid">
+                                <div class="span12" id="gorevtakip-dokuman-container">
+                                    @Html.Partial("_AtananIsDokumanlar", Model.DokumanlariList)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-actions">
+                <a class="btn" href="~/GorevTakip/GorevTakip/Guncelle">@babonline.Cancel</a>
+                <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Update</button>
+            </div>
+        }
+    </div>
+</div>
+
+<div id="dokuman-modal-div"></div>
+<div id="not-modal-div"></div>
+
+@*Silme İşlemi*@
+@Html.Partial("_DeleteConfirmation")

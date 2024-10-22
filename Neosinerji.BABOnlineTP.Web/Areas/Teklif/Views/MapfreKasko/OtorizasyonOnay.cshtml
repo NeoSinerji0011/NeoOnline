@@ -1,0 +1,159 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models;
+@model MapfreTeklifDurumModel
+
+@section PageStyles
+{
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li>
+            <a href="/Teklif/Teklif/Liste">@babonline.Proposal_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Detail<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.NewProposal<span class="arrow"></span></a>
+            <ul class="dropdown-menu">
+                @foreach (var item in ViewBag.UrunYetkileri)
+                {
+                    <li><a href="@item.UrunURL">@item.UrunAdi</a></li>
+                }
+            </ul>
+            <b class="caret-out"></b>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+}
+@section PageScripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#table-div").on("click", ".otorizasyon-check", function () {
+                var teklifId = $(this).data("teklif-id");
+                $("#otorizasyon-modal").find(".modal-body").html("<div style='margin:20px auto;width:500px;text-align:center;'><img src='/Content/img/loading9.gif' width='32' height='32' /></div>");
+                $("#otorizasyon-modal").modal("show");
+                $.post("/Teklif/MapfreKasko/OtorizasyonMesajlari",
+                       { teklifId: teklifId },
+                       function (data) {
+                           if (data) {
+                               $("#otorizasyon-modal").find(".modal-body").html(data.html);
+                           }
+                           else {
+                               $("#otorizasyon-modal").find(".modal-body").html("Otorizasyon bilgileri alınamadı...");
+                           }
+                       },
+                       "json");
+            });
+            $("#otor-sorgula").click(function () {
+                var teklifId = $("#Otorizasyon_TeklifId").val();
+                $("#otor-mesajlar").html("<div style='margin:20px auto;width:500px;text-align:center;'><img src='/Content/img/loading9.gif' width='32' height='32' /></div>");
+                $("#otor-mesajlar").show();
+                $("#otor-sorgula").button("loading");
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "/Teklif/MapfreKasko/OtorizasyonSorgula",
+                    data: { teklifId: teklifId },
+                    success: function (data) {
+                        $("#otor-sorgula").button("reset");
+                        if (data) {
+                            $("#otor-mesajlar").html(data.html);
+                        }
+                        else {
+                            $("#otor-mesajlar").html("Otorizasyon bilgileri alınamadı...");
+                        }
+                    },
+                    error: function () {
+                        $("#otor-mesajlar").html("Otorizasyon bilgileri alınamadı...");
+                    }
+                });
+            });
+            $("#otor-mesajlar").on("click", "#otor-onayla", function () {
+                var teklifId = $("#Otorizasyon_TeklifId").val();
+                $("#otor-mesajlar").html("<div style='margin:20px auto;width:500px;text-align:center;'><img src='/Content/img/loading9.gif' width='32' height='32' /></div>");
+                $("#otor-mesajlar").show();
+                $("#otor-onayla").button("loading");
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "/Teklif/MapfreKasko/OtorizasyonOnayVer",
+                    data: { id: teklifId },
+                    success: function (data) {
+                        if (data.success) {
+                            window.location.href = data.redirectUrl;
+                            $("#otor-mesajlar").html("<div class='row-fluid' style='margin-top:20px;padding-bottom:20px;'><div class='span12'><div class='alert alert-success'>Otorizasyon bilgileri alındı. Teklif detay sayfasına yönlendiriliyorsunuz.</div></div></div>");
+                            return;
+                        }
+                        $("#otor-mesajlar").html("<div class='alert alert-error'>Otorizasyon bilgileri alınamadı...</div>");
+                        $("#otor-onayla").button("reset");
+                    },
+                    error: function () {
+                        $("#otor-mesajlar").html("<div class='alert alert-error'>Otorizasyon bilgileri alınamadı...</div>");
+                        $("#otor-onayla").button("reset");
+                    }
+                });
+            });
+
+            $("#btn-teklif-tekrar").live("click", function () {
+                var teklifId = $(this).data("teklif-id");
+                var musteriKodu = $(this).data("musteri-kodu");
+
+                $("#formTeklif").find("#id").val(musteriKodu);
+                $("#formTeklif").find("#teklifId").val(teklifId);
+                $("#formTeklif").submit();
+            });
+        });
+    </script>
+}
+
+<form id="formTeklif" action="/Teklif/MapfreKasko/Ekle" method="post">
+    @Html.Hidden("id", Model.SigortaEttirenKodu)
+    @Html.Hidden("teklifId", Model.teklifId)
+</form>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="portlet box light-grey" style="margin-top: 20px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">Otorizasyon Sorgula</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row-fluid">
+                    <div class="span12">
+                    @if (Model.hata)
+                    {
+                        <div class="alert alert-error">
+                            @Model.mesaj
+                        </div>
+                    }
+                    else
+                    {
+                        @Html.Partial("_OtorizasyonMesajlari", Model)
+                    }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

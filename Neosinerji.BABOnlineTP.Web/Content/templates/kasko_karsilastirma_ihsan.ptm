@@ -1,0 +1,65 @@
+
+<img><path=$TVMLogo$><width=150><height=100><left></img><img><path=$TVMLogo2$><width=150><height=100><left></img>
+<p><right>$Tarih$</p>
+<p><center><size=16><strong><spacingBefore=20><spacingAfter=20>KASKO SİGORTASI TEKLİFİ KARŞILAŞTIRMA TABLOSU</p>
+<p><size=10><spacingAfter=10>Sayın $AdiSoyadiUnvani$ ,</p>
+<p>Aracınız ile ilgili olarak Kasko sigortası ihtiyacınızı karşılamaya yönelik, vermiş olduğunuz bilgiler çerçevesinde hazırlanmış olan teklifler ekte tarafınıza sunulmaktadır.</p>
+<p></p>
+<p>Ayrıca sigorta şirketi, ürün, ödeme seçenekleri bazında hazırlanmış olan Prim Karşılaştırma Tablosu ve Teminat Karşılaştırma Tablosunu aşağıda görebilirsiniz.</p>
+<p></p>
+<p>Teklifleri değerlendirirken her türlü sorunuz için bizimle irtibata geçebileceğinizi hatırlatır, göstermiş olduğunuz ilgi için teşekkür ederiz</p>
+<p></p>
+<p>Saygılarımızla,</p>
+<p></p>
+<p>$TVMUnvani$</p>
+<p><spacingAfter=40></p>
+<table>
+	<width=520><column=100><column=140><column=280>
+	<border=192,192,192>
+	<tbody>
+	<tr><height=40><backgroundColor=234,234,234>
+		<td><strong><center>Sigorta Şirketi</td>
+		<td><center>Sigorta Şirketi Teklif Numarası</td>
+		<td><center>Ödenecek Prim (TL)</td>
+	</tr>
+	<placeHolder=fiyatSatirlari></placeHolder>
+</table>
+<template=FiyatSatiri>
+<tr><backgroundColor=clear>
+	<td><normal><img><path=$TUMLogo$><width=55><height=45><center></img></td>
+	<td><center>$TUMUnvani$</td>
+	<td><center>$Fiyat1$</td>
+</tr>
+</template=FiyatSatiri>
+<pagebreak></pagebreak>
+<p></p>
+<p></p>
+<table>
+	<width=520><column=100><column=200><column=100><column=100>
+	<border=black>
+	<tbody>
+	<tr><height=26><backgroundColor=clear>
+		<td><strong>Araç Plakası</td>
+		<td>$Plaka$</td>
+		<td>Teklif Tarihi</td>
+		<td>$Tarih$</td>
+	</tr>
+	<tr>
+		<td>Araç Markası</td>
+		<td>$AracMarka$</td>
+		<td>NeoOnline Teklif No</td>
+		<td>$TeklifNo$</td>
+	</tr>
+	<tr>
+		<td>Araç Tipi</td>
+		<td><colspan=3>$AracTip$</td>
+	</tr>
+	<tr>	
+		<td>Araç Modeli</td>
+		<td><colspan=3>$AracModel$</td>
+	</tr>
+	<tr>
+		<td>Kullanım Tarzı</td>
+		<td><colspan=3>$AracKullanimTarzi$</td>
+	</tr>
+</table>

@@ -1,0 +1,54 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model DetayEskiPoliceModel
+
+<div class="control-group">
+    <label class="control-label">@babonline.OldPolicy</label>
+    <div class="controls">
+        @if(Model.EskiPoliceVar)
+        {
+            <label class="control"><span class="label label-success">@babonline.Exists</span></label>
+        }
+        else
+        {
+            <label class="control"><span class="label label-important">@babonline.Absent</span></label>
+        }
+    </div>
+</div> 
+@if(Model.EskiPoliceVar)
+{
+<div class="control-group">
+    <label class="control-label">@babonline.InsuranceCompany</label>
+    <div class="controls">
+        <label class="control">@Model.SigortaSirketiAdi</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.AgencyNo</label>
+    <div class="controls">
+        <label class="control">@Model.AcenteNo</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.PolicyNo</label>
+    <div class="controls">
+        <label class="control">@Model.PoliceNo</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.RenewalNo</label>
+    <div class="controls">
+        <label class="control">@Model.YenilemeNo</label>
+    </div>
+</div>
+if(!String.IsNullOrEmpty(Model.TramerIslemTipi))
+{
+<div class="control-group">
+    <label class="control-label">@babonline.TransactionType</label>
+    <div class="controls">
+        <label class="control">@Model.TramerIslemTipi</label>
+    </div>
+</div>
+}
+}

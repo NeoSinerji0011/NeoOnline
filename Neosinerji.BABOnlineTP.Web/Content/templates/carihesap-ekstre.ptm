@@ -1,0 +1,178 @@
+<p></p>
+<p>$TVMUnvani$</p>
+<p></p>
+<table>
+	<width=750><column=70><column=50><column=50><column=110><column=140><column=30>
+	<column=90><column=90><column=90><column=30>
+	<border=clear>	
+	<tbody>
+	<tr><border=clear>
+		<td><strong><center>$Donem$</td>
+		<td><center></td>
+		<td><center></td>
+		<td><strong><center>$ListeAdi$</td>
+		<td><colspan=2><left>$CariHesapAdi$</td>
+		<td><strong><center></td>
+		<td><center></td>
+		<td><center></td>
+		<td><strong><center></td>
+	</tr>
+	<tr><height=40><backgroundColor=234,234,234><border=240,240,240>	
+		<td><strong><center>Vade Tar.</td>
+		<td><strong><center>Evr. Tar.</td>
+		<td><strong><center>Evr./Ödm. Tipi</td>
+		<td><strong><center>Evr. No </td>
+		<td><strong><center>Ack.</td>
+		<td><strong><center>Para B.</td>
+		<td><strong><center>Borç</td>
+		<td><strong><center>Alacak</td>
+		<td><strong><center>Bakiye</td>
+		<td><strong><center>B/A </td>
+	</tr>
+	<placeHolder=EkstreSatirlari></placeHolder>
+	<tr><size=10>
+	<td><strong><center>GENEL TOPLAM</td>
+		<td><right></td>
+		<td><right></td>
+		<td><right><center></td>
+		<td><right></td>
+		<td><right></td>
+		<td><right>$CEBorcToplam$</td>
+		<td><right>$CEAlacakToplam$</td>
+		<td><right>$CEBakiyeToplam$</td>
+		<td><right>$CEBAGenel$</td>
+	</tr>
+</table>
+<template=EkstreSatiri>
+<tr><backgroundColor=clear><border=clear>
+		<td><left>$VadeTarihi$</td>
+		<td><left>$EvrakTarihi$</td>
+		<td><left>$EvrakOdemeTipi$</td>
+		<td><left>$EvrakNo$</td>
+		<td><left>$Aciklama$</td>
+		<td><center>$ParaBirimi$</td>
+		<td><right>$Borc$</td>
+		<td><right>$Alacak$</td>
+		<td><right>$Bakiye$</td>
+		<td><right>$BA$</td>
+</tr>
+</template=EkstreSatiri>
+<pagebreak></pagebreak>
+<rotate></rotate>
+<p></p>
+<p></p>
+<p><spacingAfter=40></p>
+<table><center>
+	<width=500><column=100><column=100><column=100><column=100><column=100>
+	<border=0>	
+	<tbody>
+	<tr><border=clear>
+			<td><strong><center>$Donem2$</td>		
+			<td><center></td>
+			<td><strong><center>$ListeAdi2$</td>
+			<td><colspan=2><left>$CariHesapAdi2$</td>
+		
+		</tr>
+		<tr><height=25><backgroundColor=234,234,234><border=240,240,240>	
+			<td><strong><center>Ay</td>		
+			<td><center>Ödenecek Tutar</td>
+			<td><strong><center>Ödenen</td>
+			<td><center>Borç</td>
+			<td><center>Bakiye</td>
+		</tr>
+		<tr><backgroundColor=clear><border=clear>
+			<td><strong><center>Ocak</td>		
+			<td><right>$OcakTutar$</td>
+			<td><strong><right>$OcakOdenen$</td>
+			<td><right>$OcakBorc$</td>
+			<td><right>$OcakBakiye$</td>	
+		</tr>
+		<tr>
+			<td><strong><center>Şubat</td>		
+			<td><right>$SubatTutar$</td>
+			<td><strong><right>$SubatOdenen$</td>
+			<td><right>$SubatBorc$</td>
+			<td><right>$SubatBakiye$</td>	
+		</tr>
+		<tr>
+			<td><strong><center>Mart</td>		
+			<td><right>$MartTutar$</td>
+			<td><strong><right>$MartOdenen$</td>
+			<td><right>$MartBorc$</td>
+			<td><right>$MartBakiye$</td>	
+		</tr>
+		<tr>
+			<td><strong><center>Nisan</td>		
+			<td><right>$NisanTutar$</td>
+			<td><strong><right>$NisanOdenen$</td>
+			<td><right>$NisanBorc$</td>
+			<td><right>$NisanBakiye$</td>	
+		</tr>
+		<tr>
+			<td><strong><center>Mayıs</td>		
+			<td><right>$MayisTutar$</td>
+			<td><strong><right>$MayisOdenen$</td>
+			<td><right>$MayisBorc$</td>
+			<td><right>$MayisBakiye$</td>	
+		</tr>
+		<tr>
+			<td><strong><center>Haziran</td>		
+			<td><right>$HaziranTutar$</td>
+			<td><strong><right>$HaziranOdenen$</td>
+			<td><right>$HaziranBorc$</td>
+			<td><right>$HaziranBakiye$</td>	
+		</tr>
+		<tr>
+			<td><strong><center>Temmuz</td>		
+			<td><right>$TemmuzTutar$</td>
+			<td><strong><right>$TemmuzOdenen$</td>
+			<td><right>$TemmuzBorc$</td>
+			<td><right>$TemmuzBakiye$</td>	
+		</tr>
+		<tr>
+			<td><strong><center>Ağustos</td>		
+			<td><right>$AgustosTutar$</td>
+			<td><strong><right>$AgustosOdenen$</td>
+			<td><right>$AgustosBorc$</td>
+			<td><right>$AgustosBakiye$</td>	
+		</tr>
+		<tr>
+			<td><strong><center>Eylül</td>		
+			<td><right>$EylulTutar$</td>
+			<td><strong><right>$EylulOdenen$</td>
+			<td><right>$EylulBorc$</td>
+			<td><right>$EylulBakiye$</td>	
+		</tr>
+		<tr>
+			<td><strong><center>Ekim</td>		
+			<td><right>$EkimTutar$</td>
+			<td><strong><right>$EkimOdenen$</td>
+			<td><right>$EkimBorc$</td>
+			<td><right>$EkimBakiye$</td>	
+		</tr>
+		<tr>
+			<td><strong><center>Kasim</td>		
+			<td><right>$KasimTutar$</td>
+			<td><strong><right>$KasimOdenen$</td>
+			<td><right>$KasimBorc$</td>
+			<td><right>$KasimBakiye$</td>	
+		</tr>
+		<tr>
+			<td><strong><center>Aralik</td>		
+			<td><right>$AralikTutar$</td>
+			<td><strong><right>$AralikOdenen$</td>
+			<td><right>$AralikBorc$</td>
+			<td><right>$AralikBakiye$</td>	
+		</tr>
+		<tr><size=10>
+			<td><strong><center>GENEL TOPLAM</td>		
+			<td><right>$OdenecekToplam$</td>
+			<td><strong><right>$OdenenToplam$</td>
+			<td><right>$BorcToplam$</td>
+			<td><right>$ToplamBakiye$</td>	
+		</tr>
+	</tbody>
+</table>
+
+<p></p>
+<p></p>

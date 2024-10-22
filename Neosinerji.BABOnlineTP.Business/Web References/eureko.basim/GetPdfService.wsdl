@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:intf="http://services.gt.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:tns2="http://beans.gt.com" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://services.gt.com" targetNamespace="http://services.gt.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://beans.gt.com">
+      <xsd:complexType name="PdfInputBean">
+        <xsd:sequence>
+          <xsd:element name="polNum" nillable="true" type="xsd:string" />
+          <xsd:element name="polGroupNum" nillable="true" type="xsd:string" />
+          <xsd:element name="renewalNum" nillable="true" type="xsd:string" />
+          <xsd:element name="endrsNum" nillable="true" type="xsd:string" />
+          <xsd:element name="intEndrsNum" nillable="true" type="xsd:string" />
+          <xsd:element name="chgSeqNum" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://services.gt.com">
+      <xsd:import namespace="http://beans.gt.com" />
+      <xsd:element name="GetPdfForInfoFormResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetPdfForInfoFormReturn" type="xsd:base64Binary" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetPdf">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="input" nillable="true" type="tns2:PdfInputBean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetPdfResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="GetPdfReturn" type="xsd:base64Binary" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetPdfForInfoForm">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="input" nillable="true" type="tns2:PdfInputBean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GetPdfRequest">
+    <wsdl:part name="parameters" element="impl:GetPdf" />
+  </wsdl:message>
+  <wsdl:message name="GetPdfResponse">
+    <wsdl:part name="parameters" element="impl:GetPdfResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPdfForInfoFormRequest">
+    <wsdl:part name="parameters" element="impl:GetPdfForInfoForm" />
+  </wsdl:message>
+  <wsdl:message name="GetPdfForInfoFormResponse">
+    <wsdl:part name="parameters" element="impl:GetPdfForInfoFormResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GetPdfService">
+    <wsdl:operation name="GetPdfForInfoForm">
+      <wsdl:input name="GetPdfForInfoFormRequest" message="impl:GetPdfForInfoFormRequest" />
+      <wsdl:output name="GetPdfForInfoFormResponse" message="impl:GetPdfForInfoFormResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPdf">
+      <wsdl:input name="GetPdfRequest" message="impl:GetPdfRequest" />
+      <wsdl:output name="GetPdfResponse" message="impl:GetPdfResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GetPdfServiceSoapBinding" type="impl:GetPdfService">
+    <wsaw:UsingAddressing wsdl:required="false" />
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetPdfForInfoForm">
+      <wsdlsoap:operation soapAction="GetPdfForInfoForm" />
+      <wsdl:input name="GetPdfForInfoFormRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetPdfForInfoFormResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPdf">
+      <wsdlsoap:operation soapAction="GetPdf" />
+      <wsdl:input name="GetPdfRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetPdfResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GetPdfServiceService">
+    <wsdl:port name="GetPdfService" binding="impl:GetPdfServiceSoapBinding">
+      <wsdlsoap:address location="http://localhost:9080/ESGenericServices/services/GetPdfService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

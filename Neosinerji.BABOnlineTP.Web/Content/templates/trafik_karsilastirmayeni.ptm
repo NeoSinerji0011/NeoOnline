@@ -1,0 +1,118 @@
+﻿<img><path=$TVMLogo$><width=64><height=64><left></img><p><right>$Tarih$</p>
+<p><center><size=16><strong><spacingBefore=20><spacingAfter=20>TRAFİK SİGORTASI KARŞILAŞTIRMA TABLOSU</p>
+<p><size=10><spacingAfter=10>Sayın $AdiSoyadiUnvani$</p>
+<p>Aracınız ile ilgili olarak Trafik sigortası ihtiyacınızı karşılamaya yönelik, vermiş olduğunuz bilgiler çerçevesinde hazırlanmış olan teklifler sigorta şirketi bazında karşılaştırmalı olarak ekte tarafınıza sunulmaktadır.</p>
+<p></p>
+<p>Teklifde sunulan primler, teklifin hazırlandığı tarih ve saat itibari ile geçerlidir. Teklifin poliçeleştirildiği tarih ve saate bağlı olarak, sigorta şirketlerinin tarifelerinde değişiklik olması durumda teklifteki fiyatların değişme ihtimali olabilir. 
+Teklif geçerlilik süreleri sigorta şirketleri tarafından belirlenmektedir. 
+</p>
+<p></p>
+<p>Teklifleri değerlendirirken her türlü sorunuz için bizimle irtibata geçebileceğinizi hatırlatır, göstermiş olduğunuz ilgi için teşekkür ederiz.</p>
+<p></p>
+<p>Saygılarımızla,</p>
+<p></p>
+<p>$TVMUnvani$</p>
+<p><spacingAfter=20></p>
+
+<p><center><size=10><strong><spacingBefore=20><spacingAfter=20>SİGORTALI ARAÇ BİLGİLERİ</p>
+
+<table>
+	<width=520><column=100><column=200><column=100><column=100>
+	<border=black>
+	<tbody>
+	<tr><height=26><size=8><backgroundColor=clear>
+		
+		<td>Police Baslangic Tarihi</td>
+		<td>$PoliceBaslangicTarihi$</td>
+		<td>Police Bitis Tarihi</td>
+		<td>$PoliceBitisTarihi$</td>
+		
+	</tr>
+	<tr>
+		<td>Plaka</td>
+		<td>$Plaka$</td>
+		<td>Kimlik No</td>
+		<td>$KimlikNo$</td>
+	</tr>
+	<tr>
+	<td>Teklif Tarihi</td>
+		<td>$Tarih$</td
+		<td>Teklif No</td>
+		<td>$TeklifNo$</td>
+	</tr>
+	<tr>
+	<td>Marka</td>
+		<td>$AracMarka$</td>
+		<td>Tip</td>
+		<td>$AracTip$</td>
+	</tr>
+	<tr>	
+		<td>Model</td>
+		<td>$AracModel$</td>
+		<td>Kullanım Tarzı</td>
+		<td>$AracKullanimTarzi$</td>
+	</tr>
+	<tr>
+		<td>Motor No</td>
+		<td>$MotorNo$</td>
+		<td>Şasi No</td>
+		<td>$SasiNo$</td>
+	</tr>
+	<tr>
+		<td>Ruhsat No</td>
+		<td>$RuhsatNo$</td>
+		<td>Adres</td>
+		<td>$Adres$</td>
+	</tr>
+</table>
+<pagebreak></pagebreak>
+
+<p><center><size=10><strong><spacingBefore=20><spacingAfter=20>TRAFİK SİGORTASI PRİM KARŞILAŞTIRMA TABLOSU</p>
+<table>
+	<width=520><column=100><column=140><column=280>
+	<border=192,192,192>
+	<tbody>
+	<tr><height=40><size=8><backgroundColor=234,234,234>
+		<td><strong><center>Şirket</td>
+		<td><center>Ürün</td>
+		<td><center>Ödenecek Prim (TL)</td>
+	</tr>
+	<placeHolder=fiyatSatirlari></placeHolder>
+</table>
+<template=FiyatSatiri>
+<tr><backgroundColor=clear>
+	<td><normal><img><path=$TUMLogo$><width=32><height=32><size=8><center></img></td>
+	<td><center>$TUMUnvani$</td>
+	<td><center>$Fiyat1$</td>
+</tr>
+</template=FiyatSatiri>
+
+
+
+<p></p>
+<p></p>
+
+<template=karsilastirmaBaslik>
+<td><center>$TUMUnvani$</td>
+</template=karsilastirmaBaslik>
+<p></p>
+
+<template=karsilastirma>
+<td><center>TL</td>
+<td><center>$PesinPrim$</td>
+<td></td>
+<td><center>$Hasarsizlik$</td>
+<td><center>$PlakaIndirim$</td>
+<td></td>
+<td><center>$GecikmeSurprimi$</td>
+<td></td>
+<td><center>$KisiBasinaOS$</td>
+<td><center>$KazaBasinaOS$</td>
+<td><center>$KisiBasinaTG$</td>
+<td><center>$KazaBasinaTG$</td>
+<td><center>$KisiBasinaMaddi$</td>
+<td><center>$KazaBasinaMaddi$</td>
+<td><center>$IMM$</td>
+<td><center>$FK$</td>
+<td><center>$Asistans$</td>
+</template=karsilastirma>

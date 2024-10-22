@@ -1,0 +1,241 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@using Neosinerji.BABOnlineTP.Business.Common
+
+@model DetayLilyumModel
+
+@section PageStyles
+{
+    <link href="~/content/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
+}
+    <head>
+        <title>LilyumKartDetay</title>
+        <link rel="shortcut icon" href="@Url.Content("~/Content/img/lilyum-icon.png")" />
+    </head>
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li>
+            <a href="/Teklif/Teklif/Liste">Kart Ara<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Detail<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">Yeni Kart Satın Al<span class="arrow"></span></a>
+            <ul class="dropdown-menu">
+                @foreach (var item in ViewBag.UrunYetkileri)
+                {
+                    <li><a href="@item.UrunURL">@item.UrunAdi</a></li>
+                }
+            </ul>
+            <b class="caret-out"></b>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+
+@section PageHeader
+{
+
+}
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/switch")
+    <script src="@Url.Content("~/Content/js/neosinerji.babonlinetp.teklif.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/MapfreDisAcente/lilyum.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.bootstrap.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Content/js/jquery.validate.custom.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.gritter.min.js")" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+
+
+            $("#step3").collapse('show');
+            $("#step2").collapse('hide');
+            $("#step1").collapse('hide');
+
+            $("#btn-teklif-tekrar").click(function () {
+                $("#id").val(@Model.SigortaEttiren.MusteriKodu);
+                $("#formTeklif").submit();
+            });
+            $("#btn-hesapla").button("reset");
+        });
+    </script>
+}
+
+<form id="formTeklif" action="~/Teklif/LilyumKart/Ekle" method="post">
+    @Html.Hidden("id", Model.SigortaEttiren.MusteriKodu)
+    @Html.Hidden("teklifId", Model.TeklifId)
+</form>
+<form class="form-horizontal">
+    @Html.HiddenFor(m => m.TeklifId)
+    <div class="portlet box light-grey" style="margin-top: 24px;">
+        <div class="portlet-title">
+            <div class="caption"><i class="icon-reorder"></i>Lilyum Kart Bilgileri</div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="accordion" id="accordion">
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step1">
+                            <i class="icon-angle-left"></i>
+                            @babonline.UserInfo
+                        </a>
+                    </div>
+                    <div id="step1" class="accordion-body collapse in">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+                                <div class="row-fluid">
+                                    @Html.EditorFor(m => m.Hazirlayan)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step2">
+                            <i class="icon-angle-left"></i>
+                            Lilyum Kart Bilgileri
+                        </a>
+                    </div>
+                    <div id="step2" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="form-section-header">
+                                            <h3 class="form-section">Lilyum Kart Satıcısı</h3>
+                                        </div>
+                                        @Html.EditorFor(s => s.SigortaEttiren)
+                                    </div>
+                                    <div class="span6">
+                                        @if (Model.Sigortali != null)
+                                        {
+                                            <div class="form-section-header">
+                                                <h3 class="form-section">Lilyum Kart Sahibi</h3>
+                                            </div>
+
+                                            @Html.EditorFor(s => s.Sigortali)
+                                        }
+                                    </div>
+                                </div>
+                                <div class="form-section-header">
+                                    <h3 class="form-section">@babonline.General_Information</h3>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">Kart Baslangic Tarihi</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.GenelBilgiler.PoliceBaslangicTarihi</label>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Kart Bitiş Tarihi</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.GenelBilgiler.PoliceBitisTarihi</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-group" id="step3group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#step3">
+                            <i class="icon-angle-left"></i>
+                            Lilyum Kart
+                        </a>
+                    </div>
+                    <div id="step3" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <div class="box-body">
+                                <div id="teklif-no-container" class="row-fluid">
+                                    <div class="span12">
+                                        <h4>@babonline.Proposal_No : @Model.TeklifNo</h4>
+                                    </div>
+                                </div>
+                                <div id="teklif-fiyatlar">
+                                    <div class="row-fluid" style="margin-top: 20px; border-bottom: 1px solid #e5e5e5;">
+                                        <div class="span4" style="text-align: center;font-size:14px"><h4>Lilyum Kart</h4></div>
+                                        <div class="span4" style="text-align: center;font-size:14px"><h4>@babonline.Payment_Amount / Durum </h4></div>
+                                        <div class="span4" style="text-align: center;font-size:14px"><h4>Lilyum 3D Ödeme Durumu</h4></div>
+                                    </div>
+                                    <div class="row-fluid" id="fiyat-container" style="margin-top: 20px; padding-bottom: 20px; border-bottom: 1px solid #e5e5e5;">
+                                        <div class="span4" style="text-align: center;">
+                                            <img id="tum-unvan" alt="@Model.TUMUnvani" src="@Model.TUMLogoURL" />
+                                        </div>
+
+                                        <div class="span4" style="text-align: center;">
+                                            <span style="font-weight: bold;" class="fiyat"></span>
+                                            @if (Model.BrutPrim != null)
+                                            {
+                                                if (Model.TaksitSayisi.HasValue)
+                                                {
+                                                    <strong>
+                                                        <span>@Model.BrutPrim ₺</span>
+                                                    </strong>
+                                                }
+                                                else
+                                                {
+                                                    <span>
+                                                        <strong>@Model.BrutPrim ₺</strong> (Model.TaksitSayisi  Taksit )
+                                                    </span>
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <h4>
+                                                    <span>@Model.KoruPoliceDurumu</span>
+                                                </h4>
+                                            }
+
+                                        </div>
+                                        <div class="span4" style="text-align: center;">
+                                            @if (Model.Parartika3DLilyumSonOdemeDurumu == "Başarılı ")
+                                            {
+                                                <span style="color:green;font-size:15px"><h3> @Model.Parartika3DLilyumSonOdemeDurumu ✓</h3></span>
+                                            }
+                                            else
+                                            {
+                                                <span style="font-size:15px"> @Model.Parartika3DLilyumSonOdemeDurumu </span>
+                                            }
+                                        </div>
+                                    </div>
+                                    @if (Model.Parartika3DLilyumSonOdemeDurumu == "Başarılı ")
+                                    {
+                                        <span style="font-size:24px;font-family:Calibri;font:italic !important"><span style="color:#d250eb">Lilyum Kartınız</span> hazırlanmıştır. En kısa sürede adresinize teslim edilecektir.</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

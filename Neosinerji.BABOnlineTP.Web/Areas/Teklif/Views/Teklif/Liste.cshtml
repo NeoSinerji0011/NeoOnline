@@ -1,0 +1,430 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Business.Common
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.TeklifAramaModel
+
+@{
+    var projekodu = ViewBag.ProjeKodu;
+}
+
+@section PageStyles
+{
+    <style type="text/css">
+        .otorizasyon-check {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    </style>
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="#">@babonline.Proposal_Search<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.NewProposal<span class="arrow"></span></a>
+            <ul class="dropdown-menu">
+                @foreach (var item in ViewBag.UrunYetkileri)
+                {
+                    <li><a href="@item.UrunURL">@item.Aciklama</a></li>
+                }
+            </ul>
+            <b class="caret-out"></b>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+
+@section PageHeader
+{
+
+}
+@section PageScripts
+{
+   
+    <script src="~/Content/js/customDataTable3.js" type="text/javascript"></script>
+
+    <script>
+        
+
+
+        $(document).ready(function () {
+            ////
+            var tvm = $("#TVMKodu").tvmfinder();
+            tvm.enable();
+
+            var customerfinder = $("#MusteriKodu").customerfinder("TVMKodu");
+            customerfinder.enable();
+            ////
+
+            //$("#TVMKodu_text").o
+            //  //
+
+            $('#BaslangicTarihi').change(function () {
+                var d1 = $(this).datepicker("getDate");
+                $("#BitisTarihi").datepicker("option", "minDate", d1);
+                setTimeout(function () { $("#BitisTarihi").datepicker("show"); }, 100);
+            });
+            //  //
+            function formatTableToolsButton(node, icon) {
+                $(node).removeClass('DTTT_button');
+                $(node).button({ icons: { primary: icon } });
+                $('.DTTT_container').buttonset();
+                /* Add this part if you're using a DataTable inside an hidden JUI tab. */
+                $(".ui-tabs").bind("tabsshow", function (event, ui) {
+                    $('.DTTT_container').buttonset();
+                });
+            }
+            var TVMTeklifAraURL;
+            if ($("#AktifProjeKodu").val() == "Mapfre") {
+                TVMTeklifAraURL = "/Teklif/Teklif/Mapfre_TeklifAraListePager";
+            }
+            else if ($("#AktifProjeKodu").val() == "Aegon") {
+                TVMTeklifAraURL = "/Teklif/Teklif/Aegon_TeklifAraListePager";
+            }
+            else TVMTeklifAraURL = "/Teklif/Teklif/TeklifAraListePager";
+
+            ////////////////////////////////////////////
+            
+            var oTable = $('#sample_1').dataTable({
+                "bPaginate": true,
+                "bLengthChange": true,
+                "bFilter": false,
+                "bSort": false,
+                "bInfo": true,
+                "bProcessing": true,
+                "aLengthMenu": [10, 25, 50, 100, 500],
+                "bServerSide": true,
+                "sAjaxSource": TVMTeklifAraURL,
+                "bDeferLoading": true,
+                "iDeferLoading": 0,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap",
+                "show": function (event, ui) {
+                    var jqTable = $('table.display', ui.panel);
+                    if (jqTable.length > 0) {
+                        var oTableTools = TableTools.fnGetInstance(jqTable[0]);
+                        if (oTableTools != null && oTableTools.fnResizeRequired()) {
+                            jqTable.dataTable().fnAdjustColumnSizing();
+                            oTableTools.fnResizeButtons();
+                        }
+                    }
+                },
+                dom: 'Bfrtip',
+                buttons: buttons, 
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "TVMKodu", "value": $("#TVMKodu").val() });
+                    aoData.push({ "name": "TUMKodu", "value": $("#TUMKodu").val() });
+                    aoData.push({ "name": "UrunKodu", "value": $("#UrunKodu").val() });
+                    aoData.push({ "name": "HazirlayanKodu", "value": $("#HazirlayanKodu").val() });
+                    aoData.push({ "name": "TeklifNo", "value": $("#TeklifNo").val() });
+                    aoData.push({ "name": "BaslangicTarihi", "value": $("#BaslangicTarihi").val() });
+                    aoData.push({ "name": "BitisTarihi", "value": $("#BitisTarihi").val() });
+                    aoData.push({ "name": "TeklifDurumu", "value": $('#TeklifDurumu').val() });
+                    aoData.push({ "name": "MusteriKodu", "value": $('#MusteriKodu').val() });
+                },
+                "fnDrawCallback": function () {
+                    $("#search").button("reset");
+                }
+            });
+            $("#search").click(function () {
+                  
+                $(this).button("loading");
+                oTable.fnDraw();
+                $("#table-div").attr("style", "display:normal");
+            });
+            datatableImages();
+             ////
+
+
+            function survey(selector, callback) {
+                var input = $(selector);
+                var oldvalue = input.val();
+                setInterval(function () {
+                    if (input.val() != oldvalue) {
+                        oldvalue = input.val();
+                        callback();
+                    }
+                }, 100);
+            }
+            survey('#TVMKodu', function () {
+                $("#MusteriKodu_text").val("").attr("placeholder", "Müşteri Seçiniz");
+                $("#MusteriKodu").val(0);
+            });
+
+            $(".see-teklif-detail").live("click", function () {
+                var teklifId = $(this).attr("teklif-id");
+                if (teklifId === undefined || teklifId == 0) return;
+
+                $(this).append('<img class="loading-gif" src="/Content/img/loading7.gif">');
+
+                $.post("/Teklif/Teklif/GetAllTeklifDetail", { teklifId: teklifId }, function (data) {
+                    $(".loading-gif").remove();
+                    if (data == null || data == "" || data == "null") alert("Bir hata oluştu");
+                    else {
+                        $("#teklif-detay-partial-div").html(data);
+                        $.validator.unobtrusive.parse("#teklif-detay-partial-div");
+                        $("#teklif-detay-modal").modal('show');
+
+                    }
+                }, "html");
+            });
+
+            $("#table-div").on("click", ".otorizasyon-check", function () {
+                var teklifId = $(this).data("teklif-id");
+                $("#otorizasyon-modal").find(".modal-body").html("<div style='margin:20px auto;width:500px;text-align:center;'><img src='/Content/img/loading9.gif' width='32' height='32' /></div>");
+                $("#otorizasyon-modal").modal("show");
+                $.post("/Teklif/MapfreKasko/OtorizasyonMesajlari",
+                    { teklifId: teklifId },
+                    function (data) {
+                        if (data) {
+                            $("#otorizasyon-modal").find(".modal-body").html(data.html);
+                        }
+                        else {
+                            $("#otorizasyon-modal").find(".modal-body").html("Otorizasyon bilgileri alınamadı...");
+                        }
+                    },
+                    "json");
+            });
+            $("#otorizasyon-modal").on("click", "#otor-sorgula", function () {
+                var teklifId = $("#Otorizasyon_TeklifId").val();
+                $("#otor-mesajlar").html("<div style='margin:20px auto;width:500px;text-align:center;'><img src='/Content/img/loading9.gif' width='32' height='32' /></div>");
+                $("#otor-mesajlar").show();
+                $("#otor-sorgula").button("loading");
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "/Teklif/MapfreKasko/OtorizasyonSorgula",
+                    data: { teklifId: teklifId },
+                    success: function (data) {
+                        $("#otor-sorgula").button("reset");
+                        if (data) {
+                            $("#otor-mesajlar").html(data.html);
+                        }
+                        else {
+                            $("#otor-mesajlar").html("Otorizasyon bilgileri alınamadı...");
+                        }
+                    },
+                    error: function () {
+                        $("#otor-mesajlar").html("Otorizasyon bilgileri alınamadı...");
+                    }
+                });
+            });
+            $("#otorizasyon-modal").on("click", "#otor-onayla", function () {
+                var teklifId = $("#Otorizasyon_TeklifId").val();
+                $("#otor-mesajlar").html("<div style='margin:20px auto;width:500px;text-align:center;'><img src='/Content/img/loading9.gif' width='32' height='32' /></div>");
+                $("#otor-mesajlar").show();
+                $("#otor-onayla").button("loading");
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "/Teklif/MapfreKasko/OtorizasyonOnayVer",
+                    data: { id: teklifId },
+                    success: function (data) {
+                        if (data.success) {
+                            window.location.href = data.redirectUrl;
+                            $("#otor-mesajlar").html("<div class='row-fluid' style='margin-top:20px;padding-bottom:20px;'><div class='span12'><div class='alert alert-success'>Otorizasyon bilgileri alındı. Teklif detay sayfasına yönlendiriliyorsunuz.</div></div></div>");
+                            return;
+                        }
+                        $("#otor-mesajlar").html("<div class='alert alert-error'>Otorizasyon bilgileri alınamadı...</div>");
+                        $("#otor-onayla").button("reset");
+                    },
+                    error: function () {
+                        $("#otor-mesajlar").html("<div class='alert alert-error'>Otorizasyon bilgileri alınamadı...</div>");
+                        $("#otor-onayla").button("reset");
+                    }
+                });
+            });
+
+            $("#btn-teklif-tekrar").live("click", function () {
+                var teklifId = $(this).data("teklif-id");
+                var musteriKodu = $(this).data("musteri-kodu");
+
+                $("#formTeklif").find("#id").val(musteriKodu);
+                $("#formTeklif").find("#teklifId").val(teklifId);
+                $("#formTeklif").submit();
+            });
+        });
+    </script>
+
+
+}
+
+<form id="formTeklif" action="/Teklif/MapfreKasko/Ekle" method="post">
+    @Html.Hidden("id")
+    @Html.Hidden("teklifId")
+    @Html.Hidden("AktifProjeKodu")
+</form>
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 25px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">@babonline.Proposal_List</span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form class="form-horizontal">
+                    <div class="row-fluid" style="padding-top: 10px;">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVM_Title</label>
+                                <div class="controls">
+                                    @Html.TVMFinderFor(m => m.TVMKodu, Model.TVMUnvani)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label" id="teklif-no">&nbsp; @babonline.Proposal_No</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(s => s.TeklifNo, new { style = "width:90%" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Customer</label>
+                                <div class="controls">
+                                    @Html.MusteriFinderFor(s => s.MusteriKodu, Model.MusteriAdSoyad)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">&nbsp;  @babonline.StartDate</label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(s => s.BaslangicTarihi, new { style = "width:100px" })
+                                    @Html.ValidationMessageFor(s => s.BaslangicTarihi)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Product_Name</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.UrunKodu, Model.Urunler, new { style = "width:90%" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">&nbsp;  @babonline.EndDate</label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(s => s.BitisTarihi, new { style = "width:100px" })
+                                    @Html.ValidationMessageFor(s => s.BitisTarihi)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Proposal_TVMUser</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.HazirlayanKodu, Model.Kullanicilar, new { style = "width:90%" })
+                                </div>
+                            </div>
+                        </div>
+                        @if (projekodu != TVMProjeKodlari.Aegon)
+                        {
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">&nbsp;@babonline.Proposal_Status</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(s => s.TeklifDurumu, Model.Durumlar)
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    @if (projekodu != TVMProjeKodlari.Aegon && projekodu != TVMProjeKodlari.Mapfre)
+                    {
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.TUM_Title</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(s => s.TUMKodu, Model.TUMler, new { style = "width:90%" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="form-actions">
+                        <a href="/Teklif/Teklif/Liste" class="btn ligth-grey">@babonline.Clear</a>
+                        <a id="search" class="btn green" data-loading-text="@babonline.Message_Loading">@babonline.Search</a>
+                    </div>
+                    <div class="row-fluid" style="margin-top: 20px;">
+                        <div class="span12">
+                            <div class="col-md-6 col-sm-6"><div id="sample_1_filter" class="dataTables_filter"><label>Bul:<input class="form-control input-sm input-small input-inline" placeholder="" aria-controls="sample_1" type="search"></label></div></div>
+                            <div id="table-div" style="display: normal;">
+                                <table id="sample_1" class="table table-striped table-bordered table-hover dataTable data-table dataTables_wrapper" style="table-layout: inherit">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px;">@babonline.Proposal_No</th>
+                                            @if (projekodu == TVMProjeKodlari.Mapfre)
+                                            {
+                                                <th style="width: 80px;">@babonline.MapfreProposalNo</th>
+                                            }
+                                            <th style="width: 110px;">@babonline.Customer</th>
+                                            <th style="width: 50px;">@babonline.Product</th>
+                                            <th style="width: 110px;">@babonline.Date_Of_the_Establishment</th>
+
+                                            @if (projekodu != TVMProjeKodlari.Aegon)
+                                            {
+                                                <th style="width: 100px;">@babonline.SpecialField</th>
+                                            }
+                                            <th style="width: 100px;">@babonline.TVM_Name</th>
+                                            <th style="width: 100px;">@babonline.Added_User</th>
+                                            <th style="width: 60px;">@babonline.BuyPolicy</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="teklif-detay-partial-div"></div>
+
+<div id="otorizasyon-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>@babonline.AuthorizationStatus</h3>
+    </div>
+    <div class="modal-body">
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn green" data-dismiss="modal" aria-hidden="true">@babonline.OK</a>
+    </div>
+</div>

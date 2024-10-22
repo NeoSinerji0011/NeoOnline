@@ -1,0 +1,598 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using Neosinerji.BABOnlineTP.Business
+@using Neosinerji.BABOnlineTP.Business.Common
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Database.Models
+
+@model TVMDetayModel
+
+@{
+    bool guncellemeYetkisi = false;
+
+    List<KullaniciYetkiModel> sekmeler = ViewBag.Sekmeler;
+    KullaniciYetkiModel sekme = sekmeler.Where(s => s.SekmeKodu == menu.AltMenuSekmeler.TeklifVermeMerkeziTVM).FirstOrDefault();
+
+    if (sekme != null)
+    {
+        if (sekme.Degistirme == 1)
+        { guncellemeYetkisi = true; }
+    }
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/TVM/Liste">@babonline.TVM_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Detail<span class="selected"></span></a>
+        </li>
+        @if (guncellemeYetkisi)
+        {
+            <li>
+                <a href="~/Manage/TVM/Guncelle/@Model.Kodu">@babonline.Update<span></span></a>
+            </li>
+        }
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+
+            <div class="box-body">
+                <div class="portlet box light-grey " style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-reorder"></i>@babonline.TVMInformation</div>
+                        @if (guncellemeYetkisi)
+                        {
+                            <div class="actions">
+                                <a href="/Manage/TVM/Guncelle/@Model.Kodu" class="btn yellow"><i class="icon-pencil">&nbsp;</i>@babonline.Update</a>
+                            </div>
+                        }
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal form-view">
+                            @Html.HiddenFor(m => m.Kodu)
+
+                            <h3 class="form-section">@babonline.General_Information</h3>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TVM_Type</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.TipiText</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TVM_Code</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.Kodu</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TVM_Title Ünvanı</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.Unvani</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">Logo</label>
+                                        <div class="controls">
+                                            <label class="control">
+                                                <img style="width:70px" width="70px" src="@Model.LogoModel.Src" alt="@Model.LogoModel.Alt" />
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Project_Code</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.ProjeKodu</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (!String.IsNullOrEmpty(Model.BolgeYetkilisiUnvani))
+    {
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">Bölge Yetklisi Ünvanı</label>
+                                    <div class="controls">
+                                        <label class="control">@Model.BolgeYetkilisiUnvani</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+}
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">Bölge Yetklisi mi?</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.BolgeYetkilisiMiText</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TVM_RecordNo</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.KayitNo</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid" style="display:none" >
+                                <div class="span6">
+                                    <div class="control-group" id="divProducerTCKN">
+                                        <label class="control-label">@babonline.TVM_ProducerTCKN</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.TCKN</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TaxOffice</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.VergiDairesi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TaxNumber</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.VergiNumarasi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TVM_Profile</label>
+                                        <div class="controls">
+                                            <label class="control">@(Model.Profili == TVMProfilleri.Merkez ? babonline.TVM_HQ : babonline.TVM_Branch)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6" id="divBagliOlduguTVMKodu" style="@(Model.Profili == TVMProfilleri.Merkez ? "display:none" : "")">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.IsConnectedToTvm</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.BagliOlduguTVMKodu - @Model.BagliOlduguTVMAdi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVM_AgencyExists</label>
+                                <div class="controls">
+                                    <label class="control">@Model.AcentSuvbeVarText</label>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">Paylaşımlı Acenteden Poliçe Transferi Yapılacak mı? </label>
+                                        <div class="controls">
+                                            <label class="control">@Model.PoliceTransferiYapilacakmiText</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Status</label>
+                                        <div class="controls">
+                                            <label class="control">
+                                                @if (Model.Durum == 1)
+                        {
+                            <span class="label label-success">@babonline.Active</span>
+}
+else
+{
+                        <span class="label label-important">@babonline.Pasive</span>
+}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Accounting_Integration </label>
+                                        <div class="controls">
+                                            <label class="control">@Model.MuhasebeEntegrasyonVarText</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TVM_ContractStartDate</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.SozlesmeBaslamaTarihi.ToString("dd.MM.yyyy")</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TVM_ContractEndDate</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.SozlesmeDondurmaTarihi.ToString("dd.MM.yyyy")</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">Son Poliçe Onay Süresi(Gün)</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.SonPoliceOnayTarihi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="form-section">@babonline.Contact_Info</h3>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Phone</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.Telefon</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Fax_Number</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.Fax</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Email_Adress</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.Email</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Web_URL</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.WebAdresi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="form-section">@babonline.Address_Info</h3>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Country</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.UlkeAdi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Neighborhood</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.Semt</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.City</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.IlAdi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Address</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.Adres</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.District</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.IlceAdi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (!String.IsNullOrEmpty(@Model.Notlar))
+    {
+                        <h3 class="form-section">@babonline.Notes</h3>
+
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="control-group">
+                                    <label class="control">@Model.Notlar</label>
+                                </div>
+                            </div>
+                        </div>
+}
+
+                            <h3 class="form-section">@babonline.Security_Info</h3>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.MaxPasswordFail</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.SifreKontralSayisi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.PasswordValidDays</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.SifreDegistirmeGunu</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.ConnectionLimit</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.BaglantiSiniriText</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.PasswordWarningDays</label>
+                                        <div class="controls">
+                                            <label class="control">@Model.SifreIkazGunu</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (Model.IPBaglantilariList.Items.Count > 0 && Model.BaglantiSiniriText == "Var")
+    {
+
+                        <div class="control-group">
+
+                            <label class="control-label">@babonline.TVMIPConnection_List</label>
+                            <div class="controls">
+                                <table style="width: 75%;" class="table table-bordered table-striped responsive data-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: left;">@babonline.TVMIPConnection_StartIP </th>
+                                            <th style="text-align: left;">@babonline.TVMIPConnection_EndIP </th>
+                                            <th style="width: 50px; text-align: left;">@babonline.Status </th>
+                                            <th style="width: 100px; text-align: left;">@babonline.Add_Date </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var baglanti in Model.IPBaglantilariList.Items)
+                {
+                        <tr>
+                            <td>@baglanti.BaslangicIP </td>
+                            <td>@baglanti.BitisIP </td>
+                            <td>
+                                <label class="control">
+                                    @if (baglanti.Durum == 1)
+            {
+                        <span class="label label-success">@babonline.Active</span>
+}
+else
+{
+                        <span class="label label-important">@babonline.Pasive</span>
+}
+                                </label>
+                            </td>
+                            <td>@baglanti.KayitTarihi.ToShortDateString() </td>
+                        </tr>
+}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+}
+
+                            @if (Model.BolgeleriList.Items.Count > 0)
+    {
+                        <h3 class="form-section">@babonline.TVMRegion_List</h3>
+
+                        <div class="row-fluid">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <table style="width: 75%;" class="table table-bordered table-striped responsive data-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: left;">@babonline.TVMRegion_Name </th>
+                                                <th style="width: 50px; text-align: left;">@babonline.Status </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var bolge in Model.BolgeleriList.Items)
+                    {
+                        <tr>
+                            <td>@bolge.BolgeAdi </td>
+                            <td>
+                                <label class="control">
+                                    @if (bolge.Durum == 1)
+            {
+                        <span class="label label-success">@babonline.Active</span>
+}
+else
+{
+                        <span class="label label-important">@babonline.Pasive</span>
+}
+                                </label>
+                            </td>
+                        </tr>
+}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+}
+
+                            @if (Model.DepartmanlarList.Items.Count > 0)
+    {
+                        <h3 class="form-section">@babonline.TVMDepartment_List</h3>
+
+                        <div class="row-fluid">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <table style="width: 75%;" class="table table-bordered table-striped responsive data-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: left;">@babonline.TVMDepartment_DepartmentName </th>
+                                                <th style="width: 50px; text-align: left;">@babonline.Status </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var departman in Model.DepartmanlarList.Items)
+                    {
+                        <tr>
+                            <td>@departman.Adi </td>
+                            <td>
+                                <label class="control">
+                                    @if (departman.Durum == 1)
+            {
+                        <span class="label label-success">@babonline.Active</span>
+}
+else
+{
+                        <span class="label label-important">@babonline.Pasive</span>
+}
+                                </label>
+                            </td>
+                        </tr>
+}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+}
+
+                            @if (Model.NotlarList.Items.Count > 0)
+    {
+                        <h3 class="form-section">@babonline.Notes</h3>
+
+                        <div class="row-fluid">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <table style="width: 75%;" class="table table-bordered table-striped responsive data-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: left;">@babonline.Topic  </th>
+                                                <th style="width: 100px; text-align: left;">@babonline.Add_Date </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var not in Model.NotlarList.Items)
+                    {
+                        <tr>
+                            <td>@not.KonuAdi </td>
+                            <td>@not.EklemeTarihi.ToShortDateString() </td>
+                        </tr>
+}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+}
+
+                            @if (Model.DokumanlariList.Items.Count > 0)
+    {
+                        <h3 class="form-section">@babonline.Document</h3>
+                        <div class="row-fluid">
+                            <div class="control-group">
+                                <div class="controls">
+                                    <table style="width: 75%;" class="table table-bordered table-striped responsive data-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: left;">@babonline.Document </th>
+                                                <th style="text-align: left;">@babonline.Document_Type </th>
+                                                <th style="width: 100px; text-align: left;">@babonline.Add_Date </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var dokuman in Model.DokumanlariList.Items)
+                    {
+                        <tr>
+                            <td>@dokuman.Dokuman </td>
+                            <td>@dokuman.DokumanTuru </td>
+                            <td>@dokuman.EklemeTarihi.ToShortDateString(); </td>
+                        </tr>
+}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+}
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

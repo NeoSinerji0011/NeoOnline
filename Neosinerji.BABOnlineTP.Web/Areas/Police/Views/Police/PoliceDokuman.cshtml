@@ -1,0 +1,134 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Police.Models.PoliceDokumanModel
+
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li class="active">
+            <a href="javascript:;">Poliçe Dokümanları<span class="selected"></span></a>
+        </li>
+    </ul>
+}
+<title>MüşteriGüncelle</title>
+
+@section PageHeader
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+
+
+@section PageScripts
+{
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#urun-tab a:first").tab("show");
+
+
+        });
+
+        $("#dokuman-ekle").live("click", function () {
+            var policeid = $("#PoliceId").val();
+            $.post("/Police/Police/PoliceDosyaKayit/" + policeid,
+                function (data) {
+                    $("#DokumanEkle-modal-div").html(data);
+                    $("#DokumanEkle-modal").modal('show');
+                },
+                "html");
+        });
+
+    </script>
+}
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>Poliçe Dokümanları</div>
+    </div>
+    <div class="portlet-body form">
+
+        @Html.HiddenFor(m => m.PoliceId)
+        @Html.AntiForgeryToken()
+
+        @*TvmUnvanı ve TvmMusteriKodu*@
+        <div class="row-fluid">
+            <div class="control-group">
+                <div class="form-section-header">
+                    <h3 class="form-section">Genel Bilgiler</h3>
+                    <div class="span12">
+                        <div class="span4">
+                            <label class="control-label"><b>@babonline.PolicyNo :</b>  @Model.PoliceNo</label>
+                        </div>
+                        <div class="span4">
+                            <label class="control-label"><b>@babonline.Addendum :</b>  @Model.EkNo</label>
+                        </div>
+                        <div class="span4">
+                            <label class="control-label"><b>@babonline.RenewalNo :</b>  @Model.YenilemeNo</label>
+                        </div>
+                    </div>
+                    <div class="span12">
+                        <div class="span4">
+                            <label class="control-label"><b>Tanzim Tarihi :</b>  @Model.TanzimTarihi.Value.ToShortDateString()</label>
+                        </div>
+                        <div class="span4">
+                            <label class="control-label"><b>Başlangıç Tarihi :</b>  @Model.BaslangicTarihi.Value.ToShortDateString()</label>
+                        </div>
+                        <div class="span4">
+                            <label class="control-label"><b>Bitiş Tarihi :</b>  @Model.BitisTarihi.Value.ToShortDateString()</label>
+                        </div>
+                    </div>
+                    <div class="span12">
+                        <div class="span4">
+                            <label class="control-label"><b>Sigorta Şirketi :</b>  @Model.SigortaSirketi</label>
+                        </div>
+                    </div>
+                    <div class="span12">
+                        <div class="span4">
+                            <label class="control-label"><b>Sigortalı Tckn / Vkn :</b>  @Model.SigortaliTcknVkn</label>
+                        </div>
+                        <div class="span4">
+                            <label class="control-label"><b>Sigortalı Adı :</b>  @Model.SigortaliAdi</label>
+                        </div>
+                    </div>
+                    <div class="span12">
+                        <div class="span4">
+                            <label class="control-label"><b>Sigorta Ettiren Tckn / Vkn :</b>  @Model.SigortaEttirenTcknVkn</label>
+                        </div>
+                        <div class="span4">
+                            <label class="control-label"><b>Sigorta Ettiren Adı :</b>  @Model.SigortaEttirenAdi</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--BEGIN TABS-->
+        <div class="tabbable tabbable-custom" style="margin-top: 15px;">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1_1" data-toggle="tab">@babonline.Document</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1_1">
+                    <label><a id="dokuman-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.Document_Add</a></label>
+                    @*Dökümanlar Burada Ekleniyor  !!!!!!!!!!!!!!!!!!!!   *@
+                    <div class="row-fluid">
+                        <div class="span12" id="dokumanlar-container">
+                            @Html.Partial("_Dokumanlar", Model)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END FORM-->
+    </div>
+</div>
+
+
+@*Döküman   ekle modal form*@
+<div id="dokuman-modal-div"></div>
+
+<div id="DokumanEkle-modal-div"></div>
+
+
+
+

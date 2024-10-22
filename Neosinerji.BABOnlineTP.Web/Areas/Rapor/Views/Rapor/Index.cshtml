@@ -1,0 +1,107 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="#">@babonline.Reports<span class="selected"></span></a>
+        </li>
+        <li>
+            <a href="/Rapor/Rapor/SubeSatisRaporu">@babonline.Branch_Sales_Report<span></span></a>
+        </li>
+        <li>
+            <a href="/Rapor/Rapor/MTSatisRaporu">@babonline.MT_Sales_Report<span></span></a>
+        </li>
+        <li>
+            <a href="/Rapor/Rapor/PoliceRaporu">@babonline.Policy_Sales_Report<span></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+@section PageScripts
+{
+    <script>
+        $(document).ready(function () {
+
+            $("#btn-detay").popover({
+                placement: 'bottom',
+                html: 'true',
+                title: 'Rapor Detay',
+                content: $("#rapor-detay-al").html(),
+                delay: { show: 500, hide: 100 },
+                container: 'body'
+            });
+        });
+    </script>
+}
+
+
+<div class="faq-content">
+    <div class="span9">
+        <h3 style="font-size: 22px;">@babonline.Reports</h3>
+        <div class="well">
+            <h4>@babonline.Branch_Sales_Report </h4>
+            <p>Yetkiniz dahilinde tvm lerin poliçe adedi ve brüt satışlarının bilgilerini veren rapordur. Rapor elde edilen komisyon oranınıda içermektedir, ürün ve brans bazlı kısıtlamalarda yapılabilmektedir.</p>
+            <a href="/Rapor/Rapor/SubeSatisRaporu" class="btn btn-success">@babonline.ViewReport</a>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="well">
+            <h4>@babonline.MT_Sales_Report </h4>
+            <p>Yetkiniz dahilinde tvm lerin poliçe adedi, brüt satışlarının bilgilerini ve personel bazlı satış, brüt prim ve poliçe adedi bilgisi veren rapordur. Rapor elde edilen komisyon oranınıda içermektedir, ürün, brans ve TVM bazlı kısıtlamalarda yapılabilmektedir.</p>
+            <a href="/Rapor/Rapor/MTSatisRaporu" class="btn btn-success">@babonline.ViewReport</a>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="well">
+            <h4>@babonline.Policy_Sales_Report </h4>
+            <p>Bulunduğunuz TVM de hazırlanmış olan tüm poliçeleri detaylı bir şekilde sorgulayabileceğiniz rapor ekranıdır.</p>
+            <a href="/Rapor/Rapor/PoliceRaporu" class="btn btn-success">@babonline.ViewReport</a>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="well">
+            <h4>@babonline.StaffDetailSalesReport </h4>
+            <p>@babonline.PreparesReports</p>
+            <a href="javascript:void(0)" id="btn-detay" class="btn btn-primary">@babonline.ViewDetails</a>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+    <div class="span3">
+        <div class="toc">
+            <h4>@babonline.ReportsPrepared</h4>
+            <ol>
+                <li><a href="#">@babonline.StaffDetailSalesReport </a></li>
+                <li><a href="#">@babonline.CustomerProposalReport</a></li>
+                <li><a href="#">@babonline.ProductDetailReport</a></li>
+                <li><a href="#">@babonline.RegionalSalesDetailReport</a></li>
+                <li><a href="#">@babonline.DepartmentSalesDetailReport</a></li>
+            </ol>
+        </div>
+
+    </div>
+</div>
+
+<div id="rapor-detay-al" style="display: none;">
+    <div style="width: 200px;">
+        <span>@babonline.ReportCompleted </span>
+    </div>
+</div>
+
+<div id="not-ekle-modal-div"></div>

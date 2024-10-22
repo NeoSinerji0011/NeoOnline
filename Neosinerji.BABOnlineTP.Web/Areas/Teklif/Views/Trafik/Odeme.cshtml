@@ -1,0 +1,189 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model OdemeTrafikModel
+
+@section PageMenu
+{
+    <div id="main-menu">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#"><i class="icon-edit icon-white"></i><span>@babonline.Pay</span></a></li>
+        </ul>
+    </div>
+}
+
+@section PageStyles
+{
+    <style type="text/css">
+        .form-horizontal .control-label {
+            text-align:left;
+            font-weight:bold;
+        }
+    </style>
+}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/dataTable")
+    @Scripts.Render("~/bundles/phone_js/")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $("#step1").collapse('show');
+            $("#step2").collapse('hide');
+            $("#step3").collapse('show');
+            $("#step4").collapse('show');
+
+            $("#kredikarti").krediKarti();
+
+            $("#form1").submit(function () {
+                $(this.KrediKarti_KartNumarasi).remove();
+                return true;
+            });
+
+            $("#btn-kredi-karti").click(function () {
+                var isvalid = $("#form1").valid();
+                if (isvalid) {
+                    var kartnoVal = $("#form1")[0].KrediKarti_KartNumarasi;
+                    $(kartnoVal).remove();
+
+                    $("#kredi-karti-error").hide();
+                    $(this).button("loading");
+
+                    var contents = $("#form1").serialize();
+
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "/Teklif/Trafik/OdemeAl",
+                            data: contents,
+                            success: function (data) {
+
+                                if (data.Success) {
+                                    window.location.href = data.RedirectUrl;
+                                    return;
+                                }
+                                else if (data.Hatalar != null && data.Hatalar.length > 0) {
+                                    $("#kredi-karti-error-list").html("");
+
+                                    for (var i in data.Hatalar) {
+                                        var hata = data.Hatalar[i];
+
+                                        $("#kredi-karti-error-list").append("<span>" + hata + "</span><br/>");
+                                    }
+
+                                    $("#kredi-karti-error").slideDown("fast");
+                                }
+
+                                $("#btn-kredi-karti").button("reset");
+                            },
+                            error: function () {
+                                $("#btn-kredi-karti").button("reset");
+                            }
+                        });
+                }
+            });
+        });
+    </script>
+}
+
+@using (Html.BeginForm("OdemeAl", "Trafik", FormMethod.Post, new { @class = "form-horizontal", id = "form1" }))
+{ 
+    
+    <div class="span12" style="margin-top: 20px;">
+        <div class="accordion" id="accordion">
+            <div class="accordion-group" id="step1group">
+                <div class="accordion-heading">
+                    <div class="box corner-all" style="margin-top: 0px; margin-bottom: 0px;">
+                        <div class="box-header grd-white color-silver-dark corner-top">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#step1">@babonline.Insurance_Information</a>
+                            <a class="btn btn-success btn-mini pull-right" data-toggle="collapse" data-parent="#accordion" href="#step1">
+                                <i class="icon-resize-full icon-white"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="step1" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <div class="box-body">
+                            @Html.Partial("_SigortaBilgileri", Model.Sigorta)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-group" id="step2group">
+                <div class="accordion-heading">
+                    <div class="box corner-all" style="margin-top: 0px; margin-bottom: 0px;">
+                        <div class="box-header grd-white color-silver-dark">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#step2">@babonline.VehicleInfo</a>
+                            <a class="btn btn-success btn-mini pull-right" data-toggle="collapse" data-parent="#accordion" href="#step2">
+                                <i class="icon-resize-full icon-white"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="step2" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <div class="box-body">
+                            <div class="">
+                                @Html.EditorFor(m => m.Arac)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-group" id="step3group">
+                <div class="accordion-heading">
+                    <div class="box corner-all" style="margin-top: 0px; margin-bottom: 0px;">
+                        <div class="box-header grd-white color-silver-dark">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#step3">@babonline.PaymentOptions</a>
+                            <a class="btn btn-success btn-mini pull-right" data-toggle="collapse" data-parent="#accordion" href="#step3">
+                                <i class="icon-resize-full icon-white"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="step3" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <div class="box-body">
+                            @Html.Partial("_OdemeBilgileri", Model.OdemeBilgileri)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-group" id="step4group">
+                <div class="accordion-heading">
+                    <div class="box corner-all" style="margin-top: 0px; margin-bottom: 0px;">
+                        <div class="box-header grd-white color-silver-dark">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#step4">@babonline.Payment_Chose</a>
+                            <a class="btn btn-success btn-mini pull-right" data-toggle="collapse" data-parent="#accordion" href="#step4">
+                                <i class="icon-resize-full icon-white"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="step4" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                        <div class="box-body">
+                            <div class="row-fluid">
+                                <div class="offset3 span6 offset3">
+                                     <div class="box corner-all" style="margin-top: 0px; margin-bottom: 0px;">
+                                        <div class="box-header grd-white color-silver-dark">
+                                            @babonline.Credit_Card
+                                        </div>
+                                        <div class="box-body">
+                                            @Html.EditorFor(m => m.KrediKarti)                                            
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+} 

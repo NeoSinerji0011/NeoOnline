@@ -1,0 +1,61 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model TVMBankaHesaplariListModel
+
+<script>
+    $(document).ready(function () {
+        var bankahesaplariTable;
+        function bankahesaplariTableSet() {
+            bankahesaplariTable = $('#bankahesaplari-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        bankahesaplariTableSet();
+    });
+</script>
+
+<table id="bankahesaplari-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 150px;">@babonline.Order</th>
+            <th>Hesap Tipi</th>
+            <th>@babonline.Bank</th>
+            <th>@babonline.AccountName</th>
+            <th>@babonline.Office</th>
+            <th>Hesap Kodu</th>
+            <th>@babonline.IBAN</th>
+            <th>Cari Hesap Kodu</th>
+            <th style="width: 50px;">&nbsp;</th>
+            <th style="width: 40px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td style="text-align: center; width: 150px;">@item.SiraNo</td>
+                <td>@item.HesapTipiAdi</td>
+                <td>@item.BankaAdi</td>
+                <td>@item.HesapAdi</td>
+                <td>@item.SubeAdi</td>
+                <td>@item.AcenteKrediKartiNo</td>
+                <td>@item.IBAN</td>
+                <td>@item.CariHesapNo</td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" bankahesaplari-kodu="@item.SiraNo" tvm-kodu="@item.TVMKodu" class="btn btn-mini btn-info edit-bankahesaplari">@babonline.Edit</a>
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" bankahesaplari-kodu="@item.SiraNo" tvm-kodu="@item.TVMKodu" class="btn btn-mini btn-danger delete-bankahesaplari">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

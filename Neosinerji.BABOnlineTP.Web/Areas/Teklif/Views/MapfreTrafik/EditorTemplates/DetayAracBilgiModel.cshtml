@@ -1,0 +1,162 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model DetayAracBilgiModel
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.LicenceNumber</label>
+            <div class="controls">
+                <label class="control">@Model.PlakaKodu&nbsp;@Model.PlakaNo</label>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.LicenceCity</label>
+            <div class="controls">
+                <label class="control">@Model.TescilIl</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.RegistrationFormId</label>
+            <div class="controls">
+                <label class="control">@Model.TescilBelgeSeriKod-@Model.TescilBelgeSeriNo</label>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.LicenceDistrict</label>
+            <div class="controls">
+                <label class="control">@Model.TescilIlce</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.ASBISNo</label>
+            <div class="controls">
+                <label class="control">@Model.AsbisNo</label>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.LicenceDate</label>
+            <div class="controls">
+                <label class="control">@Model.TrafikTescilTarihi</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">Araç Tarife Grup Kodu</label>
+            <div class="controls">
+                <label class="control">@Model.KullanimSekli</label>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.TrafficDate</label>
+            <div class="controls">
+                <label class="control">@Model.TrafigeCikisTarihi</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.VehicleUsageType</label>
+            <div class="controls">
+                <label class="control">@Model.KullanimTarzi</label>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.PolicyStartDate</label>
+            <div class="controls">
+                <label class="control">@Model.PoliceBaslangicTarihi</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.VehicleBrand</label>
+            <div class="controls">
+                <label class="control">@Model.Marka</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.ChassisNo</label>
+            <div class="controls">
+                <label class="control">@Model.SaseNo</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.VehicleModel</label>
+            <div class="controls">
+                <label class="control">@Model.Model</label>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.EngineNo</label>
+            <div class="controls">
+                <label class="control">@Model.MotorNo</label>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.VehicleType</label>
+            <div class="controls">
+                <label class="control">@Model.Tip</label>
+            </div>
+        </div>
+    </div>
+    @if (Model.Deger.HasValue)
+    {
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">Değer</label>
+                <div class="controls">
+                    <label class="control">@Model.Deger TL</label>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+

@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Neosinerji.BABOnlineTP.Business.MAPFRE
+{
+    public class EgmSorguAracSahipBilgileri
+    {
+        public string adUnvan { get; set; }
+        public string soyad { get; set; }
+    }
+}

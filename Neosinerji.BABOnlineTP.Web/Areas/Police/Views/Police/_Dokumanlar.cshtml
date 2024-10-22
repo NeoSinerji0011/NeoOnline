@@ -1,0 +1,32 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Police.Models
+@model PoliceDokumanModel
+
+<table id="dokumanlar-table" class="table table-striped table-bordered table-hover dataTable data-table">
+    <thead>
+        <tr>
+            <th>@babonline.File_Name</th>
+            <th>@babonline.File</th>
+            <th>@babonline.Date</th>
+            <th>@babonline.Added_Records_User </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.PoliceDokumanlar != null)
+        {
+            if (Model.PoliceDokumanlar.Count > 0)
+            {
+                foreach (var item in Model.PoliceDokumanlar)
+                {
+                    <tr>
+                        <td>@item.DokumanAdi</td>
+                        <td> <a href="@item.DokumanURL"><img src="https://neoonlinestrg.blob.core.windows.net/tum-logo/download.png"></a></td>
+                        <td>@item.KayitTarihi.Value.ToShortDateString()</td>
+                        <td>@item.TVMKullaniciKodu</td>
+                    </tr>
+                }
+
+            }
+        }
+    </tbody>
+</table>

@@ -1,0 +1,107 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using Neosinerji.BABOnlineTP.Business
+
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model KonfigurasyonModel
+
+@{
+    bool guncellemeYetkisi = false;
+
+    List<KullaniciYetkiModel> sekmeler = ViewBag.Sekmeler;
+    KullaniciYetkiModel sekme = sekmeler.Where(s => s.SekmeKodu == menu.AltMenuSekmeler.Konfigurasyon).FirstOrDefault();
+
+    if (sekme != null)
+    {
+        if (sekme.Degistirme == 1)
+        { guncellemeYetkisi = true; }
+    }
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/Konfigurasyon/Liste">@babonline.Configuration_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Detail<span class="selected"></span></a>
+        </li>
+        @if (guncellemeYetkisi)
+        {
+            <li>
+                <a href="~/Manage/Konfigurasyon/Guncelle/@Model.Kod">@babonline.Update<span></span></a>
+            </li>
+        }
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageScripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#menu-Konfigurasyon").addClass("active");
+        });
+    </script>
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey " style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-reorder"></i>@babonline.Configuration_Info</div>
+                        @if (guncellemeYetkisi)
+                        {
+                            <div class="actions">
+                                <a href="~/Manage/Konfigurasyon/Guncelle/@Model.Kod" class="btn yellow"><i class="icon-pencil">&nbsp;</i>@babonline.Update</a>
+                            </div>
+                        }
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal form-view">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Configuration_Code</label>
+                                <div class="controls">
+                                    <label class="control">@Model.Kod</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Configuration_Value</label>
+                                <div class="controls">
+                                    <label class="control">@Model.Deger</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Comment</label>
+                                <div class="controls">
+                                    <label class="control">@Model.Aciklama</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

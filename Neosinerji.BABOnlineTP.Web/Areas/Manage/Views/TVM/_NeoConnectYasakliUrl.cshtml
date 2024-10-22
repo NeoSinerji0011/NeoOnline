@@ -1,0 +1,57 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model  List<Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.NeoConnectYasakliUrlModels>
+
+<script>
+    $(document).ready(function () {
+        var webservisKullanicilariTable;
+        function webservisKullanicilariTableSet() {
+            webservisKullanicilariTable = $('#neoconnectYasakliUrl-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        webservisKullanicilariTableSet();
+    });
+</script>
+
+<table id="neoconnectYasakliUrl-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th>@babonline.TVMUser_Name</th>
+            <th>Satış Kanalı Adı</th>
+            <th style="width: 20%;">@babonline.TUM_Title</th>
+
+            <th>Engellenecek Menü Adımı (Url)</th>
+
+
+            <th style="width: 50px;">&nbsp;</th>
+            <th style="width: 40px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TVMUnvan</td>
+                <td>@item.AltTvmUnvan</td>
+                <td>@item.TUMUnvan</td>
+                <td>@item.YasaklanacakUrl</td>
+
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" tvm-kodu="@item.TVMKodu" tum-kodu="@item.SigortaSirketKodu" kayit-id="@item.Id" class="btn btn-mini btn-info edit-neoconnectYasakliUrl">@babonline.Edit</a>
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" tvm-kodu="@item.TVMKodu" tum-kodu="@item.SigortaSirketKodu" kayit-id="@item.Id" class="btn btn-mini btn-danger delete-neoconnectYasakliUrl">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

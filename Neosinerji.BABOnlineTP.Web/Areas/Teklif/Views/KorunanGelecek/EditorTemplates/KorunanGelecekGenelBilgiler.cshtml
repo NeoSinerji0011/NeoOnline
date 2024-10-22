@@ -1,0 +1,58 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.KorunanGelecekGenelBilgiler
+
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Insurance_Start_Date<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(s => s.SigortaBaslangicTarihi, new { })
+                @Html.ValidationMessageFor(s => s.SigortaBaslangicTarihi)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Currency<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.ParaBirimi, Model.ParaBirimleri, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.ParaBirimi)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Insurance_Duration (Yıl)<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.SigortaSuresi, new { @class = "onlynumbers", style = "width:100px;" })
+                @Html.ValidationMessageFor(s => s.SigortaSuresi)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Premium_Payment_Period<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.PrimOdemeDonemi, Model.PrimDonemleri, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.PrimOdemeDonemi)
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+

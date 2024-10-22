@@ -1,0 +1,49 @@
+﻿
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Police.Models.TeklifAraReasurorPartialModel
+
+<script>
+    $(document).ready(function () {
+
+    });
+</script>
+
+<div id="teklifara-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>Teklif Ara</h3>
+    </div>
+    <div class="modal-body">
+        <form id="teklif-ara-form" class="form-horizontal">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TVM</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.TVMKodu, Model.Tvmler, new { style = "width:50%;", id = "TVMKodu" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">@babonline.InsuranceCompany<span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.SigortaSirketiKodu, Model.SigortaSirketleri, new { style = "width:90%;", @required = "required", id = "SigortaSirketiKodu" })
+                            @Html.ValidationMessageFor(m => m.SigortaSirketiKodu)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Sistem Teklif No<span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.TextBoxFor(s => s.TeklifNo, new { required = "required" })
+                            @Html.ValidationMessageFor(m => m.TeklifNo)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="HataMesaji" class="alert alert-block alert-error fade in" style="display:none;"> </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="#" class="btn btn-success" id="teklif-ara-btn" data-loading-text="Aranıyor">@babonline.Search</a>
+    </div>
+</div>

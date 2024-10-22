@@ -1,0 +1,62 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@model KrediBilgileriModel
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.FatherName<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.BabaAdi, new { style = "width:220px;" })
+                @Html.ValidationMessageFor(m => m.BabaAdi)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.CreditStartDate<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(m => m.BaslangicTarihi, new { style = "width:100px", id = "BaslangicTarihi" })
+                @Html.ValidationMessageFor(m => m.BaslangicTarihi)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.CreditAmount<span class="required">*</span></label>
+            <div class="controls">
+                <div class="input-append">
+                    @Html.TextBoxFor(m => m.Tutar, new { @class = "m-wrap onlynumbers", style = "width:90px; text-align:right" })<span class="add-on">.00 TL</span>
+                </div>
+                @Html.ValidationMessageFor(m => m.Tutar)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.CreditDuration<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(m => m.KrediSuresi, Model.Sureler, new { style = "width:220px;" })
+                @Html.ValidationMessageFor(m => m.KrediSuresi)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.CreditType<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(m => m.KrediTuru, Model.KrediTurleri, new { style = "width:220px;" })
+                @Html.ValidationMessageFor(m => m.KrediTuru)
+            </div>
+        </div>
+    </div>
+</div>
+

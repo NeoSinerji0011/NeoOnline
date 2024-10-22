@@ -1,0 +1,82 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.SeyehatSaglikGenelBilgiler
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.OneOfPolicyholdersInsured</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(s => s.SigortaEttirenSigortalilardanBirimi, new string[] { "EVET", "HAYIR" }, new { })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.SkiDeposit</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(s => s.KayakTeminati, new string[] { "EVET", "HAYIR" }, new { })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.CountyType<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.UlkeTipi, Model.UlkeTipleri, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.UlkeTipi)
+            </div>
+        </div>
+        <div class="control-group" id="plan" style="display: none">
+            <label class="control-label">@babonline.Plan<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.Plan, Model.Planlar, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.Plan)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Country<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.GidilecekUlke, Model.Ulkeler, new { style = "width:90%"})
+                @Html.ValidationMessageFor(s => s.GidilecekUlke)
+            </div>
+        </div>
+    </div>
+
+
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.TravelStartDate<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(s => s.SeyehatBaslangicTarihi, new { })
+                @Html.ValidationMessageFor(s => s.SeyehatBaslangicTarihi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.TravelEndDate<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(s => s.SeyehatBitisTarihi, new { })
+                @Html.ValidationMessageFor(s => s.SeyehatBitisTarihi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.UserCount<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.KisiSayisi, Model.KisiSayilari, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.KisiSayisi)
+            </div>
+        </div>
+        <div class="control-group sigortali-ailedenmi" style="display: none">
+            <label class="control-label">@babonline.InsuredFamily<span class="required">*</span></label>
+            <div class="controls">
+                @Html.SwitchButtonFor(s => s.SigortalilarAilemi, new string[] { "EVET", "HAYIR" }, new { })
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

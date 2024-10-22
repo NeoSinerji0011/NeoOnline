@@ -1,0 +1,41 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@model BilgilendirmeFormuModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.SayfaBasligi</title>
+    <script type="text/javascript">
+    function checkForEsc(e) {
+	    if(!e) e = window.event;
+		    var key = e.keyCode;
+		    if(key==27)
+			    doCancel();
+    }
+    function doCancel() {
+        window.returnValue='';
+	    window.parent.close();
+    }
+    </script>
+</head>
+<body onkeypress="checkForEsc(event);">
+    <table>   
+    <tr> 
+        <td>
+           @Html.Raw(Model.HtmlContent)
+        </td>
+        <td style="width:150px;" align="center" valign="top">
+            <a onclick="window.print()" href="#" style="width:18px;Z-INDEX: 103; LEFT: 672px; POSITION: absolute; TOP: 8px">
+                <img src="/Content/img/printer.png" alt="@babonline.Print" border="0" />
+            </a>
+        </td>
+    </tr>
+    
+    </table>
+</body>
+</html>

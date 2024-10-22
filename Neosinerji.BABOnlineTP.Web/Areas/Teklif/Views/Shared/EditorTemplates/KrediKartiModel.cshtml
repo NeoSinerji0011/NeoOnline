@@ -1,0 +1,10 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Tools.Helpers;
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.KrediKartiModel
+
+<div id="credit-card-div">
+    @Html.HiddenFor(m => m)
+    @Html.TextBoxFor(m => m.KK1, new { style = "width:35px", maxlength = 4, autocompletetype = "disabled", data_format = "dddd", @class = "input-medium bfh-phone credit-card" })
+    @Html.TextBoxFor(m => m.KK2, new { style = "width:35px", maxlength = 4, autocompletetype = "disabled", data_format = "dddd", @class = "input-medium bfh-phone credit-card" })
+    @Html.TextBoxFor(m => m.KK3, new { style = "width:35px", maxlength = 4, autocompletetype = "disabled", data_format = "dddd", @class = "input-medium bfh-phone credit-card" })
+    @Html.TextBoxFor(m => m.KK4, new { style = "width:35px", maxlength = 4, autocompletetype = "disabled", data_format = "dddd", @class = "input-medium bfh-phone credit-card" })
+</div>

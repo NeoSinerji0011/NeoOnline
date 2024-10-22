@@ -1,0 +1,287 @@
+
+<img><path=$TVMLogo$><width=150><height=100><left></img><img><path=$TVMLogo2$><width=150><height=100><left></img>
+<p><right>$Tarih$</p>
+<p><center><size=16><strong><spacingBefore=20><spacingAfter=20>KASKO SİGORTASI TEKLİFİ KARŞILAŞTIRMA TABLOSU</p>
+<p><size=10><spacingAfter=10>Sayın $AdiSoyadiUnvani$ ,</p>
+<p>Aracınız ile ilgili olarak Kasko sigortası ihtiyacınızı karşılamaya yönelik, vermiş olduğunuz bilgiler çerçevesinde hazırlanmış olan teklifler ekte tarafınıza sunulmaktadır.</p>
+<p></p>
+<p>Ayrıca sigorta şirketi, ürün, ödeme seçenekleri bazında hazırlanmış olan Prim Karşılaştırma Tablosu ve Teminat Karşılaştırma Tablosunu aşağıda görebilirsiniz.</p>
+<p></p>
+<p>Teklifleri değerlendirirken her türlü sorunuz için bizimle irtibata geçebileceğinizi hatırlatır, göstermiş olduğunuz ilgi için teşekkür ederiz</p>
+<p></p>
+<p>Saygılarımızla,</p>
+<p></p>
+<p>$TVMUnvani$</p>
+<p><spacingAfter=40></p>
+<table>
+	<width=520><column=100><column=140><column=280>
+	<border=192,192,192>
+	<tbody>
+	<tr><height=40><backgroundColor=234,234,234>
+		<td><strong><center>Sigorta Şirketi</td>
+		<td><center>Sigorta Şirketi Teklif Numarası</td>
+		<td><center>Ödenecek Prim (TL)</td>
+	</tr>
+	<placeHolder=fiyatSatirlari></placeHolder>
+</table>
+<template=FiyatSatiri>
+<tr><backgroundColor=clear>
+	<td><normal><img><path=$TUMLogo$><width=55><height=45><center></img></td>
+	<td><center>$TUMUnvani$</td>
+	<td><center>$Fiyat1$</td>
+</tr>
+</template=FiyatSatiri>
+<pagebreak></pagebreak>
+<p></p>
+<p></p>
+<table>
+	<width=520><column=100><column=200><column=100><column=100>
+	<border=black>
+	<tbody>
+	<tr><height=26><backgroundColor=clear>
+		<td><strong>Araç Plakası</td>
+		<td>$Plaka$</td>
+		<td>Teklif Tarihi</td>
+		<td>$Tarih$</td>
+	</tr>
+	<tr>
+		<td>Araç Markası</td>
+		<td>$AracMarka$</td>
+		<td>NeoOnline Teklif No</td>
+		<td>$TeklifNo$</td>
+	</tr>
+	<tr>
+		<td>Araç Tipi</td>
+		<td><colspan=3>$AracTip$</td>
+	</tr>
+	<tr>	
+		<td>Araç Modeli</td>
+		<td><colspan=3>$AracModel$</td>
+	</tr>
+	<tr>
+		<td>Kullanım Tarzı</td>
+		<td><colspan=3>$AracKullanimTarzi$</td>
+	</tr>
+</table>
+<p></p>
+<p></p>
+<table>
+	<width=520><placeHolder=karsilastirmaBaslikColumns></placeHolder>
+	<border=black>
+	<tbody>
+	<tr><height=22><backgroundColor=clear>
+		<td><strong><color=red>Karşılaştırma Konuları</td>
+		<placeHolder=karsilastirmaBaslik></placeHolder>
+	</tr>
+</table>
+<template=karsilastirmaBaslik>
+<td><center>$TUMUnvani$</td>
+</template=karsilastirmaBaslik>
+<p></p>
+<table>
+	<width=520><placeHolder=karsilastirmaColumns></placeHolder>
+	<border=black>
+	<tbody>
+	<tr><height=22><backgroundColor=234,234,234>
+		<td><left><strong><color=black>Primler</td>
+		<placeHolder=karsilastirma0></placeHolder>    
+	</tr>	
+	<tr><backgroundColor=clear>
+		<td><left>Ödenecek Prim</td>
+		<placeHolder=karsilastirma1></placeHolder>
+	</tr>
+	<tr><height=22><backgroundColor=234,234,234>
+		<td><left><strong><color=red>TEMİNATLAR</td>
+		<placeHolder=karsilastirma2></placeHolder>
+	</tr>	
+	<tr><height=22><backgroundColor=234,234,234>
+		<td><left><strong><color=black>İhtiyari Mali Mesuliyet</td>
+		<placeHolder=karsilastirma3></placeHolder>
+	</tr>
+	<tr><backgroundColor=clear>
+		<td><left>İhtiyari Mali Mesuliyet Kombine Tek Limit</td>
+		<placeHolder=karsilastirma4></placeHolder>
+	</tr>
+	<tr>
+		<td><left>İhtiyari Mali Mesuliyet Bedeni Şahıs Başına</td>
+		<placeHolder=karsilastirma5></placeHolder>
+	</tr>
+	<tr>
+		<td><left>İhtiyari Mali Mesuliyet Bedeni Kaza  Başına</td>
+		<placeHolder=karsilastirma6></placeHolder>
+	</tr>
+	<tr>
+		<td><left>İhtiyari Mali Mesuliyet Maddi  Kaza  Başına</td>
+		<placeHolder=karsilastirma7></placeHolder>
+	</tr>
+	
+	<tr><height=22><backgroundColor=234,234,234>
+		<td><left><strong><color=black><strong>Ferdi Kaza</td>
+		<placeHolder=karsilastirma8></placeHolder>
+	</tr>
+	<tr><backgroundColor=clear>
+		<td><left>Ferdi Kaza Olum</td>
+		<placeHolder=karsilastirma9></placeHolder>
+	</tr>
+		<tr>
+		<td><left>Ferdi Kaza Sakatlık</td>
+		<placeHolder=karsilastirma10></placeHolder>
+	</tr>
+		<tr>
+		<td><left>Ferdi Kaza Tedavi</td>
+		<placeHolder=karsilastirma11></placeHolder>
+	</tr>
+	<tr><height=22><backgroundColor=234,234,234>
+		<td><left><strong><color=black>Hukuksal Koruma</td>
+		<placeHolder=karsilastirma12></placeHolder>
+	</tr>
+	<tr><backgroundColor=clear>
+		<td><left>Hukuksal Koruma Genel</td>
+		<placeHolder=karsilastirma13></placeHolder>
+	</tr>
+	<tr><backgroundColor=clear>
+		<td><left>Hukuksal Koruma Motorlu Araca Bağlı</td>
+		<placeHolder=karsilastirma14></placeHolder>
+	</tr>
+	<tr>
+		<td><left>Hukuksal Koruma Sürücüye Bağlı</td>
+		<placeHolder=karsilastirma15></placeHolder>
+	</tr>	
+	
+	<tr>
+		<td><left>Hukuksal Koruma Olay Başına Azami Avans</td>
+		<placeHolder=karsilastirma16></placeHolder>
+	</tr>
+	<tr>
+		<td><left>Hukuksal Koruma Olay Başına Azami Kefalet</td>
+		<placeHolder=karsilastirma17></placeHolder>
+	</tr>
+	<tr>
+		<td><left>Hukuksal Koruma Olay Başına Azami Limit</td>
+		<placeHolder=karsilastirma18></placeHolder>
+	</tr>
+	<tr>
+		<td><left>Hukuksal Koruma Sigorta Süresi içinde Azami Limit</td>
+		<placeHolder=karsilastirma19></placeHolder>
+	</tr>
+	
+	<tr><height=22><backgroundColor=234,234,234>
+		<td><left><strong><color=black>Ek Teminatlar</td>
+		<placeHolder=karsilastirma20></placeHolder>
+	</tr>
+	
+	<tr><backgroundColor=clear>
+		<td><left>Medline</td>
+		<placeHolder=karsilastirma21></placeHolder>
+	</tr>
+	<tr>
+		<td><left>Asistan Hizmetleri</td>
+		<placeHolder=karsilastirma22></placeHolder>
+	</tr>
+	<tr>
+		<td><left>Mini Onarım Hizmeti</td>
+		<placeHolder=karsilastirma23></placeHolder>
+	</tr>	
+		
+	<tr>
+		<td><left>GLKHH ve Terör</td>
+		<placeHolder=karsilastirma24></placeHolder>
+	</tr>	
+	<tr>
+		<td><left>Deprem</td>
+		<placeHolder=karsilastirma25></placeHolder>
+	</tr>	
+	<tr>
+		<td><left>Sel Su Baskını</td>
+		<placeHolder=karsilastirma26></placeHolder>
+	</tr>	
+	<tr>
+		<td><left>Hasarsızlık Koruma</td>
+		<placeHolder=karsilastirma27></placeHolder>
+	</tr>	
+	<tr>
+		<td><left>Çalınma</td>
+		<placeHolder=karsilastirma28></placeHolder>
+	</tr>	
+	<tr>
+		<td><left>Hayvanların Vereceği Zarar</td>
+		<placeHolder=karsilastirma29></placeHolder>
+	</tr>	
+	<tr>
+		<td><left>Alarm</td>
+		<placeHolder=karsilastirma30></placeHolder>
+	</tr>	
+	<tr>
+		<td><left>Anahtar Kaybı</td>
+		<placeHolder=karsilastirma31></placeHolder>
+	</tr>	
+	<tr>
+		<td><left>Yangın</td>
+		<placeHolder=karsilastirma32></placeHolder>
+	</tr>
+	<tr>
+		<td><left>Eskime</td>
+		<placeHolder=karsilastirma33></placeHolder>
+	</tr>
+	<tr>
+		<td><left>Saglik</td>
+		<placeHolder=karsilastirma34></placeHolder>
+	</tr>	
+	<tr>
+		<td><left>Yurt Dışı Teminat</td>
+		<placeHolder=karsilastirma35></placeHolder>
+	</tr>
+	<tr>
+		<td><left>LPG li Araç</td>
+		<placeHolder=karsilastirma36></placeHolder>
+	</tr>
+	<tr>
+		<td><left>İkame</td>
+		<placeHolder=karsilastirma37></placeHolder>
+	</tr>
+	<tr>
+		<td><left>Cam Muafiyetli</td>
+		<placeHolder=karsilastirma38></placeHolder>
+	</tr>
+</table>
+<template=karsilastirma>
+<td><center>TL</td>
+<td><center>$PesinPrim$</td>
+<td></td>
+<td></td>
+<td><center>$IMMKombineTekLimit$</td>
+<td><center>$IMMSahisBasina$</td>
+<td><center>$IMMKazaBasina$</td>
+<td><center>$IMMMaddiKaza$</td>
+<td></td>
+<td><center>$KFK_Olum$</td>
+<td><center>$KFK_Surekli_Sakatlik$</td>
+<td><center>$KFK_Tedavi$</td>
+<td></td>
+<td><center>$HukuksalKorumaGenel$</td>
+<td><center>$HukuksalKoruma$</td>
+<td><center>$HukuksalKoruma_Surucu$</td>
+<td><center>$HukuksalKoruma_OBAzami_Avans$</td>
+<td><center>$HukuksalKoruma_OBAzami_Kefalet$</td>
+<td><center>$HukuksalKoruma_OBAzami_Limit$</td>
+<td><center>$HukuksalKoruma_SSIAzami_Limit$</td>
+<td></td>
+<td><center>$Medline$</td>
+<td><center>$AsistanHizmetleri$</td>
+<td><center>$MiniOnarimHizmeti$</td>
+<td><center>$GLKHHT$</td>
+<td><center>$Deprem$</td>
+<td><center>$SelSu$</td>
+<td><center>$HasarsizlikKoruma$</td>
+<td><center>$Calinma$</td>
+<td><center>$HayvanlarinVerecegiZarar$</td>
+<td><center>$Alarm$</td>
+<td><center>$AnahtarKaybi$</td>
+<td><center>$Yangin$</td>
+<td><center>$Eskime$</td>
+<td><center>$Saglik$</td>
+<td><center>$YurtDisiTeminat$</td>
+<td><center>$LPGliArac$</td>
+<td><center>$Ikame$</td>
+<td><center>$CamMuafiyetli$</td>
+</template=karsilastirma>

@@ -1,0 +1,44 @@
+﻿@model Neosinerji.BABOnlineTP.Web.Areas.Robot.Models.RobotModel
+
+<style>
+    #baslikRenkliItalic {
+        font-weight: bold;
+        font-size: 35px;
+        font-style: italic;
+        color: #E64A19;
+    }
+
+    #baslikRenksizItalic {
+        font-weight: bold;
+        font-size: 35px;
+        font-style: italic;
+        margin: 0px;
+        padding: 0px;
+        margin-left: -7px;
+    }
+
+    #baslikNormal {
+        font-weight: bold;
+        font-size: 35px;
+        margin: 0px;
+        padding: 0px;
+        margin-left: 2px;
+        color: cornflowerblue;
+    }
+</style>
+
+<a href="/" style="margin-left: 20px;position: absolute;">
+    <img src="~/Content/img/Robot/back.png" style="width: 45px;">
+</a>
+<div style="text-align: center;display: table;margin: auto;">
+    <img src="~/Content/img/Robot/robotlogo.png" style="width: 250px;">
+    <span id="baslikNormal" style="display: table-cell;vertical-align:middle;">
+        Teklif
+    </span>
+</div>
+@*<div style="margin: 5px; height: 100%; width: 100%;">
+    <iframe style="width: 100%;height: 100%;border-width: 0px;" src="https://88.247.127.91:@Model.Port/?token=@Model.Token&tvm=@Model.TvmKodu&tvmkk=@Model.TvmKK">
+    </iframe>
+</div>*@
+
+

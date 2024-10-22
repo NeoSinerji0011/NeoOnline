@@ -1,0 +1,55 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Hasar.Models
+@model HasarBankaHesaplariListModel
+
+<script>
+    $(document).ready(function () {
+        var bankahesaplariTable;
+        function bankahesaplariTableSet() {
+            bankahesaplariTable = $('#bankahesaplari-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        bankahesaplariTableSet();
+    });
+</script>
+
+<table id="bankahesaplari-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 150px;">Kayıt Numarası</th>
+            <th>@babonline.Bank</th>
+            <th>@babonline.AccountName</th>
+            <th>@babonline.Office</th>
+            <th>@babonline.IBAN</th>
+            <th style="width: 50px;">&nbsp;</th>
+            <th style="width: 40px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.BankaHesapId</td>
+                <td>@item.BankaAdi</td>
+                <td>@item.HesapAdi</td>
+                <td>@item.SubeAdi</td>
+                <td>@item.IBAN</td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" hesap-id="@item.BankaHesapId" class="btn btn-mini btn-info edit-bankahesaplari">@babonline.Edit</a>
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" hesap-id="@item.BankaHesapId" class="btn btn-mini btn-danger delete-bankahesaplari">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

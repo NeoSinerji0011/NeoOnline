@@ -1,0 +1,164 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.TVMBankaHesaplariModel
+<head>
+    <script src="~/Content/js/mask.js" type="text/javascript"></script>
+</head>
+<script>
+    $(document).ready(function () {
+        //$('#Banka').banka({ Sube: '#Sube' });
+        $("#BankaAdi").live('change', function () {
+            var banka = $(this).val();
+            if (banka === undefined) return;
+            if ($("#BankaAdi").val() == "")
+                $("#SubeAdi").empty();
+
+            $.get("/Manage/TVM/GetSubeler", { Banka: banka }, function (data) {
+                if (data != null) $("#SubeAdi").dropDownFill(data);
+
+            })
+        });
+        $("#HesapTipi").live('change', function () {
+
+            if ($("#HesapTipi").val() == 5 || $("#HesapTipi").val() == 9) {
+                $("#AcenteKrediKartiNo").attr("placeholder", "İlk 6 ve son 4 haneyi giriniz.");
+                $("#AcenteKrediKartiNo").mask("999999******9999");
+            }
+            else {
+                $("#AcenteKrediKartiNo").attr("placeholder", "");
+                $("#AcenteKrediKartiNo").unmask();
+            }
+
+        });
+
+        if ($("#HesapTipi").val() == 5 || $("#HesapTipi").val() == 9) {
+            $("#AcenteKrediKartiNo").attr("placeholder", "İlk 6 ve son 4 haneyi giriniz.");
+            $("#AcenteKrediKartiNo").mask("999999******9999");
+        }
+        else {
+            $("#AcenteKrediKartiNo").attr("placeholder", "");
+            $("#AcenteKrediKartiNo").unmask();
+        }
+        //$("#BankaAdi").change(function () {
+        //    var banka = $(this).val();
+        //    if (banka === undefined) return;
+        //    if ($("#BankaAdi").val() == "")
+        //        $("#SubeAdi").empty();
+
+        //    $.get("/Manage/TVM/GetSubeler", { Banka: banka }, function (data) {
+        //        if (data != null) $("#SubeAdi").dropDownFill(data);
+
+        //    })
+        //});
+        if (@ViewBag.carihesapyok) {
+            //true ise cari hesap yoktur.
+        }
+        else if (!@ViewBag.carihesapyok ) {
+
+        }
+    });
+</script>
+
+<div id="bankahesaplari-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        @if (!@ViewBag.ekle)
+        {
+            <h3>@babonline.Edit</h3>
+        }
+        else
+        {
+            <h3>Banka / Kasa / Pos / Çek / Senet Hesaplarını Ekle</h3>
+        }
+    </div>
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="bankahesaplari-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="bankahesaplari-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <form id="bankahesaplari-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.HiddenFor(m => m.TVMKodu)
+            @Html.HiddenFor(m => m.SiraNo)
+            @Html.ValidationSummary(true, "Cari hesap kodu bulunamadı.")
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">Hesap Tipi <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.HesapTipi, Model.HesapTipleri, new { style = "width:220px;" })
+                    @Html.ValidationMessageFor(m => m.HesapTipi)
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Bank<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.BankaAdi, Model.Bankalar, new { style = "width:220px;" })
+                    @Html.ValidationMessageFor(m => m.BankaAdi)
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Office<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.SubeAdi, Model.Subeler, new { style = "width:220px;" })
+                    @Html.ValidationMessageFor(m => m.SubeAdi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.AccountNo</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.HesapNo, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.HesapNo)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.AccountName<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.HesapAdi, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.HesapAdi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Hesap Kodu</label>
+                <div class="controls">
+                    @*@Html.TextBoxFor(m => m.AcenteKrediKartiNo, new { autocompletetype = "enabled", data_format = "dddddd******dddd", maxlength = "16", placeholder = "123456*****1234", pattern = ".{16,16}", @class = "input-medium bfh-phone credit-card", title = "Format 123456*****1234" })*@
+                    @Html.TextBoxFor(m => m.AcenteKrediKartiNo)
+                    @Html.ValidationMessageFor(m => m.AcenteKrediKartiNo)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.IBAN</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.IBAN, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.IBAN)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Cari Hesap Kodu<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.CariHesapNo, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.CariHesapNo)
+                </div>
+            </div>
+            @*<div class="control-group" id="hata" >
+                <div class="controls">
+                    <label class="required">Bu Cari Hesap Kodu Bulunamadı!</label>
+                </div>
+            </div>*@
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        @if (!@ViewBag.ekle)
+        {
+            <a href="#" class="btn btn-info" id="bankahesaplari-guncelle-btn">@babonline.Update</a>
+        }
+        else
+        {
+            <a href="#" class="btn btn-success" id="bankahesaplari-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+        }
+    </div>
+</div>

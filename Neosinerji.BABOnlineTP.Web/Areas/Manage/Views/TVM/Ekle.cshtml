@@ -1,0 +1,575 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using Neosinerji.BABOnlineTP.Business
+@using Neosinerji.BABOnlineTP.Business.Common
+@model TVMEkleModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/TVM/Liste">@babonline.TVM_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.TVM_Add<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/switch")
+
+    <script src="~/Content/js/bootstrap-formhelpers-phone.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#sonPoliceOnayGunu").keyup(function () {
+                var sonpoliceonaygunu = $("#sonPoliceOnayGunu").val();
+                if (sonpoliceonaygunu > 31) {
+                    $("#sonPoliceOnayGunu").val("31");
+                }
+            });
+            //Ülke - il - ilçe
+            $('#UlkeKodu').ulke({ il: '#IlKodu', ilce: '#IlceKodu' });
+            $("[rel=tooltip]").tooltip();
+
+            $("#BolgeKodu").addClass("ignore");
+           
+
+            //Neosinerji kullanıcısı ise proje kodu aktif olacak
+            if ($("#MerkezTVMKodu").val() != 100) {
+                $("#ProjeKodu").attr('disabled', true);
+            }
+            else {
+                $("#ProjeKodu").removeAttr('disabled');
+            }
+
+            var acenteTipi = @Model.Profili;
+            var bagliOlduguTvmKodu = @Model.BagliOlduguTVMKodu;
+            if (acenteTipi == 0) {
+                if (bagliOlduguTvmKodu.Value == -9999) {
+                    $("#Profili_1").removeAttr("disabled");
+                    $("#Merkez").show();
+                    $("#SubeAcente").hide();
+                }
+                else {
+                    $("#Profili_1").attr("disabled","true");
+                    $("#Merkez").hide();
+                }
+
+                     $("#BagliOlduguTVMKodu").val(@Model.BagliOlduguTVMKodu);
+
+                $("#bolgeler").slideDown("fast");
+                $("#bolgeYetkilisi").val("");
+                $(".divBagliOlduguTVMKodu").slideDown("fast");
+                $("#bagli-acente-varmi").slideUp("fast");
+                $("#Merkez").hide();
+                $("#SubeAcente").show();
+                $("#MerkezTipi").val("");
+                $("#MerkezTipi").addClass("ignore");
+                $("#SubeAcenteTipi").removeClass("ignore");
+
+                $.get("/Manage/TVM/GetBolgeler", { TVMKodu: @Model.BagliOlduguTVMKodu }, function (data) {
+
+                    $("#bolgeler").slideDown("fast");
+                    $("#BolgeKodu").dropDownFill(data);
+                });
+            }
+            else {
+                if (Model.bagliOlduguTvmKodu == -9999)  {
+                    $("#Profili_1").removeAttr("disabled");
+                    $("#Merkez").show();
+                    $("#MerkezTipi").removeClass("ignore");
+                    $("#SubeAcente").hide();
+                    $("#SubeAcenteTipi").addClass("ignore");
+                    $(".divBagliOlduguTVMKodu").slideUp("fast", function () { $("#BagliOlduguTVMKodu").val("-9999"); });
+                }
+                else {
+                    $("#Profili_1").attr("disabled","true");
+                    $("#Merkez").hide();
+                    $("#MerkezTipi").hide();
+                    $("#MerkezTipi").addClass("ignore");
+                    $("#SubeAcenteTipi").removeClass("ignore");
+
+                }
+                if (Model.TVMKodu==100) {
+                    $("#BagliOlduguTVMKodu").val(-9999);
+                }
+                else {
+                     $("#BagliOlduguTVMKodu").val(@Model.BagliOlduguTVMKodu);
+                }
+                $("#bolgeYetkilisi").val("");
+                $("#bagli-acente-varmi").slideDown("fast");
+                $("#bolgeler").slideUp("fast");
+            }
+
+            //TVM Tipi produktor olduğunda produktor tckn alınacak
+            $("#MerkezTipi").change(function () {
+                var val = $(this).val();
+                if (val == "4") { //Prodüktör
+                    $("#TCKN").val("");
+                    $("#divProducerTCKN").slideDown("fast");
+                }
+                else {
+                    $("#divProducerTCKN").slideUp("fast", function () { $("#TCKN").val("XXXXXXXXXXX"); });
+                }
+            });
+            $("#SubeAcenteTipi").change(function () {
+                var val = $(this).val();
+                if (val == "10") { //Şube
+                    $("#BolgeYetkilisiSoru").slideDown("fast");
+                }
+                else {
+                    $("#BolgeYetkilisiSoru").slideUp("fast");
+                }
+            });
+
+            $("#bolgeYetkilisiAciklama").tooltip();
+
+            //TVM Profili Şube / Acente olduğunda bağlı olduğu tvm'nin kodu girilmeli
+            $("[name='Profili']").change(function () {
+                var val = $(this).val();
+                if (val == "0") { //Şube/Acente
+                    $("#BagliOlduguTVMKodu").val("");
+                    $("#bolgeYetkilisi").val("");
+                    $(".divBagliOlduguTVMKodu").slideDown("fast");
+                    $("#bagli-acente-varmi").slideUp("fast");
+                    $("#SubeAcente").show();
+                    $("#Merkez").hide();
+                    $("#MerkezTipi").val("");
+                    $("#MerkezTipi").addClass("ignore");
+                    $("#SubeAcenteTipi").removeClass("ignore");
+                }
+                else {
+                    $(".divBagliOlduguTVMKodu").slideUp("fast", function () { $("#BagliOlduguTVMKodu").val("-9999"); });
+                    $("#bolgeYetkilisi").val("");
+                    $("#bagli-acente-varmi").slideDown("fast");
+                    $("#bolgeler").slideUp("fast");
+                    $("#SubeAcente").hide();
+                    $("#Merkez").show();
+                    $("#SubeAcente").val("");
+                    $("#MerkezTipi").removeClass("ignore");
+                    $("#SubeAcenteTipi").addClass("ignore");
+                }
+            });
+
+
+
+            ////Tvm listesini Dolduruyor....
+            var tvm = $("#BagliOlduguTVMKodu").tvmfinder();
+            tvm.enable();
+
+            $(".tvm-sec-btn").live("click", function () {
+                var val = $(this).attr("tvm-kodu");
+                if (val === undefined) return;
+                if (val > 0) {
+                    $.get("/Manage/TVM/GetBolgeler", { TVMKodu: val }, function (data) {
+
+                        $("#bolgeler").slideDown("fast");
+                        $("#BolgeKodu").dropDownFill(data);
+                    });
+                }
+                $("#bolgeler").slideUp("fast");
+            });
+
+            $("#SubeAcenteTipi").change(function () {
+                if ($("#SubeAcenteTipi").val() == 9) {
+                    $("#PoliceTransferiYapilacakMi_1").attr('checked', true);
+                    $("#PoliceTransferiYapilacakMi_1").attr('disabled', false);
+                    $("#PoliceTransferiYapilacakMi_1").attr('readonly', true);
+                    $("#PoliceTransferiYapilacakMi_0").attr('disabled', true);
+                }
+                else {
+                    $("#PoliceTransferiYapilacakMi_0").attr('checked', true);
+                    $("#PoliceTransferiYapilacakMi_0").attr('readonly', true);
+                    $("#PoliceTransferiYapilacakMi_0").attr('disabled', false);
+                    $("#PoliceTransferiYapilacakMi_1").attr('disabled', true);
+                }
+            });
+        });
+    </script>
+}
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.AddTVM</div>
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("Ekle", "TVM", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            Html.EnableClientValidation(true);
+            @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+            @Html.AntiForgeryToken()
+
+            <h3 class="form-section">@babonline.General_Information</h3>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TVM_Profile  <span class="required">*</span></label>
+                        <div class="controls radio-custom">
+                            @Html.RadioButtonListFor(m => m.Profili, Model.ProfilTipleri)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group" style="@(Model.MerkezTVMKodu == NeosinerjiTVM.NeosinerjiTVMKodu ? "" : "display:none")">
+                        <label class="control-label">@babonline.AffiliatedChannel  <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.TVMFinderFor(m => m.BagliOlduguTVMKodu, Model.TVMUnvani)
+                            @Html.ValidationMessageFor(m => m.BagliOlduguTVMKodu)
+                        </div>
+                    </div>
+                    <div class="control-group divBagliOlduguTVMKodu" style="@(Model.MerkezTVMKodu != NeosinerjiTVM.NeosinerjiTVMKodu && Model.Profili == 1 ? "display:none" : "")">
+                        <label class="control-label">@babonline.AffiliatedChannel</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.TVMUnvani, new { disabled = "disabled", maxlength = 11, autocompletetype = "disabled", style = "width:250px;" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span6" id="bolgeler" style="display: none;">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Regions</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.BolgeKodu, Model.Bolgeler)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group" id="Merkez">
+                        <label class="control-label">@babonline.TVM_Type  <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.MerkezTipi, Model.TVMMerkezTipleri, new { style = "width:90%" })
+                            @Html.ValidationMessageFor(m => m.MerkezTipi)
+                        </div>
+                    </div>
+                    <div class="control-group" id="SubeAcente">
+                        <label class="control-label">@babonline.TVM_Type  <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.SubeAcenteTipi, Model.TVMSubeAcenteTipleri, new { style = "width:90%" })
+                            @Html.ValidationMessageFor(m => m.SubeAcenteTipi)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group" id="divProducerTCKN" style="display:none">
+                        <label class="control-label">@babonline.TVM_ProducerTCKN</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.TCKN, new { maxlength = 11, autocompletetype = "disabled", style = "width:100px;" })
+                            @Html.ValidationMessageFor(m => m.TCKN)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_Code<span class="required">*</span></label>
+
+                <div class="controls">
+                    @*@Html.TextBoxFor(m => m.MerkezTVMKodu, new { autocompletetype = "disabled", style = "width:100px;", disabled = "disabled" })*@
+                    @Html.TextBoxFor(m => m.Kodu, new { maxlength = 8, autocompletetype = "disabled", style = "width:100px;", @class = "onlynumbers", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.Kodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_Name<span class="required">*</span></label>
+
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Unvani, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%;" })
+                    @Html.ValidationMessageFor(m => m.Unvani)
+                </div>
+            </div>
+            <div class="row-fluid" id="BolgeYetkilisiSoru" style="display: none">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">Bölge Yetkilisi mi?</label>
+                        <div class="controls">
+                            @Html.RadioButtonListFor(m => m.BolgeYetkilisiMi, Model.BolgeYetkiliTipleri)
+                            <span id="bolgeYetkilisiAciklama" title="Bu soru sadece şube yetkilisi tanımlanırken 'Evet' olarak işaretlenmelidir. Bu şubeye bağlı tali acenteler var ise bu tanıma sahip kişi talilerin tüm üretimlerini görme yetkisine sahip olur." style="color:red">* Aciklama</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid divBagliOlduguTVMKodu" style="display: none">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">Bağlı Olduğu Bölge Yetkilisi Unvanı</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.bolgeYetkilisi, Model.BolgeYetkilileri, new { style = "width:90%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.ProjectName</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.ProjeKodu, Model.ProjeTipleri, new { style = "width:90%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_RecordNo  <span class="required">*</span></label>
+
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.KayitNo, new { maxlength = 50, autocompletetype = "disabled", style = "width:100px;" }, babonline.TVM_RecordNo_Tooltip)
+                    @Html.ValidationMessageFor(m => m.KayitNo)
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TaxOffice  <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.VergiDairesi, new { maxlength = 30, autocompletetype = "disabled", style = "width:90%;" })
+                            @Html.ValidationMessageFor(m => m.VergiDairesi)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TaxNumber   <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.VergiNumarasi, new { maxlength = 10, autocompletetype = "disabled", @class = "onlynumbers", style = "width:100px;" })
+                            @Html.ValidationMessageFor(m => m.VergiNumarasi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid" id="bagli-acente-varmi">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Connected @babonline.Agent/@babonline.Office   <span class="required">*</span></label>
+                        <div class="controls radio-custom">
+                            @Html.RadioButtonListFor(m => m.AcentSuvbeVar, Model.AcenteSubeVarTipleri)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">Paylaşımlı Acenteden Poliçe Transferi Yapılacak mı?</label>
+                        <div class="controls">
+                            @Html.RadioButtonListFor(m => m.PoliceTransferiYapilacakMi, Model.PoliceTransferAcentesi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Status</label>
+                <div class="controls">
+                    <label class="control">
+                        <span class="label label-success">@babonline.Active</span>
+                    </label>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TVM_ContractStartDate</label>
+                        <div class="controls">
+                            @Html.DateTextBoxFor(m => m.SozlesmeBaslamaTarihi, null)
+                            @Html.ValidationMessageFor(m => m.SozlesmeBaslamaTarihi)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TVM_ContractEndDate<span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DateTextBoxFor(m => m.SozlesmeDondurmaTarihi, null)
+                            @Html.ValidationMessageFor(m => m.SozlesmeDondurmaTarihi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">Son Poliçe Onay Süresi(Gün)</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.SonPoliceOnayTarihi, new { maxlength = 2, @class = "onlynumbers", @id = "sonPoliceOnayGunu", style = "width: 15%;" })
+                            @Html.ValidationMessageFor(m => m.SonPoliceOnayTarihi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="form-section">@babonline.Contact_Info</h3>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Phone  <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Telefon, new { style = "width:90%", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", placeholder = "90-212-5554477", title = babonline.Message_PhoneFormat })
+                            @Html.ValidationMessageFor(m => m.Telefon)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Fax_Number  <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Fax, new { style = "width:90%", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", placeholder = "90-212-5554477", title = babonline.Message_PhoneFormat })
+                            @Html.ValidationMessageFor(m => m.Fax)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Email_Adress</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Email, new { style = "width:90%" })
+                            @Html.ValidationMessageFor(m => m.Email)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Web_URL</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.WebAdresi, new { style = "width:90%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3 class="form-section">@babonline.Address_Info</h3>
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Country<span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.UlkeKodu, Model.Ulkeler, new { style = "width:90%;" })
+                            @Html.ValidationMessageFor(m => m.UlkeKodu)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">@babonline.City  <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.IlKodu, Model.Iller, new { style = "width:90%;" })
+                            @Html.ValidationMessageFor(m => m.IlKodu)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">@babonline.District  <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.IlceKodu, Model.IlceLer, new { style = "width:90%;" })
+                            @Html.ValidationMessageFor(m => m.IlceKodu)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Neighborhood</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Semt, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%;" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Address</label>
+                        <div class="controls">
+                            @Html.TextAreaFor(m => m.Adres, new { maxlength = 200, autocompletetype = "disabled", style = "width:90%;" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*
+                <div class="form-section-header">
+                    <span>@babonline.Notes</span>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="control-group">
+                            @Html.TextAreaFor(m => m.Notlar, new { maxlength = 150, autocompletetype = "disabled", style = "width:100%;" })
+                        </div>
+                    </div>
+                </div>
+            *@
+            <h3 class="form-section">@babonline.Security_Info</h3>
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.MaxPasswordFail   <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.SifreKontralSayisi, new { maxlength = 2, autocompletetype = "disabled", style = "width:50px;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.ConnectionLimit <span class="required">*</span></label>
+                        <div class="controls radio-custom">
+                            @Html.RadioButtonListFor(m => m.BaglantiSiniri, Model.BaglantiSiniriVarYok)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.PasswordValidDays     <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.SifreDegistirmeGunu, new { maxlength = 3, autocompletetype = "disabled", style = "width:50px;" })
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.PasswordWarningDays   <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.SifreIkazGunu, new { maxlength = 3, autocompletetype = "disabled", style = "width:50px;" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Accounting_Integration </label>
+                        <div class="controls radio-custom">
+                            @Html.RadioButtonListFor(m => m.MuhasebeEntegrasyonu, Model.BaglantiSiniriVarYok)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                <a class="btn" href="~/Manage/TVM/Liste">@babonline.Cancel</a>
+            </div>
+        }
+    </div>
+</div>
+

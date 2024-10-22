@@ -1,0 +1,2382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://service2.basakgroupama.com.tr/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://kasko.sbm.org.tr" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://service2.basakgroupama.com.tr/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://service2.basakgroupama.com.tr/">
+      <s:import namespace="http://kasko.sbm.org.tr" />
+      <s:element name="getPrintURL">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:PrintRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PrintRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="referansNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="type" type="tns:PRINT_TYPE" />
+          <s:element minOccurs="0" maxOccurs="1" name="acente" type="tns:AcenteBilgi" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifVersiyon" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeNo" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PRINT_TYPE">
+        <s:restriction base="s:string">
+          <s:enumeration value="TEKLIF" />
+          <s:enumeration value="TEKLIF_BF" />
+          <s:enumeration value="POLICE" />
+          <s:enumeration value="POLICE_BF" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="AcenteBilgi">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="type" type="tns:ACENTE_TYPE" />
+          <s:element minOccurs="1" maxOccurs="1" name="acenteKodu" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="kullaniciKodu" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="bankaAcente" type="tns:BankaAcente" />
+          <s:element minOccurs="0" maxOccurs="1" name="ttkAcente" type="tns:TTKAcente" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ACENTE_TYPE">
+        <s:restriction base="s:string">
+          <s:enumeration value="OZEL" />
+          <s:enumeration value="BANKA" />
+          <s:enumeration value="TTK" />
+          <s:enumeration value="TEST" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="BankaAcente">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="acenteKodu" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="bankaKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="subeKodu" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TTKAcente">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="bolgeKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="koopKodu" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getPrintURLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getPrintURLResult" type="tns:PrintResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PrintResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="responseHeader" type="tns:ResponseHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="printURL" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ResponseHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="referansNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="answerCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="answer" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="messageTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="msgList" type="tns:ArrayOfMessage" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfMessage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Message" nillable="true" type="tns:Message" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Message">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="msgCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="msg" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="isqnum" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="createTeklif">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:TeklifCreateRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TeklifCreateRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Teklif">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="referansNo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="odemeBilgileri" type="tns:OdemeBilgileri" />
+              <s:element minOccurs="0" maxOccurs="1" name="ip" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Teklif">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="msg" type="tns:Message" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifVersiyon" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="acente" type="tns:AcenteBilgi" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortali" type="tns:Musteri" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaEttiren" type="tns:Musteri" />
+          <s:element minOccurs="0" maxOccurs="1" name="dainiMurtehin" type="tns:DainiMurtehin" />
+          <s:element minOccurs="1" maxOccurs="1" name="bgsUrunKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="bgsUrunAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="teminatList" type="tns:ArrayOfTeminat" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaKonusuList" type="tns:ArrayOfSigortaKonusu" />
+          <s:element minOccurs="0" maxOccurs="1" name="soruListesi" type="tns:ArrayOfSoru" />
+          <s:element minOccurs="0" maxOccurs="1" name="adres_Tip1" type="tns:Adres_Tip1" />
+          <s:element minOccurs="0" maxOccurs="1" name="adres_Tip2" type="tns:Adres_Tip2" />
+          <s:element minOccurs="0" maxOccurs="1" name="adres_Tip3" type="tns:Adres_Tip3" />
+          <s:element minOccurs="0" maxOccurs="1" name="adres_Tip4" type="tns:Adres_Tip4" />
+          <s:element minOccurs="1" maxOccurs="1" name="adresTipi" type="tns:AdresTipi" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifZamani" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifBaslangicTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifBitisTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="netPrim" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="vergiFonTutari" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="brutPrim" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="dovizKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="bankaHesapBilgileri" type="tns:BankaHesapBilgileri" />
+          <s:element minOccurs="1" maxOccurs="1" name="enflosyonEndeksi" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Musteri">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="kodu" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="adi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="soyadi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sifati" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="tckNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="vknNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="pasaportNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="uyruk" type="tns:UYRUK" />
+          <s:element minOccurs="1" maxOccurs="1" name="tip" type="tns:TIP" />
+          <s:element minOccurs="0" maxOccurs="1" name="telefon" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="gsm" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="adres" type="tns:Adres_Tip1" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="UYRUK">
+        <s:restriction base="s:string">
+          <s:enumeration value="YERLI" />
+          <s:enumeration value="YABANCI" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="TIP">
+        <s:restriction base="s:string">
+          <s:enumeration value="OZEL" />
+          <s:enumeration value="TUZEL" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Adres_Tip1">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Adres">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="adresTipi" type="tns:AdresTipi" />
+              <s:element minOccurs="0" maxOccurs="1" name="mahalle" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="cadde" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="sokak" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="apartman" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="kapi" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="daire" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="postakodu" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Adres">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="il" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ilce" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="semt" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Adres_Tip3">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Adres">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="adresTipi" type="tns:AdresTipi" />
+              <s:element minOccurs="0" maxOccurs="1" name="bolge" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="dogu" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="bati" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="kuzey" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="guney" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="AdresTipi">
+        <s:restriction base="s:string">
+          <s:enumeration value="Tip0" />
+          <s:enumeration value="Tip1" />
+          <s:enumeration value="Tip2" />
+          <s:enumeration value="Tip3" />
+          <s:enumeration value="Tip4" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Adres_Tip2">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Adres">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="adresTipi" type="tns:AdresTipi" />
+              <s:element minOccurs="0" maxOccurs="1" name="mevki1" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="mevki2" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="mevki3" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Adres_Tip4">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Adres_Tip2" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="DainiMurtehin">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Musteri">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="type" type="tns:DAINIMURTEHIN_TYPE" />
+              <s:element minOccurs="1" maxOccurs="1" name="bankaKodu" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="subeKodu" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="DAINIMURTEHIN_TYPE">
+        <s:restriction base="s:string">
+          <s:enumeration value="BANKA" />
+          <s:enumeration value="OZEL_MUSTERI" />
+          <s:enumeration value="TUZEL_MUSTERI" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfTeminat">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Teminat" nillable="true" type="tns:Teminat" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Teminat">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aciklama" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Sira" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSigortaKonusu">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SigortaKonusu" nillable="true" type="tns:SigortaKonusu" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SigortaKonusu">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aciklama" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Sira" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Bedel" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSoru">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Soru" nillable="true" type="tns:Soru" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Soru">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aciklama" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tip" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Sira" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DecimalDeger" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="KarakterDeger" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DefaultDecimalDeger" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="DefaultKarakterDeger" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CevapUzunlugu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CevapOndalikUzunlugu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinimumDeger" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaksimumDeger" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="EvetHayirMi" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ListeVarMi" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ListeKodu1" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ListeKodu2" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ListeKodu3" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZorunlulukTipi" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BankaHesapBilgileri">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="bankaKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="subeKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="personelSicilNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="krediReferansNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="bankaHesapNo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OdemeBilgileri">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="odemeTipi" type="tns:ODEMETYPE" />
+          <s:element minOccurs="1" maxOccurs="1" name="odemePlanNo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="krediKarti" type="tns:KrediKarti" />
+          <s:element minOccurs="0" maxOccurs="1" name="bankaHesap" type="tns:BankaHesap" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ODEMETYPE">
+        <s:restriction base="s:string">
+          <s:enumeration value="BankHesap" />
+          <s:enumeration value="KrediKarti" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="KrediKarti">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="kartNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="kartGuvenlikNo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="kartTip" type="tns:KARTTIP" />
+          <s:element minOccurs="1" maxOccurs="1" name="gecerlilikAy" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="gecerlilikYil" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="taksitSayisi" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="KARTTIP">
+        <s:restriction base="s:string">
+          <s:enumeration value="Master" />
+          <s:enumeration value="Visa" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="BankaHesap">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="KullaniciKodu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sifre" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PoliceNumarasi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BankaKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SubeKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="SubeKullaniciKodu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferansNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="VadeTarihi" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="DovizCinsi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TahsilatTutar" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TahsilTarihi" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="FisNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OdemeKanali" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OdemeSekli" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MesajZaman" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="createTeklifResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="createTeklifResult" type="tns:TeklifCreateResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TeklifCreateResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="responseHeader" type="tns:ResponseHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="teklif" type="tns:Teklif" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="updateTeklifAndCreatePolicy">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:TeklifCreateRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="updateTeklifAndCreatePolicyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="updateTeklifAndCreatePolicyResult" type="tns:PoliceCreateResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PoliceCreateResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="responseHeader" type="tns:ResponseHeader" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="policeBasimUrl" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="policeTaksitBilgileri" type="tns:PoliceTaksitBilgileriResponse" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PoliceTaksitBilgileriResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PoliceNumarasi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BorcluAdiSoyadi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PoliceBankasi" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PoliceSubesi" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CevapKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CevapAciklama" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MesajZaman" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="PoliceTaksitleri" type="tns:ArrayOfPoliceTaksit" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPoliceTaksit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PoliceTaksit" nillable="true" type="tns:PoliceTaksit" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PoliceTaksit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="PoliceTaksitReferansNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferansNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="VadeTarihi" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="DovizCinsi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ToplamTutar" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="KomisyonTutari" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aciklama" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="createTramerdenTrafikTeklif">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:TeklifCreateUsingTramerRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TeklifCreateUsingTramerRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="acente" type="tns:AcenteBilgi" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortali" type="tns:Musteri" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaEttiren" type="tns:Musteri" />
+          <s:element minOccurs="0" maxOccurs="1" name="dainiMurtehin" type="tns:DainiMurtehin" />
+          <s:element minOccurs="0" maxOccurs="1" name="plakaNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tescilSeriKodu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tescilNo_AsbisNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ip" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="createTramerdenTrafikTeklifResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="createTramerdenTrafikTeklifResult" type="tns:TeklifCreateUsingTramerResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TeklifCreateUsingTramerResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="responseHeader" type="tns:ResponseHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="teklif" type="tns:Teklif" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="createTramerdenKaskoTeklif">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:KaskoTeklifUsingTramerRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="KaskoTeklifUsingTramerRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TeklifCreateUsingTramerRequest">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="kullanimTarzi" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="urunKodu" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="teminatList" type="tns:ArrayOfTeminat" />
+              <s:element minOccurs="0" maxOccurs="1" name="sigortaKonusuList" type="tns:ArrayOfSigortaKonusu" />
+              <s:element minOccurs="0" maxOccurs="1" name="soruListesi" type="tns:ArrayOfSoru" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="createTramerdenKaskoTeklifResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="createTramerdenKaskoTeklifResult" type="tns:TeklifCreateResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="createTramerdenKaskoTeklifWithProfile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:KaskoTeklifUsingTramerAndProfileRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="KaskoTeklifUsingTramerAndProfileRequest">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:KaskoTeklifUsingTramerRequest">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="profile" type="tns:ArrayOfIstenenTeklif" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfIstenenTeklif">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IstenenTeklif" nillable="true" type="tns:IstenenTeklif" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IstenenTeklif">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="urunKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="teminatList" type="tns:ArrayOfTeminat" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaKonusuList" type="tns:ArrayOfSigortaKonusu" />
+          <s:element minOccurs="0" maxOccurs="1" name="soruListesi" type="tns:ArrayOfSoru" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="createTramerdenKaskoTeklifWithProfileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="createTramerdenKaskoTeklifWithProfileResult" type="tns:KaskoTeklifUsingTramerAndProfileResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="KaskoTeklifUsingTramerAndProfileResponse">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:KaskoTeklifUsingTramerResponse" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="KaskoTeklifUsingTramerResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="responseHeader" type="tns:ResponseHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="teklifList" type="tns:ArrayOfTeklifCreateUsingTramerResponse" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTeklifCreateUsingTramerResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TeklifCreateUsingTramerResponse" nillable="true" type="tns:TeklifCreateUsingTramerResponse" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="findTeklif">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:TeklifFindRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TeklifFindRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="acente" type="tns:AcenteBilgi" />
+          <s:element minOccurs="1" maxOccurs="1" name="urunGrubu" type="tns:URUN_GRUBU" />
+          <s:element minOccurs="1" maxOccurs="1" name="bgsUrunKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifBaslangicTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifBitisTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliTckNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliVkNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="referansNo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="URUN_GRUBU">
+        <s:restriction base="s:string">
+          <s:enumeration value="HEPSI" />
+          <s:enumeration value="TRAFIK" />
+          <s:enumeration value="KASKO" />
+          <s:enumeration value="KONUT" />
+          <s:enumeration value="TARIM" />
+          <s:enumeration value="SAGLIK" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="findTeklifResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="findTeklifResult" type="tns:TeklifFindResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TeklifFindResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="responseHeader" type="tns:ResponseHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="teklifFindList" type="tns:ArrayOfTeklifFindItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTeklifFindItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TeklifFindItem" nillable="true" type="tns:TeklifFindItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TeklifFindItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="kullaniciKodu" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="acenteKodu" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifVersiyon" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="bgsUrunKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="bgsUrunAdi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliKodu" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliTckNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliVkNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliPassportNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliSoyadi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TeklifGirisTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TeklifBaslangicTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TeklifBitisTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TeklifTanzimTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="bankaPersonelSicilNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="bankaSubeKodu" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="netPrim" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="vergiTutari" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="brutPrim" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="dovizKodAdi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="netPrimDovizli" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="vergiTutariDovizli" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="brutPrimDovizli" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifDurumu" type="tns:TEKLIF_STATUS" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifBasimDurumu" type="tns:TEKLIF_BASIM_STATUS" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="TEKLIF_STATUS">
+        <s:restriction base="s:string">
+          <s:enumeration value="NORMAL" />
+          <s:enumeration value="PROVIZYON_BEKLIYOR" />
+          <s:enumeration value="YETKI_VERILDI" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="TEKLIF_BASIM_STATUS">
+        <s:restriction base="s:string">
+          <s:enumeration value="BASILABILIR" />
+          <s:enumeration value="BASILAMAZ" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="getDaskPolice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:DaskPoliceQueryRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DaskPoliceQueryRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="acente" type="tns:AcenteBilgi" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="yenilemeNo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="zeyilNo" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getDaskPoliceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getDaskPoliceResult" type="tns:DaskPoliceQueryResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="DaskPoliceQueryResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="responseHeader" type="tns:ResponseHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="daskPolice" type="tns:DaskPoliceBilgileri" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DaskPoliceBilgileri">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SeriNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sirket" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Acente" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PoliceNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="YenilemeNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZeyilNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TanzimTarihi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BaslangicTarihi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BitisTarihi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SigortaliAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SigortaliSoyadi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Uyruk" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SigortaliTckNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SigortaliVknNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SigortaliVergiDairesi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SigortaliPasaportNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EkList" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SigortaEttirenSifati" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SigortaEttirenAdiSoyadi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SigortaEttirenTckNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SigortaEttirenVknNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SigortaEttirenVergiDairesi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RizikoDaireM2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RizikoBinaKati" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RizikoBinaYili" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RizikoBinaTarzi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RizikoDaireKullanimi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RizikoBedeli" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EskiPoliceNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RizikoM2Bedeli" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getTeklif">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:TeklifGetRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TeklifGetRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="referansNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="acente" type="tns:AcenteBilgi" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifVersiyon" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="lsTeklifGetType" type="tns:ArrayOfGET_INFO_TYPE" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfGET_INFO_TYPE">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GET_INFO_TYPE" type="tns:GET_INFO_TYPE" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="GET_INFO_TYPE">
+        <s:restriction base="s:string">
+          <s:enumeration value="TEMINATINFO" />
+          <s:enumeration value="SIGORTAKONUSUINFO" />
+          <s:enumeration value="TEMINATSIGORTAKONUSUINFO" />
+          <s:enumeration value="TAZMINATSIGORTAKONUSUINFO" />
+          <s:enumeration value="VADEINFO" />
+          <s:enumeration value="VERGIINFO" />
+          <s:enumeration value="INDIRIMSURPRIMINFO" />
+          <s:enumeration value="SORUINFO" />
+          <s:enumeration value="OZELSARTVESABITLERINFO" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="getTeklifResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getTeklifResult" type="tns:TeklifGetResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TeklifGetResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="responseHeader" type="tns:ResponseHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="teklif" type="tns:Teklif" />
+          <s:element minOccurs="0" maxOccurs="1" name="teklifPolInfo" type="tns:PoliceInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PoliceInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="lsVergiInfo" type="tns:ArrayOfVergiInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="lsVadeInfo" type="tns:ArrayOfVadeInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="lsSoruInfo" type="tns:ArrayOfSoruInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="lsTeminatInfo" type="tns:ArrayOfTeminatInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="lsTeminatSigortaKonusuInfo" type="tns:ArrayOfTeminatSigortaKonusuInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="lsTazminatSigortaKonusuInfo" type="tns:ArrayOfTazminatSigortaKonusuInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="lsIndirimSurprimInfo" type="tns:ArrayOfIndirimSurprimInfo" />
+          <s:element minOccurs="0" maxOccurs="1" name="lsOzelSartveSabitlerInfo" type="tns:ArrayOfOzelSartveSabitlerInfo" />
+          <s:element minOccurs="1" maxOccurs="1" name="kullaniciKodu" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="acenteKodu" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeVersiyon" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="seriNo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="acenteNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="acenteTaliNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="acentePersonelNo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="acenteAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="acenteTlf" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="acenteLevhaNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="urunKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="urunZeyilNo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="urunAdi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="tanzimTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="baslangicTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="bitisTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="kontratNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliSifati" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="dovizCinsi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dovizKuru" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="dovizKurTuru" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="dovizKurTarihi" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="odemePlanAciklamasi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="endeksTuru" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="endeksOrani" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="RizikoAdres1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RizikoAdres2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RizikoAdres3" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliKodu" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliSoyadi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliTuru" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliTckNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliVkNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliVergiDairesi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliGSMNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliAdres1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliAdres2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliAdres3" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaEttirenKodu" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaEttirenAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaEttirenSoyadi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaEttirenTuru" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaEttirenTckNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaEttirenVkNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaEttirenVergiDairesi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaEttirenGSMNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaEttirenAdres1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaEttirenAdres2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaEttirenAdres3" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="netPrim" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="netPrimTL" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="vergi" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="vergiTL" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="komisyon" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="komisyonTL" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="brutPrim" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="brutPrimTL" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfVergiInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="VergiInfo" nillable="true" type="tns:VergiInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VergiInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="vergiTurKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="vergiTuru" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="vergi" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="vergiTL" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfVadeInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="VadeInfo" nillable="true" type="tns:VadeInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VadeInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="vadeSiraNo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="vadeTuru" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="vadeTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="vadeTutar" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="vadeTutarTL" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSoruInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoruInfo" nillable="true" type="tns:SoruInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SoruInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="sira" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="kod" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="aciklama" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cins" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cevapAnlami" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sayisalCevapDegeri" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="karakterCevapDegeri" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTeminatInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TeminatInfo" nillable="true" type="tns:TeminatInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TeminatInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="sira" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="kod" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="aciklama" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="fiyat" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="prim" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="primTL" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="muafiyetTuru" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="muafiyetOrani" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="teminatSigortaKonusu" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTeminatSigortaKonusuInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TeminatSigortaKonusuInfo" nillable="true" type="tns:TeminatSigortaKonusuInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TeminatSigortaKonusuInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="sira" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="kod" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="aciklama" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bedel" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="prim" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="primTL" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTazminatSigortaKonusuInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TazminatSigortaKonusuInfo" nillable="true" type="tns:TazminatSigortaKonusuInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TazminatSigortaKonusuInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="sira" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="kod" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="aciklama" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bedel" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfIndirimSurprimInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IndirimSurprimInfo" nillable="true" type="tns:IndirimSurprimInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IndirimSurprimInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="sira" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="cins" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="aciklama" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="oran" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOzelSartveSabitlerInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OzelSartveSabitlerInfo" nillable="true" type="tns:OzelSartveSabitlerInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OzelSartveSabitlerInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="sira" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="metin" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getPolice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:PoliceGetRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PoliceGetRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="referansNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="acente" type="tns:AcenteBilgi" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="lsPoliceGetType" type="tns:ArrayOfGET_INFO_TYPE" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getPoliceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getPoliceResult" type="tns:PoliceGetResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PoliceGetResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="responseHeader" type="tns:ResponseHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="polInfo" type="tns:PoliceInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetIlIlceKoyListesi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="type" type="tns:TYPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="ilKodu" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ilceKodu" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="TYPE">
+        <s:restriction base="s:string">
+          <s:enumeration value="ALL" />
+          <s:enumeration value="IL" />
+          <s:enumeration value="ILCE" />
+          <s:enumeration value="KOY" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetIlIlceKoyListesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetIlIlceKoyListesiResult" type="tns:ArrayOfIlIlceKoy" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfIlIlceKoy">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IlIlceKoy" nillable="true" type="tns:IlIlceKoy" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IlIlceKoy">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ilKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ilceKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="koyKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="adi" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAracDegerListesi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="type" type="tns:ARACDEGER_TYPE" />
+            <s:element minOccurs="1" maxOccurs="1" name="aracMarkaKodu" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="modelYili" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="ARACDEGER_TYPE">
+        <s:restriction base="s:string">
+          <s:enumeration value="ALL" />
+          <s:enumeration value="ARAC_MARKA" />
+          <s:enumeration value="ARAC_MARKA_MODEL" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetAracDegerListesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAracDegerListesiResult" type="tns:ArrayOfAracDeger" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAracDeger">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AracDeger" nillable="true" type="tns:AracDeger" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AracDeger">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="aracMarkaKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="modelYili" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="aracBedeli" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="minumumAracBedeli" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetBankaListesi">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetBankaListesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBankaListesiResult" type="tns:ArrayOfBanka" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBanka">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Banka" nillable="true" type="tns:Banka" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Banka">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="bankaKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="unvan" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetKrediKartBinnoListesi">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetKrediKartBinnoListesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetKrediKartBinnoListesiResult" type="tns:ArrayOfKrediKartBinno" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfKrediKartBinno">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="KrediKartBinno" nillable="true" type="tns:KrediKartBinno" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="KrediKartBinno">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="binno" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="minTaksit" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="maksTaksit" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="tekCekimVarmi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="kartAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="kartTipi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="bankaAdi" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getUrunTaksitInfoListesi">
+        <s:complexType />
+      </s:element>
+      <s:element name="getUrunTaksitInfoListesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getUrunTaksitInfoListesiResult" type="tns:ArrayOfUrunTaksitInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUrunTaksitInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UrunTaksitInfo" nillable="true" type="tns:UrunTaksitInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UrunTaksitInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="urunKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="urunAdi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="minTaksit" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="makTaksit" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="createPolice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:PoliceCreateRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PoliceCreateRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="referansNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="acente" type="tns:AcenteBilgi" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="teklifVersiyon" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="odemeBilgileri" type="tns:OdemeBilgileri" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="createPoliceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="createPoliceResult" type="tns:PoliceCreateResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="giveBilgiFormuReadInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:BilgiFormuReadInfoRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BilgiFormuReadInfoRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="referansNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="acente" type="tns:AcenteBilgi" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeNo" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="giveBilgiFormuReadInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="giveBilgiFormuReadInfoResult" type="tns:BilgiFormuReadInfoResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BilgiFormuReadInfoResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="responseHeader" type="tns:ResponseHeader" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="findPolice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:PoliceFindRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PoliceFindRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="referansNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="acente" type="tns:AcenteBilgi" />
+          <s:element minOccurs="1" maxOccurs="1" name="urunGrubu" type="tns:URUN_GRUBU" />
+          <s:element minOccurs="1" maxOccurs="1" name="bgsUrunKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeBaslangicTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeBitisTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliTckNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliVkNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="personelSicilNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeId" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="findPoliceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="findPoliceResult" type="tns:PoliceFindResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PoliceFindResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="responseHeader" type="tns:ResponseHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="policeFindList" type="tns:ArrayOfPoliceFindItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfPoliceFindItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PoliceFindItem" nillable="true" type="tns:PoliceFindItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PoliceFindItem">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="kullaniciKodu" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="acenteKodu" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeVersiyon" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="bgsUrunKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="bgsUrunAdi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliKodu" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliTckNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliVkNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliPassportNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliSoyadi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeBaslangicTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeBitisTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeTanzimTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="personelSicilNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="bankaSubeKodu" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="netPrim" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="vergiTutari" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="brutPrim" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="dovizKodAdi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="netPrimDovizli" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="vergiTutariDovizli" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="brutPrimDovizli" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeDurumu" type="tns:POLICE_STATUS" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeDegisiklikDurumu" type="tns:POLICE_DEGISIKLIK_STATUS" />
+          <s:element minOccurs="1" maxOccurs="1" name="policeBasimDurumu" type="tns:POLICE_BASIM_STATUS" />
+          <s:element minOccurs="1" maxOccurs="1" name="zeyilNo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="zeyilAciklama" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="POLICE_STATUS">
+        <s:restriction base="s:string">
+          <s:enumeration value="NORMAL" />
+          <s:enumeration value="PROVIZYON_BEKLIYOR" />
+          <s:enumeration value="YETKI_VERILDI" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="POLICE_DEGISIKLIK_STATUS">
+        <s:restriction base="s:string">
+          <s:enumeration value="PRIMSIZ" />
+          <s:enumeration value="PRIM_ARTIS" />
+          <s:enumeration value="PRIM_IADE" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="POLICE_BASIM_STATUS">
+        <s:restriction base="s:string">
+          <s:enumeration value="BASILABILIR" />
+          <s:enumeration value="BASILAMAZ" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetUrunler">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetUrunlerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUrunlerResult" type="tns:ArrayOfUrun" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUrun">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Urun" nillable="true" type="tns:Urun" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Urun">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Versiyon" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ad" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DefaultSigortaEttirenSifati" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SigortaEttirenGerekliMi" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="SigortaKonusuListesi" type="tns:ArrayOfSigortaKonusu" />
+          <s:element minOccurs="0" maxOccurs="1" name="TeminatListesi" type="tns:ArrayOfTeminat" />
+          <s:element minOccurs="0" maxOccurs="1" name="SoruListesi" type="tns:ArrayOfSoru" />
+          <s:element minOccurs="1" maxOccurs="1" name="AdresGerekliMi" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="AdresTipi" type="tns:AdresTipi" />
+          <s:element minOccurs="1" maxOccurs="1" name="Teklif_TanzimTar_BasTar_FarkiEnAz" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Teklif_TanzimTar_BasTar_FarkiEnFazla" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DefaultOdemePlani" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="OdemePlanKodListesi" type="tns:ArrayOfInt" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetsigortaSirketleri">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetsigortaSirketleriResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetsigortaSirketleriResult" type="tns:ArrayOfSigortaSirket" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSigortaSirket">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SigortaSirket" nillable="true" type="tns:SigortaSirket" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SigortaSirket">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="groupamaKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="tramerKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="unvan" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAracMarka">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAracMarkaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAracMarkaResult" type="tns:ArrayOfAracMarkasi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAracMarkasi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AracMarkasi" nillable="true" type="tns:AracMarkasi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AracMarkasi">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="MarkaKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aciklama" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAracMarkaModel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="markaKodu" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAracMarkaModelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAracMarkaModelResult" type="tns:ArrayOfAracMarkaModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAracMarkaModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AracMarkaModel" nillable="true" type="tns:AracMarkaModel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AracMarkaModel">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="MarkaKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ModelKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aciklama" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetCevapDegerSeti">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="listeKodu1" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="listeKodu2" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="listeKodu3" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCevapDegerSetiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCevapDegerSetiResult" type="tns:ArrayOfCevapDegerSeti" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCevapDegerSeti">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CevapDegerSeti" nillable="true" type="tns:CevapDegerSeti" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CevapDegerSeti">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CevapKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aciklama" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSigortaEttirenSifatlari">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetSigortaEttirenSifatlariResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSigortaEttirenSifatlariResult" type="tns:ArrayOfSigortaEttirenSifati" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSigortaEttirenSifati">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SigortaEttirenSifati" nillable="true" type="tns:SigortaEttirenSifati" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SigortaEttirenSifati">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SifatKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aciklama" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetOdemePlanListesi">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetOdemePlanListesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOdemePlanListesiResult" type="tns:ArrayOfOdemePlani" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfOdemePlani">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OdemePlani" nillable="true" type="tns:OdemePlani" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OdemePlani">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PlanKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aciklama" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="invokeTramerKaskoQuery">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:TramerKaskoQueryRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TramerKaskoQueryRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="referansNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="acente" type="tns:AcenteBilgi" />
+          <s:element minOccurs="1" maxOccurs="1" name="sigortaliTckNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="plakaNo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="invokeTramerKaskoQueryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="invokeTramerKaskoQueryResult" type="tns:TramerKaskoQueryResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TramerKaskoQueryResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="responseHeader" type="tns:ResponseHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="qResult" type="s1:kaskoPoliceEskiSonucType" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="sbmTrafikReferansPoliceSorgu">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="req" type="tns:SbmTrafikReferansPoliceSorguRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SbmTrafikReferansPoliceSorguRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="acente" type="tns:AcenteBilgi" />
+          <s:element minOccurs="0" maxOccurs="1" name="TrafikReferansPoliceSorguParametreleri_" type="tns:TrafikReferansPoliceSorguParametreleri_" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TrafikReferansPoliceSorguParametreleri_">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="aracTemelBilgileri" type="tns:AracTemelBilgileri" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigortaliBilgisi" type="tns:SigortaliBilgisi" />
+          <s:element minOccurs="0" maxOccurs="1" name="tarihBilgileri" type="tns:TarihBilgileri" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AracTemelBilgileri">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="aracTarifeGrupKod" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="modelYili" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="motorNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="plaka" type="tns:Plaka" />
+          <s:element minOccurs="0" maxOccurs="1" name="sasiNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="tescilTarihi" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Plaka">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ilKodu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="no" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SigortaliBilgisi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="tckimlikNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="turKodu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="uyruk" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TarihBilgileri">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="baslangicTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="bitisTarihi" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="tanzimTarihi" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="sbmTrafikReferansPoliceSorguResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sbmTrafikReferansPoliceSorguResult" type="tns:SbmTrafikReferansPoliceSorguResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SbmTrafikReferansPoliceSorguResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="responseHeader" type="tns:ResponseHeader" />
+          <s:element minOccurs="0" maxOccurs="1" name="sbmResponse" type="tns:SbmResponse" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SbmResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="belge" type="tns:BelgeBilgileri" />
+          <s:element minOccurs="0" maxOccurs="1" name="tarih" type="tns:TarihBilgileri" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BelgeBilgileri">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="belgeNo" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="belgeSiraNo" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="belgeTarih" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="onceki" type="tns:OncekiPoliceAnahtari" />
+          <s:element minOccurs="1" maxOccurs="1" name="uygulanmasiGerekenGecikmeSurprimYuzde" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="uygulanmasiGerekenIndirimYuzde" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="uygulanmasiGerekenSurprimYuzde" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="uygulanmasiGerekenTarifeBasamakKodu" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="uygulanmisGecikmeSurprimYuzde" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="uygulanmisIlPlakaIndirimYuzde" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="uygulanmisIndirimYuzde" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="uygulanmisSurprimYuzde" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="uygulanmisTarifeBasamakKodu" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OncekiPoliceAnahtari">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="acenteKod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="policeNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sirketKodu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="yenilemeNo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://kasko.sbm.org.tr">
+      <s:complexType name="kaskoPoliceEskiSonucType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="acenteNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="adUnvan" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="aracMarka" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="aracMarkaKodu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="aracTarifeGrupKodu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="aracTip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="aracTipKodu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="unbounded" form="unqualified" name="hasarList" nillable="true" type="s1:hasarEskiType" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="iptalNedeni" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="iptalPolice" type="s1:evetHayirType" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="iptalTarihi" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="kimlikNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="kimlikTipi" type="s1:identityType" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="kullanimSekli" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="modelYili" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="motorNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="plakaIlKodu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="plakaNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="policeBaslamaTarihi" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="policeBitisTarihi" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="policeNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="sasiNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="sigortaBedeli" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="sigortaliTuru" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="sirketKodu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="soyad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="tanzimTarihi" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="uygulananKademe" type="s:byte" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="uyruk" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="yenilemeNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="yolcuKapasitesi" type="s:short" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="hasarEskiType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="dosyaCalismaYil" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="hasarDosyaNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="hasarDurumu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="hasarMeblagi1" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="hasarMeblagi2" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="hasarMeblagi3" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="hasarMeblagi4" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="hasarMeblagi5" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="hasarTarihi" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="ihbarTarihi" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="kaskoHasarNedeni1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="kaskoHasarNedeni2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="kaskoHasarNedeni3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="kaskoHasarNedeni4" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="kaskoHasarNedeni5" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="rucuOrani" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="toplamHasarMeblagi" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="evetHayirType">
+        <s:restriction base="s:string">
+          <s:enumeration value="E" />
+          <s:enumeration value="H" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="identityType">
+        <s:restriction base="s:string">
+          <s:enumeration value="1" />
+          <s:enumeration value="2" />
+          <s:enumeration value="3" />
+          <s:enumeration value="4" />
+          <s:enumeration value="9" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="getPrintURLSoapIn">
+    <wsdl:part name="parameters" element="tns:getPrintURL" />
+  </wsdl:message>
+  <wsdl:message name="getPrintURLSoapOut">
+    <wsdl:part name="parameters" element="tns:getPrintURLResponse" />
+  </wsdl:message>
+  <wsdl:message name="createTeklifSoapIn">
+    <wsdl:part name="parameters" element="tns:createTeklif" />
+  </wsdl:message>
+  <wsdl:message name="createTeklifSoapOut">
+    <wsdl:part name="parameters" element="tns:createTeklifResponse" />
+  </wsdl:message>
+  <wsdl:message name="updateTeklifAndCreatePolicySoapIn">
+    <wsdl:part name="parameters" element="tns:updateTeklifAndCreatePolicy" />
+  </wsdl:message>
+  <wsdl:message name="updateTeklifAndCreatePolicySoapOut">
+    <wsdl:part name="parameters" element="tns:updateTeklifAndCreatePolicyResponse" />
+  </wsdl:message>
+  <wsdl:message name="createTramerdenTrafikTeklifSoapIn">
+    <wsdl:part name="parameters" element="tns:createTramerdenTrafikTeklif" />
+  </wsdl:message>
+  <wsdl:message name="createTramerdenTrafikTeklifSoapOut">
+    <wsdl:part name="parameters" element="tns:createTramerdenTrafikTeklifResponse" />
+  </wsdl:message>
+  <wsdl:message name="createTramerdenKaskoTeklifSoapIn">
+    <wsdl:part name="parameters" element="tns:createTramerdenKaskoTeklif" />
+  </wsdl:message>
+  <wsdl:message name="createTramerdenKaskoTeklifSoapOut">
+    <wsdl:part name="parameters" element="tns:createTramerdenKaskoTeklifResponse" />
+  </wsdl:message>
+  <wsdl:message name="createTramerdenKaskoTeklifWithProfileSoapIn">
+    <wsdl:part name="parameters" element="tns:createTramerdenKaskoTeklifWithProfile" />
+  </wsdl:message>
+  <wsdl:message name="createTramerdenKaskoTeklifWithProfileSoapOut">
+    <wsdl:part name="parameters" element="tns:createTramerdenKaskoTeklifWithProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="findTeklifSoapIn">
+    <wsdl:part name="parameters" element="tns:findTeklif" />
+  </wsdl:message>
+  <wsdl:message name="findTeklifSoapOut">
+    <wsdl:part name="parameters" element="tns:findTeklifResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDaskPoliceSoapIn">
+    <wsdl:part name="parameters" element="tns:getDaskPolice" />
+  </wsdl:message>
+  <wsdl:message name="getDaskPoliceSoapOut">
+    <wsdl:part name="parameters" element="tns:getDaskPoliceResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTeklifSoapIn">
+    <wsdl:part name="parameters" element="tns:getTeklif" />
+  </wsdl:message>
+  <wsdl:message name="getTeklifSoapOut">
+    <wsdl:part name="parameters" element="tns:getTeklifResponse" />
+  </wsdl:message>
+  <wsdl:message name="getPoliceSoapIn">
+    <wsdl:part name="parameters" element="tns:getPolice" />
+  </wsdl:message>
+  <wsdl:message name="getPoliceSoapOut">
+    <wsdl:part name="parameters" element="tns:getPoliceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetIlIlceKoyListesiSoapIn">
+    <wsdl:part name="parameters" element="tns:GetIlIlceKoyListesi" />
+  </wsdl:message>
+  <wsdl:message name="GetIlIlceKoyListesiSoapOut">
+    <wsdl:part name="parameters" element="tns:GetIlIlceKoyListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAracDegerListesiSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAracDegerListesi" />
+  </wsdl:message>
+  <wsdl:message name="GetAracDegerListesiSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAracDegerListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBankaListesiSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBankaListesi" />
+  </wsdl:message>
+  <wsdl:message name="GetBankaListesiSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBankaListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetKrediKartBinnoListesiSoapIn">
+    <wsdl:part name="parameters" element="tns:GetKrediKartBinnoListesi" />
+  </wsdl:message>
+  <wsdl:message name="GetKrediKartBinnoListesiSoapOut">
+    <wsdl:part name="parameters" element="tns:GetKrediKartBinnoListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="getUrunTaksitInfoListesiSoapIn">
+    <wsdl:part name="parameters" element="tns:getUrunTaksitInfoListesi" />
+  </wsdl:message>
+  <wsdl:message name="getUrunTaksitInfoListesiSoapOut">
+    <wsdl:part name="parameters" element="tns:getUrunTaksitInfoListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="createPoliceSoapIn">
+    <wsdl:part name="parameters" element="tns:createPolice" />
+  </wsdl:message>
+  <wsdl:message name="createPoliceSoapOut">
+    <wsdl:part name="parameters" element="tns:createPoliceResponse" />
+  </wsdl:message>
+  <wsdl:message name="giveBilgiFormuReadInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:giveBilgiFormuReadInfo" />
+  </wsdl:message>
+  <wsdl:message name="giveBilgiFormuReadInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:giveBilgiFormuReadInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="findPoliceSoapIn">
+    <wsdl:part name="parameters" element="tns:findPolice" />
+  </wsdl:message>
+  <wsdl:message name="findPoliceSoapOut">
+    <wsdl:part name="parameters" element="tns:findPoliceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUrunlerSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUrunler" />
+  </wsdl:message>
+  <wsdl:message name="GetUrunlerSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUrunlerResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetsigortaSirketleriSoapIn">
+    <wsdl:part name="parameters" element="tns:GetsigortaSirketleri" />
+  </wsdl:message>
+  <wsdl:message name="GetsigortaSirketleriSoapOut">
+    <wsdl:part name="parameters" element="tns:GetsigortaSirketleriResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAracMarkaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAracMarka" />
+  </wsdl:message>
+  <wsdl:message name="GetAracMarkaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAracMarkaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAracMarkaModelSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAracMarkaModel" />
+  </wsdl:message>
+  <wsdl:message name="GetAracMarkaModelSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAracMarkaModelResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCevapDegerSetiSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCevapDegerSeti" />
+  </wsdl:message>
+  <wsdl:message name="GetCevapDegerSetiSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCevapDegerSetiResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSigortaEttirenSifatlariSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSigortaEttirenSifatlari" />
+  </wsdl:message>
+  <wsdl:message name="GetSigortaEttirenSifatlariSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSigortaEttirenSifatlariResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOdemePlanListesiSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOdemePlanListesi" />
+  </wsdl:message>
+  <wsdl:message name="GetOdemePlanListesiSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOdemePlanListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="invokeTramerKaskoQuerySoapIn">
+    <wsdl:part name="parameters" element="tns:invokeTramerKaskoQuery" />
+  </wsdl:message>
+  <wsdl:message name="invokeTramerKaskoQuerySoapOut">
+    <wsdl:part name="parameters" element="tns:invokeTramerKaskoQueryResponse" />
+  </wsdl:message>
+  <wsdl:message name="sbmTrafikReferansPoliceSorguSoapIn">
+    <wsdl:part name="parameters" element="tns:sbmTrafikReferansPoliceSorgu" />
+  </wsdl:message>
+  <wsdl:message name="sbmTrafikReferansPoliceSorguSoapOut">
+    <wsdl:part name="parameters" element="tns:sbmTrafikReferansPoliceSorguResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSBGSPort">
+    <wsdl:operation name="getPrintURL">
+      <wsdl:input message="tns:getPrintURLSoapIn" />
+      <wsdl:output message="tns:getPrintURLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="createTeklif">
+      <wsdl:input message="tns:createTeklifSoapIn" />
+      <wsdl:output message="tns:createTeklifSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="updateTeklifAndCreatePolicy">
+      <wsdl:input message="tns:updateTeklifAndCreatePolicySoapIn" />
+      <wsdl:output message="tns:updateTeklifAndCreatePolicySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="createTramerdenTrafikTeklif">
+      <wsdl:input message="tns:createTramerdenTrafikTeklifSoapIn" />
+      <wsdl:output message="tns:createTramerdenTrafikTeklifSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="createTramerdenKaskoTeklif">
+      <wsdl:input message="tns:createTramerdenKaskoTeklifSoapIn" />
+      <wsdl:output message="tns:createTramerdenKaskoTeklifSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="createTramerdenKaskoTeklifWithProfile">
+      <wsdl:input message="tns:createTramerdenKaskoTeklifWithProfileSoapIn" />
+      <wsdl:output message="tns:createTramerdenKaskoTeklifWithProfileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="findTeklif">
+      <wsdl:input message="tns:findTeklifSoapIn" />
+      <wsdl:output message="tns:findTeklifSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getDaskPolice">
+      <wsdl:input message="tns:getDaskPoliceSoapIn" />
+      <wsdl:output message="tns:getDaskPoliceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getTeklif">
+      <wsdl:input message="tns:getTeklifSoapIn" />
+      <wsdl:output message="tns:getTeklifSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPolice">
+      <wsdl:input message="tns:getPoliceSoapIn" />
+      <wsdl:output message="tns:getPoliceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIlIlceKoyListesi">
+      <wsdl:input message="tns:GetIlIlceKoyListesiSoapIn" />
+      <wsdl:output message="tns:GetIlIlceKoyListesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAracDegerListesi">
+      <wsdl:input message="tns:GetAracDegerListesiSoapIn" />
+      <wsdl:output message="tns:GetAracDegerListesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankaListesi">
+      <wsdl:input message="tns:GetBankaListesiSoapIn" />
+      <wsdl:output message="tns:GetBankaListesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetKrediKartBinnoListesi">
+      <wsdl:input message="tns:GetKrediKartBinnoListesiSoapIn" />
+      <wsdl:output message="tns:GetKrediKartBinnoListesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getUrunTaksitInfoListesi">
+      <wsdl:input message="tns:getUrunTaksitInfoListesiSoapIn" />
+      <wsdl:output message="tns:getUrunTaksitInfoListesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="createPolice">
+      <wsdl:input message="tns:createPoliceSoapIn" />
+      <wsdl:output message="tns:createPoliceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="giveBilgiFormuReadInfo">
+      <wsdl:input message="tns:giveBilgiFormuReadInfoSoapIn" />
+      <wsdl:output message="tns:giveBilgiFormuReadInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="findPolice">
+      <wsdl:input message="tns:findPoliceSoapIn" />
+      <wsdl:output message="tns:findPoliceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUrunler">
+      <wsdl:input message="tns:GetUrunlerSoapIn" />
+      <wsdl:output message="tns:GetUrunlerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetsigortaSirketleri">
+      <wsdl:input message="tns:GetsigortaSirketleriSoapIn" />
+      <wsdl:output message="tns:GetsigortaSirketleriSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAracMarka">
+      <wsdl:input message="tns:GetAracMarkaSoapIn" />
+      <wsdl:output message="tns:GetAracMarkaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAracMarkaModel">
+      <wsdl:input message="tns:GetAracMarkaModelSoapIn" />
+      <wsdl:output message="tns:GetAracMarkaModelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCevapDegerSeti">
+      <wsdl:input message="tns:GetCevapDegerSetiSoapIn" />
+      <wsdl:output message="tns:GetCevapDegerSetiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSigortaEttirenSifatlari">
+      <wsdl:input message="tns:GetSigortaEttirenSifatlariSoapIn" />
+      <wsdl:output message="tns:GetSigortaEttirenSifatlariSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOdemePlanListesi">
+      <wsdl:input message="tns:GetOdemePlanListesiSoapIn" />
+      <wsdl:output message="tns:GetOdemePlanListesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="invokeTramerKaskoQuery">
+      <wsdl:input message="tns:invokeTramerKaskoQuerySoapIn" />
+      <wsdl:output message="tns:invokeTramerKaskoQuerySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="sbmTrafikReferansPoliceSorgu">
+      <wsdl:input message="tns:sbmTrafikReferansPoliceSorguSoapIn" />
+      <wsdl:output message="tns:sbmTrafikReferansPoliceSorguSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSBGSPort" type="tns:WSBGSPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getPrintURL">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/getPrintURL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createTeklif">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/createTeklif" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateTeklifAndCreatePolicy">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/updateTeklifAndCreatePolicy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createTramerdenTrafikTeklif">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/createTramerdenTrafikTeklif" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createTramerdenKaskoTeklif">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/createTramerdenKaskoTeklif" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createTramerdenKaskoTeklifWithProfile">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/createTramerdenKaskoTeklifWithProfile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findTeklif">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/findTeklif" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDaskPolice">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/getDaskPolice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTeklif">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/getTeklif" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPolice">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/getPolice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIlIlceKoyListesi">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/GetIlIlceKoyListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAracDegerListesi">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/GetAracDegerListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankaListesi">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/GetBankaListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKrediKartBinnoListesi">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/GetKrediKartBinnoListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUrunTaksitInfoListesi">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/getUrunTaksitInfoListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createPolice">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/createPolice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="giveBilgiFormuReadInfo">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/giveBilgiFormuReadInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findPolice">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/findPolice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUrunler">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/GetUrunler" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetsigortaSirketleri">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/GetsigortaSirketleri" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAracMarka">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/GetAracMarka" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAracMarkaModel">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/GetAracMarkaModel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCevapDegerSeti">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/GetCevapDegerSeti" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSigortaEttirenSifatlari">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/GetSigortaEttirenSifatlari" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOdemePlanListesi">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/GetOdemePlanListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="invokeTramerKaskoQuery">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/invokeTramerKaskoQuery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sbmTrafikReferansPoliceSorgu">
+      <soap:operation soapAction="http://service2.basakgroupama.com.tr/sbmTrafikReferansPoliceSorgu" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSBGSPort1" type="tns:WSBGSPort">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getPrintURL">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/getPrintURL" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createTeklif">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/createTeklif" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateTeklifAndCreatePolicy">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/updateTeklifAndCreatePolicy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createTramerdenTrafikTeklif">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/createTramerdenTrafikTeklif" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createTramerdenKaskoTeklif">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/createTramerdenKaskoTeklif" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createTramerdenKaskoTeklifWithProfile">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/createTramerdenKaskoTeklifWithProfile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findTeklif">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/findTeklif" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDaskPolice">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/getDaskPolice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTeklif">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/getTeklif" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPolice">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/getPolice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIlIlceKoyListesi">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/GetIlIlceKoyListesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAracDegerListesi">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/GetAracDegerListesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankaListesi">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/GetBankaListesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKrediKartBinnoListesi">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/GetKrediKartBinnoListesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUrunTaksitInfoListesi">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/getUrunTaksitInfoListesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createPolice">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/createPolice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="giveBilgiFormuReadInfo">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/giveBilgiFormuReadInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findPolice">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/findPolice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUrunler">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/GetUrunler" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetsigortaSirketleri">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/GetsigortaSirketleri" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAracMarka">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/GetAracMarka" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAracMarkaModel">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/GetAracMarkaModel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCevapDegerSeti">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/GetCevapDegerSeti" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSigortaEttirenSifatlari">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/GetSigortaEttirenSifatlari" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOdemePlanListesi">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/GetOdemePlanListesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="invokeTramerKaskoQuery">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/invokeTramerKaskoQuery" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sbmTrafikReferansPoliceSorgu">
+      <soap12:operation soapAction="http://service2.basakgroupama.com.tr/sbmTrafikReferansPoliceSorgu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BGS_WS">
+    <wsdl:port name="WSBGSPort" binding="tns:WSBGSPort">
+      <soap:address location="https://service7.groupama.com.tr/GroupamaWS20/BGS_WS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSBGSPort1" binding="tns:WSBGSPort1">
+      <soap12:address location="https://service7.groupama.com.tr/GroupamaWS20/BGS_WS.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

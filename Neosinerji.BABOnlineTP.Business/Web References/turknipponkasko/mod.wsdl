@@ -1,0 +1,1012 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="MOD" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="MOD" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Türk Nippon Sigorta MOD product application services</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="MOD">
+      <s:element name="Compute">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:MODInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MODInput">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:SharedInput">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ClientNo" nillable="true" type="s:long" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientCitizenshipNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientTaxNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientPhoneNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="IsRenewal" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="PlateCityCode" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="PlateNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="BeginDate" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="PttCalisaniMi" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ModelYear" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="VehicleModel" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EngineNo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ChassisNo" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="RegistrationDate" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="VehicleType" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="TariffClass" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="UsageType" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="PassengerCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="EmployeeCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="FuelType" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="VehicleColor" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="LossPayeeType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Bank" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BankBranch" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="FinancialInstitution" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="RepairServiceType" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="SparePartType" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="GarageType" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AudibleAlarm" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="Immobilizer" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="DiscretionaryIndemnity" nillable="true" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DiscretionaryIndemnityFixed" nillable="true" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="PersonalAccident" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="TreatmentExpenses" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="LegalProtection" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AuthorizedDiscount" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="TescilASBIS" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Exemption" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Surcharge" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="InsuredJob" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="GovernmentRegistryNumber" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Coverage" type="tns:CoverageModel" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SharedInput" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PrintType" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsTestMode" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Channel" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TrackingCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CitizenshipNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnitNo" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="PolicyNo" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="CashPaymentType" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UseCreditCard" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCard" type="tns:CreditCardInput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CreditCardInput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CardType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Month" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Year" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CVV" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Installment" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardHolderFirstname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardHolderLastname" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CoverageModel">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="GPRS" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RadyoTeypCDCalar" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Kolon" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TelevizyonVideo" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Alarm" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GSMAracKiti" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CelikJant" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Klima" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="LPGSistemi" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CocukKoltugu" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="KisiselEsya" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="GelirKaybi" nillable="true" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ComputeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ComputeResult" type="tns:MODOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MODOutput">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:SharedOutput">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ClientNo" type="s:long" />
+              <s:element minOccurs="1" maxOccurs="1" name="VehicleMarketValue" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ModelYear" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="VehicleModel" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EngineNo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ChassisNo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ExtraXmlString" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:MODInput" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="SharedOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IsSuccess" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TrackingCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UnitNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="UnitName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Premium" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="BeginDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="PolicyNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrintDownloadUrl" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Proposal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:MODInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProposalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProposalResult" type="tns:MODOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Approve">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:MODInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApproveResult" type="tns:MODOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Print">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:MODInput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrintResult" type="tns:MODOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBrandList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ModelYear" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProductType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBrandListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBrandListResult" type="tns:ArrayOfListOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfListOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ListOutput" nillable="true" type="tns:ListOutput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ListOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AuthHeader" type="tns:AuthHeader" />
+      <s:complexType name="AuthHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Channel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="GetModelList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ModelYear" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="BrandCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProductType" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetModelListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetModelListResult" type="tns:ArrayOfVehicleModelOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfVehicleModelOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="VehicleModelOutput" nillable="true" type="tns:VehicleModelOutput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VehicleModelOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VehicleType" type="tns:ArrayOfInt" />
+          <s:element minOccurs="0" maxOccurs="1" name="NewVehicleType" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetBankList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetBankListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBankListResult" type="tns:ArrayOfListOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankBranchList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BankCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBankBranchListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBankBranchListResult" type="tns:ArrayOfListOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFinancialInstitutionList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFinancialInstitutionListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFinancialInstitutionListResult" type="tns:ArrayOfListOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCityList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCityListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCityListResult" type="tns:ArrayOfListOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTownList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="citycode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTownListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTownListResult" type="tns:ArrayOfListOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMunicipalityList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="towncode" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMunicipalityListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMunicipalityListResult" type="tns:ArrayOfListOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLatestPolicy">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="plaka" nillable="true" type="tns:PlateDetail" />
+            <s:element minOccurs="1" maxOccurs="1" name="kimlik" nillable="true" type="tns:IdentityDetail" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PlateDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="il-kodu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="no" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IdentityDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="tc-kimlik-numarasi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="vergi-numarasi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigorta-ettiren-tc-kimlik-numarasi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sigorta-ettiren-vergi-numarasi" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetLatestPolicyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLatestPolicyResult" type="tns:LatestMODPolicyOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="LatestMODPolicyOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Client" type="tns:CustomerOutput" />
+          <s:element minOccurs="0" maxOccurs="1" name="Insured" type="tns:CustomerOutput" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsSuccess" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StatusDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="LossPayeeSpecified" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="FinancialInstitution" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Bank" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BankBranch" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ModelSpecified" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ModelYear" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="VehicleModel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VehicleModelName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VehicleBrandName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="VehicleType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TariffClass" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="EngineNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ChassisNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PassengerCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FuelType" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="UsageType" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="VehicleRegistrationCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VehicleRegistrationNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="VehicleRegistrationDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomerOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UnitNo" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CitizenshipNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GsmCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="GsmNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Occupation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="tns:ArrayOfAddressOutput" />
+          <s:element minOccurs="0" maxOccurs="1" name="Input" type="tns:CustomerInput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAddressOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AddressOutput" nillable="true" type="tns:AddressOutput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomerInput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IsTestMode" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Channel" nillable="true" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdentityNumber" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IsAuthorizedDiscount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UserID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsAuthorizedDiscountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IsAuthorizedDiscountResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMaxAuthorizedDiscount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="kimlik" nillable="true" type="tns:IdentityDetail" />
+            <s:element minOccurs="1" maxOccurs="1" name="plaka" nillable="true" type="tns:PlateDetail" />
+            <s:element minOccurs="1" maxOccurs="1" name="begindate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMaxAuthorizedDiscountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetMaxAuthorizedDiscountResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="ErrMsg" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPolicyDetailXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="policyno" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="renewal" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="endors" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="testmode" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPolicyDetailXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPolicyDetailXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ComputeSoapIn">
+    <wsdl:part name="parameters" element="tns:Compute" />
+  </wsdl:message>
+  <wsdl:message name="ComputeSoapOut">
+    <wsdl:part name="parameters" element="tns:ComputeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProposalSoapIn">
+    <wsdl:part name="parameters" element="tns:Proposal" />
+  </wsdl:message>
+  <wsdl:message name="ProposalSoapOut">
+    <wsdl:part name="parameters" element="tns:ProposalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApproveSoapIn">
+    <wsdl:part name="parameters" element="tns:Approve" />
+  </wsdl:message>
+  <wsdl:message name="ApproveSoapOut">
+    <wsdl:part name="parameters" element="tns:ApproveResponse" />
+  </wsdl:message>
+  <wsdl:message name="PrintSoapIn">
+    <wsdl:part name="parameters" element="tns:Print" />
+  </wsdl:message>
+  <wsdl:message name="PrintSoapOut">
+    <wsdl:part name="parameters" element="tns:PrintResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBrandListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBrandList" />
+  </wsdl:message>
+  <wsdl:message name="GetBrandListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBrandListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBrandListAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetModelListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetModelList" />
+  </wsdl:message>
+  <wsdl:message name="GetModelListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetModelListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetModelListAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetBankListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBankList" />
+  </wsdl:message>
+  <wsdl:message name="GetBankListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBankListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBankListAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetBankBranchListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBankBranchList" />
+  </wsdl:message>
+  <wsdl:message name="GetBankBranchListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBankBranchListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBankBranchListAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetFinancialInstitutionListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFinancialInstitutionList" />
+  </wsdl:message>
+  <wsdl:message name="GetFinancialInstitutionListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFinancialInstitutionListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFinancialInstitutionListAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetCityListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCityList" />
+  </wsdl:message>
+  <wsdl:message name="GetCityListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCityListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCityListAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetTownListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTownList" />
+  </wsdl:message>
+  <wsdl:message name="GetTownListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTownListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTownListAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetMunicipalityListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMunicipalityList" />
+  </wsdl:message>
+  <wsdl:message name="GetMunicipalityListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMunicipalityListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMunicipalityListAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetLatestPolicySoapIn">
+    <wsdl:part name="parameters" element="tns:GetLatestPolicy" />
+  </wsdl:message>
+  <wsdl:message name="GetLatestPolicySoapOut">
+    <wsdl:part name="parameters" element="tns:GetLatestPolicyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLatestPolicyAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="IsAuthorizedDiscountSoapIn">
+    <wsdl:part name="parameters" element="tns:IsAuthorizedDiscount" />
+  </wsdl:message>
+  <wsdl:message name="IsAuthorizedDiscountSoapOut">
+    <wsdl:part name="parameters" element="tns:IsAuthorizedDiscountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsAuthorizedDiscountAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetMaxAuthorizedDiscountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMaxAuthorizedDiscount" />
+  </wsdl:message>
+  <wsdl:message name="GetMaxAuthorizedDiscountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMaxAuthorizedDiscountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMaxAuthorizedDiscountAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetPolicyDetailXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPolicyDetailXML" />
+  </wsdl:message>
+  <wsdl:message name="GetPolicyDetailXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPolicyDetailXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPolicyDetailXMLAuthHeader">
+    <wsdl:part name="AuthHeader" element="tns:AuthHeader" />
+  </wsdl:message>
+  <wsdl:portType name="MODServiceSoap">
+    <wsdl:operation name="Compute">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Calculate MOD premium.</wsdl:documentation>
+      <wsdl:input message="tns:ComputeSoapIn" />
+      <wsdl:output message="tns:ComputeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Proposal">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Save MOD proposal.</wsdl:documentation>
+      <wsdl:input message="tns:ProposalSoapIn" />
+      <wsdl:output message="tns:ProposalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Approve">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Approve MOD proposal.</wsdl:documentation>
+      <wsdl:input message="tns:ApproveSoapIn" />
+      <wsdl:output message="tns:ApproveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Print">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get policy print URL.</wsdl:documentation>
+      <wsdl:input message="tns:PrintSoapIn" />
+      <wsdl:output message="tns:PrintSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBrandList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get active brand list by model year</wsdl:documentation>
+      <wsdl:input message="tns:GetBrandListSoapIn" />
+      <wsdl:output message="tns:GetBrandListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetModelList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get active model list by model year and brand code</wsdl:documentation>
+      <wsdl:input message="tns:GetModelListSoapIn" />
+      <wsdl:output message="tns:GetModelListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get active bank list.</wsdl:documentation>
+      <wsdl:input message="tns:GetBankListSoapIn" />
+      <wsdl:output message="tns:GetBankListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBankBranchList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get active branch list by bank.</wsdl:documentation>
+      <wsdl:input message="tns:GetBankBranchListSoapIn" />
+      <wsdl:output message="tns:GetBankBranchListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFinancialInstitutionList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get active finance company list.</wsdl:documentation>
+      <wsdl:input message="tns:GetFinancialInstitutionListSoapIn" />
+      <wsdl:output message="tns:GetFinancialInstitutionListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCityList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get active city list.</wsdl:documentation>
+      <wsdl:input message="tns:GetCityListSoapIn" />
+      <wsdl:output message="tns:GetCityListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTownList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get active town list by city.</wsdl:documentation>
+      <wsdl:input message="tns:GetTownListSoapIn" />
+      <wsdl:output message="tns:GetTownListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMunicipalityList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get active municipality list by town.</wsdl:documentation>
+      <wsdl:input message="tns:GetMunicipalityListSoapIn" />
+      <wsdl:output message="tns:GetMunicipalityListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLatestPolicy">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get latest policy detail.</wsdl:documentation>
+      <wsdl:input message="tns:GetLatestPolicySoapIn" />
+      <wsdl:output message="tns:GetLatestPolicySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IsAuthorizedDiscount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get maximum authorized discount rate.</wsdl:documentation>
+      <wsdl:input message="tns:IsAuthorizedDiscountSoapIn" />
+      <wsdl:output message="tns:IsAuthorizedDiscountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMaxAuthorizedDiscount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get maximum authorized discount rate.</wsdl:documentation>
+      <wsdl:input message="tns:GetMaxAuthorizedDiscountSoapIn" />
+      <wsdl:output message="tns:GetMaxAuthorizedDiscountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicyDetailXML">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get policy detail XML.</wsdl:documentation>
+      <wsdl:input message="tns:GetPolicyDetailXMLSoapIn" />
+      <wsdl:output message="tns:GetPolicyDetailXMLSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MODServiceSoap" type="tns:MODServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Compute">
+      <soap:operation soapAction="MOD/Compute" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Proposal">
+      <soap:operation soapAction="MOD/Proposal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Approve">
+      <soap:operation soapAction="MOD/Approve" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Print">
+      <soap:operation soapAction="MOD/Print" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBrandList">
+      <soap:operation soapAction="MOD/GetBrandList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetBrandListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetModelList">
+      <soap:operation soapAction="MOD/GetModelList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetModelListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankList">
+      <soap:operation soapAction="MOD/GetBankList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetBankListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankBranchList">
+      <soap:operation soapAction="MOD/GetBankBranchList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetBankBranchListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFinancialInstitutionList">
+      <soap:operation soapAction="MOD/GetFinancialInstitutionList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetFinancialInstitutionListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCityList">
+      <soap:operation soapAction="MOD/GetCityList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetCityListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTownList">
+      <soap:operation soapAction="MOD/GetTownList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetTownListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMunicipalityList">
+      <soap:operation soapAction="MOD/GetMunicipalityList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetMunicipalityListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLatestPolicy">
+      <soap:operation soapAction="MOD/GetLatestPolicy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetLatestPolicyAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsAuthorizedDiscount">
+      <soap:operation soapAction="MOD/IsAuthorizedDiscount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:IsAuthorizedDiscountAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMaxAuthorizedDiscount">
+      <soap:operation soapAction="MOD/GetMaxAuthorizedDiscount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetMaxAuthorizedDiscountAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicyDetailXML">
+      <soap:operation soapAction="MOD/GetPolicyDetailXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetPolicyDetailXMLAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MODServiceSoap12" type="tns:MODServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Compute">
+      <soap12:operation soapAction="MOD/Compute" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Proposal">
+      <soap12:operation soapAction="MOD/Proposal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Approve">
+      <soap12:operation soapAction="MOD/Approve" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Print">
+      <soap12:operation soapAction="MOD/Print" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBrandList">
+      <soap12:operation soapAction="MOD/GetBrandList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetBrandListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetModelList">
+      <soap12:operation soapAction="MOD/GetModelList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetModelListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankList">
+      <soap12:operation soapAction="MOD/GetBankList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetBankListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBankBranchList">
+      <soap12:operation soapAction="MOD/GetBankBranchList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetBankBranchListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFinancialInstitutionList">
+      <soap12:operation soapAction="MOD/GetFinancialInstitutionList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetFinancialInstitutionListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCityList">
+      <soap12:operation soapAction="MOD/GetCityList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetCityListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTownList">
+      <soap12:operation soapAction="MOD/GetTownList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetTownListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMunicipalityList">
+      <soap12:operation soapAction="MOD/GetMunicipalityList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetMunicipalityListAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLatestPolicy">
+      <soap12:operation soapAction="MOD/GetLatestPolicy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetLatestPolicyAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsAuthorizedDiscount">
+      <soap12:operation soapAction="MOD/IsAuthorizedDiscount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:IsAuthorizedDiscountAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMaxAuthorizedDiscount">
+      <soap12:operation soapAction="MOD/GetMaxAuthorizedDiscount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetMaxAuthorizedDiscountAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicyDetailXML">
+      <soap12:operation soapAction="MOD/GetPolicyDetailXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetPolicyDetailXMLAuthHeader" part="AuthHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MODService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Türk Nippon Sigorta MOD product application services</wsdl:documentation>
+    <wsdl:port name="MODServiceSoap" binding="tns:MODServiceSoap">
+      <soap:address location="https://galaksi.turknippon.com/appservice/mod.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MODServiceSoap12" binding="tns:MODServiceSoap12">
+      <soap12:address location="https://galaksi.turknippon.com/appservice/mod.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

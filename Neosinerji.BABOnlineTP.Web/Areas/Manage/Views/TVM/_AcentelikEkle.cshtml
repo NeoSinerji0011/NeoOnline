@@ -1,0 +1,120 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.TVMAcentelikleriModel
+
+<link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+<script>
+      var myArrayBrans = [];
+
+@if (Model.BranslarSelectList != null)
+    {
+        foreach (var d in Model.BranslarSelectList)
+        {
+@:myArrayBrans.push("@d");
+
+                        }
+                    }
+
+    $(document).ready(function () {
+        $("[rel=tooltip]").tooltip();
+
+        //Tvm listesini Dolduruyor....
+        var tvm = $("#TVMKodu").tvmfinder();
+        tvm.enable();
+
+        $('.multiselect').multiselect({
+            includeSelectAllOption: false,
+            enableFiltering: true,
+            maxHeight: 150,
+            nonSelectedText: '@babonline.PleaseSelect',
+            selectAllText: '@babonline.Select_All',
+            filterPlaceholder: '@babonline.Search',
+            nSelectedText: '@babonline.Selected'
+        });
+
+        if (myArrayBrans.length > 0) {
+            $('#BranslarSelectList').val(myArrayBrans);
+        }
+        $("#BranslarSelectList").multiselect("refresh");
+
+        $(".closed").hide();
+
+
+
+    });
+</script>
+<div id="acentelikleri-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>
+            @*@if (Model.SigortaSirketKodu != null)
+            {
+                    @babonline.Edit
+                }
+                else
+                {*@
+            Şirket Ödeme Tipi Tanımla
+            @*}*@
+        </h3>
+    </div>
+
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="acentelikleri-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="acentelikleri-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <form id="acentelikleri-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.HiddenFor(m => m.TVMKodu)
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_Code</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.TVMKodu, new { autocompletetype = "disabled", disabled = "true" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVMInsuranceCompany_Name<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.SigortaSirketKodu, Model.SigortaSirketleriList, new { style = "width=220px;" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Branch_Name<span class="required">*</span></label>
+                <div  class="controls" style="width:52%;">
+                    @Html.DropDownListFor(s => s.BranslarSelectList, Model.Branslar, new {  @class = "multiselect", multiple = "multiple", required = "required" })
+                    @Html.ValidationMessageFor(m => m.BransKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Ödeme tipi<span class="required">*</span></label>
+                <div class="controls">
+                    @*@Html.TextBoxFor(m => m.OdemeTipi, new { autocompletetype = "disabled" })
+        @Html.ValidationMessageFor(m => m.OdemeTipi)*@
+                    @Html.DropDownListFor(s => s.OdemeTipi, Model.OdemeTipleri, new { style = "width:50%" })
+
+                </div>
+            </div>
+            @*<div class="control-group">
+                    <label class="control-label">@babonline.Status</label>
+                    <div class="controls" style="margin-left:200px;">
+                        @Html.RadioButtonListFor(m => m.Durum, Model.Durumlar)
+                    </div>
+                </div>*@
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        @*@if (Model.SigortaSirketKodu !=null)
+            {
+                <a href="#" class="btn btn-success" id="acentelikleri-guncelle-btn">@babonline.Edit</a>
+            }
+            else
+            {*@
+                <a href="#" class="btn btn-success" id="acentelikleri-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+           @* }*@
+    </div>
+</div>

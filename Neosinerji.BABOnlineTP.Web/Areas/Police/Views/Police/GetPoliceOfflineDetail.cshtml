@@ -1,0 +1,1661 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Business.Common
+@model  Neosinerji.BABOnlineTP.Business.Police
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <title>jQuery UI Datepicker - Default functionality</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link href="~/Content/css/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/css/datepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/css/daterangepicker.css" rel="stylesheet" />
+    <script src="~/Content/js/mask.js" type="text/javascript"></script>
+    <script src="~/Content/js/daterangepicker.js"></script>
+    <link href="~/Content/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Content/js/jquery.gritter.min.js")" type="text/javascript"></script>
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+</head>
+@section HorizontalMenu
+{}
+@section PageHeader
+{}
+@section PageScripts
+{
+    <script>
+
+        $(document).ready(function () {
+            // sayfa yüklenirken olması gereken kontroller
+            var taliKayitId = $(".1-tahsilat ").attr("talipolice-kayit-kodu");
+            var resultSuccess = "";
+            var OdeyenCariHesapKodu = "";
+            var OdeyenCariHesapAdi = "";
+            var OdeyenCariHesapLenght = "";
+            var CariHesapAdiVarMi = "";
+            $.ajax({
+                url: '/Police/Police/GetCariHesapByTCKN',
+                dataType: 'json',
+                data: { Polid: taliKayitId },
+                async: false,
+                success: function (result) {
+                    resultSuccess = result.success;
+                    OdeyenCariHesapKodu = result.cariKodu;
+                    OdeyenCariHesapAdi = result.cariAdi;
+                    OdeyenCariHesapLenght = result.cariKodu.length;
+                    CariHesapAdiVarMi = result.CariHesapAdiVarMi;
+                }
+            });
+            $("html").find(".taksitno").each(function (i) {
+                var DegisenOdemeTuru = $("#" + (i + 1) + "-taksit-odeme-turu").val();
+                if (DegisenOdemeTuru == 2) {
+
+                    $("#" + (i + 1) + "-Odeme-Belge-No").attr("placeholder", "İlk 6 ve son 4 hane.");
+                    $("#" + (i + 1) + "-Odeme-Belge-No").mask("999999******9999");
+                    $("#" + (i + 1) + "-Odeme-Belge-No").text("reset");
+                    $("#" + (i + 1) + "-txtCariHesapSecimi").show();
+                    $("#" + (i + 1) + "-ddlCariHesapSecimi").hide();
+                }
+                else if (DegisenOdemeTuru == 1 || DegisenOdemeTuru == 4 || DegisenOdemeTuru == 5 || DegisenOdemeTuru == 3 || DegisenOdemeTuru == 6 || DegisenOdemeTuru == 7 || DegisenOdemeTuru == 8 || DegisenOdemeTuru == 9 || DegisenOdemeTuru == 11) {
+                    var carihesapadi = $("#CariHesapAdi").val();
+                    $.ajax({
+                        url: '/Police/Police/GetAcenteBankaHesaplari',
+                        data: { hesaptipi: DegisenOdemeTuru },
+                        dataType: 'json',
+                        async: false,
+                        success: function (data) {
+                            if (data.success) {
+                                $("#" + (i + 1) + "-optCariHesapSecimi").empty();
+                                for (var j = 0; j < data.list.length; j++) {
+
+                                    var item = data.list[j]
+                                    var cari = data.carilist[j]
+                                    var id = "#" + (i + 1) + "-optCariHesapSecimi";
+                                    $("" + id + "").append("<option value='" + item.Value + "' carikodu='" + cari.Value + "' >" + item.Value + " - " + item.Text + "</option>");
+
+                                }
+                                if (DegisenOdemeTuru == 5 || DegisenOdemeTuru == 9) {
+                                    $("#" + (i + 1) + "odeyenCariHesap").val("");
+                                    $("#" + (i + 1) + "odeyenCariHesap").val(data.carilist[0].Value);
+                                    $("#" + (i + 1) + "odeyenCariHesap").text(data.carilist[0].Value);
+                                }
+
+                            }
+                            else {
+                                $("#" + (i + 1) + "-optCariHesapSecimi").show();
+                                $("#" + (i + 1) + "-txtCariHesapSecimi").hide();
+                                $("#" + (i + 1) + "-optCariHesapSecimi").empty();
+
+                            }
+                        }
+                    });
+
+
+
+                    var muhasebeyeAktarildiMi = $("#muhasebeyeAktarildiMi").val();
+                    // var topluTahsilat = $("#TopluTahsilat").val();
+                    var kalanOdemeTutarlari = $(".kalanOdemeTutari");
+
+                    var taksitSay = "";
+
+                    if (muhasebeyeAktarildiMi == 4) {
+                        //   if (topluTahsilat == false) {
+                        $.each(kalanOdemeTutarlari, function (index, element) {
+                            if (element.value == "0,00") {
+                                taksitSay = index + 1;
+                            }
+                        });
+
+                        //var cariKodu = $('option:selected', "#" + taksitSay + "-optCariHesapSecimi").val();
+                        //$.each(kalanOdemeTutarlari, function (index, element) {
+                        //    if (element.value == "0,00") {
+                        //        $(".odemeBelgeNoSecimi").val(cariKodu);
+                        //        $(".odemeBelgeNoSecimi").attr("disabled", "disabled");
+                        //    }
+                        //});
+
+                        //}
+                    }
+
+                    $("#" + (i + 1) + "-txtCariHesapSecimi").hide();
+                    $("#" + (i + 1) + "-ddlCariHesapSecimi").show();
+                }
+                else {
+                    $("#" + (i + 1) + "-Odeme-Belge-No").val("");
+                    $("#" + (i + 1) + "-Odeme-Belge-No").attr("placeholder", "Ödeme Belge No");
+                    $("#" + (i + 1) + "-Odeme-Belge-No").text("reset");
+                }
+                /////////////// cari hesap
+                if (DegisenOdemeTuru == "1" || DegisenOdemeTuru == "2" || DegisenOdemeTuru == "3" || DegisenOdemeTuru == "4" || DegisenOdemeTuru == "6" || DegisenOdemeTuru == "7") {
+                    $("#" + (i + 1) + "odeyenCariHesap").attr("disabled", "disabled");
+                    if (resultSuccess && CariHesapAdiVarMi) {
+                        $("#" + (i + 1) + "odeyenCariHesap").val(OdeyenCariHesapKodu + " " + OdeyenCariHesapAdi);
+                        $("#" + (i + 1) + "odeyenCariHesap").text(OdeyenCariHesapKodu);
+                    }
+                    else if (resultSuccess && !CariHesapAdiVarMi) {
+                        var carihesapGuncellendiMi = "";
+                        swal({
+                            title: "Cari Hesap Adınız Eksiktir.",
+                            text: " Güncellemek İster Misiniz?\nCari Hesap Adı: " + OdeyenCariHesapAdi + "\nCari Hesap Kodu: " + OdeyenCariHesapKodu,
+                            type: "info",
+                            showCancelButton: true,
+                            closeOnConfirm: false,
+                            showLoaderOnConfirm: true
+                        }, function () {
+                            $.getJSON('/Police/Police/UpdateCariHesap', { cariHesapKodu: OdeyenCariHesapKodu, cariHesapUnvan: OdeyenCariHesapAdi },
+                                function (data) {
+                                    if (data.success) {
+                                        setTimeout(function () {
+                                            swal("Cari Hesap Güncellendi!\nCari Hesap Adı: " + OdeyenCariHesapAdi + "\nCari Hesap Kodu: " + OdeyenCariHesapKodu);
+                                        }, 3000);
+                                        carihesapGuncellendiMi = "true";
+                                    }
+                                    else {
+                                        setTimeout(function () {
+                                            swal("Cari Hesap Güncellenemedi!");
+                                        }, 3000);
+                                        carihesapGuncellendiMi = "false";
+                                    }
+                                });
+                        });
+                        if (carihesapGuncellendiMi == "true") {
+                            $("#" + (i + 1) + "odeyenCariHesap").val(OdeyenCariHesapKodu + " " + OdeyenCariHesapAdi);
+                            $("#" + (i + 1) + "odeyenCariHesap").text(OdeyenCariHesapKodu);
+                        }
+                        else {
+                            $("#" + (i + 1) + "odeyenCariHesap").val(OdeyenCariHesapKodu);
+                            $("#" + (i + 1) + "odeyenCariHesap").text(OdeyenCariHesapKodu);
+                        }
+                    }
+                    //soru sorsun ilgili kişinin cari hesabı bulunmamaktadır. Oluşturulmasını ister misiniz ? cari hesab adı- kodu
+                    else if (!resultSuccess) {
+                        if (OdeyenCariHesapLenght == "7") {
+                            swal("Hata ", "Cari Hesap Kodu Bulunmamaktadır.\nSigorta Ettirenin TCKN/VKN Bulunmadığı İçin Otomatik Cari Hesap Yaratılamıyor.", "warning");
+                        }
+                        else {
+                            $("#" + (i + 1) + "odeyenCariHesap").val("");
+                            $("#" + (i + 1) + "odeyenCariHesap").text("");
+                            swal({
+                                title: "İlgili Cari Hesap Bulunmamaktadır.\nOluşturmak ister misiniz?",
+                                text: "Cari Hesap Adı: " + OdeyenCariHesapAdi + "\nCari Hesap Kodu: " + OdeyenCariHesapKodu,
+                                type: "info",
+                                showCancelButton: true,
+                                closeOnConfirm: false,
+                                showLoaderOnConfirm: true
+                            }, function () {
+                                var cariHesapKodu = OdeyenCariHesapKodu;
+
+                                $.getJSON('/Police/Police/CreateCariHesap', { Polid: taliKayitId, cariHesapKodu: cariHesapKodu },
+                                    function (data) {
+                                    });
+                                setTimeout(function () {
+                                    swal("Cari Hesap Adı: " + OdeyenCariHesapAdi + "\nCari Hesap Kodu: " + OdeyenCariHesapKodu + "\nCari Hesap Oluşturuldu!");
+                                    $("#" + (i + 1) + "odeyenCariHesap").val(OdeyenCariHesapKodu + " " + OdeyenCariHesapAdi);
+                                    $("#" + (i + 1) + "odeyenCariHesap").text(OdeyenCariHesapKodu);
+                                }, 3000);
+                            });
+                        }
+                    }
+                }
+
+                var OdemeBelgeNo = $("#" + (i + 1) + "-ddlCariHesapSecimi").attr("odemeBelgeNo");
+                if (OdemeBelgeNo != "" && OdemeBelgeNo !== undefined) {
+                    $("#" + (i + 1) + "-ddlCariHesapSecimi select").val(OdemeBelgeNo);
+                    if ($('option:selected', "#" + (i + 1) + "-optCariHesapSecimi").val() == "" || $('option:selected', "#" + (i + 1) + "-optCariHesapSecimi").val() == undefined) {
+                        $("#" + (i + 1) + "-ddlCariHesapSecimi select").val($("#" + (i + 1) + "-ddlCariHesapSecimi option:first").val());
+                    }
+                    odemeTipi = $("#" + (i + 1) + "-taksit-odeme-turu").val()
+                    if (odemeTipi == 5 || odemeTipi == 9) {
+                        var odeyenCariHesap = $('option:selected', "#" + (i + 1) + "-optCariHesapSecimi").attr("carikodu");
+                        $("#" + (i + 1) + "odeyenCariHesap").val(odeyenCariHesap);
+                        $("#" + (i + 1) + "odeyenCariHesap").text(odeyenCariHesap);
+                    }
+                }
+                else {
+                    $("#" + (i + 1) + "-ddlCariHesapSecimi select").val($("#" + (i + 1) + "-ddlCariHesapSecimi option:first").val());
+                    odemeTipi = $("#" + (i + 1) + "-taksit-odeme-turu").val()
+                    if (odemeTipi == 5 || odemeTipi == 9) {
+                        var odeyenCariHesap = $('option:selected', "#" + (i + 1) + "-optCariHesapSecimi").attr("carikodu");
+                        $("#" + (i + 1) + "odeyenCariHesap").val(odeyenCariHesap);
+                        $("#" + (i + 1) + "odeyenCariHesap").text(odeyenCariHesap);
+                    }
+                }
+                if (DegisenOdemeTuru == "15") {
+                    $("#" + (i + 1) + "-txtCariHesapSecimi").hide();
+                    $("#" + (i + 1) + "-ddlCariHesapSecimi").show();
+                    $("#" + (i + 1) + "-optCariHesapSecimi").empty();
+                    $("#" + (i + 1) + "-optCariHesapSecimi").show();
+                    $("#" + (i + 1) + "-txtCariHesapSecimi").val("");
+                    $("#" + (i + 1) + "-txtCariHesapSecimi").hide();
+                    $("#" + (i + 1) + "odeyenCariHesap").val("");
+                }
+                // kismi ödeme yapılmış ise ödeme türünü değiştirmemesi için yazıldı.
+                //var taksitTutari = $("#" + (i + 1) + "-taksitTutari").val();
+                //var kalanTaksitTutari = $("#" + (i + 1) + "-kalanOdemeTutari").val();
+                //if (taksitTutari != kalanTaksitTutari) {
+                //    $("#" + (i + 1) + "-taksit-odeme-turu").prop("disabled", true);
+                //    $("#" + (i + 1) + "-Odeme-Belge-No").prop("disabled", true);
+                //    $("#" + (i + 1) + "-optCariHesapSecimi").prop("disabled", true);
+                //}
+                ///////
+            });
+
+        });
+        $(document).ready(function () {
+            //Ödeyen Cari hesap input olduğu zaman cari hesap var mı yok mu kontrol yapan kod parçası. ******************************
+            //$(".odeyenCariHesapclass").blur(function () {
+            //    var divSayisi = 0;
+            //    $("html").find(".odenen-tutar").each(function (i) {
+            //        divSayisi = i + 1;
+            //    });
+            //    var taksitsay = $(this).attr("taksitsay");
+            //    for (var i = 0; i < divSayisi; i++) {
+            //        if (taksitsay == i + 1) {
+            //            var DegisenOdemeTuru = $("#" + (i + 1) + "-taksit-odeme-turu").val();
+            //            if (DegisenOdemeTuru == "5" || DegisenOdemeTuru == "6") {
+            //                var cariHesapKodu = $('#' + (i + 1) + 'odeyenCariHesap').val();
+            //                if (cariHesapKodu != "") {
+            //                    $.getJSON('/Police/Police/GetCariHesapByCariHesapKodu', { cariHesapKodu: cariHesapKodu },
+            //                        function (result) {
+            //                            if (result.success) {
+            //                                var carihesap = result.cariKodu + " " + result.cariAdi;
+            //                                $("#" + (taksitsay) + "odeyenCariHesap").val(carihesap);
+            //                                $("#" + (taksitsay) + "odeyenCariHesap").text(result.cariKodu);
+            //                            }
+            //                            else {
+            //                                $("#" + (taksitsay) + "odeyenCariHesap").focus();
+            //                                swal("Hata ", "Lütfen Geçerli Bir Cari Hesap Giriniz.", "warning");
+
+            //                            }
+
+            //                        });
+            //                }
+            //            }
+            //        }
+            //    }
+
+            //})
+            //$(".odeyenCariHesapclass").focusin(function () {
+            //    var divSayisi = 0;
+            //    $("html").find(".odenen-tutar").each(function (i) {
+            //        divSayisi = i + 1;
+            //    });
+            //    var taksitsay = $(this).attr("taksitsay");
+            //    for (var i = 0; i < divSayisi; i++) {
+            //        if (taksitsay == i + 1) {
+            //            var DegisenOdemeTuru = $("." + (i + 1) + "-taksit-odeme-turu").val();
+            //            if (DegisenOdemeTuru == "5" || DegisenOdemeTuru == "6") {
+            //                $("#" + (taksitsay) + "odeyenCariHesap").val("");
+            //            }
+            //        }
+            //    }
+            //})
+            //*************************************************************************************************************************
+            var divSayisi = 0;
+            $("html").find(".Datepicker").each(function (i) {
+                $(this).datepicker();
+            });
+
+            $('.odemeBelgeNoSecimi').change(function () {
+                var taksitsay = $(this).attr("taksitsay");
+                odemeTipi = $("#" + taksitsay + "-taksit-odeme-turu").val();
+
+
+                if (odemeTipi == 5 || odemeTipi == 9) {
+                    var odeyenCariHesap = $('option:selected', "#" + (taksitsay) + "-optCariHesapSecimi").attr("carikodu");
+                    $("#" + (taksitsay) + "odeyenCariHesap").val(odeyenCariHesap);
+                    $("#" + (taksitsay) + "odeyenCariHesap").text(odeyenCariHesap);
+                }
+            });
+
+
+            $('.Taksit-Odeme-Turu').on('focusin', function () {
+                $(this).data('odeme-tipi', $(this).val());
+            });
+
+
+            $('.Taksit-Odeme-Turu').change(function () {
+                var taksitsay = $(this).attr("taksitsay");
+                var DegisenOdemeTuru = $(this).val();
+                var OdemeTipi = $(this).val();
+                var muhasebeyeAktarildiMi = $("#muhasebeyeAktarildiMi").val();
+                var toplamOdenen = $('#toplamOdenen').text();
+
+                if (muhasebeyeAktarildiMi == 4) {
+                    if (toplamOdenen != "0,00") {
+                        swal("Uyarı", "İptal etmeden ödeme tipini değiştiremezsiniz.", "warning");
+                        $(this).val($(this).data('odeme-tipi'));
+                        return false;
+                    }
+                    if (OdemeTipi != 1 && OdemeTipi != 2 && OdemeTipi != 3) {
+                        swal("Uyarı", "Nakit, Müşteri Kredi Kartı ve Havale seçebilirsiniz.", "warning");
+                        $(this).val($(this).data('odeme-tipi'));
+                        return false;
+                    }
+
+                    $(".Taksit-Odeme-Turu").val(OdemeTipi);
+
+
+                }
+
+
+
+                if (DegisenOdemeTuru == 2) {
+                    $("#" + (taksitsay) + "-Odeme-Belge-No").attr("placeholder", "İlk 6 ve son 4 hane.");
+                    // $("#" + (taksitsay) + "-Odeme-Belge-No").prop('maxlength', '10');
+                    $("#" + (taksitsay) + "-Odeme-Belge-No").mask("999999******9999");
+                    $("#" + (taksitsay) + "-Odeme-Belge-No").text("reset");
+                    $("#" + (taksitsay) + "-txtCariHesapSecimi").show();
+                    $("#" + (taksitsay) + "-ddlCariHesapSecimi").hide();
+                }
+                else if (DegisenOdemeTuru == 1 || DegisenOdemeTuru == 4 || DegisenOdemeTuru == 5 || DegisenOdemeTuru == 3 || DegisenOdemeTuru == 6 || DegisenOdemeTuru == 7 || DegisenOdemeTuru == 8 || DegisenOdemeTuru == 9) {
+                    var carihesapadi = $("#CariHesapAdi").val();
+                    $.ajax({
+                        url: '/Police/Police/GetAcenteBankaHesaplari',
+                        data: { hesaptipi: DegisenOdemeTuru },
+                        dataType: 'json',
+                        async: false,
+                        success: function (data) {
+                            if (data.success) {
+
+                                $("#" + (taksitsay) + "-optCariHesapSecimi").show();
+                                $("#" + (taksitsay) + "-txtCariHesapSecimi").hide();
+                                $("#" + (taksitsay) + "-optCariHesapSecimi").empty();
+
+
+                                for (var j = 0; j < data.list.length; j++) {
+                                    var item = data.list[j]
+                                    var cari = data.carilist[j]
+                                    var id = "#" + (taksitsay) + "-optCariHesapSecimi";
+                                    $("" + id + "").append("<option value='" + item.Value + "' carikodu='" + cari.Value + "' >" + item.Value + " - " + item.Text + "</option>");
+
+                                }
+
+
+                                if (DegisenOdemeTuru == 5 || DegisenOdemeTuru == 9) {
+                                    $("#" + (taksitsay) + "odeyenCariHesap").val("");
+                                    $("#" + (taksitsay) + "odeyenCariHesap").val(data.carilist[0].Value);
+                                    $("#" + (taksitsay) + "odeyenCariHesap").text(data.carilist[0].Value);
+                                }
+                            }
+                            else {
+
+                                $("#" + (taksitsay) + "-optCariHesapSecimi").hide();
+                                $("#" + (taksitsay) + "-txtCariHesapSecimi").show();
+                                $("#" + (taksitsay) + "-txtCariHesapSecimi").val();
+
+                            }
+                        }
+                    });
+
+                    $("#" + (taksitsay) + "-txtCariHesapSecimi").hide();
+                    $("#" + (taksitsay) + "-ddlCariHesapSecimi").show();
+                }
+                else {
+                    $("#" + (taksitsay) + "-Odeme-Belge-No").val("");
+                    $("#" + (taksitsay) + "-Odeme-Belge-No").attr("placeholder", "Ödeme Belge No");
+                    $("#" + (taksitsay) + "-Odeme-Belge-No").text("reset");
+                }
+
+                /////////////// cari hesap
+                if (DegisenOdemeTuru == "1" || DegisenOdemeTuru == "2" || DegisenOdemeTuru == "3" || DegisenOdemeTuru == "4" || DegisenOdemeTuru == "6" || DegisenOdemeTuru == "7") {
+                    $("#" + (taksitsay) + "odeyenCariHesap").attr("disabled", "disabled");
+
+                    var taliKayitId = $("." + (taksitsay) + "-tahsilat ").attr("talipolice-kayit-kodu");
+                    $.ajax({
+                        url: '/Police/Police/GetCariHesapByTCKN',
+                        dataType: 'json',
+                        data: { Polid: taliKayitId },
+                        async: false,
+                        success: function (result) {
+                            if (result.success && result.CariHesapAdiVarMi) {
+                                $("#" + (taksitsay) + "odeyenCariHesap").val(result.cariKodu + " " + result.cariAdi);
+                                $("#" + (taksitsay) + "odeyenCariHesap").text(result.cariKodu);
+                            }
+                            else if (result.success && !result.CariHesapAdiVarMi) {
+                                $("#" + (taksitsay) + "odeyenCariHesap").val(result.cariKodu);
+                                $("#" + (taksitsay) + "odeyenCariHesap").text(result.cariKodu);
+                            }
+                            //soru sorsun ilgili kişinin cari hesabı bulunmamaktadır. Oluşturulmasını ister misiniz ? cari hesab adı- kodu
+                            else if (!result.success) {
+                                swal({
+                                    title: "İlgili Cari Hesap Bulunmamaktadır.\nOluşturmak ister misiniz?",
+                                    text: "Cari Hesap Adı: " + result.cariAdi + "\nCari Hesap Kodu: " + result.cariKodu,
+                                    type: "info",
+                                    showCancelButton: true,
+                                    closeOnConfirm: false,
+                                    showLoaderOnConfirm: true
+                                }, function () {
+                                    var cariHesapKodu = result.cariKodu;
+
+                                    $.getJSON('/Police/Police/CreateCariHesap', { Polid: taliKayitId, cariHesapKodu: cariHesapKodu },
+                                        function (data) {
+                                        });
+                                    setTimeout(function () {
+                                        swal("Cari Hesap Adı: " + result.cariAdi + "\nCari Hesap Kodu: " + result.cariKodu + "\nCari Hesap Oluşturuldu!");
+                                    }, 3000);
+                                });
+                                $("#" + (taksitsay) + "odeyenCariHesap").val(result.cariKodu + " " + result.cariAdi);
+                                $("#" + (taksitsay) + "odeyenCariHesap").text(result.cariKodu);
+                            }
+
+                        }
+                    });
+                }
+                if (DegisenOdemeTuru == "15") {
+                    $("#" + (taksitsay) + "-txtCariHesapSecimi").hide();
+                    $("#" + (taksitsay) + "-ddlCariHesapSecimi").show();
+                    $("#" + (taksitsay) + "-optCariHesapSecimi").show();
+                    $("#" + (taksitsay) + "-txtCariHesapSecimi").val("");
+                    $("#" + (taksitsay) + "-txtCariHesapSecimi").hide();
+                    $("#" + (taksitsay) + "-optCariHesapSecimi").empty();
+                    $("#" + (taksitsay) + "odeyenCariHesap").val("");
+                }
+            });
+
+            $("#save-police-tahsilat").live("click", function () {
+                if ($(this).text().trim() == "Öde") {
+                    $(this).button("loading");
+                    var taliKayitId = parseInt($(this).attr("talipolice-kayit-kodu"));
+                    var odenenTutar = "";
+                    var taksitsayisi = parseInt($(this).attr("taksitsayisi"));
+                    var taksitTutarlar = "";
+                    var tarih = "";
+                    var belgeno = "";
+                    var TaksitOdemeTuru = "";
+                    var kalanOdemeler = 0;
+                    var kalanOdemelerString = "";
+                    var acenteKrediKarti = ""
+                    var dekontEvrakNo = "";
+                    odenenTutar = $("#" + (taksitsayisi) + "-Odenen-Tutar").val();
+                    var odenenTutarF = parseFloat(odenenTutar.replace(/\s/g, "").replace(",", "."));
+                    tarih = $("#" + (taksitsayisi) + "-datepicker").val();
+                    var belgeno = $("#" + (taksitsayisi) + "-Odeme-Belge-No").val();
+                    TaksitOdemeTuru = $("#" + (taksitsayisi) + "-taksit-odeme-turu").val();
+                    kalanOdemeler = $("#" + (taksitsayisi) + "-kalanOdemeTutari").val();
+                    var kalanOdemelerF = parseFloat(kalanOdemeler.replace(/\s/g, "").replace(",", "."));
+                    kalanOdemelerString = $("#" + (taksitsayisi) + "-kalanOdemeTutari").val();
+                    taksitTutarlar = $("#" + (taksitsayisi) + "-taksitTutari").val();
+                    var taksitTutarlarF = parseFloat(taksitTutarlar.replace(/\s/g, "").replace(",", "."));
+                    acenteKrediKarti = $("#" + (taksitsayisi) + "-optCariHesapSecimi").val();
+                    dekontEvrakNo = $("#" + (taksitsayisi) + "-dekontEvrakNo").val();
+                    $('#' + (taksitsayisi) + 'odeyenCariHesap').removeAttr("disabled");
+                    var odeyenCariHesapKodu = $('#' + (taksitsayisi) + 'odeyenCariHesap').text();
+                    $('#' + (taksitsayisi) + 'odeyenCariHesap').attr("disabled", "disabled");
+                    var muhasebeyeAktarildiMi = $("#muhasebeyeAktarildiMi").val();
+
+                     if (muhasebeyeAktarildiMi == 4) {
+                        $(this).button("reset");
+                        swal("Uyarı ", "Ödeme İşlemini Tahsilat Kapatma İle Yapabilirsiniz...", "warning")
+                        return false;
+                    }
+                    if (taksitTutarlarF < 0 && muhasebeyeAktarildiMi != 4) {
+                        $(this).button("reset");
+                        swal("Uyarı ", "Bu İptal Ekidir.\nÖdeme Yapamazsınız.", "warning")
+                        return false;
+                    }
+                    if (kalanOdemelerString == "0,00") {
+                        $(this).button("reset");
+                        swal("Uyarı ", "Ödeme İşlemi Tamamlanmıştır.", "warning")
+                        return false;
+                    }
+                    if (tarih == "") {
+                        $(this).button("reset");
+                        swal("Hata ", "Lütfen Ödeme Belge Tarih Alanını Doldurunuz.", "warning")
+                        return false;
+                    }
+                    if (odeyenCariHesapKodu == "") {
+                        $(this).button("reset");
+                        swal("Hata ", "Lütfen Ödeyen Cari Hesabı Alanını Doldurunuz.", "warning")
+                        return false;
+                    }
+                    if ((dekontEvrakNo == "") && (TaksitOdemeTuru == 3 || TaksitOdemeTuru == 4 || TaksitOdemeTuru == 7)) {
+                        $(this).button("reset");
+                        swal("Hata ", "Lütfen Dekont/Evrak No Alanını Doldurunuz.", "warning")
+                        return false;
+                    }
+                    if (belgeno == "" && TaksitOdemeTuru == "2") {
+                        $(this).button("reset");
+                        swal("Hata ", "Lütfen Ödeme Belge No Alanını Doldurunuz.", "warning")
+                        return false;
+                    }
+                    if (acenteKrediKarti == "" && TaksitOdemeTuru != "2") {
+                        $(this).button("reset");
+                        swal("Hata ", "Lütfen Borçlu Hesabı Seçiniz.", "warning")
+                        return false;
+                    }
+                    if (odenenTutar == "") {
+                        $(this).button("reset");
+                        swal("Hata ", "Lütfen Ödencek Tutar Alanını Doldurunuz.", "warning")
+                        return false;
+                    }
+                    if (TaksitOdemeTuru == "") {
+                        $(this).button("reset");
+                        swal("Hata ", "Lütfen Taksit Ödeme Türü Alanını Doldurunuz.", "warning")
+                        return false;
+                    }
+                    if (TaksitOdemeTuru == "Lütfen Seçiniz..") {
+                        $(this).button("reset");
+                        swal("Hata ", "Lütfen Taksit Ödeme Türü Alanını Doldurunuz.", "warning")
+                        return false;
+                    }
+                    if (odenenTutarF == "0") {
+                        $(this).button("reset");
+                        swal("Uyarı ", "Geçerli Bir Değer Giriniz.", "warning")
+                        return false;
+                    }
+
+                    if (kalanOdemelerString == "") {
+                        if (odenenTutarF > taksitTutarlarF) {
+                            $(this).button("reset");
+                            swal("Hata ", "Ödenecek tutar alanını fazla girdiniz", "warning")
+                            return false;
+                        }
+                    }
+                    else {
+                        if (odenenTutarF > kalanOdemelerF) {
+                            $(this).button("reset");
+                            swal("Hata ", "Ödenecek tutar alanını fazla girdiniz", "warning")
+                            return false;
+                        }
+                    }
+                    var carihesapVarmi = "false";
+                    var carihesapyokAdi = "";
+                    var carihesapyokCariKodu = "";
+                    if (TaksitOdemeTuru == "1" || TaksitOdemeTuru == "2" || TaksitOdemeTuru == "3" || TaksitOdemeTuru == "4" || TaksitOdemeTuru == "6" || TaksitOdemeTuru == "7") {
+                        $.ajax({
+                            url: '/Police/Police/GetCariHesapByTCKN',
+                            dataType: 'json',
+                            data: { Polid: taliKayitId },
+                            async: false,
+                            success: function (result) {
+                                if (!result.success) {
+                                    carihesapVarmi = "true";
+                                    carihesapyokAdi = result.cariAdi;
+                                    carihesapyokCariKodu = result.cariKodu;
+                                }
+
+                            }
+                        });
+                    }
+                    if (carihesapVarmi == "true") {
+                        $(this).button("reset");
+                        swal("Ödeme Yapılamadı!", "İlgili Cari Hesap Bulunmamaktadır.\nCari Hesap Adı: " + carihesapyokAdi + "\nCari Hesap Kodu: " + carihesapyokCariKodu, "error")
+                        return false;
+                    }
+
+                    $.ajax({
+                        timeout: 10000000,
+                        method: "post",
+                        url: "/Police/Police/GetPoliceOfflineDetail",
+                        data: { Polid: taliKayitId, taksitNo: taksitsayisi, OdenenTutar: odenenTutar, BelgeNo: belgeno, BelgeTarihi: tarih, OdemeTuru: TaksitOdemeTuru, AcenteKrediKarti: acenteKrediKarti, odeyenCariHesapKodu: odeyenCariHesapKodu, dekontEvrakNo: dekontEvrakNo },
+
+                        success: function (mesaj) {
+                            if (mesaj.mesaj == "true") {
+
+                                $(this).button("reset");
+                                //swal( {"Başarılı!", "İşleminiz Gerçekleşmiştir!", "success");
+                                //location.reload(true);
+                                swal({
+                                    title: "Başarılı",
+                                    text: "Ödeme işleminiz gerçekleşmiştir!",
+                                    type: "success",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "Tamam",
+                                    closeOnConfirm: false
+                                },
+                                    function (isConfirm) {
+                                        if (isConfirm) {
+                                            location.reload(true);
+                                        }
+                                    });
+                            }
+                            else {
+                                $(this).button("reset");
+                                swal({
+                                    title: "Başarısız",
+                                    text: "Ödeme işleminiz Yapılamadı! \nGirdiğiniz bilgileri kontrol ediniz.",
+                                    type: "warning",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "Tamam",
+                                    closeOnConfirm: false
+                                },
+                                    function (isConfirm) {
+                                        if (isConfirm) {
+                                            location.reload(true);
+                                        }
+                                    });
+                            }
+                        },
+
+                    });
+
+
+                }
+            });
+
+            $("#iptal-police-tahsilat").live("click", function () {
+                if ($(this).text().trim() == "İptal") {
+                    $(this).button("loading");
+                    var taliKayitId = $(this).attr("talipolice-kayit-kodu");
+                    var odenenTutar = "";
+                    var taksitsayisi = $(this).attr("taksitsayisi");
+                    var taksitTutarlar = "";
+                    var tarih = "";
+                    var belgeno = "";
+                    var TaksitOdemeTuru = "";
+                    var kalanOdemeler = 0;
+                    var kalanOdemelerString = "";
+                    var taksitTutarlarF = 0;
+                    odenenTutar = $("#" + (taksitsayisi) + "toplamOdenenTutar").text();
+                    var odenenTutarF = parseFloat(odenenTutar.replace(/\s/g, "").replace(",", "."));
+                    tarih = $("#" + (taksitsayisi) + "-datepicker").val();
+                    var belgeno = $("#" + (taksitsayisi) + "-Odeme-Belge-No").val();
+                    TaksitOdemeTuru = $("#" + (taksitsayisi) + "-taksit-odeme-turu").val();
+                    kalanOdemeler = $("#" + (taksitsayisi) + "-kalanOdemeTutari").val();
+                    var kalanOdemelerF = parseFloat(kalanOdemeler.replace(/\s/g, "").replace(",", "."));
+                    kalanOdemelerString = $("#" + (taksitsayisi) + "-kalanOdemeTutari").val();
+                    taksitTutarlar = $("#" + (taksitsayisi) + "-taksitTutari").val();
+                    taksitTutarlarF = parseFloat(taksitTutarlar.replace(/\s/g, "").replace(",", "."));
+                    var acenteKrediKarti = $("#" + (taksitsayisi) + "-optCariHesapSecimi").val();
+                    $('#' + (taksitsayisi) + 'odeyenCariHesap').removeAttr("disabled");
+                    var odeyenCariHesapKodu = $('#' + (taksitsayisi) + 'odeyenCariHesap').text();
+                    $('#' + (taksitsayisi) + 'odeyenCariHesap').attr("disabled", "disabled");
+                    var muhasebeyeAktarildiMi = $("#muhasebeyeAktarildiMi").val();
+
+                    if (muhasebeyeAktarildiMi == 4) {
+                        $(this).button("reset");
+                        swal("Uyarı ", "İptal İşlemini Toplu Tahsilat İptali İle Yapabilirsiniz...", "warning")
+                        return false;
+                    }
+                    if (taksitTutarlarF < 0 && muhasebeyeAktarildiMi != 4) {
+
+                        $(this).button("reset");
+                        swal("Uyarı ", "Bu İptal Ekidir.\nİptal Yapamazsınız.", "warning")
+                        return false;
+                    }
+                    if (tarih == "") {
+                        $(this).button("reset");
+                        swal("Hata ", "Lütfen Ödeme Belge Tarih Alanını Doldurunuz.", "warning")
+                        return false;
+                    }
+                    if (TaksitOdemeTuru == "") {
+                        $(this).button("reset");
+                        swal("Hata ", "Lütfen Taksit Ödeme Türü Alanını Doldurunuz.", "warning")
+                        return false;
+                    }
+                    if (kalanOdemeler == taksitTutarlar) {
+                        $(this).button("reset");
+                        swal("Hata ", "Ödeme işlemi gerçekleşmeden İptal işlemini gerçekleştiremezsiniz.", "warning")
+                        return false;
+                    }
+
+                    swal({
+                        title: "İptal etmek istiyor musunuz?",
+                        type: "warning",
+                        showCancelButton: true,
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    }, function () {
+                        $.ajax({
+                            timeout: 10000000,
+                            method: "post",
+                            url: "/Police/Police/GetPoliceTahsilatIptali",
+                            data: { Polid: taliKayitId, taksitNo: taksitsayisi, odenenTutar: odenenTutar, BelgeNo: belgeno, BelgeTarihi: tarih, OdemeTuru: TaksitOdemeTuru, acenteKrediKarti: acenteKrediKarti, odeyenCariHesapKodu: odeyenCariHesapKodu, taksitTutarlarF: taksitTutarlarF, },
+
+                            success: function (mesaj) {
+                                if (mesaj.mesaj == "true") {
+                                    // swal( {"Başarılı!", "İşleminiz Gerçekleşmiştir!", "success");
+                                    // location.reload(true);
+                                    $(this).button("reset");
+                                    swal({
+                                        title: "Başarılı",
+                                        text: "İptal işleminiz gerçekleşmiştir!",
+                                        type: "success",
+                                        showCancelButton: false,
+                                        confirmButtonColor: "#DD6B55",
+                                        confirmButtonText: "Tamam",
+                                        closeOnConfirm: false
+                                    },
+                                        function (isConfirm) {
+                                            if (isConfirm) {
+                                                location.reload(true);
+                                            }
+                                        });
+                                }
+                                else {
+                                    $(this).button("reset");
+                                    swal({
+                                        title: "Başarısız",
+                                        text: "İptal işleminiz Yapılamadı!\nGirdiğiniz bilgileri kontrol ediniz.",
+                                        type: "warning",
+                                        showCancelButton: false,
+                                        confirmButtonColor: "#DD6B55",
+                                        confirmButtonText: "Tamam",
+                                        closeOnConfirm: false
+                                    },
+                                        function (isConfirm) {
+                                            if (isConfirm) {
+                                                location.reload(true);
+                                            }
+                                        });
+                                }
+                            },
+
+                        });
+                    });
+                }
+
+            });
+
+            //toplu tahsilat iptali
+
+            $("#topluTahsilatIptali").click(function () {
+
+                var arr = [];
+                $('input.taksitno:checkbox:checked').each(function () {
+                    arr.push($(this).val());
+                });
+                debugger;
+                /////--------------
+                var carihesap = [];
+                debugger
+                var odemebelgenoSecimiListesi = $(".odemeBelgeNoSecimi");
+                odemebelgenoSecimiListesi.each(function () {
+                    carihesap.push($('option:selected', this).val());
+                });
+                ///////--------
+
+                var policeId = $(this).attr("toplutahsilatIptali-kayit-kodu");
+
+                swal({
+                    title: "Toplu Tahsilat İptalini Onaylıyor Musunuz?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Onayla",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+
+                    function (isConfirm) {
+
+                        if (isConfirm) {
+                            //$("#adres-sorgu-progress").show();
+                            $.ajax({
+                                timeout: 10000000,
+                                method: "post",
+                                url: "/Police/Police/TopluTahsilatIptali",
+                                data: { lessonType: arr, policeId: policeId, odemebelgenoSecimiListesi: carihesap },
+                                success: function (response) {
+                                    $("#odemetipi-guncelle").button("reset");
+                                    // $("#adres-sorgu-progress").hide();
+                                },
+                            });
+
+                            swal({
+                                title: "Toplu Tahsilat İptali işleminiz gerçekleşmiştir!",
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "OK",
+                                closeOnConfirm: false,
+                                closeOnCancel: false
+                            },
+                                function (isConfirm) {
+                                    if (isConfirm) {
+                                        location.reload(true);
+                                    }
+                                });
+                        } else {
+                            swal("Bilgi", "Toplu Tahsilat İptal İşlemi Yapılmadı.", "warning");
+                            $("#odemetipi-guncelle").button("reset");
+                        }
+                    });
+
+            });
+
+            $("#kimlik-guncelle").click(function () {
+                var policeId = $("#GenelBilgiler_PoliceId").val();
+                $.get("/Police/Police/KimlikGuncelle",
+                    { PoliceId: policeId },
+                    function (data) {
+                        $("#kimlik-guncelle-modal-div").html(data);
+                        $.validator.unobtrusive.parse("#kimlik-guncelle-modal-div");
+                        $("#kimlikGuncelle-modal").modal('show');
+                    },
+                    "html");
+            });
+
+            $("#kimlik-guncelle-btn").live("click", function () {
+                var kimlikNo = $("#kimlikNo").val();
+                if (kimlikNo != null && kimlikNo != "") {
+                    var contents = $("#kimlik-guncelle-form").serialize();
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "/Police/Police/KimlikGuncelle",
+                            data: contents,
+                            success: function (data) {
+                                if (data.Success == "True") {
+                                    window.location.href = "/Police/Police/GetPoliceOfflineDetail/" + data.PolId;
+                                }
+                                else {
+                                    swal("HATA! Kimlik bilgileri güncellenirken bir hata oluştu.", "error");
+                                }
+                            },
+                            error: function () {
+                            }
+                        });
+                }
+                else {
+                    swal("HATA! Lütfen bilgileri eksiksiz giriniz.", "error");
+                }
+            });
+
+            $("#odemetipi-guncelle").click(function () {
+                $(this).button("loading");
+                var policeId = $("#GenelBilgiler_PoliceId").val();
+
+                $.get("/Police/Police/OdemeTipiGuncelle",
+                    { PoliceId: policeId },
+                    function (data) {
+                        $("#odemetipi-guncelle-modal-div").html(data);
+                        $.validator.unobtrusive.parse("#odemetipi-guncelle-modal-div");
+                        $("#odemetipiGuncelle-modal").modal('show');
+
+                    },
+                    "html");
+                $("#odemetipi-guncelle").button("reset");
+            });
+
+            $("#odemetipi-guncelle-btn").live("click", function () {
+                var policeId = $("#GenelBilgiler_PoliceId").val();
+                var OdemeTipi = $("#OdemeTipi").val();
+                var muhasebeyeAktarildiMi = $("#muhasebeyeAktarildiMi").val();
+                var toplamOdenen = $('#toplamOdenen').text();
+
+                if (muhasebeyeAktarildiMi == 4) {
+                    if (toplamOdenen != "0,00") {
+                        swal("Uyarı", "İptal etmeden ödeme tipini değiştiremezsiniz.", "warning");
+                        return false;
+                    }
+                    if (OdemeTipi != 1 && OdemeTipi != 2 && OdemeTipi != 3) {
+                        swal("Uyarı", "Nakit, Müşteri Kredi Kartı ve Havale seçebilirsiniz.", "warning");
+                        return false;
+                    }
+
+                    $(".Taksit-Odeme-Turu").val(OdemeTipi);
+                    $(".Taksit-Odeme-Turu").trigger("change");
+                }
+
+                if (OdemeTipi != null && OdemeTipi != "") {
+                    var contents = $("#odemetipi-guncelle-form").serialize();
+                    $(this).button("loading");
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "/Police/Police/OdemeTipiGuncelle",
+                            data: { OdemeTipi: OdemeTipi, policeId: policeId },
+                            success: function (data) {
+                                if (data.Success == "True") {
+                                    window.location.href = "/Police/Police/GetPoliceOfflineDetail/" + data.PolId;
+                                }
+                                else {
+                                    swal("HATA! Ödeme tipi güncellenirken bir hata oluştu.", "error");
+                                }
+                            },
+                            error: function () {
+                            }
+                        });
+                }
+                else {
+                    swal("HATA! Lütfen bilgileri eksiksiz giriniz.", "error");
+                }
+                $(this).button("load");
+            });
+
+            $("#topluTahsilatOdeme").click(function () {
+                $("html").find(".odenen-tutar").each(function (i) {
+                    divSayisi = i + 1;
+                });
+                var muhasebeyeAktarildiMi = $("#muhasebeyeAktarildiMi").val();
+                for (var i = 0; i < divSayisi; i++) {
+                    taksitTutarlar = $("#" + (i + 1) + "-taksitTutari").val();
+                    var taksitTutarlarF = parseFloat(taksitTutarlar.replace(/\s/g, "").replace(",", "."));
+                    if (taksitTutarlarF < 0 && muhasebeyeAktarildiMi != 4) {
+                        swal("Uyarı ", "Bu İptal Ekidir.\nÖdeme Yapamazsınız.", "warning")
+                        return false;
+                    }
+                }
+
+                $("#topluTahsilatOdeme").button("loading");
+                var policeId = $("#GenelBilgiler_PoliceId").val();
+                $.get("/Police/Police/TopluTahsilatKapama",
+                    { PoliceId: policeId },
+                    function (data) {
+                        $("#topluTahsilatOdeme-modal-div").html(data);
+                        $.validator.unobtrusive.parse("#topluTahsilatOdeme-modal-div");
+                        $("#topluTahsilatOdeme-modal").modal('show');
+                        $(this).button("reset");
+
+                    },
+                    "html");
+            });
+
+
+
+        });
+
+    </script>
+}
+@{
+    var kimlikGuncellemeYetkisi = false;
+    if (String.IsNullOrEmpty(Model.GenelBilgiler.PoliceSigortali.KimlikNo) && String.IsNullOrEmpty(Model.GenelBilgiler.PoliceSigortali.VergiKimlikNo) &&
+        String.IsNullOrEmpty(Model.GenelBilgiler.PoliceSigortaEttiren.KimlikNo) && String.IsNullOrEmpty(Model.GenelBilgiler.PoliceSigortaEttiren.KimlikNo))
+    {
+        kimlikGuncellemeYetkisi = true;
+    }
+}
+
+<form id="tahsilat-form" class="form-horizontal">
+    @Html.HiddenFor(m => m.GenelBilgiler.PoliceId)
+    @Html.HiddenFor(m => m.GenelBilgiler.TVMKodu)
+    @{ Html.EnableClientValidation(true); }
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" value="@Model.GenelBilgiler.MuhasebeyeAktarildiMi" id="muhasebeyeAktarildiMi" />
+
+    @*<input type="hidden" value="@Model.GenelBilgiler.PoliceTahsilats.First().TopluTahsilat" id="TopluTahsilat" />*@
+
+    <div class="" style="margin-top: 24px;">
+        <div class="portlet-title">
+            <div class="caption"><i class="icon-reorder"></i>Poliçe Detay Bilgileri</div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="control-group">
+                <div class="form-section-header">
+                    <h3 class="form-section">Genel Bilgiler</h3>
+                    @if (kimlikGuncellemeYetkisi)
+                    {
+                        <div class="span3" style="float: right">
+                            <label><a id="kimlik-guncelle" href="javascript:void(0)" data-toggle="modal" class="btn btn-success">@babonline.Update</a></label>
+                            <label style="color:red;">TCKN / VKN / YKN (Güncelle)</label>
+                        </div>
+                    }
+                    <div class="span12">
+                        <div class="span4">
+                            <label class="control-label"><b>@babonline.PolicyNo :</b>  @Model.GenelBilgiler.PoliceNumarasi</label>
+                        </div>
+                        <div class="span4">
+                            <label class="control-label"><b>@babonline.Addendum :</b>  @Model.GenelBilgiler.EkNo</label>
+                        </div>
+                        <div class="span4">
+                            <label class="control-label"><b>@babonline.RenewalNo :</b>  @Model.GenelBilgiler.YenilemeNo</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="span12">
+                    <div class="span4">
+                        <label style="color:#2d59ea" class=""><b>Tanzim Tarihi :</b>@Model.GenelBilgiler.TanzimTarihi.Value.ToShortDateString()</label>
+                    </div>
+                    <div class="span4">
+                        <label style="color:#2d59ea" class=""><b>Başlangıç Tarihi :</b>@Model.GenelBilgiler.BaslangicTarihi.Value.ToShortDateString()</label>
+                    </div>
+                    <div class="span4">
+                        @if (!String.IsNullOrEmpty(@Model.GenelBilgiler.BitisTarihi.ToString()))
+                        {
+                            <label style="color:#2d59ea" class=""><b>Bitiş Tarihi :</b>@Model.GenelBilgiler.BitisTarihi.Value.ToShortDateString()</label>
+
+                        }
+                    </div>
+                </div>
+                <div class="span12">
+                    <div class="span4">
+                        <label style="color:#2d59ea" class=""><b>Sigorta Şirketi :</b>  @Model.GenelBilgiler.SigortaSirketleri.SirketAdi </label>
+                    </div>
+                    <div class="span4">
+                        @if (Model.GenelBilgiler.MuhasebeyeAktarildiMi == 2 || Model.GenelBilgiler.MuhasebeyeAktarildiMi == 4)
+                        {
+                            <label style="color:#2d59ea" class=""><b>Muhasebeye Aktarıldı mı :</b>Evet  </label>
+                        }
+                        else
+                        {
+                            <label style="color:#2d59ea" class=""><b>Muhasebeye Aktarıldı mı :</b>Hayır  </label>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="form-section-header">
+            <h3 class="form-section">Sigortalı</h3>
+            @if (!String.IsNullOrEmpty(@Model.GenelBilgiler.PoliceSigortali.KimlikNo))
+            {
+                <div class="span3">
+                    <label class="control-label"><b>@babonline.IdentificationNumber :</b>  @Model.GenelBilgiler.PoliceSigortali.KimlikNo</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>@babonline.Name :</b>  @Model.GenelBilgiler.PoliceSigortali.AdiUnvan  @Model.GenelBilgiler.PoliceSigortali.SoyadiUnvan</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>@babonline.Address :</b>  @Model.GenelBilgiler.PoliceSigortali.Adres</label>
+                </div>
+            }
+            else if (!String.IsNullOrEmpty(@Model.GenelBilgiler.PoliceSigortali.VergiKimlikNo))
+            {
+                <div class="span3">
+                    <label class="control-label"><b>@babonline.Tax_Identification_Number :</b> @Model.GenelBilgiler.PoliceSigortali.VergiKimlikNo</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>@babonline.Name :</b>  @Model.GenelBilgiler.PoliceSigortali.AdiUnvan   @Model.GenelBilgiler.PoliceSigortali.SoyadiUnvan</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>@babonline.Address :</b>  @Model.GenelBilgiler.PoliceSigortali.Adres</label>
+                </div>
+            }
+            else
+            {
+                <div class="span3">
+                    <label class="control-label"><b>@babonline.IdentificationNumber :</b> @Model.GenelBilgiler.PoliceSigortali.KimlikNo</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>@babonline.Name :</b>  @Model.GenelBilgiler.PoliceSigortali.AdiUnvan   @Model.GenelBilgiler.PoliceSigortali.SoyadiUnvan</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>@babonline.Address :</b>  @Model.GenelBilgiler.PoliceSigortali.Adres</label>
+                </div>
+            }
+
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="form-section-header">
+            <h3 class="form-section">Sigorta Ettiren</h3>
+
+            @if (!String.IsNullOrEmpty(@Model.GenelBilgiler.PoliceSigortaEttiren.KimlikNo))
+            {
+                <div class="span3">
+                    <label class="control-label" id="sigortaEttirenTc"><b>@babonline.IdentificationNumber :</b> @Model.GenelBilgiler.PoliceSigortaEttiren.KimlikNo</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label" id="sigortaEttirenAdi"><b>@babonline.Name :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.AdiUnvan   @Model.GenelBilgiler.PoliceSigortaEttiren.SoyadiUnvan</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label" id="sigortaEttirenAdres"><b>@babonline.Address :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.Adres</label>
+
+                </div>
+            }
+            else if (!String.IsNullOrEmpty(@Model.GenelBilgiler.PoliceSigortaEttiren.VergiKimlikNo))
+            {
+                <div class="span3">
+                    <label class="control-label" id="sigortaEttirenTc"><b>@babonline.Tax_Identification_Number :</b> @Model.GenelBilgiler.PoliceSigortaEttiren.VergiKimlikNo</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label" id="sigortaEttirenAdi"><b>@babonline.Name :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.AdiUnvan  @Model.GenelBilgiler.PoliceSigortaEttiren.SoyadiUnvan</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label" id="sigortaEttirenAdres"><b>@babonline.Address :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.Adres</label>
+
+                </div>
+            }
+            else
+            {
+                <div class="span3">
+                    <label class="control-label" id="sigortaEttirenTc"><b>@babonline.IdentificationNumber :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.KimlikNo</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label" id="sigortaEttirenAdi"><b>@babonline.Name :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.AdiUnvan  @Model.GenelBilgiler.PoliceSigortaEttiren.SoyadiUnvan</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label" id="sigortaEttirenAdres"><b>@babonline.Address :</b>  @Model.GenelBilgiler.PoliceSigortaEttiren.Adres</label>
+
+                </div>
+            }
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="form-section-header">
+
+            @if (@Model.GenelBilgiler.BransKodu == 1 || @Model.GenelBilgiler.BransKodu == 2)
+            {
+                <h3 class="form-section">Araç Bilgileri</h3>
+
+                <div class="span3">
+                    <label class="control-label"><b>@babonline.Plate :</b> @Model.GenelBilgiler.PoliceArac.PlakaKodu @Model.GenelBilgiler.PoliceArac.PlakaNo  </label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>@babonline.VehicleModel :</b> @Model.GenelBilgiler.PoliceArac.Model</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Marka :</b> @Model.GenelBilgiler.PoliceArac.Marka</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Aracin Tipi :</b> @Model.GenelBilgiler.PoliceArac.AracinTipiAciklama @Model.GenelBilgiler.PoliceArac.AracinTipiAciklama2 </label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Arac Deger :</b> @Model.GenelBilgiler.PoliceArac.AracDeger</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Şasi No :</b>  @Model.GenelBilgiler.PoliceArac.SasiNo</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Motor No :</b>  @Model.GenelBilgiler.PoliceArac.MotorNo</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Marka Açıklama :</b>  @Model.GenelBilgiler.PoliceArac.MarkaAciklama</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Aracın Tipi Açıklama :</b>  @Model.GenelBilgiler.PoliceArac.AracinTipiAciklama</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Aracın Tipi Açıklama 2 :</b>  @Model.GenelBilgiler.PoliceArac.AracinTipiAciklama2</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Tescil Seri No :</b>  @Model.GenelBilgiler.PoliceArac.TescilSeriNo</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Tescil Seri Kodu :</b>  @Model.GenelBilgiler.PoliceArac.TescilSeriKod</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Kullanım Tarzı :</b>  @Model.GenelBilgiler.PoliceArac.KullanimTarzi</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Kullanım Şekli :</b>  @Model.GenelBilgiler.PoliceArac.KullanimSekli</label>
+                    @{
+                        var trafikCikisTarihi = @Model.GenelBilgiler.PoliceArac.TrafikCikisTarihi.HasValue ? @Model.GenelBilgiler.PoliceArac.TrafikCikisTarihi.Value.ToString("dd/MM/yyyy") : "";
+                        var trafikTescilTarihi = @Model.GenelBilgiler.PoliceArac.TrafikTescilTarihi.HasValue ? Model.GenelBilgiler.PoliceArac.TrafikTescilTarihi.Value.ToString("dd/MM/yyyy") : "";
+                        var tramerBelgeTarihi = @Model.GenelBilgiler.PoliceArac.TramerBelgeTarihi.HasValue ? @Model.GenelBilgiler.PoliceArac.TramerBelgeTarihi.Value.ToString("dd/MM/yyyy") : "";
+
+                    }
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Trafik Çıkış Tarihi :</b> @trafikCikisTarihi</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Trafik Tescil Tarihi :</b>@trafikTescilTarihi </label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Tramer Belge No :</b>  @Model.GenelBilgiler.PoliceArac.TramerBelgeNo</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Tramer Belge Tarihi :</b>@tramerBelgeTarihi </label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Aracın Tipi Kodu :</b>  @Model.GenelBilgiler.PoliceArac.AracinTipiKodu</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Aracın Tipi Kodu 2 :</b>  @Model.GenelBilgiler.PoliceArac.AracinTipiKodu2</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Asbis No :</b>  @Model.GenelBilgiler.PoliceArac.AsbisNo</label>
+                </div>
+                <div class="span3">
+                    <label class="control-label"><b>Koltuk Sayısı :</b>  @Model.GenelBilgiler.PoliceArac.KoltukSayisi</label>
+                </div>
+            }
+
+            else
+            {
+                if (Model.GenelBilgiler.BransKodu != 4)
+                {
+                    <h3 class="form-section">Riziko Bilgileri</h3>
+                    <div class="span3">
+
+                        <label class="control-label"><b>Riziko Adres :</b> @Model.GenelBilgiler.PoliceRizikoAdresi.Adres</label>
+
+                    </div>
+                    <div class="span3">
+                        <label class="control-label"><b>Riziko BinaBedel :</b> @Model.GenelBilgiler.PoliceRizikoAdresi.BinaBedel</label>
+
+                    </div>
+                }
+
+            }
+        </div>
+    </div>
+    <div class="form-section">
+        <h3><b>Ödeme Tipi </b></h3>
+        <div class="span6">
+            <div class="span4" style="margin-top:5%">
+                @{ int sayac = 0;
+                    if (Model.GenelBilgiler.PoliceOdemePlanis.Count > 0)
+                    {
+                        foreach (var item in Model.GenelBilgiler.PoliceOdemePlanis)
+                        {
+
+                            if (sayac == 0)
+                            {
+                                switch (@item.OdemeTipi)
+                                {
+                                    case 1:
+                                        <label class="control-label"><b>Ödeme Tipi:</b> Nakit</label>
+                                        break;
+                                    case 2:
+                                        <label class="control-label"><b>Ödeme Tipi:</b>Müşteri Kredi Kartı</label>
+                                        break;
+                                    case 3:
+                                        <label class="control-label"><b>Ödeme Tipi: </b>Havale</label>
+                                        break;
+                                    case 4:
+                                        <label class="control-label"><b>Ödeme Tipi: </b>Çek</label>
+                                        break;
+                                    case 5:
+                                        <label class="control-label"><b>Ödeme Tipi: </b>Acente Kredi Kartı</label>
+                                        break;
+                                    case 6:
+                                        <label class="control-label"><b>Ödeme Tipi: </b>Acente Pos Hesabı</label>
+                                        break;
+                                    case 7:
+                                        <label class="control-label"><b>Ödeme Tipi: </b>Senet</label>
+                                        break;
+                                    case 8:
+                                        <label class="control-label"><b>Ödeme Tipi: </b>Banka Hesabı</label>
+                                        break;
+                                    case 9:
+                                        <label class="control-label"><b>Ödeme Tipi: </b>Acente Bireysel Kredi Kartı</label>
+                                        break;
+                                    default:
+                                        <label class="control-label"><b>Ödeme Tipi: </b></label>
+                                        break;
+                                }
+                                sayac++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <label class="control-label"><b>Ödeme Tipi:</b> </label>
+                    }
+
+                }
+
+            </div>
+            <div class="span3" style="margin-top:5%">
+                <label><a id="odemetipi-guncelle" href="javascript:void(0)" data-toggle="modal" data-loading-text="Güncelleniyor" data-load-text="@babonline.Update" class="btn btn-success">@babonline.Update</a></label>
+                <label style="color:red;"></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="form-section-header">
+            <h3 class="form-section" style="margin-top:auto;">Poliçe Tahsilat- Ödeme Bilgileri</h3>
+            @{
+                var OdenenTaksitVarMi = true;
+                decimal? kalanTaksitTutari = 0;
+                var odemeTipleriAyniMi = true;
+                var odemeBelgeNolariAyniMi = true;
+                var odemeBelgeNoOnceki = "";
+                var odemeTipiOnceki = -1;
+                foreach (var item in Model.GenelBilgiler.PoliceTahsilats)
+                {
+                    if (item.OdenenTutar != 0)
+                    {
+                        OdenenTaksitVarMi = false;
+                    }
+                    kalanTaksitTutari += item.KalanTaksitTutari;
+
+                    if (odemeTipiOnceki != item.OdemTipi && odemeTipiOnceki != -1)
+                    {
+                        odemeTipleriAyniMi = false;
+                        odemeTipiOnceki = item.OdemTipi;
+                    }
+                    else
+                    {
+                        odemeTipleriAyniMi = true;
+                        odemeTipiOnceki = item.OdemTipi;
+                    }
+                    if (odemeBelgeNoOnceki != item.OdemeBelgeNo && odemeBelgeNoOnceki != "")
+                    {
+                        odemeBelgeNolariAyniMi = false;
+                        odemeBelgeNoOnceki = item.OdemeBelgeNo;
+                    }
+                    else
+                    {
+                        odemeBelgeNolariAyniMi = true;
+                        odemeBelgeNoOnceki = item.OdemeBelgeNo;
+                    }
+
+                }
+            }
+
+
+            @if (Model.GenelBilgiler.PoliceOdemePlanis.Count > 0 && OdenenTaksitVarMi)
+            {
+                <div style="margin-left: 3%;" id="Hide/Show işlemi için">
+                    <label class="gunKapadurumu">Toplu Tahsilat Kapatma</label>
+                    <a href="javascript:void(0)" toplutahsilat-kayit-kodu="@Model.GenelBilgiler.PoliceId" id="topluTahsilatOdeme" class="btn btn-success gunKapadurumu" type="submit" data-loading-text="@babonline.Closing" style="background-color:#1d943b  !important;">Tahsilat Kapatma</a>
+                </div>
+
+            }
+            @if (Model.GenelBilgiler.PoliceOdemePlanis.Count > 0 && kalanTaksitTutari == 0 && odemeTipleriAyniMi && odemeBelgeNolariAyniMi)
+            {
+                <div style="margin-left: 3%;">
+                    <label class="topluTahsilatIptali">Toplu Tahsilat İptali</label>
+                    <label><a id="topluTahsilatIptali" href="javascript:void(0)" toplutahsilatIptali-kayit-kodu="@Model.GenelBilgiler.PoliceId" data-toggle="modal" class="btn btn btn-success" type="submit" data-loading-text="@babonline.Closing" style="background-color:#e73626 !important;">Toplu Tahsilat İptali</a></label>
+                    <label style="color:red;"></label>
+                </div>
+            }
+            <div class="span8" style="">
+                @if (Model.GenelBilgiler.OdemeSekli == 1)
+                {
+                    <label class="control-label"><b>Ödeme Şekli:</b> Peşin</label>
+                }
+                else
+                {
+                    <label class="control-label"><b>Ödeme Şekli:</b> Taksit</label>
+                }
+                <label class="control-label"><b>Taksit Sayısı:</b> @Model.GenelBilgiler.PoliceOdemePlanis.Count</label>
+                @if (Model.GenelBilgiler.ParaBirimi != "TL")
+                {
+                    <label class="control-label"><b>Döviz Kur:</b> @Model.GenelBilgiler.DovizKur</label>
+                }
+                <table class="table table-striped table-bordered table-hover dataTable data-table">
+
+                    <tr>
+                        <th style="width: 10px; text-align: center">Taksit No</th>
+                        <th style="width: 10px; text-align: center">Vade Tarihi</th>
+                        <th style="width: 15px; text-align: center">Para Birimi</th>
+                        <th style="width: 5px; text-align: center">Taksit Tutarı TL</th>
+                        <th style="width: 5px; text-align: center">Taksit Tutarı Döviz</th>
+                        <th style="width: 20px; text-align: center">Ödeme Belge <br />Tarihi</th>
+                        <th style="width: 10px; text-align: center">Dekont /<br />Evrak No</th>
+                        <th style="width: 15px; text-align: center">Ödeme Tipi</th>
+                        <th style="width: 15px; text-align: center">Ödeme Belge No veya <br /> Borçlu Hesap</th>
+                        <th style="width: 15px; text-align: center">Ödeyen Cari Hesap</th>
+                        <th style="width: 5px; text-align: center">Ödenecek Tutar</th>
+                        <th colspan="2" style="width: 10px; text-align: center">Tahsilat İşlemi</th>
+                        <th style="width: 5px; text-align: center">Kalan Ödeme</th>
+                        <th style="width: 15px; text-align: center">Toplam Ödenen Tutar</th>
+                    </tr>
+                    <tbody>
+                        @if (Model.GenelBilgiler.PoliceOdemePlanis.Count > 0)
+                        {
+                            Model.GenelBilgiler.PoliceOdemePlanis = Model.GenelBilgiler.PoliceOdemePlanis.OrderBy(w => w.VadeTarihi).ToList();
+                            string toplamKalanOdeme = "";
+                            string toplamOdenecekTutar = "";
+                            decimal toplamKalanTaksitTutari = 0;
+                            var odenen_sayac = 0;
+                            decimal toplamOdenenTutar = 0;
+                            decimal toplamOdenenTutarDoviz = 0;
+
+                            foreach (var item in Model.GenelBilgiler.PoliceOdemePlanis)
+                            {
+                                odenen_sayac++;
+                                var kalanOdeme = "";
+                                var tahsilatCount = Model.GenelBilgiler.PoliceTahsilats.Count();
+                                var odemeBelgeTarihi = "";
+                                var odemeBelgeNo = "";
+                                var dekontEvrakNo = "";
+                                var odemeTuru = item.OdemeTipi;
+                                string odenenTutar = "";
+                                var odenecekTutar = "";
+                                odenecekTutar = item.TaksitTutari.HasValue ? item.TaksitTutari.Value.ToString() : "";
+                                <tr>
+                                    <td style="text-align: center" class="taksitno">
+                                        @item.TaksitNo
+                                        @*<input type="checkbox" id="find-table" class="taksitno" value="@item.TaksitNo" />*@
+                                    </td>
+                                    @if (@item.VadeTarihi.HasValue)
+                                    {
+                                        <td style="text-align: center" id="@(odenen_sayac)-taksitVadeTarihi">  @item.VadeTarihi.Value.ToString("dd/MM/yyyy")</td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    <td style="text-align: center">@item.PoliceGenel.ParaBirimi </td>
+
+
+                                    @if (item.PoliceGenel.ParaBirimi == "TL")
+                                    {
+                                        <td style="text-align: center; text-align: right !important;">
+                                            <input type="text" class="" disabled="disabled" id="@(odenen_sayac)-taksitTutari" style="width:100px;text-align:right !important;" value="@item.TaksitTutari" />
+                                        </td>
+                                        <td></td>
+
+                                    }
+                                    else
+                                    {
+                                        var taksittutariTl = Math.Round(Convert.ToDecimal((@item.TaksitTutari * item.PoliceGenel.DovizKur)), 2);
+                                        <td style="text-align: center; text-align: right !important;">
+                                            <input type="text" class="" disabled="disabled" id="@(odenen_sayac)-taksitTutari" style="width:100px;text-align:right !important;" value="@item.TaksitTutari" />
+                                        </td>
+                                        <td style="text-align: center; text-align: right !important;">
+                                            <input type="text" class="" disabled="disabled" id="@(odenen_sayac)-taksitTutariDovizli" style="width:100px;text-align:right !important;" value="@item.DovizliTaksitTutari" />
+                                        </td>
+                                    }
+                                    @foreach (var item1 in Model.GenelBilgiler.PoliceTahsilats)
+                                    {
+                                        if (@item.PoliceId == @item1.PoliceId && @item.TaksitNo == @item1.TaksitNo /*&& item.PoliceGenel.ParaBirimi == "TL"*/)
+                                        {
+                                            odemeBelgeTarihi = @item1.OdemeBelgeTarihi.HasValue ? @item1.OdemeBelgeTarihi.Value.ToShortDateString() : "";
+                                            odemeBelgeNo = @item1.OdemeBelgeNo;
+                                            kalanOdeme = (@item1.TaksitTutari - @item1.OdenenTutar).ToString();
+                                            odemeTuru = Convert.ToByte(item1.OdemTipi);
+                                            //odenecekTutar = @item1.KalanTaksitTutari.Value.ToString();
+                                            odenecekTutar = (@item1.TaksitTutari - @item1.OdenenTutar).ToString();
+                                            toplamKalanTaksitTutari += (@item1.TaksitTutari - @item1.OdenenTutar);
+                                            odenenTutar = @item1.OdenenTutar.ToString();
+                                            toplamOdenenTutar += @item1.OdenenTutar;
+                                            dekontEvrakNo = item1.Dekont_EvrakNo;
+                                        }
+                                        //else if (@item.PoliceId == @item1.PoliceId && @item.TaksitNo == @item1.TaksitNo)
+                                        //{
+                                        //    odemeBelgeTarihi = @item1.OdemeBelgeTarihi.HasValue ? @item1.OdemeBelgeTarihi.Value.ToShortDateString() : "";
+                                        //    odemeBelgeNo = @item1.OdemeBelgeNo;
+                                        //    kalanOdeme = (Math.Round(Convert.ToDecimal((@item1.TaksitTutari * item1.PoliceGenel.DovizKur)), 2) - @item1.OdenenTutar).ToString();
+                                        //    odemeTuru = Convert.ToByte(item1.OdemTipi);
+                                        //    //odenecekTutar = @item1.KalanTaksitTutari.Value.ToString();
+                                        //    odenecekTutar = (Math.Round(Convert.ToDecimal((@item1.TaksitTutari * item1.PoliceGenel.DovizKur)), 2) - @item1.OdenenTutar).ToString();
+                                        //    toplamKalanTaksitTutari += Convert.ToDecimal((Math.Round(Convert.ToDecimal((@item1.TaksitTutari * item1.PoliceGenel.DovizKur)), 2) - @item1.OdenenTutar));
+                                        //    odenenTutar = @item1.OdenenTutar.ToString();
+                                        //    toplamOdenenTutar += @item1.OdenenTutar;
+                                        //    dekontEvrakNo = item1.Dekont_EvrakNo;
+                                        //}
+                                    }
+
+                                    @if (item.PoliceGenel.ParaBirimi != "TL")
+                                    {
+                                        toplamOdenenTutarDoviz += Convert.ToDecimal(@item.TaksitTutari);
+                                    }
+                                    @if (Model.GenelBilgiler.PoliceTahsilats.Count > 0)
+                                    {
+                                        //if (item.PoliceGenel.ParaBirimi == "TL")
+                                        //{
+                                        toplamOdenecekTutar += item.TaksitTutari.HasValue ? item.TaksitTutari.Value : 0;
+                                        //toplamOdenenTutar += item.TaksitTutari.Value;
+                                        //}
+                                        //else
+                                        //{
+                                        //    toplamOdenecekTutar += Math.Round(Convert.ToDecimal((@item.TaksitTutari * item.PoliceGenel.DovizKur)), 2);
+                                        //    //toplamOdenenTutar += item.TaksitTutari.Value;
+                                        //}
+                                    }
+                                    @if (odenenTutar != "0,00")
+                                    {
+                                        <td style="text-align: center">
+                                            <input type="text" id="@(odenen_sayac)-datepicker" class="Datepicker" style="width:90px" placeholder="Tarih" value="@odemeBelgeTarihi">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input type="text" id="@(odenen_sayac)-dekontEvrakNo" class="DekontEvrakNo" placeholder="" required value="@dekontEvrakNo" style="width:100px;" />
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td style="text-align: center">
+                                            <input type="text" id="@(odenen_sayac)-datepicker" class="Datepicker" style="width:90px" placeholder="Tarih" value="">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <input type="text" id="@(odenen_sayac)-dekontEvrakNo" class="DekontEvrakNo" placeholder="" required value="" style="width:100px;" />
+                                        </td>
+                                    }
+
+                                    @{
+                                        List<SelectListItem> hesaptips = new List<SelectListItem>();
+                                        hesaptips.AddRange(new SelectListItem[] {
+                                                                                                                                                                                                                                                                                                                    new SelectListItem() { Value = "15", Text = "Lütfen Seçiniz." },                                                                                                                                                                                        new SelectListItem() { Value = "1", Text = "Nakit" },
+                                                            new SelectListItem() { Value = "2", Text = "Müşteri Kredi Kartı" },
+                                                            new SelectListItem() { Value = "3", Text = "Havale" },
+                                                            new SelectListItem() { Value = "4", Text = "Çek" },
+                                                            new SelectListItem() { Value = "7", Text = "Senet" },
+                                                            new SelectListItem() { Value = "5", Text = "Acente Kredi Kartı" },
+                                                            new SelectListItem() { Value = "6", Text = "Acente Pos Hesabı" },
+                                                            new SelectListItem() { Value = "9", Text = "Acente Bireysel K. Kartı" },
+                                                            //new SelectListItem() { Value = "8", Text = "Banka Hesabı" },
+                                                            });
+                                        if (odenenTutar == "0,00" && Model.GenelBilgiler.MuhasebeyeAktarildiMi != 4)
+                                        {
+                                            odemeTuru = 15;
+                                        }
+                                        var HesapTipleri = new SelectList(hesaptips, "Value", "Text", odemeTuru);
+                                    }
+
+                                    @{
+                                        if (Model.GenelBilgiler.MuhasebeyeAktarildiMi == 4)
+                                        {
+                                            <td style="text-align: center">
+                                                @Html.DropDownListFor(m => odemeTuru, HesapTipleri, new { style = "width:182px;", disabled = "disabled", @class = "Taksit-Odeme-Turu", @id = odenen_sayac + "-" + "taksit-odeme-turu", @taksitsay = item.TaksitNo })
+
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="text-align: center">
+                                                @Html.DropDownListFor(m => odemeTuru, HesapTipleri, new { style = "width:182px;", @class = "Taksit-Odeme-Turu", @id = odenen_sayac + "-" + "taksit-odeme-turu", @taksitsay = item.TaksitNo })
+
+                                            </td>
+                                        }
+                                    }
+
+                                    @{
+                                        bool odemeYapilmisMi = false;
+                                        foreach (var policeTahsilat in Model.GenelBilgiler.PoliceTahsilats)
+                                        {
+                                            if (policeTahsilat.OdenenTutar != 0)
+                                            {
+                                                odemeYapilmisMi = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                  
+                                    <td id="@(odenen_sayac)-ddlCariHesapSecimi" odemeBelgeNo="@odemeBelgeNo" hidden>
+                                        <select id="@(odenen_sayac)-optCariHesapSecimi" taksitsay="@item.TaksitNo" class="odemeBelgeNoSecimi" style="width:170px;"></select>
+                                    </td>
+
+                                    <td id="@(odenen_sayac)-txtCariHesapSecimi">
+                                        <input type="text" id="@(odenen_sayac)-Odeme-Belge-No" class="odeme-belge-no" placeholder="İlk 6 ve son 4 hane." required value="@odemeBelgeNo" style="width:158px;" />
+                                    </td>
+                                    <td>
+                                        <input type="text" id="@(odenen_sayac)odeyenCariHesap" class="odeyenCariHesapclass" taksitsay="@item.TaksitNo" disabled="disabled" style="width:185px" />
+                                    </td>
+
+                                    <td style="text-align: right !important">
+                                        <input type="text" id="@(odenen_sayac)-Odenen-Tutar" class="odenen-tutar " style="text-align:right !important;width:100px" placeholder="Tutar" required value="@odenecekTutar" />
+                                    </td>
+                                    @if (@kalanOdeme == "0,00")
+                                    {
+                                        <td>
+                                            <label>Ödendi<img src="~/Content/img/yesiltik.png" style="width: 57%" /></label>
+
+                                            @*<button talipolice-kayit-kodu="@Model.GenelBilgiler.PoliceSigortali.PoliceId" taksitsayisi="@item.TaksitNo" type="button" data-loading-text="Geri Alınıyor.." class=" @(odenen_sayac)-tahsilat " id="">İptal</button>*@
+                                        </td>
+                                        <td>
+                                            <button talipolice-kayit-kodu="@Model.GenelBilgiler.PoliceSigortali.PoliceId" taksitsayisi="@item.TaksitNo" type="button" data-loading-text="İptal Ediliyor" class="btn btn-danger @(odenen_sayac)-tahsilat " id="iptal-police-tahsilat">İptal</button>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td style="width: 15%;">
+                                            <button talipolice-kayit-kodu="@Model.GenelBilgiler.PoliceSigortali.PoliceId" taksitsayisi="@item.TaksitNo" type="button" data-loading-text="Ödeniyor.." class="btn btn-success @(odenen_sayac)-tahsilat " id="save-police-tahsilat">Öde</button>
+                                        </td>
+                                        <td style="width: 15%;">
+                                            <button talipolice-kayit-kodu="@Model.GenelBilgiler.PoliceSigortali.PoliceId" taksitsayisi="@item.TaksitNo" type="button" data-loading-text="İptal Ediliyor" class="btn btn-danger @(odenen_sayac)-tahsilat " id="iptal-police-tahsilat">İptal</button>
+                                        </td>
+                                    }
+                                    <td style="text-align: center;">
+                                        @if (kalanOdeme == "" && item.TaksitTutari.HasValue)
+                                        {
+                                            //if (item.PoliceGenel.ParaBirimi == "TL")
+                                            //{
+                                            kalanOdeme = item.TaksitTutari.Value.ToString();
+                                            //}
+                                            //else
+                                            //{
+                                            //    kalanOdeme = Math.Round(Convert.ToDecimal((@item.TaksitTutari * item.PoliceGenel.DovizKur)), 2).ToString();
+                                            //}
+                                        }
+
+                                        <input type="text" disabled="disabled" class="kalanOdemeTutari" id="@(odenen_sayac)-kalanOdemeTutari" style="font-family: 'Adobe Gothic Std'; text-align:right !important; width:100px;" value="@kalanOdeme" />
+                                    </td>
+
+                                    <td style="text-align: right">
+                                        <label class="label label-success" style="color: white; font-family: 'Adobe Gothic Std'; font-size: 14px;" id="@(odenen_sayac)toplamOdenenTutar">@odenenTutar </label>
+                                    </td>
+                                </tr>
+                                toplamOdenecekTutar = (@item.PoliceGenel.BrutPrim.Value - toplamOdenenTutar).ToString();
+
+                            }
+                            if (toplamKalanTaksitTutari == 0)
+                            {
+                                toplamKalanOdeme = "";
+
+                            }
+                            else
+                            {
+                                toplamKalanOdeme = toplamKalanTaksitTutari.ToString();
+                            }
+
+                            <tr>
+                                <td><span style="font-family: 'Adobe Gothic Std'">Toplam:</span></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align: right"><span style="font-family: 'Adobe Gothic Std'">@Model.GenelBilgiler.BrutPrim</span></td>
+                                <td style="text-align: right"><span style="font-family: 'Adobe Gothic Std'">@Model.GenelBilgiler.DovizliBrutPrim</span></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align: right"><span style="font-family: 'Adobe Gothic Std'; text-align: right !important">@toplamOdenecekTutar</span></td>
+                                <td></td>
+                                <td></td>
+                                <td style="text-align: right"><span style="font-family: 'Adobe Gothic Std'; text-align: right !important" class="label label-important">@toplamOdenecekTutar </span></td>
+                                <td style="text-align: right"><span style="font-family: 'Adobe Gothic Std'; color: white; text-align: right !important; font-size: 14px;" class="label label-success" id="toplamOdenen">@toplamOdenenTutar</span></td>
+                            </tr>
+                        }
+                        @*else
+                            {
+                                <div class="control-group" id="taskitList" style="display: none;">
+                                    <label class="control-label">@babonline.HirePurchaseCount</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(s => s.TaksitSayisi, Model.TaksitSayilari, new { style = "width:50%;" })
+                                    </div>
+                                </div>
+                            }*@
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @*</div>
+        </div>*@
+</form>
+
+
+@*kimlik güncelleme*@
+<div id="kimlik-guncelle-modal-div"></div>
+@*odeme tipi güncelleme*@
+<div id="odemetipi-guncelle-modal-div"></div>
+@*toplu tahsilat odeme*@
+<div id="topluTahsilatOdeme-modal-div"></div>

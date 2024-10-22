@@ -1,0 +1,63 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.TVMAcentelikleriListModel
+
+<script>
+    $(document).ready(function () {
+        var acenteTable;
+        function acenteTableSet() {
+            acenteTable = $('#acentelikleri-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        acenteTableSet();
+    });
+</script>
+
+<table id="acentelikleri-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 150px;">@babonline.TVMAgency_Name</th>
+            <th>@babonline.TVMInsuranceCompany_Name</th>
+            <th>@babonline.Branch_Name</th>
+            <th style="width: 50px;">Ödeme Tipi</th>
+            <th style="width: 50px;">&nbsp;</th>
+            @*<th style="width: 40px;">&nbsp;</th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td style="text-align: center; width: 100px;">@item.TVMUnvani</td>
+                <td>@item.SigortaSirketUnvani</td>
+                <td>@item.BransUnvani</td>
+                @*<td>@item.OdemeTipiAdi</td>*@
+
+                <td style="text-align: center;">
+                    @if (item.OdemeTipi == 0)
+                    {
+                        <span class=" ">Açık</span>
+                    }
+                    else
+                    {
+                        <span class=" ">Kapalı</span>
+                    }
+                </td>
+                @*<td style="text-align: center;">
+                        <a href="javascript:void(0)" acente-kodu="@item.BransKodu" tvm-kodu="@item.TVMKodu" class="btn btn-mini btn-info edit-acentelikleri">@babonline.Edit</a>
+                    </td>*@
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" acente-kodu="@item.BransKodu" tvm-kodu="@item.TVMKodu" class="btn btn-mini btn-danger delete-acentelikleri">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

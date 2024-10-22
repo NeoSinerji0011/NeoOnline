@@ -1,0 +1,2568 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="YardimGruptakiUrunKodlariniAl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bransGrubu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YardimGruptakiUrunKodlariniAlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="YardimGruptakiUrunKodlariniAlResult" type="tns:ArrayOfDUrunTanimi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDUrunTanimi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DUrunTanimi" nillable="true" type="tns:DUrunTanimi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DUrunTanimi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Kod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ad" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="YardimTekUrunHesapla">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="urunGrubu" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="urunKodu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YardimTekUrunHesaplaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="YardimTekUrunHesaplaResult" type="tns:ArrayOfSoruCevap" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSoruCevap">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SoruCevap" nillable="true" type="tns:SoruCevap" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SoruCevap">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Soru" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cevap" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Secenekler" type="tns:ArrayOfSecenek" />
+          <s:element minOccurs="1" maxOccurs="1" name="Zorunlu" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSecenek">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Secenek" nillable="true" type="tns:Secenek" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Secenek">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Deger" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aciklama" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="YardimPoliceKayit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="urunGrubu" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="urunKodu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YardimPoliceKayitResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="YardimPoliceKayitResult" type="tns:ArrayOfSoruCevap" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YardimBransGrubuHesapla">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bransGrubu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YardimBransGrubuHesaplaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="YardimBransGrubuHesaplaResult" type="tns:ArrayOfSoruCevap" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YardimHashIcinGerekliAlanlariAl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="urunGrubu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="YardimHashIcinGerekliAlanlariAlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="YardimHashIcinGerekliAlanlariAlResult" type="tns:ArrayOfDSoru" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDSoru">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DSoru" nillable="true" type="tns:DSoru" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DSoru">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Soru" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cevap" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SecenekGetirDainiMurtehinKurumlari">
+        <s:complexType />
+      </s:element>
+      <s:element name="SecenekGetirDainiMurtehinKurumlariResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecenekGetirDainiMurtehinKurumlariResult" type="tns:ArrayOfKurum" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfKurum">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Kurum" nillable="true" type="tns:Kurum" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Kurum">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Ad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Kod" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Banka" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SecenekGetirDainiMurtehinBankaSubeleri">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bankaKodu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecenekGetirDainiMurtehinBankaSubeleriResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecenekGetirDainiMurtehinBankaSubeleriResult" type="tns:ArrayOfBankaSube" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBankaSube">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BankaSube" nillable="true" type="tns:BankaSube" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BankaSube">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Kod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ad" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SecenekGetirDaskDainiMurtehinKurumlari">
+        <s:complexType />
+      </s:element>
+      <s:element name="SecenekGetirDaskDainiMurtehinKurumlariResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecenekGetirDaskDainiMurtehinKurumlariResult" type="tns:ArrayOfKurum" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecenekGetirDaskDainiMurtehinBankaSubeleri">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="bankaKod" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecenekGetirDaskDainiMurtehinBankaSubeleriResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecenekGetirDaskDainiMurtehinBankaSubeleriResult" type="tns:ArrayOfBankaSube" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecenekGetirFerdiKazaMeslekSiniflari">
+        <s:complexType />
+      </s:element>
+      <s:element name="SecenekGetirFerdiKazaMeslekSiniflariResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecenekGetirFerdiKazaMeslekSiniflariResult" type="tns:ArrayOfMeslekSinifi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfMeslekSinifi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MeslekSinifi" nillable="true" type="tns:MeslekSinifi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MeslekSinifi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Ad" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SecenekGetirIsyeriFaaliyetTurleri">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="rizikoCinsi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="urunKodu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SecenekGetirIsyeriFaaliyetTurleriResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecenekGetirIsyeriFaaliyetTurleriResult" type="tns:ArrayOfYanginFaaliyet" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfYanginFaaliyet">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="YanginFaaliyet" nillable="true" type="tns:YanginFaaliyet" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="YanginFaaliyet">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="SbmKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="FaaliyetAdi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BinaFiyati" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="EsyaFiyati" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="RizikoCinsi" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Sinif" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TerorGrubu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SelGrubu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DahiliSuGrubu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FaaNotIns" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="FaaliyetOnayGerektiriyor" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="OzelKod" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HirsizlikFiyati" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="AcenteFiyatVeremez" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="OzelRiskGrubu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Kategori" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="UrunKodu" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IptalTarihi" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SecenekGetirUcuncuSahisFaaliyetSiniflari">
+        <s:complexType />
+      </s:element>
+      <s:element name="SecenekGetirUcuncuSahisFaaliyetSiniflariResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecenekGetirUcuncuSahisFaaliyetSiniflariResult" type="tns:ArrayOfIsyeriFaaliyetSinifi" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfIsyeriFaaliyetSinifi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="IsyeriFaaliyetSinifi" nillable="true" type="tns:IsyeriFaaliyetSinifi" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="IsyeriFaaliyetSinifi">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Ad" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SecenekGetirUcuncuSahisBedeniBedeller">
+        <s:complexType />
+      </s:element>
+      <s:element name="SecenekGetirUcuncuSahisBedeniBedellerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SecenekGetirUcuncuSahisBedeniBedellerResult" type="tns:ArrayOfUcuncuSahisBedel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUcuncuSahisBedel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UcuncuSahisBedel" nillable="true" type="tns:UcuncuSahisBedel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UcuncuSahisBedel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Ad" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DaskPoliceSorgula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="daskPoliceNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DaskPoliceSorgulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DaskPoliceSorgulaResult" type="tns:ArrayOfSoruCevap" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtIlleriAl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtIlleriAlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UavtIlleriAlResult" type="tns:UavtWebServisSonuc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UavtWebServisSonuc">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Basarili" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mesaj" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Iller" type="tns:ArrayOfUavtIl" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ilceler" type="tns:ArrayOfUavtIlce" />
+          <s:element minOccurs="0" maxOccurs="1" name="Koyler" type="tns:ArrayOfUavtKoy" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mahalleler" type="tns:ArrayOfUavtMahalle" />
+          <s:element minOccurs="0" maxOccurs="1" name="CSBMler" type="tns:ArrayOfUavtCSBM" />
+          <s:element minOccurs="0" maxOccurs="1" name="Binalar" type="tns:ArrayOfUavtBina" />
+          <s:element minOccurs="0" maxOccurs="1" name="Daireler" type="tns:ArrayOfUavtDaire" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUavtIl">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UavtIl" nillable="true" type="tns:UavtIl" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UavtIl">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IlKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="IlAdi" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUavtIlce">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UavtIlce" nillable="true" type="tns:UavtIlce" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UavtIlce">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IlKodu" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IlceKodu" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="IlceAdi" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUavtKoy">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UavtKoy" nillable="true" type="tns:UavtKoy" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UavtKoy">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="KoyKodu" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="KoyAdi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BucakKodu" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="BucakIsmi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BucakKoyIsmi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IlceKodu" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="IlKodu" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUavtMahalle">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UavtMahalle" nillable="true" type="tns:UavtMahalle" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UavtMahalle">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="MahalleKodu" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="KoyKodu" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="MahalleAdi" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUavtCSBM">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UavtCSBM" nillable="true" type="tns:UavtCSBM" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UavtCSBM">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="CSBMKodu" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CSBMAdi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CSBMTipi" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CSBMMahalleKodu" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUavtBina">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UavtBina" nillable="true" type="tns:UavtBina" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UavtBina">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="BinaKodu" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="BinaAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BinaNumarasi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SokakKodu" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="SokakAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SokakAdiTipi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pafta" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parsel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ada" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfUavtDaire">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UavtDaire" nillable="true" type="tns:UavtDaire" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UavtDaire">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IlKodu" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="DaireKodu" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="DaireNumarasi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BinaKodu" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AdresKodu" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="Versiyon" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UavtIlceleriAl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ilKodu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtIlceleriAlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UavtIlceleriAlResult" type="tns:UavtWebServisSonuc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtIlceyeBagliKoyleriAl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ilceKodu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtIlceyeBagliKoyleriAlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UavtIlceyeBagliKoyleriAlResult" type="tns:UavtWebServisSonuc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtKoyeBagliMahalleleriAl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="koyKodu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtKoyeBagliMahalleleriAlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UavtKoyeBagliMahalleleriAlResult" type="tns:UavtWebServisSonuc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtMahalleyeBagliSokaklariAl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mahalleKodu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtMahalleyeBagliSokaklariAlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UavtMahalleyeBagliSokaklariAlResult" type="tns:UavtWebServisSonuc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtSokagaBagliBinalariAl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="csbmKodu" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="binaAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="kapiNumarasi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtSokagaBagliBinalariAlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UavtSokagaBagliBinalariAlResult" type="tns:UavtWebServisSonuc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtBinayaBagliDaireleriAl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="binaKodu" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtBinayaBagliDaireleriAlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UavtBinayaBagliDaireleriAlResult" type="tns:UavtWebServisSonuc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtMahalleyeBagliBinalariAl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="csbmKodu" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="binaNumarasi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="binaAdi" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UavtMahalleyeBagliBinalariAlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UavtMahalleyeBagliBinalariAlResult" type="tns:UavtWebServisSonuc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TekUrunHesapla">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cevaplar" type="tns:ArrayOfSoruCevap" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TekUrunHesaplaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TekUrunHesaplaResult" type="tns:ArrayOfDPolice" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDPolice">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DPolice" nillable="true" type="tns:DPolice" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DPolice">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Sorular" type="tns:ArrayOfDSoru" />
+          <s:element minOccurs="0" maxOccurs="1" name="HesaplamaSonuclari" type="tns:ArrayOfDHesaplamaSonucu" />
+          <s:element minOccurs="0" maxOccurs="1" name="Teminatlar" type="tns:ArrayOfDTeminat" />
+          <s:element minOccurs="0" maxOccurs="1" name="KuralHatalari" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="EkBilgiler" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="Otorizasyonlar" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="EkSigortalilar" type="tns:ArrayOfDEkSigortali" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDHesaplamaSonucu">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DHesaplamaSonucu" nillable="true" type="tns:DHesaplamaSonucu" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DHesaplamaSonucu">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TaksitTipiStr" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="EsitTaksitAdet" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NetPrim" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="BrutPrim" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Komisyon" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrtakKatkiPayi" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="THGF" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="GiderVergi" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="GarantiFonu" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="YSV" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="KuralHatalari" type="tns:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="IndirimArttirimlar" type="tns:ArrayOfDIndArt" />
+          <s:element minOccurs="0" maxOccurs="1" name="OdemePlani" type="tns:ArrayOfDOdemePlani" />
+          <s:element minOccurs="0" maxOccurs="1" name="DovizKodu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DovizAdi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DovizKuru" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDIndArt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DIndArt" nillable="true" type="tns:DIndArt" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DIndArt">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Kod" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ad" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ArtiEksi" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Oran" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDOdemePlani">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DOdemePlani" nillable="true" type="tns:DOdemePlani" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DOdemePlani">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="VadeTarihiStr" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tutar" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDTeminat">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DTeminat" nillable="true" type="tns:DTeminat" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DTeminat">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Kod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Ad" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Bedel" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Fiyat" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Prim" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="HesaplananPrim" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="KullaniciPrimi" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="SiraNo" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDEkSigortali">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DEkSigortali" nillable="true" type="tns:DEkSigortali" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DEkSigortali">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="TcKimlikNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PasaportNo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PoliceKayit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cevaplar" type="tns:ArrayOfSoruCevap" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PoliceKayitResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PoliceKayitResult" type="tns:ArrayOfDPolice" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BasimHazirla">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="acenteNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="brans" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="policeNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tecditNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="zeylNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BasimHazirlaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BasimHazirlaResult" type="tns:BasimSonuc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BasimSonuc">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Basarili" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mesaj" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IngilizceUrl" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RuscaUrl" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ArapcaUrl" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="TahsilatMakbuzuHazirla">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="acenteNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="brans" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="policeNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tecditNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="zeylNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TahsilatMakbuzuHazirlaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TahsilatMakbuzuHazirlaResult" type="tns:TahsilatMakbuzSonuc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TahsilatMakbuzSonuc">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Basarili" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mesaj" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="OrtakKatkiPayiSorgula">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kullaniciAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parola" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="kimlikNumarasi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="urunKodu" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="vadeBaslangic" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OrtakKatkiPayiSorgulaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="OrtakKatkiPayiSorgulaResult" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArrayOfDUrunTanimi" nillable="true" type="tns:ArrayOfDUrunTanimi" />
+      <s:element name="ArrayOfSoruCevap" nillable="true" type="tns:ArrayOfSoruCevap" />
+      <s:element name="ArrayOfDSoru" nillable="true" type="tns:ArrayOfDSoru" />
+      <s:element name="ArrayOfKurum" nillable="true" type="tns:ArrayOfKurum" />
+      <s:element name="ArrayOfBankaSube" nillable="true" type="tns:ArrayOfBankaSube" />
+      <s:element name="ArrayOfMeslekSinifi" nillable="true" type="tns:ArrayOfMeslekSinifi" />
+      <s:element name="ArrayOfYanginFaaliyet" nillable="true" type="tns:ArrayOfYanginFaaliyet" />
+      <s:element name="ArrayOfIsyeriFaaliyetSinifi" nillable="true" type="tns:ArrayOfIsyeriFaaliyetSinifi" />
+      <s:element name="ArrayOfUcuncuSahisBedel" nillable="true" type="tns:ArrayOfUcuncuSahisBedel" />
+      <s:element name="UavtWebServisSonuc" nillable="true" type="tns:UavtWebServisSonuc" />
+      <s:element name="BasimSonuc" nillable="true" type="tns:BasimSonuc" />
+      <s:element name="TahsilatMakbuzSonuc" nillable="true" type="tns:TahsilatMakbuzSonuc" />
+      <s:element name="double" type="s:double" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="YardimGruptakiUrunKodlariniAlSoapIn">
+    <wsdl:part name="parameters" element="tns:YardimGruptakiUrunKodlariniAl" />
+  </wsdl:message>
+  <wsdl:message name="YardimGruptakiUrunKodlariniAlSoapOut">
+    <wsdl:part name="parameters" element="tns:YardimGruptakiUrunKodlariniAlResponse" />
+  </wsdl:message>
+  <wsdl:message name="YardimTekUrunHesaplaSoapIn">
+    <wsdl:part name="parameters" element="tns:YardimTekUrunHesapla" />
+  </wsdl:message>
+  <wsdl:message name="YardimTekUrunHesaplaSoapOut">
+    <wsdl:part name="parameters" element="tns:YardimTekUrunHesaplaResponse" />
+  </wsdl:message>
+  <wsdl:message name="YardimPoliceKayitSoapIn">
+    <wsdl:part name="parameters" element="tns:YardimPoliceKayit" />
+  </wsdl:message>
+  <wsdl:message name="YardimPoliceKayitSoapOut">
+    <wsdl:part name="parameters" element="tns:YardimPoliceKayitResponse" />
+  </wsdl:message>
+  <wsdl:message name="YardimBransGrubuHesaplaSoapIn">
+    <wsdl:part name="parameters" element="tns:YardimBransGrubuHesapla" />
+  </wsdl:message>
+  <wsdl:message name="YardimBransGrubuHesaplaSoapOut">
+    <wsdl:part name="parameters" element="tns:YardimBransGrubuHesaplaResponse" />
+  </wsdl:message>
+  <wsdl:message name="YardimHashIcinGerekliAlanlariAlSoapIn">
+    <wsdl:part name="parameters" element="tns:YardimHashIcinGerekliAlanlariAl" />
+  </wsdl:message>
+  <wsdl:message name="YardimHashIcinGerekliAlanlariAlSoapOut">
+    <wsdl:part name="parameters" element="tns:YardimHashIcinGerekliAlanlariAlResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDainiMurtehinKurumlariSoapIn">
+    <wsdl:part name="parameters" element="tns:SecenekGetirDainiMurtehinKurumlari" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDainiMurtehinKurumlariSoapOut">
+    <wsdl:part name="parameters" element="tns:SecenekGetirDainiMurtehinKurumlariResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDainiMurtehinBankaSubeleriSoapIn">
+    <wsdl:part name="parameters" element="tns:SecenekGetirDainiMurtehinBankaSubeleri" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDainiMurtehinBankaSubeleriSoapOut">
+    <wsdl:part name="parameters" element="tns:SecenekGetirDainiMurtehinBankaSubeleriResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDaskDainiMurtehinKurumlariSoapIn">
+    <wsdl:part name="parameters" element="tns:SecenekGetirDaskDainiMurtehinKurumlari" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDaskDainiMurtehinKurumlariSoapOut">
+    <wsdl:part name="parameters" element="tns:SecenekGetirDaskDainiMurtehinKurumlariResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDaskDainiMurtehinBankaSubeleriSoapIn">
+    <wsdl:part name="parameters" element="tns:SecenekGetirDaskDainiMurtehinBankaSubeleri" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDaskDainiMurtehinBankaSubeleriSoapOut">
+    <wsdl:part name="parameters" element="tns:SecenekGetirDaskDainiMurtehinBankaSubeleriResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirFerdiKazaMeslekSiniflariSoapIn">
+    <wsdl:part name="parameters" element="tns:SecenekGetirFerdiKazaMeslekSiniflari" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirFerdiKazaMeslekSiniflariSoapOut">
+    <wsdl:part name="parameters" element="tns:SecenekGetirFerdiKazaMeslekSiniflariResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirIsyeriFaaliyetTurleriSoapIn">
+    <wsdl:part name="parameters" element="tns:SecenekGetirIsyeriFaaliyetTurleri" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirIsyeriFaaliyetTurleriSoapOut">
+    <wsdl:part name="parameters" element="tns:SecenekGetirIsyeriFaaliyetTurleriResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirUcuncuSahisFaaliyetSiniflariSoapIn">
+    <wsdl:part name="parameters" element="tns:SecenekGetirUcuncuSahisFaaliyetSiniflari" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirUcuncuSahisFaaliyetSiniflariSoapOut">
+    <wsdl:part name="parameters" element="tns:SecenekGetirUcuncuSahisFaaliyetSiniflariResponse" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirUcuncuSahisBedeniBedellerSoapIn">
+    <wsdl:part name="parameters" element="tns:SecenekGetirUcuncuSahisBedeniBedeller" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirUcuncuSahisBedeniBedellerSoapOut">
+    <wsdl:part name="parameters" element="tns:SecenekGetirUcuncuSahisBedeniBedellerResponse" />
+  </wsdl:message>
+  <wsdl:message name="DaskPoliceSorgulaSoapIn">
+    <wsdl:part name="parameters" element="tns:DaskPoliceSorgula" />
+  </wsdl:message>
+  <wsdl:message name="DaskPoliceSorgulaSoapOut">
+    <wsdl:part name="parameters" element="tns:DaskPoliceSorgulaResponse" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlleriAlSoapIn">
+    <wsdl:part name="parameters" element="tns:UavtIlleriAl" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlleriAlSoapOut">
+    <wsdl:part name="parameters" element="tns:UavtIlleriAlResponse" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlceleriAlSoapIn">
+    <wsdl:part name="parameters" element="tns:UavtIlceleriAl" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlceleriAlSoapOut">
+    <wsdl:part name="parameters" element="tns:UavtIlceleriAlResponse" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlceyeBagliKoyleriAlSoapIn">
+    <wsdl:part name="parameters" element="tns:UavtIlceyeBagliKoyleriAl" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlceyeBagliKoyleriAlSoapOut">
+    <wsdl:part name="parameters" element="tns:UavtIlceyeBagliKoyleriAlResponse" />
+  </wsdl:message>
+  <wsdl:message name="UavtKoyeBagliMahalleleriAlSoapIn">
+    <wsdl:part name="parameters" element="tns:UavtKoyeBagliMahalleleriAl" />
+  </wsdl:message>
+  <wsdl:message name="UavtKoyeBagliMahalleleriAlSoapOut">
+    <wsdl:part name="parameters" element="tns:UavtKoyeBagliMahalleleriAlResponse" />
+  </wsdl:message>
+  <wsdl:message name="UavtMahalleyeBagliSokaklariAlSoapIn">
+    <wsdl:part name="parameters" element="tns:UavtMahalleyeBagliSokaklariAl" />
+  </wsdl:message>
+  <wsdl:message name="UavtMahalleyeBagliSokaklariAlSoapOut">
+    <wsdl:part name="parameters" element="tns:UavtMahalleyeBagliSokaklariAlResponse" />
+  </wsdl:message>
+  <wsdl:message name="UavtSokagaBagliBinalariAlSoapIn">
+    <wsdl:part name="parameters" element="tns:UavtSokagaBagliBinalariAl" />
+  </wsdl:message>
+  <wsdl:message name="UavtSokagaBagliBinalariAlSoapOut">
+    <wsdl:part name="parameters" element="tns:UavtSokagaBagliBinalariAlResponse" />
+  </wsdl:message>
+  <wsdl:message name="UavtBinayaBagliDaireleriAlSoapIn">
+    <wsdl:part name="parameters" element="tns:UavtBinayaBagliDaireleriAl" />
+  </wsdl:message>
+  <wsdl:message name="UavtBinayaBagliDaireleriAlSoapOut">
+    <wsdl:part name="parameters" element="tns:UavtBinayaBagliDaireleriAlResponse" />
+  </wsdl:message>
+  <wsdl:message name="UavtMahalleyeBagliBinalariAlSoapIn">
+    <wsdl:part name="parameters" element="tns:UavtMahalleyeBagliBinalariAl" />
+  </wsdl:message>
+  <wsdl:message name="UavtMahalleyeBagliBinalariAlSoapOut">
+    <wsdl:part name="parameters" element="tns:UavtMahalleyeBagliBinalariAlResponse" />
+  </wsdl:message>
+  <wsdl:message name="TekUrunHesaplaSoapIn">
+    <wsdl:part name="parameters" element="tns:TekUrunHesapla" />
+  </wsdl:message>
+  <wsdl:message name="TekUrunHesaplaSoapOut">
+    <wsdl:part name="parameters" element="tns:TekUrunHesaplaResponse" />
+  </wsdl:message>
+  <wsdl:message name="PoliceKayitSoapIn">
+    <wsdl:part name="parameters" element="tns:PoliceKayit" />
+  </wsdl:message>
+  <wsdl:message name="PoliceKayitSoapOut">
+    <wsdl:part name="parameters" element="tns:PoliceKayitResponse" />
+  </wsdl:message>
+  <wsdl:message name="BasimHazirlaSoapIn">
+    <wsdl:part name="parameters" element="tns:BasimHazirla" />
+  </wsdl:message>
+  <wsdl:message name="BasimHazirlaSoapOut">
+    <wsdl:part name="parameters" element="tns:BasimHazirlaResponse" />
+  </wsdl:message>
+  <wsdl:message name="TahsilatMakbuzuHazirlaSoapIn">
+    <wsdl:part name="parameters" element="tns:TahsilatMakbuzuHazirla" />
+  </wsdl:message>
+  <wsdl:message name="TahsilatMakbuzuHazirlaSoapOut">
+    <wsdl:part name="parameters" element="tns:TahsilatMakbuzuHazirlaResponse" />
+  </wsdl:message>
+  <wsdl:message name="OrtakKatkiPayiSorgulaSoapIn">
+    <wsdl:part name="parameters" element="tns:OrtakKatkiPayiSorgula" />
+  </wsdl:message>
+  <wsdl:message name="OrtakKatkiPayiSorgulaSoapOut">
+    <wsdl:part name="parameters" element="tns:OrtakKatkiPayiSorgulaResponse" />
+  </wsdl:message>
+  <wsdl:message name="YardimGruptakiUrunKodlariniAlHttpGetIn">
+    <wsdl:part name="bransGrubu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YardimGruptakiUrunKodlariniAlHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDUrunTanimi" />
+  </wsdl:message>
+  <wsdl:message name="YardimTekUrunHesaplaHttpGetIn">
+    <wsdl:part name="urunGrubu" type="s:string" />
+    <wsdl:part name="urunKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YardimTekUrunHesaplaHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSoruCevap" />
+  </wsdl:message>
+  <wsdl:message name="YardimPoliceKayitHttpGetIn">
+    <wsdl:part name="urunGrubu" type="s:string" />
+    <wsdl:part name="urunKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YardimPoliceKayitHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSoruCevap" />
+  </wsdl:message>
+  <wsdl:message name="YardimBransGrubuHesaplaHttpGetIn">
+    <wsdl:part name="bransGrubu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YardimBransGrubuHesaplaHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSoruCevap" />
+  </wsdl:message>
+  <wsdl:message name="YardimHashIcinGerekliAlanlariAlHttpGetIn">
+    <wsdl:part name="urunGrubu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YardimHashIcinGerekliAlanlariAlHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDSoru" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDainiMurtehinKurumlariHttpGetIn" />
+  <wsdl:message name="SecenekGetirDainiMurtehinKurumlariHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfKurum" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDainiMurtehinBankaSubeleriHttpGetIn">
+    <wsdl:part name="bankaKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDainiMurtehinBankaSubeleriHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfBankaSube" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDaskDainiMurtehinKurumlariHttpGetIn" />
+  <wsdl:message name="SecenekGetirDaskDainiMurtehinKurumlariHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfKurum" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDaskDainiMurtehinBankaSubeleriHttpGetIn">
+    <wsdl:part name="bankaKod" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDaskDainiMurtehinBankaSubeleriHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfBankaSube" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirFerdiKazaMeslekSiniflariHttpGetIn" />
+  <wsdl:message name="SecenekGetirFerdiKazaMeslekSiniflariHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfMeslekSinifi" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirIsyeriFaaliyetTurleriHttpGetIn">
+    <wsdl:part name="rizikoCinsi" type="s:string" />
+    <wsdl:part name="urunKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirIsyeriFaaliyetTurleriHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfYanginFaaliyet" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirUcuncuSahisFaaliyetSiniflariHttpGetIn" />
+  <wsdl:message name="SecenekGetirUcuncuSahisFaaliyetSiniflariHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfIsyeriFaaliyetSinifi" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirUcuncuSahisBedeniBedellerHttpGetIn" />
+  <wsdl:message name="SecenekGetirUcuncuSahisBedeniBedellerHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfUcuncuSahisBedel" />
+  </wsdl:message>
+  <wsdl:message name="DaskPoliceSorgulaHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="daskPoliceNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DaskPoliceSorgulaHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSoruCevap" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlleriAlHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlleriAlHttpGetOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlceleriAlHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="ilKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlceleriAlHttpGetOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlceyeBagliKoyleriAlHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="ilceKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlceyeBagliKoyleriAlHttpGetOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtKoyeBagliMahalleleriAlHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="koyKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtKoyeBagliMahalleleriAlHttpGetOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtMahalleyeBagliSokaklariAlHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="mahalleKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtMahalleyeBagliSokaklariAlHttpGetOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtSokagaBagliBinalariAlHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="csbmKodu" type="s:string" />
+    <wsdl:part name="binaAdi" type="s:string" />
+    <wsdl:part name="kapiNumarasi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtSokagaBagliBinalariAlHttpGetOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtBinayaBagliDaireleriAlHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="binaKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtBinayaBagliDaireleriAlHttpGetOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtMahalleyeBagliBinalariAlHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="csbmKodu" type="s:string" />
+    <wsdl:part name="binaNumarasi" type="s:string" />
+    <wsdl:part name="binaAdi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtMahalleyeBagliBinalariAlHttpGetOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="BasimHazirlaHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="acenteNo" type="s:string" />
+    <wsdl:part name="brans" type="s:string" />
+    <wsdl:part name="policeNo" type="s:string" />
+    <wsdl:part name="tecditNo" type="s:string" />
+    <wsdl:part name="zeylNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BasimHazirlaHttpGetOut">
+    <wsdl:part name="Body" element="tns:BasimSonuc" />
+  </wsdl:message>
+  <wsdl:message name="TahsilatMakbuzuHazirlaHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="acenteNo" type="s:string" />
+    <wsdl:part name="brans" type="s:string" />
+    <wsdl:part name="policeNo" type="s:string" />
+    <wsdl:part name="tecditNo" type="s:string" />
+    <wsdl:part name="zeylNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TahsilatMakbuzuHazirlaHttpGetOut">
+    <wsdl:part name="Body" element="tns:TahsilatMakbuzSonuc" />
+  </wsdl:message>
+  <wsdl:message name="OrtakKatkiPayiSorgulaHttpGetIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="kimlikNumarasi" type="s:string" />
+    <wsdl:part name="urunKodu" type="s:string" />
+    <wsdl:part name="vadeBaslangic" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OrtakKatkiPayiSorgulaHttpGetOut">
+    <wsdl:part name="Body" element="tns:double" />
+  </wsdl:message>
+  <wsdl:message name="YardimGruptakiUrunKodlariniAlHttpPostIn">
+    <wsdl:part name="bransGrubu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YardimGruptakiUrunKodlariniAlHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDUrunTanimi" />
+  </wsdl:message>
+  <wsdl:message name="YardimTekUrunHesaplaHttpPostIn">
+    <wsdl:part name="urunGrubu" type="s:string" />
+    <wsdl:part name="urunKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YardimTekUrunHesaplaHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSoruCevap" />
+  </wsdl:message>
+  <wsdl:message name="YardimPoliceKayitHttpPostIn">
+    <wsdl:part name="urunGrubu" type="s:string" />
+    <wsdl:part name="urunKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YardimPoliceKayitHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSoruCevap" />
+  </wsdl:message>
+  <wsdl:message name="YardimBransGrubuHesaplaHttpPostIn">
+    <wsdl:part name="bransGrubu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YardimBransGrubuHesaplaHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSoruCevap" />
+  </wsdl:message>
+  <wsdl:message name="YardimHashIcinGerekliAlanlariAlHttpPostIn">
+    <wsdl:part name="urunGrubu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="YardimHashIcinGerekliAlanlariAlHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfDSoru" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDainiMurtehinKurumlariHttpPostIn" />
+  <wsdl:message name="SecenekGetirDainiMurtehinKurumlariHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfKurum" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDainiMurtehinBankaSubeleriHttpPostIn">
+    <wsdl:part name="bankaKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDainiMurtehinBankaSubeleriHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfBankaSube" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDaskDainiMurtehinKurumlariHttpPostIn" />
+  <wsdl:message name="SecenekGetirDaskDainiMurtehinKurumlariHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfKurum" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDaskDainiMurtehinBankaSubeleriHttpPostIn">
+    <wsdl:part name="bankaKod" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirDaskDainiMurtehinBankaSubeleriHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfBankaSube" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirFerdiKazaMeslekSiniflariHttpPostIn" />
+  <wsdl:message name="SecenekGetirFerdiKazaMeslekSiniflariHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfMeslekSinifi" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirIsyeriFaaliyetTurleriHttpPostIn">
+    <wsdl:part name="rizikoCinsi" type="s:string" />
+    <wsdl:part name="urunKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirIsyeriFaaliyetTurleriHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfYanginFaaliyet" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirUcuncuSahisFaaliyetSiniflariHttpPostIn" />
+  <wsdl:message name="SecenekGetirUcuncuSahisFaaliyetSiniflariHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfIsyeriFaaliyetSinifi" />
+  </wsdl:message>
+  <wsdl:message name="SecenekGetirUcuncuSahisBedeniBedellerHttpPostIn" />
+  <wsdl:message name="SecenekGetirUcuncuSahisBedeniBedellerHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfUcuncuSahisBedel" />
+  </wsdl:message>
+  <wsdl:message name="DaskPoliceSorgulaHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="daskPoliceNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DaskPoliceSorgulaHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSoruCevap" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlleriAlHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlleriAlHttpPostOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlceleriAlHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="ilKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlceleriAlHttpPostOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlceyeBagliKoyleriAlHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="ilceKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtIlceyeBagliKoyleriAlHttpPostOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtKoyeBagliMahalleleriAlHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="koyKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtKoyeBagliMahalleleriAlHttpPostOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtMahalleyeBagliSokaklariAlHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="mahalleKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtMahalleyeBagliSokaklariAlHttpPostOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtSokagaBagliBinalariAlHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="csbmKodu" type="s:string" />
+    <wsdl:part name="binaAdi" type="s:string" />
+    <wsdl:part name="kapiNumarasi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtSokagaBagliBinalariAlHttpPostOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtBinayaBagliDaireleriAlHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="binaKodu" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtBinayaBagliDaireleriAlHttpPostOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="UavtMahalleyeBagliBinalariAlHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="csbmKodu" type="s:string" />
+    <wsdl:part name="binaNumarasi" type="s:string" />
+    <wsdl:part name="binaAdi" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UavtMahalleyeBagliBinalariAlHttpPostOut">
+    <wsdl:part name="Body" element="tns:UavtWebServisSonuc" />
+  </wsdl:message>
+  <wsdl:message name="BasimHazirlaHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="acenteNo" type="s:string" />
+    <wsdl:part name="brans" type="s:string" />
+    <wsdl:part name="policeNo" type="s:string" />
+    <wsdl:part name="tecditNo" type="s:string" />
+    <wsdl:part name="zeylNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="BasimHazirlaHttpPostOut">
+    <wsdl:part name="Body" element="tns:BasimSonuc" />
+  </wsdl:message>
+  <wsdl:message name="TahsilatMakbuzuHazirlaHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="acenteNo" type="s:string" />
+    <wsdl:part name="brans" type="s:string" />
+    <wsdl:part name="policeNo" type="s:string" />
+    <wsdl:part name="tecditNo" type="s:string" />
+    <wsdl:part name="zeylNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TahsilatMakbuzuHazirlaHttpPostOut">
+    <wsdl:part name="Body" element="tns:TahsilatMakbuzSonuc" />
+  </wsdl:message>
+  <wsdl:message name="OrtakKatkiPayiSorgulaHttpPostIn">
+    <wsdl:part name="kullaniciAdi" type="s:string" />
+    <wsdl:part name="parola" type="s:string" />
+    <wsdl:part name="kimlikNumarasi" type="s:string" />
+    <wsdl:part name="urunKodu" type="s:string" />
+    <wsdl:part name="vadeBaslangic" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OrtakKatkiPayiSorgulaHttpPostOut">
+    <wsdl:part name="Body" element="tns:double" />
+  </wsdl:message>
+  <wsdl:portType name="AcentePoliceServisleriSoap">
+    <wsdl:operation name="YardimGruptakiUrunKodlariniAl">
+      <wsdl:input message="tns:YardimGruptakiUrunKodlariniAlSoapIn" />
+      <wsdl:output message="tns:YardimGruptakiUrunKodlariniAlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YardimTekUrunHesapla">
+      <wsdl:input message="tns:YardimTekUrunHesaplaSoapIn" />
+      <wsdl:output message="tns:YardimTekUrunHesaplaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YardimPoliceKayit">
+      <wsdl:input message="tns:YardimPoliceKayitSoapIn" />
+      <wsdl:output message="tns:YardimPoliceKayitSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YardimBransGrubuHesapla">
+      <wsdl:input message="tns:YardimBransGrubuHesaplaSoapIn" />
+      <wsdl:output message="tns:YardimBransGrubuHesaplaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YardimHashIcinGerekliAlanlariAl">
+      <wsdl:input message="tns:YardimHashIcinGerekliAlanlariAlSoapIn" />
+      <wsdl:output message="tns:YardimHashIcinGerekliAlanlariAlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinKurumlari">
+      <wsdl:input message="tns:SecenekGetirDainiMurtehinKurumlariSoapIn" />
+      <wsdl:output message="tns:SecenekGetirDainiMurtehinKurumlariSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinBankaSubeleri">
+      <wsdl:input message="tns:SecenekGetirDainiMurtehinBankaSubeleriSoapIn" />
+      <wsdl:output message="tns:SecenekGetirDainiMurtehinBankaSubeleriSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinKurumlari">
+      <wsdl:input message="tns:SecenekGetirDaskDainiMurtehinKurumlariSoapIn" />
+      <wsdl:output message="tns:SecenekGetirDaskDainiMurtehinKurumlariSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinBankaSubeleri">
+      <wsdl:input message="tns:SecenekGetirDaskDainiMurtehinBankaSubeleriSoapIn" />
+      <wsdl:output message="tns:SecenekGetirDaskDainiMurtehinBankaSubeleriSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirFerdiKazaMeslekSiniflari">
+      <wsdl:input message="tns:SecenekGetirFerdiKazaMeslekSiniflariSoapIn" />
+      <wsdl:output message="tns:SecenekGetirFerdiKazaMeslekSiniflariSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirIsyeriFaaliyetTurleri">
+      <wsdl:input message="tns:SecenekGetirIsyeriFaaliyetTurleriSoapIn" />
+      <wsdl:output message="tns:SecenekGetirIsyeriFaaliyetTurleriSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisFaaliyetSiniflari">
+      <wsdl:input message="tns:SecenekGetirUcuncuSahisFaaliyetSiniflariSoapIn" />
+      <wsdl:output message="tns:SecenekGetirUcuncuSahisFaaliyetSiniflariSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisBedeniBedeller">
+      <wsdl:input message="tns:SecenekGetirUcuncuSahisBedeniBedellerSoapIn" />
+      <wsdl:output message="tns:SecenekGetirUcuncuSahisBedeniBedellerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DaskPoliceSorgula">
+      <wsdl:input message="tns:DaskPoliceSorgulaSoapIn" />
+      <wsdl:output message="tns:DaskPoliceSorgulaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlleriAl">
+      <wsdl:input message="tns:UavtIlleriAlSoapIn" />
+      <wsdl:output message="tns:UavtIlleriAlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceleriAl">
+      <wsdl:input message="tns:UavtIlceleriAlSoapIn" />
+      <wsdl:output message="tns:UavtIlceleriAlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceyeBagliKoyleriAl">
+      <wsdl:input message="tns:UavtIlceyeBagliKoyleriAlSoapIn" />
+      <wsdl:output message="tns:UavtIlceyeBagliKoyleriAlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtKoyeBagliMahalleleriAl">
+      <wsdl:input message="tns:UavtKoyeBagliMahalleleriAlSoapIn" />
+      <wsdl:output message="tns:UavtKoyeBagliMahalleleriAlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliSokaklariAl">
+      <wsdl:input message="tns:UavtMahalleyeBagliSokaklariAlSoapIn" />
+      <wsdl:output message="tns:UavtMahalleyeBagliSokaklariAlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtSokagaBagliBinalariAl">
+      <wsdl:input message="tns:UavtSokagaBagliBinalariAlSoapIn" />
+      <wsdl:output message="tns:UavtSokagaBagliBinalariAlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtBinayaBagliDaireleriAl">
+      <wsdl:input message="tns:UavtBinayaBagliDaireleriAlSoapIn" />
+      <wsdl:output message="tns:UavtBinayaBagliDaireleriAlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliBinalariAl">
+      <wsdl:input message="tns:UavtMahalleyeBagliBinalariAlSoapIn" />
+      <wsdl:output message="tns:UavtMahalleyeBagliBinalariAlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TekUrunHesapla">
+      <wsdl:input message="tns:TekUrunHesaplaSoapIn" />
+      <wsdl:output message="tns:TekUrunHesaplaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PoliceKayit">
+      <wsdl:input message="tns:PoliceKayitSoapIn" />
+      <wsdl:output message="tns:PoliceKayitSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BasimHazirla">
+      <wsdl:input message="tns:BasimHazirlaSoapIn" />
+      <wsdl:output message="tns:BasimHazirlaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatMakbuzuHazirla">
+      <wsdl:input message="tns:TahsilatMakbuzuHazirlaSoapIn" />
+      <wsdl:output message="tns:TahsilatMakbuzuHazirlaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OrtakKatkiPayiSorgula">
+      <wsdl:input message="tns:OrtakKatkiPayiSorgulaSoapIn" />
+      <wsdl:output message="tns:OrtakKatkiPayiSorgulaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AcentePoliceServisleriHttpGet">
+    <wsdl:operation name="YardimGruptakiUrunKodlariniAl">
+      <wsdl:input message="tns:YardimGruptakiUrunKodlariniAlHttpGetIn" />
+      <wsdl:output message="tns:YardimGruptakiUrunKodlariniAlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YardimTekUrunHesapla">
+      <wsdl:input message="tns:YardimTekUrunHesaplaHttpGetIn" />
+      <wsdl:output message="tns:YardimTekUrunHesaplaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YardimPoliceKayit">
+      <wsdl:input message="tns:YardimPoliceKayitHttpGetIn" />
+      <wsdl:output message="tns:YardimPoliceKayitHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YardimBransGrubuHesapla">
+      <wsdl:input message="tns:YardimBransGrubuHesaplaHttpGetIn" />
+      <wsdl:output message="tns:YardimBransGrubuHesaplaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YardimHashIcinGerekliAlanlariAl">
+      <wsdl:input message="tns:YardimHashIcinGerekliAlanlariAlHttpGetIn" />
+      <wsdl:output message="tns:YardimHashIcinGerekliAlanlariAlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinKurumlari">
+      <wsdl:input message="tns:SecenekGetirDainiMurtehinKurumlariHttpGetIn" />
+      <wsdl:output message="tns:SecenekGetirDainiMurtehinKurumlariHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinBankaSubeleri">
+      <wsdl:input message="tns:SecenekGetirDainiMurtehinBankaSubeleriHttpGetIn" />
+      <wsdl:output message="tns:SecenekGetirDainiMurtehinBankaSubeleriHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinKurumlari">
+      <wsdl:input message="tns:SecenekGetirDaskDainiMurtehinKurumlariHttpGetIn" />
+      <wsdl:output message="tns:SecenekGetirDaskDainiMurtehinKurumlariHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinBankaSubeleri">
+      <wsdl:input message="tns:SecenekGetirDaskDainiMurtehinBankaSubeleriHttpGetIn" />
+      <wsdl:output message="tns:SecenekGetirDaskDainiMurtehinBankaSubeleriHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirFerdiKazaMeslekSiniflari">
+      <wsdl:input message="tns:SecenekGetirFerdiKazaMeslekSiniflariHttpGetIn" />
+      <wsdl:output message="tns:SecenekGetirFerdiKazaMeslekSiniflariHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirIsyeriFaaliyetTurleri">
+      <wsdl:input message="tns:SecenekGetirIsyeriFaaliyetTurleriHttpGetIn" />
+      <wsdl:output message="tns:SecenekGetirIsyeriFaaliyetTurleriHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisFaaliyetSiniflari">
+      <wsdl:input message="tns:SecenekGetirUcuncuSahisFaaliyetSiniflariHttpGetIn" />
+      <wsdl:output message="tns:SecenekGetirUcuncuSahisFaaliyetSiniflariHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisBedeniBedeller">
+      <wsdl:input message="tns:SecenekGetirUcuncuSahisBedeniBedellerHttpGetIn" />
+      <wsdl:output message="tns:SecenekGetirUcuncuSahisBedeniBedellerHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DaskPoliceSorgula">
+      <wsdl:input message="tns:DaskPoliceSorgulaHttpGetIn" />
+      <wsdl:output message="tns:DaskPoliceSorgulaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlleriAl">
+      <wsdl:input message="tns:UavtIlleriAlHttpGetIn" />
+      <wsdl:output message="tns:UavtIlleriAlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceleriAl">
+      <wsdl:input message="tns:UavtIlceleriAlHttpGetIn" />
+      <wsdl:output message="tns:UavtIlceleriAlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceyeBagliKoyleriAl">
+      <wsdl:input message="tns:UavtIlceyeBagliKoyleriAlHttpGetIn" />
+      <wsdl:output message="tns:UavtIlceyeBagliKoyleriAlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtKoyeBagliMahalleleriAl">
+      <wsdl:input message="tns:UavtKoyeBagliMahalleleriAlHttpGetIn" />
+      <wsdl:output message="tns:UavtKoyeBagliMahalleleriAlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliSokaklariAl">
+      <wsdl:input message="tns:UavtMahalleyeBagliSokaklariAlHttpGetIn" />
+      <wsdl:output message="tns:UavtMahalleyeBagliSokaklariAlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtSokagaBagliBinalariAl">
+      <wsdl:input message="tns:UavtSokagaBagliBinalariAlHttpGetIn" />
+      <wsdl:output message="tns:UavtSokagaBagliBinalariAlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtBinayaBagliDaireleriAl">
+      <wsdl:input message="tns:UavtBinayaBagliDaireleriAlHttpGetIn" />
+      <wsdl:output message="tns:UavtBinayaBagliDaireleriAlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliBinalariAl">
+      <wsdl:input message="tns:UavtMahalleyeBagliBinalariAlHttpGetIn" />
+      <wsdl:output message="tns:UavtMahalleyeBagliBinalariAlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BasimHazirla">
+      <wsdl:input message="tns:BasimHazirlaHttpGetIn" />
+      <wsdl:output message="tns:BasimHazirlaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatMakbuzuHazirla">
+      <wsdl:input message="tns:TahsilatMakbuzuHazirlaHttpGetIn" />
+      <wsdl:output message="tns:TahsilatMakbuzuHazirlaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OrtakKatkiPayiSorgula">
+      <wsdl:input message="tns:OrtakKatkiPayiSorgulaHttpGetIn" />
+      <wsdl:output message="tns:OrtakKatkiPayiSorgulaHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="AcentePoliceServisleriHttpPost">
+    <wsdl:operation name="YardimGruptakiUrunKodlariniAl">
+      <wsdl:input message="tns:YardimGruptakiUrunKodlariniAlHttpPostIn" />
+      <wsdl:output message="tns:YardimGruptakiUrunKodlariniAlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YardimTekUrunHesapla">
+      <wsdl:input message="tns:YardimTekUrunHesaplaHttpPostIn" />
+      <wsdl:output message="tns:YardimTekUrunHesaplaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YardimPoliceKayit">
+      <wsdl:input message="tns:YardimPoliceKayitHttpPostIn" />
+      <wsdl:output message="tns:YardimPoliceKayitHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YardimBransGrubuHesapla">
+      <wsdl:input message="tns:YardimBransGrubuHesaplaHttpPostIn" />
+      <wsdl:output message="tns:YardimBransGrubuHesaplaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="YardimHashIcinGerekliAlanlariAl">
+      <wsdl:input message="tns:YardimHashIcinGerekliAlanlariAlHttpPostIn" />
+      <wsdl:output message="tns:YardimHashIcinGerekliAlanlariAlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinKurumlari">
+      <wsdl:input message="tns:SecenekGetirDainiMurtehinKurumlariHttpPostIn" />
+      <wsdl:output message="tns:SecenekGetirDainiMurtehinKurumlariHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinBankaSubeleri">
+      <wsdl:input message="tns:SecenekGetirDainiMurtehinBankaSubeleriHttpPostIn" />
+      <wsdl:output message="tns:SecenekGetirDainiMurtehinBankaSubeleriHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinKurumlari">
+      <wsdl:input message="tns:SecenekGetirDaskDainiMurtehinKurumlariHttpPostIn" />
+      <wsdl:output message="tns:SecenekGetirDaskDainiMurtehinKurumlariHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinBankaSubeleri">
+      <wsdl:input message="tns:SecenekGetirDaskDainiMurtehinBankaSubeleriHttpPostIn" />
+      <wsdl:output message="tns:SecenekGetirDaskDainiMurtehinBankaSubeleriHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirFerdiKazaMeslekSiniflari">
+      <wsdl:input message="tns:SecenekGetirFerdiKazaMeslekSiniflariHttpPostIn" />
+      <wsdl:output message="tns:SecenekGetirFerdiKazaMeslekSiniflariHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirIsyeriFaaliyetTurleri">
+      <wsdl:input message="tns:SecenekGetirIsyeriFaaliyetTurleriHttpPostIn" />
+      <wsdl:output message="tns:SecenekGetirIsyeriFaaliyetTurleriHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisFaaliyetSiniflari">
+      <wsdl:input message="tns:SecenekGetirUcuncuSahisFaaliyetSiniflariHttpPostIn" />
+      <wsdl:output message="tns:SecenekGetirUcuncuSahisFaaliyetSiniflariHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisBedeniBedeller">
+      <wsdl:input message="tns:SecenekGetirUcuncuSahisBedeniBedellerHttpPostIn" />
+      <wsdl:output message="tns:SecenekGetirUcuncuSahisBedeniBedellerHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DaskPoliceSorgula">
+      <wsdl:input message="tns:DaskPoliceSorgulaHttpPostIn" />
+      <wsdl:output message="tns:DaskPoliceSorgulaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlleriAl">
+      <wsdl:input message="tns:UavtIlleriAlHttpPostIn" />
+      <wsdl:output message="tns:UavtIlleriAlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceleriAl">
+      <wsdl:input message="tns:UavtIlceleriAlHttpPostIn" />
+      <wsdl:output message="tns:UavtIlceleriAlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceyeBagliKoyleriAl">
+      <wsdl:input message="tns:UavtIlceyeBagliKoyleriAlHttpPostIn" />
+      <wsdl:output message="tns:UavtIlceyeBagliKoyleriAlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtKoyeBagliMahalleleriAl">
+      <wsdl:input message="tns:UavtKoyeBagliMahalleleriAlHttpPostIn" />
+      <wsdl:output message="tns:UavtKoyeBagliMahalleleriAlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliSokaklariAl">
+      <wsdl:input message="tns:UavtMahalleyeBagliSokaklariAlHttpPostIn" />
+      <wsdl:output message="tns:UavtMahalleyeBagliSokaklariAlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtSokagaBagliBinalariAl">
+      <wsdl:input message="tns:UavtSokagaBagliBinalariAlHttpPostIn" />
+      <wsdl:output message="tns:UavtSokagaBagliBinalariAlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtBinayaBagliDaireleriAl">
+      <wsdl:input message="tns:UavtBinayaBagliDaireleriAlHttpPostIn" />
+      <wsdl:output message="tns:UavtBinayaBagliDaireleriAlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliBinalariAl">
+      <wsdl:input message="tns:UavtMahalleyeBagliBinalariAlHttpPostIn" />
+      <wsdl:output message="tns:UavtMahalleyeBagliBinalariAlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BasimHazirla">
+      <wsdl:input message="tns:BasimHazirlaHttpPostIn" />
+      <wsdl:output message="tns:BasimHazirlaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatMakbuzuHazirla">
+      <wsdl:input message="tns:TahsilatMakbuzuHazirlaHttpPostIn" />
+      <wsdl:output message="tns:TahsilatMakbuzuHazirlaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OrtakKatkiPayiSorgula">
+      <wsdl:input message="tns:OrtakKatkiPayiSorgulaHttpPostIn" />
+      <wsdl:output message="tns:OrtakKatkiPayiSorgulaHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AcentePoliceServisleriSoap" type="tns:AcentePoliceServisleriSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="YardimGruptakiUrunKodlariniAl">
+      <soap:operation soapAction="http://tempuri.org/YardimGruptakiUrunKodlariniAl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimTekUrunHesapla">
+      <soap:operation soapAction="http://tempuri.org/YardimTekUrunHesapla" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimPoliceKayit">
+      <soap:operation soapAction="http://tempuri.org/YardimPoliceKayit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimBransGrubuHesapla">
+      <soap:operation soapAction="http://tempuri.org/YardimBransGrubuHesapla" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimHashIcinGerekliAlanlariAl">
+      <soap:operation soapAction="http://tempuri.org/YardimHashIcinGerekliAlanlariAl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinKurumlari">
+      <soap:operation soapAction="http://tempuri.org/SecenekGetirDainiMurtehinKurumlari" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinBankaSubeleri">
+      <soap:operation soapAction="http://tempuri.org/SecenekGetirDainiMurtehinBankaSubeleri" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinKurumlari">
+      <soap:operation soapAction="http://tempuri.org/SecenekGetirDaskDainiMurtehinKurumlari" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinBankaSubeleri">
+      <soap:operation soapAction="http://tempuri.org/SecenekGetirDaskDainiMurtehinBankaSubeleri" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirFerdiKazaMeslekSiniflari">
+      <soap:operation soapAction="http://tempuri.org/SecenekGetirFerdiKazaMeslekSiniflari" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirIsyeriFaaliyetTurleri">
+      <soap:operation soapAction="http://tempuri.org/SecenekGetirIsyeriFaaliyetTurleri" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisFaaliyetSiniflari">
+      <soap:operation soapAction="http://tempuri.org/SecenekGetirUcuncuSahisFaaliyetSiniflari" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisBedeniBedeller">
+      <soap:operation soapAction="http://tempuri.org/SecenekGetirUcuncuSahisBedeniBedeller" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DaskPoliceSorgula">
+      <soap:operation soapAction="http://tempuri.org/DaskPoliceSorgula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlleriAl">
+      <soap:operation soapAction="http://tempuri.org/UavtIlleriAl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceleriAl">
+      <soap:operation soapAction="http://tempuri.org/UavtIlceleriAl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceyeBagliKoyleriAl">
+      <soap:operation soapAction="http://tempuri.org/UavtIlceyeBagliKoyleriAl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtKoyeBagliMahalleleriAl">
+      <soap:operation soapAction="http://tempuri.org/UavtKoyeBagliMahalleleriAl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliSokaklariAl">
+      <soap:operation soapAction="http://tempuri.org/UavtMahalleyeBagliSokaklariAl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtSokagaBagliBinalariAl">
+      <soap:operation soapAction="http://tempuri.org/UavtSokagaBagliBinalariAl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtBinayaBagliDaireleriAl">
+      <soap:operation soapAction="http://tempuri.org/UavtBinayaBagliDaireleriAl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliBinalariAl">
+      <soap:operation soapAction="http://tempuri.org/UavtMahalleyeBagliBinalariAl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TekUrunHesapla">
+      <soap:operation soapAction="http://tempuri.org/TekUrunHesapla" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PoliceKayit">
+      <soap:operation soapAction="http://tempuri.org/PoliceKayit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BasimHazirla">
+      <soap:operation soapAction="http://tempuri.org/BasimHazirla" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatMakbuzuHazirla">
+      <soap:operation soapAction="http://tempuri.org/TahsilatMakbuzuHazirla" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OrtakKatkiPayiSorgula">
+      <soap:operation soapAction="http://tempuri.org/OrtakKatkiPayiSorgula" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AcentePoliceServisleriSoap12" type="tns:AcentePoliceServisleriSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="YardimGruptakiUrunKodlariniAl">
+      <soap12:operation soapAction="http://tempuri.org/YardimGruptakiUrunKodlariniAl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimTekUrunHesapla">
+      <soap12:operation soapAction="http://tempuri.org/YardimTekUrunHesapla" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimPoliceKayit">
+      <soap12:operation soapAction="http://tempuri.org/YardimPoliceKayit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimBransGrubuHesapla">
+      <soap12:operation soapAction="http://tempuri.org/YardimBransGrubuHesapla" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimHashIcinGerekliAlanlariAl">
+      <soap12:operation soapAction="http://tempuri.org/YardimHashIcinGerekliAlanlariAl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinKurumlari">
+      <soap12:operation soapAction="http://tempuri.org/SecenekGetirDainiMurtehinKurumlari" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinBankaSubeleri">
+      <soap12:operation soapAction="http://tempuri.org/SecenekGetirDainiMurtehinBankaSubeleri" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinKurumlari">
+      <soap12:operation soapAction="http://tempuri.org/SecenekGetirDaskDainiMurtehinKurumlari" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinBankaSubeleri">
+      <soap12:operation soapAction="http://tempuri.org/SecenekGetirDaskDainiMurtehinBankaSubeleri" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirFerdiKazaMeslekSiniflari">
+      <soap12:operation soapAction="http://tempuri.org/SecenekGetirFerdiKazaMeslekSiniflari" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirIsyeriFaaliyetTurleri">
+      <soap12:operation soapAction="http://tempuri.org/SecenekGetirIsyeriFaaliyetTurleri" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisFaaliyetSiniflari">
+      <soap12:operation soapAction="http://tempuri.org/SecenekGetirUcuncuSahisFaaliyetSiniflari" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisBedeniBedeller">
+      <soap12:operation soapAction="http://tempuri.org/SecenekGetirUcuncuSahisBedeniBedeller" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DaskPoliceSorgula">
+      <soap12:operation soapAction="http://tempuri.org/DaskPoliceSorgula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlleriAl">
+      <soap12:operation soapAction="http://tempuri.org/UavtIlleriAl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceleriAl">
+      <soap12:operation soapAction="http://tempuri.org/UavtIlceleriAl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceyeBagliKoyleriAl">
+      <soap12:operation soapAction="http://tempuri.org/UavtIlceyeBagliKoyleriAl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtKoyeBagliMahalleleriAl">
+      <soap12:operation soapAction="http://tempuri.org/UavtKoyeBagliMahalleleriAl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliSokaklariAl">
+      <soap12:operation soapAction="http://tempuri.org/UavtMahalleyeBagliSokaklariAl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtSokagaBagliBinalariAl">
+      <soap12:operation soapAction="http://tempuri.org/UavtSokagaBagliBinalariAl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtBinayaBagliDaireleriAl">
+      <soap12:operation soapAction="http://tempuri.org/UavtBinayaBagliDaireleriAl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliBinalariAl">
+      <soap12:operation soapAction="http://tempuri.org/UavtMahalleyeBagliBinalariAl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TekUrunHesapla">
+      <soap12:operation soapAction="http://tempuri.org/TekUrunHesapla" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PoliceKayit">
+      <soap12:operation soapAction="http://tempuri.org/PoliceKayit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BasimHazirla">
+      <soap12:operation soapAction="http://tempuri.org/BasimHazirla" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatMakbuzuHazirla">
+      <soap12:operation soapAction="http://tempuri.org/TahsilatMakbuzuHazirla" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OrtakKatkiPayiSorgula">
+      <soap12:operation soapAction="http://tempuri.org/OrtakKatkiPayiSorgula" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AcentePoliceServisleriHttpGet" type="tns:AcentePoliceServisleriHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="YardimGruptakiUrunKodlariniAl">
+      <http:operation location="/YardimGruptakiUrunKodlariniAl" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimTekUrunHesapla">
+      <http:operation location="/YardimTekUrunHesapla" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimPoliceKayit">
+      <http:operation location="/YardimPoliceKayit" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimBransGrubuHesapla">
+      <http:operation location="/YardimBransGrubuHesapla" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimHashIcinGerekliAlanlariAl">
+      <http:operation location="/YardimHashIcinGerekliAlanlariAl" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinKurumlari">
+      <http:operation location="/SecenekGetirDainiMurtehinKurumlari" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinBankaSubeleri">
+      <http:operation location="/SecenekGetirDainiMurtehinBankaSubeleri" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinKurumlari">
+      <http:operation location="/SecenekGetirDaskDainiMurtehinKurumlari" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinBankaSubeleri">
+      <http:operation location="/SecenekGetirDaskDainiMurtehinBankaSubeleri" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirFerdiKazaMeslekSiniflari">
+      <http:operation location="/SecenekGetirFerdiKazaMeslekSiniflari" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirIsyeriFaaliyetTurleri">
+      <http:operation location="/SecenekGetirIsyeriFaaliyetTurleri" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisFaaliyetSiniflari">
+      <http:operation location="/SecenekGetirUcuncuSahisFaaliyetSiniflari" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisBedeniBedeller">
+      <http:operation location="/SecenekGetirUcuncuSahisBedeniBedeller" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DaskPoliceSorgula">
+      <http:operation location="/DaskPoliceSorgula" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlleriAl">
+      <http:operation location="/UavtIlleriAl" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceleriAl">
+      <http:operation location="/UavtIlceleriAl" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceyeBagliKoyleriAl">
+      <http:operation location="/UavtIlceyeBagliKoyleriAl" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtKoyeBagliMahalleleriAl">
+      <http:operation location="/UavtKoyeBagliMahalleleriAl" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliSokaklariAl">
+      <http:operation location="/UavtMahalleyeBagliSokaklariAl" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtSokagaBagliBinalariAl">
+      <http:operation location="/UavtSokagaBagliBinalariAl" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtBinayaBagliDaireleriAl">
+      <http:operation location="/UavtBinayaBagliDaireleriAl" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliBinalariAl">
+      <http:operation location="/UavtMahalleyeBagliBinalariAl" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BasimHazirla">
+      <http:operation location="/BasimHazirla" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatMakbuzuHazirla">
+      <http:operation location="/TahsilatMakbuzuHazirla" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OrtakKatkiPayiSorgula">
+      <http:operation location="/OrtakKatkiPayiSorgula" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AcentePoliceServisleriHttpPost" type="tns:AcentePoliceServisleriHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="YardimGruptakiUrunKodlariniAl">
+      <http:operation location="/YardimGruptakiUrunKodlariniAl" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimTekUrunHesapla">
+      <http:operation location="/YardimTekUrunHesapla" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimPoliceKayit">
+      <http:operation location="/YardimPoliceKayit" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimBransGrubuHesapla">
+      <http:operation location="/YardimBransGrubuHesapla" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="YardimHashIcinGerekliAlanlariAl">
+      <http:operation location="/YardimHashIcinGerekliAlanlariAl" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinKurumlari">
+      <http:operation location="/SecenekGetirDainiMurtehinKurumlari" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDainiMurtehinBankaSubeleri">
+      <http:operation location="/SecenekGetirDainiMurtehinBankaSubeleri" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinKurumlari">
+      <http:operation location="/SecenekGetirDaskDainiMurtehinKurumlari" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirDaskDainiMurtehinBankaSubeleri">
+      <http:operation location="/SecenekGetirDaskDainiMurtehinBankaSubeleri" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirFerdiKazaMeslekSiniflari">
+      <http:operation location="/SecenekGetirFerdiKazaMeslekSiniflari" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirIsyeriFaaliyetTurleri">
+      <http:operation location="/SecenekGetirIsyeriFaaliyetTurleri" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisFaaliyetSiniflari">
+      <http:operation location="/SecenekGetirUcuncuSahisFaaliyetSiniflari" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SecenekGetirUcuncuSahisBedeniBedeller">
+      <http:operation location="/SecenekGetirUcuncuSahisBedeniBedeller" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DaskPoliceSorgula">
+      <http:operation location="/DaskPoliceSorgula" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlleriAl">
+      <http:operation location="/UavtIlleriAl" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceleriAl">
+      <http:operation location="/UavtIlceleriAl" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtIlceyeBagliKoyleriAl">
+      <http:operation location="/UavtIlceyeBagliKoyleriAl" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtKoyeBagliMahalleleriAl">
+      <http:operation location="/UavtKoyeBagliMahalleleriAl" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliSokaklariAl">
+      <http:operation location="/UavtMahalleyeBagliSokaklariAl" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtSokagaBagliBinalariAl">
+      <http:operation location="/UavtSokagaBagliBinalariAl" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtBinayaBagliDaireleriAl">
+      <http:operation location="/UavtBinayaBagliDaireleriAl" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UavtMahalleyeBagliBinalariAl">
+      <http:operation location="/UavtMahalleyeBagliBinalariAl" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BasimHazirla">
+      <http:operation location="/BasimHazirla" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TahsilatMakbuzuHazirla">
+      <http:operation location="/TahsilatMakbuzuHazirla" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OrtakKatkiPayiSorgula">
+      <http:operation location="/OrtakKatkiPayiSorgula" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AcentePoliceServisleri">
+    <wsdl:port name="AcentePoliceServisleriSoap" binding="tns:AcentePoliceServisleriSoap">
+      <soap:address location="http://test.korusigortaportal.com/WebServisleri/AcentePoliceServisleri.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AcentePoliceServisleriSoap12" binding="tns:AcentePoliceServisleriSoap12">
+      <soap12:address location="http://test.korusigortaportal.com/WebServisleri/AcentePoliceServisleri.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AcentePoliceServisleriHttpGet" binding="tns:AcentePoliceServisleriHttpGet">
+      <http:address location="http://test.korusigortaportal.com/WebServisleri/AcentePoliceServisleri.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AcentePoliceServisleriHttpPost" binding="tns:AcentePoliceServisleriHttpPost">
+      <http:address location="http://test.korusigortaportal.com/WebServisleri/AcentePoliceServisleri.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

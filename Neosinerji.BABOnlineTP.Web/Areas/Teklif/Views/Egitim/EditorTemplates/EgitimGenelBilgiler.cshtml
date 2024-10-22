@@ -1,0 +1,55 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.EgitimGenelBilgiler
+
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.PaymentTerm<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.OdemeDonemi, Model.OdemeDonemeleri, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.OdemeDonemi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.AnnualRepaymentAmount
+                <i class="icon-info-sign tooltips" data-container="body" data-placement="bottom" data-original-title="Örnek Format : 1,500.20"></i><span class="required">*</span></label>
+            <div class="controls">
+                <div class="input-append">
+                    @Html.TextBoxFor(s => s.GeriOdemelerdeAlinacakYillikTutar, new { @class = "m-wrap autoNumeric-custom", placeholder = "1,500.20", style = "width:90px; text-align:right", data_val_number = "Örnek format : 1,500.20" })<span class="add-on"> $</span>
+                    @Html.ValidationMessageFor(s => s.GeriOdemelerdeAlinacakYillikTutar)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Insurance_Start_Date<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(s => s.SigortaBaslangicTarihi, new { })
+                @Html.ValidationMessageFor(s => s.SigortaBaslangicTarihi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Insurance_Duration (@babonline.Year)<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.SigortaSuresi, new { @class = "m-wrap onlynumbers", style = "width:95px; text-align:right" })
+                @Html.ValidationMessageFor(s => s.SigortaSuresi)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.InsuranceReimbursementTime (@babonline.Year)<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.SigortaGeriOdemeSuresi, new { @class = "m-wrap onlynumbers autoNumeric", style = "width:95px; text-align:right" })
+                @Html.ValidationMessageFor(s => s.SigortaGeriOdemeSuresi)
+            </div>
+        </div>
+    </div>
+</div>

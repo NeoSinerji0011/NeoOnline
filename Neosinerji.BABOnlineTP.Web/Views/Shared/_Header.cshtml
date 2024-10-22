@@ -1,0 +1,26 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+
+@*Yeni Header*@
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a href="index.html" data-section="body" class="brand scroller">
+                <img alt="logo" style="margin-top: -10px; margin-bottom: -15px;" src="~/Content/img/Home/babonline_logo_mini.png">
+            </a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li><a href="/Home/Index">babonline</a></li>
+                    <li><a href="/Home/About">@babonline.Info_Us</a></li>
+                    <li><a data-section="#footer" class="scroller" href="#">@babonline.Contact</a></li>
+                    @Html.Partial("_LoginPartial")
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,927 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C15B7C22-5639-4E40-B6EB-7A7913CFE77D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Neosinerji.BABOnlineTP.Database</RootNamespace>
+    <AssemblyName>Neosinerji.BABOnlineTP.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\AracModel.cs" />
+    <Compile Include="Common\DashboardPerformanceModels.cs" />
+    <Compile Include="Common\DuyuruModel.cs" />
+    <Compile Include="Common\ExtensionMethods.cs" />
+    <Compile Include="Common\GorevTakipModel.cs" />
+    <Compile Include="Common\KullaniciYetkiModel.cs" />
+    <Compile Include="Common\OfflineUretimPerformans.cs" />
+    <Compile Include="Common\OfflineUretimPerformansKullanici.cs" />
+    <Compile Include="Common\PoliceTransfer\AutoPoliceTransferProcedureModel.cs" />
+    <Compile Include="Common\RaporModels.cs" />
+    <Compile Include="Common\Rapor\MapfreBolgeUretimModel.cs" />
+    <Compile Include="Common\Rapor\PoliceSorguProcedurModel.cs" />
+    <Compile Include="Common\TeklifAramaTableModel1.cs" />
+    <Compile Include="Common\TeklifOzelAlan.cs" />
+    <Compile Include="Common\TVMUrunYetkileriModel.cs" />
+    <Compile Include="Models\AllianzPoliceSilincek.cs" />
+    <Compile Include="Models\AltMenu.cs" />
+    <Compile Include="Models\AltMenuSekme.cs" />
+    <Compile Include="Models\AnadoluKullanimTipSekil.cs" />
+    <Compile Include="Models\AnaMenu.cs" />
+    <Compile Include="Models\AracKullanimSekli.cs" />
+    <Compile Include="Models\AracKullanimTarzi.cs" />
+    <Compile Include="Models\AracMarka.cs" />
+    <Compile Include="Models\AracMarkaTest.cs" />
+    <Compile Include="Models\AracMarkaYedek.cs" />
+    <Compile Include="Models\AracModel.cs" />
+    <Compile Include="Models\AracModelTest.cs" />
+    <Compile Include="Models\AracModelYedek.cs" />
+    <Compile Include="Models\AracTip.cs" />
+    <Compile Include="Models\AracTipTest.cs" />
+    <Compile Include="Models\AracTipYedek.cs" />
+    <Compile Include="Models\AracTrafikTeminat.cs" />
+    <Compile Include="Models\AtananIsDokumanlar.cs" />
+    <Compile Include="Models\AtananIsler.cs" />
+    <Compile Include="Models\AtananIsLog.cs" />
+    <Compile Include="Models\AtananIsNotlar.cs" />
+    <Compile Include="Models\AutoPoliceTransfer.cs" />
+    <Compile Include="Models\BABOnlineContext.cs" />
+    <Compile Include="Models\BABOnlineTESTContext.cs" />
+    <Compile Include="Models\BankaSubeleri.cs" />
+    <Compile Include="Models\Belediye.cs" />
+    <Compile Include="Models\BelediyeIl.cs" />
+    <Compile Include="Models\Bran.cs" />
+    <Compile Include="Models\BransUrun.cs" />
+    <Compile Include="Models\CariAktarimLog.cs" />
+    <Compile Include="Models\CariEvrakTipleri.cs" />
+    <Compile Include="Models\CariHareketleri.cs" />
+    <Compile Include="Models\CariHesapBorcAlacak.cs" />
+    <Compile Include="Models\CariHesaplari.cs" />
+    <Compile Include="Models\CariOdemeTipleri.cs" />
+    <Compile Include="Models\CR_AracEkSoru.cs" />
+    <Compile Include="Models\CR_AracGrup.cs" />
+    <Compile Include="Models\CR_IlIlce.cs" />
+    <Compile Include="Models\CR_KaskoAMS.cs" />
+    <Compile Include="Models\CR_KaskoDM.cs" />
+    <Compile Include="Models\CR_KaskoFK.cs" />
+    <Compile Include="Models\Cr_KaskoHukuksalKoruma.cs" />
+    <Compile Include="Models\CR_KaskoIkameTuru.cs" />
+    <Compile Include="Models\CR_KaskoIMM.cs" />
+    <Compile Include="Models\CR_KrediHayatCarpan.cs" />
+    <Compile Include="Models\CR_KullanimTarzi.cs" />
+    <Compile Include="Models\CR_MeslekIndirimiKasko.cs" />
+    <Compile Include="Models\CR_TUMMusteri.cs" />
+    <Compile Include="Models\CR_Ulke.cs" />
+    <Compile Include="Models\C_AracListesiAraTable.cs" />
+    <Compile Include="Models\DaskBelde.cs" />
+    <Compile Include="Models\DaskIl.cs" />
+    <Compile Include="Models\DaskIlce.cs" />
+    <Compile Include="Models\DaskKurumlar.cs" />
+    <Compile Include="Models\DaskSubeler.cs" />
+    <Compile Include="Models\database_firewall_rules.cs" />
+    <Compile Include="Models\DepremMuafiyet.cs" />
+    <Compile Include="Models\DigerUlkeOranlari.cs" />
+    <Compile Include="Models\Dil.cs" />
+    <Compile Include="Models\DilAciklama.cs" />
+    <Compile Include="Models\DokumanTurleri.cs" />
+    <Compile Include="Models\El2Garanti_HesapCetveli.cs" />
+    <Compile Include="Models\ErgoIlIlce.cs" />
+    <Compile Include="Models\HasarAnlasmaliServisler.cs" />
+    <Compile Include="Models\HasarAsistansFirmalari.cs" />
+    <Compile Include="Models\HasarBankaHesaplari.cs" />
+    <Compile Include="Models\HasarEksperIslemleri.cs" />
+    <Compile Include="Models\HasarEksperListesi.cs" />
+    <Compile Include="Models\HasarGenelBilgiler.cs" />
+    <Compile Include="Models\HasarIletisimYetkilileri.cs" />
+    <Compile Include="Models\HasarNotlari.cs" />
+    <Compile Include="Models\HasarZorunluEvraklari.cs" />
+    <Compile Include="Models\HasarZorunluEvrakListesi.cs" />
+    <Compile Include="Models\HDIKaskoHukuksalKorumaBedelleri.cs" />
+    <Compile Include="Models\IsTakip.cs" />
+    <Compile Include="Models\IsTakipDetay.cs" />
+    <Compile Include="Models\IsTakipDokuman.cs" />
+    <Compile Include="Models\IsTakipIsTipleri.cs" />
+    <Compile Include="Models\IsTakipIsTipleriDetay.cs" />
+    <Compile Include="Models\IsTakipKullaniciGrupKullanicilari.cs" />
+    <Compile Include="Models\IsTakipKullaniciGruplari.cs" />
+    <Compile Include="Models\IsTakipSoru.cs" />
+    <Compile Include="Models\Istigal.cs" />
+    <Compile Include="Models\IsTipleri.cs" />
+    <Compile Include="Models\KaskoDM.cs" />
+    <Compile Include="Models\KaskoFK.cs" />
+    <Compile Include="Models\KaskoHukuksalKorumaBedel.cs" />
+    <Compile Include="Models\KaskoIMM.cs" />
+    <Compile Include="Models\KaskoTasinanYukKademeleri.cs" />
+    <Compile Include="Models\KaskoYurticiTasiyiciKademeleri.cs" />
+    <Compile Include="Models\Kesintiler.cs" />
+    <Compile Include="Models\KesintiTurleri.cs" />
+    <Compile Include="Models\KimlikNoUret.cs" />
+    <Compile Include="Models\LilyumKartTeminatKullanim.cs" />
+    <Compile Include="Models\LilyumKartTeminatlar.cs" />
+    <Compile Include="Models\MapfreBolgeRaporuIcmal.cs" />
+    <Compile Include="Models\MapfreKullanici.cs" />
+    <Compile Include="Models\Mapping\AllianzPoliceSilincekMap.cs" />
+    <Compile Include="Models\Mapping\AnadoluKullanimTipSekilMap.cs" />
+    <Compile Include="Models\Mapping\AracMarkaTestMap.cs" />
+    <Compile Include="Models\Mapping\AracMarkaYedekMap.cs" />
+    <Compile Include="Models\Mapping\AracModelTestMap.cs" />
+    <Compile Include="Models\Mapping\AracModelYedekMap.cs" />
+    <Compile Include="Models\Mapping\AracTipTestMap.cs" />
+    <Compile Include="Models\Mapping\AracTipYedekMap.cs" />
+    <Compile Include="Models\Mapping\AtananIsDokumanlarMap.cs" />
+    <Compile Include="Models\Mapping\AtananIslerMap.cs" />
+    <Compile Include="Models\Mapping\AtananIsLogMap.cs" />
+    <Compile Include="Models\Mapping\AtananIsNotlarMap.cs" />
+    <Compile Include="Models\Mapping\AutoPoliceTransferMap.cs" />
+    <Compile Include="Models\Mapping\BankaSubeleriMap.cs" />
+    <Compile Include="Models\Mapping\BelediyeIlMap.cs" />
+    <Compile Include="Models\Mapping\BelediyeMap.cs" />
+    <Compile Include="Models\Mapping\BransUrunMap.cs" />
+    <Compile Include="Models\Mapping\CariAktarimLogMap.cs" />
+    <Compile Include="Models\Mapping\CariEvrakTipleriMap.cs" />
+    <Compile Include="Models\Mapping\CariHareketleriMap.cs" />
+    <Compile Include="Models\Mapping\CariHesapBorcAlacakMap.cs" />
+    <Compile Include="Models\Mapping\CariHesaplariMap.cs" />
+    <Compile Include="Models\Mapping\CariOdemeTipleriMap.cs" />
+    <Compile Include="Models\Mapping\CR_AracEkSoruMap.cs" />
+    <Compile Include="Models\Mapping\CR_AracGrupMap.cs" />
+    <Compile Include="Models\Mapping\CR_KaskoAMSMap.cs" />
+    <Compile Include="Models\Mapping\CR_KaskoDMMap.cs" />
+    <Compile Include="Models\Mapping\CR_KaskoFKMap.cs" />
+    <Compile Include="Models\Mapping\Cr_KaskoHukuksalKorumaMap.cs" />
+    <Compile Include="Models\Mapping\CR_KaskoIkameTuruMap.cs" />
+    <Compile Include="Models\Mapping\CR_KaskoIMMMap.cs" />
+    <Compile Include="Models\Mapping\CR_KrediHayatCarpanMap.cs" />
+    <Compile Include="Models\Mapping\CR_MeslekIndirimiKaskoMap.cs" />
+    <Compile Include="Models\Mapping\CR_TUMMusteriMap.cs" />
+    <Compile Include="Models\Mapping\CR_UlkeMap.cs" />
+    <Compile Include="Models\Mapping\C_AracListesiAraTableMap.cs" />
+    <Compile Include="Models\Mapping\DaskBeldeMap.cs" />
+    <Compile Include="Models\Mapping\DaskIlceMap.cs" />
+    <Compile Include="Models\Mapping\DaskIlMap.cs" />
+    <Compile Include="Models\Mapping\DaskKurumlarMap.cs" />
+    <Compile Include="Models\Mapping\DaskSubelerMap.cs" />
+    <Compile Include="Models\Mapping\database_firewall_rulesMap.cs" />
+    <Compile Include="Models\Mapping\DepremMuafiyetMap.cs" />
+    <Compile Include="Models\Mapping\DigerUlkeOranlariMap.cs" />
+    <Compile Include="Models\Mapping\DilAciklamaMap.cs" />
+    <Compile Include="Models\Mapping\DilMap.cs" />
+    <Compile Include="Models\Mapping\DokumanTurleriMap.cs" />
+    <Compile Include="Models\Mapping\El2Garanti_HesapCetveliMap.cs" />
+    <Compile Include="Models\Mapping\ErgoIlIlceMap.cs" />
+    <Compile Include="Models\Mapping\HasarAnlasmaliServislerMap.cs" />
+    <Compile Include="Models\Mapping\HasarAsistansFirmalariMap.cs" />
+    <Compile Include="Models\Mapping\HasarBankaHesaplariMap.cs" />
+    <Compile Include="Models\Mapping\HasarEksperIslemleriMap.cs" />
+    <Compile Include="Models\Mapping\HasarEksperListesiMap.cs" />
+    <Compile Include="Models\Mapping\HasarGenelBilgilerMap.cs" />
+    <Compile Include="Models\Mapping\HasarIletisimYetkilileriMap.cs" />
+    <Compile Include="Models\Mapping\HasarNotlariMap.cs" />
+    <Compile Include="Models\Mapping\HasarZorunluEvraklariMap.cs" />
+    <Compile Include="Models\Mapping\HasarZorunluEvrakListesiMap.cs" />
+    <Compile Include="Models\Mapping\HDIKaskoHukuksalKorumaBedelleriMap.cs" />
+    <Compile Include="Models\Mapping\IsTakipDetayMap.cs" />
+    <Compile Include="Models\Mapping\IsTakipDokumanMap.cs" />
+    <Compile Include="Models\Mapping\IsTakipIsTipleriDetayMap.cs" />
+    <Compile Include="Models\Mapping\IsTakipIsTipleriMap.cs" />
+    <Compile Include="Models\Mapping\IsTakipKullaniciGrupKullanicilariMap.cs" />
+    <Compile Include="Models\Mapping\IsTakipKullaniciGruplariMap.cs" />
+    <Compile Include="Models\Mapping\IsTakipMap.cs" />
+    <Compile Include="Models\Mapping\IsTakipSoruMap.cs" />
+    <Compile Include="Models\Mapping\IstigalMap.cs" />
+    <Compile Include="Models\Mapping\IsTipleriMap.cs" />
+    <Compile Include="Models\Mapping\KaskoDMMap.cs" />
+    <Compile Include="Models\Mapping\KaskoFKMap.cs" />
+    <Compile Include="Models\Mapping\KaskoHukuksalKorumaBedelMap.cs" />
+    <Compile Include="Models\Mapping\KaskoIMMMap.cs" />
+    <Compile Include="Models\Mapping\KaskoTasinanYukKademeleriMap.cs" />
+    <Compile Include="Models\Mapping\KaskoYurticiTasiyiciKademeleriMap.cs" />
+    <Compile Include="Models\Mapping\KesintilerMap.cs" />
+    <Compile Include="Models\Mapping\KesintiTurleriMap.cs" />
+    <Compile Include="Models\Mapping\KimlikNoUretMap.cs" />
+    <Compile Include="Models\Mapping\LilyumKartTeminatKullanimMap.cs" />
+    <Compile Include="Models\Mapping\LilyumKartTeminatlarMap.cs" />
+    <Compile Include="Models\Mapping\MapfreBolgeRaporuIcmalMap.cs" />
+    <Compile Include="Models\Mapping\MapfreKullaniciMap.cs" />
+    <Compile Include="Models\Mapping\MeslekIndirimiKaskoMap.cs" />
+    <Compile Include="Models\Mapping\MuhasebeAktarimKonfigurasyonMap.cs" />
+    <Compile Include="Models\Mapping\NeoConnectLogMap.cs" />
+    <Compile Include="Models\Mapping\NeoConnectMerkezProxyKullanicilariMap.cs" />
+    <Compile Include="Models\Mapping\NeoConnectPoliceDetayMap.cs" />
+    <Compile Include="Models\Mapping\NeoConnectSirketDetayMap.cs" />
+    <Compile Include="Models\Mapping\NeoConnectSirketGrupKullaniciDetayMap.cs" />
+    <Compile Include="Models\Mapping\NeoConnectTvmSirketYetkileriMap.cs" />
+    <Compile Include="Models\Mapping\NeoConnectYasakliUrllerMap.cs" />
+    <Compile Include="Models\Mapping\NeoConnetVersiyonNoMap.cs" />
+    <Compile Include="Models\Mapping\OfflinePoliceNumaraMap.cs" />
+    <Compile Include="Models\Mapping\OfflinePolouseMap.cs" />
+    <Compile Include="Models\Mapping\OtoLoginSigortaSirketKullanicilarMap.cs" />
+    <Compile Include="Models\Mapping\ParaBirimleriMap.cs" />
+    <Compile Include="Models\Mapping\PaylasimliPoliceUretimMap.cs" />
+    <Compile Include="Models\Mapping\PoliceAracMap.cs" />
+    <Compile Include="Models\Mapping\TeklifDokumanMap.cs" />
+    <Compile Include="Models\Mapping\PoliceGenelMap.cs" />
+    <Compile Include="Models\Mapping\PoliceOdemePlaniMap.cs" />
+    <Compile Include="Models\Mapping\PoliceRizikoAdresiMap.cs" />
+    <Compile Include="Models\Mapping\PoliceSigortaEttirenMap.cs" />
+    <Compile Include="Models\Mapping\PoliceSigortaliMap.cs" />
+    <Compile Include="Models\Mapping\PoliceTahsilatMap.cs" />
+    <Compile Include="Models\Mapping\PoliceTaliAcentelerMap.cs" />
+    <Compile Include="Models\Mapping\PoliceTaliAcenteRaporMap.cs" />
+    <Compile Include="Models\Mapping\PoliceTransferReaderKullanicilariMap.cs" />
+    <Compile Include="Models\Mapping\PoliceUretimHedefGerceklesenMap.cs" />
+    <Compile Include="Models\Mapping\PoliceUretimHedefPlanlananMap.cs" />
+    <Compile Include="Models\Mapping\PoliceVergiMap.cs" />
+    <Compile Include="Models\Mapping\PotansiyelMusteriAdreMap.cs" />
+    <Compile Include="Models\Mapping\PotansiyelMusteriDokumanMap.cs" />
+    <Compile Include="Models\Mapping\PotansiyelMusteriGenelBilgilerMap.cs" />
+    <Compile Include="Models\Mapping\PotansiyelMusteriNotMap.cs" />
+    <Compile Include="Models\Mapping\PotansiyelMusteriTelefonMap.cs" />
+    <Compile Include="Models\Mapping\RaporMapfreBolgeMap.cs" />
+    <Compile Include="Models\Mapping\PoliceDokumanMap.cs" />
+    <Compile Include="Models\Mapping\ReasurorGenelMap.cs" />
+    <Compile Include="Models\Mapping\SaglikBolgeleriMap.cs" />
+    <Compile Include="Models\Mapping\SaglikTeminatPrimleriMap.cs" />
+    <Compile Include="Models\Mapping\SaglikTeminatTipleriMap.cs" />
+    <Compile Include="Models\Mapping\SchengenUlkeOranlariMap.cs" />
+    <Compile Include="Models\Mapping\script_deploymentsMap.cs" />
+    <Compile Include="Models\Mapping\script_deployment_statusMap.cs" />
+    <Compile Include="Models\Mapping\SirketGrupKullaniciDetayMap.cs" />
+    <Compile Include="Models\Mapping\TableMap.cs" />
+    <Compile Include="Models\Mapping\TalepKanallariMap.cs" />
+    <Compile Include="Models\Mapping\TaliAcenteKomisyonOraniMap.cs" />
+    <Compile Include="Models\Mapping\TeklifAracEkSoruMap.cs" />
+    <Compile Include="Models\Mapping\TeklifDigerSirketlerMap.cs" />
+    <Compile Include="Models\Mapping\TeklifEMailLogMap.cs" />
+    <Compile Include="Models\Mapping\TeklifNoMapfreMap.cs" />
+    <Compile Include="Models\Mapping\TeklifNotMap.cs" />
+    <Compile Include="Models\Mapping\TeklifProvizyonMap.cs" />
+    <Compile Include="Models\Mapping\TrafikFKMap.cs" />
+    <Compile Include="Models\Mapping\TrafikIMMMap.cs" />
+    <Compile Include="Models\Mapping\TVMKullaniciSifremiUnuttumMap.cs" />
+    <Compile Include="Models\Mapping\TVMSMSKullaniciBilgiMap.cs" />
+    <Compile Include="Models\Mapping\TVMWebServisKullanicilariMap.cs" />
+    <Compile Include="Models\Mapping\TVMYetkiGrupSablonuMap.cs" />
+    <Compile Include="Models\Mapping\TVMYetkiGrupYetkileri_tempMap.cs" />
+    <Compile Include="Models\Mapping\UlkeKodlariMap.cs" />
+    <Compile Include="Models\Mapping\UnderwritersMap.cs" />
+    <Compile Include="Models\Mapping\UnicoIlIlceMap.cs" />
+    <Compile Include="Models\Mapping\UrunParametreleriMap.cs" />
+    <Compile Include="Models\Mapping\X_AracDegerAraTableMap.cs" />
+    <Compile Include="Models\Mapping\X_AracListesiAraTableMap.cs" />
+    <Compile Include="Models\Mapping\X_XMLAraTableMap.cs" />
+    <Compile Include="Models\Mapping\YZ_BelediyeNufusMap.cs" />
+    <Compile Include="Models\Mapping\YZ_BuyuksehirNufusMap.cs" />
+    <Compile Include="Models\Mapping\YZ_IlceKoordinatMap.cs" />
+    <Compile Include="Models\Mapping\YZ_IlceNufusMap.cs" />
+    <Compile Include="Models\Mapping\YZ_IlceYuzolcumMap.cs" />
+    <Compile Include="Models\Mapping\YZ_IlKoordinatMap.cs" />
+    <Compile Include="Models\Mapping\YZ_IlNufusMap.cs" />
+    <Compile Include="Models\Mapping\YZ_IlYuzolcumMap.cs" />
+    <Compile Include="Models\Mapping\YZ_KoyKoordinatMap.cs" />
+    <Compile Include="Models\Mapping\YZ_KoyNufusMap.cs" />
+    <Compile Include="Models\Mapping\YZ_MahalleKoordinatMap.cs" />
+    <Compile Include="Models\Mapping\YZ_MahalleNufusMap.cs" />
+    <Compile Include="Models\Mapping\ZMarkaMap.cs" />
+    <Compile Include="Models\Mapping\ZMarkaTipMap.cs" />
+    <Compile Include="Models\Mapping\zTVMDetayMap.cs" />
+    <Compile Include="Models\Mapping\ZTVMUrunYetkileriMap.cs" />
+    <Compile Include="Models\Mapping\ZzzPolicelerMap.cs" />
+    <Compile Include="Models\Mapping\Z_2014TeklifAracEkSoruMap.cs" />
+    <Compile Include="Models\Mapping\Z_2014TeklifAracMap.cs" />
+    <Compile Include="Models\Mapping\Z_2014TeklifGenelMap.cs" />
+    <Compile Include="Models\Mapping\Z_2014TeklifNotMap.cs" />
+    <Compile Include="Models\Mapping\Z_2014TeklifOdemePlaniMap.cs" />
+    <Compile Include="Models\Mapping\Z_2014TeklifSigortaEttirenMap.cs" />
+    <Compile Include="Models\Mapping\Z_2014TeklifSigortaliMap.cs" />
+    <Compile Include="Models\Mapping\Z_2014TeklifSoruMap.cs" />
+    <Compile Include="Models\Mapping\Z_2014TeklifTeminatMap.cs" />
+    <Compile Include="Models\Mapping\Z_2014TeklifVergiMap.cs" />
+    <Compile Include="Models\Mapping\Z_Aegon_MusteriGenelBilgilerMap.cs" />
+    <Compile Include="Models\Mapping\Z_Aegon_TeklifGenelMap.cs" />
+    <Compile Include="Models\Mapping\Z_Aegon_TeklifOdemePlaniMap.cs" />
+    <Compile Include="Models\Mapping\Z_Aegon_TeklifSoruMap.cs" />
+    <Compile Include="Models\Mapping\Z_Karsilastirmali_MusteriGenelBilgilerMap.cs" />
+    <Compile Include="Models\Mapping\Z_Karsilastirmali_TeklifAracMap.cs" />
+    <Compile Include="Models\Mapping\Z_Karsilastirmali_TeklifGenelMap.cs" />
+    <Compile Include="Models\Mapping\Z_Karsilastirmali_TVMDetayMap.cs" />
+    <Compile Include="Models\Mapping\z_mapfre_markaMap.cs" />
+    <Compile Include="Models\Mapping\z_mapfre_tipMap.cs" />
+    <Compile Include="Models\MeslekIndirimiKasko.cs" />
+    <Compile Include="Models\MuhasebeAktarimKonfigurasyon.cs" />
+    <Compile Include="Models\MuhasebeModel.cs" />
+    <Compile Include="Models\NeoConnectLog.cs" />
+    <Compile Include="Models\NeoConnectMerkezProxyKullanicilari.cs" />
+    <Compile Include="Models\NeoConnectPoliceDetay.cs" />
+    <Compile Include="Models\NeoConnectSirketDetay.cs" />
+    <Compile Include="Models\NeoConnectSirketGrupKullaniciDetay.cs" />
+    <Compile Include="Models\NeoConnectTvmSirketYetkileri.cs" />
+    <Compile Include="Models\NeoConnectYasakliUrller.cs" />
+    <Compile Include="Models\NeoConnetVersiyonNo.cs" />
+    <Compile Include="Models\OfflinePoliceNumara.cs" />
+    <Compile Include="Models\OfflinePolouse.cs" />
+    <Compile Include="Models\OtoLoginSigortaSirketKullanicilar.cs" />
+    <Compile Include="Models\ParaBirimleri.cs" />
+    <Compile Include="Models\PaylasimliPoliceUretim.cs" />
+    <Compile Include="Models\PoliceArac.cs" />
+    <Compile Include="Models\TeklifDokuman.cs" />
+    <Compile Include="Models\PoliceGenel.cs" />
+    <Compile Include="Models\PoliceOdemePlani.cs" />
+    <Compile Include="Models\PoliceRizikoAdresi.cs" />
+    <Compile Include="Models\PoliceSigortaEttiren.cs" />
+    <Compile Include="Models\PoliceSigortali.cs" />
+    <Compile Include="Models\PoliceTahsilat.cs" />
+    <Compile Include="Models\PoliceTaliAcenteler.cs" />
+    <Compile Include="Models\PoliceTaliAcenteRapor.cs" />
+    <Compile Include="Models\PoliceTransferReaderKullanicilari.cs" />
+    <Compile Include="Models\PoliceUretimHedefGerceklesen.cs" />
+    <Compile Include="Models\PoliceUretimHedefPlanlanan.cs" />
+    <Compile Include="Models\PoliceVergi.cs" />
+    <Compile Include="Models\PotansiyelMusteriAdre.cs" />
+    <Compile Include="Models\PotansiyelMusteriDokuman.cs" />
+    <Compile Include="Models\PotansiyelMusteriGenelBilgiler.cs" />
+    <Compile Include="Models\PotansiyelMusteriNot.cs" />
+    <Compile Include="Models\PotansiyelMusteriTelefon.cs" />
+    <Compile Include="Models\RaporMapfreBolge.cs" />
+    <Compile Include="Models\PoliceDokuman.cs" />
+    <Compile Include="Models\ReasurorGenel.cs" />
+    <Compile Include="Models\SaglikBolgeleri.cs" />
+    <Compile Include="Models\SaglikTeminatPrimleri.cs" />
+    <Compile Include="Models\SaglikTeminatTipleri.cs" />
+    <Compile Include="Models\SchengenUlkeOranlari.cs" />
+    <Compile Include="Models\script_deployments.cs" />
+    <Compile Include="Models\script_deployment_status.cs" />
+    <Compile Include="Models\SirketGrupKullaniciDetay.cs" />
+    <Compile Include="Models\Table.cs" />
+    <Compile Include="Models\TalepKanallari.cs" />
+    <Compile Include="Models\TaliAcenteKomisyonOrani.cs" />
+    <Compile Include="Models\TeklifAracEkSoru.cs" />
+    <Compile Include="Models\TeklifDigerSirketler.cs" />
+    <Compile Include="Models\TeklifEMailLog.cs" />
+    <Compile Include="Models\TeklifNoMapfre.cs" />
+    <Compile Include="Models\TeklifNot.cs" />
+    <Compile Include="Models\TeklifProvizyon.cs" />
+    <Compile Include="Models\TrafikFK.cs" />
+    <Compile Include="Models\TrafikIMM.cs" />
+    <Compile Include="Models\TVMKullaniciSifremiUnuttum.cs" />
+    <Compile Include="Models\TVMSMSKullaniciBilgi.cs" />
+    <Compile Include="Models\TVMWebServisKullanicilari.cs" />
+    <Compile Include="Models\TVMYetkiGrupSablonu.cs" />
+    <Compile Include="Models\TVMYetkiGrupYetkileri_temp.cs" />
+    <Compile Include="Models\TVM_APY.cs" />
+    <Compile Include="Models\UlkeKodlari.cs" />
+    <Compile Include="Models\Underwriters.cs" />
+    <Compile Include="Models\UnicoIlIlce.cs" />
+    <Compile Include="Models\UrunParametreleri.cs" />
+    <Compile Include="Models\X_AracDegerAraTable.cs" />
+    <Compile Include="Models\X_AracListesiAraTable.cs" />
+    <Compile Include="Models\X_XMLAraTable.cs" />
+    <Compile Include="Models\YZ_BelediyeNufus.cs" />
+    <Compile Include="Models\YZ_BuyuksehirNufus.cs" />
+    <Compile Include="Models\YZ_IlceKoordinat.cs" />
+    <Compile Include="Models\YZ_IlceNufus.cs" />
+    <Compile Include="Models\YZ_IlceYuzolcum.cs" />
+    <Compile Include="Models\YZ_IlKoordinat.cs" />
+    <Compile Include="Models\YZ_IlNufus.cs" />
+    <Compile Include="Models\YZ_IlYozolcum.cs" />
+    <Compile Include="Models\YZ_KoyKoordinat.cs" />
+    <Compile Include="Models\YZ_KoyNufus.cs" />
+    <Compile Include="Models\YZ_MahalleKoordinat.cs" />
+    <Compile Include="Models\YZ_MahalleNufus.cs" />
+    <Compile Include="Models\ZMarka.cs" />
+    <Compile Include="Models\ZMarkaTip.cs" />
+    <Compile Include="Models\zTVMDetay.cs" />
+    <Compile Include="Models\ZTVMUrunYetkileri.cs" />
+    <Compile Include="Models\ZzzPoliceler.cs" />
+    <Compile Include="Models\Z_2014TeklifArac.cs" />
+    <Compile Include="Models\Z_2014TeklifAracEkSoru.cs" />
+    <Compile Include="Models\Z_2014TeklifGenel.cs" />
+    <Compile Include="Models\Z_2014TeklifNot.cs" />
+    <Compile Include="Models\Z_2014TeklifOdemePlani.cs" />
+    <Compile Include="Models\Z_2014TeklifSigortaEttiren.cs" />
+    <Compile Include="Models\Z_2014TeklifSigortali.cs" />
+    <Compile Include="Models\Z_2014TeklifSoru.cs" />
+    <Compile Include="Models\Z_2014TeklifTeminat.cs" />
+    <Compile Include="Models\Z_2014TeklifVergi.cs" />
+    <Compile Include="Models\Z_Aegon_MusteriGenelBilgiler.cs" />
+    <Compile Include="Models\Z_Aegon_TeklifGenel.cs" />
+    <Compile Include="Models\Z_Aegon_TeklifOdemePlani.cs" />
+    <Compile Include="Models\Z_Aegon_TeklifSoru.cs" />
+    <Compile Include="Models\Z_Karsilastirmali_MusteriGenelBilgiler.cs" />
+    <Compile Include="Models\Z_Karsilastirmali_TeklifArac.cs" />
+    <Compile Include="Models\Z_Karsilastirmali_TeklifGenel.cs" />
+    <Compile Include="Models\Z_Karsilastirmali_TVMDetay.cs" />
+    <Compile Include="Models\z_mapfre_marka.cs" />
+    <Compile Include="Models\z_mapfre_tip.cs" />
+    <Compile Include="Repository\AnadoluKullanimTipSekilRepository.cs" />
+    <Compile Include="Repository\AtananIsDokumanlarRepository.cs" />
+    <Compile Include="Repository\AtananIslerRepository.cs" />
+    <Compile Include="Repository\AtananIsLogRepository.cs" />
+    <Compile Include="Repository\AtananIsNotlarRepository.cs" />
+    <Compile Include="Repository\AutoPoliceTransferRepository.cs" />
+    <Compile Include="Repository\BankaSubeleriRepository.cs" />
+    <Compile Include="Repository\BelediyeIlRepository.cs" />
+    <Compile Include="Repository\BelediyeRepository.cs" />
+    <Compile Include="Repository\BransUrunRepository.cs" />
+    <Compile Include="Repository\CariAktarimLogRepository.cs" />
+    <Compile Include="Repository\CariEvrakTipleriRepository.cs" />
+    <Compile Include="Repository\CariHareketleriRepository.cs" />
+    <Compile Include="Repository\CariHesapBorcAlacakRepository.cs" />
+    <Compile Include="Repository\CariHesaplariRepository.cs" />
+    <Compile Include="Repository\CariOdemeTipleriRepository.cs" />
+    <Compile Include="Repository\CR_AracEkSoruRepository.cs" />
+    <Compile Include="Repository\CR_AracGrupRepository.cs" />
+    <Compile Include="Repository\CR_KaskoAMSRepository.cs" />
+    <Compile Include="Repository\CR_KaskoDMRepository.cs" />
+    <Compile Include="Repository\CR_KaskoFKRepository.cs" />
+    <Compile Include="Repository\Cr_KaskoHukuksalKorumaRepository.cs" />
+    <Compile Include="Repository\CR_KaskoIkameTuruRepository.cs" />
+    <Compile Include="Repository\CR_KaskoIMMRepository.cs" />
+    <Compile Include="Repository\CR_KrediHayatCarpan.cs" />
+    <Compile Include="Repository\CR_KullanimTarziRepository.cs" />
+    <Compile Include="Models\CR_TescilIlIlce.cs" />
+    <Compile Include="Models\CR_TrafikFK.cs" />
+    <Compile Include="Models\CR_TrafikIMM.cs" />
+    <Compile Include="Models\DuyuruDokuman.cs" />
+    <Compile Include="Models\Duyurular.cs" />
+    <Compile Include="Models\DuyuruTVM.cs" />
+    <Compile Include="Models\EPostaFormatlari.cs" />
+    <Compile Include="Models\GenelTanimlar.cs" />
+    <Compile Include="Models\Il.cs" />
+    <Compile Include="Models\Ilce.cs" />
+    <Compile Include="Models\IsDurum.cs" />
+    <Compile Include="Models\IsDurumDetay.cs" />
+    <Compile Include="Models\Konfigurasyon.cs" />
+    <Compile Include="Models\Mapping\AltMenuMap.cs" />
+    <Compile Include="Models\Mapping\AltMenuSekmeMap.cs" />
+    <Compile Include="Models\Mapping\AnaMenuMap.cs" />
+    <Compile Include="Models\Mapping\AracKullanimSekliMap.cs" />
+    <Compile Include="Models\Mapping\AracKullanimTarziMap.cs" />
+    <Compile Include="Models\Mapping\AracMarkaMap.cs" />
+    <Compile Include="Models\Mapping\AracModelMap.cs" />
+    <Compile Include="Models\Mapping\AracTipMap.cs" />
+    <Compile Include="Models\Mapping\AracTrafikTeminatMap.cs" />
+    <Compile Include="Models\Mapping\BranMap.cs" />
+    <Compile Include="Models\Mapping\CR_IlIlceMap.cs" />
+    <Compile Include="Models\Mapping\CR_KullanimTarziMap.cs" />
+    <Compile Include="Models\Mapping\CR_TescilIlIlceMap.cs" />
+    <Compile Include="Models\Mapping\CR_TrafikFKMap.cs" />
+    <Compile Include="Models\Mapping\CR_TrafikIMMMap.cs" />
+    <Compile Include="Models\Mapping\DuyuruDokumanMap.cs" />
+    <Compile Include="Models\Mapping\DuyurularMap.cs" />
+    <Compile Include="Models\Mapping\DuyuruTVMMap.cs" />
+    <Compile Include="Models\Mapping\EPostaFormatlariMap.cs" />
+    <Compile Include="Models\Mapping\GenelTanimlarMap.cs" />
+    <Compile Include="Models\Mapping\IlceMap.cs" />
+    <Compile Include="Models\Mapping\IlMap.cs" />
+    <Compile Include="Models\Mapping\IsDurumDetayMap.cs" />
+    <Compile Include="Models\Mapping\IsDurumMap.cs" />
+    <Compile Include="Models\Mapping\KonfigurasyonMap.cs" />
+    <Compile Include="Models\Mapping\MenuIslemMap.cs" />
+    <Compile Include="Models\Mapping\MeslekMap.cs" />
+    <Compile Include="Models\Mapping\MusteriAdreMap.cs" />
+    <Compile Include="Models\Mapping\MusteriDokumanMap.cs" />
+    <Compile Include="Models\Mapping\MusteriGenelBilgilerMap.cs" />
+    <Compile Include="Models\Mapping\MusteriNotMap.cs" />
+    <Compile Include="Models\Mapping\MusteriTelefonMap.cs" />
+    <Compile Include="Models\Mapping\SigortaSirketleriMap.cs" />
+    <Compile Include="Models\Mapping\SoruMap.cs" />
+    <Compile Include="Models\Mapping\TCKNMap.cs" />
+    <Compile Include="Models\Mapping\TeklifAracMap.cs" />
+    <Compile Include="Models\Mapping\TeklifGenelMap.cs" />
+    <Compile Include="Models\Mapping\TeklifNoSayacMap.cs" />
+    <Compile Include="Models\Mapping\TeklifOdemePlaniMap.cs" />
+    <Compile Include="Models\Mapping\TeklifRizikoAdresiMap.cs" />
+    <Compile Include="Models\Mapping\TeklifSigortaEttirenMap.cs" />
+    <Compile Include="Models\Mapping\TeklifSigortaliMap.cs" />
+    <Compile Include="Models\Mapping\TeklifSoruMap.cs" />
+    <Compile Include="Models\Mapping\TeklifTeminatMap.cs" />
+    <Compile Include="Models\Mapping\TeklifVergiMap.cs" />
+    <Compile Include="Models\Mapping\TeklifWebServisCevapMap.cs" />
+    <Compile Include="Models\Mapping\TeminatMap.cs" />
+    <Compile Include="Models\Mapping\TUMBankaHesaplariMap.cs" />
+    <Compile Include="Models\Mapping\TUMDetayMap.cs" />
+    <Compile Include="Models\Mapping\TUMDokumanlarMap.cs" />
+    <Compile Include="Models\Mapping\TUMDurumTarihcesiMap.cs" />
+    <Compile Include="Models\Mapping\TUMIletisimYetkilileriMap.cs" />
+    <Compile Include="Models\Mapping\TUMIPBaglantiMap.cs" />
+    <Compile Include="Models\Mapping\TUMNotlarMap.cs" />
+    <Compile Include="Models\Mapping\TUMUrunleriMap.cs" />
+    <Compile Include="Models\Mapping\TVMAcentelikleriMap.cs" />
+    <Compile Include="Models\Mapping\TVMBankaHesaplariMap.cs" />
+    <Compile Include="Models\Mapping\TVMBolgeleriMap.cs" />
+    <Compile Include="Models\Mapping\TVMDepartmanlarMap.cs" />
+    <Compile Include="Models\Mapping\TVMDetayMap.cs" />
+    <Compile Include="Models\Mapping\TVMDokumanlarMap.cs" />
+    <Compile Include="Models\Mapping\TVMDurumTarihcesiMap.cs" />
+    <Compile Include="Models\Mapping\TVMIletisimYetkilileriMap.cs" />
+    <Compile Include="Models\Mapping\TVMIPBaglantiMap.cs" />
+    <Compile Include="Models\Mapping\TVMKullaniciAtamaMap.cs" />
+    <Compile Include="Models\Mapping\TVMKullaniciDurumTarihcesiMap.cs" />
+    <Compile Include="Models\Mapping\TVMKullanicilarMap.cs" />
+    <Compile Include="Models\Mapping\TVMKullaniciNotlarMap.cs" />
+    <Compile Include="Models\Mapping\TVMKullaniciSifreTarihcesiMap.cs" />
+    <Compile Include="Models\Mapping\TVMNotlarMap.cs" />
+    <Compile Include="Models\Mapping\TVMUrunYetkileriMap.cs" />
+    <Compile Include="Models\Mapping\TVMYetkiGruplariMap.cs" />
+    <Compile Include="Models\Mapping\TVMYetkiGrupYetkileriMap.cs" />
+    <Compile Include="Models\Mapping\UlkeMap.cs" />
+    <Compile Include="Models\Mapping\UrunMap.cs" />
+    <Compile Include="Models\Mapping\UrunSoruMap.cs" />
+    <Compile Include="Models\Mapping\UrunTeminatMap.cs" />
+    <Compile Include="Models\Mapping\UrunVergiMap.cs" />
+    <Compile Include="Models\Mapping\UserProfileMap.cs" />
+    <Compile Include="Models\Mapping\VergiMap.cs" />
+    <Compile Include="Models\Mapping\VKNMap.cs" />
+    <Compile Include="Models\Mapping\WebServisCevapMap.cs" />
+    <Compile Include="Models\Mapping\WEBServisLogMap.cs" />
+    <Compile Include="Models\Mapping\X_AracDegerListesiMap.cs" />
+    <Compile Include="Models\Mapping\YKNMap.cs" />
+    <Compile Include="Models\MenuIslem.cs" />
+    <Compile Include="Models\Meslek.cs" />
+    <Compile Include="Models\MusteriAdre.cs" />
+    <Compile Include="Models\MusteriDokuman.cs" />
+    <Compile Include="Models\MusteriGenelBilgiler.cs" />
+    <Compile Include="Models\MusteriNot.cs" />
+    <Compile Include="Models\MusteriTelefon.cs" />
+    <Compile Include="Models\SigortaSirketleri.cs" />
+    <Compile Include="Models\Soru.cs" />
+    <Compile Include="Models\TCKN.cs" />
+    <Compile Include="Models\TeklifArac.cs" />
+    <Compile Include="Models\TeklifGenel.cs" />
+    <Compile Include="Models\TeklifNoSayac.cs" />
+    <Compile Include="Models\TeklifOdemePlani.cs" />
+    <Compile Include="Models\TeklifRizikoAdresi.cs" />
+    <Compile Include="Models\TeklifSigortaEttiren.cs" />
+    <Compile Include="Models\TeklifSigortali.cs" />
+    <Compile Include="Models\TeklifSoru.cs" />
+    <Compile Include="Models\TeklifTeminat.cs" />
+    <Compile Include="Models\TeklifVergi.cs" />
+    <Compile Include="Models\TeklifWebServisCevap.cs" />
+    <Compile Include="Models\Teminat.cs" />
+    <Compile Include="Models\TUMBankaHesaplari.cs" />
+    <Compile Include="Models\TUMDetay.cs" />
+    <Compile Include="Models\TUMDokumanlar.cs" />
+    <Compile Include="Models\TUMDurumTarihcesi.cs" />
+    <Compile Include="Models\TUMIletisimYetkilileri.cs" />
+    <Compile Include="Models\TUMIPBaglanti.cs" />
+    <Compile Include="Models\TUMNotlar.cs" />
+    <Compile Include="Models\TUMUrunleri.cs" />
+    <Compile Include="Models\TVMAcentelikleri.cs" />
+    <Compile Include="Models\TVMBankaHesaplari.cs" />
+    <Compile Include="Models\TVMBolgeleri.cs" />
+    <Compile Include="Models\TVMDepartmanlar.cs" />
+    <Compile Include="Models\TVMDetay.cs" />
+    <Compile Include="Models\TVMDokumanlar.cs" />
+    <Compile Include="Models\TVMDurumTarihcesi.cs" />
+    <Compile Include="Models\TVMIletisimYetkilileri.cs" />
+    <Compile Include="Models\TVMIPBaglanti.cs" />
+    <Compile Include="Models\TVMKullaniciAtama.cs" />
+    <Compile Include="Models\TVMKullaniciDurumTarihcesi.cs" />
+    <Compile Include="Models\TVMKullanicilar.cs" />
+    <Compile Include="Models\TVMKullaniciNotlar.cs" />
+    <Compile Include="Models\TVMKullaniciSifreTarihcesi.cs" />
+    <Compile Include="Models\TVMNotlar.cs" />
+    <Compile Include="Models\TVMUrunYetkileri.cs" />
+    <Compile Include="Models\TVMYetkiGruplari.cs" />
+    <Compile Include="Models\TVMYetkiGrupYetkileri.cs" />
+    <Compile Include="Models\Ulke.cs" />
+    <Compile Include="Models\Urun.cs" />
+    <Compile Include="Models\UrunSoru.cs" />
+    <Compile Include="Models\UrunTeminat.cs" />
+    <Compile Include="Models\UrunVergi.cs" />
+    <Compile Include="Models\UserProfile.cs" />
+    <Compile Include="Models\Vergi.cs" />
+    <Compile Include="Models\VKN.cs" />
+    <Compile Include="Models\WebServisCevap.cs" />
+    <Compile Include="Models\WEBServisLog.cs" />
+    <Compile Include="Models\X_AracDegerListesi.cs" />
+    <Compile Include="Models\YKN.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AltMenuRepository.cs" />
+    <Compile Include="Repository\AltMenuSekmeRepository.cs" />
+    <Compile Include="Repository\AnaMenuRepository.cs" />
+    <Compile Include="Repository\AracKullanimSekliRepository.cs" />
+    <Compile Include="Repository\AracKullanimTarziRepository.cs" />
+    <Compile Include="Repository\AracMarkaRepository.cs" />
+    <Compile Include="Repository\AracModelRepository.cs" />
+    <Compile Include="Repository\AracTipRepository.cs" />
+    <Compile Include="Repository\AracTrafikTeminatRepository.cs" />
+    <Compile Include="Repository\Base\DbContextFactory.cs" />
+    <Compile Include="Repository\Base\IRepository.cs" />
+    <Compile Include="Repository\Base\Repository.cs" />
+    <Compile Include="Repository\CR_MeslekIndirimiKaskoRepository.cs" />
+    <Compile Include="Repository\CR_TUMMusteriRepository.cs" />
+    <Compile Include="Repository\CR_UlkeRepository.cs" />
+    <Compile Include="Repository\DaskBeldeRepository.cs" />
+    <Compile Include="Repository\DaskIlceRepository.cs" />
+    <Compile Include="Repository\DaskIlRepository.cs" />
+    <Compile Include="Repository\DaskKurumlarRepository.cs" />
+    <Compile Include="Repository\DaskSubelerRepository.cs" />
+    <Compile Include="Repository\DbContext.cs" />
+    <Compile Include="Repository\DepremMuafiyetiRepository.cs" />
+    <Compile Include="Repository\DigerUlkeOranlariRepository.cs" />
+    <Compile Include="Repository\DilAciklamaRepository.cs" />
+    <Compile Include="Repository\DokumanTurleriRepository.cs" />
+    <Compile Include="Repository\DuyuruDokumanRepository.cs" />
+    <Compile Include="Repository\DuyurularRepository.cs" />
+    <Compile Include="Repository\DuyuruTVMRepository.cs" />
+    <Compile Include="Repository\El2Garanti_HesapCetveliRepository.cs" />
+    <Compile Include="Repository\ErgoIlIlceRepository.cs" />
+    <Compile Include="Repository\HasarAnlasmaliServislerRepository.cs" />
+    <Compile Include="Repository\HasarAsistansFirmalariRepository.cs" />
+    <Compile Include="Repository\HasarBankaHesaplariRepository.cs" />
+    <Compile Include="Repository\HasarEksperIslemleriRepository.cs" />
+    <Compile Include="Repository\HasarEksperListesiRepository.cs" />
+    <Compile Include="Repository\HasarGenelBilgilerRepository.cs" />
+    <Compile Include="Repository\HasarIletisimYetkilileriRepository.cs" />
+    <Compile Include="Repository\HasarNotlariRepository.cs" />
+    <Compile Include="Repository\HasarZorunluEvraklariRepository.cs" />
+    <Compile Include="Repository\HasarZorunluEvrakListesiRepository.cs" />
+    <Compile Include="Repository\HDIKaskoHukuksalKorumaBedelleriRepository.cs" />
+    <Compile Include="Repository\IsTakipDetayRepository.cs" />
+    <Compile Include="Repository\IsTakipDokumanRepository.cs" />
+    <Compile Include="Repository\IsTakipIsTipleriDetayRepository.cs" />
+    <Compile Include="Repository\IsTakipIsTipleriRepository.cs" />
+    <Compile Include="Repository\IsTakipKullaniciGrupKullanicilariRepository.cs" />
+    <Compile Include="Repository\IsTakipKullaniciGruplariRepository.cs" />
+    <Compile Include="Repository\IsTakipRepository.cs" />
+    <Compile Include="Repository\IsTakipSoruRepository.cs" />
+    <Compile Include="Repository\IstigalRepository.cs" />
+    <Compile Include="Repository\IsTipleriRepository.cs" />
+    <Compile Include="Repository\KaskoFK.cs" />
+    <Compile Include="Repository\KaskoHukuksalKorumaBedelRepository.cs" />
+    <Compile Include="Repository\KaskoIMM.cs" />
+    <Compile Include="Repository\KaskoTasinanYukKademeleriRepository.cs" />
+    <Compile Include="Repository\KaskoYurticiTasiyiciKademeleriRepository.cs" />
+    <Compile Include="Repository\KesintilerRepository.cs" />
+    <Compile Include="Repository\KesintiTurleriRepository.cs" />
+    <Compile Include="Repository\KimlikNoUretRepository.cs" />
+    <Compile Include="Repository\LilyumKartTeminatKullanimRepository.cs" />
+    <Compile Include="Repository\LilyumKartTeminatlarRepository.cs" />
+    <Compile Include="Repository\MapfreKullaniciRepository.cs" />
+    <Compile Include="Repository\MeslekIndirimiKaskoRepository.cs" />
+    <Compile Include="Repository\MuhasebeAktarimKonfigurasyonRepository.cs" />
+    <Compile Include="Repository\NeoConnectLogRepository.cs" />
+    <Compile Include="Repository\NeoConnectSirketGrupKullaniciDetayRepository.cs" />
+    <Compile Include="Repository\NeoConnectTvmSirketYetkileriRepository.cs" />
+    <Compile Include="Repository\NeoConnectYasakliUrllerRepository.cs" />
+    <Compile Include="Repository\OfflinePolouseRepository.cs" />
+    <Compile Include="Repository\OtoLoginSigortaSirketKullanicilarRepository.cs" />
+    <Compile Include="Repository\ParaBirimleriRepository.cs" />
+    <Compile Include="Repository\PaylasimliPoliceUretimRepository.cs" />
+    <Compile Include="Repository\PoliceAracRepository.cs" />
+    <Compile Include="Repository\TeklifDokumanRepository.cs" />
+    <Compile Include="Repository\PoliceGenelRepository.cs" />
+    <Compile Include="Repository\PoliceOdemePlaniRepository.cs" />
+    <Compile Include="Repository\PoliceRizikoAdresiRepository.cs" />
+    <Compile Include="Repository\PoliceSigortaEttirenRepository.cs" />
+    <Compile Include="Repository\PoliceSigortaliRepository.cs" />
+    <Compile Include="Repository\PoliceTahsilatRepository.cs" />
+    <Compile Include="Repository\PoliceTaliAcentelerRepository.cs" />
+    <Compile Include="Repository\PoliceTaliAcenteRaporRepository.cs" />
+    <Compile Include="Repository\PoliceTransferReaderKullanicilariRepository.cs" />
+    <Compile Include="Repository\PoliceUretimHedefGerceklesenRepository.cs" />
+    <Compile Include="Repository\PoliceUretimHedefPlanlananRepository.cs" />
+    <Compile Include="Repository\PoliceVergiRepository.cs" />
+    <Compile Include="Repository\PotansiyelMusteriAdresRepository.cs" />
+    <Compile Include="Repository\PotansiyelMusteriDokumanRepository.cs" />
+    <Compile Include="Repository\PotansiyelMusteriGenelBilgilerRepository.cs" />
+    <Compile Include="Repository\PotansiyelMusteriNotRepository.cs" />
+    <Compile Include="Repository\PotansiyelMusteriTelefonRepository.cs" />
+    <Compile Include="Repository\PoliceDokumanRepository.cs" />
+    <Compile Include="Repository\ReasurorGenelRepository.cs" />
+    <Compile Include="Repository\SchengenUlkeOranlariRepository.cs" />
+    <Compile Include="Repository\TalepKanallariRepository.cs" />
+    <Compile Include="Repository\TaliAcenteKomisyonOraniRepository.cs" />
+    <Compile Include="Repository\TeklifAracEkSoruRepository.cs" />
+    <Compile Include="Repository\TeklifDigerSirketlerRepository.cs" />
+    <Compile Include="Repository\TeklifEMailLogRepository.cs" />
+    <Compile Include="Repository\TeklifNotRepository.cs" />
+    <Compile Include="Repository\TeklifProvizyonRepository.cs" />
+    <Compile Include="Repository\TeklifWebServisCevapRepository.cs" />
+    <Compile Include="Repository\TrafikFK.cs" />
+    <Compile Include="Repository\TrafikIMM.cs" />
+    <Compile Include="Repository\TVMKullaniciNotlarRepository.cs" />
+    <Compile Include="Repository\TVMKullaniciSifremiUnuttumRepository.cs" />
+    <Compile Include="Repository\TVMSMSKullaniciBilgiRepository.cs" />
+    <Compile Include="Repository\TVMWebServisKullanicilariRepository.cs" />
+    <Compile Include="Repository\TVMYetkiGrupSablonuRepository.cs" />
+    <Compile Include="Repository\UlkeKodlariRepository.cs" />
+    <Compile Include="Repository\UnderwritersRepository.cs" />
+    <Compile Include="Repository\UnicoIlIlceRepository.cs" />
+    <Compile Include="Repository\UrunParametreleriRepository.cs" />
+    <Compile Include="Repository\X_AracDegerRepository.cs" />
+    <Compile Include="Repository\CR_TrafikFKRepository.cs" />
+    <Compile Include="Repository\CR_TrafikIMMRepository.cs" />
+    <Compile Include="Repository\IsDurumDetayRepository.cs" />
+    <Compile Include="Repository\IsDurumRepository.cs" />
+    <Compile Include="Repository\KonfigurasyonRepository.cs" />
+    <Compile Include="Repository\SigortaSirketleriRepository.cs" />
+    <Compile Include="Repository\EPostaRepository.cs" />
+    <Compile Include="Repository\CR_IlIlceRepository.cs" />
+    <Compile Include="Repository\CR_TescilIlIlceRepository.cs" />
+    <Compile Include="Repository\GenelTanimlarRepository.cs" />
+    <Compile Include="Repository\MeslekRepository.cs" />
+    <Compile Include="Repository\WEBServiceLogRepository.cs" />
+    <Compile Include="Repository\YZ_BelediyeNufusRepository.cs" />
+    <Compile Include="Repository\YZ_BuyuksehirNufusRepository.cs" />
+    <Compile Include="Repository\YZ_IlceKoordinatRepository.cs" />
+    <Compile Include="Repository\YZ_IlceNufusRepository.cs" />
+    <Compile Include="Repository\YZ_IlceYuzolcumRepository.cs" />
+    <Compile Include="Repository\YZ_IlKoordinatRepository.cs" />
+    <Compile Include="Repository\YZ_IlNufusRepository.cs" />
+    <Compile Include="Repository\YZ_IlYuzolcumRepository.cs" />
+    <Compile Include="Repository\YZ_KoyKoordinatRepository.cs" />
+    <Compile Include="Repository\YZ_KoyNufusRepository.cs" />
+    <Compile Include="Repository\YZ_MahalleKoordinatRepository.cs" />
+    <Compile Include="Repository\YZ_MahalleNufusRepository.cs" />
+    <Compile Include="UniqueConstraintException.cs" />
+    <Compile Include="UnitOfWork\AracContext.cs" />
+    <Compile Include="UnitOfWork\CRContext.cs" />
+    <Compile Include="UnitOfWork\GorevTakipContext.cs" />
+    <Compile Include="UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\KomisyonContext.cs" />
+    <Compile Include="UnitOfWork\MuhasebeContext.cs" />
+    <Compile Include="UnitOfWork\MusteriContext.cs" />
+    <Compile Include="Repository\IlceRepository.cs" />
+    <Compile Include="Repository\IlRepository.cs" />
+    <Compile Include="Repository\UlkeRepository.cs" />
+    <Compile Include="UnitOfWork\ParametreContext.cs" />
+    <Compile Include="Repository\BranRepository.cs" />
+    <Compile Include="Repository\MenuIslemRepository.cs" />
+    <Compile Include="Repository\MusteriAdreRepository.cs" />
+    <Compile Include="Repository\MusteriDokumanRepository.cs" />
+    <Compile Include="Repository\MusteriGenelBilgilerRepository.cs" />
+    <Compile Include="Repository\MusteriNotRepository.cs" />
+    <Compile Include="Repository\MusteriTelefonRepository.cs" />
+    <Compile Include="Repository\SoruRepository.cs" />
+    <Compile Include="Repository\TCKNRepository.cs" />
+    <Compile Include="Repository\TeklifAracRepository.cs" />
+    <Compile Include="Repository\TeklifGenelRepository.cs" />
+    <Compile Include="Repository\TeklifNoSayacRepository.cs" />
+    <Compile Include="Repository\TeklifOdemePlaniRepository.cs" />
+    <Compile Include="Repository\TeklifRizikoAdresiRepository.cs" />
+    <Compile Include="Repository\TeklifSigortaEttirenRepository.cs" />
+    <Compile Include="Repository\TeklifSigortaliRepository.cs" />
+    <Compile Include="Repository\TeklifSoruRepository.cs" />
+    <Compile Include="Repository\TeklifTeminatRepository.cs" />
+    <Compile Include="Repository\TeklifVergiRepository.cs" />
+    <Compile Include="Repository\TeminatRepository.cs" />
+    <Compile Include="Repository\TUMBankaHesaplariRepository.cs" />
+    <Compile Include="Repository\TUMDetayRepository.cs" />
+    <Compile Include="Repository\TUMDokumanlarRepository.cs" />
+    <Compile Include="Repository\TUMDurumTarihcesiRepository.cs" />
+    <Compile Include="Repository\TUMIletisimYetkilileriRepository.cs" />
+    <Compile Include="Repository\TUMIPBaglantiRepository.cs" />
+    <Compile Include="Repository\TUMNotlarRepository.cs" />
+    <Compile Include="Repository\TUMUrunleriRepository.cs" />
+    <Compile Include="Repository\TVMAcentelikleriRepository.cs" />
+    <Compile Include="Repository\TVMBankaHesaplariRepository.cs" />
+    <Compile Include="Repository\TVMBolgeleriRepository.cs" />
+    <Compile Include="Repository\TVMDepartmanlarRepository.cs" />
+    <Compile Include="Repository\TVMDetayRepository.cs" />
+    <Compile Include="Repository\TVMDokumanlarRepository.cs" />
+    <Compile Include="Repository\TVMDurumTarihcesiRepository.cs" />
+    <Compile Include="Repository\TVMIletisimYetkilileriRepository.cs" />
+    <Compile Include="Repository\TVMIPBaglantiRepository.cs" />
+    <Compile Include="Repository\TVMKullaniciAtamaRepository.cs" />
+    <Compile Include="Repository\TVMKullaniciDurumTarihcesiRepository.cs" />
+    <Compile Include="Repository\TVMKullanicilarRepository.cs" />
+    <Compile Include="Repository\TVMKullaniciSifreTarihcesiRepository.cs" />
+    <Compile Include="Repository\TVMNotlarRepository.cs" />
+    <Compile Include="Repository\TVMUrunYetkileriRepository.cs" />
+    <Compile Include="Repository\TVMYetkiGruplariRepository.cs" />
+    <Compile Include="Repository\TVMYetkiGrupYetkileriRepository.cs" />
+    <Compile Include="Repository\UrunRepository.cs" />
+    <Compile Include="Repository\UrunSoruRepository.cs" />
+    <Compile Include="Repository\UrunTeminatRepository.cs" />
+    <Compile Include="Repository\UrunVergiRepository.cs" />
+    <Compile Include="Repository\UserProfileRepository.cs" />
+    <Compile Include="Repository\VergiRepository.cs" />
+    <Compile Include="Repository\VKNRepository.cs" />
+    <Compile Include="Repository\YKNRepository.cs" />
+    <Compile Include="UnitOfWork\PoliceContext.cs" />
+    <Compile Include="UnitOfWork\ProcedureContext.cs" />
+    <Compile Include="UnitOfWork\TeklifContext.cs" />
+    <Compile Include="UnitOfWork\TUMContext.cs" />
+    <Compile Include="UnitOfWork\TVMContext.cs" />
+    <Compile Include="UnitOfWork\YapayZekaContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

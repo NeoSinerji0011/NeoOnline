@@ -1,0 +1,304 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Models.LilyumLoginModel
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<meta content="neosinerji" name="author" />
+<head>
+    <title>LilyumKart</title>
+    <link rel="shortcut icon" href="@Url.Content("~/Content/img/lilyum-icon.png")" />
+</head>
+
+<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+
+<link href="~/Content/css/style-metro.css?v=1" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/style-responsive.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/themes/ram_sigorta.css" rel="stylesheet" type="text/css" id="style_color" />
+<link href="~/Content/css/uniform.default.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/css/DT_bootstrap.css" rel="stylesheet" />
+
+<!-- BEGIN CORE PLUGINS -->
+<script src="~/Content/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+<script src="~/Content/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+
+<script src="~/content/js/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="~/content/js/jquery.blockui.js" type="text/javascript"></script>
+
+<link href="~/Content/css/themes/default.css" rel="stylesheet" />
+<link href="~/Content/css/uniform.default.css" rel="stylesheet" />
+<link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/css/style-metro.css" rel="stylesheet" />
+<link href="~/Content/css/style-responsive.css" rel="stylesheet" />
+<link href="~/Content/css/style.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap-modal.css" rel="stylesheet" />
+<link href="~/Content/css/custom.css" rel="stylesheet" />
+<link href="~/Content/css/YeniTemaLogin.css" rel="stylesheet" />
+<link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+<script src="~/Content/Angular/js/sweetalert.min.js"></script>
+<style>
+    body {
+        margin: 0px;
+        padding: 0px;
+        background: url('../../Content/img/YeniTasarim/lilyum-login.jpg.jpg') no-repeat center center fixed !important;
+    }
+
+    html {
+        background: url('../../Content/img/YeniTasarim/lilyum-login.jpg.jpg') no-repeat center center fixed !important;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-attachment: cover;
+        z-index: -1;
+    }
+
+    .sifremi-unuttum-div {
+        float: right;
+        margin-right: 31px;
+        margin-top: 24px;
+    }
+
+    .login-yazi-tip {
+        font-family: Calibri !important;
+        font-size: 20px !important;
+    }
+
+    .modal.fade.in {
+        top: 30% !important;
+    }
+
+    #btn-ok:hover {
+        background-color: #a64dff !important;
+    }
+
+    #btn-ok {
+        background-color: #6815b1 !important;
+    }
+
+    .logo-content {
+        width: 1000px;
+        height: 200px !important;
+        margin-left: 10%;
+        margin-top: 1.7%;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var param = url.href;
+        var params = param.split("=");
+        if (params[1] == "153008") {
+            $('#lilyumKayitButton')[0].click();
+        }
+
+
+        $("#dokuman-ekle").click(function () {
+
+            $.get("/Account/LilyumInternetMusteriKayit",
+                function (data) {
+                    $("#lilyum-musteri-modal-div").html(data);
+                    $.validator.unobtrusive.parse("#lilyum-musteri-modal-div");
+                    $("#stackLilyumMusteri").modal('show');
+                },
+                "html");
+        });
+    });
+
+
+</script>
+
+<div class="logo-content">
+    <a href="http://www.lilyumkart.com/">
+        <img src="@Url.Content("~/Content/img/YeniTasarim/lilyumkart.png")" style="width :31%; height:40%; background-color:transparent !important; opacity:inherit" />
+    </a>
+    <div id="global-sign" style="width: 15%;">
+        <div style="margin-left: 16%;">
+            <img style="width:50%;" src="@Url.Content("~/Content/img/YeniTasarim/comodosecure.png")" alt="comodo-secure" />
+        </div>
+
+    </div>
+</div>
+
+<!-- .logo-content -->
+@using (Html.BeginForm("LilyumKart", "Account", FormMethod.Post, new { id = "form1" }))
+{
+    { Html.EnableClientValidation(false); }
+    <div class="custom-content" style="width: 80%;">
+        <div class="login-hub" style="width: 50%; margin-left: 30%; ">
+            <div class="login-hub-top" style="width: 500px; height: 350px !important; background-color: white; opacity: 0.9; border: solid 2px lightgray; border-radius: 20px; -moz-border-radius: 25px; -webkit-border-radius: 5px; -border-radius: 5px;">
+                <div style="">
+                    <div style="margin-top: 10px; float: right; margin-right: 10px;">
+                        <a href="@Url.Action("ChangeCulture", "Home", new { lang = Neosinerji.BABOnlineTP.Web.Models.Culture.tr, returnUrl = this.Request.RawUrl })" rel="tooltip" title="Türkçe">
+                            <img style="border: none;" src="~/Content/img/YeniTasarim/Turkey.png" />
+                        </a>
+                        @*<a href="@Url.Action("ChangeCulture", "Home", new { lang = Neosinerji.BABOnlineTP.Web.Models.Culture.en, returnUrl = this.Request.RawUrl })" rel="tooltip" title="English">
+                                <img style="border: none;" src="~/Content/img/YeniTasarim/the_United_Kingdom.png" />
+                            </a>*@
+                    </div>
+
+                    @*@if (lang == "en")
+                        {
+                            <div>
+                                <img style="width:50%; height:100px;  margin-left:20%" src="@Url.Content("~/Content/img/YeniTasarim/giris-kilit-eu.png")" alt="login Logo" />
+                            </div>
+                        }
+                        else
+                        {*@
+                    <img style="width:50%; height:100px;  margin-left:20%" src="@Url.Content("~/Content/img/YeniTasarim/giris-kilit-tr.png")" alt="Giriş Logo" />
+                    @* } *@
+
+                </div>
+
+                <div style="width: 100%; height: 50%;">
+                    <div style="width: 30%; height: 100%; float: left;">
+                        <img src="~/Content/img/YeniTasarim/login-left.jpg" style="width: 100%; height: 100%;" />
+                    </div>
+
+                    <div style="float: right; width: 60%; margin-right: 5%;">
+                        <div style="width: 80%;">
+                            @Html.TextBoxFor(s => s.Email, new { @class = "text-box login-yazi-tip", placeholder = babonline.EMail_Address })
+                            @Html.TextBoxFor(s => s.Password, new { @class = "text-box login-yazi-tip", placeholder = babonline.Password, type = "Password" })
+                            @*@Html.Recaptcha()*@
+                            @*@Html.ValidationMessage("ReCaptcha")*@
+                            @*<div class="g-recaptcha" data-callback="verifyCallback" data-sitekey="6LeDiRQUAAAAALIaDC4gHvNZfAaYNHtzIBqW-pEe"></div>*@
+
+                        </div>
+                        <div class="row-fluid" style="padding-left:50%">
+                            <input id="btn-ok" type="submit" class="tamam-button-div login-yazi-tip" value="@babonline.OK" style="border :2px solid #a64dff  !important;border-radius: 10px !important; " />
+                        </div>
+
+                        <div class="row-fluid">
+                            <div class="sifremi-unuttum-div" style="margin-top:5%;">
+                                <a href="/Account/LilyumSifremiUnuttum" class=" btn link login-yazi-tip" style="color:white !important;background-color: #a64dff !important;  border :2px solid #a64dff  !important;border-radius: 10px !important; ">@babonline.ForgotPassword</a>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="sifremi-unuttum-div" style="margin-top:5%">
+                                <a href="#stackLilyumMusteri" id="lilyumKayitButton" data-toggle="modal" class="btn link login-yazi-tip" style="color:white !important;background-color: #6815b1 !important;border :2px solid #a64dff  !important;border-radius: 10px !important; ">Bireysel Müşteri Kayıt Ol</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="error-div" style="width: 300px; height: 40px; margin-right: 25px;margin-top:7%">
+                    @Html.ValidationSummary(true)
+                </div>
+
+            </div>
+            <!-- .login-hub-top- -->
+
+
+        </div>
+        <!-- .login Hub -->
+    </div>
+    <!-- .Custom Content -->
+}
+
+<div id="stackLilyumMusteri" class="modal hide fade">
+    <div class="modal-header">
+        <button id="close1" type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3 style="text-align:center; margin-left: 10%;  margin-right: 10%; color:white;background-color: #a64dff;">Bireysel Müşteri Kayıt Bilgileri</h3>
+    </div>
+
+    <div class="modal-body">
+        <form id="form2" class="form-horizontal" method="post">
+            @Html.HiddenFor(s => s.musteriModel.TVMKodu)
+            @{ Html.EnableClientValidation(true); }
+            @Html.ValidationSummary(true, "")
+            <div class="control-group">
+                <label class="control-label">@babonline.TCKN / YKN<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.musteriModel.tcVkn, new { maxlength = 11, required = "required", style = "width:90%;", placeholder = "TCKN/VKN giriniz.", @class = "onlynumbers" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Name_Surname   <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.musteriModel.AdSoyad, new { style = "width:90%;", required = "required", placeholder = "Ad Soyad", @class = "m-wrap onlyalpha" })
+                    @Html.ValidationMessageFor(s => s.musteriModel.AdSoyad)
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">@babonline.EMail_Address <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.musteriModel.EMail, new { style = "width:90%;", required = "required", placeholder = "Email", @class = "m-wrap" })
+                    @Html.ValidationMessageFor(s => s.musteriModel.EMail)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Phone  </label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.musteriModel.Telefon, new { style = "width:90%;", data_format = "dd-ddd-ddddddd", placeholder = "90(555)9999999", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", title = babonline.Message_PhoneFormat })
+                </div>
+            </div>
+            <div><span style="color:black;font-weight: bold; font-size:15px;">* Lütfen yukardaki bilgilerinizi doğru giriniz. Kart satın alırken bu bilgileriniz kullanılacaktır.</span></div>
+            <div><span style="color:black;font-weight: bold; font-size:15px;">*Lütfen aktif kullandığınız mail adresinizi giriniz. Girmiş olduğunuz eposta adresinize aktivasyon emaili gönderilecektir. </span></div>
+            <div><span style="color:black;font-weight: bold; font-size:15px;">*Lilyum Kart satın alabilmeniz için lütfen üyelik kaydınızı gerçekleştiriniz.</span></div>
+            <h5>Bilgileriniz güvencemiz altındadır.</h5>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn">@babonline.Cancel</button>
+        <a id="lilyum-kayit" href="javascript:;" class="btn link login-yazi-tip" style="color:white !important;background-color: #6815b1 !important;border :2px solid #a64dff  !important;border-radius: 10px !important; " data-loading-text="Kaydediliyor.">@babonline.Save</a>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#lilyum-kayit").live("click", function () {
+            //$("#form2").validate().form();
+            //if ($("#form2").valid()) {
+            //var formData = $("#form2").serialize();
+            $("#lilyum-kayit").text("Kaydediliyor");
+
+            var kimlikno = $("#musteriModel_tcVkn").val();
+            var adSoyad = $("#musteriModel_AdSoyad").val();
+            var email = $("#musteriModel_EMail").val();
+            var telefon = $("#musteriModel_Telefon").val();
+
+            if (kimlikno != "" && kimlikno != null && adSoyad != "" && adSoyad != null && email != "" && email != null) {
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Common/LilyumInternetMusteriKayit",
+                        data: { tcVkn: kimlikno, adSoyad: adSoyad, email: email, telefon: telefon },
+                        success: function (data) {
+                            if (data.KayitYapildiMi) {
+                                //swal("İşlem Başarılı !", data.KayitMesaj, "success");
+                                swal({
+                                    title: "İşlem Başarılı!",
+                                    text: data.KayitMesaj,
+                                    type: "success",
+                                    showCancelButton: false,
+                                    confirmButtonColor: "#DD6B55",
+                                    confirmButtonText: "OK",
+                                    closeOnConfirm: false,
+                                    closeOnCancel: false
+                                },
+                                    function (isConfirm) {
+                                        if (isConfirm) {
+                                            window.location.href = "/Account/LilyumKart";
+                                            $("#lilyum-kayit").text("Kaydet");
+                                        }
+                                    });
+                            }
+                            else {
+                                swal("Hata !", data.KayitMesaj, "error");
+                                $("#lilyum-kayit").text("Kaydet");
+                            }
+                        }
+                    });
+            }
+            else {
+                swal("Hata !", "Lütfen zorunlu alanları doldurunuz.", "error");
+                $("#lilyum-kayit").text("Kaydet");
+            }
+            //}
+        });
+    });
+</script>
+<script src="~/Content/js/neosinerji.babonlinetp.common.js"></script>

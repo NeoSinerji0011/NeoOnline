@@ -1,0 +1,194 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.TVM.Models.MobilOnayKoduModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = babonline.Title_Login;
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+<link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+<script src="~/Content/Angular/js/sweetalert.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //$("[rel='tooltip']").tooltip();
+
+        //function createRecaptcha() {
+        //    grecaptcha.render("recaptcha", { sitekey: "6LdqiBQUAAAAAGZqci0ARyE-if9p2RiiaG5RFoZR", theme: "light" });
+        //}
+        //createRecaptcha();
+
+
+        $("#sendSmsOk").click(function () {
+
+            // alert("asfagg");
+
+            var modelK = {     //changed the name to name of parameter of action
+
+
+                "smsKodu": $("#smsKoduHidden").val().toString(),
+                "cepTelefonu": $("#cepTelefonuHidden").val().toString(),
+                "TvmKodu": $("#TvmKoduHidden").val().toString(),
+                "KullaniciKodu": $("#KullaniciKoduHidden").val().toString()
+
+            };
+
+            var smsKodu = $("#smsKoduHidden").val();
+
+            // $(this).button("loading");
+            $.ajax({
+                timeout: 10000000,
+                method: "post",
+                url: "/TVM/TVM/SMSGonderOkButonu",
+                data: { smsKodu: smsKodu },
+                // data: $("#formSms").serialize(),
+                success: function (response) {
+                    //alert(response);
+                    //alert(response.Success);
+                    if (response.Success == "True") {
+                        window.location.href = "/TVM/TVM/Index";
+                        //$("#sendSmsOk").button("reset");
+                        //alert(response.Message);
+                    }
+                    else {
+                        //alert("Sms Kodunu Hatalı girdiniz");
+                        swal("", "@babonline._warningWrongSmsCode", "error");
+                    }
+                },
+            });
+
+        });
+
+    });
+    //$("#kodGonder").click(function () {
+
+
+    //});
+
+
+
+
+
+
+</script>
+
+
+
+<style>
+    .sifremi-unuttum-div {
+        float: right;
+        margin-right: 31px;
+        margin-top: 24px;
+    }
+
+    .login-yazi-tip {
+        font-family: Calibri !important;
+        font-size: 20px !important;
+    }
+</style>
+<link href="~/Content/css/YeniTemaLogin.css" rel="stylesheet" />
+
+<div class="logo-content">
+    <a href="http://www.neoonline.com.tr/">
+        <img src="@Url.Content("~/Content/img/YeniTasarim/ust-banner-2.jpg")" style="width :25%; height:80%; background-color:transparent; opacity:inherit" />
+    </a>
+
+    <div id="global-sign" style="width: 40%;">
+        <div style="float: left; margin-top: 0.5%; width: 25.5%; margin-left: 3%;">
+            <a href="http://www.neosinerji.com.tr" target="_blank">
+                <img style="width: 100%;" src="@Url.Content("~/Content/img/YeniTasarim/neoSinerji_logo.jpg")" alt="neosinerji" /></a>
+        </div>
+        <div style="margin-left: 16%;">
+            <img  style="width:31%;" src="@Url.Content("~/Content/img/YeniTasarim/global-sign-img.png")" alt="global-sign" />
+        </div>
+
+    </div>
+</div>
+<!-- .logo-content -->
+                    <div class="portlet-body form">
+
+@using (Html.BeginForm("SMSGonder", "TVM", FormMethod.Post, new { id = "formSms", ReturnUrl = ViewBag.ReturnUrl }))
+{
+    @Html.HiddenFor(s => s.TvmKodu, new { id = "TvmKoduHidden" })
+    @Html.HiddenFor(s => s.KullaniciKodu, new { id = "KullaniciKoduHidden" })
+
+    { Html.EnableClientValidation(false); }
+    <div class="custom-content" style="width: 80%;">
+            <div class="login-hub" style="width: 50%; margin-left: 20%; padding-top: 20px;">
+                <div class="login-hub-top" style="width: 550px; height: 350px !important; background-color: white; opacity: 0.9; border: solid 2px lightgray; border-radius: 20px; -moz-border-radius: 25px; -webkit-border-radius: 5px; -border-radius: 5px;">
+                <div style="">
+
+                    @if (lang == "en")
+                    {
+                        <div>
+                                <img style="width:20%; height:50px;  margin-left:1%" src="@Url.Content("~/Content/img/YeniTasarim/giris-kilit-eu.png")" alt="login Logo" />
+                        </div>
+                    }
+                    else
+                    {
+                            <img style="width:20%; height:50px;  margin-left:1%" src="@Url.Content("~/Content/img/YeniTasarim/giris-kilit-tr.png")" alt="Giriş Logo" />    
+                    }
+                        <h3 style="margin-left: 15%; font: bold; color: red; font-size: 125%;">@babonline.SecureLoginWithSms</h3>
+                </div>
+                    <div style="width: 75%; height: 20%; margin-top:10%">
+                        <div style="width: 60%; margin-right: 20%;">
+                            <div style="width: 400px; margin-top: 10%;">
+                                <div style="width: 200px; float: left;">
+                                    @Html.TextBoxFor(s => s.cepTelefonu, new { @class = "text-box login-yazi-tip", disabled = "disable", style = "width:75%", id = "cepTelefonuHidden" })
+                                </div>
+                                <div style="width: 180px; float: right; margin-right: -15px;">
+                                    <button id="kodGonder" type="submit" style="background-color: #E73626 !important; width: 150%; height: 40px; color: white; text-decoration: none;">@babonline.SendConfirmationToMyPhone </button>
+                                </div>
+                        </div>
+                                </div>
+                                </div>
+                    <div style="width: 75%; height: 40%; margin-top: 4%">
+                        <div style="width: 60%; margin-right: 20%;">
+                            <div style="width: 400px; margin-top: 10%;">
+                                <div style="width: 200px; float: left;">
+                                    @Html.TextBoxFor(s => s.smsKodu, new { @class = "login-yazi-tip", style = "margin-left:20px; height:30px; width:180px;", placeholder = "Sms Kodunuzu Giriniz", id = "smsKoduHidden" })
+                           </div>
+                                <div style="width: 180px; float: right; margin-right: -15px;">
+                                    <button class="btn" id="sendSmsOk" type="button" style="background-color:#E73626 !important;color:white; width:130px; height:40px;text-decoration: none;" data-loading-text="@babonline.QueryIndicator">@babonline.SecureLogin</button><br />
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="error-div" style="width: 300px; height: 40px; margin-right: 25px; margin-top: 7%">
+                    @*@Html.ValidationSummary(true)*@
+                </div>
+            </div>
+            <!-- .login-hub-top- -->
+
+            <div style="width: 281px; height: 61px; margin-top: 0px;">
+            </div>
+        </div>
+        <!-- .login Hub -->
+        <div style="clear: left"></div>
+    </div>
+    <!-- .Custom Content -->
+    }
+</div>
+                    <div class="portlet-body form">
+
+@*@using (Html.BeginForm("SMSGonderOkButonu", "TVM", FormMethod.Post, new { id = "formSmsOk", ReturnUrl = ViewBag.ReturnUrl }))
+{
+
+     <div class="span12">
+        <div class="control-group">
+            <div class="controls">
+                                       
+                <div class="span3">
+                                         
+                        
+                <input id="sendSmsOkt" type="submit" class="tamam-button-div login-yazi-tip" style="background-color:#E73626 !important;margin-left:50% !important;margin-top:-10%" value="@babonline.OK"/>
+                        </div>
+            </div>
+        </div>
+
+    </div>
+
+}*@
+
+    </div>

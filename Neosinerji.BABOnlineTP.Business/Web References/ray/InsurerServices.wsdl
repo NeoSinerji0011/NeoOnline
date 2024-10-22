@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ProductionIntegrator">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pDocument" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProductionIntegratorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductionIntegratorResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProductionIntegratorXML">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pDocument">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProductionIntegratorXMLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductionIntegratorXMLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProductionIntegratorEmu">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pDocument" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProductionIntegratorEmuResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductionIntegratorEmuResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClaimIntegrator">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pDocument" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClaimIntegratorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ClaimIntegratorResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CollectionIntegrator">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pDocument" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CollectionIntegratorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CollectionIntegratorResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Management">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="pPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ManagementResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ManagementResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ProductionIntegratorSoapIn">
+    <wsdl:part name="parameters" element="tns:ProductionIntegrator" />
+  </wsdl:message>
+  <wsdl:message name="ProductionIntegratorSoapOut">
+    <wsdl:part name="parameters" element="tns:ProductionIntegratorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProductionIntegratorXMLSoapIn">
+    <wsdl:part name="parameters" element="tns:ProductionIntegratorXML" />
+  </wsdl:message>
+  <wsdl:message name="ProductionIntegratorXMLSoapOut">
+    <wsdl:part name="parameters" element="tns:ProductionIntegratorXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProductionIntegratorEmuSoapIn">
+    <wsdl:part name="parameters" element="tns:ProductionIntegratorEmu" />
+  </wsdl:message>
+  <wsdl:message name="ProductionIntegratorEmuSoapOut">
+    <wsdl:part name="parameters" element="tns:ProductionIntegratorEmuResponse" />
+  </wsdl:message>
+  <wsdl:message name="ClaimIntegratorSoapIn">
+    <wsdl:part name="parameters" element="tns:ClaimIntegrator" />
+  </wsdl:message>
+  <wsdl:message name="ClaimIntegratorSoapOut">
+    <wsdl:part name="parameters" element="tns:ClaimIntegratorResponse" />
+  </wsdl:message>
+  <wsdl:message name="CollectionIntegratorSoapIn">
+    <wsdl:part name="parameters" element="tns:CollectionIntegrator" />
+  </wsdl:message>
+  <wsdl:message name="CollectionIntegratorSoapOut">
+    <wsdl:part name="parameters" element="tns:CollectionIntegratorResponse" />
+  </wsdl:message>
+  <wsdl:message name="ManagementSoapIn">
+    <wsdl:part name="parameters" element="tns:Management" />
+  </wsdl:message>
+  <wsdl:message name="ManagementSoapOut">
+    <wsdl:part name="parameters" element="tns:ManagementResponse" />
+  </wsdl:message>
+  <wsdl:portType name="InsurerServicesSoap">
+    <wsdl:operation name="ProductionIntegrator">
+      <wsdl:input message="tns:ProductionIntegratorSoapIn" />
+      <wsdl:output message="tns:ProductionIntegratorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProductionIntegratorXML">
+      <wsdl:input message="tns:ProductionIntegratorXMLSoapIn" />
+      <wsdl:output message="tns:ProductionIntegratorXMLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProductionIntegratorEmu">
+      <wsdl:input message="tns:ProductionIntegratorEmuSoapIn" />
+      <wsdl:output message="tns:ProductionIntegratorEmuSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClaimIntegrator">
+      <wsdl:input message="tns:ClaimIntegratorSoapIn" />
+      <wsdl:output message="tns:ClaimIntegratorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CollectionIntegrator">
+      <wsdl:input message="tns:CollectionIntegratorSoapIn" />
+      <wsdl:output message="tns:CollectionIntegratorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Management">
+      <wsdl:input message="tns:ManagementSoapIn" />
+      <wsdl:output message="tns:ManagementSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="InsurerServicesSoap" type="tns:InsurerServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ProductionIntegrator">
+      <soap:operation soapAction="http://tempuri.org/ProductionIntegrator" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductionIntegratorXML">
+      <soap:operation soapAction="http://tempuri.org/ProductionIntegratorXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductionIntegratorEmu">
+      <soap:operation soapAction="http://tempuri.org/ProductionIntegratorEmu" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClaimIntegrator">
+      <soap:operation soapAction="http://tempuri.org/ClaimIntegrator" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CollectionIntegrator">
+      <soap:operation soapAction="http://tempuri.org/CollectionIntegrator" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Management">
+      <soap:operation soapAction="http://tempuri.org/Management" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="InsurerServicesSoap12" type="tns:InsurerServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ProductionIntegrator">
+      <soap12:operation soapAction="http://tempuri.org/ProductionIntegrator" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductionIntegratorXML">
+      <soap12:operation soapAction="http://tempuri.org/ProductionIntegratorXML" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProductionIntegratorEmu">
+      <soap12:operation soapAction="http://tempuri.org/ProductionIntegratorEmu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClaimIntegrator">
+      <soap12:operation soapAction="http://tempuri.org/ClaimIntegrator" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CollectionIntegrator">
+      <soap12:operation soapAction="http://tempuri.org/CollectionIntegrator" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Management">
+      <soap12:operation soapAction="http://tempuri.org/Management" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="InsurerServices">
+    <wsdl:port name="InsurerServicesSoap" binding="tns:InsurerServicesSoap">
+      <soap:address location="http://81.8.109.155/iNet.Services/InsurerServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="InsurerServicesSoap12" binding="tns:InsurerServicesSoap12">
+      <soap12:address location="http://81.8.109.155/iNet.Services/InsurerServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

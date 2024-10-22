@@ -1,0 +1,62 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model TVMBolgeleriListModel
+
+<script>
+    $(document).ready(function () {
+        var bolgeTable;
+        function bolgeTableSet() {
+            bolgeTable = $('#bolgeler-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        bolgeTableSet();
+    });
+</script>
+
+<table id="bolgeler-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 150px;">@babonline.TVMRegion_Code</th>
+            <th>@babonline.TVMRegion_Name</th>
+            <th>@babonline.Comment</th>
+            <th style="width: 50px;">@babonline.Status</th>
+            <th style="width: 50px;">&nbsp;</th>
+            <th style="width: 40px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td style="text-align: center; width: 100px;">@item.TVMBolgeKodu</td>
+                <td>@item.BolgeAdi</td>
+                <td>@item.Aciklama</td>
+                <td style="text-align: center;">
+                    @if (item.Durum == 1)
+                    {
+                        <span class="label label-success">@babonline.Active</span>
+                    }
+                    else
+                    {
+                        <span class="label label-important">@babonline.Pasive</span>
+                    }
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" bolge-kodu="@item.TVMBolgeKodu" tvm-kodu="@item.TVMKodu" class="btn btn-mini btn-info edit-bolge">@babonline.Edit</a>
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" bolge-kodu="@item.TVMBolgeKodu" tvm-kodu="@item.TVMKodu" class="btn btn-mini btn-danger delete-bolge">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,81 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.SoruModel
+
+@section HorizontalMenu
+{
+
+
+    <ul class="nav">
+        <li>
+            <a href="~/Manage/Soru/Liste">@babonline.Question_List<span class="selected"></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Question_Add<span></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+
+@section PageHeader
+{
+
+}
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.Question_Add</div>
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("Ekle", "Soru", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            Html.EnableClientValidation(true);    
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Question_Code</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.SoruKodu, new { maxlength = 4, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.SoruKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Question_Name</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.SoruAdi, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.SoruAdi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Question_Answer_Type</label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.SoruCevapTipi, Model.SoruCevapTipLeri)
+                    @Html.ValidationMessageFor(m => m.SoruCevapTipi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Question_Answer_Len</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.SoruCevapUzunlugu, new { maxlength = 2, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.SoruCevapUzunlugu)
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                <a class="btn" href="~/Manage/Soru/Liste">@babonline.Cancel</a>
+            </div>
+        }
+    </div>
+</div>
+
+
+

@@ -1,0 +1,43 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.MenulerModel
+
+<ul class="nav nav-list">
+    <li class="nav-header">@babonline.MainMenu</li>
+    @foreach (var item in Model.AnaMenuler)
+    {                       
+        <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-tasks"></i>@item.Aciklama </a>
+            <ul class="dropdown-menu">
+                <li class=""><a id="altmenu-ekle" anamenu-kodu="@item.AnaMenuKodu" href="javascript:void(0)"><i class="icon-plus"></i>@babonline.SubMenu_Add</a></li>
+                <li class=""><a id="anamenu-detay" anamenu-kodu="@item.AnaMenuKodu" href="javascript:void(0)"><i class="icon-qrcode"></i>@babonline.Detail</a></li>
+                <li class=""><a id="anamenu-guncelle" anamenu-kodu="@item.AnaMenuKodu" href="javascript:void(0)"><i class="icon-edit"></i>@babonline.Edit</a></li>
+                <li class=""><a id="anamenu-sil" anamenu-kodu="@item.AnaMenuKodu" href="javascript:void(0)"><i class="icon-remove"></i>@babonline.Delete</a></li>
+            </ul>
+        </li>   
+        <ul class="nav nav-list">
+            @foreach (var item2 in Model.AltMenuler.Where(s => s.AnaMenuKodu == item.AnaMenuKodu))
+            {   
+                <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#">@item2.Aciklama </a>
+                    <ul class="dropdown-menu">
+                        <li class=""><a href="javascript:void(0)" id="altmenusekme-ekle" anamenu-kodu="@item2.AnaMenuKodu" altmenu-kodu="@item2.AltMenuKodu"><i class="icon-plus"></i>@babonline.SubMenuTabs_Add</a></li>
+                        <li class=""><a href="javascript:void(0)" id="altmenu-detay" anamenu-kodu="@item2.AnaMenuKodu" altmenu-kodu="@item2.AltMenuKodu"><i class="icon-qrcode"></i>@babonline.Detail</a></li>
+                        <li class=""><a href="javascript:void(0)" id="altmenu-guncelle" anamenu-kodu="@item2.AnaMenuKodu" altmenu-kodu="@item2.AltMenuKodu"><i class="icon-edit"></i>@babonline.Edit</a></li>
+                        <li class=""><a href="javascript:void(0)" anamenu-kodu="@item2.AnaMenuKodu" altmenu-kodu="@item2.AltMenuKodu" id="altmenu-sil"><i class="icon-remove"></i>@babonline.Delete</a></li>
+                    </ul>
+                </li>
+                <ul class="nav nav-list">
+                    @foreach (var item3 in Model.AltMenuSekmeler.Where(s => s.AltMenuKodu == item2.AltMenuKodu && s.AnaMenuKodu == item2.AnaMenuKodu))
+                    {
+                        <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#">&nbsp; @item3.Aciklama </a>
+                            <ul class="dropdown-menu">
+                                <li class=""><a href="javascript:void(0)" altmenu-kodu="@item3.AltMenuKodu" sekme-kodu="@item3.SekmeKodu" id="altmenusekme-detay"><i class="icon-qrcode"></i>@babonline.Detail</a></li>
+                                <li class=""><a href="javascript:void(0)" altmenu-kodu="@item3.AltMenuKodu" sekme-kodu="@item3.SekmeKodu" id="altmenusekme-guncelle"><i class="icon-edit"></i>@babonline.Edit</a></li>
+                                <li class=""><a href="javascript:void(0)" altmenu-kodu="@item3.AltMenuKodu" sekme-kodu="@item3.SekmeKodu" id="altmenusekme-sil"><i class="icon-remove"></i>@babonline.Delete</a></li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            }
+        </ul>   
+        <li class="divider"></li>            
+    }
+</ul>

@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "IsTakipSistemi";
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="#">İş Takip Listesi<span class="selected"></span></a>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+<div class="portlet box light-grey" style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>İş Takip Listesi</div>
+    </div>
+    <div class="portlet-body form">
+        <div class="form-horizontal">
+            <div role="grid" class="dataTables_wrapper form-inline" id="DataTables_Table_0_wrapper">
+
+                <div class="clear"></div>
+                <div id="DataTables_Table_0_length" class="dataTables_length">
+                    <label>
+                        Sayfada
+            <select name="DataTables_Table_0_length" size="1" aria-controls="DataTables_Table_0">
+                <option value="10" selected="selected">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+                        Kayıt Göster</label>
+                </div>
+                <div id="DataTables_Table_0_processing" class="dataTables_processing" style="visibility: hidden;">
+                    &nbsp;
+        <img alt="işleniyor" src="/Content/img/loading.gif">
+                </div>
+                <table style="table-layout: inherit" class="table table-striped table-bordered table-hover dataTable data-table" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
+                    <thead>
+                        <tr role="row">
+                            <th style="width: 40px;" class="sorting_disabled" role="columnheader" rowspan="1" colspan="1">İş No</th>
+                            <th style="width: 90px;" class="sorting_disabled" role="columnheader" rowspan="1" colspan="1">Tarih</th>
+                            <th style="width: 80px;" class="sorting_disabled" role="columnheader" rowspan="1" colspan="1">Müşteri</th>
+                            <th style="width: 148px;" class="sorting_disabled" role="columnheader" rowspan="1" colspan="1">İş Tipi</th>
+                            <th style="width: 135px;" class="sorting_disabled" role="columnheader" rowspan="1" colspan="1">İş Tipi Detay</th>
+                            <th style="width: 60px;" class="sorting_disabled" role="columnheader" rowspan="1" colspan="1">Aşama</th>
+                            <th style="width: 135px;" class="sorting_disabled" role="columnheader" rowspan="1" colspan="1">Ekleyen Kullanıcı</th>
+                        </tr>
+                    </thead>
+
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                        <tr class="odd">
+                            <td class=""><a href="/Teklif/KritikHastalik/Ekle?csid=1">1202</a> <a class="pull-right" target="_blank" title="Teklif PDF" href="https://neobabstoragetest.blob.core.windows.net/musteri-dokuman/176/KritikHastalik_Karsilastirma1.pdf">
+                                <img src="/content/img/pdf_icon.png"></a></td>
+
+                            <td class="">20.02.2014 17:38:53</td>
+                            <td class="">BÜŞRA HASTÜRK</td>
+                            <td class="">Sigorta Başvuru Süreci</td>
+                            <td class="">Kritik Hastalık Başvuru Sureci</td>
+                            <td class="">
+                                <label class="label ">1. adım</label></td>
+                            <td class="">Metlife Test</td>
+                        </tr>
+                        <tr class="even">
+                            <td class=""><a href="/Teklif/KritikHastalik/IsDetay?adim=2">1203</a> <a class="pull-right" target="_blank" title="Teklif PDF" href="https://neobabstoragetest.blob.core.windows.net/musteri-dokuman/176/KritikHastalik_Karsilastirma1.pdf">
+                                <img src="/content/img/pdf_icon.png"></a></td>
+                            <td class="">20.02.2014 17:38:53</td>
+                            <td class="">BÜŞRA HASTÜRK</td>
+                            <td class="">Sigorta Başvuru Devam</td>
+                            <td class="">Kritik Hastalık Başvuru Sonrası</td>
+                            <td class="">
+                                <label class="label label-warning">2. adım</label></td>
+                            <td class="">Metlife Test</td>
+                        </tr>
+                        <tr class="odd">
+                            <td class=""><a href="/Teklif/KritikHastalik/IsDetay?adim=3">1204</a> <a class="pull-right" target="_blank" title="Teklif PDF" href="https://neobabstoragetest.blob.core.windows.net/musteri-dokuman/176/KritikHastalik_Karsilastirma1.pdf">
+                                <img src="/content/img/pdf_icon.png"></a></td>
+                            <td class="">20.02.2014 17:38:53</td>
+                            <td class="">BÜŞRA HASTÜRK</td>
+                            <td class="">Sigorta Başvuru Tamamlanma</td>
+                            <td class="">Kritik Hastalık Bilgi Süreci</td>
+                            <td class="">
+                                <label class="label label-info">3. adım</label></td>
+                            <td class="">Metlife Test</td>
+                        </tr>
+                        <tr class="even">
+                            <td class=""><a href="/Teklif/KritikHastalik/IsDetay?adim=4">1205</a> <a class="pull-right" target="_blank" title="Teklif PDF" href="https://neobabstoragetest.blob.core.windows.net/musteri-dokuman/176/KritikHastalik_Karsilastirma1.pdf">
+                                <img src="/content/img/pdf_icon.png"></a></td>
+                            <td class="">20.02.2014 17:38:53</td>
+                            <td class="">BÜŞRA HASTÜRK</td>
+                            <td class="">Sigorta Başvuru Sonu </td>
+                            <td class="">Kritik Hastalık Tamamlanma</td>
+                            <td class="">
+                                <label class="label label-success">4. adım</label></td>
+                            <td class="">Metlife Test</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="dataTables_info" id="DataTables_Table_0_info">4 Kayıttan 1 - 4 Arası Kayıtlar</div>
+
+            </div>
+        </div>
+    </div>
+</div>

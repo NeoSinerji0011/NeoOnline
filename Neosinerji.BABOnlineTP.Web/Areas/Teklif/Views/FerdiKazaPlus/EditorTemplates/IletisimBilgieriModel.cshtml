@@ -1,0 +1,48 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.IletisimBilgieriModel
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Address_Type</label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.AdresTipi, Model.AdresTipleri, new { style = "width:40% !important;" })
+                @Html.CheckBoxFor(m => m.AdresMevcut)<span style="position: relative; left: 2px; top: 2px;">Mevcut</span>
+                @Html.ValidationMessageFor(s => s.AdresTipi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Address</label>
+            <div class="controls">
+                @Html.TextAreaFor(s => s.Adres, new { style = "width:250px; height:100px; resize: none; !important;" })
+                @Html.ValidationMessageFor(s => s.Adres)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.EMail_Address</label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.Email, new { style = "width:75%" })
+                @Html.CheckBoxFor(m => m.EmailMevcut)<span style="position: relative; left: 2px; top: 2px;">Mevcut</span>
+                @Html.ValidationMessageFor(s => s.Email)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Phone 1d</label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.Tel1, new { style = "width:75%", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14,pattern = ".{14,14}", 
+                                             @class = "input-medium bfh-phone", placeholder = "90-545-5554477", title = babonline.Message_PhoneFormat })
+                @Html.CheckBoxFor(m => m.Tel1Mevcut)<span style="position: relative; left: 2px; top: 2px;">Mevcut</span>
+                @Html.ValidationMessageFor(s => s.Email)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Phone  2</label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.Tel2, new { style = "width:75%", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", 
+                                            @class = "input-medium bfh-phone",placeholder = "90-212-5554477", title = babonline.Message_PhoneFormat})
+            </div>
+        </div>
+    </div>
+</div>

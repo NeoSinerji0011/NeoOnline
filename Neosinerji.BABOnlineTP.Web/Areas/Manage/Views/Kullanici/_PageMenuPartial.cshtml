@@ -1,0 +1,54 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+@model KullaniciModel
+
+@{
+    bool guncellemeYetkisi = false;
+
+    List<KullaniciYetkiModel> sekmeler = ViewBag.Sekmeler;
+    KullaniciYetkiModel sekme = sekmeler.Where(s => s.SekmeKodu == menu.AltMenuSekmeler.KullaniciTanimlama).FirstOrDefault();
+
+    if (sekme != null)
+    {
+        if (sekme.Degistirme == 1)
+        { guncellemeYetkisi = true; }
+    }
+}
+
+<ul class="nav">
+    <li>
+        <a href="#">@babonline.UUser<span></span></a>
+    </li>
+    <li>
+        <a href="/Manage/Kullanici/Liste">@babonline.SearchUser<span></span></a>
+    </li>
+    <li class="active">
+        <a href="#">@babonline.UUser<span class="selected"></span></a>
+    </li>
+    @if (guncellemeYetkisi)
+    {
+        <li>
+            @if (Model.Durum == 2)
+            {
+                <a href="javascript:void(0)" action="ac" kullanici-kodu="@Model.KullaniciKodu" id="kilitle"><i class="icon-ok">&nbsp;</i><span>@babonline.UnBlock</span></a>           }
+            else
+            {
+                <a href="javascript:void(0)" action="kilitle" kullanici-kodu="@Model.KullaniciKodu" id="kilitle"><i class="icon-lock">&nbsp;</i><span>@babonline.Block</span></a>
+            }
+        </li>
+        <li><a href="javascript:void(0)" kullanici-kodu="@Model.KullaniciKodu" id="sifirla"><i class="icon-refresh">&nbsp;</i><span>@babonline.Password_Reset</span></a></li>
+    }
+    <li>
+        <span class="hor-menu-search-form-toggler">&nbsp;</span>
+        <div class="search-form hidden-phone hidden-tablet">
+            <form class="form-search">
+                <div class="input-append">
+                    <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                    <button type="button" class="btn"></button>
+                </div>
+            </form>
+        </div>
+    </li>
+</ul>

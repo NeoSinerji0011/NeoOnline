@@ -1,0 +1,54 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@model DetayKrediBilgileriModel
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.FatherName</label>
+            <div class="controls">
+                <label class="control">@Model.BabaAdi</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.CreditStartDate<span class="required">*</span></label>
+            <div class="controls">
+                <label class="control">@Model.BaslangicTarihi.ToString("dd.MM.yyyy")</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.CreditAmount<span class="required">*</span></label>
+            <div class="controls">
+                <label class="control">@Model.Tutar.ToString("N2")</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.CreditDuration<span class="required">*</span></label>
+            <div class="controls">
+                <label class="control">@Model.KrediSuresi.ToString() Yıl</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="control-group">
+            <label class="control-label">@babonline.CreditType<span class="required">*</span></label>
+            <div class="controls">
+                <label class="control">@Model.KrediTuruText</label>
+            </div>
+        </div>
+    </div>
+</div>

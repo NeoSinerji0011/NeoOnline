@@ -1,0 +1,487 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.UrunModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/Urun/Liste">@babonline.Product_Search<span></span></a>
+        </li>
+        <li>
+            <a href="~/Manage/Urun/Detay/@Model.UrunKodu">@babonline.Detail<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Update<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/dataTable")
+    <script>
+        $(document).ready(function () {
+
+            //Teminat DELETE !!!!!
+            $(".delete-teminat").live("click", function () {
+                var teminatKodu = $(this).attr("teminat-kodu");
+                var urunKodu = $(this).attr("urun-kodu");
+
+                $('#delete-confirm-btn').unbind('click');
+                $("#delete-confirm-btn").click(function () {
+                    $.post("/Manage/Urun/TeminatSil/",
+                           { urunKodu: urunKodu, teminatKodu: teminatKodu },
+                           function (data) {
+                               $("#delete-confirmation").modal('hide');
+                               $("#teminat-container").html(data);
+                               setTeminatTable();
+                           });
+
+                });
+                $("#delete-confirmation").modal('show');
+            });
+
+            //Vergi DELETE !!!!!!
+            $(".delete-vergi").click(function () {
+                var vergiKodu = $(this).attr("vergi-kodu");
+                var urunKodu = $(this).attr("urun-kodu");
+
+                $('#delete-confirm-btn').unbind('click');
+                $("#delete-confirm-btn").click(function () {
+                    $.post("/Manage/Urun/VergiSil/",
+                           { urunKodu: urunKodu, vergiKodu: vergiKodu },
+                           function (data) {
+                               $("#delete-confirmation").modal('hide');
+                               $("#vergi-container").html(data);
+                               setVergiTable();
+                           });
+                });
+
+                $("#delete-confirmation").modal('show');
+            });
+
+            //Soru DELETE !!!!!!
+            $(".delete-soru").click(function () {
+                var soruKodu = $(this).attr("soru-kodu");
+                var urunKodu = $(this).attr("urun-kodu");
+
+                $('#delete-confirm-btn').unbind('click');
+                $("#delete-confirm-btn").click(function () {
+                    $.post("/Manage/Urun/SoruSil/",
+                           { urunKodu: urunKodu, soruKodu: soruKodu },
+                           function (data) {
+                               $("#delete-confirmation").modal('hide');
+                               $("#soru-container").html(data);
+                               setSoruTable();
+                           });
+                });
+
+                $("#delete-confirmation").modal('show');
+            });
+
+            //İlk tabın aktif olarak açılması için
+            $("#urun-tab a:first").tab("show");
+
+            setTeminatTable();
+
+            setSoruTable();
+
+            setVergiTable();
+
+            var teminatEkleTable;
+            $("#teminat-ekle").click(function () {
+
+                $("#teminat-error").hide();
+
+                if (teminatEkleTable)
+                    return;
+
+                //Teminat ekleme modal ekranındaki tablo
+                teminatEkleTable = $('#teminat-ekle-table').dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "iDisplayLength": 5,
+                    "bFilter": true,
+                    "bSort": true,
+                    "bInfo": false,
+                    "bProcessing": true,
+                    "bServerSide": true,
+                    "bAutoWidth": false,
+                    "sAjaxSource": "/Manage/Teminat/ListePager",
+                    "sPaginationType": "full_numbers",
+                    "sPaginationType": "bootstrap"
+                });
+                var teminatEkleTableTools = new TableTools(teminatEkleTable, { "sRowSelect": "multi" });
+            });
+
+            $("#teminat-ekle-btn").live("click", function () {
+                var array = $.fn.getSelectedRowIds(teminatEkleTable);
+                var urunKodu = $("#UrunKodu").val();
+
+                if (array.length == 0) return;
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Manage/Urun/TeminatEkle",
+                    data: { urunKodu: urunKodu, teminatKodu: array },
+                    success: function (data) {
+                        $("#teminat-modal").modal("hide");
+                        $("#teminat-container").html(data);
+                        setTeminatTable();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        var message = $.parseJSON(XMLHttpRequest.responseText);
+                        $("#teminat-error-message").html(message.message);
+                        $("#teminat-error").slideDown();
+                    },
+                    dataType: "json",
+                    converters: {
+                        'text json': true
+                    },
+                    traditional: true
+                });
+            });
+
+            //Vergi ekleme modal ekranındaki tablo
+            var vergiEkleTable;
+            $("#vergi-ekle").click(function () {
+
+                $("#vergi-error").hide();
+
+                if (vergiEkleTable)
+                    return;
+
+                vergiEkleTable = $('#vergi-ekle-table').dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "iDisplayLength": 5,
+                    "bFilter": true,
+                    "bSort": true,
+                    "bInfo": false,
+                    "bProcessing": true,
+                    "bServerSide": true,
+                    "bAutoWidth": false,
+                    "sAjaxSource": "/Manage/Vergi/ListePager",
+                    "sPaginationType": "full_numbers",
+                    "sPaginationType": "bootstrap",
+                });
+                var vergiEkleTableTools = new TableTools(vergiEkleTable, { "sRowSelect": "multi" });
+            });
+
+            $("#vergi-ekle-btn").live("click", function () {
+                var array = $.fn.getSelectedRowIds(vergiEkleTable);
+                var urunKodu = $("#UrunKodu").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Manage/Urun/VergiEkle",
+                    data: { urunKodu: urunKodu, vergiKodu: array },
+                    success: function (data) {
+                        $("#vergi-modal").modal("hide");
+                        $("#vergi-error").hide();
+                        $("#vergi-container").html(data);
+                        setVergiTable();
+                    },
+                    error: function (XMLHttpRequest) {
+                        var message = $.parseJSON(XMLHttpRequest.responseText);
+                        $("#vergi-error-message").html(message.message);
+                        $("#vergi-error").slideDown();
+                    },
+                    dataType: "json",
+                    converters: {
+                        'text json': true
+                    },
+                    traditional: true
+                });
+            });
+
+            //Soru ekleme modal ekranındaki tablo
+            var soruEkleTable;
+            $("#soru-ekle").click(function () {
+
+                $("#soru-error").hide();
+
+                if (soruEkleTable)
+                    return;
+
+                soruEkleTable = $('#soru-ekle-table').dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "iDisplayLength": 5,
+                    "bFilter": true,
+                    "bSort": true,
+                    "bInfo": false,
+                    "bProcessing": true,
+                    "bServerSide": true,
+                    "bAutoWidth": false,
+                    "sAjaxSource": "/Manage/Soru/ListePager",
+                    "sPaginationType": "full_numbers",
+                    "sPaginationType": "bootstrap",
+                });
+                var soruEkleTableTools = new TableTools(soruEkleTable, { "sRowSelect": "multi" });
+            });
+
+            $("#soru-ekle-btn").live("click", function () {
+                var array = $.fn.getSelectedRowIds(soruEkleTable);
+                var urunKodu = $("#UrunKodu").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Manage/Urun/SoruEkle",
+                    data: { urunKodu: urunKodu, soruKodu: array },
+                    success: function (data) {
+                        $("#soru-modal").modal("hide");
+                        $("#soru-error").hide();
+                        $("#soru-container").html(data);
+                        setSoruTable();
+                    },
+                    error: function (XMLHttpRequest) {
+                        var message = $.parseJSON(XMLHttpRequest.responseText);
+                        $("#soru-error-message").html(message.message);
+                        $("#soru-error").slideDown();
+                    },
+                    dataType: "json",
+                    converters: {
+                        'text json': true
+                    },
+                    traditional: true
+                });
+            });
+        });
+
+        function setTeminatTable() {
+            $("#teminatlar-table").dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        function setSoruTable() {
+            soruTable = $("#sorular-table").dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        function setVergiTable() {
+            $("#vergiler-table").dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+    </script>
+}
+
+<div class="portlet box light-grey  " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.Product_Info</div>
+
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("Guncelle", "Urun", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.HiddenFor(s => s.UrunKodu)
+            Html.EnableClientValidation(true);
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Branch</label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.BransKodu, Model.BransList, new { style = "width:220px;" })
+                    @Html.ValidationMessageFor(m => m.BransKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Product_Code</label>
+                <div class="controls">
+                    <label class="control">@Model.UrunKodu</label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Product_Name</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.UrunAdi, new { maxlength = 30, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.UrunAdi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Status</label>
+                <div class="controls radio-custom">
+                    @Html.RadioButtonListFor(m => m.Durum, Model.Durumlar)
+                </div>
+            </div>
+                
+            <div class="tabbable tabbable-custom" style="margin-top: 15px;">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1_1" data-toggle="tab">@babonline.Collateral_List</a></li>
+                    <li class=""><a href="#tab_1_2" data-toggle="tab">@babonline.Question_List</a></li>
+                    <li><a href="#tab_1_3" data-toggle="tab">@babonline.Tax_List</a></li>
+
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1_1">
+                        <label><a id="teminat-ekle" href="#teminat-modal" data-toggle="modal" class="btn btn-success">@babonline.Collateral_Add</a></label>
+
+                        @*Teminatlar Burada Ekleniyor *@
+                        <div class="row-fluid">
+                            <div class="span12" id="teminat-container">
+                                @Html.Partial("_Teminatlar", Model)
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane" id="tab_1_2">
+                        <label><a id="soru-ekle" data-toggle="modal" href="#soru-modal" class="btn btn-success">@babonline.Question_Add</a></label>
+
+                        @*Sorular Burada Ekleniyor *@
+                        <div class="row-fluid">
+                            <div class="span12" id="soru-container">
+                                @Html.Partial("_Sorular", Model)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_1_3">
+                        <label><a id="vergi-ekle" href="#vergi-modal" data-toggle="modal" class="btn btn-success">@babonline.Tax_Add</a></label>
+
+                        @*Vergiler Burada Ekleniyor *@
+                        <div class="row-fluid">
+                            <div class="span12" id="vergi-container">
+                                @Html.Partial("_Vergiler", Model)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success">@babonline.Edit</button>
+                <a class="btn" href="~/Manage/Urun/Detay/@Model.UrunKodu">@babonline.Cancel</a>
+            </div>         
+        }
+    </div>
+</div>
+
+
+
+@*Teminat ekle modal form*@
+<div id="teminat-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>@babonline.Collateral_Add</h3>
+    </div>
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="teminat-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="teminat-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <table id="teminat-ekle-table" class="table table-bordered table-striped responsive data-table">
+            <thead>
+                <tr>
+                    <th style="width: 100px;">@babonline.Collateral_Code</th>
+                    <th>@babonline.Collateral_Name</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="#" id="teminat-ekle-btn" class="btn btn-success">@babonline.Add</a>
+    </div>
+</div>
+
+@*Vergi Ekle Modal Form*@
+<div id="vergi-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>@babonline.Tax_Add</h3>
+    </div>
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="vergi-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="vergi-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <table id="vergi-ekle-table" class="table table-bordered table-striped responsive data-table">
+            <thead>
+                <tr>
+                    <th style="width: 100px;">@babonline.Tax_Code</th>
+                    <th style="width: 200px;">@babonline.Tax_Name</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="#" id="vergi-ekle-btn" class="btn btn-success">@babonline.Save</a>
+    </div>
+</div>
+
+
+@* Soru Ekle Modal Form*@
+<div id="soru-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>@babonline.Question_Add</h3>
+    </div>
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="soru-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="soru-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <table id="soru-ekle-table" class="table table-bordered table-striped responsive data-table">
+            <thead>
+                <tr>
+                    <th style="width: 100px;">@babonline.Question_Code</th>
+                    <th style="width: 200px;">@babonline.Question_Name</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="#" id="soru-ekle-btn" class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+    </div>
+</div>
+
+
+@Html.Partial("_DeleteConfirmation")

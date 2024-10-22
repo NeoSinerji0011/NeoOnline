@@ -1,0 +1,41 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.TVM.Models.KullaniciNotEkleModel
+
+<div id="not-ekle-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>@babonline.Node_Add</h3>
+    </div>
+    <div class="modal-body">
+        <form id="not-ekle-form" class="form-horizontal" name="not-ekle-form">
+            @{ Html.EnableClientValidation(true); }
+            @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+            <div class="control-group">
+                <label class="control-label">@babonline.Topic</label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.Konu)
+                    @Html.ValidationMessageFor(s => s.Konu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Description</label>
+                <div class="controls">
+                    @Html.TextAreaFor(s => s.Aciklama)
+                    @Html.ValidationMessageFor(s => s.Aciklama)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Preference</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.Oncelik, Model.Oncelikler)
+                    @Html.ValidationMessageFor(s => s.Oncelik)
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="#" class="btn btn-success" data-loading-text="@babonline.Message_Loading" id="btn-not-kaydet">@babonline.Save</a>
+    </div>
+</div>
+

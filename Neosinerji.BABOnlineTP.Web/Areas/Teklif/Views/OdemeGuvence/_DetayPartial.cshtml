@@ -1,0 +1,127 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@model OdemeGuvenceDetayPartialModel
+
+
+
+<div class="row-fluid">
+
+    <div class="span6">
+        <h3>@babonline.General_Information</h3>
+        <div class="control-group">
+            <label class="control-label">@babonline.InsureNameAndSurname</label>
+            <div class="controls">
+                <label class="control">@Model.AdSoyad</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Insurance_Start_Date</label>
+            <div class="controls">
+                <label class="control">@Model.SigortaBaslangicTarihi</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Premium_Payment_Period</label>
+            <div class="controls">
+                <label class="control">@Model.PrimOdemeDonemi</label>
+            </div>
+        </div>
+
+        @if (Model.IlgiliTeklifId.HasValue)
+        { 
+            <div class="control-group">
+                <label class="control-label">@babonline.RelatedProposal</label>
+                <div class="controls">
+                    <label class="control"><a target="_blank" href="/Teklif/OdulluBirikim/Detay/@(Model.IlgiliTeklifId)">@Model.IlgiliTeklifNo</a></label>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="span6">
+        <h3>Koruma Altına Alınan Poliçe (KAP) Bilgileri</h3>
+
+        <div class="control-group">
+            <label class="control-label">@babonline.PolicyStartDate</label>
+            <div class="controls">
+                <label class="control">@Model.PoliceBaslangicTarihi</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">@babonline.Currency</label>
+            <div class="controls">
+                <label class="control">@Model.ParaBirimi</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">@babonline.InsurancePeriod (@babonline.Year)</label>
+            <div class="controls">
+                <label class="control">@Model.SigortaSuresi</label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">@babonline.MonthlyPremiumAmount</label>
+            <div class="controls">
+                <label class="control">@Model.AylikPrimTutari</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.ContainerPolicyNumber</label>
+            <div class="controls">
+                <label class="control">@Model.KapPoliceNo</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Ek Teminatlar</h3>
+<div class="row-fluid">
+    <div class="span6">
+        <label class="span" style="color: #0D638F">Kritik Hastalıklar Durumunda Prim Muafiyeti Teminatı </label>
+    </div>
+    <div class="span6">
+        @if (Model.KritikHastalikDPM)
+        {<label class="label label-success">@babonline.Have</label> }
+        else
+        {<label class="label label-error">@babonline.Havent</label> }
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <label class="span" style="color: #0D638F">Tam ve Daimi Maluliyet Durumunda Prim Muafiyeti Teminatı  </label>
+    </div>
+    <div class="span6">
+        @if (Model.TamVeTaimiMaluliyetDPM)
+        {<label class="label label-success">@babonline.Have</label> }
+        else
+        {<label class="label label-error">@babonline.Havent</label> }
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <label class="span" style="color: #0D638F">İşsizlik Durumunda Prim Muafiyeti Teminatı</label>
+    </div>
+    <div class="span6">
+        @if (Model.IssizlikDPM)
+        {<label class="label label-success">@babonline.Have</label> }
+        else
+        {<label class="label label-error">@babonline.Havent</label> }
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <label class="span" style="color: #0D638F">Kaza Sonucu Hastanede Yatarak Tedavi Durumunda Prim Muafiyeti Teminatı </label>
+    </div>
+    <div class="span6">
+        @if (Model.KazaSonucuHastanedeyatarakTDPM)
+        {<label class="label label-success">@babonline.Have</label> }
+        else
+        {<label class="label label-error">@babonline.Havent</label> }
+    </div>
+</div>

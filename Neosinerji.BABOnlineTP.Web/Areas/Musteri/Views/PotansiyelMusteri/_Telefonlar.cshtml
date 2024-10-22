@@ -1,0 +1,58 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.PotansiyelMusteri.Models
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+@model PotansiyelMusteriTelefonListModel
+
+@{
+    bool silme = false;
+
+    List<KullaniciYetkiModel> altMenuSekmeler = ViewBag.Sekmeler;
+    KullaniciYetkiModel altmenusekme = altMenuSekmeler.Where(s => s.SekmeKodu == menu.AltMenuSekmeler.AraGuncelle).FirstOrDefault();
+
+    if (altmenusekme != null)
+    {
+        if (altmenusekme.Silme == 1)
+        { silme = true; }
+    }
+}
+
+<table id="telefonlar-table" class="table table-striped table-bordered table-hover dataTable data-table">
+    <thead>
+        <tr>
+            <th>@babonline.Number_Type</th>
+            <th>@babonline.Number</th>
+            <th>@babonline.Number_Owner</th>
+            @if (Model.sayfaAdi == "guncelle")
+            {
+                <th style="width: 30px;">&nbsp;</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.IletisimNumaraText</td>
+                @if (Model.sayfaAdi == "guncelle")
+                {<td><a href="javascript:void(0)" musteri-kodu="@item.PotansiyelMusteriKodu" sira-no="@item.SiraNo" class="guncelle-telefon">@item.Numara</a></td> }
+                else
+                {<td>@item.Numara</td> }
+                <td>@item.NumaraSahibi</td>
+                @if (Model.sayfaAdi == "guncelle")
+                {
+                    <td>
+                        <div class="btn-group">
+                            <a href="javascript:void(0)" musteri-kodu="@item.PotansiyelMusteriKodu" sira-no="@item.SiraNo" class="btn btn-mini btn-success guncelle-telefon">@babonline.Edit</a>
+                            
+                            @if (silme)
+                            {
+                                <a href="javascript:void(0)" musteri-kodu="@item.PotansiyelMusteriKodu" sira-no="@item.SiraNo" class="btn btn-mini btn-danger delete-telefon">@babonline.Delete</a>
+                            }
+                        </div>
+                    </td>  
+                }
+            </tr>
+        }
+    </tbody>
+</table>

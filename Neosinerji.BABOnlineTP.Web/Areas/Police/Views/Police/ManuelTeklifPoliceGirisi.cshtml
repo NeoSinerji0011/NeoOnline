@@ -1,0 +1,3184 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@using Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Web.Areas.Police.Models
+@model ManuelTeklifPoliceGirisi
+
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="/Police/Police/ManuelTeklifPoliceGirisi" id="horizontalMenu">@babonline.Policy_Input<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+
+@section PageScripts
+{
+    <script src="~/Content/js/underscore.js"></script>
+    <script src="~/Content/js/autoNumeric.js" type="text/javascript"></script>
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    <script src="~/Content/js/jquery-clockpicker.min.js"></script>
+    <link href="~/Content/css/jquery-clockpicker.min.css" rel="stylesheet" />
+    <link href="~/Content/css/bootstrap-clockpicker.min.css" rel="stylesheet" />
+    <script src="~/Content/js/bootstrap-clockpicker.min.js"></script>
+    @Styles.Render("~/Content/switch")
+    @Scripts.Render("~/bundles/switch")
+    <script type="text/template" class="template-taksit">
+        <div style="padding-top: 10px; padding-left: 10px;">
+            <div class="row-fluid taksit-row control-group" style="padding-bottom: 10px;" id="taksit-row-<%- rc.no %>">
+                <div class="span2">
+                    <input data-val="true" style="width: 30px;" data-val-number="@babonline.InstallmentNo @babonline.must_be_a_number." data-val-required="@babonline.InstallmentNo @babonline.field_is_required." id="TaksitSatirlar_<%- rc.no %>__TaksitNo" name="TaksitSatirlar[<%- rc.no %>].TaksitNo" class="valid" type="text">
+                </div>
+                <div class="span3">
+                    <input data-val="true" data-val-number="@babonline.InstallmentNo @babonline.must_be_a_number." data-val-required="@babonline.InstallmentNo @babonline.field_is_required." id="TaksitSatirlar_<%- rc.no %>__VadeTarihi" name="TaksitSatirlar[<%- rc.no %>].VadeTarihi" class=" input-small valid" type="text">
+                </div>
+                <div class="span3">
+                    <input class="valid m-wrap autoNumeric-custom taksitTutarlari" data-val="true" data-val-number="@babonline.InstallmentAmount @babonline.field_is_required "
+                           data-val-required="@babonline.InstallmentAmount @babonline.field_is_required." id="TaksitSatirlar_<%- rc.no %>__TaksitTutari" name="TaksitSatirlar[<%- rc.no %>].TaksitTutari" type="text">
+                </div>
+                <div class="span3" id="TaksitTutarTL_<%- rc.no %>" style="display:none">
+                    <input class=" valid m-wrap autoNumeric-custom taksitTutarlari" data-val="true" data-val-number="@babonline.InstallmentAmount @babonline.must_be_a_number."
+                           id="TaksitSatirlar_<%- rc.no %>__TaksitTutariTL" name="TaksitSatirlar[<%- rc.no %>].TaksitTutariTL" type="text">
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/template" class="template-underwriter">
+        <div style="padding-top: 10px; padding-left: 10px;">
+            <div class="row-fluid underwriter-row control-group" style="padding-bottom: 10px;" id="underwriter-row-<%- rc.no %>">
+                <div class="span6">
+                    <input data-val="true" style="width: 300px;" data-val-required="@babonline.UnderwriterName @babonline.field_is_required ." id="UnderwriterSatirlar<%- rc.no %>__UnderwriterAdi" name="UnderwriterSatirlar[<%- rc.no %>].UnderwriterAdi" class="valid" type="text">
+                </div>
+                <div class="span4">
+                    <input data-val="true" style="width: 80px;" id="UnderwriterSatirlar<%- rc.no %>__UnderwriterPayOrani" name="UnderwriterSatirlar[<%- rc.no %>].UnderwriterPayOrani" class="onlynumbersPayorani UnderwriterPayOrani" maxlength="5" type="text">
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/template" class="template-underwriter2">
+        <div style="padding-top: 10px; padding-left: 10px;">
+            <div class="row-fluid underwriter-row control-group" style="padding-bottom: 10px;" id="underwriter-row-<%- _index %>">
+                <div class="span3">
+                    <%- _input_select %>
+                </div>
+                <div class="span2">
+                    <input data-val="true" data="<%- _index %>" style="max-width: 100px;" id="UnderwriterSatirlar<%- _index %>__UnderwriterPayOrani" name="UnderwriterSatirlar[<%- _index %>].UnderwriterPayOrani" class="onlynumbersPayorani UnderwriterPayOrani" maxlength="5" type="text">
+                </div>
+                <div class="span2">
+                    <input data-val="true" data="<%- _index %>" style="max-width: 100px; " id="UnderwriterSatirlar<%- _index %>__UnderwriterPrim" name="UnderwriterSatirlar[<%- _index %>].UnderwriterPrim" class="onlynumbersPayorani UnderwriterPrim" maxlength="5" type="text">
+                </div>
+                <div class="span2">
+                    <input data-val="true" data="<%- _index %>" style="max-width: 100px; " id="UnderwriterSatirlar<%- _index %>__UnderwriterKomisyonOrani" name="UnderwriterSatirlar[<%- _index %>].UnderwriterKomisyonOrani" class="onlynumbersPayorani UnderwriterKomisyonOrani" maxlength="5" type="text">
+                </div>
+                <div class="span2">
+                    <input data-val="true" data="<%- _index %>" style="max-width: 100px;" id="UnderwriterSatirlar<%- _index %>__UnderwriterKomisyon" name="UnderwriterSatirlar[<%- _index %>].UnderwriterKomisyon" class="onlynumbersPayorani UnderwriterKomisyon" maxlength="5" type="text">
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/javascript">
+
+        var bitisClock = $('#PoliceBitisSaat').clockpicker({
+            placement: 'top',
+            align: 'left',
+            donetext: 'Tamam'
+        });
+
+        var baslangicClock = $('#PoliceBaslangicSaat').clockpicker({
+            placement: 'top',
+            align: 'left',
+            donetext: 'Tamam'
+        });
+
+        String.prototype.replaceAll = function (search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+        };
+        function primHesapla() {
+            var teminatTutar = $("#TeminatTutari").val();
+            var yDisiDisKaynakKomis = $("#YurtdisiDisKaynakKomisyon").val();
+            var yDisiAlinanKomisyon = $("#YurtdisiAlinanKomisyon").val();
+            var frontingSSKomisyon = $("#FrontingSigortaSirketiKomisyon").val();
+            var SatisKanaliKomisyon = $("#SatisKanaliKomisyon").val();
+            var yIciAlinanKomisyon = $("#YurticiAlinanKomisyon").val();
+            var yDisiNetPrim = $("#YurtdisiNetPrim").val();
+            var yDisiBrokerNetPrim = $("#YurtdisiBrokerNetPrim").val();
+
+            if (teminatTutar == null || teminatTutar == undefined || teminatTutar == "") {
+                teminatTutar = 0;
+            } else {
+                teminatTutar = $("#TeminatTutari").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (yDisiDisKaynakKomis == null || yDisiDisKaynakKomis == undefined || yDisiDisKaynakKomis == "") {
+                yDisiDisKaynakKomis = 0;
+            } else {
+                yDisiDisKaynakKomis = $("#YurtdisiDisKaynakKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (yDisiAlinanKomisyon == null || yDisiAlinanKomisyon == undefined || yDisiAlinanKomisyon == "") {
+                yDisiAlinanKomisyon = 0;
+            } else {
+                yDisiAlinanKomisyon = $("#YurtdisiAlinanKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (frontingSSKomisyon == null || frontingSSKomisyon == undefined || frontingSSKomisyon == "") {
+                frontingSSKomisyon = 0;
+            } else {
+                frontingSSKomisyon = $("#FrontingSigortaSirketiKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (SatisKanaliKomisyon == null || SatisKanaliKomisyon == undefined || SatisKanaliKomisyon == "") {
+                SatisKanaliKomisyon = 0;
+            } else {
+                SatisKanaliKomisyon = $("#SatisKanaliKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (yIciAlinanKomisyon == null || yIciAlinanKomisyon == undefined || yIciAlinanKomisyon == "") {
+                yIciAlinanKomisyon = 0;
+            } else {
+                yIciAlinanKomisyon = $("#YurticiAlinanKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (yDisiNetPrim == null || yDisiNetPrim == undefined || yDisiNetPrim == "") {
+                yDisiNetPrim = 0;
+            } else {
+                yDisiNetPrim = $("#YurtdisiNetPrim").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (yDisiBrokerNetPrim == null || yDisiBrokerNetPrim == undefined || yDisiBrokerNetPrim == "") {
+                yDisiBrokerNetPrim = 0;
+            } else {
+                yDisiBrokerNetPrim = $("#YurtdisiBrokerNetPrim").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            //var yIciNetPrim = (parseFloat(yDisiNetPrim) + parseFloat(frontingSSKomisyon) + parseFloat(SatisKanaliKomisyon) + parseFloat(yIciAlinanKomisyon));
+            //            var yIciNetPrim = (parseFloat(yDisiNetPrim) + parseFloat(yDisiAlinanKomisyon) + parseFloat(yDisiDisKaynakKomis));
+            var yIciNetPrim = (parseFloat(yDisiNetPrim) + parseFloat(frontingSSKomisyon) + parseFloat(SatisKanaliKomisyon) + parseFloat(yIciAlinanKomisyon));
+            if (yIciNetPrim == 0) {
+                var yIciBrutPrim = 0;
+                $("#YurticiBrutPrim").val(yIciBrutPrim.toFixed(2));
+                ParaBirimiAyarla($("#YurticiBrutPrim"));
+            }
+            else {
+                //var yIciBrutPrim = (parseFloat(yIciNetPrim) * parseFloat("1.05"));
+                /*var yIciBrutPrim = (parseFloat(yDisiNetPrim) + parseFloat(yDisiAlinanKomisyon) + parseFloat(yDisiDisKaynakKomis) + parseFloat(frontingSSKomisyon) + parseFloat(SatisKanaliKomisyon) + parseFloat(yIciAlinanKomisyon) * parseFloat("1.05"));*/
+                var yIciBrutPrim = (parseFloat(yIciNetPrim) * parseFloat("1.05"));
+                if (document.getElementById("rd_vergisiz").checked) {
+                    //yIciBrutPrim = (parseFloat(yIciNetPrim));
+                    /*  yIciBrutPrim = (parseFloat(yDisiNetPrim) + parseFloat(yDisiAlinanKomisyon) + parseFloat(yDisiDisKaynakKomis) + parseFloat(frontingSSKomisyon) + parseFloat(SatisKanaliKomisyon) + parseFloat(yIciAlinanKomisyon));*/
+                    yIciBrutPrim = parseFloat(yIciNetPrim);
+                }
+                $("#YurticiBrutPrim").val(yIciBrutPrim.toFixed(2));
+                ParaBirimiAyarla($("#YurticiBrutPrim"));
+            }
+
+            $("#YurticiNetPrim").val(yIciNetPrim.toFixed(2));
+            ParaBirimiAyarla($("#YurticiNetPrim"));
+            UWSatirGuncelle();
+
+        }
+        function UWSatirGuncelle() {
+            var kmsList = document.querySelectorAll('input[id$="UnderwriterKomisyonOrani"]');
+            var payoraniList = document.querySelectorAll('input[id$="UnderwriterPayOrani"]');
+            var item;
+            for (var i = 0; i < kmsList.length; i++) {
+                item = kmsList[i]
+                $("#" + item.id).trigger("keyup")
+            }
+            for (var i = 0; i < payoraniList.length; i++) {
+                item = payoraniList[i]
+                $("#" + item.id).trigger("change")
+            }
+        }
+        function dovizliDuzenle() {
+            var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+            var teminatTutar = $("#TeminatTutari").val();
+            var yDisiDisKaynakKomis = $("#YurtdisiDisKaynakKomisyon").val();
+            var yDisiAlinanKomisyon = $("#YurtdisiAlinanKomisyon").val();
+            var frontingSSKomisyon = $("#FrontingSigortaSirketiKomisyon").val();
+            var SatisKanaliKomisyon = $("#SatisKanaliKomisyon").val();
+            var yIciAlinanKomisyon = $("#YurticiAlinanKomisyon").val();
+            var yDisiNetPrim = $("#YurtdisiNetPrim").val();
+            var yDisiBrokerNetPrim = $("#YurtdisiBrokerNetPrim").val();
+            var yIciNetPrim = $("#YurticiNetPrim").val();
+            var yIciBrutPrim = $("#YurticiBrutPrim").val();
+
+            if (teminatTutar == null || teminatTutar == undefined || teminatTutar == "") {
+                teminatTutar = 0;
+            } else {
+                teminatTutar = $("#TeminatTutari").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (yDisiDisKaynakKomis == null || yDisiDisKaynakKomis == undefined || yDisiDisKaynakKomis == "") {
+                yDisiDisKaynakKomis = 0;
+            } else {
+                yDisiDisKaynakKomis = $("#YurtdisiDisKaynakKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (yDisiAlinanKomisyon == null || yDisiAlinanKomisyon == undefined || yDisiAlinanKomisyon == "") {
+                yDisiAlinanKomisyon = 0;
+            } else {
+                yDisiAlinanKomisyon = $("#YurtdisiAlinanKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (frontingSSKomisyon == null || frontingSSKomisyon == undefined || frontingSSKomisyon == "") {
+                frontingSSKomisyon = 0;
+            } else {
+                frontingSSKomisyon = $("#FrontingSigortaSirketiKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (SatisKanaliKomisyon == null || SatisKanaliKomisyon == undefined || SatisKanaliKomisyon == "") {
+                SatisKanaliKomisyon = 0;
+            } else {
+                SatisKanaliKomisyon = $("#SatisKanaliKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (yIciAlinanKomisyon == null || yIciAlinanKomisyon == undefined || yIciAlinanKomisyon == "") {
+                yIciAlinanKomisyon = 0;
+            } else {
+                yIciAlinanKomisyon = $("#YurticiAlinanKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (yDisiNetPrim == null || yDisiNetPrim == undefined || yDisiNetPrim == "") {
+                yDisiNetPrim = 0;
+            } else {
+                yDisiNetPrim = $("#YurtdisiNetPrim").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (yDisiBrokerNetPrim == null || yDisiBrokerNetPrim == undefined || yDisiBrokerNetPrim == "") {
+                yDisiBrokerNetPrim = 0;
+            } else {
+                yDisiBrokerNetPrim = $("#YurtdisiBrokerNetPrim").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (yIciNetPrim == null || yIciNetPrim == undefined || yIciNetPrim == "") {
+                yIciNetPrim = 0;
+            } else {
+                yIciNetPrim = $("#YurticiNetPrim").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            if (yIciBrutPrim == null || yIciBrutPrim == undefined || yIciBrutPrim == "") {
+                yIciBrutPrim = 0;
+            } else {
+                yIciBrutPrim = $("#YurticiBrutPrim").val().replaceAll(".", "").replaceAll(",", ".");
+            }
+            var teminatTutarTL = parseFloat(parseFloat(teminatTutar) * parseFloat(dovizKuru));
+            $("#TeminatTutariTL").val(teminatTutarTL.toFixed(2));
+            ParaBirimiAyarla($("#TeminatTutariTL"));
+
+            var yDisiDisKaynakKomisTL = parseFloat(parseFloat(yDisiDisKaynakKomis) * parseFloat(dovizKuru));
+            $("#YurtdisiDisKaynakKomisyonTL").val(yDisiDisKaynakKomisTL.toFixed(2));
+            ParaBirimiAyarla($("#YurtdisiDisKaynakKomisyonTL"));
+
+
+            var yDisiAlinanKomisyonTL = parseFloat(parseFloat(yDisiAlinanKomisyon) * parseFloat(dovizKuru));
+            $("#YurtdisiAlinanKomisyonTL").val(yDisiAlinanKomisyonTL.toFixed(2));
+            ParaBirimiAyarla($("#YurtdisiAlinanKomisyonTL"));
+
+
+            var frontingSSKomisyonTL = parseFloat(parseFloat(frontingSSKomisyon) * parseFloat(dovizKuru));
+            $("#FrontingSigortaSirketiKomisyonTL").val(frontingSSKomisyonTL.toFixed(2));
+            ParaBirimiAyarla($("#FrontingSigortaSirketiKomisyonTL"));
+
+
+            var SatisKanaliKomisyonTL = parseFloat(parseFloat(SatisKanaliKomisyon) * parseFloat(dovizKuru));
+            $("#SatisKanaliKomisyonTL").val(SatisKanaliKomisyonTL.toFixed(2));
+            ParaBirimiAyarla($("#SatisKanaliKomisyonTL"));
+
+
+            var yIciAlinanKomisyonTL = parseFloat(parseFloat(yIciAlinanKomisyon) * parseFloat(dovizKuru));
+            $("#YurticiAlinanKomisyonTL").val(yIciAlinanKomisyonTL.toFixed(2));
+            ParaBirimiAyarla($("#YurticiAlinanKomisyonTL"));
+
+
+            var yDisiNetPrimTL = parseFloat(parseFloat(yDisiNetPrim) * parseFloat(dovizKuru));
+            $("#YurtdisiNetPrimTL").val(yDisiNetPrimTL.toFixed(2));
+            ParaBirimiAyarla($("#YurtdisiNetPrimTL"));
+
+            var yDisiBrokerNetPrimTL = parseFloat(parseFloat(yDisiBrokerNetPrim) * parseFloat(dovizKuru));
+            $("#YurtdisiBrokerNetPrimTL").val(yDisiBrokerNetPrimTL.toFixed(2));
+            ParaBirimiAyarla($("#YurtdisiBrokerNetPrimTL"));
+
+            var yIciNetPrimTL = parseFloat(parseFloat(yIciNetPrim) * parseFloat(dovizKuru));
+            $("#YurticiNetPrimTL").val(yIciNetPrimTL.toFixed(2));
+            ParaBirimiAyarla($("#YurticiNetPrimTL"));
+
+            var yIciBrutPrimTL = parseFloat(parseFloat(yIciBrutPrim) * parseFloat(dovizKuru));
+            $("#YurticiBrutPrimTL").val(yIciBrutPrimTL.toFixed(2));
+            ParaBirimiAyarla($("#YurticiBrutPrimTL"));
+        }
+        function getElementByXpath(path) {
+            return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        }
+        $(document).ready(function () {
+            //document.getElementsByName("durum")[0].style.fontSize = "medium";
+            //document.getElementsByName("durum")[1].style.fontSize = "medium";
+
+            $('input[name=durum]').on('change', function (e, data) {
+                if (this.value == '1') {
+                    $("#policeGirisi").hide();
+                    $("#policeEkiGirisi").hide();
+                    $("#policeEkNo").hide();
+                    $("#policeYurtdisiNo").hide();
+                    $("#policeYenilemeNo").hide();
+                    $("#policeTipi").hide();
+                    $("#police-ara").hide();
+                    $("#policeeki-ara").hide();
+                    $("#teklif-ara").show();
+                    $("#policeDokuman").hide();
+                    $("#policeCreditNote").hide();
+                    $("#policeDebitNote").hide();
+                    $("#teklifDokuman").show();
+                    $("#teklifGirisi").show();
+                    document.getElementById("horizontalMenu").innerHTML = "@babonline.Offer_Input"; // Teklif Girişi
+                    PoliceAlanlariniTemizle();
+                    $("#policeSpan").hide();
+                    $("#PoliceNo").required = false;
+                    $("#PoliceNo").removeAttr("required");
+                }
+                else if (this.value == '3') {
+                    $("#policeEkNo").show();
+                    $("#policeYurtdisiNo").show();
+                    $("#policeYenilemeNo").show();
+                    $("#policeTipi").show();
+                    $("#policeGirisi").hide();
+                    $("#policeEkiGirisi").show();
+                    $("#policeeki-ara").show();
+                    $("#police-ara").hide();
+                    $("#teklif-ara").hide();
+                    $("#policeDokuman").show();
+                    $("#policeCreditNote").show();
+                    $("#policeDebitNote").show();
+                    $("#teklifDokuman").hide();
+                    $("#teklifGirisi").hide();
+                    $("#tumUrl").hide();
+                    document.getElementById("horizontalMenu").innerHTML = "@babonline.Policy_Attachment_Input"; // Poliçe Eki Girişi
+                    PoliceAlanlariniTemizle();
+                    $("#policeSpan").show();
+                    $("#PoliceNo").required = true;
+                    $("#PoliceNo").attr("required", "required");
+                }
+                else if (this.value == '2') {
+                    $("#policeEkNo").show();
+                    $("#policeYurtdisiNo").show();
+                    $("#policeYenilemeNo").show();
+                    $("#policeTipi").show();
+                    $("#policeGirisi").show();
+                    $("#policeeki-ara").hide();
+                    $("#police-ara").show();
+                    $("#teklif-ara").hide();
+                    $("#policeDokuman").show();
+                    $("#policeCreditNote").show();
+                    $("#policeDebitNote").show();
+                    $("#teklifDokuman").hide();
+                    $("#policeEkiGirisi").hide();
+                    $("#teklifGirisi").hide();
+                    document.getElementById("horizontalMenu").innerHTML = "@babonline.Policy_Input"; // Poliçe Girişi
+                    PoliceAlanlariniTemizle();
+                    $("#policeSpan").show();
+                    $("#PoliceNo").required = true;
+                    $("#PoliceNo").attr("required", "required");
+                }
+            });
+
+            document.getElementById("durum_2").click();
+            if ($("#PoliceBaslangicSaat").val() == undefined || $("#PoliceBaslangicSaat").val() == "") {
+                $("#PoliceBaslangicSaat").val("12:00");
+            }
+            if ($("#PoliceBitisSaat").val() == undefined || $("#PoliceBitisSaat").val() == "") {
+                $("#PoliceBitisSaat").val("12:00");
+            }
+
+
+            $("#PoliceBitisSaat").keyup(function () {
+                bitisClock.clockpicker('hide');
+                $("#PoliceBitisSaat").click();
+            });
+            $("#PoliceBaslangicSaat").keyup(function () {
+                baslangicClock.clockpicker('hide');
+                $("#PoliceBaslangicSaat").click();
+            });
+            $("#PoliceBitisSaat").change(function () {
+                getElementByXpath("//html/body/div[6]/button").click();
+            });
+            $("#PoliceBaslangicSaat").change(function () {
+                getElementByXpath("//html/body/div[5]/button").click();
+            });
+
+
+            $("#kimlikNo_Ara").click(function () {
+                $("#SigortaEttirenDdl").hide();
+                $("#SigortaEttirenListesi").empty();
+                $("#SigortaliDdl").hide();
+                $("#SigortaliListesi").empty();
+                var kimlikNo = $("#SigortaEttiren_KimlikNo").val();
+                $("#kimlikNo_Ara").button("loading");
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Police/Police/GetTCKNBilgileriByTCKN",
+                        data: { kimlikNo: kimlikNo },
+                        success: function (data) {
+                            if (!data.success) {
+                                swal("@babonline.NotFound!", "@babonline.NoRecordFound.");
+                                $("#kimlikNo_Ara").button("reset");
+                                return false;
+                            }
+                            $("#kimlikNo_Ara").button("reset");
+                            $("#SigortaEttiren_Adi").val(data.adi);
+                            $("#SigortaEttiren_Soyadi").val(data.soyadi);
+                            $("#SigortaEttiren_Telefon").val(data.telefon);
+                            $("#SigortaEttiren_Adres").val(data.adres);
+                        },
+                        error: function () {
+                            $("#kimlikNo_Ara").button("reset");
+                        }
+                    });
+            });
+            $("#kimlikNo_AraSigortali").click(function () {
+                var kimlikNo = $("#Sigortali_KimlikNo").val();
+                $("#kimlikNo_AraSigortali").button("loading");
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Police/Police/GetTCKNBilgileriByTCKN",
+                        data: { kimlikNo: kimlikNo },
+                        success: function (data) {
+                            if (!data.success) {
+                                swal("@babonline.NotFound!", "@babonline.NoRecordFound.");
+                                $("#kimlikNo_AraSigortali").button("reset");
+                                return false;
+                            }
+                            $("#kimlikNo_AraSigortali").button("reset");
+                            $("#Sigortali_Adi").val(data.adi);
+                            $("#Sigortali_Soyadi").val(data.soyadi);
+                            $("#Sigortali_Telefon").val(data.telefon);
+                            $("#Sigortali_Adres").val(data.adres);
+                        },
+                        error: function () {
+                            $("#kimlikNo_AraSigortali").button("reset");
+                        }
+                    });
+            });
+            //sigorta ettiren
+            $("#kimlikBilgisi_Ara").click(function () {
+                var ad = $("#SigortaEttiren_Adi").val();
+                var soyad = $("#SigortaEttiren_Soyadi").val();
+                if (ad == null || ad == "") {
+                    swal("@babonline.MissingInfo!", "@babonline._warningPleaseFillInsuredByName.", "warning"); // Lütfen Sigorta Ettiren Ad Alanını Doldurunuz
+                    return false;
+                }
+                if (soyad == null || soyad == "") {
+                    swal("@babonline.MissingInfo!", "@babonline._warningPleaseFillInsuredBySurname.", "warning"); // Lütfen Sigorta Ettiren Soyad Alanını Doldurunuz
+                    return false;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Police/Police/MusteriGetir',
+                    data: { ad: ad, soyad: soyad },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.success) {
+                            $("#SigortaEttirenListesi").empty();
+                            for (var j = 0; j < data.data.length; j++) {
+                                var ad = data.data[j].ad;
+                                var soyad = data.data[j].soyad;
+                                var adres = data.data[j].adres;
+                                var tel = data.data[j].tel;
+                                var TcknVkn = data.data[j].tcknVkn;
+                                $("#SigortaEttirenListesi").append("<option value='" + TcknVkn + "' KimlikNo='" + TcknVkn + "' Adi='" + ad + "' Soyadi='" + soyad + "' CepTel='" + tel + "' Adres='" + adres + "' >" + TcknVkn + " - " + ad + " " + soyad + "</option>");
+                                $("#SigortaEttirenDdl").show();
+                                $("#SigortaEttirenListesi").trigger("change");
+                            }
+                            if (data.data.length == 0) {
+                                swal("@babonline.NotFound!", "@babonline.NoPersonFound.", "info"); // Aradığınız Bilgilerde Birisi Bulunamadı
+                                $("#SigortaEttirenDdl").hide();
+                                $("#SigortaEttirenListesi").empty();
+                                $("#SigortaEttiren_KimlikNo").val("");
+                                $("#SigortaEttiren_Telefon").val("");
+                                $("#SigortaEttiren_Adres").val("");
+                            }
+                        }
+                        else {
+                            $("#SigortaEttirenDdl").hide();
+                            $("#SigortaEttirenListesi").empty();
+
+                        }
+                    }
+                });
+
+
+            });
+            //sigortalı
+            $("#kimlikBilgisiSigortali_Ara").click(function () {
+                var ad = $("#Sigortali_Adi").val();
+                var soyad = $("#Sigortali_Soyadi").val();
+                if (ad == null || ad == "") {
+                    swal("@babonline.MissingInfo!", "@babonline._warningPleaseFillInsuredName.", "warning"); // Lütfen Sigortalı Ad Alanını Doldurunuz
+                    return false;
+                }
+                if (soyad == null || soyad == "") {
+                    swal("@babonline.MissingInfo!", "@babonline._warningPleaseFillInsuredSurname.", "warning"); // Lütfen Sigortalı Soyad Alanını Doldurunuz
+                    return false;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: '/Police/Police/MusteriGetir',
+                    data: { ad: ad, soyad: soyad },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.success) {
+                            $("#SigortaliListesi").empty();
+                            for (var j = 0; j < data.data.length; j++) {
+                                var ad = data.data[j].ad;
+                                var soyad = data.data[j].soyad;
+                                var adres = data.data[j].adres;
+                                var tel = data.data[j].tel;
+                                var TcknVkn = data.data[j].tcknVkn;
+                                $("#SigortaliListesi").append("<option value='" + TcknVkn + "' KimlikNo='" + TcknVkn + "' Adi='" + ad + "' Soyadi='" + soyad + "' CepTel='" + tel + "' Adres='" + adres + "' >" + TcknVkn + " - " + ad + " " + soyad + "</option>");
+                                $("#SigortaliDdl").show();
+                                $("#SigortaliListesi").trigger("change");
+                            }
+                            if (data.data.length == 0) {
+                                swal("Bulunamadı!", "Aradığınız Bilgilerde Birisi Bulunamadı.", "info");
+                                $("#SigortaliDdl").hide();
+                                $("#SigortaliListesi").empty();
+                                $("#Sigortali_KimlikNo").val("");
+                                $("#Sigortali_Telefon").val("");
+                                $("#Sigortali_Adres").val("");
+                            }
+                        }
+                        else {
+                            $("#SigortaliDdl").hide();
+                            $("#SigortaliListesi").empty();
+
+                        }
+                    }
+                });
+
+
+            });
+            $('#SigortaEttirenListesi').change(function () {
+                var ad = $('option:selected', this).attr("Adi");
+                var soyad = $('option:selected', this).attr("Soyadi");
+                var adres = $('option:selected', this).attr("Adres");
+                var tel = $('option:selected', this).attr("CepTel");
+                var TcknVkn = $('option:selected', this).attr("KimlikNo");
+                $("#SigortaEttiren_Adi").val(ad);
+                $("#SigortaEttiren_Soyadi").val(soyad);
+                $("#SigortaEttiren_KimlikNo").val(TcknVkn);
+                $("#SigortaEttiren_Telefon").val(tel);
+                $("#SigortaEttiren_Adres").val(adres);
+
+            });
+            $('#SigortaliListesi').change(function () {
+                var ad = $('option:selected', this).attr("Adi");
+                var soyad = $('option:selected', this).attr("Soyadi");
+                var adres = $('option:selected', this).attr("Adres");
+                var tel = $('option:selected', this).attr("CepTel");
+                var TcknVkn = $('option:selected', this).attr("KimlikNo");
+                $("#Sigortali_Adi").val(ad);
+                $("#Sigortali_Soyadi").val(soyad);
+                $("#Sigortali_KimlikNo").val(TcknVkn);
+                $("#Sigortali_Telefon").val(tel);
+                $("#Sigortali_Adres").val(adres);
+
+            });
+            //sigorta ettiren
+            $('#SigortaEttiren_KimlikNo').change(function () {
+                $("#SigortaEttirenDdl").hide();
+                $("#SigortaEttirenListesi").empty();
+            });
+            $('#SigortaEttiren_Adi').change(function () {
+                $("#SigortaEttirenDdl").hide();
+                $("#SigortaEttirenListesi").empty();
+            });
+            $('#SigortaEttiren_Soyadi').change(function () {
+                $("#SigortaEttirenDdl").hide();
+                $("#SigortaEttirenListesi").empty();
+            });
+            $('#SigortaEttiren_Telefon').change(function () {
+                $("#SigortaEttirenDdl").hide();
+                $("#SigortaEttirenListesi").empty();
+            });
+            $('#SigortaEttiren_Adres').change(function () {
+                $("#SigortaEttirenDdl").hide();
+                $("#SigortaEttirenListesi").empty();
+            });
+            //sigortali
+            $('#Sigortali_KimlikNo').change(function () {
+                $("#SigortaliDdl").hide();
+                $("#SigortaliListesi").empty();
+            });
+            $('#Sigortali_Adi').change(function () {
+                $("#SigortaliDdl").hide();
+                $("#SigortaliListesi").empty();
+            });
+            $('#Sigortali_Soyadi').change(function () {
+                $("#SigortaliDdl").hide();
+                $("#SigortaliListesi").empty();
+            });
+            $('#Sigortali_Telefon').change(function () {
+                $("#SigortaliDdl").hide();
+                $("#SigortaliListesi").empty();
+            });
+            $('#Sigortali_Adres').change(function () {
+                $("#SigortaliDdl").hide();
+                $("#SigortaliListesi").empty();
+            });
+
+            $(".parabirimi").html("(₺)");
+
+            $("#SigortaliSigortaEttirenAynimi_control").on("switch-change", function () {
+                var sigortaliAyni = $("#SigortaliSigortaEttirenAynimi_control").bootstrapSwitch('status');
+                if (sigortaliAyni) {
+                    $(".sigortali-satir").slideUp("fast");
+                    $("#Sigortali_KimlikNo").addClass("ignore");
+                    $("#Sigortali_Adres").addClass("ignore");
+                }
+                else {
+                    $(".sigortali-satir").slideDown("fast");
+                    $("#Sigortali_KimlikNo").removeClass("ignore");
+                    $("#Sigortali_Adres").removeClass("ignore");
+                }
+            });
+            //Para Formatı ayarlanıyor
+            $(".autoNumeric-custom").autoNumeric('init', { vMin: '0', vMax: '999999999', mDec: 2, aSep: '.', aDec: ',' });
+            $(".autoNumeric-dovizKur").autoNumeric('init', { vMin: '0', vMax: '999999999', mDec: 4, aSep: '.', aDec: ',' });
+
+
+            $(".onlynumbers").live("keypress", function (e) {
+                return ((e.which >= 48 && e.which <= 57) || e.which == 8 || e.which == 0);
+            });
+            $(".onlynumbersClock").live("keypress", function (e) {
+                return ((e.which >= 48 && e.which <= 57) || e.which == 8 || e.which == 0 || e.which == 58);
+            });
+            $(".onlynumbersPayorani").live("keypress", function (e) {
+                //debugger
+                var str = $(this).val();
+                if (str.includes(",")) {
+                    return ((e.which >= 48 && e.which <= 57) || e.which == 8 || e.which == 0);
+                }
+                return ((e.which >= 48 && e.which <= 57) || e.which == 8 || e.which == 0 || e.which == 44);
+            });
+            $('.UnderwriterPayOrani').live('change', function (e) {
+                //debugger
+                var toplam = 0;
+                $('.UnderwriterPayOrani').each(function (i, obj) {
+                    if (parseFloat($(this).val().replace(",", ".")) > 0) {
+                        toplam = parseFloat(toplam) + parseFloat($(this).val().replace(",", "."));
+                    }
+                });
+                if (toplam > 100) {
+                    swal("HATA!", "Underwriter Pay Oranı Toplamı 100'ü Geçemez.");
+                    $(this).val("0")
+                    document.querySelector('input[id*="' + e.target.getAttribute("data") + '__UnderwriterPrim"]').value = "0"
+
+                }
+                else {
+                    UWPrimHesapla(e)
+                }
+            });
+            //////////////////////////////MECA
+            $('.UnderwriterKomisyonOrani').live('keyup', function (e) {
+
+                var toplam = 0;
+                var deger = e.target.value;
+                $('.UnderwriterKomisyonOrani').each(function (i, obj) {
+                    if (parseFloat($(this).val().replace(",", ".")) > 0) {
+                        toplam = parseFloat(toplam) + parseFloat($(this).val().replace(",", "."));
+                    }
+                });
+                if (toplam > 100) {
+                    swal("@babonline.Error!", "@babonline._warningTotalUnderwriterShareRatioCannotExceed100."); // Underwriter Pay Oranı Toplamı 100'ü Geçemez
+                    $(this).val("0")
+                    console.log(e.target.getAttribute("data"))
+                    document.querySelector('input[id$="' + e.target.getAttribute("data") + '__UnderwriterKomisyon"]').value = "0"
+                }
+                else {
+                    UWKomisyonHesapla(e)
+                }
+            });
+
+            function UWPrimHesapla(that) {
+                var sigortasirketkodu = document.getElementById("SigortaSirketiKodu").value;
+                var yurtdisiNetPrim = $("#YurtdisiNetPrim").val();
+                var primOrani = that.target.value;
+
+                var indexInput = that.target.getAttribute("data");
+                var primInput = document.getElementById("UnderwriterSatirlar" + indexInput + "__UnderwriterPrim");
+                if (parseFloat(yurtdisiNetPrim) > 0 && parseFloat(primOrani) > 0) {
+                    yurtdisiNetPrim = parseFloat(yurtdisiNetPrim.replace(".", "").replace(",", "."))
+                    primOrani = parseFloat(primOrani.toString().replace(",", "."))
+                    primInput.value = yurtdisiNetPrim * primOrani / 100;
+                }
+                //if (sirgotasirketkodu != "500")
+                var kodkontrol = parseInt(sigortasirketkodu)
+                if (kodkontrol < 500 && kodkontrol > 530) {
+                    $("#UnderwriterSatirlar" + indexInput + "__UnderwriterKomisyonOrani").trigger("keyup")
+                }
+            }
+            function UWKomisyonHesapla(that) {
+                var sigortasirketkodu = document.getElementById("SigortaSirketiKodu").value;
+
+
+                var yurtdisiDisKaynakKomisyon = parseFloat($("#YurtdisiDisKaynakKomisyon").val().replace(".", "").replace(",", "."));
+                if (!yurtdisiDisKaynakKomisyon) yurtdisiDisKaynakKomisyon = 0
+                var yurtdisiAlinanKomisyon = parseFloat($("#YurtdisiAlinanKomisyon").val().replace(".", "").replace(",", "."))
+                if (!yurtdisiAlinanKomisyon) yurtdisiAlinanKomisyon = 0
+                var komisyonOrani = that.target.value;
+                var indexInput = that.target.getAttribute("data");
+                var komisyonInput = document.getElementById("UnderwriterSatirlar" + indexInput + "__UnderwriterKomisyon");
+                var uwPrim = document.getElementById("UnderwriterSatirlar" + indexInput + "__UnderwriterPrim").value;
+                var geneltoplam = (yurtdisiDisKaynakKomisyon + yurtdisiAlinanKomisyon);
+                //if (sirgotasirketkodu != "500")
+                var kodkontrol = parseInt(sigortasirketkodu)
+                if (kodkontrol < 500 && kodkontrol > 530) {
+                    if (uwPrim > 0 && parseFloat(komisyonOrani) >= 0) {
+                        komisyonOrani = parseFloat(komisyonOrani.toString().replace(",", "."))
+                        komisyonInput.value = uwPrim * komisyonOrani / 100;
+                    }
+                }
+                else {
+                    //if (geneltoplam > 0 && parseFloat(komisyonOrani) > 0) {
+                    if (uwPrim > 0 && parseFloat(komisyonOrani) >= 0) {
+                        komisyonOrani = parseFloat(komisyonOrani.toString().replace(",", "."))
+                        //komisyonInput.value = geneltoplam * komisyonOrani / 100;
+                        komisyonInput.value = uwPrim * komisyonOrani / 100;
+                    }
+                }
+            }
+
+            /////////////////////////////
+            $("#ParaBirimi").change(function () {
+                var paraBirimi = $("#ParaBirimi").val();
+                if (paraBirimi.trim() != "TL") {
+                    $("#DovizKur").show();
+                    TutarlariTemizle();
+                }
+                else {
+                    $("#DovizKur").hide();
+                    TutarlariTemizle();
+                }
+                GetParaBirimiSimgesi(paraBirimi);
+            });
+
+            ParasalAlanlariSifirla()
+
+        });
+        function ParasalAlanlariSifirla() {
+            var paraBirimleriInputList = ["#YurtdisiDisKaynakKomisyon", "#TeminatTutari", "#YurtdisiDisKaynakKomisyon", "#YurtdisiAlinanKomisyon", "#YurtdisiNetPrim", "#YurtdisiBrokerNetPrim", "#FrontingSigortaSirketiKomisyon", "#SatisKanaliKomisyon", "#YurticiAlinanKomisyon", "#YurticiNetPrim", "#YurticiBrutPrim"]
+
+            paraBirimleriInputList.forEach(function (item, j) {
+                $(item).val("0");
+                $(item).trigger("focusout")
+            })
+        }
+        $("#DovizKur").change(function () {
+            var paraBirimi = $("#ParaBirimi").val();
+            if (paraBirimi != "TL") {
+
+                if ($("#TeminatTutari").val() != null && $("#TeminatTutari").val() != "") {
+                    var teminatTutar = $("#TeminatTutari").val().replaceAll(".", "").replaceAll(",", ".");
+                    var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                    var teminatTutarTL = (parseFloat(teminatTutar) * parseFloat(dovizKuru));
+                    $("#TeminatTutariTL").val(teminatTutarTL.toFixed(2));
+                    ParaBirimiAyarla($("#TeminatTutariTL"));
+                }
+                else {
+                    $("#TeminatTutariTL").val("");
+                }
+
+
+                if ($("#YurtdisiDisKaynakKomisyon").val() != null && $("#YurtdisiDisKaynakKomisyon").val() != "") {
+                    var yDisiDisKaynakKomis = $("#YurtdisiDisKaynakKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+                    var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                    var yDisiDisKaynakKomisTL = (parseFloat(yDisiDisKaynakKomis) * parseFloat(dovizKuru));
+                    $("#YurtdisiDisKaynakKomisyonTL").val(yDisiDisKaynakKomisTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiDisKaynakKomisyonTL"));
+                }
+                else {
+                    $("#YurtdisiDisKaynakKomisyonTL").val("");
+                }
+
+                if ($("#YurtdisiAlinanKomisyon").val() != null && $("#YurtdisiAlinanKomisyon").val() != "") {
+                    var yDisiAlinanKomisyon = $("#YurtdisiAlinanKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+                    var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                    var yDisiAlinanKomisyonTL = (parseFloat(yDisiAlinanKomisyon) * parseFloat(dovizKuru));
+                    $("#YurtdisiAlinanKomisyonTL").val(yDisiAlinanKomisyonTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiAlinanKomisyonTL"));
+                }
+                else {
+                    $("#YurtdisiAlinanKomisyonTL").val("");
+                }
+
+                if ($("#FrontingSigortaSirketiKomisyon").val() != null && $("#FrontingSigortaSirketiKomisyon").val() != "") {
+                    var frontingSSKomisyon = $("#FrontingSigortaSirketiKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+                    var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                    var frontingSSKomisyonTL = (parseFloat(frontingSSKomisyon) * parseFloat(dovizKuru));
+                    $("#FrontingSigortaSirketiKomisyonTL").val(frontingSSKomisyonTL.toFixed(2));
+                    ParaBirimiAyarla($("#FrontingSigortaSirketiKomisyonTL"));
+                }
+                else {
+                    $("#FrontingSigortaSirketiKomisyonTL").val("");
+                }
+
+                if ($("#SatisKanaliKomisyon").val() != null && $("#SatisKanaliKomisyon").val() != "") {
+                    var SatisKanaliKomisyon = $("#SatisKanaliKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+                    var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                    var SatisKanaliKomisyonTL = (parseFloat(SatisKanaliKomisyon) * parseFloat(dovizKuru));
+                    $("#SatisKanaliKomisyonTL").val(SatisKanaliKomisyonTL.toFixed(2));
+                    ParaBirimiAyarla($("#SatisKanaliKomisyonTL"));
+                }
+                else {
+                    $("#SatisKanaliKomisyonTL").val("");
+                }
+
+                if ($("#YurticiAlinanKomisyon").val() != null && $("#YurticiAlinanKomisyon").val() != "") {
+                    var yIciAlinanKomisyon = $("#YurticiAlinanKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+                    var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                    var yIciAlinanKomisyonTL = (parseFloat(yIciAlinanKomisyon) * parseFloat(dovizKuru));
+                    $("#YurticiAlinanKomisyonTL").val(yIciAlinanKomisyonTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurticiAlinanKomisyonTL"));
+                }
+                else {
+                    $("#YurticiAlinanKomisyonTL").val("");
+                }
+                if ($("#YurtdisiNetPrim").val() != null && $("#YurtdisiNetPrim").val() != "") {
+                    var yDisiNetPrim = $("#YurtdisiNetPrim").val().replaceAll(".", "").replaceAll(",", ".");
+                    var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                    var yDisiNetPrimTL = (parseFloat(yDisiNetPrim) * parseFloat(dovizKuru));
+                    $("#YurtdisiNetPrimTL").val(yDisiNetPrimTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiNetPrimTL"));
+                }
+                else {
+                    $("#YurtdisiNetPrimTL").val("");
+                }
+
+                if ($("#YurtdisiBrokerNetPrim").val() != null && $("#YurtdisiBrokerNetPrim").val() != "") {
+                    var yDisiNetPrim = $("#YurtdisiNetPrim").val().replaceAll(".", "").replaceAll(",", ".");
+                    var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                    var yDisiNetPrimTL = (parseFloat(yDisiNetPrim) * parseFloat(dovizKuru));
+                    $("#YurtdisiBrokerNetPrimTL").val(yDisiNetPrimTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiBrokerNetPrimTL"));
+                }
+                else {
+                    $("#YurtdisiBrokerNetPrimTL").val("");
+                }
+
+
+                if ($("#YurticiNetPrim").val() != null && $("#YurticiNetPrim").val() != "") {
+                    var yIciNetPrim = $("#YurticiNetPrim").val().replaceAll(".", "").replaceAll(",", ".");
+                    var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                    var yIciNetPrimTL = (parseFloat(yIciNetPrim) * parseFloat(dovizKuru));
+                    $("#YurticiNetPrimTL").val(yIciNetPrimTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurticiNetPrimTL"));
+                }
+                else {
+                    $("#YurticiNetPrimTL").val("");
+                }
+
+
+                if ($("#YurticiBrutPrim").val() != null && $("#YurticiBrutPrim").val() != "") {
+                    var yIciBrutPrim = $("#YurticiBrutPrim").val().replaceAll(".", "").replaceAll(",", ".");
+                    var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                    var yIciBrutPrimTL = (parseFloat(yIciBrutPrim) * parseFloat(dovizKuru));
+                    $("#YurticiBrutPrimTL").val(yIciBrutPrimTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurticiBrutPrimTL"));
+                }
+                else {
+                    $("#YurticiBrutPrimTL").val("");
+                }
+
+
+            }
+            else {
+                $("#DovizKur").hide();
+                $("#DovizKur").val("");
+
+                $("#teminatTl").hide();
+                $("#yurtDisiPrimTL").hide();
+                $("#yurtDisiKaynakKomisyonTL").hide();
+                $("#yurtDisiAlinanKomisyonTL").hide();
+                $("#frontingKomisyonTL").hide();
+                $("#satisKanaliKomisyonTL").hide();
+                $("#yurticiAlinanKomisyonTL").hide();
+                $("#yurtdisiNetPrimTL").hide();
+                $("#yurticiNetPrimTL").hide();
+                $("#yurticiBrutPrimTL").hide();
+
+                $("#TeminatTutariTL").val("");
+                $("#YurtdisiPrimTL").val("");
+                $("#YurtdisiDisKaynakKomisyonTL").val("");
+                $("#YurtdisiAlinanKomisyonTL").val("");
+                $("#FrontingSigortaSirketiKomisyonTL").val("");
+                $("#SatisKanaliKomisyonTL").val("");
+                $("#YurticiAlinanKomisyonTL").val("");
+                $("#YurtdisiNetPrimTL").val("");
+                $("#YurtdisiBrokerNetPrimTL").val("");
+                $("#YurticiNetPrimTL").val("");
+                $("#YurticiBrutPrimTL").val("");
+
+
+            }
+
+            if (!$("#taksitler").is(":hidden")) {
+                $("#TaksitSayisi").trigger("change");
+            }
+        });
+
+        var sigortaliAyni = $("#SigortaliSigortaEttirenAynimi_control").bootstrapSwitch('status');
+        if (sigortaliAyni) {
+            $(".sigortali-satir").slideUp("fast");
+            $("#Sigortali_KimlikNo").addClass("ignore");
+            $("#Sigortali_Adres").addClass("ignore");
+        }
+        else {
+            $(".sigortali-satir").slideDown("fast");
+            $("#Sigortali_KimlikNo").removeClass("ignore");
+            $("#Sigortali_Adres").removeClass("ignore");
+        }
+        $("#SigortaSirketiKodu").change(function () {
+            var kod = $(this).val()
+            var kodkontrol = parseInt(kod)
+            $("#OdemeTipi").removeAttr("disabled", "")
+            //if (kod = "500")
+            if (kodkontrol >= 500 && kodkontrol <= 530) {
+                $("#OdemeTipi").val(3)
+                $("#OdemeTipi").attr("disabled", "")
+            }
+            //var tempsirketkodu = $("#UnderwriterSayisi").val()
+
+            //if (tempsirketkodu != "") {
+            //    //$("#UnderwriterSayisi").val("")
+            //    //$("#UnderwriterSayisi").trigger("change")
+            //    //$("#UnderwriterSayisi").val(tempsirketkodu)
+            //    $("#UnderwriterSayisi").trigger("change")
+            //}
+        })
+        $("#PoliceKaydet").click(function () {
+            $("#PoliceKaydet").button("loading");
+            var odemeSekli = $("#OdemeSekli_control").bootstrapSwitch('status');
+            var kodkontrol = parseInt($("#SigortaSirketiKodu").val())
+            //if ($("#SigortaSirketiKodu").val() == "500")
+            if (kodkontrol >= 500 && kodkontrol <= 530) {
+                var dongukontrol = false;
+                if ($("input[id*=_UnderwriterPayOrani]").length == 0) {
+                    swal("@babonline._warningMustBeAtLeastOneUnderwriter!"); // Yurtdışı UW Reasürör-BAE seçiminde en az 1 tane UnderWriter olmalıdır
+                    dongukontrol = true;
+                }
+                else if ($("input[id*=_UnderwriterPayOrani]").length > 0) {
+                    var uwnamelist = ["_UnderwriterAdi", "_UnderwriterPayOrani", "_UnderwriterPrim", "_UnderwriterKomisyonOrani", "_UnderwriterKomisyon"];
+
+                    for (var j = 0; j < uwnamelist.length; j++) {
+                        for (var i = 0; i < $((j == 0 ? "select" : "input") + "[id*=" + uwnamelist[j] + "]").length; i++) {
+                            if (j == 0) {
+                                if ($("select[id*=" + uwnamelist[j] + "]")[i].value.toLowerCase().includes("lütfen")) {
+                                    swal("UnderWriter Ad/larını seçiniz!");
+                                    dongukontrol = true;
+                                    break;
+                                }
+                            }
+                            else if (!parseFloat($("input[id*=" + uwnamelist[j] + "]")[i].value)) {
+                                swal("UnderWriter oran ve değerlerini doldurunuz!");
+                                dongukontrol = true;
+                                break;
+                            }
+                        }
+                        if (dongukontrol) {
+                            break;
+                        }
+                    }
+                }
+                if (dongukontrol) {
+                    $("#PoliceKaydet").button("reset");
+                    return;
+                }
+
+            }
+
+            if (!odemeSekli) { //Ödeme şekli vadeli ise
+                var brutPrim = parseFloat($("#YurticiBrutPrim").val().replaceAll(".", "").replaceAll(",", "."));
+                var taksitSayisi = parseInt($("#TaksitSayisi").val());
+                var taksitTutari = parseFloat(0);
+                for (var i = 0; i < taksitSayisi; i++) {
+                    var taksitTutar = $("#TaksitSatirlar_" + i + "__TaksitTutari").val().replaceAll(".", "").replaceAll(",", ".");
+                    taksitTutari += parseFloat(taksitTutar);
+                }
+                if (taksitTutari.toFixed(2) != brutPrim.toFixed(2)) {
+                    swal("@babonline.PolicyRegistrationInformation!", "@babonline._warningTotalInstallmentMustBeEqualGrossPremium."); // Toplam taksit tutarınız Brüt Prim ile eşit olmalıdır. Lütfen taksitlerin tutarlarını kontrol ediniz
+                    $("#PoliceKaydet").button("reset");
+                }
+                else {
+                    var disabled = $("#PoliceTeklifGirisi").find(':input:disabled').removeAttr('disabled');
+                    var contents = new FormData($("#PoliceTeklifGirisi").get(0));
+
+                    //var contents = $("#PoliceTeklifGirisi").serialize();
+                    disabled.attr('disabled', 'disabled');
+
+                    $.ajax(
+                        {
+                            type: "POST",
+                            url: "/Police/Police/ManuelTeklifPoliceGirisi",
+                            data: contents,
+                            processData: false,
+                            contentType: false,
+                            dataType: "json",
+                            success: function (data) {
+                                $("#PoliceKaydet").button("reset");
+                                swal("@babonline.PolicyRegistrationInformation!", data.HataMesaji);
+                            },
+                            error: function () {
+                                $("#PoliceKaydet").button("reset");
+                            }
+                        });
+                }
+            }
+            else {
+                var disabled = $("#PoliceTeklifGirisi").find(':input:disabled').removeAttr('disabled');
+                var contents = new FormData($("#PoliceTeklifGirisi").get(0));
+
+                //var contents = $("#PoliceTeklifGirisi").serialize();
+                disabled.attr('disabled', 'disabled');
+
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Police/Police/ManuelTeklifPoliceGirisi",
+                        data: contents,
+                        processData: false,
+                        contentType: false,
+                        dataType: "json",
+                        success: function (data) {
+                            $("#PoliceKaydet").button("reset");
+                            swal("@babonline.PolicyRegistrationInformation!", data.HataMesaji);
+                        },
+                        error: function () {
+                            $("#PoliceKaydet").button("reset");
+                        }
+                    });
+            }
+        });
+
+        $("#PoliceGuncelle").click(function () {
+            $("#PoliceGuncelle").button("loading");
+            var disabled = $("#PoliceTeklifGirisi").find(':input:disabled').removeAttr('disabled');
+            var contents = new FormData($("#PoliceTeklifGirisi").get(0));
+            disabled.attr('disabled', 'disabled');
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/Police/Police/PoliceReasurorGuncelle",
+                    data: contents,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function (data) {
+                        $("#PoliceGuncelle").button("reset");
+                        swal("@babonline.PolicyUpdateInformation!", data.HataMesaji);
+                    },
+                    error: function () {
+                        $("#PoliceGuncelle").button("reset");
+                    }
+                });
+        });
+
+        $("#PoliceEkiGuncelle").click(function () {
+            $("#PoliceEkiGuncelle").button("loading");
+            var disabled = $("#PoliceTeklifGirisi").find(':input:disabled').removeAttr('disabled');
+            var contents = new FormData($("#PoliceTeklifGirisi").get(0));
+            disabled.attr('disabled', 'disabled');
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/Police/Police/PoliceEkiReasurorGuncelle",
+                    data: contents,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function (data) {
+                        $("#PoliceEkiGuncelle").button("reset");
+                        swal("@babonline.PolicyAttachmentUpdateInformation!", data.HataMesaji);
+                    },
+                    error: function () {
+                        $("#PoliceEkiGuncelle").button("reset");
+                    }
+                });
+        });
+
+        $("#TeklifGuncelle").click(function () {
+            $("#TeklifGuncelle").button("loading");
+            var disabled = $("#PoliceTeklifGirisi").find(':input:disabled').removeAttr('disabled');
+            var contents = new FormData($("#PoliceTeklifGirisi").get(0));
+            disabled.attr('disabled', 'disabled');
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/Police/Police/TeklifReasurorGuncelle",
+                    data: contents,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function (data) {
+                        $("#TeklifGuncelle").button("reset");
+                        swal("@babonline.OfferUpdateInformation!", data.HataMesaji);
+                    },
+                    error: function () {
+                        $("#TeklifGuncelle").button("reset");
+                    }
+                });
+        });
+
+        $("#PoliceSil").click(function () {
+
+            swal({
+                title: "@babonline.AreYouSureToDeleteThisPolicy?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "@babonline.DeletePolicy",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $("#PoliceSil").button("loading");
+                        var policeId = $("#PoliceId").val();
+                        if (policeId != null && policeId > 0) {
+                            $.ajax(
+                                {
+                                    type: "POST",
+                                    url: "/Police/Police/PoliceSilReasuror",
+                                    data: { PoliceId: policeId, Teklifid: "" },
+                                    success: function (data) {
+                                        $("#PoliceSil").button("reset");
+                                        swal("@babonline.InformationMessage!", data.HataMesaji);
+                                        $("#PoliceSil").hide();
+                                        PoliceAlanlariniTemizle();
+                                    },
+                                    error: function () {
+                                        $("#PoliceSil").button("reset");
+                                    }
+                                });
+                        }
+                        else {
+                            swal("@babonline.InformationMessage!", "@babonline._warningSearchPolicyBeforeDelete."); // Poliçe silme işlemi yapmadan önce lütfen öncelikle Poliçe Arama işlemini yapınız
+                        }
+                    }
+                    else {
+                        swal("@babonline.Cancel", "@babonline._warningPolicyDeletionCanceled.", "error"); // Poliçe silme işlemi iptal edildi
+                    }
+                }
+            );
+        });
+
+        $("#PoliceEkiSil").click(function () {
+
+            swal({
+                title: "@babonline.AreYouSureToDeleteThisPolicy?", // Ekranda detayı görünen poliçeyi silmek istediğinize emin nisiniz
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "@babonline.DeletePolicyAttachment", // Poliçe Eki Sil
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $("#PoliceSil").button("loading");
+                        var policeId = $("#PoliceId").val();
+                        if (policeId != null && policeId > 0) {
+                            $.ajax(
+                                {
+                                    type: "POST",
+                                    url: "/Police/Police/PoliceSilReasuror",
+                                    data: { PoliceId: policeId, Teklifid: "" },
+                                    success: function (data) {
+                                        $("#PoliceSil").button("reset");
+                                        swal("@babonline.Information!", data.HataMesaji);
+                                        $("#PoliceSil").hide();
+                                        PoliceAlanlariniTemizle();
+                                    },
+                                    error: function () {
+                                        $("#PoliceSil").button("reset");
+                                    }
+                                });
+                        }
+                        else {
+                            swal("@babonline.Information!", "@babonline._warningSearchPolicyBeforeDelete."); // Poliçe silme işlemi yapmadan önce lütfen öncelikle Poliçe Arama işlemini yapınız
+                        }
+                    }
+                    else {
+                        swal("@babonline.Cancel", "@babonline._warningPolicyDeletionCanceled", "error"); // Poliçe silme işlemi iptal edildi
+                    }
+                }
+            );
+        });
+
+        $("#TeklifSil").click(function () {
+            var teklifIddeneme = $("#TeklifId").val();
+            swal({
+                title: "@babonline.AreYouSureToDeleteThisOffer?", // Ekranda detayı görünen teklifi silmek istediğinize emin misiniz
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "@babonline.DeleteOffer", // Teklif Sil
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $("#TeklifSil").button("loading");
+                        var teklifId = $("#TeklifId").val();
+                        if (teklifId != null && teklifId > 0) {
+                            $.ajax(
+                                {
+                                    type: "POST",
+                                    url: "/Police/Police/PoliceSilReasuror",
+                                    data: { PoliceId: "", Teklifid: teklifId },
+                                    success: function (data) {
+                                        $("#TeklifSil").button("reset");
+                                        swal("@babonline.Information!", data.HataMesaji);
+                                        $("#TeklifSil").hide();
+                                        PoliceAlanlariniTemizle();
+                                    },
+                                    error: function () {
+                                        $("#TeklifSil").button("reset");
+                                    }
+                                });
+                        }
+                        else {
+                            swal("@babonline.Information!", "@babonline._warningSearchOfferBeforeDelete."); // Teklif silme işlemi yapmadan önce lütfen öncelikle Teklif Arama işlemini yapınız
+                        }
+                    }
+                    else {
+                        swal("@babonline.Cancel", "@babonline._warningOfferDeletionCanceled", "error"); // Teklif silme işlemi iptal edildi
+                    }
+                }
+            );
+        });
+
+        $("#OdemeSekli_control").on("switch-change", TaksitKontrol);
+
+        $("#TaksitSayisi").change(function () {
+            $("#taksit-header").siblings().remove();
+            $("#taksitler").hide();
+            $("#taksitgetir-progress").show();
+            var taksitSayisi = parseInt($("#TaksitSayisi").val());
+            var brutPrim = $("#YurticiBrutPrim").val().replaceAll(".", "").replaceAll(",", ".");
+            var brutPrimTL = $("#YurticiBrutPrimTL").val().replaceAll(".", "").replaceAll(",", ".");
+            var baslangicTarihi = $("#BaslangicTarihi").val();
+            if (brutPrimTL == null || brutPrimTL == "" || brutPrimTL == "undefined") {
+                brutPrimTL = 0;
+                $("#taksitTutarTlHeader").hide();
+                $("#dovizheader").hide();
+            }
+            else {
+                $("#taksitTutarTlHeader").show();
+                $("#dovizheader").show();
+
+            }
+            if (brutPrim != "" && brutPrim != null && baslangicTarihi != "" && baslangicTarihi != null) {
+                $("#taksitler").show();
+                $("#taksit-header").show();
+                $("#taksit-row").show();
+
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Police/Police/PoliceOdemePlaniHazirla",
+                        data: { taksitSayisi: taksitSayisi, brutPrim: brutPrim, brutPrimTL: brutPrimTL, baslamaTarihi: baslangicTarihi },
+                        success: function (data) {
+                            var data = data.TaksitLsit;
+                            $.each(data, function (index, item) {
+                                _.templateSettings.variable = "rc";
+                                var template = _.template(
+                                    $("script.template-taksit").html()
+                                );
+                                var templateData = { no: index };
+                                var elements = $("#taksit-header").parent().append(template(templateData));
+                                $("#TaksitSatirlar_" + index + "__TaksitNo").val(item.TaksitNo);
+                                $("#TaksitSatirlar_" + index + "__VadeTarihi").val(item.VadeTarihi);
+                                if ($("#ParaBirimi").val() == "TL") {
+                                    if (item.TaksitTutari != "" && item.TaksitTutari != null && item.TaksitTutari != 0) {
+                                        $("#TaksitSatirlar_" + index + "__TaksitTutari").val(parseFloat(item.TaksitTutari).toFixed(2));
+                                        ParaBirimiAyarla($("#TaksitSatirlar_" + index + "__TaksitTutari"));
+                                        $("#TaksitTutarTL_" + index).hide();
+                                    }
+                                }
+                                else {
+                                    if (item.TaksitTutari != "" && item.TaksitTutari != null && item.TaksitTutari != 0) {
+                                        $("#TaksitSatirlar_" + index + "__TaksitTutari").val(parseFloat(item.TaksitTutari).toFixed(2));
+                                        ParaBirimiAyarla($("#TaksitSatirlar_" + index + "__TaksitTutari"));
+                                    }
+                                    if (item.TaksitTutariTL != "" && item.TaksitTutariTL != null && item.TaksitTutariTL != 0) {
+                                        $("#TaksitSatirlar_" + index + "__TaksitTutariTL").val(parseFloat(item.TaksitTutariTL).toFixed(2));
+                                        ParaBirimiAyarla($("#TaksitSatirlar_" + index + "__TaksitTutariTL"));
+                                    }
+                                    $("#TaksitTutarTL_" + index).show();
+                                }
+                                $("#taksitgetir-progress").hide();
+                            });
+                            if ($("#ParaBirimi").val() != "TL") {
+                                $("#taksitTutarTlHeader").show();
+                                $("#dovizheader").show();
+                            }
+                            else {
+                                $("#taksitTutarTlHeader").hide();
+                                $("#dovizheader").hide();
+                            }
+                        },
+                        error: function () {
+                            $("#PoliceKaydet").button("reset");
+                            $("#taksitgetir-progress").hide();
+                        }
+                    });
+            }
+            else {
+                $("#PoliceKaydet").button("reset");
+                $("#taksitgetir-progress").hide();
+                $("#TaksitSayisi").val("1");
+                swal("@babonline.Error!", "@babonline._warningEnterGrossPremiumStartDateForInstallmentList."); //Taksit listesinin hazırlanabilmesi için lütfen Brüt Prim / Başlangıç Tarihi alanını giriniz
+                $("#OdemeSekli_control").bootstrapSwitch('setState', true);
+
+            }
+        });
+        $("input[name=rd_vergili]").change(function (e) {
+            primHesapla()
+        });
+        $("#UnderwriterSayisi").change(function () {
+
+            if (document.getElementById("TeminatTutari").value == "" ||
+                document.getElementById("YurtdisiDisKaynakKomisyon").value == "" ||
+                document.getElementById("YurtdisiAlinanKomisyon").value == "" ||
+                document.getElementById("YurtdisiNetPrim").value == "" ||
+                document.getElementById("YurtdisiBrokerNetPrim").value == "" ||
+                //document.getElementById("FrontingSigortaSirketiKomisyon").value == "" ||
+                document.getElementById("YurticiNetPrim").value == "" ||
+                document.getElementById("YurticiBrutPrim").value == ""
+            ) {
+                alert("@babonline._warningInformationRequiredOnTheRight."); //Sağdaki gerekli bilgiler tamamlandıktan sonra seçilebilir
+                $('#UnderwriterSayisi').prop('selectedIndex', 0);
+                $("#underwriters").hide();
+                createUnderwriterInput(0)
+                return;
+            }
+            //$("#underwriter-header").siblings().remove();
+            //$("#underwriter-progress").show();
+
+            $("#underwriters").hide();
+            var underwriterSayisi = parseInt($("#UnderwriterSayisi").val());
+            if (!underwriterSayisi) {
+                var oldelement;
+                var sayac = $("#underwriters > * select").length
+                for (var i = 0; i < sayac; i++) {
+                    oldelement = $("#underwriters > * select")
+                    oldelement[oldelement.length - 1].parentNode.parentNode.parentNode.remove()
+                }
+                return;
+            }
+
+            $("#underwriters").show();
+            $("#underwriter-header").show();
+            $("#underwriter-row").show();
+
+            createUnderwriterInput(underwriterSayisi)
+            return;
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/Police/Police/UnderwriterHazirla",
+                    data: { underwriterSayisi: underwriterSayisi },
+                    success: function (data) {
+                        var data = data.UnderwritersList;
+                        $.each(data, function (index, item) {
+                            _.templateSettings.variable = "rc";
+                            var template = _.template(
+                                $("script.template-underwriter").html()
+                            );
+                            var templateData = { no: index };
+                            var elements = $("#underwriter-header").parent().append(template(templateData));
+                            $("#UnderwriterSatirlar" + index + "__UnderwriterAdi").val(item.UnderwriterAdi);
+                            $("#UnderwriterSatirlar" + index + "__UnderwriterPayOrani").val(item.UnderwriterPayOrani);
+                            $("#underwriter-progress").hide();
+                        });
+                    },
+                    error: function () {
+                        $("#underwriter-progress").hide();
+                    }
+                });
+
+        });
+        function createUnderwriterInput(count, isUpdateData = null) {
+
+            var sigortasirketkodu = document.getElementById("SigortaSirketiKodu").value;
+            var dst;
+            //if (sirgotasirketkodu != "500")
+            var kodkontrol = parseInt(sigortasirketkodu)
+            if (!(kodkontrol >= 500 && kodkontrol <= 530)) {
+                var src = document.getElementById("SigortaSirketiKodu")
+                dst = src.cloneNode(true)
+                var tempoptionlist = []
+                for (var i = 0; i < dst.length; i++) {
+                    var kodkontrol = parseInt(dst[i].value)
+                    //if (dst[i].value == "500")
+                    if (kodkontrol >= 500 && kodkontrol <= 530) {
+                        //dst.removeChild(dst.options[i])
+                        tempoptionlist.push(dst.options[i])
+                    }
+                }
+                tempoptionlist.forEach(function (i, j) {
+                    dst.removeChild(i)
+                })
+            }
+            else {
+                var src = document.getElementById("UnderwriterListesi")
+                dst = src.cloneNode(true)
+            }
+            for (let item of dst.options) {
+                item.value = item.value + "|" + item.text
+            }
+            dst.style.width = '100%'
+            var rootTemplate = $("script.template-underwriter2").html()
+            var oldelement = $("#underwriters > * select")
+            var index = (oldelement.length > 0 ? oldelement.length : 0);
+
+            var sayac = (oldelement.length > 0 ? count - oldelement.length : count)
+            //UnderwriterSatirlar[<%- rc.no %>].UnderwriterAdi
+            //UnderwriterSatirlar<%- rc.no %>__UnderwriterAdi
+            if (count > index) {
+                for (var i = 0; i < sayac; i++) {
+                    var temp = rootTemplate.replaceAll("<%- _index %>", index);
+                    dst.id = "UnderwriterSatirlar" + index + "__UnderwriterAdi";
+                    dst.name = "UnderwriterSatirlar[" + index + "].UnderwriterAdi";
+                    temp = temp.replaceAll("<%- _input_select %>", dst.outerHTML)
+                    $("#underwriter-header").parent().append(temp);
+                    if (isUpdateData != null) {
+                        var item = isUpdateData[i];
+
+                        var optionsList = document.getElementById("UnderwriterSatirlar" + index + "__UnderwriterAdi")
+                        //console.log(item.UnderwriterKodu)
+
+                        for (let itemOpt of optionsList.options) {
+                            if (itemOpt.value.toString().includes(item.UnderwriterKodu)) {
+                                $("#UnderwriterSatirlar" + index + "__UnderwriterAdi").val(itemOpt.value);
+                                break;
+                            }
+                        }
+                        //$("#UnderwriterSatirlar" + index + "__UnderwriterAdi").val(item.UnderwriterAdi);
+                        $("#UnderwriterSatirlar" + index + "__UnderwriterPayOrani").val(item.UnderwriterPayOrani);
+                        $("#UnderwriterSatirlar" + index + "__UnderwriterPrim").val(item.UnderwriterPrim);
+                        $("#UnderwriterSatirlar" + index + "__UnderwriterKomisyon").val(item.UnderwriterKomisyon);
+                        $("#UnderwriterSatirlar" + index + "__UnderwriterKomisyonOrani").val(item.UnderwriterKomisyonOrani);
+                    }
+                    index++;
+                }
+            }
+            else {
+                sayac = sayac * -1;
+                for (var i = 0; i < sayac; i++) {
+                    oldelement = $("#underwriters > * select")
+                    oldelement[oldelement.length - 1].parentNode.parentNode.parentNode.remove()
+                }
+            }
+        }
+
+        $("#BaslangicTarihi").change(function () {
+            $("#TanzimTarihi").val($("#BaslangicTarihi").val());
+
+            var dmy = $("#BaslangicTarihi").val().split('.');
+            var secilenTarih = dmy[2] + "-" + dmy[1] + "-" + dmy[0];
+            var joindate = new Date(secilenTarih);
+            var yil = joindate.getFullYear() + 1;
+
+            var day = joindate.getDate();
+            if (day < 10) {
+                day = "0" + day;
+            }
+            var ay = parseInt(joindate.getMonth()) + 1;
+            if (ay < 10) {
+                ay = "0" + ay;
+            }
+            var bitisTarihi = day + "." + ay + "." + yil;
+            $("#BitisTarihi").val(bitisTarihi);
+        });
+
+
+        $("#TeminatTutari").change(function () {
+            if ($("#TeminatTutari").val() != null && $("#TeminatTutari").val() != "") {
+                var teminatTutar = $("#TeminatTutari").val().replaceAll(".", "").replaceAll(",", ".");
+                var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                var paraBirimi = $("#ParaBirimi").val();
+                if (paraBirimi != "TL") {
+                    var teminatTutarTL = (parseFloat(teminatTutar) * parseFloat(dovizKuru));
+                    $("#TeminatTutariTL").val(teminatTutarTL.toFixed(2));
+                    ParaBirimiAyarla($("#TeminatTutariTL"));
+                }
+                else {
+                    $("#TeminatTutariTL").val("");
+                }
+            }
+            primHesapla();
+            if (paraBirimi != "TL") {
+                dovizliDuzenle();
+            }
+        });
+
+
+
+        $("#YurtdisiDisKaynakKomisyon").change(function () {
+
+            if ($("#YurtdisiDisKaynakKomisyon").val() != null && $("#YurtdisiDisKaynakKomisyon").val() != "") {
+                var yDisiDisKaynakKomis = $("#YurtdisiDisKaynakKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+                var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                var paraBirimi = $("#ParaBirimi").val();
+                if (paraBirimi != "TL") {
+                    var yDisiDisKaynakKomisTL = (parseFloat(yDisiDisKaynakKomis) * parseFloat(dovizKuru));
+                    $("#YurtdisiDisKaynakKomisyonTL").val(yDisiDisKaynakKomisTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiDisKaynakKomisyonTL"));
+                }
+                else {
+                    $("#YurtdisiDisKaynakKomisyonTL").val("");
+                }
+            }
+            primHesapla();
+            if (paraBirimi != "TL") {
+                dovizliDuzenle();
+            }
+            if (!$("#taksitler").is(":hidden")) {
+                $("#TaksitSayisi").trigger("change");
+            }
+        });
+
+
+        $("#YurtdisiAlinanKomisyon").change(function () {
+
+            if ($("#YurtdisiAlinanKomisyon").val() != null && $("#YurtdisiAlinanKomisyon").val() != "") {
+                //var qwe = YurtdisiAlinanKomisyon.value
+                //var ydisialinankomisyon = parseFloat(qwe.replace(".", "?").replace(",", ".").replace("?", ""))
+                //qwe = YurtdisiDisKaynakKomisyon.value
+                //var ydisikaynakkomisyon = parseFloat(qwe.replace(".", "?").replace(",", ".").replace("?", ""))
+                //if (ydisialinankomisyon > ydisikaynakkomisyon) {
+                //    alert("Yurtdışı Alınan Komisyon Yurtdışı Kaynak Komisyonu'ndan büyük olamaz!")
+                //    $("#YurtdisiAlinanKomisyon").val("")
+                //    return;
+                //}
+                var yDisiAlinanKomisyon = $("#YurtdisiAlinanKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+                var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                var paraBirimi = $("#ParaBirimi").val();
+                if (paraBirimi != "TL") {
+                    var yDisiAlinanKomisyonTL = (parseFloat(yDisiAlinanKomisyon) * parseFloat(dovizKuru));
+                    $("#YurtdisiAlinanKomisyonTL").val(yDisiAlinanKomisyonTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiAlinanKomisyonTL"));
+                }
+                else {
+                    $("#YurtdisiAlinanKomisyonTL").val("");
+                }
+            }
+            primHesapla();
+            if (paraBirimi != "TL") {
+                dovizliDuzenle();
+            }
+            if (!$("#taksitler").is(":hidden")) {
+                $("#TaksitSayisi").trigger("change");
+            }
+        });
+
+
+        $("#FrontingSigortaSirketiKomisyon").change(function () {
+            if ($("#FrontingSigortaSirketiKomisyon").val() != null && $("#FrontingSigortaSirketiKomisyon").val() != "") {
+                var frontingSSKomisyon = $("#FrontingSigortaSirketiKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+                var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                var paraBirimi = $("#ParaBirimi").val();
+                if (paraBirimi != "TL") {
+                    var frontingSSKomisyonTL = (parseFloat(frontingSSKomisyon) * parseFloat(dovizKuru));
+                    $("#FrontingSigortaSirketiKomisyonTL").val(frontingSSKomisyonTL.toFixed(2));
+                    ParaBirimiAyarla($("#FrontingSigortaSirketiKomisyonTL"));
+                }
+                else {
+                    $("#FrontingSigortaSirketiKomisyonTL").val("");
+                }
+
+            }
+            primHesapla();
+            if (paraBirimi != "TL") {
+                dovizliDuzenle();
+            }
+            if (!$("#taksitler").is(":hidden")) {
+                $("#TaksitSayisi").trigger("change");
+            }
+        });
+
+
+        $("#SatisKanaliKomisyon").change(function () {
+
+            if ($("#SatisKanaliKomisyon").val() != null && $("#SatisKanaliKomisyon").val() != "") {
+                var SatisKanaliKomisyon = $("#SatisKanaliKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+                var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                var paraBirimi = $("#ParaBirimi").val();
+                if (paraBirimi != "TL") {
+                    var SatisKanaliKomisyonTL = (parseFloat(SatisKanaliKomisyon) * parseFloat(dovizKuru));
+                    $("#SatisKanaliKomisyonTL").val(SatisKanaliKomisyonTL.toFixed(2));
+                    ParaBirimiAyarla($("#SatisKanaliKomisyonTL"));
+                }
+                else {
+                    $("#SatisKanaliKomisyonTL").val("");
+                }
+            }
+            primHesapla();
+            if (paraBirimi != "TL") {
+                dovizliDuzenle();
+            }
+            if (!$("#taksitler").is(":hidden")) {
+                $("#TaksitSayisi").trigger("change");
+            }
+
+        });
+
+
+        $("#YurticiAlinanKomisyon").change(function () {
+
+            if ($("#YurticiAlinanKomisyon").val() != null && $("#YurticiAlinanKomisyon").val() != "") {
+                var yIciAlinanKomisyon = $("#YurticiAlinanKomisyon").val().replaceAll(".", "").replaceAll(",", ".");
+                var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                var paraBirimi = $("#ParaBirimi").val();
+                if (paraBirimi != "TL") {
+                    var yIciAlinanKomisyonTL = (parseFloat(yIciAlinanKomisyon) * parseFloat(dovizKuru));
+                    $("#YurticiAlinanKomisyonTL").val(yIciAlinanKomisyonTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurticiAlinanKomisyonTL"));
+                }
+                else {
+                    $("#YurticiAlinanKomisyonTL").val("");
+                }
+            }
+            primHesapla();
+            if (paraBirimi != "TL") {
+                dovizliDuzenle();
+            }
+            if (!$("#taksitler").is(":hidden")) {
+                $("#TaksitSayisi").trigger("change");
+            }
+        });
+
+
+        $("#YurtdisiNetPrim").change(function () {
+
+            if ($("#YurtdisiNetPrim").val() != null && $("#YurtdisiNetPrim").val() != "") {
+                var qwe = YurtdisiNetPrim.value
+                var ydisinetprim = parseFloat(qwe.replaceAll(".", "?").replace(",", ".").replaceAll("?", ""))
+                var qwe = YurtdisiAlinanKomisyon.value
+                var ydisialinankomisyon = parseFloat(qwe.replaceAll(".", "?").replace(",", ".").replaceAll("?", ""))
+                qwe = YurtdisiDisKaynakKomisyon.value
+                var ydisikaynakkomisyon = parseFloat(qwe.replaceAll(".", "?").replace(",", ".").replaceAll("?", ""))
+                if (ydisinetprim < ydisikaynakkomisyon || ydisinetprim < ydisialinankomisyon) {
+                    alert("@babonline._warningForeignNetPremiumCannotBeLess!") // Yurtdışı Net Prim Yurtdışı Kaynak ve Yurtdışı Alınan Komisyonları'ndan küçük olamaz
+                    $("#YurtdisiNetPrim").val("")
+                    return;
+                }
+
+                var yDisiNetPrim = $("#YurtdisiNetPrim").val().replaceAll(".", "").replaceAll(",", ".");
+                var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                var paraBirimi = $("#ParaBirimi").val();
+                if (paraBirimi != "TL") {
+                    var yDisiNetPrimTL = (parseFloat(yDisiNetPrim) * parseFloat(dovizKuru));
+                    $("#YurtdisiNetPrimTL").val(yDisiNetPrimTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiNetPrimTL"));
+                }
+                else {
+                    $("#YurtdisiNetPrimTL").val("");
+                }
+            }
+            primHesapla();
+            if (paraBirimi != "TL") {
+                dovizliDuzenle();
+            }
+
+        });
+        $("#YurtdisiBrokerNetPrim").change(function () {
+
+            if ($("#YurtdisiBrokerNetPrim").val() != null && $("#YurtdisiBrokerNetPrim").val() != "") {
+                var yDisiNetPrim = $("#YurtdisiBrokerNetPrim").val().replaceAll(".", "").replaceAll(",", ".");
+                var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                var paraBirimi = $("#ParaBirimi").val();
+                if (paraBirimi != "TL") {
+                    var yDisiNetPrimTL = (parseFloat(yDisiNetPrim) * parseFloat(dovizKuru));
+                    $("#YurtdisibrokerNetPrimTL").val(yDisiNetPrimTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisibrokerNetPrimTL"));
+                }
+                else {
+                    $("#YurtdisibrokerNetPrimTL").val("");
+                }
+            }
+            primHesapla();
+            if (paraBirimi != "TL") {
+                dovizliDuzenle();
+            }
+
+        });
+
+        $("#YurticiNetPrim").change(function () {
+
+            if ($("#YurticiNetPrim").val() != null && $("#YurticiNetPrim").val() != "") {
+                var yIciNetPrim = $("#YurticiNetPrim").val().replaceAll(".", "").replaceAll(",", ".");
+                var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                var paraBirimi = $("#ParaBirimi").val();
+                if (paraBirimi != "TL") {
+                    var yIciNetPrimTL = (parseFloat(yIciNetPrim) * parseFloat(dovizKuru));
+                    $("#YurticiNetPrimTL").val(yIciNetPrimTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurticiNetPrimTL"));
+                }
+                else {
+                    $("#YurticiNetPrimTL").val("");
+                }
+            }
+            primHesapla();
+            if (paraBirimi != "TL") {
+                dovizliDuzenle();
+            }
+        });
+
+
+        $("#YurticiBrutPrim").change(function () {
+
+            if ($("#YurticiBrutPrim").val() != null && $("#YurticiBrutPrim").val() != "") {
+                var yIciBrutPrim = $("#YurticiBrutPrim").val().replaceAll(".", "").replaceAll(",", ".");
+                var dovizKuru = $("#DovizKuru").val().replaceAll(".", "").replaceAll(",", ".");
+                var paraBirimi = $("#ParaBirimi").val();
+                if (paraBirimi != "TL") {
+                    var yIciBrutPrimTL = (parseFloat(yIciBrutPrim) * parseFloat(dovizKuru));
+                    $("#YurticiBrutPrimTL").val(yIciBrutPrimTL.toFixed(2));
+                    ParaBirimiAyarla($("#YurticiBrutPrimTL"));
+                }
+                else {
+                    $("#YurticiBrutPrimTL").val("");
+                }
+            }
+            primHesapla();
+            if (paraBirimi != "TL") {
+                dovizliDuzenle();
+            }
+        });
+
+
+        $("#teklif-ara").live("click", function () {
+            $("#teklif-ara").button("loading");
+            $.get("/Police/Police/TeklifAraPartial",
+                function (data) {
+                    $("#teklifara-modal-div").html(data);
+                    $("#teklifara-modal").modal('show');
+                    $("#teklif-ara").button("reset");
+                },
+                "html");
+        });
+        $("#teklif-ara-btn").live("click", function () {
+            $("#teklif-ara-btn").button("loading");
+            $("#teklif-ara-form").validate().form();
+            PoliceAlanlariniTemizle();
+            TutarlariTemizle();
+            if ($("#teklif-ara-form").valid()) {
+                var formData = $("#teklif-ara-form").serialize();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: "/Police/Police/GetTeklifAraReasurorPartial",
+                    data: formData,
+                    timeout: 60000,
+                    traditional: true,
+                    success: function (data) {
+                        if (data.data.sistemTeklifNo != null && data.data.sistemTeklifNo != "") {
+                            $("#teklif-ara-btn").button("reset");
+                            $("#teklifara-modal").modal('hide');
+                            SetPolice(data.data);
+                            $("#sistemTeklifNoDiv").show();
+                            $("#sistemTeklifNo").text(data.data.sistemTeklifNo);
+                            if (data.cariHesapVarMi) {
+                                $("#kimlikNo_Ara").prop("disabled", true);
+                                $("#kimlikBilgisi_Ara").prop("disabled", true);
+                                $("#kimlikBilgisiSigortali_Ara").prop("disabled", true);
+                                $("#SigortaEttiren_KimlikNo").prop('readonly', true);
+                            }
+                            else {
+                                $("#kimlikNo_Ara").prop("disabled", false);
+                                $("#kimlikBilgisi_Ara").prop("disabled", false);
+                                $("#kimlikBilgisiSigortali_Ara").prop("disabled", false);
+                                $("#SigortaEttiren_KimlikNo").prop('readonly', false);
+                            }
+                            $("#HataMesaji").hide();
+                            $("#TeklifSil").show();
+                            $("#TeklifGuncelle").show();
+                            $("#PoliceKaydet").hide();
+
+                        }
+
+                        else {
+                            swal("@babonline.NotFound!", "@babonline.NoRecordFound.");
+                            $("#teklif-ara-btn").button("reset");
+                            $("#TeklifGuncelle").hide();
+                            $("#PoliceKaydet").show();
+                        }
+
+                        return;
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+
+                    }
+                });
+            }
+        });
+
+
+        $("#police-ara").live("click", function () {
+            $("#police-ara").button("loading");
+            $.get("/Police/Police/PoliceReasurorAraPartial",
+                function (data) {
+                    $("#policeara-modal-div").html(data);
+                    $("#policeara-modal").modal('show');
+                    $("#police-ara").button("reset");
+                },
+                "html");
+        });
+        $("#police-ara-btn").live("click", function () {
+            $("#police-ara-btn").button("loading");
+            $("#police-ara-form").validate().form();
+            PoliceAlanlariniTemizle();
+            TutarlariTemizle();
+            if ($("#police-ara-form").valid()) {
+                var formData = $("#police-ara-form").serialize();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: "/Police/Police/GetPoliceAraReasurorPartial",
+                    data: formData,
+                    timeout: 60000,
+                    traditional: true,
+                    success: function (data) {
+                        if (data.data.PoliceNo != null && data.data.PoliceNo != "") {
+                            $("#police-ara-btn").button("reset");
+                            $("#policeara-modal").modal('hide');
+                            SetPolice(data.data);
+                            if (data.cariHesapVarMi) {
+                                $("#kimlikNo_Ara").prop("disabled", true);
+                                $("#kimlikBilgisi_Ara").prop("disabled", true);
+                                $("#kimlikBilgisiSigortali_Ara").prop("disabled", true);
+                                $("#SigortaEttiren_KimlikNo").prop('readonly', true);
+                            }
+                            else {
+                                $("#kimlikNo_Ara").prop("disabled", false);
+                                $("#kimlikBilgisi_Ara").prop("disabled", false);
+                                $("#kimlikBilgisiSigortali_Ara").prop("disabled", false);
+                                $("#SigortaEttiren_KimlikNo").prop('readonly', false);
+                            }
+                            $("#HataMesaji").hide();
+                            $("#PoliceSil").show();
+                            $("#PoliceGuncelle").show();
+                            $("#PoliceKaydet").hide();
+
+                        }
+
+                        else {
+                            swal("@babonline.NotFound!", "@babonline.NoRecordFound.");
+                            $("#police-ara-btn").button("reset");
+                            $("#PoliceGuncelle").hide();
+                            $("#PoliceKaydet").show();
+                        }
+
+                        return;
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+
+                    }
+                });
+            }
+        });
+
+        $("#policeeki-ara").live("click", function () {
+            $("#policeeki-ara").button("loading");
+            $.get("/Police/Police/PoliceEkiReasurorAraPartial",
+                function (data) {
+                    $("#policeekiara-modal-div").html(data);
+                    $("#policeekiara-modal").modal('show');
+                    $("#policeeki-ara").button("reset");
+                },
+                "html");
+        });
+        $("#policeeki-ara-btn").live("click", function () {
+            $("#policeeki-ara-btn").button("loading");
+            $("#policeeki-ara-form").validate().form();
+            PoliceAlanlariniTemizle();
+            TutarlariTemizle();
+            if ($("#policeeki-ara-form").valid()) {
+                var formData = $("#policeeki-ara-form").serialize();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: "/Police/Police/GetPoliceEkiAraReasurorPartial",
+                    data: formData,
+                    timeout: 60000,
+                    traditional: true,
+                    success: function (data) {
+                        if (data.data.PoliceNo != null && data.data.PoliceNo != "") {
+                            $("#policeeki-ara-btn").button("reset");
+                            $("#policeekiara-modal").modal('hide');
+                            SetPolice(data.data);
+                            $("#tumUrl").hide();
+                            $("#YurtdisiDisKaynakKomisyon").val("");
+                            $("#YurtdisiAlinanKomisyon").val("");
+                            $("#YurtdisiNetPrim").val("");
+                            $("#YurtdisiBrokerNetPrim").val("");
+                            $("#FrontingSigortaSirketiKomisyon").val("");
+                            $("#SatisKanaliKomisyon").val("");
+                            $("#YurticiAlinanKomisyon").val("");
+                            $("#YurticiNetPrim").val("");
+                            $("#YurticiBrutPrim").val("");
+                            if (data.cariHesapVarMi) {
+                                $("#kimlikNo_Ara").prop("disabled", true);
+                                $("#kimlikBilgisi_Ara").prop("disabled", true);
+                                $("#kimlikBilgisiSigortali_Ara").prop("disabled", true);
+                                $("#SigortaEttiren_KimlikNo").prop('readonly', true);
+                            }
+                            else {
+                                $("#kimlikNo_Ara").prop("disabled", false);
+                                $("#kimlikBilgisi_Ara").prop("disabled", false);
+                                $("#kimlikBilgisiSigortali_Ara").prop("disabled", false);
+                                $("#SigortaEttiren_KimlikNo").prop('readonly', false);
+                            }
+                            $("#HataMesaji").hide();
+                            $("#PoliceEkiSil").show();
+                            $("#PoliceEkiGuncelle").show();
+                            $("#PoliceEkiKaydet").hide();
+
+                        }
+
+                        else {
+                            swal("@babonline.NotFound!", "@babonline.NoRecordFound.");
+                            $("#policeeki-ara-btn").button("reset");
+                            $("#PoliceEkiGuncelle").hide();
+                            $("#PoliceEkiKaydet").show();
+                        }
+
+                        return;
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+
+                    }
+                });
+            }
+        });
+
+        $("#alanlariTemizle").click(function () {
+            PoliceAlanlariniTemizle();
+        });
+
+        function SetPolice(data) {
+            if (data != null) {
+                GetParaBirimiSimgesi(data.ParaBirimi);
+                $("#PoliceId").val(data.PoliceId);
+                $("#TeklifId").val(data.TeklifId);
+                $("#TVMKodu").val(data.TVMKodu);
+                $("#DisKaynakKodu").val(data.DisKaynakKodu);
+                $("#SigortaSirketiKodu").val(data.SigortaSirketiKodu);
+                $("#BransKodu").val(data.BransKodu);
+                $("#PoliceNo").val(data.PoliceNo);
+                $("#YurtdisiPoliceNo").val(data.YurtdisiPoliceNo);
+                $("#PoliceBaslangicSaat").val(data.PoliceBaslangicSaat);
+                $("#PoliceBitisSaat").val(data.PoliceBitisSaat);
+                $("#YenilemeNo").val(data.YenilemeNo);
+                $("#EkNo").val(data.EkNo);
+                $("#Aciklama").val(data.Aciklama);
+                $("#PoliceTipi").val(data.PoliceTipi);
+
+                if (data.bTarihi != null) {
+                    $("#BaslangicTarihi").datepicker('setDate', data.bTarihi);
+                }
+                if (data.bitTarihi != null) {
+                    $("#BitisTarihi").datepicker('setDate', data.bitTarihi);
+                }
+                if (data.tTarihi != null) {
+                    $("#TanzimTarihi").datepicker('setDate', data.tTarihi);
+                }
+
+                if (data.ParaBirimi != null && data.ParaBirimi != "") {
+                    $("#ParaBirimi").val(data.ParaBirimi);
+                    if (data.ParaBirimi != "TL") {
+                        $("#DovizKuru").val(parseFloat(data.DovizKuru).toFixed(4));
+                        ParaBirimiAyarla($("#DovizKuru"));
+                        $("#DovizKur").show();
+                    }
+                }
+                else {
+                    $("#ParaBirimi").val("TL ");
+                    $("#DovizKur").hide();
+                }
+
+
+                if (data.PoliceUrl != null && data.PoliceUrl != "") {
+                    document.getElementById("PoliceUrl").href = data.PoliceUrl;
+                    $("#policeDokumanURL").show();
+                    $("#tumUrl").show();
+                }
+                if (data.DebitNoteUrl != null && data.DebitNoteUrl != "") {
+                    document.getElementById("DebitNoteUrl").href = data.DebitNoteUrl;
+                    $("#policeDebitNoteURL").show();
+                    $("#tumUrl").show();
+                }
+                if (data.CreditNoteUrl != null && data.CreditNoteUrl != "") {
+                    document.getElementById("CreditNoteUrl").href = data.CreditNoteUrl;
+                    $("#policeCreditNoteURL").show();
+                    $("#tumUrl").show();
+                }
+                if (data.TeklifUrl != null && data.TeklifUrl != "") {
+                    document.getElementById("TeklifUrl").href = data.TeklifUrl;
+                    $("#teklifDokumanURL").show();
+                    $("#tumUrl").show();
+                }
+
+
+
+
+                if (data.FrontingSigortaSirketiKomisyon != null && data.FrontingSigortaSirketiKomisyon != "") {
+                    $("#FrontingSigortaSirketiKomisyon").val(parseFloat(data.FrontingSigortaSirketiKomisyon).toFixed(2));
+                    ParaBirimiAyarla($("#FrontingSigortaSirketiKomisyon"));
+                }
+                if (data.FrontingSigortaSirketiKomisyonTL != null && data.FrontingSigortaSirketiKomisyonTL != "") {
+                    $("#FrontingSigortaSirketiKomisyonTL").val(parseFloat(data.FrontingSigortaSirketiKomisyonTL).toFixed(2));
+                    ParaBirimiAyarla($("#FrontingSigortaSirketiKomisyonTL"));
+                }
+
+                if (data.SatisKanaliKomisyon != null && data.SatisKanaliKomisyon != "") {
+                    $("#SatisKanaliKomisyon").val(parseFloat(data.SatisKanaliKomisyon).toFixed(2));
+                    ParaBirimiAyarla($("#SatisKanaliKomisyon"));
+                }
+                if (data.SatisKanaliKomisyonTL != null && data.SatisKanaliKomisyonTL != "") {
+                    $("#SatisKanaliKomisyonTL").val(parseFloat(data.SatisKanaliKomisyonTL).toFixed(2));
+                    ParaBirimiAyarla($("#SatisKanaliKomisyonTL"));
+                }
+
+                if (data.TeminatTutari != null && data.TeminatTutari != "") {
+                    $("#TeminatTutari").val(parseFloat(data.TeminatTutari).toFixed(2));
+                    ParaBirimiAyarla($("#TeminatTutari"));
+                }
+                if (data.TeminatTutariTL != null && data.TeminatTutariTL != "") {
+                    $("#TeminatTutariTL").val(parseFloat(data.TeminatTutariTL).toFixed(2));
+                    ParaBirimiAyarla($("#TeminatTutariTL"));
+                }
+
+                if (data.YurtdisiAlinanKomisyon != null && data.YurtdisiAlinanKomisyon != "") {
+                    $("#YurtdisiAlinanKomisyon").val(parseFloat(data.YurtdisiAlinanKomisyon).toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiAlinanKomisyon"));
+                }
+                if (data.YurtdisiAlinanKomisyonTL != null && data.YurtdisiAlinanKomisyonTL != "") {
+                    $("#YurtdisiAlinanKomisyonTL").val(parseFloat(data.YurtdisiAlinanKomisyonTL).toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiAlinanKomisyonTL"));
+                }
+
+                if (data.YurtdisiDisKaynakKomisyon != null && data.YurtdisiDisKaynakKomisyon != "") {
+                    $("#YurtdisiDisKaynakKomisyon").val(parseFloat(data.YurtdisiDisKaynakKomisyon).toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiDisKaynakKomisyon"));
+                }
+                if (data.YurtdisiDisKaynakKomisyonTL != null && data.YurtdisiDisKaynakKomisyonTL != "") {
+                    $("#YurtdisiDisKaynakKomisyonTL").val(parseFloat(data.YurtdisiDisKaynakKomisyonTL).toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiDisKaynakKomisyonTL"));
+                }
+
+                if (data.YurtdisiNetPrim != null && data.YurtdisiNetPrim != "") {
+                    $("#YurtdisiNetPrim").val(parseFloat(data.YurtdisiNetPrim).toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiNetPrim"));
+                }
+                if (data.YurtdisiBrokerNetPrim != null && data.YurtdisiBrokerNetPrim != "") {
+                    $("#YurtdisiBrokerNetPrim").val(parseFloat(data.YurtdisiBrokerNetPrim).toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiBrokerNetPrim"));
+                }
+                if (data.YurtdisiNetPrimTL != null && data.YurtdisiNetPrimTL != "") {
+                    $("#YurtdisiNetPrimTL").val(parseFloat(data.YurtdisiNetPrimTL).toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiNetPrimTL"));
+                }
+                if (data.YurtdisiBrokerNetPrimTL != null && data.YurtdisiBrokerNetPrimTL != "") {
+                    $("#YurtdisiBrokerNetPrimTL").val(parseFloat(data.YurtdisiBrokerNetPrimTL).toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiBrokerNetPrimTL"));
+                }
+                if (data.YurtdisiPrim != null && data.YurtdisiPrim != "") {
+                    $("#YurtdisiPrim").val(parseFloat(data.YurtdisiPrim).toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiPrim"));
+                }
+                if (data.YurtdisiPrimTL != null && data.YurtdisiPrimTL != "") {
+                    $("#YurtdisiPrimTL").val(parseFloat(data.YurtdisiPrimTL).toFixed(2));
+                    ParaBirimiAyarla($("#YurtdisiPrimTL"));
+                }
+
+                if (data.YurticiAlinanKomisyon != null && data.YurticiAlinanKomisyon != "") {
+                    $("#YurticiAlinanKomisyon").val(parseFloat(data.YurticiAlinanKomisyon).toFixed(2));
+                    ParaBirimiAyarla($("#YurticiAlinanKomisyon"));
+                }
+                if (data.YurticiAlinanKomisyonTL != null && data.YurticiAlinanKomisyonTL != "") {
+                    $("#YurticiAlinanKomisyonTL").val(parseFloat(data.YurticiAlinanKomisyonTL).toFixed(2));
+                    ParaBirimiAyarla($("#YurticiAlinanKomisyonTL"));
+                }
+
+                if (data.YurticiBrutPrim != null && data.YurticiBrutPrim != "") {
+                    $("#YurticiBrutPrim").val(parseFloat(data.YurticiBrutPrim).toFixed(2));
+                    ParaBirimiAyarla($("#YurticiBrutPrim"));
+                }
+                if (data.YurticiBrutPrimTL != null && data.YurticiBrutPrimTL != "") {
+                    $("#YurticiBrutPrimTL").val(parseFloat(data.YurticiBrutPrimTL).toFixed(2));
+                    ParaBirimiAyarla($("#YurticiBrutPrimTL"));
+                }
+
+                if (data.YurticiNetPrim != null && data.YurticiNetPrim != "") {
+                    $("#YurticiNetPrim").val(parseFloat(data.YurticiNetPrim).toFixed(2));
+                    ParaBirimiAyarla($("#YurticiNetPrim"));
+                }
+                if (data.YurticiNetPrimTL != null && data.YurticiNetPrimTL != "") {
+                    $("#YurticiNetPrimTL").val(parseFloat(data.YurticiNetPrimTL).toFixed(2));
+                    ParaBirimiAyarla($("#YurticiNetPrimTL"));
+                }
+                if (data.YurticiNetPrim != null && data.YurticiNetPrim != "") {
+                    if (data.YurticiBrutPrim==data.YurticiNetPrim) {
+                        document.getElementById("rd_vergisiz").checked = true
+                    }
+                }
+                if (data.YurticiNetPrimTL != null && data.YurticiNetPrimTL != "") {
+                    if (data.YurticiBrutPrimTL == data.YurticiNetPrimTL) {
+                        document.getElementById("rd_vergisiz").checked = true
+                    }
+                }
+                $("#MuhasebeyeAktarildiMi").css("display", "none")
+                //console.log(data.MuhasebeyeAktarildiMi + " test")
+                if (data.MuhasebeyeAktarildiMi != null) {
+                    if (data.MuhasebeyeAktarildiMi == 2) {
+                        $("#MuhasebeyeAktarildiMi").css("display", "block");
+                    }
+                }
+
+
+                $("#SigortaEttiren_KimlikNo").val(data.SigortaEttiren.KimlikNo);
+                $("#SigortaEttiren_Adi").val(data.SigortaEttiren.Adi);
+                $("#SigortaEttiren_Soyadi").val(data.SigortaEttiren.Soyadi);
+                $("#SigortaEttiren_Telefon").val(data.SigortaEttiren.Telefon);
+                $("#SigortaEttiren_Adres").val(data.SigortaEttiren.Adres);
+
+                if (data.Sigortali.KimlikNo != "" && data.Sigortali.KimlikNo != null) {
+                    if (data.SigortaEttiren.KimlikNo != "" && data.SigortaEttiren.KimlikNo != null) {
+                        if (data.Sigortali.KimlikNo != data.SigortaEttiren.KimlikNo) {
+                            $("#Sigortali_KimlikNo").val(data.Sigortali.KimlikNo);
+                            $("#Sigortali_Adi").val(data.Sigortali.Adi);
+                            $("#Sigortali_Soyadi").val(data.Sigortali.Soyadi);
+                            $("#Sigortali_Telefon").val(data.Sigortali.Telefon);
+                            $("#Sigortali_Adres").val(data.Sigortali.Adres);
+                        }
+                    }
+                }
+
+                if (!data.SigortaliSigortaEttirenAynimi) {
+                    $("#SigortaliSigortaEttirenAynimi_control").bootstrapSwitch('setState', false);
+                }
+                else {
+                    $("#SigortaliSigortaEttirenAynimi_control").bootstrapSwitch('setState', true);
+                }
+
+                $("#TaksitSayisi").val(data.TaksitSayisi);
+                $("#OdemeTipi").val(data.OdemeTipi);
+
+                if (data.OdemeSekli == 1) { //Ödeme Şekli Peşin ise
+                    $("#OdemeSekli_control").bootstrapSwitch('setState', true);
+                }
+                else { //Ödeme Şekli Vadeli ise
+                    $("#OdemeSekli_control").bootstrapSwitch('setState', false);
+
+                    var taksitSatir = data.TaksitSatirlar;
+                    $("#taksit-header").siblings().remove();
+                    $("#taksitler").hide();
+                    $("#taksitler").show();
+                    $("#taksit-header").show();
+                    $("#taksit-row").show();
+                    $.each(taksitSatir, function (index, item) {
+                        //_.templateSettings.variable = "rc";
+                        //console.log(item)
+                        //var template = _.template(
+                        //    $("script.template-taksit").html()
+                        //);
+                        //var templateData = { no: index };
+                        //var elements = $("#taksit-header").parent().append(template(templateData));
+                        //$("#TaksitSatirlar_" + index + "__TaksitNo").val(item.TaksitNo);
+                        //$("#TaksitSatirlar_" + index + "__VadeTarihi").val(item.VadeTarihi);
+                        //if (data.ParaBirimi.toString().trim() == "TL") {
+                        //    console.log(item.TaksitTutariTL + "< if")
+                        //    $("#TaksitSatirlar_" + index + "__TaksitTutari").val(parseFloat(item.TaksitTutariTL).toFixed(2));
+                        //    ParaBirimiAyarla($("#TaksitSatirlar_" + index + "__TaksitTutari"));
+                        //    $("#TaksitTutarTL_" + index).hide();
+                        //}
+                        //else {
+                        //    console.log(item.TaksitTutari+"< else")
+
+                        //    if (item.TaksitTutari != null) {
+
+                        //        $("#TaksitSatirlar_" + index + "__TaksitTutari").val(parseFloat(item.TaksitTutari).toFixed(2));
+                        //        ParaBirimiAyarla($("#TaksitSatirlar_" + index + "__TaksitTutari"));
+                        //    }
+
+                        //    if (item.TaksitTutariTL != "" && item.TaksitTutariTL != null && item.TaksitTutariTL != 0) {
+                        //        $("#TaksitSatirlar_" + index + "__TaksitTutariTL").val(parseFloat(item.TaksitTutariTL).toFixed(2));
+                        //        ParaBirimiAyarla($("#TaksitSatirlar_" + index + "__TaksitTutariTL"));
+                        //    }
+                        //    $("#TaksitTutarTL_" + index).show();
+                        //}
+
+                        //$("#TaksitSatirlar_" + index + "__TaksitNo").prop("disabled", true);
+                        //$("#TaksitSatirlar_" + index + "__VadeTarihi").prop("disabled", true);
+                        //$("#TaksitSatirlar_" + index + "__TaksitTutariTL").prop("disabled", true);
+                        //$("#TaksitSatirlar_" + index + "__TaksitTutari").prop("disabled", true);
+                        //$("#TaksitSatirlar_" + index + "__TaksitTutariTL").css("background-color", "#eee");
+                        //$("#TaksitSatirlar_" + index + "__TaksitTutari").css("background-color", "#eee");
+
+                    });
+
+                    if (data.ParaBirimi != "TL" && data.OdemeSekli != 1) {
+                        $("#taksitTutarTlHeader").show();
+                        $("#dovizheader").show();
+                    }
+                    else {
+                        $("#taksitTutarTlHeader").hide();
+                        $("#dovizheader").hide();
+                    }
+                }
+                if (data.UnderwriterSayisi > 0) {
+                    $("#underwriter-header").siblings().remove();
+                    $("#underwriters").hide();
+                    $("#underwriter-progress").show();
+                    $("#underwriters").show();
+                    $("#underwriter-header").show();
+                    $("#underwriter-row").show();
+                    $("#UnderwriterSayisi").val(data.UnderwriterSayisi);
+                    var UnderwritersSatirlar = data.UnderwriterSatirlar;
+                    createUnderwriterInput(data.UnderwriterSayisi, UnderwritersSatirlar);
+                    $("#underwriter-progress").hide();
+
+                    //$.each(UnderwritersSatirlar, function (index, item) {
+                    //    _.templateSettings.variable = "rc";
+                    //    var template = _.template(
+                    //        $("script.template-underwriter").html()
+                    //    );
+                    //    var templateData = { no: index };
+                    //    var elements = $("#underwriter-header").parent().append(template(templateData));
+                    //    $("#UnderwriterSatirlar" + index + "__UnderwriterAdi").val(item.UnderwriterAdi);
+                    //    $("#UnderwriterSatirlar" + index + "__UnderwriterPayOrani").val(item.UnderwriterPayOrani);
+                    //    $("#underwriter-progress").hide();
+                    //});
+
+                }
+                //AddStyle();
+            }
+        }
+
+        function PoliceAlanlariniTemizle() {
+            $("#sistemTeklifNoDiv").hide();
+            $("#fileTeklif").val("");
+            $("#filePolice").val("");
+            $("#fileDebitNote").val("");
+            $("#fileCreditNote").val("");
+            $("#SigortaEttirenDdl").hide();
+            $("#tumUrl").hide();
+            $("#policeDokumanURL").hide();
+            $("#policeDebitNoteURL").hide();
+            $("#policeCreditNoteURL").hide();
+            $("#teklifDokumanURL").hide();
+            $("#SigortaEttirenListesi").empty();
+            $("#SigortaliDdl").hide();
+            $("#SigortaliListesi").empty();
+            $("#PoliceId").val("")
+            $("#TeklifId").val("")
+            $("#TVMKodu").val("");
+            $("#DisKaynakKodu").val("");
+            $("#SigortaSirketiKodu").val("");
+            $("#BransKodu").val("");
+            $("#PoliceNo").val("");
+            $("#YurtdisiPoliceNo").val("");
+            $("#YenilemeNo").val("0");
+            $("#EkNo").val("0");
+            $("#Aciklama").val("");
+            $("#PoliceBaslangicSaat").val("12:00");
+            $("#PoliceBitisSaat").val("12:00");
+            $("#kimlikNo_Ara").prop("disabled", false);
+            $("#SigortaEttiren_KimlikNo").prop('readonly', false);
+            $("#BaslangicTarihi").val("");
+            $("#BitisTarihi").val("");
+            $("#TanzimTarihi").val("");
+            $("#PoliceTipi").val("1");
+            $("#ParaBirimi").val("TL ");
+            $("#DovizKuru").val("");
+            $("#SigortaEttiren_KimlikNo").val("");
+            $("#SigortaEttiren_Adi").val("");
+            $("#SigortaEttiren_Soyadi").val("");
+            $("#SigortaEttiren_Telefon").val("");
+            $("#SigortaEttiren_Adres").val("");
+            $("#Sigortali_KimlikNo").val("");
+            $("#Sigortali_Adi").val("");
+            $("#Sigortali_Soyadi").val("");
+            $("#Sigortali_Telefon").val("");
+            $("#Sigortali_Adres").val("");
+            $("#PlakaKodu").val("");
+            $("#PlakaNumarasi").val("");
+            $("#TescilBelgeSeriKodu").val("");
+            $("#TescilBelgeSeriNo").val("");
+            $("#AsbisNo").val("");
+            $("#TaksitSayisi").val("1");
+            //Taksit Satırları Sıfırlanıyor
+            $("#taksit-header").siblings().remove();
+            $("#taksitler").hide();
+            $("#underwriters").hide();
+            $("#OdemeSekli_control").bootstrapSwitch('setState', true);
+            $("#DovizKur").hide();
+            $("#PoliceGuncelle").hide();
+            $("#TeklifGuncelle").hide();
+            $("#PoliceKaydet").show();
+            $("#PoliceSil").hide();
+            $("#TeklifSil").hide();
+
+            $("#TeminatTutariTL").val("");
+            $("#YurtdisiPrimTL").val("");
+            $("#YurtdisiDisKaynakKomisyonTL").val("");
+            $("#YurtdisiAlinanKomisyonTL").val("");
+            $("#FrontingSigortaSirketiKomisyonTL").val("");
+            $("#SatisKanaliKomisyonTL").val("");
+            $("#YurticiAlinanKomisyonTL").val("");
+            $("#YurtdisiNetPrimTL").val("");
+            $("#YurtdisiBrokerNetPrimTL").val("");
+            $("#YurticiNetPrimTL").val("");
+            $("#YurticiBrutPrimTL").val("");
+
+            $("#TeminatTutari").val("");
+            $("#YurtdisiPrim").val("");
+            $("#YurtdisiDisKaynakKomisyon").val("");
+            $("#YurtdisiAlinanKomisyon").val("");
+            $("#FrontingSigortaSirketiKomisyon").val("");
+            $("#SatisKanaliKomisyon").val("");
+            $("#YurticiAlinanKomisyon").val("");
+            $("#YurtdisiNetPrim").val("");
+            $("#YurtdisiBrokerNetPrim").val("");
+            $("#YurticiNetPrim").val("");
+            $("#YurticiBrutPrim").val("");
+
+            TutarlariTemizle();
+        }
+
+        function TutarlariTemizle() {
+
+            $("#DovizKuru").val("");
+
+            $("#teminatTl").hide();
+            $("#yurtDisiPrimTL").hide();
+            $("#yurtDisiKaynakKomisyonTL").hide();
+            $("#yurtDisiAlinanKomisyonTL").hide();
+            $("#frontingKomisyonTL").hide();
+            $("#satisKanaliKomisyonTL").hide();
+            $("#yurticiAlinanKomisyonTL").hide();
+            $("#yurtdisiNetPrimTL").hide();
+            $("#yurticiNetPrimTL").hide();
+            $("#yurticiBrutPrimTL").hide();
+
+            $("#TeminatTutariTL").val("");
+            $("#YurtdisiPrimTL").val("");
+            $("#YurtdisiDisKaynakKomisyonTL").val("");
+            $("#YurtdisiAlinanKomisyonTL").val("");
+            $("#FrontingSigortaSirketiKomisyonTL").val("");
+            $("#SatisKanaliKomisyonTL").val("");
+            $("#YurticiAlinanKomisyonTL").val("");
+            $("#YurtdisiNetPrimTL").val("");
+            $("#YurtdisiBrokerNetPrimTL").val("");
+            $("#YurticiNetPrimTL").val("");
+            $("#YurticiBrutPrimTL").val("");
+
+
+            $("#TeminatTutari").val("");
+            $("#YurtdisiPrim").val("");
+            $("#YurtdisiDisKaynakKomisyon").val("");
+            $("#YurtdisiAlinanKomisyon").val("");
+            $("#FrontingSigortaSirketiKomisyon").val("");
+            $("#SatisKanaliKomisyon").val("");
+            $("#YurticiAlinanKomisyon").val("");
+            $("#YurtdisiNetPrim").val("");
+            $("#YurtdisiBrokerNetPrim").val("");
+            $("#YurticiNetPrim").val("");
+            $("#YurticiBrutPrim").val("");
+
+
+            $("#taksit-header").siblings().remove();
+            $("#taksitler").hide();
+            $("#taskitList").hide();
+            $("#TaksitSayisi").val("1");
+            $("#OdemeSekli_control").bootstrapSwitch('setState', true);
+            ParasalAlanlariSifirla()
+
+        }
+
+        function ParaBirimiAyarla(name) {
+            name.each(function () {
+                var temp = name.val();
+
+                var valll = parseFloat(name.val());
+                //if (temp.contains("-"))   contains sadece firefox da çalışıyor o yüzden indexof kullanıldı
+                if (temp.valueOf().indexOf("-") > -1) {
+                    var length = name.val().length;
+                    var sayac = 0;
+                    var result = "";
+                    if (length > 7) {
+                        for (var i = 0; i < length; i++) {
+                            sayac++;
+                            result += name.val()[i];
+                            if (sayac == (length - 6) || sayac == (length - 9) || sayac == (length - 11))
+                                result += ",";
+                        }
+                        name.val(result.replaceAll(',', ' ').replaceAll('.', ',').replaceAll(' ', '.'));
+                    }
+                    else {
+                        return name.val().replaceAll('.', ',');
+                    }
+                }
+                else {
+                    var length = name.val().length;
+                    var sayac = 0;
+                    var result = "";
+
+                    if (length > 6) {
+                        for (var i = 0; i < length; i++) {
+                            sayac++;
+                            result += name.val()[i];
+                            if (sayac == (length - 6) || sayac == (length - 9) || sayac == (length - 12))
+                                result += ",";
+                        }
+                        name.val(result.replaceAll(',', ' ').replaceAll('.', ',').replaceAll(' ', '.'));
+                    } else if (length > 0 && length <= 6) name.val(name.val().replaceAll('.', ','));
+                }
+
+            });
+        }
+
+        function TaksitKontrol(e, data) {
+            if (!data.value) {
+                $("#taskitList").show();
+                $("#TaksitSayisi").trigger("change")
+            }
+            else {
+                $("#taskitList").hide();
+                $("#TaksitSayisi").val("1");
+                $("#taksit-header").siblings().remove();
+                $("#taksit-header").hide();
+                $("#taksitler").hide();
+
+            }
+        }
+
+        function GetParaBirimiSimgesi(ParaBirimi) {
+            if (ParaBirimi.trim() == "TL") {
+                $(".parabirimi").html("(₺)");
+            }
+            else if (ParaBirimi == "USD") {
+                $(".parabirimi").html("($)");
+            }
+            else if (ParaBirimi == "EUR") {
+                $(".parabirimi").html("(€)");
+            }
+            else if (ParaBirimi == "AED") {
+                $(".parabirimi").html("(AED)");
+            }
+        }
+
+
+        $("#SigortaEttiren_Adi").blur(function () {
+            $(this).val($(this).val().toUpperCase());
+        });
+        $("#SigortaEttiren_Soyadi").blur(function () {
+            $(this).val($(this).val().toUpperCase());
+        });
+
+
+    </script>
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey" style="margin-top: 24px;">
+                    <div class="portlet-body form">
+                        <form class="form-horizontal" id="PoliceTeklifGirisi">
+
+                            @*@Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader,)*@
+                            @Html.HiddenFor(m => m.SigortaliSigortaEttirenAynimi)
+                            @Html.HiddenFor(m => m.bTarihi)
+                            @Html.HiddenFor(m => m.bitTarihi)
+                            @Html.HiddenFor(m => m.tTarihi)
+                            @Html.HiddenFor(m => m.PoliceId)
+                            @Html.HiddenFor(m => m.TeklifId)
+                            <div class="form-actions" style="color:#0d638f; font-size:medium; ">
+                                @Html.RadioButtonListFor(m => m.durum, Model.durumlar)
+                                <br />
+                                @*<br />&nbsp;&nbsp; <input type="radio" name="gender" value="police" id="policeRadio" checked> <span class="hidden-480" style="color:#0d638f;font-size:medium"> Poliçe Girişi </span> &nbsp; &nbsp; &nbsp;
+                                    <input type="radio" name="gender" value="teklif" id="teklifRadio"> <span class="hidden-480" style="color:#0d638f; font-size:medium"> Teklif Girişi </span>*@
+                            </div>
+                            <div class="portlet-title" id="teklifGirisi" hidden>
+                                <div class="caption">
+                                    <i class="icon-reorder"></i>
+                                    <span class="hidden-480">@babonline.Offer_Input</span>
+                                </div>
+                            </div>
+                            <div class="portlet-title" id="policeEkiGirisi" hidden>
+                                <div class="caption">
+                                    <i class="icon-reorder"></i>
+                                    <span class="hidden-480">@babonline.Policy_Attachment_Input</span>
+                                </div>
+                            </div>
+                            <div class="portlet-title" id="policeGirisi">
+                                <div class="caption">
+                                    <i class="icon-reorder"></i>
+                                    <span class="hidden-480">@babonline.Policy_Input</span>
+                                </div>
+                            </div>
+
+
+                            @if (ViewBag.Gorevi)
+                            {
+                                <div class="row-fluid" style="margin-top:13px" id="tumUrl" hidden>
+                                    <div class="span4" id="policeDokumanURL" style="margin-left:5px" hidden>
+                                        <div class="control-group">
+                                            <label class="control-label" style="color:#0d638f; font-size:medium;">Slip / Download</label>
+                                            <div class="controls">
+                                                <a id="PoliceUrl" href=""><img src="https://neoonlinestrg.blob.core.windows.net/tum-logo/download.png"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span4" id="policeDebitNoteURL" hidden>
+                                        <div class="control-group">
+                                            <label class="control-label" style="color:#0d638f; font-size:medium;">Slip / Download / End</label>
+                                            <div class="controls">
+                                                <a id="DebitNoteUrl" href=""><img src="https://neoonlinestrg.blob.core.windows.net/tum-logo/download.png"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span4" id="policeCreditNoteURL" style="margin-left:5px;" hidden>
+                                        <div class="control-group">
+                                            <label class="control-label" style="color:#0d638f; font-size:medium;">Slip / Download / End</label>
+                                            <div class="controls">
+                                                <a id="CreditNoteUrl" href=""><img src="https://neoonlinestrg.blob.core.windows.net/tum-logo/download.png"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span4" id="teklifDokumanURL" style="margin-left:5px" hidden>
+                                        <div class="control-group">
+                                            <label class="control-label" style="color:#0d638f; font-size:medium">@babonline.DownloadOfferFile</label>
+                                            <div class="controls">
+                                                <a id="TeklifUrl" href=""><img src="https://neoonlinestrg.blob.core.windows.net/tum-logo/download.png"></a>
+                                                @*<input type="file" id="file" name="file" style="width: 300px;" />*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="row-fluid" style="margin-top:13px">
+                                    <div class="span4" id="policeDokuman" style="margin-left:5px">
+                                        <div class="control-group">
+                                            <label class="control-label" style="color:#0d638f; font-size:medium">Credit Note 1</label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(s => s.filePolice, null, new { type = "file", @class = "input-file", @style = "width: 500px; font-size:medium" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span4" id="policeDebitNote">
+                                        <div class="control-group">
+                                            <label class="control-label" style="color:#0d638f; font-size:medium">Credit Note 2</label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(s => s.fileDebitNote, null, new { type = "file", @class = "input-file", @style = "width: 500px; font-size:medium" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span4" id="policeCreditNote" style="margin-left:5px;">
+                                        <div class="control-group">
+                                            <label class="control-label" style="color:#0d638f; font-size:medium;">Credit Note 3</label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(s => s.fileCreditNote, null, new { type = "file", @class = "input-file", @style = "width: 500px; font-size:medium" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span4" id="teklifDokuman" style="margin-left:5px" hidden>
+                                        <div class="control-group">
+                                            <label class="control-label" style="color:#0d638f; font-size:medium">@babonline.AddOfferFile</label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(s => s.fileTeklif, null, new { type = "file", @class = "input-file", @style = "width: 500px; font-size:medium" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+
+
+
+
+                            <div class="row-fluid">
+                                <div class="span8">
+                                    <h3 class="form-section">@babonline.General_Information</h3>
+                                </div>
+                                <div class="actions">
+                                    <a href="javascript:void(0);" id="police-ara" class="btn yellow"><i class="icon-search" data-loading-text="@babonline.Searching">&nbsp;</i>@babonline.PolicySearch</a>
+                                    <a href="javascript:void(0);" id="teklif-ara" hidden class="btn yellow"><i class="icon-search" data-loading-text="@babonline.Searching">&nbsp;</i>@babonline.SearchOffer</a>
+                                    <a href="javascript:void(0);" id="policeeki-ara" hidden class="btn yellow"><i class="icon-search" data-loading-text="@babonline.Searching">&nbsp;</i>@babonline.SearchPolicy</a>
+                                    <a id="PoliceSil" class="btn red button-submit" style="display: none;" href="javascript:;" data-loading-text="@babonline.Saving"><i class="icon-remove"></i>@babonline.Policy @babonline.Delete</a>
+                                    <a id="PoliceEkiSil" class="btn red button-submit" style="display: none;" href="javascript:;" data-loading-text="@babonline.Saving"><i class="icon-remove"></i>@babonline.Policy @babonline.Delete</a>
+                                    <a id="TeklifSil" class="btn red button-submit" style="display: none;" href="javascript:;" data-loading-text="@babonline.Saving"><i class="icon-remove"></i>@babonline.Proposal @babonline.Delete</a>
+                                    <a href="javascript:void(0);" id="alanlariTemizle" class="btn green"><i class="icon-refresh">&nbsp;</i>@babonline.CleanTheSections</a>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="control-group" id="sistemTeklifNoDiv" hidden>
+                                        <label class="control-label">@babonline.SystemOfferNumber</label>
+                                        <div class="controls">
+                                            <label class="control-label" id="sistemTeklifNo" style="font-size:large"></label>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label"></label>
+                                        <div class="controls">
+
+                                            <input data-val="true" data-val-number="@babonline.StatusFieldMustBeNumber." data-val-required="@babonline.StatusFieldIsRequired." id="rd_vergili" name="rd_vergili" type="radio" value="0" checked="checked">
+                                            @*Vergili*@
+                                            @babonline.Taxed
+                                            <input data-val="true" data-val-number="@babonline.StatusFieldMustBeNumber." data-val-required="@babonline.StatusFieldIsRequired." id="rd_vergisiz" name="rd_vergili" type="radio" value="1">
+                                            @*Vergisiz*@
+                                            @babonline.Tax_Free
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.TVM<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(s => s.TVMKodu, Model.Tvmler, new { style = "width:50%;", id = "TVMKodu", @required = "required" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.ReasurorBroker @*/Reasuror Broker*@<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(s => s.DisKaynakKodu, Model.DisKaynaklar, new { style = "width:50%;", @required = "required" })
+                                            @Html.ValidationMessageFor(m => m.DisKaynakKodu)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.LocalSedan @*/ UW Reasürör*@<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(s => s.SigortaSirketiKodu, Model.SigortaSirketleri, new { style = "width:50%;", @required = "required", id = "SigortaSirketiKodu" })
+                                            @Html.ValidationMessageFor(m => m.SigortaSirketiKodu)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" style="display:none;">
+                                        <div class="controls">
+                                            @Html.DropDownListFor(s => s.UnderwriterListesi, Model.UnderwriterListesi, new { style = "width:50%;", id = "UnderwriterListesi" })
+                                            @Html.ValidationMessageFor(m => m.SigortaSirketiKodu)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Branch<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(s => s.BransKodu, Model.Branslar, new { style = "width:50%;", @required = "required" })
+                                            @Html.ValidationMessageFor(m => m.BransKodu)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="policeTipi">
+                                        <label class="control-label">@babonline.Policy_Type <span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(s => s.PoliceTipi, Model.PoliceTipleri, new { style = "width:50%;", @required = "required" })
+                                            @Html.ValidationMessageFor(m => m.PoliceTipi)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Offer_Policy_No<span class="required" id="policeSpan">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.PoliceNo, new { required = "required" })
+                                            @Html.ValidationMessageFor(m => m.PoliceNo)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="policeYenilemeNo">
+                                        <label class="control-label">@babonline.RenewalNo<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YenilemeNo, new { required = "required" })
+                                            @Html.ValidationMessageFor(m => m.YenilemeNo)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="policeEkNo">
+                                        <label class="control-label">@babonline.Endorsement<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.EkNo, new { required = "required" })
+                                            @Html.ValidationMessageFor(m => m.EkNo)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="policeYurtdisiNo">
+                                        <label class="control-label">@babonline.SlipNoUMR</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurtdisiPoliceNo)
+                                            @Html.ValidationMessageFor(m => m.YurtdisiPoliceNo)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Explanation </label>
+                                        <div class="controls">
+                                            @Html.TextAreaFor(s => s.Aciklama, new { maxlength = 250, autocompletetype = "disabled", style = "width:350px; height:50px" })
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group" id="underwriterList">
+                                        <label class="control-label">@babonline.Number_of_Underwriters</label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(s => s.UnderwriterSayisi, Model.UnderwriterSayilari, new { style = "width:30%;" })
+                                        </div>
+                                    </div>
+
+                                    <div id="underwriter-progress" class="span12" style="padding-bottom: 20px; display: none;">
+                                        <div style="margin: 20px auto; width: 500px; text-align: center;">
+                                            <h4>@babonline.LoadingUnderwritersInfo...</h4>
+                                        </div>
+                                    </div>
+                                    @*<div class="row-fluid control-group" id="underwriters" style="display: none; border: solid 1px black; margin-top: 2%; padding-top: 10px; padding-left: 10px;">
+                                            <div class="row-fluid" id="underwriter-header" style="display: none; padding-top: 10px; padding-left: 10px;">
+                                                <div class="span6">
+                                                    <strong style="font-size: 16px;">Underwriter Adı</strong>
+                                                </div>
+                                                <div class="span4">
+                                                    <strong style="font-size: 16px;">Underwriter Pay Oranı (%)</strong>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                    <div class="row-fluid control-group" id="underwriters" style="display: none; border: solid 1px black; margin-top: 2%; padding-top: 10px; padding-left: 10px;">
+                                        <div class="row-fluid" id="underwriter-header" style="display: none; padding-top: 10px; padding-left: 10px;">
+                                            <div class="span3">
+                                                <strong style="font-size: 16px;">@babonline.UW_Name</strong>
+                                            </div>
+                                            <div class="span2">
+                                                <strong style="font-size: 16px;">@babonline.UW_Share_Ratio (%)</strong>
+                                            </div>
+                                            <div class="span2">
+                                                <strong style="font-size: 16px;">@babonline.UW_Premium</strong>
+                                            </div>
+                                            <div class="span2">
+                                                <strong style="font-size: 16px;">@babonline.UW_Commission_Rate  (%)</strong>
+                                            </div>
+                                            <div class="span2">
+                                                <strong style="font-size: 16px;">@babonline.UW_Commission</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Inception_Date<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DateTextBoxFor(s => s.BaslangicTarihi, new { @required = "required", placeholder = babonline.ddmmYYYY })
+                                            @Html.ValidationMessageFor(m => m.BaslangicTarihi)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.ExpiryDate<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DateTextBoxFor(s => s.BitisTarihi, new { @required = "required", placeholder = babonline.ddmmYYYY })
+                                            @Html.ValidationMessageFor(m => m.BitisTarihi)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Inception_Time</label>
+                                        <div class="controls">
+                                            <div class="input-group clockpicker">
+                                                @Html.TextBoxFor(s => s.PoliceBaslangicSaat, new { placeholder = "09:30", style = "width:80px;", @class = "onlynumbersClock", maxlength = "5" })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Expiry_Time</label>
+                                        <div class="controls">
+                                            <div class="input-group clockpicker">
+                                                @Html.TextBoxFor(s => s.PoliceBitisSaat, new { placeholder = "09:30", style = "width:80px;", @class = "onlynumbersClock", maxlength = "5" })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Date_of_Issuance<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DateTextBoxFor(s => s.TanzimTarihi, new { @required = "required", placeholder = babonline.ddmmYYYY })
+                                            @Html.ValidationMessageFor(m => m.TanzimTarihi)
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Currency<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(s => s.ParaBirimi, Model.ParaBirimleri, new { style = "width:30%" })
+                                            @Html.ValidationMessageFor(s => s.ParaBirimi)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="DovizKur" style="display: none">
+                                        <label class="control-label">Döviz Kuru</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.DovizKuru, new { @class = "m-wrap autoNumeric-dovizKur", placeholder = "5,6952" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="teminat">
+                                        <label class="control-label">@babonline.Cover_Limit <span class="parabirimi"></span><span class="required">  *</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.TeminatTutari, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00", @required = "required" })
+                                            @Html.ValidationMessageFor(s => s.TeminatTutari)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="teminatTl" style="display: none">
+                                        <label class="control-label">@babonline.Cover_Limit (₺)</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.TeminatTutariTL, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurtDisiKaynakKomisyon">
+                                        <label class="control-label">@babonline.Overseas_Commison <span class="parabirimi"></span><span class="required">  *</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurtdisiDisKaynakKomisyon, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00", @required = "required" })
+                                            @Html.ValidationMessageFor(s => s.YurtdisiDisKaynakKomisyon)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurtDisiKaynakKomisyonTL" style="display: none">
+                                        <label class="control-label">@babonline.Overseas_Commison (₺)</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurtdisiDisKaynakKomisyonTL, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurtDisiAlinanKomisyon">
+                                        <label class="control-label">@babonline.Overseas_Collection_Commison <span class="parabirimi"></span><span class="required">  *</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurtdisiAlinanKomisyon, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00", @required = "required" })
+                                            @Html.ValidationMessageFor(s => s.YurtdisiAlinanKomisyon)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurtDisiAlinanKomisyonTL" style="display: none">
+                                        <label class="control-label">@babonline.Overseas_Collection_Commison (₺)</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurtdisiAlinanKomisyonTL, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurtdisiNetPrim">
+                                        <label class="control-label" style="font-weight:bold">@babonline.Overseas_Net_Premium <span class="parabirimi"></span><span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurtdisiNetPrim, new { @class = "m-wrap autoNumeric-custom", @required = "required", placeholder = "1.000,00", @style = "font-weight:bold" })
+                                            @Html.ValidationMessageFor(s => s.YurtdisiNetPrim)
+
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurtdisiNetPrimTL" style="display: none">
+                                        <label class="control-label">@babonline.Overseas_Net_Premium (₺)</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurtdisiNetPrimTL, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurtdisiBrokerNetPrim" >
+                                        <label class="control-label" style="font-weight:bold">@babonline.Overseas_Net_Brokerage  <span class="parabirimi"></span><span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurtdisiBrokerNetPrim, new { @class = "m-wrap autoNumeric-custom", @required = "required", placeholder = "1.000,00", @style = "font-weight:bold" })
+                                            @Html.ValidationMessageFor(s => s.YurtdisiBrokerNetPrim)
+
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurtdisiBrokerNetPrimTL" style="display: none">
+                                        <label class="control-label">@babonline.Overseas_Net_Brokerage (₺)</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurtdisiBrokerNetPrimTL, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="frontingKomisyon">
+                                        <label class="control-label">@babonline.Fronting_Insurer_Commison <span class="parabirimi"></span><span class="required">  *</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.FrontingSigortaSirketiKomisyon, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00", @required = "required" })
+                                            @Html.ValidationMessageFor(s => s.FrontingSigortaSirketiKomisyon)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="frontingKomisyonTL" style="display: none">
+                                        <label class="control-label">@babonline.Fronting_Insurer_Commison (₺)</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.FrontingSigortaSirketiKomisyonTL, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="satisKanaliKomisyon">
+                                        <label class="control-label">@babonline.Sales_Channel_Commision<span class="parabirimi"></span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.SatisKanaliKomisyon, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="satisKanaliKomisyonTL" style="display: none">
+                                        <label class="control-label">@babonline.Sales_Channel_Commision (₺)</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.SatisKanaliKomisyonTL, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurticiAlinanKomisyon">
+                                        <label class="control-label">@babonline.Inland_Earning_Commision<span class="parabirimi"></span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurticiAlinanKomisyon, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00" })
+                                            @Html.ValidationMessageFor(s => s.YurticiAlinanKomisyon)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurticiAlinanKomisyonTL" style="display: none">
+                                        <label class="control-label">@babonline.Inland_Earning_Commision (₺)</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurticiAlinanKomisyonTL, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurticiNetPrim">
+                                        <label class="control-label" style="font-weight:bold">@babonline.Net_Premium<span class="parabirimi"></span><span class="required">  *</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurticiNetPrim, new
+                                            {
+                                                @class = "m-wrap" +
+                                           "" +
+                                           " autoNumeric-custom",
+                                                placeholder = "1.000,00",
+                                                @style = "font-weight:bold",
+                                                @required = "required"
+                                            })
+                                            @Html.ValidationMessageFor(s => s.YurticiNetPrim)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurticiNetPrimTL" style="display: none">
+                                        <label class="control-label">@babonline.Net_Premium (₺)</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurticiNetPrimTL, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurticiBrutPrim">
+                                        <label class="control-label" style="font-weight:bold">@babonline.Gross_Premium <span class="parabirimi"></span><span class="required">  *</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurticiBrutPrim, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00", @style = "font-weight:bold", @required = "required" })
+                                            @Html.ValidationMessageFor(s => s.YurticiBrutPrim)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="yurticiBrutPrimTL" style="display: none">
+                                        <label class="control-label">@babonline.Gross_Premium (₺)</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.YurticiBrutPrimTL, new { @class = "m-wrap autoNumeric-custom", placeholder = "1.000,00" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="MuhasebeyeAktarildiMi" style="display:none;">
+                                        <label class="control-label" style="color: green; font-weight: bold; font-size: 20px;width:100%;">@babonline.Policy_Transferred_to_Accounting</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <h3 class="form-section"><span id="sigortali" style="display: none;">@babonline.Insured / </span>@babonline.Policy_Holder</h3>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="row-fluid ">
+                                        <div class="span4">
+                                            <label class="control-label" style="width: 100%;">@babonline.Are_Policy_Holder_and_Assured_Same</label>
+                                        </div>
+                                        <div class="span8">
+                                            @Html.SwitchButtonFor(m => m.SigortaliSigortaEttirenAynimi, new string[] { babonline.Yes, babonline.No }, new { })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span6 sigortaEttiren-satir">
+                                    <h3 class="form-section">@babonline.Policy_Holder</h3>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.IDNumber<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.SigortaEttiren.KimlikNo, new { maxlength = 11, minlength = 10, style = "width:120px;", @class = "onlynumbers", @required = "required", pattern = ".{11,11}", title = babonline.Message_TCKN_least_11 })
+                                            @Html.ValidationMessageFor(m => m.SigortaEttiren.KimlikNo)
+                                            <a href="javascript:void(0);" id="kimlikNo_Ara" class="btn yellow" style="padding: 5px;"><i class="icon-search" data-loading-text="@babonline.Searching">&nbsp;</i>@babonline.Search</a>
+                                        </div>
+
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Name<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.SigortaEttiren.Adi)
+                                            <a href="javascript:void(0);" id="kimlikBilgisi_Ara" class="btn yellow" style="padding: 5px;"><i class="icon-search" data-loading-text="@babonline.Searching ">&nbsp;</i>@babonline.Search</a>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Surname<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.SigortaEttiren.Soyadi)
+                                            @* <a href="javascript:void(0);" id="sigortali_AdSoyad_Ara" class="btn yellow"><i class="icon-search" data-loading-text="Aranıyor">&nbsp;</i>Ara</a>*@
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="SigortaEttirenDdl" hidden>
+                                        <label class="control-label">@babonline.ContactList</label>
+                                        <div class="controls">
+                                            <select id="SigortaEttirenListesi" KimlikNo="" Adi="" Soyadi="" CepTel="" Adres="" style="width:170px;"></select>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        @*<label class="control-label">@babonline.TVMUser_MobilePhone<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(m => m.SigortaEttiren.Telefon, new { style = "width:200px", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", @required = "required", placeholder = "90-212-5554477", title = babonline.Message_PhoneFormat })
+                                                @Html.ValidationMessageFor(m => m.SigortaEttiren.Telefon)
+                                            </div>*@
+                                        <label class="control-label">@babonline.EMail_Address</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.EMail, new { maxlength = 250, placeholder = "test@test.com", title = babonline.Message_Email })
+
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        @*<label class="control-label">@babonline.Address</label>*@
+                                        <label class="control-label">@babonline.Address </label>
+                                        <div class="controls">
+                                            @Html.TextAreaFor(s => s.SigortaEttiren.Adres, new { maxlength = 500, autocompletetype = "disabled", style = "width:80%; height:170px" })
+                                            @Html.ValidationMessageFor(m => m.SigortaEttiren.Adres)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6 sigortali-satir" style="display: none;">
+                                    <h3 class="form-section">@babonline.Insured</h3>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.IDNumber<span class="required">*</span></label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.Sigortali.KimlikNo, new { maxlength = 11, minlength = 10, style = "width:120px;", required = "required" })
+                                            @Html.ValidationMessageFor(m => m.Sigortali.KimlikNo)
+                                            <a href="javascript:void(0);" id="kimlikNo_AraSigortali" class="btn yellow" style="padding: 5px;"><i class="icon-search" data-loading-text="@babonline.Searching">&nbsp;</i>@babonline.Search</a>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Name</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.Sigortali.Adi)
+                                            <a href="javascript:void(0);" id="kimlikBilgisiSigortali_Ara" class="btn yellow" style="padding: 5px;"><i class="icon-search" data-loading-text="@babonline.Searching">&nbsp;</i>@babonline.Search</a>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Surname</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(s => s.Sigortali.Soyadi)
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="SigortaliDdl" hidden>
+                                        <label class="control-label">@babonline.ContactList</label>
+                                        <div class="controls">
+                                            <select id="SigortaliListesi" KimlikNo="" Adi="" Soyadi="" CepTel="" Adres="" style="width:170px;"></select>
+                                        </div>
+                                    </div>
+                                    @*
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.TVMUser_MobilePhone</label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(m => m.Sigortali.Telefon, new { style = "width:200px", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", placeholder = "90-212-5554477", title = babonline.Message_PhoneFormat })
+                                                @Html.ValidationMessageFor(m => m.Sigortali.Telefon)
+                                            </div>
+                                        </div>
+                                    *@
+                                    <div class="control-group">
+                                        @*<label class="control-label">@babonline.TVMUser_MobilePhone<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(m => m.SigortaEttiren.Telefon, new { style = "width:200px", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", @required = "required", placeholder = "90-212-5554477", title = babonline.Message_PhoneFormat })
+                                                @Html.ValidationMessageFor(m => m.SigortaEttiren.Telefon)
+                                            </div>*@
+                                        <label class="control-label">@babonline.EMail_Address</label>
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.EMail, new { maxlength = 250, placeholder = "test@test.com", title = babonline.Message_Email })
+
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.Address</label>
+                                        <div class="controls">
+                                            @Html.TextAreaFor(s => s.Sigortali.Adres, new { maxlength = 500, autocompletetype = "disabled", style = "width:80%; height:170px" })
+                                            @Html.ValidationMessageFor(m => m.Sigortali.Adres)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <h3 class="form-section">@babonline.PaymentOptions</h3>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span8">
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.PaymentType</label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(s => s.OdemeTipi, Model.OdemeTipleri, new { style = "width:30%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label">@babonline.PaymentStyle</label>
+                                        <div class="controls">
+                                            @Html.SwitchButtonFor(m => m.OdemeSekli, new string[] { babonline.Advance_Payment.ToString(), babonline.Deferred_Payment.ToString(), @babonline.SinglePayment, @babonline.Deferred_Payment }, new { style = "width:100px;" })
+                                        </div>
+                                    </div>
+                                    <div class="control-group" id="taskitList" style="display: none;">
+                                        <label class="control-label">@babonline.HirePurchaseCount</label>
+                                        <div class="controls">
+                                            @Html.DropDownListFor(s => s.TaksitSayisi, Model.TaksitSayilari, new { style = "width:30%;" })
+                                        </div>
+                                    </div>
+                                    <div id="taksitgetir-progress" class="span12" style="padding-bottom: 20px; display: none;">
+                                        <div style="margin: 20px auto; width: 500px; text-align: center;">
+                                            <h4>@babonline.InstalmentProcess</h4>
+                                        </div>
+                                        <div style="margin: 20px auto; width: 500px; text-align: center;">
+                                            <img src="/Content/img/loading9.gif" width="32" height="32" title="@babonline.PleaseWait , @babonline.AnnualDiscountQuerying." alt="@babonline.PleaseWait, @babonline.SavingProduct.">
+                                        </div>
+                                    </div>
+                                    <div class="row-fluid control-group" id="taksitler" style="display: none; border: solid 2px black; margin-top: 2%; padding-top: 10px; padding-left: 10px;">
+                                        <div class="row-fluid" id="taksit-header" style="display: none;">
+                                            <div class="span2">
+                                                <strong style="font-size: 16px;">@babonline.InstallmentNo</strong>
+                                            </div>
+                                            <div class="span3">
+                                                <strong style="font-size: 16px;">@babonline.ExpiryDate</strong>
+                                            </div>
+                                            <div class="span3">
+                                                <strong style="font-size: 16px;">@babonline.InstallmentAmount <span id="dovizheader" style="display:none;"> (@babonline.ForeignCurrency)</span></strong>
+                                            </div>
+                                            <div class="span3" style="display:none;" id="taksitTutarTlHeader">
+                                                <strong style="font-size: 16px;">@babonline.InstallmentAmount (₺)</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                @*  m-icon-swapright m-icon-white*@
+                                <a id="PoliceKaydet" class="btn green button-submit" style="" href="javascript:;" data-loading-text="Kaydediliyor">@babonline.Save <i class="icon-ok-sign"></i></a>
+                                <a id="PoliceGuncelle" class="btn yellow button-submit" style="display:none;" href="javascript:;" data-loading-text="@babonline.Saving">@babonline.Update <i class="icon-ok-sign"></i></a>
+                                <a id="PoliceEkiGuncelle" class="btn yellow button-submit" style="display:none;" href="javascript:;" data-loading-text="@babonline.Saving">@babonline.Update <i class="icon-ok-sign"></i></a>
+                                <a id="TeklifGuncelle" class="btn yellow button-submit" style="display:none;" href="javascript:;" data-loading-text="@babonline.Saving">@babonline.Update <i class="icon-ok-sign"></i></a>
+                                @*<button class="btn btn-success" id="PoliceKaydet" data-loading-text="Kaydediliyor"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                                    <button class="btn btn-success" id="PoliceGuncelle" data-loading-text="Kaydediliyor"><i class="icon-ok">&nbsp;</i>@babonline.Update</button>
+                                    <button class="btn btn-success" id="TeklifGuncelle" data-loading-text="Kaydediliyor"><i class="icon-ok">&nbsp;</i>@babonline.Update</button>*@
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="policeara-modal-div"></div>
+<div id="policeekiara-modal-div"></div>
+<div id="teklifara-modal-div"></div>

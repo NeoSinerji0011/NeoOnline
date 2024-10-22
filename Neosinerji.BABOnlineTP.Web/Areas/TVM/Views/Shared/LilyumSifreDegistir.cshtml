@@ -1,0 +1,139 @@
+﻿
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.TVM.Models.SifreDegistirModel
+
+@{
+    ViewBag.Title = "Lilyum";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>LilyumSifreDeğiştir</title>
+    <link href="@Url.Content("~/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <script src="~/Content/js/jquery.js"></script>
+    <script src="~/Content/js/jquery.validate.js"></script>
+    <script src="~/Content/js/bootstrap-transition.js"></script>
+    <script src="~/Content/js/bootstrap-tooltip.js"></script>
+    @*<link href="~/Content/css/mapfre-login.css" type="text/css" rel="stylesheet" />*@
+    <link href="~/Content/css/YeniTemaLogin.css" rel="stylesheet" />
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            "use strict";
+            var options = {
+                onLoad: function () {
+                    $('#messages').text('');
+                },
+                onKeyUp: function (evt) {
+                    $(evt.target).pwstrength("outputErrorList");
+                }
+            };
+            $('#YeniSifre').pwstrength(options);
+
+
+        });
+    </script>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            background: url('../../Content/img/YeniTasarim/lilyum-login.jpg.jpg') no-repeat center center fixed !important;
+        }
+
+        html {
+            background: url('../../Content/img/YeniTasarim/lilyum-login.jpg.jpg') no-repeat center center fixed !important;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            background-attachment: cover;
+            z-index: -1;
+        }
+
+        .sifremi-unuttum-div {
+            float: left;
+            margin-right: 31px;
+            margin-top: 24px;
+        }
+
+        .login-yazi-tip {
+            font-family: Calibri !important;
+            font-size: 20px !important;
+        }
+
+        #btn-ok:hover {
+            background-color: #a64dff !important;
+        }
+
+        #btn-ok {
+            background-color: #6815b1 !important;
+        }
+
+        .logo-content {
+            width: 1000px;
+            height: 200px !important;
+            margin-left: 10%;
+            margin-top: 1.7%;
+        }
+
+        .login-white-content-sifre-degistir {
+            /*background-image: url(../img/YeniTasarim/01_giris_V2_260.png);*/
+            background-color: white;
+            border-radius: 5px;
+            background-repeat: no-repeat;
+            width: 283px;
+            height: auto !important;
+            float: left;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="logo-content">
+        <a href="http://www.lilyumkart.com/">
+            <img src="@Url.Content("~/Content/img/YeniTasarim/lilyumkart.png")" style="width :31%; height:40%; background-color:transparent !important; opacity:inherit" />
+        </a>
+        <div id="global-sign" style="width: 15%;">
+            <div style="margin-left: 16%;">
+                <img style="width:50%;" src="@Url.Content("~/Content/img/YeniTasarim/comodosecure.png")" alt="comodo-secure" />
+            </div>
+
+        </div>
+    </div>
+    @using (Html.BeginForm("SifreDegistir", "Profil", FormMethod.Post, new { id = "form1" }))
+    {
+        { Html.EnableClientValidation(false); }
+        <div class="custom-content">
+            <div class="left-img"></div>
+                <div class="login-white-content-sifre-degistir" style=" opacity: 0.9; border: solid 2px lightgray; border-radius: 20px; -moz-border-radius: 25px; -webkit-border-radius: 5px; -border-radius: 5px; padding:initial; padding:10%;">
+                    @*<div class="login-white-content-sifre-degistir">*@
+                    <div class="login-yazi-tip" style="">
+                        @babonline.ChangePassword
+                    </div>
+                    <div class="textbox-group">
+                        @Html.PasswordFor(m => m.EskiSifre, new { @class = "text-box", placeholder = "ESKİ ŞİFRE", minlength = 4, maxlength = 20, autocompletetype = "disabled" })
+                        @Html.ValidationMessageFor(m => m.EskiSifre)
+                        @Html.PasswordFor(m => m.YeniSifre, new { @class = "text-box", placeholder = "YENİ ŞİFRE", minlength = 4, maxlength = 20, autocompletetype = "disabled" })
+                        @Html.ValidationMessageFor(m => m.YeniSifre)
+
+
+                        @Html.PasswordFor(m => m.YeniSifreTekrar, new { @class = "text-box", placeholder = "YENİ ŞİFRE TEKRAR", minlength = 4, maxlength = 20, autocompletetype = "disabled" })
+                        @Html.ValidationMessageFor(m => m.YeniSifreTekrar)
+
+                        <input type="submit" id="btn-ok" class="tamam-button-div" style="margin-left: 0px; margin-right: 27px; float: right; margin-top: 3px;" value="Tamam"></input>
+                    </div>
+                    @*</div>*@
+                    <div class="error-div-custom" style="float: left; margin-top: 8px; width: 284px;">
+                        @Html.ValidationSummary(true)
+                    </div>
+                </div>
+        
+        </div>
+    }
+</body>
+</html>

@@ -1,0 +1,66 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.TVM.Models.SifreDegistirModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = babonline.Title_Login;
+}
+
+@Scripts.Render("~/bundles/pwstrength.js")
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        "use strict";
+        var options = {
+            onLoad: function () {
+                $('#messages').text('');
+            },
+            onKeyUp: function (evt) {
+                $(evt.target).pwstrength("outputErrorList");
+            }
+        };
+        $('#YeniSifre').pwstrength(options);
+        $("#btn-onay").click(function () {
+
+            if ($("#form1").valid())
+                $("#btn-onay").button("loading");
+        });
+        $("#btn-onay").button("reset");
+    });
+</script>
+<div class="block-header">
+    <h2>@ViewBag.Title</h2>
+</div>
+
+@using (Html.BeginForm("SifreDegistir", "Profil", FormMethod.Post, new { id = "form1" }))
+{
+    @Html.AntiForgeryToken();
+    { Html.EnableClientValidation(); }
+    @Html.ValidationSummary()
+    <div class="control-group">
+        <label>@babonline.Password_Old</label>
+        <div class="controls">
+            @Html.PasswordFor(m => m.EskiSifre, new { @class = "span12", minlength = 6, maxlength = 20, autocompletetype = "disabled" })
+            @Html.ValidationMessageFor(m => m.EskiSifre)
+        </div>
+    </div>
+    <div class="control-group">
+        <label>@babonline.Password_New</label>
+        <div class="controls">
+            @Html.PasswordFor(m => m.YeniSifre, new { @class = "span12", minlength = 6, maxlength = 20, autocompletetype = "disabled" })
+            @Html.ValidationMessageFor(m => m.YeniSifre)
+            <div id="messagesss"></div>
+        </div>
+    </div>
+    <div class="control-group">
+        <label>@babonline.Password_Confirm</label>
+        <div class="controls">
+            @Html.PasswordFor(m => m.YeniSifreTekrar, new { @class = "span12", minlength = 6, maxlength = 20, autocompletetype = "disabled" })
+            @Html.ValidationMessageFor(m => m.YeniSifreTekrar)
+        </div>
+    </div>
+    <div class="form-actions">
+        <button type="submit" data-loading-text="@babonline.Message_Loading" id="btn-onay" class="btn btn-success pull-right">@babonline.Change</button>
+        <div class="clearfix"></div>
+    </div>
+}

@@ -1,0 +1,2107 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Police.Models
+
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model PoliceListesiOfflineModelim
+
+@{
+    List<KullaniciYetkiModel> altMenuler = ViewBag.AltMenuler;
+    List<KullaniciYetkiModel> raporlar = altMenuler.Where(s => s.AnaMenu == menu.AnaMenuler.Rapor).ToList();
+}
+
+<head>
+    <title>PoliçeListesi</title>
+</head>
+@section HorizontalMenu
+{<ul class="nav">
+        <li class="active">
+            <a href="javascript:;">Poliçe Listesi <span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.OtherReport<span class="arrow"></span></a>
+            <ul class="dropdown-menu">
+                @foreach (var rapor in raporlar)
+                {
+                    if (rapor.MenuKodu != menu.AltMenuler.PoliceRaporu)
+                    {
+                        <li><a href="@rapor.URL">@rapor.Aciklama<span></span></a></li>
+                    }
+                }
+            </ul>
+            <b class="caret-out"></b>
+        </li>
+
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+@section PageStyles
+{
+    <style type="text/css">
+        .table td.right {
+            text-align: right;
+        }
+    </style>
+}
+
+@section PageScripts
+{
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    <script src="~/Content/js/customDataTable.js" type="text/javascript"></script>
+    <script>
+        createTable(".data-table", [10,11,12,13,14,15,16,17] , [26,27,28],"policelistesi","POLİÇE LİSTESİ","A0");
+        createTable(".data-table1", [2,3,4,5,6,7,8],[],"policelistesi","DÖNEMSEL ÜRETİM RAPORU");
+
+       // $("#DataTables_Table_1_wrapper > .dt-buttons > .buttons-pdf").remove();
+        $("#id_donemseluretimpdf").css("display", "none"); 
+       // var link = $("#id_donemseluretimpdf").attr('href');
+       // $("#DataTables_Table_1_wrapper > .dt-buttons").append('<a href="'+link+'"><button class="dt-button" tabindex="0" aria-controls="DataTables_Table_1" type="button"><img src="/content/img/pdf.png" width="25" height="25"></button></a>')
+
+          var myArray = [];
+
+@if (Model.TVMLerSelectList != null)
+    {
+        foreach (var d in Model.TVMLerSelectList)
+        {
+@:myArray.push("@d");
+
+                        }
+                    }
+
+    var myArraySigortaSirket = [];
+
+@if (Model.SigortaSirketleriSelectList != null)
+    {
+
+        foreach (var d in Model.SigortaSirketleriSelectList)
+        {
+@:myArraySigortaSirket.push("@d");
+
+                        }
+                    }
+
+
+    var myArrayDisUretimTVM = [];
+
+@if (Model.uretimTvmList != null)
+    {
+
+        foreach (var d in Model.uretimTvmList)
+        {
+@:myArrayDisUretimTVM.push("@d");
+
+                        }
+                    }
+
+    var myArrayBrans = [];
+
+@if (Model.BransSelectList != null)
+    {
+        foreach (var d in Model.BransSelectList)
+        {
+@:myArrayBrans.push("@d");
+
+                        }
+                    }
+                    //Multi SElectlist Scritps
+            $('.multiselect').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                maxHeight: 170,
+                nonSelectedText: '@babonline.PleaseSelect',
+                selectAllText: '@babonline.Select_All',
+                filterPlaceholder: '@babonline.Search',
+                nSelectedText: '@babonline.Selected'
+            });
+        $(document).ready(function () {
+                      // ==== Tarih ayarları ==== //
+            //policeraporu load olduğunda başlangıç tarihini bitiş tarihinin min date ine atıyor
+            var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+            $("#BitisTarihi").datepicker("option", "minDate", baslamaT);
+
+            //başlama tarihi değiştiğinde başlama tarihinin bir ay sonrasını bitiş tarihine atıyor
+            $('#BaslangicTarihi').change(function () {
+                var bas = $(this).datepicker("getDate");
+                $("#BitisTarihi").datepicker("option", "minDate", bas);
+
+                var monthMillisec = 31 * 24 * 60 * 60 * 1000;
+                var maxDate = new Date();
+                maxDate.setTime(bas.getTime() + monthMillisec);
+
+                $("#BitisTarihi").datepicker("setDate", maxDate);
+
+                var d2 = $('#BitisTarihi').datepicker("getDate");
+                var max = d2 - bas;
+            });
+
+            //bitiş tarihi değiştiğinde tarih aralığının 1 ay aralığında olup olmadığının kontrolünü yapıyor
+            $('#BitisTarihi').change(function () {
+                var bitisT = $(this).datepicker("getDate");
+                var baslamaT = $('#BaslangicTarihi').datepicker("getDate");
+                var aralik = bitisT - baslamaT;
+                var monthMillisec = 31 * 24 * 60 * 60 * 1000;
+
+                var maxDate = new Date();
+                maxDate.setTime(baslamaT.getTime() + monthMillisec);
+
+                //if (aralik > monthMillisec) {
+                //    alert("İki tarih aralığı 1 aydan fazla olamaz");
+                //    $("#BitisTarihi").datepicker("setDate", maxDate);
+                //}
+
+            });
+            $("[rel=tooltip]").tooltip();
+
+
+            if (myArray.length > 0) {
+                $('#TVMLerSelectList').val(myArray);
+            }
+            $("#TVMLerSelectList").multiselect("refresh");
+
+            if (myArrayDisUretimTVM.length > 0) {
+                $('#uretimTvmList').val(myArrayDisUretimTVM);
+            }
+            $("#uretimTvmList").multiselect("refresh");
+
+            if (myArraySigortaSirket.length > 0) {
+                $('#SigortaSirketleriSelectList').val(myArraySigortaSirket);
+            }
+            $("#SigortaSirketleriSelectList").multiselect("refresh");
+
+            if (myArrayBrans.length > 0) {
+                $('#BransSelectList').val(myArrayBrans);
+            }
+            $("#BransSelectList").multiselect("refresh");
+            $("#PoliceListesiOfflineSearch").click(function () {
+                $(this).button("loading");
+    //if ($("#tvmList").val() == null) {
+    //    $(this).button('reset');
+    //}
+
+                   if ($("#BransSelectList").val() == null) {
+        $(this).button('reset');
+    }
+    if ($("#SigortaSirketleriSelectList").val() == null) {
+        $(this).button('reset');
+    }
+
+
+});
+
+            //Arama Yapıyor..
+            //var oTable = $('.data-table').dataTable({
+            //    "bPaginate": true,
+            //    "bLengthChange": true,
+            //    "bFilter": false,
+            //    "bSort": false,
+            //    "bInfo": true,
+            //    "bProcessing": true,
+            //    "bServerSide": true,
+            //    "sAjaxSource": "/Rapor/Rapor/PoliceListesi",
+            //    "bDeferLoading": true,
+            //    "iDeferLoading": 0,
+            //    "sPaginationType": "full_numbers",
+            //    "sPaginationType": "bootstrap",
+            //    "sPaginationType": "full_numbers",
+            //    "sPaginationType": "bootstrap",
+            //    "sDom": 'T<"clear">lfrtip',
+            //    "oTableTools": { "aButtons": ["pdf", "xls", "print", "copy"] },
+            //    "fnDrawCallback": function () {
+            //        $("#search").button("reset");
+            //    }
+            //});
+
+             
+            //var oTable = $('.data-table').dataTable({
+            //    "bSort": false,
+            //    "bPaginate": false,
+            //    "bInfo": false,
+            //    "bLengthChange": false,
+            //    "sDom": 'T<"clear">lfrtip',
+            //    "oTableTools": { "aButtons": ["pdf", "xls", "print", "copy"] }
+            //});
+            //$("#search").click(function () {
+            //    $(this).button("loading");
+            //    oTable.fnDraw();
+            //                });
+            //var oTable = $('.data-table1').dataTable({
+            //    "bSort": false,
+            //    "bPaginate": false,
+            //    "bInfo": false,
+            //    "bLengthChange": false,
+            //    "sDom": 'T<"clear">lfrtip',
+            //    "oTableTools": { "aButtons": ["xls", "print", "copy"] }
+            //});
+            //$("#search").click(function () {
+            //    $(this).button("loading");
+            //    oTable.fnDraw();
+            //});
+
+        });
+        if (myArray.length > 0) {
+            $('#TVMLerSelectList').val(myArray);
+        }
+        $("#TVMLerSelectList").multiselect("refresh");
+
+        if (myArraySigortaSirket.length > 0) {
+            $('#SigortaSirketleriSelectList').val(myArraySigortaSirket);
+        }
+        $("#SigortaSirketleriSelectList").multiselect("refresh");
+
+        if (myArrayBrans.length > 0) {
+            $('#BransSelectList').val(myArrayBrans);
+        }
+        $("#BransSelectList").multiselect("refresh");
+
+    </script>
+}
+
+<div class="row-fluid">
+
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">Poliçe Listesi</span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @*//  <form class="form-horizontal" action="~/Rapor/Rapor/PoliceListesi" method="post">*@
+                @using (Html.BeginForm("PoliceListesi", "Rapor", FormMethod.Post, new { @class = "form-horizontal", id = "PoliceListesi", enctype = "multipart/form-data" }))
+                {
+
+                    <div class="row-fluid" style="padding-top: 10px;">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.TVM</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.TVMLerSelectList, Model.TVMLerItems, new { @class = "multiselect", multiple = "multiple" })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">Üzerinden İş Yapılan Dış Kaynak</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.uretimTvmList, Model.uretimTvmler, new { @class = "multiselect", multiple = "multiple" })
+                                    @Html.ValidationMessageFor(m => m.uretimTvmList)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Branch</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.BransSelectList, Model.BranslarItems, new { @class = "multiselect", multiple = "multiple" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.ReportStartDate</label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(s => s.BaslangicTarihi, new { style = "width:100px", Id = "BaslangisTarihi" })
+
+                                    @Html.ValidationMessageFor(s => s.BaslangicTarihi)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.ReportEndDate</label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(s => s.BitisTarihi, new { style = "width:100px", Id = "BitisTarihi" })
+                                    @Html.ValidationMessageFor(s => s.BitisTarihi)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.InsuranceCompany</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.SigortaSirketleriSelectList, Model.SigortaSirketleri, new { @class = "multiselect", multiple = "multiple" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.PolicyNo</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(s => s.PoliceNo, new { style = "width:90%" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.PolicyDateType</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.PoliceTarihTipi, Model.PoliceTarihiTipleri.Take(2).Reverse(), new { style = "width:81%" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.PaymentStyle</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.OdemeSekli, Model.OdemeSekilleri, new { style = "width:81%" })
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.PaymentType</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.OdemeTipi, Model.OdemeTipleri, new { style = "width:81%" })
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div id="alert" class="alert fade" style="display: none">
+                        <button type="button" class="close" id="close-alert">×</button>
+                        <strong>@babonline.Warning</strong>  @babonline.Message_Customer_SearchError
+                    </div>
+                    <div class="form-actions">
+                        <a href="~/Rapor/Rapor/PoliceListesi" class="btn ligth-grey">@babonline.Clear</a>
+                        <input type="submit" id="PoliceListesiOfflineSearch" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="@babonline.Search" />
+
+                    </div>
+
+                }
+                <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+
+
+                <div class="row-fluid" style="margin-top: 30px;">
+
+                    <div class="span12">
+                        <div id="table-div" style="overflow-x: auto; margin-top: 15px;">
+                            @if (ViewBag.AnaTVM)
+                            {
+                                <table class="table table-striped table-bordered table-hover dataTable data-table" style="table-layout: auto; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 15%;">@babonline.PolicyNo / @babonline.RenewalNo / @babonline.Endorsement </th>
+                                            <th style="width: 5%;">@babonline.Insured</th>
+                                            <th style="width: 5%;">@babonline.Insured <br />TCKN/VKN</th>
+                                            <th style="width: 5%;">@babonline.InsuredBy</th>
+                                            <th style="width: 15%;">@babonline.InsuranceCompany</th>
+                                            <th style="width: 4%;">@babonline.Branch</th>
+                                            <th style="width: 8%;">Plaka / İl-İlçe Adı</th>
+                                            <th style="width: 4%;">@babonline.Date_Of_the_Establishment</th>
+                                            <th style="width: 4%;">@babonline.PolicyStartDate</th>
+                                            <th style="width: 4%;">@babonline.PolicyFinishDate</th>
+                                            <th style="width: 3%;">@babonline.Gross_Premium</th>
+                                            <th style="width: 3%;">@babonline.Net_Premium</th>
+                                            <th style="width: 3%;">Alınan @babonline.Commission</th>
+                                            <th style="width: 3%;">KMS % </th>
+                                            <th style="width: 3%;">@babonline.SubAgencyComission</th>
+                                            <th style="width: 3%;">Dövizli @babonline.Gross_Premium</th>
+                                            <th style="width: 3%;">Dövizli @babonline.Net_Premium</th>
+                                            <th style="width: 3%;">Dövizli @babonline.Commission</th>
+                                            <th style="width: 3%;">@babonline.PaymentType</th>
+                                            <th style="width: 3%;">@babonline.PaymentStyle</th>
+                                            <th style="width: 3%;">Döviz Kur</th>
+                                            <th style="width: 3%;">Para Birimi</th>
+                                            <th style="width: 5%;">Satış Kanalı</th>
+                                            <th style="width: 5%;">Dış Kaynak Unvanı</th>
+                                            <th style="width: 5%;">Onaylayan Personel Adı Soyadı</th>
+                                            <th style="width: 5%;">Sigortalı<br />E-Mail</th>
+                                            <th style="width: 5%;">Muhasebeye işlendi mi</th>
+                                            <th style="width: 5%;">Manuel Poliçe mi?</th>
+                                            <th style="width: 5%;">Yeni İş</th>
+
+                                        </tr>
+                                    </thead>
+                                    @{
+                                        decimal? toplamBrut = 0;
+                                        decimal? toplamBrutTahakkuk = 0;
+                                        decimal? toplamBrutIptal = 0;
+                                        decimal? toplamNet = 0;
+                                        decimal? toplamNetTahakkuk = 0;
+                                        decimal? toplamNetIptal = 0;
+                                        decimal? toplamKomisyon = 0;
+                                        decimal? toplamKomisyonTahakkuk = 0;
+                                        decimal? toplamKomisyonIptal = 0;
+                                        decimal? toplamTaliKomisyon = 0;
+                                        decimal? toplamTaliKomisyonTahakkuk = 0;
+                                        decimal? toplamTaliKomisyonIptal = 0;
+                                        decimal? toplamDolarBrut = 0;
+                                        decimal? toplamDolarNet = 0;
+                                        decimal? toplamDolarKomisyon = 0;
+                                        decimal? toplamDolarTaliKomisyon = 0;
+                                        decimal? toplamEuroBrut = 0;
+                                        decimal? toplamEuroNet = 0;
+                                        decimal? toplamEuroKomisyon = 0;
+                                        decimal? toplamEuroTaliKomisyon = 0;
+                                        decimal? toplamGBPBrut = 0;
+                                        decimal? toplamGBPNet = 0;
+                                        decimal? toplamGBPKomisyon = 0;
+                                        decimal? toplamGBPTaliKomisyon = 0;
+                                        decimal? GenelPolToplamSayac = 0;
+                                        decimal? GenelZeylToplamSayac = 0;
+
+                                    }
+                                    <tbody>
+                                        @if (Model.procedurePoliceOfflineList != null && Model.procedurePoliceOfflineList.Count > 0)
+                                        {
+
+                                            var kontrol = 0;
+                                            decimal? dovizliBrut = 0;
+                                            foreach (var item in Model.procedurePoliceOfflineList)
+                                            {
+                                                kontrol = 0;
+                                                <tr>
+                                                    <td style="width: 10%;">@item.PoliceNumarasi / @item.YenilemeNo / @item.EkNo</td>
+
+                                                    <td style="width: 10%;">@item.SliUnvan</td>
+                                                    <td style="width: 10%;">@item.TcknVkn</td>
+                                                    <td style="width: 10%;">@item.SEUnvan</td>
+                                                    <td style="width: 15%;">@item.SirketAdi</td>
+                                                    <td style="width: 10%;">@item.BransAdi</td>
+                                                    @if (item.BransKodu == 1 || item.BransKodu == 2)
+                                                    {
+                                                        <td style="width: 10%;">@item.PlakaKodu  @item.PlakaNo </td>
+                                                    }
+                                                    else if (item.BransKodu > 0)
+                                                    {
+                                                        <td style="width: 10%;">@item.PsliIlAdi  @item.PsliIlceAdi </td>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 3%;"></td>
+                                                    }
+                                                    @if (item.TanzimTarihi.HasValue)
+                                                    {
+                                                        <td style="width: 10%;">
+                                                            @item.TanzimTarihi.Value.ToShortDateString()
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 10%;"> </td>
+                                                    }
+                                                    @if (item.BaslangicTarihi.HasValue)
+                                                    {
+                                                        <td style="width: 10%;">
+                                                            @item.BaslangicTarihi.Value.ToShortDateString()
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 10%;"> </td>
+                                                    }
+                                                    @if (item.BitisTarihi.HasValue)
+                                                    {
+                                                        <td style="width: 10%;">
+                                                            @item.BitisTarihi.Value.ToShortDateString()
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 10%;"> </td>
+                                                    }
+
+                                                    <td style="width: 5%;">@item.BrutPrim.Value.ToString("N")</td>
+                                                    @{
+                                                        for (int i = 0; i < Model.procedurePoliceOfflineList.Count(); i++)
+                                                        {
+                                                            kontrol++;
+                                                            if (kontrol == 1)
+                                                            {
+                                                                if (@item.BrutPrim.Value > 0)
+                                                                {
+                                                                    toplamBrutTahakkuk += @item.BrutPrim.Value;
+                                                                    toplamNetTahakkuk += @item.NetPrim.Value;
+                                                                    toplamKomisyonTahakkuk += @item.Komisyon.Value;
+                                                                    toplamTaliKomisyonTahakkuk += @item.TaliKomisyon.Value;
+
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    toplamBrutIptal += @item.BrutPrim.Value;
+                                                                    toplamNetIptal += @item.NetPrim.Value;
+                                                                    toplamKomisyonIptal += @item.Komisyon.Value;
+                                                                    toplamTaliKomisyonIptal += @item.TaliKomisyon.Value;
+                                                                }
+                                                                toplamBrut += @item.BrutPrim.Value;
+                                                                toplamNet += @item.NetPrim.Value;
+                                                                toplamTaliKomisyon += @item.TaliKomisyon.Value;
+                                                                toplamKomisyon += @item.Komisyon.Value;
+                                                            }
+                                                            if (kontrol == 1)
+                                                            {
+                                                                if (item.ParaBirimi == "USD")
+                                                                {
+                                                                    if (@item.BrutPrim != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? bru = @item.BrutPrim;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamDolarBrut += kurr != null ? bru / kurr : 0;
+                                                                    }
+                                                                    if (@item.NetPrim != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? net = @item.NetPrim;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamDolarNet += kurr != null ? net / kurr : 0;
+                                                                    }
+                                                                    if (@item.TaliKomisyon != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? taliKomisyon = @item.TaliKomisyon;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamDolarTaliKomisyon += kurr != null ? taliKomisyon / kurr : 0;
+                                                                    }
+                                                                    if (@item.Komisyon != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? komisyon = @item.Komisyon;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamDolarKomisyon += kurr != null ? komisyon / kurr : 0;
+                                                                    }
+
+                                                                }
+                                                                if (item.ParaBirimi == "EUR")
+                                                                {
+                                                                    if (@item.BrutPrim != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? bru = @item.BrutPrim;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        // toplamEuroBrut += kurr != null ? bru / kurr : 0;
+                                                                        toplamEuroBrut += kurr != null ? item.DovizliBrutPrim : 0;
+                                                                    }
+                                                                    if (@item.NetPrim != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? net = @item.NetPrim;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        //toplamEuroNet += kurr != null ? net / kurr : 0;
+                                                                        toplamEuroNet += kurr != null ? item.DovizliNetPrim : 0;
+                                                                    }
+                                                                    if (@item.TaliKomisyon != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? taliKomisyon = @item.TaliKomisyon;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamEuroTaliKomisyon += kurr != null ? taliKomisyon / kurr : 0;
+                                                                    }
+                                                                    if (@item.Komisyon != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? Komisyon = @item.Komisyon;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        //toplamEuroKomisyon += kurr != null ? Komisyon / kurr : 0;
+                                                                        toplamEuroKomisyon += kurr != null ? @item.DovizliKomisyon : 0;
+                                                                    }
+
+                                                                }
+                                                                if (item.ParaBirimi == "GBP")
+                                                                {
+                                                                    if (@item.BrutPrim != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? bru = @item.BrutPrim;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        // toplamGBPBrut += kurr != null ? bru / kurr : 0;
+                                                                        toplamGBPBrut += kurr != null ? @item.DovizliBrutPrim : 0;
+
+                                                                    }
+                                                                    if (@item.NetPrim != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? net = @item.NetPrim;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamGBPNet += kurr != null ? net / kurr : 0;
+                                                                        toplamGBPNet += kurr != null ? @item.DovizliNetPrim : 0;
+
+                                                                    }
+                                                                    if (@item.TaliKomisyon != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? TaliKomisyon = @item.TaliKomisyon;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamGBPTaliKomisyon += kurr != null ? TaliKomisyon / kurr : 0;
+                                                                    }
+                                                                    if (@item.Komisyon != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? Komisyon = @item.Komisyon;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        //toplamGBPKomisyon += kurr != null ? Komisyon / kurr : 0;
+                                                                        toplamGBPKomisyon += kurr != null ? @item.DovizliKomisyon : 0;
+
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    @{
+                                                        for (int j = 0; j < Model.procedurePoliceOfflineList.Count; j++)
+                                                        {
+                                                            kontrol--;
+                                                            if (kontrol == 1)
+                                                            {
+                                                                var topPoliceSayac = 0;
+                                                                var topZeylSayac = 0;
+                                                                if (@item.SirketAdi == "ALLIANZ SİGORTA A.Ş." && @item.EkNo == 1)
+                                                                {
+                                                                    topPoliceSayac++;
+                                                                }
+                                                                else if (@item.EkNo == 0 && @item.SirketAdi != "ALLIANZ SİGORTA A.Ş.")
+                                                                {
+                                                                    topPoliceSayac++;
+                                                                }
+                                                                else if (@item.EkNo != 0 && @item.SirketAdi != "ALLIANZ SİGORTA A.Ş.")
+                                                                {
+                                                                    topZeylSayac++;
+                                                                }
+                                                                else if (@item.SirketAdi == "ALLIANZ SİGORTA A.Ş." && @item.BransAdi == "DASK" && @item.EkNo.ToString().Length > 3)
+                                                                {
+                                                                    if (@item.EkNo.ToString().Substring(4, 1) == "1")
+                                                                    {
+                                                                        topPoliceSayac++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        topZeylSayac++;
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    topZeylSayac++;
+                                                                }
+                                                                GenelPolToplamSayac += topPoliceSayac;
+                                                                GenelZeylToplamSayac += topZeylSayac;
+
+                                                            }
+                                                            else if (kontrol == 0 && Model.procedurePoliceOfflineList.Count == 1)
+                                                            {
+
+                                                                var topPoliceSayac = 0;
+                                                                var topZeylSayac = 0;
+                                                                if (@item.SirketAdi == "ALLIANZ SİGORTA A.Ş." && @item.EkNo == 1)
+                                                                {
+                                                                    topPoliceSayac++;
+                                                                }
+                                                                else if (@item.EkNo == 0 && @item.SirketAdi != "ALLIANZ SİGORTA A.Ş.")
+                                                                {
+                                                                    topPoliceSayac++;
+                                                                }
+                                                                else if (@item.EkNo != 0 && @item.SirketAdi != "ALLIANZ SİGORTA A.Ş.")
+                                                                {
+                                                                    topZeylSayac++;
+                                                                }
+                                                                else if (@item.SirketAdi == "ALLIANZ SİGORTA A.Ş." && @item.BransAdi == "DASK" && @item.EkNo.ToString().Length > 3)
+                                                                {
+                                                                    if (@item.EkNo.ToString().Substring(4, 1) == "1")
+                                                                    {
+                                                                        topPoliceSayac++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        topZeylSayac++;
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    topZeylSayac++;
+                                                                }
+                                                                GenelPolToplamSayac += topPoliceSayac;
+                                                                GenelZeylToplamSayac += topZeylSayac;
+                                                            }
+                                                        }
+                                                    }
+                                                    @if (item.NetPrim.HasValue)
+                                                    {
+                                                        <td id="netprim" style="width: 5%;">@item.NetPrim.Value.ToString("N")</td>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 5%;"></td>
+                                                    }
+                                                    @if (item.Komisyon.HasValue)
+                                                    {
+
+
+                                                        if (@item.NetPrim.Value == 0)
+                                                        {
+                                                            var b = 0;
+                                                            <td style="width: 5%;">@item.Komisyon.Value.ToString("N")</td>
+                                                            <td style="width: 5%;">%@b.ToString("F2")</td>
+                                                        }
+                                                        else
+                                                        {
+
+                                                            var a = (@item.Komisyon.Value / item.NetPrim.Value) * 100;
+
+                                                            <td style="width: 5%;">@item.Komisyon.Value.ToString("N")</td>
+                                                            <td style="width: 5%;">%@a.ToString("F2")</td>
+                                                        }
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 5%;"></td>
+                                                        <td style="width: 5%;"></td>
+                                                    }
+
+
+                                                    @if (item.TaliKomisyon != null)
+                                                    {
+                                                        <td style="width: 5%;">@item.TaliKomisyon.Value.ToString("N")</td>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 5%;"></td>
+                                                    }
+                                                    @if (item.DovizliBrutPrim != null || item.DovizliNetPrim != null)
+                                                    {
+                                                        <td style="width: 5%;">@item.DovizliBrutPrim.Value.ToString("N")</td>
+                                                        <td style="width: 5%;">@item.DovizliNetPrim.Value.ToString("N")</td>
+                                                        <td style="width: 5%;">@item.DovizliKomisyon.Value.ToString("N")</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 5%;"></td>
+                                                        <td style="width: 5%;"></td>
+                                                        <td style="width: 5%;"></td>
+                                                    }
+                                                    @if (item.OdemeTipi == 1)
+                                                    {
+                                                        <td style="width: 5%;">Nakit</td>
+                                                    }
+                                                    else if (item.OdemeTipi == 0)
+                                                    {
+                                                        <td style="width: 5%;">Havale</td>
+                                                    }
+                                                    else if (item.OdemeTipi == 2)
+                                                    {
+                                                        <td style="width: 8%;">Müşteri KK</td>
+                                                    }
+                                                    else if (item.OdemeTipi == 3)
+                                                    {
+                                                        <td style="width: 5%;">Havale</td>
+                                                    }
+                                                    else if (item.OdemeTipi == 4)
+                                                    {
+                                                        <td style="width: 5%;">ÇekSenet</td>
+                                                    }
+                                                    else if (item.OdemeTipi == 5)
+                                                    {
+                                                        <td style="width: 8%;">Acente KK</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 2%;"></td>
+                                                    }
+                                                    @if (item.OdemeSekli == 0)
+                                                    {
+                                                        <td style="width: 5%;">Yok</td>
+                                                    }
+                                                    else if (item.OdemeSekli == 1)
+                                                    {
+                                                        <td style="width: 5%;">Peşin</td>
+                                                    }
+                                                    else if (item.OdemeSekli == 2)
+                                                    {
+                                                        <td style="width: 5%;">Vadeli</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 5%;"></td>
+                                                    }
+                                                    @if (item.ParaBirimi != "TL" && item.DovizKur != null && item.ParaBirimi != "YTL" && item.DovizKur != Convert.ToInt16(1.0000))
+                                                    {
+                                                        <td style="width: 2%;">@item.DovizKur.ToString().Replace(",", ".")</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 2%;"></td>
+                                                    }
+                                                    <td style="width: 2%;">@item.ParaBirimi</td>
+                                                    @*@if (item.ParaBirimi != "TL" && item.ParaBirimi != "YTL")
+                                                        {
+                                                            if (@item.BrutPrim != 0 && @item.DovizKur != 0)
+                                                            {
+                                                                decimal? bru = @item.BrutPrim;
+                                                                decimal? kurr = @item.DovizKur;
+
+                                                                dovizliBrut = kurr != null ? bru / kurr : 0;
+                                                            }
+                                                            <td style="width: 5%; text-align: right;">@dovizliBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="width: 5%; text-align: right;"></td>
+                                                        }*@
+                                                    @* <th style="width: 2%;">@item.TaksitSayisi</th>*@
+                                                    <td style="width: 10%;">@item.TaliUnvani</td>
+
+                                                    <td style="width: 10%;">@item.DisUretimTvmUnvani </td>
+                                                    <td style="width: 10%;">@item.OnaylayanUnvan </td>
+                                                    <td style="width: 10%;">@item.email </td>
+                                                    @if (item.MuhasebeyeAktarildiMi == 2 || item.MuhasebeyeAktarildiMi == 4)
+                                                    {
+                                                        <td style="width: 10%; text-align:center"> <label><img src="~/Content/img/yesiltik.png" style="width: 35%" /></label></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 10%;"></td>
+                                                    }
+
+                                                    @if (item.ManuelPoliceMi == 3)
+                                                    {
+                                                        <td style="width: 10%; text-align:center"> <label><img src="~/Content/img/yesiltik.png" style="width: 55%" /></label></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 10%;"></td>
+                                                    }
+
+                                                    @if (item.Yeni_is == 1)
+                                                    {
+                                                        <td style="text-align:center"> <label><img src="~/Content/img/yesiltik.png" style="width: 100%" /></label></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 10%;"></td>
+                                                    }
+                                                </tr>
+                                            }
+
+                                        }
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">Poliçe / Zeyil Adedi :</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;">@GenelPolToplamSayac / @GenelZeylToplamSayac</td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"> </td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">Genel Toplam Tahakkuk:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamBrutTahakkuk.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamNetTahakkuk.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamKomisyonTahakkuk.Value.ToString("N")</td>
+
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamTaliKomisyonTahakkuk.Value.ToString("N")</td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">Genel Toplam İptal:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamBrutIptal.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamNetIptal.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamKomisyonIptal.Value.ToString("N")</td>
+
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamTaliKomisyonIptal.Value.ToString("N")</td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">Genel Toplam:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamBrut.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamNet.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamKomisyon.Value.ToString("N")</td>
+
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamTaliKomisyon.Value.ToString("N")</td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">USD (<span class="icon icon-usd"></span>) Toplamı: </td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"> </td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamDolarBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamDolarNet.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 5%;font-weight:bold">@toplamDolarKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;font-weight:bold">@toplamDolarTaliKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">EUR (<span class="icon icon-euro"></span>) Toplamı:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"> </td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamEuroBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamEuroNet.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 5%;font-weight:bold">@toplamEuroKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;font-weight:bold">@toplamEuroTaliKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">GBP (<span class="icon icon-gbp"></span>) Toplamı:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamGBPBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamGBPNet.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 5%;font-weight:bold">@toplamGBPKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;font-weight:bold">@toplamGBPTaliKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+
+                                <div>
+                                    <a href="@Model.PDFURL" id="id_donemseluretimpdf" style="display:none" title="Donemsel Uretim Pdf" target="_blank"><img src="/content/img/pdf_icon.png" width="25" height="25"> </a>
+
+                                    <h2 id="tvm_unvani"> @Model.TVMUnvani   </h2>
+                                    <h3>DÖNEMSEL ÜRETİM RAPORU </h3>
+                                    <h5 id="bas_bit_tarih">
+                                        @Model.BaslangicTarihi-@Model.BitisTarihi
+                                    </h5>
+                                </div>
+                                
+
+                                <table class="table table-striped table-bordered table-hover dataTable data-table1" style="table-layout: auto; width: 100%">
+                                    <thead>
+
+                                        @*<tr style="background-color:white; border-color :white; font-style: italic;font-size:18px;margin: 20px;">
+            <th style="width: 15%; border-color :white;font-size:20px;text-align:center;">DÖNEMSEL ÜRETİM RAPORU</th>
+            <th style="width: 15%; border-color :white; ">  @Model.BaslangicTarihi-@Model.BitisTarihi </th>
+            <th style="width: 10%; border-color :white;"> </th>
+            <th style="width: 10%; border-color :white;">  </th>
+
+            <th style="width: 15%; border-color :white; text-align:center; font-size:17px;">   </th>
+            <th style="width: 5%; border-color :white;">   </th>
+            <th style="width: 10%; border-color :white;">   </th>
+            <th style="width: 10%; border-color :white;">   </th>
+            <th style="width: 10%; border-color :white;">   </th>
+        </tr>*@
+                                        <tr>
+                                            <th style="width: 3%; background-color: #87CEFA;"></th>
+                                            <th style="width: 3%; background-color: #87CEFA;"></th>
+                                            <th style="width: 3%; background-color: #87CEFA; font-size:large;">@babonline.Gross_Premium</th>
+                                            <th style="width: 3%; background-color: #87CEFA; font-size:large;">@babonline.Net_Premium</th>
+                                            <th style="width: 3%; background-color: #87CEFA; font-size:large;">Alınan @babonline.Commission</th>
+                                            <th style="width: 3%; background-color: #87CEFA; font-size:large;">KMS % </th>
+                                            <th style="width: 3%; background-color: #87CEFA; font-size:large;">@babonline.SubAgencyComission</th>
+                                            <th style="width: 3%; background-color: #87CEFA; font-size:large;">@babonline.NetCommission</th>
+                                            <th style="width: 3%;background-color: #87CEFA; font-size:large;">@babonline.Debt</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @*<tr> 
+                                            <th style="width: 3%; background-color: #87CEFA;"></th>
+                                            <th style="width: 3%; background-color: #87CEFA;"></th>
+                                            <th style="width: 3%; background-color: #87CEFA; font-size:large;">@babonline.Gross_Premium</th>
+                                            <th style="width: 3%; background-color: #87CEFA; font-size:large;">@babonline.Net_Premium</th>
+                                            <th style="width: 3%; background-color: #87CEFA; font-size:large;">Alınan @babonline.Commission</th>
+                                            <th style="width: 3%; background-color: #87CEFA; font-size:large;">KMS % </th>
+                                            <th style="width: 3%; background-color: #87CEFA; font-size:large;">@babonline.SubAgencyComission</th>
+                                            <th style="width: 3%; background-color: #87CEFA; font-size:large;">@babonline.NetCommission</th>
+                                            <th style="width: 3%;background-color: #87CEFA; font-size:large;">@babonline.Debt</th>
+                                             
+                                        </tr>*@
+
+
+
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: large;">Poliçe / Zeyil Adedi :</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: large; text-align:right;">@GenelPolToplamSayac / @GenelZeylToplamSayac</td>
+                                            <td style="width: 10%; font-weight: bold; font-size: large;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%; font-weight: bold; font-size: large;"> </td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size:large;">Toplam Tahakkuk:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: large; text-align:right;"></td>
+                                            <td style="width: 10%;font-weight:bold; font-size: large; text-align:right;">@toplamBrutTahakkuk.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size: large; text-align:right;">@toplamNetTahakkuk.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size: large; text-align:right; ">@toplamKomisyonTahakkuk.Value.ToString("N")</td>
+                                            @if (toplamNetTahakkuk.Value == 0)
+                                            {
+                                                <td style="width: 5%;font-weight:bold"></td>
+                                            }
+                                            else
+                                            {
+                                                <td style="width: 5%;font-weight:bold; font-size:large; text-align:right;">@(((float)((toplamKomisyonTahakkuk.Value) / (toplamNetTahakkuk.Value)) * 100).ToString("N"))</td>
+
+
+
+                                            }
+
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamTaliKomisyonTahakkuk.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@(((Double)(toplamKomisyonTahakkuk.Value - toplamTaliKomisyonTahakkuk.Value)).ToString("N"))</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@(((Double)(toplamBrutTahakkuk.Value - toplamKomisyonTahakkuk.Value)).ToString("N"))</td>
+
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size:large;">Toplam İptal:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size:large; text-align:right;"></td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamBrutIptal.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamNetIptal.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamKomisyonIptal.Value.ToString("N")</td>
+                                            @if (toplamNetIptal.Value == 0)
+                                            {
+                                                <td style="width: 10%;font-weight:bold"></td>
+                                            }
+                                            else
+                                            {
+                                                <td style="width: 5%;font-weight:bold; font-size:large; text-align:right;">@(((float)((toplamKomisyonIptal.Value) / (toplamNetIptal.Value)) * 100).ToString("N"))</td>
+                                            }
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamTaliKomisyonIptal.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@(((Double)(toplamKomisyonIptal.Value - toplamTaliKomisyonIptal.Value)).ToString("N"))</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@(((Double)(toplamBrutIptal.Value - toplamKomisyonIptal.Value)).ToString("N"))</td>
+
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size:large;">Toplam Üretim:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size:large; text-align:right;"></td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamBrut.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamNet.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamKomisyon.Value.ToString("N")</td>
+                                            @if (toplamNet.Value == 0)
+                                            {
+                                                <td style="width: 5%;font-weight:bold"></td>
+                                            }
+                                            else
+                                            {
+                                                <td style="width: 5%;font-weight:bold; font-size:large; text-align:right;">@(((float)((toplamKomisyon.Value) / (toplamNet.Value)) * 100).ToString("N"))</td>
+                                            }
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamTaliKomisyon.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@(((Double)(toplamKomisyon.Value - toplamTaliKomisyon.Value)).ToString("N"))</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@(((Double)(toplamBrut.Value - toplamKomisyon.Value)).ToString("N"))</td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size:large;">USD (<span class="icon icon-usd"></span>) Toplamı: </td>
+                                            <td style="width: 5%; font-weight: bold; font-size:large; text-align:right;"></td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamDolarBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamDolarNet.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 5%;font-weight:bold; font-size:large; text-align:right;">@toplamDolarKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            @if (toplamDolarNet.Value == 0)
+                                            {
+                                                <td style="width: 5%;font-weight:bold"></td>
+                                            }
+                                            else
+                                            {
+                                                <td style="width: 5%;font-weight:bold; font-size:large; text-align:right;">@(((float)((toplamDolarKomisyon.Value) / (toplamDolarNet.Value)) * 100).ToString("N"))</td>
+                                            }
+                                            <td style="width: 5%;font-weight:bold; font-size:large; text-align:right;">@toplamDolarTaliKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@(((Double)(toplamDolarKomisyon.Value - toplamDolarTaliKomisyon.Value)).ToString("N"))</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@(((Double)(toplamDolarBrut.Value - toplamDolarKomisyon.Value)).ToString("N"))</td>
+
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size:large;">EUR (<span class="icon icon-euro"></span>) Toplamı:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size:large; text-align:right;"></td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamEuroBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamEuroNet.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 5%;font-weight:bold; font-size:large; text-align:right;">@toplamEuroKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            @if (toplamEuroNet.Value == 0)
+                                            {
+                                                <td style="width: 5%;font-weight:bold"></td>
+                                            }
+                                            else
+                                            {
+                                                <td style="width: 5%;font-weight:bold; font-size:large; text-align:right;">@(((float)((toplamEuroKomisyon.Value) / (toplamEuroNet.Value)) * 100).ToString("N"))</td>
+                                            }
+                                            <td style="width: 5%;font-weight:bold; font-size:large; text-align:right;">@toplamEuroTaliKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@(((Double)(toplamEuroKomisyon.Value - toplamEuroTaliKomisyon.Value)).ToString("N"))</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@(((Double)(toplamEuroBrut.Value - toplamEuroKomisyon.Value)).ToString("N"))</td>
+
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size:large;">GBP (<span class="icon icon-gbp"></span>) Toplamı:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size:large; text-align:right;"></td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamGBPBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@toplamGBPNet.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 5%;font-weight:bold; font-size:large; text-align:right;">@toplamGBPKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            @if (toplamGBPNet.Value == 0)
+                                            {
+                                                <td style="width: %;font-weight:bold"></td>
+                                            }
+                                            else
+                                            {
+                                                <td style="width: 5%;font-weight:bold; font-size:large; text-align:right;">@(((float)((toplamGBPKomisyon.Value) / (toplamGBPNet.Value)) * 100).ToString("N"))</td>
+                                            }
+                                            <td style="width: 5%;font-weight:bold; font-size:large; text-align:right;">@toplamGBPTaliKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@(((Double)(toplamGBPKomisyon.Value - toplamGBPTaliKomisyon.Value)).ToString("N"))</td>
+                                            <td style="width: 10%;font-weight:bold; font-size:large; text-align:right;">@(((Double)(toplamGBPBrut.Value - toplamGBPKomisyon.Value)).ToString("N"))</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            }
+
+                            else
+                            {
+                                <table class="table table-striped table-bordered table-hover dataTable data-table" style="table-layout: auto;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10%;">@babonline.PolicyNo / @babonline.RenewalNo / @babonline.Endorsement </th>
+                                            <th style="width: 5%;">@babonline.Insured</th>
+                                            <th style="width: 5%;">@babonline.Insured  <br />TCKN/VKN</th>
+                                            <th style="width: 15%;">@babonline.InsuredBy</th>
+                                            <th style="width: 15%;">@babonline.InsuranceCompany</th>
+                                            <th style="width: 4%">@babonline.Branch</th>
+                                            <th style="width: 8%;">Plaka / İl-İlçe Adı</th>
+                                            <th style="width: 4%;">@babonline.Date_Of_the_Establishment</th>
+                                            <th style="width: 4%;">@babonline.PolicyStartDate</th>
+                                            <th style="width: 4%;">@babonline.PolicyFinishDate</th>
+                                            <th style="width: 3%;">@babonline.Gross_Premium</th>
+                                            <th style="width: 3%;">@babonline.Net_Premium</th>
+                                            @* <th style="width: 3%;">@babonline.Commission</th>*@
+                                            <th style="width: 3%;">@babonline.SubAgencyComission</th>
+                                            <th style="width: 3%;">Dövizli @babonline.Gross_Premium</th>
+                                            <th style="width: 3%;">Dövizli @babonline.Net_Premium</th>
+                                            @*<th style="width: 3%;">Dövizli @babonline.Commission</th>*@
+                                            <th style="width: 6%;">@babonline.PaymentType</th>
+                                            <th style="width: 5%;">@babonline.PaymentStyle</th>
+                                            <th style="width: 3%;">Döviz Kur</th>
+                                            <th style="width: 3%;">Para Birimi</th>
+                                            @*  <th class="prim" style="width: 3%;">Dövizli @babonline.Gross_Premium</th>*@
+                                            @* <th style="width: 3%;">@babonline.HirePurchaseCount</th>*@
+                                            <th style="width: 5%;">Sigorta Uzmanı Unvanı</th>
+                                            <th style="width: 5%;">Dış Kaynak Unvanı</th>
+                                            <th style="width: 5%;">Onaylayan Personel Adı Soyadı</th>
+                                            <th style="width: 5%;">Sigortalı<br />E-Mail</th>
+                                            <th style="width: 5%;">Muhasebeye işlendi mi</th>
+                                            <th style="width: 5%;">Manuel Poliçe mi?</th>
+                                            <th style="width: 5%;">Yeni İş</th>
+                                        </tr>
+                                    </thead>
+                                    @{
+                                        decimal? toplamBrut = 0;
+                                        decimal? toplamBrutTahakkuk = 0;
+                                        decimal? toplamBrutIptal = 0;
+                                        decimal? toplamNet = 0;
+                                        decimal? toplamNetTahakkuk = 0;
+                                        decimal? toplamNetIptal = 0;
+                                        decimal? toplamKomisyon = 0;
+                                        decimal? toplamKomisyonTahakkuk = 0;
+                                        decimal? toplamKomisyonIptal = 0;
+                                        decimal? toplamTaliKomisyon = 0;
+                                        decimal? toplamTaliKomisyonTahakkuk = 0;
+                                        decimal? toplamTaliKomisyonIptal = 0;
+                                        decimal? toplamDolarBrut = 0;
+                                        decimal? toplamDolarNet = 0;
+                                        decimal? toplamDolarKomisyon = 0;
+                                        decimal? toplamDolarTaliKomisyon = 0;
+                                        decimal? toplamEuroBrut = 0;
+                                        decimal? toplamEuroNet = 0;
+                                        decimal? toplamEuroKomisyon = 0;
+                                        decimal? toplamEuroTaliKomisyon = 0;
+                                        decimal? toplamGBPBrut = 0;
+                                        decimal? toplamGBPNet = 0;
+                                        decimal? toplamGBPKomisyon = 0;
+                                        decimal? toplamGBPTaliKomisyon = 0;
+                                        decimal? GenelPolToplamSayac = 0;
+                                        decimal? GenelZeylToplamSayac = 0;
+
+                                    }
+                                    <tbody>
+                                        @if (Model.procedurePoliceOfflineList != null && Model.procedurePoliceOfflineList.Count > 0)
+                                        {
+
+                                            var kontrol = 0;
+                                            decimal? dovizliBrut = 0;
+                                            foreach (var item in Model.procedurePoliceOfflineList)
+                                            {
+                                                kontrol = 0;
+                                                <tr>
+                                                    <th style="width: 5%;">@item.PoliceNumarasi / @item.YenilemeNo / @item.EkNo</th>
+                                                    <th style="width: 10%;">@item.SliUnvan</th>
+                                                    <th style="width: 10%;">@item.TcknVkn</th>
+                                                    <th style="width: 10%;">@item.SEUnvan</th>
+                                                    <th style="width: 15%;">@item.SirketAdi</th>
+                                                    <th style="width: 10%;">@item.BransAdi</th>
+                                                    @if (item.BransKodu == 1 || item.BransKodu == 2)
+                                                    {
+                                                        <th style="width: 6%;">@item.PlakaKodu  @item.PlakaNo </th>
+                                                    }
+                                                    else
+                                                    {
+                                                        <th style="width: 10%;">@item.PsliIlAdi  @item.PsliIlceAdi </th>
+                                                    }
+                                                    <th style="width: 10%;">
+                                                        @item.TanzimTarihi.Value.ToShortDateString()
+                                                    </th>
+                                                    <th style="width: 10%;">
+                                                        @item.BaslangicTarihi.Value.ToShortDateString()
+                                                    </th>
+                                                    <th style="width: 10%;">
+                                                        @if (item.BitisTarihi != null)
+                                                        {
+                                                            @item.BitisTarihi.Value.ToShortDateString()
+                                                        }
+                                                        else
+                                                        {
+
+                                                        }
+                                                    </th>
+                                                    <th style="width: 5%;">@item.BrutPrim.Value.ToString("N")</th>
+                                                    @{
+                                                        for (int i = 0; i < Model.procedurePoliceOfflineList.Count(); i++)
+                                                        {
+                                                            kontrol++;
+                                                            if (kontrol == 1)
+                                                            {
+                                                                if (@item.BrutPrim.Value > 0)
+                                                                {
+                                                                    toplamBrutTahakkuk += @item.BrutPrim.Value;
+                                                                    toplamNetTahakkuk += @item.NetPrim.Value;
+                                                                    toplamKomisyonTahakkuk += @item.Komisyon.Value;
+                                                                    toplamTaliKomisyonTahakkuk += @item.TaliKomisyon.Value;
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    toplamBrutIptal += @item.BrutPrim.Value;
+                                                                    toplamNetIptal += @item.NetPrim.Value;
+                                                                    toplamKomisyonIptal += @item.Komisyon.Value;
+                                                                    toplamTaliKomisyonIptal += @item.TaliKomisyon.Value;
+                                                                }
+                                                                toplamBrut += @item.BrutPrim.Value;
+                                                                toplamNet += @item.NetPrim.Value;
+                                                                toplamTaliKomisyon += @item.TaliKomisyon.Value;
+                                                                toplamKomisyon += @item.Komisyon.Value;
+                                                            }
+                                                            if (kontrol == 1)
+                                                            {
+                                                                if (item.ParaBirimi == "USD")
+                                                                {
+                                                                    if (@item.BrutPrim != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? bru = @item.BrutPrim;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamDolarBrut += kurr != null ? bru / kurr : 0;
+                                                                    }
+                                                                    if (@item.NetPrim != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? net = @item.NetPrim;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamDolarNet += kurr != null ? net / kurr : 0;
+                                                                    }
+                                                                    if (@item.TaliKomisyon != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? taliKomisyon = @item.TaliKomisyon;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamDolarTaliKomisyon += kurr != null ? taliKomisyon / kurr : 0;
+                                                                    }
+                                                                    if (@item.Komisyon != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? komisyon = @item.Komisyon;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamDolarKomisyon += kurr != null ? komisyon / kurr : 0;
+                                                                    }
+
+                                                                }
+                                                                if (item.ParaBirimi == "EUR")
+                                                                {
+                                                                    if (@item.BrutPrim != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? bru = @item.BrutPrim;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        // toplamEuroBrut += kurr != null ? bru / kurr : 0;
+                                                                        toplamEuroBrut += kurr != null ? item.DovizliBrutPrim : 0;
+                                                                    }
+                                                                    if (@item.NetPrim != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? net = @item.NetPrim;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        //toplamEuroNet += kurr != null ? net / kurr : 0;
+                                                                        toplamEuroNet += kurr != null ? item.DovizliNetPrim : 0;
+                                                                    }
+                                                                    if (@item.TaliKomisyon != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? taliKomisyon = @item.TaliKomisyon;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamEuroTaliKomisyon += kurr != null ? taliKomisyon / kurr : 0;
+                                                                    }
+                                                                    if (@item.Komisyon != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? Komisyon = @item.Komisyon;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        //toplamEuroKomisyon += kurr != null ? Komisyon / kurr : 0;
+                                                                        toplamEuroKomisyon += kurr != null ? @item.DovizliKomisyon : 0;
+                                                                    }
+
+                                                                }
+                                                                if (item.ParaBirimi == "GBP")
+                                                                {
+                                                                    if (@item.BrutPrim != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? bru = @item.BrutPrim;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        // toplamGBPBrut += kurr != null ? bru / kurr : 0;
+                                                                        toplamGBPBrut += kurr != null ? @item.DovizliBrutPrim : 0;
+
+                                                                    }
+                                                                    if (@item.NetPrim != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? net = @item.NetPrim;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamGBPNet += kurr != null ? net / kurr : 0;
+                                                                        toplamGBPNet += kurr != null ? @item.DovizliNetPrim : 0;
+
+                                                                    }
+                                                                    if (@item.TaliKomisyon != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? TaliKomisyon = @item.TaliKomisyon;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        toplamGBPTaliKomisyon += kurr != null ? TaliKomisyon / kurr : 0;
+                                                                    }
+                                                                    if (@item.Komisyon != 0 && @item.DovizKur != 0)
+                                                                    {
+                                                                        decimal? Komisyon = @item.Komisyon;
+                                                                        decimal? kurr = @item.DovizKur;
+
+                                                                        //toplamGBPKomisyon += kurr != null ? Komisyon / kurr : 0;
+                                                                        toplamGBPKomisyon += kurr != null ? @item.DovizliKomisyon : 0;
+
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    @{
+                                                        for (int j = 0; j < Model.procedurePoliceOfflineList.Count; j++)
+                                                        {
+                                                            kontrol--;
+                                                            if (kontrol == 1)
+                                                            {
+                                                                var topPoliceSayac = 0;
+                                                                var topZeylSayac = 0;
+                                                                if (@item.SirketAdi == "ALLIANZ SİGORTA A.Ş." && @item.EkNo == 1)
+                                                                {
+                                                                    topPoliceSayac++;
+                                                                }
+                                                                else if (@item.EkNo == 0 && @item.SirketAdi != "ALLIANZ SİGORTA A.Ş.")
+                                                                {
+                                                                    topPoliceSayac++;
+                                                                }
+                                                                else if (@item.EkNo != 0 && @item.SirketAdi != "ALLIANZ SİGORTA A.Ş.")
+                                                                {
+                                                                    topZeylSayac++;
+                                                                }
+                                                                else if (@item.SirketAdi == "ALLIANZ SİGORTA A.Ş." && @item.BransAdi == "DASK" && @item.EkNo.ToString().Length > 3)
+                                                                {
+                                                                    if (@item.EkNo.ToString().Substring(4, 1) == "1")
+                                                                    {
+                                                                        topPoliceSayac++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        topZeylSayac++;
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    topZeylSayac++;
+                                                                }
+                                                                GenelPolToplamSayac += topPoliceSayac;
+                                                                GenelZeylToplamSayac += topZeylSayac;
+
+                                                            }
+                                                            else if (kontrol == 0 && Model.procedurePoliceOfflineList.Count == 1)
+                                                            {
+
+                                                                var topPoliceSayac = 0;
+                                                                var topZeylSayac = 0;
+                                                                if (@item.SirketAdi == "ALLIANZ SİGORTA A.Ş." && @item.EkNo == 1)
+                                                                {
+                                                                    topPoliceSayac++;
+                                                                }
+                                                                else if (@item.EkNo == 0 && @item.SirketAdi != "ALLIANZ SİGORTA A.Ş.")
+                                                                {
+                                                                    topPoliceSayac++;
+                                                                }
+                                                                else if (@item.EkNo != 0 && @item.SirketAdi != "ALLIANZ SİGORTA A.Ş.")
+                                                                {
+                                                                    topZeylSayac++;
+                                                                }
+                                                                else if (@item.SirketAdi == "ALLIANZ SİGORTA A.Ş." && @item.BransAdi == "DASK" && @item.EkNo.ToString().Length > 3)
+                                                                {
+                                                                    if (@item.EkNo.ToString().Substring(4, 1) == "1")
+                                                                    {
+                                                                        topPoliceSayac++;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        topZeylSayac++;
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    topZeylSayac++;
+                                                                }
+                                                                GenelPolToplamSayac += topPoliceSayac;
+                                                                GenelZeylToplamSayac += topZeylSayac;
+                                                            }
+                                                        }
+                                                    }
+                                                    <th style="width: 5%;">@item.NetPrim.Value.ToString("N")</th>
+                                                    @* <th style="width: 5%;">@item.Komisyon.Value.ToString("N")</th>*@
+                                                    @if (item.TaliKomisyon != null)
+                                                    {
+                                                        <th style="width: 5%;">@item.TaliKomisyon.Value.ToString("N")</th>
+                                                    }
+                                                    else
+                                                    {
+                                                        <th style="width: 5%;"></th>
+                                                    }
+                                                    @if (item.DovizliBrutPrim != null || item.DovizliNetPrim != null)
+                                                    {
+                                                        <th style="width: 5%;">@item.DovizliBrutPrim.Value.ToString("N")</th>
+                                                        <th style="width: 5%;">@item.DovizliNetPrim.Value.ToString("N")</th>
+                                                    }
+                                                    else
+                                                    {
+                                                        <th style="width: 5%;"></th>
+                                                        <th style="width: 5%;"></th>
+                                                    }
+
+                                                    @*  <th style="width: 5%;">@item.DovizliKomisyon.Value.ToString("N")</th>*@
+                                                    @if (item.OdemeTipi == 1)
+                                                    {
+                                                        <th style="width: 5%;">Nakit</th>
+                                                    }
+                                                    @if (item.OdemeTipi == 0)
+                                                    {
+                                                        <th style="width: 5%;">Havale</th>
+                                                    }
+                                                    @if (item.OdemeTipi == 2)
+                                                    {
+                                                        <th style="width: 8%;">Müşteri KK</th>
+                                                    }
+                                                    @if (item.OdemeTipi == 3)
+                                                    {
+                                                        <th style="width: 5%;">Havale</th>
+                                                    }
+                                                    @if (item.OdemeTipi == 4)
+                                                    {
+                                                        <th style="width: 5%;">ÇekSenet</th>
+                                                    }
+                                                    @if (item.OdemeTipi == 5)
+                                                    {
+                                                        <th style="width: 8%;">Acente KK</th>
+                                                    }
+                                                    @if (item.OdemeTipi == null)
+                                                    {
+                                                        <th style="width: 2%;"></th>
+                                                    }
+                                                    @if (item.OdemeSekli == 0)
+                                                    {
+                                                        <th style="width: 5%;">Yok</th>
+                                                    }
+                                                    @if (item.OdemeSekli == 1)
+                                                    {
+                                                        <th style="width: 5%;">Peşin</th>
+                                                    }
+                                                    @if (item.OdemeSekli == 2)
+                                                    {
+                                                        <th style="width: 5%;">Vadeli</th>
+                                                    }
+                                                    @if (item.OdemeSekli == null)
+                                                    {
+                                                        <th style="width: 5%;"></th>
+                                                    }
+                                                    @if (item.ParaBirimi != "TL" && item.DovizKur != null && item.ParaBirimi != "YTL" && item.DovizKur != Convert.ToInt16(1.0000))
+                                                    {
+                                                        <th style="width: 2%;">@item.DovizKur.ToString().Replace(",", ".")</th>
+                                                    }
+                                                    else
+                                                    {
+                                                        <th style="width: 2%;"></th>
+                                                    }
+                                                    <th style="width: 2%;">@item.ParaBirimi</th>
+                                                    @*@if (item.ParaBirimi != "TL" && item.ParaBirimi != "YTL")
+                                                        {
+                                                            if (@item.BrutPrim != 0 && @item.DovizKur != 0)
+                                                            {
+                                                                decimal? bru = @item.BrutPrim;
+                                                                decimal? kurr = @item.DovizKur;
+
+                                                                dovizliBrut = kurr != null ? bru / kurr : 0;
+                                                            }
+                                                            <td style="width: 5%; text-align: right;">@dovizliBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td style="width: 5%; text-align: right;"></td>
+                                                        }*@
+                                                    @* <th style="width: 2%;">@item.TaksitSayisi</th>*@
+                                                    <th style="width: 10%;">@item.TaliUnvani </th>
+                                                    <th style="width: 10%;">@item.DisUretimTvmUnvani </th>
+                                                    <th style="width: 10%;">@item.OnaylayanUnvan </th>
+                                                    <td style="width: 10%;">@item.email </td>
+                                                    @if (item.MuhasebeyeAktarildiMi == 2 || item.MuhasebeyeAktarildiMi == 4)
+                                                    {
+                                                        <td style="width: 10%; text-align:center"> <label><img src="~/Content/img/yesiltik.png" style="width: 35%" /></label></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 10%;"></td>
+                                                    }
+                                                    @if (item.ManuelPoliceMi == 3)
+                                                    {
+                                                        <td style="width: 10%; text-align:center"> <label><img src="~/Content/img/yesiltik.png" style="width: 55%" /></label></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 10%;"></td>
+                                                    }
+                                                    @if (item.Yeni_is == 1)
+                                                    {
+                                                        <td style="text-align:center"> <label><img src="~/Content/img/yesiltik.png" style="width: 100%" /></label></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width: 10%;"></td>
+                                                    }
+                                                </tr>
+                                            }
+
+                                        }
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">Poliçe / Zeyil Adedi :</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;">@GenelPolToplamSayac / @GenelZeylToplamSayac</td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"> </td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            @*<td style="width: 10%;"></td>
+                                                <td style="width: 5%;"></td>*@
+                                            @*<td style="width: 10%;"></td>*@
+                                            @*<td style="width: 10%;"></td>*@
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">Genel Toplam Tahakkuk:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamBrutTahakkuk.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamNetTahakkuk.Value.ToString("N")</td>
+                                            @*<td style="width: 10%;font-weight:bold">@toplamKomisyon.Value.ToString("N")</td>*@
+                                            <td style="width: 10%;font-weight:bold">@toplamTaliKomisyonTahakkuk.Value.ToString("N")</td>
+                                            <td style="width: 10%;"></td>
+
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            @*<td style="width: 5%;"></td>
+                                                <td style="width: 5%;"></td>*@
+                                            @*<td style="width: 10%;"></td>*@
+                                            @*<td style="width: 10%;"></td>*@
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">Genel Toplam İptal:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamBrutIptal.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamNetIptal.Value.ToString("N")</td>
+                                            @*<td style="width: 10%;font-weight:bold">@toplamKomisyon.Value.ToString("N")</td>*@
+                                            <td style="width: 10%;font-weight:bold">@toplamTaliKomisyonIptal.Value.ToString("N")</td>
+                                            <td style="width: 10%;"></td>
+
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            @*<td style="width: 5%;"></td>
+                                                <td style="width: 5%;"></td>*@
+                                            @*<td style="width: 10%;"></td>*@
+                                            @*<td style="width: 10%;"></td>*@
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">Genel Toplam:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamBrut.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamNet.Value.ToString("N")</td>
+                                            @*<td style="width: 10%;font-weight:bold">@toplamKomisyon.Value.ToString("N")</td>*@
+                                            <td style="width: 10%;font-weight:bold">@toplamTaliKomisyon.Value.ToString("N")</td>
+                                            <td style="width: 10%;"></td>
+
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            @*<td style="width: 5%;"></td>
+                                                <td style="width: 5%;"></td>*@
+                                            @*<td style="width: 10%;"></td>*@
+                                            @*<td style="width: 10%;"></td>*@
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">USD (<span class="icon icon-usd"></span>) Toplamı: </td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"> </td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamDolarBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamDolarNet.Value.ToString("N2").Replace(",", ".")</td>
+                                            @*<td style="width: 5%;font-weight:bold">@toplamDolarKomisyon.Value.ToString("N2").Replace(",", ".")</td>*@
+                                            <td style="width: 5%;font-weight:bold">@toplamDolarTaliKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;"></td>
+
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            @*<td style="width: 5%;"></td>
+                                                <td style="width: 5%;"></td>*@
+                                            @*<td style="width: 10%;"></td>*@
+                                            @*<td style="width: 10%;"></td>*@
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">EUR (<span class="icon icon-euro"></span>) Toplamı:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"> </td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamEuroBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamEuroNet.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 5%;font-weight:bold">@toplamEuroKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            @*<td style="width: 5%;font-weight:bold">@toplamEuroTaliKomisyon.Value.ToString("N2").Replace(",", ".")</td>*@
+                                            <td style="width: 10%;"></td>
+
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            @*<td style="width: 5%;"></td>
+                                                <td style="width: 5%;"></td>*@
+                                            @*<td style="width: 10%;"></td>*@
+                                            @* <td style="width: 10%;"></td>*@
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">GBP (<span class="icon icon-gbp"></span>) Toplamı:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 13%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 8%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamGBPBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamGBPNet.Value.ToString("N2").Replace(",", ".")</td>
+                                            @*<td style="width: 5%;font-weight:bold">@toplamGBPKomisyon.Value.ToString("N2").Replace(",", ".")</td>*@
+                                            <td style="width: 5%;font-weight:bold">@toplamGBPTaliKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;"></td>
+
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            <td style="width: 5%;"></td>
+                                            @*<td style="width: 5%;"></td>
+                                                <td style="width: 5%;"></td>*@
+                                            @*<td style="width: 10%;"></td>*@
+                                            @*<td style="width: 10%;"></td>*@
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                                <table class="table table-striped table-bordered table-hover dataTable data-table1" style="table-layout: auto; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 3%;"></th>
+                                            <th style="width: 3%;"></th>
+                                            <th style="width: 3%;">@babonline.Gross_Premium</th>
+                                            <th style="width: 3%;">@babonline.Net_Premium</th>
+                                            <th style="width: 3%;">Alınan @babonline.Commission</th>
+                                            <th style="width: 3%;">KMS % </th>
+                                            <th style="width: 3%;">@babonline.SubAgencyComission</th>
+                                            <th style="width: 3%;">@babonline.NetCommission</th>
+                                            <th style="width: 3%;">@babonline.Debt</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">Poliçe / Zeyil Adedi :</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;">@GenelPolToplamSayac / @GenelZeylToplamSayac</td>
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;"></td>
+
+
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">Toplam Tahakkuk:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+
+                                            <td style="width: 10%;font-weight:bold">@toplamBrutTahakkuk.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamNetTahakkuk.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamKomisyon.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamTaliKomisyonTahakkuk.Value.ToString("N")</td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">Toplam İptal:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamBrutIptal.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamNetIptal.Value.ToString("N")</td>
+                                            @*<td style="width: 10%;font-weight:bold">@toplamKomisyon.Value.ToString("N")</td>*@
+                                            <td style="width: 10%;font-weight:bold">@toplamTaliKomisyonIptal.Value.ToString("N")</td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">Toplam Üretim:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamBrut.Value.ToString("N")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamNet.Value.ToString("N")</td>
+                                            @*<td style="width: 10%;font-weight:bold">@toplamKomisyon.Value.ToString("N")</td>*@
+                                            <td style="width: 10%;font-weight:bold">@toplamTaliKomisyon.Value.ToString("N")</td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">USD (<span class="icon icon-usd"></span>) Toplamı: </td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamDolarBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamDolarNet.Value.ToString("N2").Replace(",", ".")</td>
+                                            @*<td style="width: 5%;font-weight:bold">@toplamDolarKomisyon.Value.ToString("N2").Replace(",", ".")</td>*@
+                                            <td style="width: 5%;font-weight:bold">@toplamDolarTaliKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">EUR (<span class="icon icon-euro"></span>) Toplamı:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamEuroBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamEuroNet.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 5%;font-weight:bold">@toplamEuroKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            @*<td style="width: 5%;font-weight:bold">@toplamEuroTaliKomisyon.Value.ToString("N2").Replace(",", ".")</td>*@
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+
+                                        </tr>
+                                        <tr class="background">
+                                            <td style="width: 10%; font-weight: bold; font-size: medium;">GBP (<span class="icon icon-gbp"></span>) Toplamı:</td>
+                                            <td style="width: 5%; font-weight: bold; font-size: medium;"></td>
+                                            <td style="width: 10%;font-weight:bold">@toplamGBPBrut.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;font-weight:bold">@toplamGBPNet.Value.ToString("N2").Replace(",", ".")</td>
+                                            @*<td style="width: 5%;font-weight:bold">@toplamGBPKomisyon.Value.ToString("N2").Replace(",", ".")</td>*@
+                                            <td style="width: 5%;font-weight:bold">@toplamGBPTaliKomisyon.Value.ToString("N2").Replace(",", ".")</td>
+                                            <td style="width: 10%;"></td>
+                                            <td style="width: 10%;"></td>
+
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

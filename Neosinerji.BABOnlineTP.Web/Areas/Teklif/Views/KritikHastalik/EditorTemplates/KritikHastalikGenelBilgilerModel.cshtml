@@ -1,0 +1,39 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.KritikHastalikGenelBilgilerModel
+
+
+
+<div class="control-group">
+    <label class="control-label">@babonline.Currency<span class="required">*</span></label>
+    <div class="controls">
+        @Html.DropDownListFor(s => s.paraBirimi, Model.paraBirimleri, new { style = "width:900%" })
+        @Html.ValidationMessageFor(s => s.paraBirimi)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Meslek<span class="required">*</span></label>
+    <div class="controls">
+        @Html.DropDownListFor(s => s.meslek, Model.meslekler, new { style = "width:90%" })
+        @Html.ValidationMessageFor(s => s.meslek)
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.Insurance_Duration (Yıl)<span class="required">*</span></label>
+    <div class="controls">
+        @Html.DropDownListFor(s => s.sigortaSuresi, Model.sigortaSureleri, new { style = "width:90%;" })
+        @Html.ValidationMessageFor(s => s.sigortaSuresi)
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

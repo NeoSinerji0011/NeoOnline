@@ -1,0 +1,58 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model DetayTasiyiciSorumlulukModel
+
+<div class="control-group">
+    <label class="control-label">@babonline.CarryingAuthorization</label>
+    <div class="controls">
+        @if(Model.YetkiBelgesi)
+        {
+            <label class="control"><span class="label label-success">@babonline.Exists</span></label>
+        }
+        else
+        {
+            <label class="control"><span class="label label-important">@babonline.Absent</span></label>
+        }
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.CarryingResponsibility</label>
+    <div class="controls">
+        @if(Model.Sorumluluk)
+        {
+            <label class="control"><span class="label label-success">@babonline.Exists</span></label>
+        }
+        else
+        {
+            <label class="control"><span class="label label-important">@babonline.Absent</span></label>
+        }
+    </div> 
+</div>
+@if(Model.Sorumluluk)
+{
+<div class="control-group">
+    <label class="control-label">@babonline.InsuranceCompany</label>
+    <div class="controls">
+        <label class="control">@Model.SigortaSirketiAdi</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.AgencyNo</label>
+    <div class="controls">
+        <label class="control">@Model.AcenteNo</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.PolicyNo</label>
+    <div class="controls">
+        <label class="control">@Model.PoliceNo</label>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.RenewalNo</label>
+    <div class="controls">
+        <label class="control">@Model.YenilemeNo</label>
+    </div>
+</div>
+}

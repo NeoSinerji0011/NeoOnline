@@ -1,0 +1,71 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.PoliceTransfer.Models
+@model PoliceTranferKayitModel
+
+<script type="text/javascript" src="@Url.Content("~/Content/js/PoliceTransfer/PoliceTransfer.js")"></script>
+<script type="text/javascript">
+    $("#pol-kayit-btn").click(function () {
+        $("#police-progress").show();
+        policeKayit.policeKaydet();
+    });
+</script>
+<div id="pol-kayit" class="modal hide fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-header">
+        <h3>Poliçe Transfer Kayıt</h3>
+    </div>
+    <div class="modal-body">
+        <form id="policeTransferForm" method="post" class="form-horizontal">
+            @Html.HiddenFor(f => f.Path)
+            @Html.HiddenFor(f => f.SigortaSirketiKodu)
+            @Html.HiddenFor(f => f.taliTvmKodu)
+
+            @if (!Model.TahsilatMi)
+            {
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="control-group">
+                            <label class="control-label">Yüklenen Poliçe/ Zeyil Sayısı</label>
+                            <div class="controls">
+                                <span id="toplam-police">@Model.policeCount</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="police-progress" class="span12" style="padding-bottom: 20px; display: none;">
+                    <div style="margin: 20px auto; width: 500px; text-align: center;">
+                        <h4>Lütfen bekleyin, poliçe ve zeyiller kaydediliyor...</h4>
+                    </div>
+                    <div style="margin: 20px auto; width: 500px; text-align: center;">
+                        <img src="/Content/img/loading9.gif" width="32" height="32" title="Lütfen bekleyin, poliçe ve zeyiller kaydediliyor." alt="Lütfen bekleyin, poliçe ve zeyiller kaydediliyor.">
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="control-group">
+                            <label class="control-label">Mesaj</label>
+                            <div class="controls">
+                                <span id="">@Model.TahsilatMesaj</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </form>
+    </div>
+    <div class="modal-footer">
+        @if (!Model.TahsilatMi)
+        {
+            <a id="pol-kayit-cancel" href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+            <a id="pol-kayit-btn" href="#" class="btn btn-danger" data-loading-text="Kayıt ediliyor">Yüklenen Poliçe ve Zeyilleri Kaydet</a>
+        }
+        else
+        {
+            <a href="/PoliceTransfer/PoliceTransfer/PoliceTransfer" class="btn btn-danger">Tamam</a>
+        }
+    </div>
+</div>
+
+

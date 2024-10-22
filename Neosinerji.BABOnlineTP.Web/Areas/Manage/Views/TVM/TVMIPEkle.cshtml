@@ -1,0 +1,338 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@using Neosinerji.BABOnlineTP.Business.Common
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.TVMIPBaglantiModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li class="active">
+            <a href="~/Manage/TVM/TVMIPEkle">@babonline.Add_IP<span class="selected"></span></a>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+@section PageHeader
+{
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+@section PageScripts
+{
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    <script src="~/Content/js/bootstrap-multiselect.js"></script>
+    @Scripts.Render("~/bundles/wysihtml")
+    <script>
+        $(document).ready(function () {
+            var baglantiTable;
+            function baglantiTableSet() {
+                baglantiTable = $('#baglantilar-table').dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "iDisplayLength": 5,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "sPaginationType": "full_numbers",
+                    "sPaginationType": "bootstrap"
+                });
+            }
+
+            baglantiTableSet();
+
+            //$("#ipAra").click(function () {
+            //    if ($("#BaslangicIP").val() != null || $("#BaslangicIP").val() != "") {
+            //       $.post("/Manage/TVM/TVMIPAra/",
+            //    { BaslangicIP : $("#BaslangicIP").val() },
+            //    function (data) {
+            //        //if (data != "Kayıt eklendi.") {
+            //        //    return false;
+            //        //}
+            //    });
+
+            //    }
+            //});
+        });
+
+
+
+        $(".deleteIp").click(function () {
+            var siraNo = $(this).attr("siraNo");
+            var TVMKodu = $(this).attr("tvmKodu");
+            var tableRow = $(this);
+            swal({
+                title: "Uyarı!",
+                text: " Kaydı silmek istediğiniz emin misiniz?",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Evet",
+                cancelButtonText: "Hayır",
+                closeOnConfirm: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Manage/TVM/TVMIPSil",
+                            data: { siraNo: siraNo, tvmKodu: TVMKodu },
+                            success: function (data) {
+                                if (data.sonuc != "Kayıt silindi.") {
+                                    swal({
+                                        title: "Hata",
+                                        text: data.sonuc,
+                                        type: "error",
+                                        showCancelButton: false,
+                                        confirmButtonColor: "#DD6B55",
+                                        confirmButtonText: "Tamam",
+                                        closeOnConfirm: false
+                                    },
+                                        function (isConfirm) {
+                                            if (isConfirm) {
+                                                location.reload(true);
+                                            }
+                                        });
+                                }
+                                else {
+                                    tableRow.closest('tr').remove();
+                                    swal({
+                                        title: "Başarılı",
+                                        text: data.sonuc,
+                                        type: "success",
+                                        showCancelButton: false,
+                                        confirmButtonColor: "#DD6B55",
+                                        confirmButtonText: "Tamam",
+                                        closeOnConfirm: false
+                                    });
+                                }
+                            }
+                        });
+
+                    }
+                });
+
+        });
+
+        $("#IPEkle").click(function () {
+            if ($("#IPEkle").text().trim() == "Kaydet") {
+                var durum = 1;
+                var TVMKodu = $("#TVMKodu").val();
+                var baslangicIp = $("#BaslangicIP").val();
+                var bitisIp = baslangicIp;
+                if (TVMKodu == "") {
+                    swal("Uyarı ", "Satış Kanalı Kodu Giriniz.", "warning")
+                    return false;
+                }
+                if (baslangicIp == "") {
+                    swal("Uyarı ", "Başlangıç IP Giriniz.", "warning")
+                    return false;
+                }
+                if (bitisIp == "") {
+                    swal("Uyarı ", "Bitiş IP Giriniz.", "warning")
+                    return false;
+                }
+                $(this).button("loading");
+                $.ajax({
+                    type: "POST",
+                    url: "/Manage/TVM/TVMIPEkleAjax",
+                    data: { tvmkodu: TVMKodu, durum: durum, baslangicIP: baslangicIp, bitisIp: bitisIp },
+                    success: function (data) {
+                        if (data.kayitOlduMu) {
+                            swal({
+                                title: "Başarılı",
+                                text: data.sonuc,
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Tamam",
+                                closeOnConfirm: false
+                            },
+                                function (isConfirm) {
+                                    if (isConfirm) {
+                                        $(this).button("reset");
+                                        location.reload(true);
+                                    }
+                                });
+
+                        }
+                        else {
+                            swal({
+                                title: "Hata",
+                                text: data.sonuc,
+                                type: "error",
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Tamam",
+                                closeOnConfirm: false
+                            },
+                                function (isConfirm) {
+                                    if (isConfirm) {
+                                        $(this).button("reset");
+                                        location.reload(true);
+                                    }
+                                });
+                        }
+                    }
+                });
+            }
+        });
+
+
+    </script>
+}
+<link href="~/Content/css/bootstrapSwitch.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrapSwitch.min.css" rel="stylesheet" />
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey " style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">@babonline.Add_IP</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="portlet-body form">
+
+    @using (Html.BeginForm("TVMIPEkle", "TVM", FormMethod.Post, new { @class = "form-horizontal", id = "IpEkleList", enctype = "multipart/form-data" }))
+    {
+        /*  @Html.HiddenFor(m => m.TVMKodu)*/
+        @Html.HiddenFor(m => m.SiraNo)
+        //  @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+        @Html.AntiForgeryToken()
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">@babonline.TVM_Title Kodu<span class="required">*</span></label>
+                    <div class="controls">
+                        <div class="span2">
+                            @Html.TextBoxFor(m => m.TVMKodu, new { maxlength = 15, autocompletetype = "disabled", @class = "onlynumbers" })
+                        </div>
+
+                        <div class="span3">
+                            @*<input type="submit" id="ipAra" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="Satış Kanalından Ara" />*@
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="control-group">
+                    <label class="control-label">@babonline.TVMIPConnection_StartIP <span class="required">*</span></label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.BaslangicIP, new { maxlength = 15, autocompletetype = "disabled", placeholder = "192.168.1.1" })
+                        @Html.ValidationMessageFor(m => m.BaslangicIP)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions clearfix">
+            <div class="control-group">
+                <div class="controls" style="margin-left: 180px;">
+                    <a href="/Manage/TVM/TVMIPEkle" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+                    <a id="IPEkle" class="btn green button-submit" href="javascript:;" data-loading-text="@babonline.adding" name="kaydetButonu">
+                        Kaydet
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+
+    @*@using (Html.BeginForm("TVMIPEkle", "TVM", FormMethod.Post, new { @class = "form-horizontal", id = "formListe", enctype = "multipart/form-data" }))
+        {
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">@babonline.TVM_Title Kodu<span class="required">*</span></label>
+
+                    <div class="span3">
+                        @Html.TextBoxFor(m => m.TVMKoduAra, new { maxlength = 15, autocompletetype = "disabled", @class = "onlynumbers" })
+
+                    </div>
+                    <div class="span3">
+                        <input type="submit" id="ipAra" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="Satış Kanalından Ara" />
+
+                    </div>
+                </div>
+            </div>
+        }*@
+
+
+    @using (Html.BeginForm("TVMIPAra", "TVM", FormMethod.Post, new { @class = "form-horizontal", id = "formListe", enctype = "multipart/form-data" }))
+    {
+
+        @Html.HiddenFor(m => m.TVMKodu)
+        if (ViewBag.tvmKodu == 100)
+        {
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">İp / Mac</label>
+                    <div class="controls">
+                        <div class="span2">
+                            @Html.TextBoxFor(s => s.AramaIpMac, new { name = "BaslangicIP", style = "width:100px" })
+                            <input type="hidden" name="postButton" value="ipAra" />
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="span12">
+                <div class="control-group">
+                    <div class="span1">
+                        <label class="control-label">TVM Kodu</label>
+                    </div>
+                    <div class="controls">
+                        <div class="span3">
+                            @Html.TextBoxFor(m => m.TVMKoduAra, new { maxlength = 15, autocompletetype = "disabled", @class = "onlynumbers", style = "width:100px" })
+                        </div>
+                        <div class="span1">
+                        </div>
+
+                        <div class="span3">
+                            <input type="submit" id="ipAra" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="@babonline.Search" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+    <table id="ip-list" class="table table-striped table-bordered table-hover dataTable data-table">
+        <thead>
+            <tr>
+                <th style="width: 100px; text-align: center;">@babonline.TVM_Title</th>
+                <th style="width: 100px; text-align: center;">@babonline.TVMIPConnection_StartIP / MAC</th>
+                <th style="width: 20px;">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.IpList)
+            {
+                <tr>
+                    <td style="text-align: center;">@item.TVMUnvani</td>
+                    <td style="text-align: center;">@item.BaslangicIP</td>
+                    <td style="text-align: center;">
+                        <a href="javascript:;" sirano="@item.SiraNo" tvmKodu="@item.TVMKodu" class="btn btn-mini btn-danger deleteIp" rel="tooltip" data-placement="top" data-original-title="@babonline.Delete">@babonline.Delete</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

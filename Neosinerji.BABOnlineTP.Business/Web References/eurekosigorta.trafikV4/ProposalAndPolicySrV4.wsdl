@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:intf="http://ProposalAndPolicySrV4.webservices.gb.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://ProposalAndPolicySrV4.webservices.gb.com" targetNamespace="http://ProposalAndPolicySrV4.webservices.gb.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:intf="http://ProposalAndPolicySrV4.webservices.gb.com" elementFormDefault="qualified" targetNamespace="http://ProposalAndPolicySrV4.webservices.gb.com">
+      <xsd:simpleType name="ChangeSequenceNum">
+        <xsd:restriction base="xsd:integer">
+          <xsd:totalDigits value="5" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="CompanyCode">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+Şirket kodu. GENERAL_COMPANY dosyasından kontrol edilecektir veya kullanıcı tanımına  göre otomatik olarak atanacaktır.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="3" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="RenewalNum">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+Tecdit (Yenileme) No    Poliçe ve zeyl girişlerinde sistem tarafından otomatik olarak sıfır atanacaktır.Yenilemelerde poliçe nosu değişmeyecek, tecdit nosu birden başlayarak otomatik numara alacaktır.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:integer">
+          <xsd:totalDigits value="3" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PolicyNum">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+Poliçe/Sertifika No.  GENERAL_NUM_COUNT dosyasından tip kodu "P" olarak otomatik numara  verilecektir.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:integer">
+          <xsd:totalDigits value="10" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PaymentTotal">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="18" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PolicyGroupNum">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+Grup Sıra No GENERAL_NUM_COUNT dosyasından tip kodu "G" olarak otomatik numara verilecektir.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:integer">
+          <xsd:totalDigits value="7" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PaymentType">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+Ödeme tipi. PARAMETER_TARIFF_PRODUCT_PAYMENT tablosundan kontrol edilecektir.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="3" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PartyId">
+        <xsd:restriction base="xsd:integer">
+          <xsd:totalDigits value="9" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="EndorsementNum">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+Zeyl No . Poliçe ve zeyl girişlerinde sistem tarafından otomatik olaraksıfır değeri atanacaktır. Yenilemelerde poliçe nosu değişmeyecek, tecdit nosu 1'den başlayarak otomatik numara verilecektir. Tecditlerde sıfırlanacaktır.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:integer">
+          <xsd:totalDigits value="5" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="InternalEndorsementNum">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+Dahili zeyl no. Her bir zeyl altında otomatik numara verilecektir.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:integer">
+          <xsd:totalDigits value="5" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="Execute">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Request">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="InHeader">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="CompanyId">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string" />
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="UserId">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string" />
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="Password">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string" />
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="PlatformType">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="DVL" />
+                              <xsd:enumeration value="EGT" />
+                              <xsd:enumeration value="TST" />
+                              <xsd:enumeration value="PRD" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="MessageId">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="36" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="InOperationGlobalInfo">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" name="OperationCode">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+policy, proposal,renewal_policy,renewal_proposal
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="16" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="InPolicyMaster">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" name="AgencyCode">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Acente  kodu. (External)  GENERAL_AGENCY dosyasından kontrol edilecektir.
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="10" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="SubAgencyCode">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Acente Tali Kodu -External   GENERAL_AGENCY dosyasından kontrol edilir.
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="10" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="SourceId">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Poliçenin yaratma kaynağı... CC/WEB vb...
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="8" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="ProductCode">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Branş kodu
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="3" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="TariffCode">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Brabş Tarife Kodu
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="5" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="PolicyStartDate">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Vade başlangıç tarihi.                                                               
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="8" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="PolicyEndDate">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Vade bitiş tarihi.  Otomatik olarak atanıp atanmayacağı GENERAL_PRODUCT tablosundan kontrol edilmelidir. Nakliyat branşlarında bu kolon sorgulanmamalıdır.- Vade başlangıç tarihi, vade bitiş tarihinden büyük olamaz (poliçe+zeyl).- Zeyllerde, sistem tarihi vade bitiş tarihi kontrol edilir. Eğer sistem tarihi vade bitiminden büyükse işleme yalnızca AUTHORITY_USER tablosundaki SYSTEM_END_DATE kolonunun değeri 'E' ise izin verilir.
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="8" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="ProcessingDate">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Tanzim tarihi.   Direkt poliçe kullanılırken; Tanzim-Başlama tarihi ile ilgili kontrolleri GENERAL_PRODUCT tablosundan kontrol edecektir. Yetki tanımlarından farklı bir değer gelip buradaki kontrolü değiştirebilecektir.- Ay kapalı kontrolü yapılacaktır.
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="8" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="CurrencyCode">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Para Birimi
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="3" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="CompanyCode" type="impl:CompanyCode" />
+                        <xsd:element minOccurs="0" name="PaymentType" type="impl:PaymentType" />
+                        <xsd:element minOccurs="0" name="ExternalKeyText">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+External key numarası..Transferle gelecek tüm key alanları bu alana atanacak. Örnekse;P658362;T5474Poliçe ve tecdit gibi.
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="50" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="PolicyGroupNum" type="impl:PolicyGroupNum" />
+                        <xsd:element minOccurs="0" name="PolicyNum" type="impl:PolicyNum" />
+                        <xsd:element minOccurs="0" name="RenewalNum" type="impl:RenewalNum" />
+                        <xsd:element minOccurs="0" name="EndorsementNum" type="impl:EndorsementNum" />
+                        <xsd:element minOccurs="0" name="InternalEndorsementNum" type="impl:InternalEndorsementNum" />
+                        <xsd:element minOccurs="0" name="ChangeSequenceNum" type="impl:ChangeSequenceNum" />
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="InPolicyLossPayee">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" name="LossPayeeContractNum">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="20" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="LossPayeeEndDate">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="8" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="LossPayeeStartDate">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="8" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="LossPayeeRate">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:decimal">
+                              <xsd:totalDigits value="4" />
+                              <xsd:fractionDigits value="3" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="LossPayeeCurrencyCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="3" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="LossPayeeAmount">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:decimal">
+                              <xsd:totalDigits value="17" />
+                              <xsd:fractionDigits value="2" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="ExplanationText">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Açıklama
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="254" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="LossPayeeId">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="9" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="InGlobalInfo">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" name="RaAndAgencySameFlag">
+                          <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+Rehinli alacaklı acente ile aynı ise E değilse boş gönderilmelidir.
+            </xsd:documentation>
+                          </xsd:annotation>
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="1" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="InPolicyPaymentInstallment">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" name="PartyId" type="impl:PartyId" />
+                        <xsd:element minOccurs="0" name="FirstAccountCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="19" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="FirstBankCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="4" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="FirstBranchCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="5" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="FirstCreditCardCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="16" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="FirstCvcNum">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="3" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="FirstExpireDate">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="InGroupPolicyParty">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" maxOccurs="4" name="InGroupPolicyPartyRow">
+                          <xsd:complexType>
+                            <xsd:sequence>
+                              <xsd:element name="InGListPolicyParty">
+                                <xsd:complexType>
+                                  <xsd:sequence>
+                                    <xsd:element minOccurs="0" name="PartyId" type="impl:PartyId" />
+                                    <xsd:element minOccurs="0" name="PartyRate">
+                                      <xsd:annotation>
+                                        <xsd:documentation xml:lang="en">
+Taraf oranı. PARTY_TYPE ='PY' ise bu alan erişimsizdir.
+                  </xsd:documentation>
+                                      </xsd:annotation>
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:decimal">
+                                          <xsd:totalDigits value="4" />
+                                          <xsd:fractionDigits value="3" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element minOccurs="0" name="PartyType">
+                                      <xsd:annotation>
+                                        <xsd:documentation xml:lang="en">
+Taraf Tipi. SE:Sigorta Ettiren SI:Sigortalı PY:Payer MF:Menfaattar RE:Rehinli Alacaklı
+                  </xsd:documentation>
+                                      </xsd:annotation>
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:maxLength value="2" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="InGroupRisqQuestions">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" maxOccurs="50" name="InGroupRisqQuestionsRow">
+                          <xsd:complexType>
+                            <xsd:sequence>
+                              <xsd:element name="InGListRiskQuestion">
+                                <xsd:complexType>
+                                  <xsd:sequence>
+                                    <xsd:element minOccurs="0" name="RiskQuestionNum">
+                                      <xsd:annotation>
+                                        <xsd:documentation xml:lang="en">
+Risk ana soru kodu
+                  </xsd:documentation>
+                                      </xsd:annotation>
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:integer">
+                                          <xsd:totalDigits value="4" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element minOccurs="0" name="RiskDetailQuestionNum">
+                                      <xsd:annotation>
+                                        <xsd:documentation xml:lang="en">
+Risk detay soru kodu
+                  </xsd:documentation>
+                                      </xsd:annotation>
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:integer">
+                                          <xsd:totalDigits value="4" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                              <xsd:element name="InGListGlobalInfo">
+                                <xsd:complexType>
+                                  <xsd:sequence>
+                                    <xsd:element minOccurs="0" name="RqValue">
+                                      <xsd:annotation>
+                                        <xsd:documentation xml:lang="en">
+risk bilgisi
+                  </xsd:documentation>
+                                      </xsd:annotation>
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:maxLength value="32" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="InIir1Interface">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" name="TposInd">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="1" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="InPolicyAddress">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" name="PartyId" type="impl:PartyId" />
+                        <xsd:element minOccurs="0" name="AddressType">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="1" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="AddressText">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="100" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="CountryCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="3" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="CityCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                              <xsd:totalDigits value="3" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="DistrictCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="6" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="VicinityVillageType">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="1" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="VicinityVillageCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="6" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="PostalCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="11" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="InGroupClauseList">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" maxOccurs="10" name="InGroupClauseListRow">
+                          <xsd:complexType>
+                            <xsd:sequence>
+                              <xsd:element name="InGListPolicyClause">
+                                <xsd:complexType>
+                                  <xsd:sequence>
+                                    <xsd:element minOccurs="0" name="ClauseText">
+                                      <xsd:annotation>
+                                        <xsd:documentation xml:lang="en">
+Kloz Açıklama
+                  </xsd:documentation>
+                                      </xsd:annotation>
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:maxLength value="100" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="InGroupNoteList">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" maxOccurs="3" name="InGroupNoteListRow">
+                          <xsd:complexType>
+                            <xsd:sequence>
+                              <xsd:element name="InGListIpr1PolicyNote">
+                                <xsd:complexType>
+                                  <xsd:sequence>
+                                    <xsd:element minOccurs="0" name="NoteText">
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:maxLength value="100" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ExecuteResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="OutHeader">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="IsSuccessfull">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string" />
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="ResponseMessage">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string" />
+                          </xsd:simpleType>
+                        </xsd:element>
+                        <xsd:element name="ResponseCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string" />
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="OutPolicyMaster">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="CompanyCode" type="impl:CompanyCode" />
+                        <xsd:element name="PolicyGroupNum" type="impl:PolicyGroupNum" />
+                        <xsd:element name="PolicyNum" type="impl:PolicyNum" />
+                        <xsd:element name="RenewalNum" type="impl:RenewalNum" />
+                        <xsd:element name="EndorsementNum" type="impl:EndorsementNum" />
+                        <xsd:element name="InternalEndorsementNum" type="impl:InternalEndorsementNum" />
+                        <xsd:element name="ChangeSequenceNum" type="impl:ChangeSequenceNum" />
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="OutRiskQuestionValues">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="TariffLevelCode">
+                          <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="1" />
+                            </xsd:restriction>
+                          </xsd:simpleType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="OutGroupInstallmentList">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" maxOccurs="240" name="OutGroupInstallmentListRow">
+                          <xsd:complexType>
+                            <xsd:sequence>
+                              <xsd:element name="OutGListInstallmentGlobalInfo">
+                                <xsd:complexType>
+                                  <xsd:sequence>
+                                    <xsd:element name="PaymentTotal" type="impl:PaymentTotal" />
+                                    <xsd:element name="PaymentType" type="impl:PaymentType" />
+                                    <xsd:element name="DueDate">
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:integer">
+                                          <xsd:totalDigits value="8" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="OutGroupPaymentList">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element minOccurs="0" maxOccurs="20" name="OutGroupPaymentListRow">
+                          <xsd:complexType>
+                            <xsd:sequence>
+                              <xsd:element name="OutGListPaymentGlobalInfo">
+                                <xsd:complexType>
+                                  <xsd:sequence>
+                                    <xsd:element name="PaymentTotal" type="impl:PaymentTotal" />
+                                    <xsd:element name="PaymentExplanation">
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:maxLength value="50" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                    <xsd:element name="PaymentType" type="impl:PaymentType" />
+                                    <xsd:element name="ProductName">
+                                      <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                          <xsd:maxLength value="50" />
+                                        </xsd:restriction>
+                                      </xsd:simpleType>
+                                    </xsd:element>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ExecuteRequest">
+    <wsdl:part name="parameters" element="impl:Execute" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteResponse">
+    <wsdl:part name="parameters" element="impl:ExecuteResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ProposalAndPolicySrV4">
+    <wsdl:operation name="Execute">
+      <wsdl:input name="ExecuteRequest" message="impl:ExecuteRequest" />
+      <wsdl:output name="ExecuteResponse" message="impl:ExecuteResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProposalAndPolicySrV4SoapBinding" type="impl:ProposalAndPolicySrV4">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Execute">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="ExecuteRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ExecuteResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProposalAndPolicySrV4Service">
+    <wsdl:documentation xml:lang="tr">
+DEĞİŞİKLİK: 1.0
+YAYIM TARİHİ: 20-02-2011
+Belirli ürünler için teklif için fiyat listesi döner veya poliçe oluşturur. 
+
+REVISION: 1.0
+RELEASED ON: 20-02-2011
+PURPOSE:  For spesific product codes , service returns proposal payment info or creates policy
+   
+    	</wsdl:documentation>
+    <wsdl:port name="ProposalAndPolicySrV4" binding="impl:ProposalAndPolicySrV4SoapBinding">
+      <wsdlsoap:address location="http://eswsps-t.eurekosigorta.com.tr:80/ESWS/services/ProposalAndPolicySrV4" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

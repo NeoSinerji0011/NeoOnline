@@ -1,0 +1,230 @@
+﻿<table>
+	<width=520><column=170><column=350>
+	<tbody>
+	<tr><height=>
+		<td><img><width=130><height=40> <path=$TVMLogo$><left></img></td>
+		<td>
+		<size=16><strong>Ödüllü Birikim Hayat Sigortası
+		</td>
+	</tr>	
+	<tr><height=20>
+			<td><size=13><colspan=2><center>Tahmini Birikim Tablosu</td>
+	</tr>
+	<tr><height=20><border=clear>
+			<td><size=12><colspan=2><normal><center><backgroundColor=clear> Tüm tutarlar Türk Lirası olarak gösterilmektedir. </td>
+	</tr>
+	</tbody>
+</table>
+
+<table>
+	<width=520><column=195><column=10><column=315>
+	<tbody><size=12>
+		<tr><height=20>
+			<td><strong><center><backgroundColor=192,192,192>Sigortalı Adayı Bilgiler</td>
+			<td><backgroundColor=clear></td>
+			<td><backgroundColor=192,192,192>Ödeme Bilgileri</td>
+		</tr>
+</tbody>
+</table>
+
+<table>
+	<width=520><column=100><column=95><column=5><column=240><column=80>
+	<tbody>
+		<tr><height=30><backgroundColor=clear>
+			<td><strong><left>Adı Soyadı</td>
+			<td><normal><right>$AdiSoyadi$</td>
+			<td></td>
+			<td><strong><left>Yıllık Düzenli Prim Tutarı(bkz not 3)</td>
+			<td><normal><right>$YillikDuzenliPrim$</td>
+		</tr>
+		
+		<tr>
+			<td><strong><left>Doğum Tarihi</td>
+			<td><normal><right>$DogumTarihi$</td>
+			<td></td>
+			<td><strong><left>Toplam Ödenecek Düzenli Prim </td>
+			<td><normal><right>$ToplamDuzenliPrim$</td>
+		</tr>
+		
+		<tr>
+			<td><strong><left>Başlangıç Yaşı</td>
+			<td><normal><right>$BaslangicYasi$</td>
+			<td></td>
+			<td><strong><left>Tabi olunan Gelir Vergisi Oranı(bkz not7)</td>
+			<td><normal><right>$TabiOlunanGelirVergisi$</td>
+		</tr>
+		
+		<tr>
+			<td><strong><left>Cinsiyeti</td>
+			<td><normal><right>$Cinsiyeti$</td>
+			<td></td>
+			<td><strong><left>Düzenli Prim Vergi Avantajı (bkz not 7)</td>
+			<td><normal><right>$DuzenliPrimVergiAvantaji$</td>
+		</tr>
+		
+		<tr>
+			<td></td>		
+			<td></td>		
+			<td></td>
+			<td><strong><left>Vergi Avantajı Sonrası Düzenli Prim Maliyeti</td>
+			<td><normal><right>$VergiAvantajiSonrasiDuzenliPrimMaliyeti$</td>
+		</tr>			
+	</tbody>
+</table>	
+
+
+<table>
+	<width=520><column=300><column=220>
+	<tbody>
+		<tr><height=20>
+			<td><strong><center><colspan=2><backgroundColor=192,192,192>Teminat ve Kesinti Bilgileri</td>
+		</tr>
+		<tr><height=20><backgroundColor=clear>
+			<td><strong><left>Sigorta Başlangıç Tarihi</td>	
+			<td><normal><right>$SigortaBaslangicTarihi$</td>
+		</tr>
+		<tr>
+			<td><strong><left>Sigorta Süresi (Yıl)</td>	
+			<td><normal><right>$SigortaSuresiYil$</td>
+		</tr>
+		<tr>
+			<td><strong><left>Vefat Teminatı</td>	
+			<td><normal><right>$VefatTeminati$</td>
+		</tr>
+		<tr>
+			<td><strong><left>Prim İade Ödülü (bkz not 5)</td>	
+			<td><normal><right>$PrimIadeliOdullu$</td>
+		</tr>
+		<tr>
+			<td><strong><left>Süre Sonu Prim İade Oranı(bkz not 5)</td>	
+			<td><normal><right>$SureSonuPrimIadeliOrani$</td>
+		</tr>
+		<tr>
+			<td><strong><left>Ara Dönem Prim İade Oranı(bkz not 5)</td>	
+			<td><normal><right>$AraDonemPrimIadeOrani$</td>
+		</tr>
+		<tr>
+			<td><strong><left>Risk Prim Kesintisi (Primin %'si)</td>	
+			<td><normal><right>$RiskPrimKesintisi$</td>
+		</tr>
+		<tr>
+			<td><strong><left>Kar Payı Dağıtım Oranı</td>	
+			<td><normal><right>$KarPayiDagitimOrani$</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<table>
+	<width=520><column=190><column=60><column=85><column=85><column=100>
+	<tbody><size=12>
+		<tr><height=20><backgroundColor=192,192,192>
+			<td><strong><left>Birikim Bilgileri (bkz.6)</td>
+			<td><center>Oran</td>
+			<td>Vergi Öncesi</td>
+			<td>Net</td>
+			<td><right>Ödül Dahil Net</td>
+		</tr>
+		<tr><backgroundColor=clear>
+			<td><strong><left>$GarantiEdilenOranText$</td>	
+			<td><normal><center>$GarantiEdilenOran$</td>
+			<td>$GarantiEdilenVergiOncesi$</td>
+			<td>$GarantiEdilenVergiOncesiNet$</td>
+			<td><right>$GarantiEdilenOdulDahilNet$</td>
+		</tr>
+		<tr>
+			<td><strong><left>$Varsayim1OranText$</td>	
+			<td><normal><center>$Varsayim1Oran$</td>
+			<td>$Varsayim1VergiOncesi$</td>
+			<td>$Varsayim1OranVergiOncesiNet$</td>
+			<td><right>$Varsayim1OranOdulDahilNet$</td>
+		</tr>
+		<tr>
+			<td><strong><left>$Varsayim2OranText$</td>	
+			<td><normal><center>$Varsayim2Oran$</td>
+			<td>$Varsayim2VergiOncesi$</td>
+			<td>$Varsayim2OranVergiOncesiNet$</td>
+			<td><right>$Varsayim2OranOdulDahilNet$</td>
+		</tr>		
+	</tbody>
+</table>
+
+<rotate></rotate>
+
+<table><size=12><width=770><column=45><column=55><column=90><column=90><column=10><column=75><column=85><column=75><column=10><column=75><column=85><column=75>
+	<tbody>
+		<tr><height=15><backgroundColor=clear><border=clear>				
+			<td></td>				
+			<td></td>				
+			<td></td>				
+			<td></td>				
+			<td></td>							
+			<td><backgroundColor=192,192,192><border=1><strong><center><colspan=3>VARSAYIM 1</td>
+			<td><border=clear><backgroundColor=clear></td>				
+			<td><backgroundColor=192,192,192><border=1><strong><center><colspan=3>VARSAYIM 2</td>
+		</tr>
+		<tr><height=80><border=1><backgroundColor=192,192,192>
+			<td><normal><center>Poliçe Yılı</td>	
+			<td>Sigortalı Yaşı</td>
+			<td>Kümülatif Prim (Düzenli Prim + Başlangıç Ek Primi)</td>
+			<td>Prim İadesi Ödül Tutarı (bkz not 5)</td>	
+			<td><border=clear><backgroundColor=clear></td>
+			<td><border=1><backgroundColor=192,192,192>Vergi Öncesi Muhtemel Birikim</td>
+			<td>Net Muhtemel Birikim (Vergi Sonrası)</td>
+			<td>Net İştira / Fesih Tutarı (bkz not 9)</td>
+			<td><border=clear><backgroundColor=clear></td>
+			<td><border=1><backgroundColor=192,192,192>Vergi Öncesi Muhtemel</td>
+			<td>Net Muhtemel Birikim (Vergi Sonrası)</td>
+			<td>Net İştira / Fesih Tutarı (bkz not 9)</td>
+		</tr>
+			
+		<placeHolder=OB_FooterList></placeHolder>
+	</tbody>
+</table>
+		
+<table><width=770><column=280><column=170><column=75><column=170><column=75>
+	<tbody>
+		<tr><height=30>
+			<td><strong><left><backgroundColor=192,192,192>Süre Sonu Ödül Dahil Net Muhtemel Birikim Tutarı</td>	
+			<td><backgroundColor=clear><right><normal></td>
+			<td><center>$Varsayim1OranOdulDahilNet$</td>
+			<td></td>
+			<td><center>$Varsayim2OranOdulDahilNet$</td>					
+		</tr>
+	</tbody>
+</table>
+
+<pagebreak></pagebreak>
+<p><strong><left><size=12>Önemli Notlar:</p>
+<p><normal>1-Vade geliminde ulaşacağınız birikim tutarı yatırım getirilerine göre değişkenlik gösterebilir. Burada yapılan hesaplamalar sonucu ulaşılan tutar tahmini bir tutar olup, Aegon Emeklilik ve Hayat A.Ş., primlerin vade tarihlerinde Aegon Emeklilik ve Hayat A.Ş.'ye intikal etmesi durumunda yalnızca vade geliminde %2 (poliçe bitiş tarihinde) getiri oranı ile gerçekleşeceği konusunda garanti vermektedir.</p>
+<p>2-Bu tabloda, yatırılan prim tutarınızın vade gelimine kadar sabit kalacağı ve tablodaki hesaplamaların enflasyonunun etkisinden arındırılması için enflasyon sıfır olacağı varsayılmaktadır.</p>
+<p>3-Tahmini birikim tablosu, tablonun düzenlendiği tarihteki poliçe özellikleri, varsayımlar ve sigortalı adayın yukarıda belirlenen yaşı, sigorta süresi ve ödenmesi düşünülen yıllık düzenli prim baz alınarak hazırlanmıştır. Bütün parasal değerler vade gelimi itibariye olup, düzenli primlerin yıllık ve her sözleşme yılı başında peşin ve zamanında ödendiği varsayılmıştır.</p>
+<p>4-Sigorta özellikleri, kesintiler ve vergi uygulamaları, Bilgilendirme Formu ve Özel Şartlarda ayrıntılı olarak belirlenmiştir.</p>
+<p>5-Süre Sonu Prim İadesi Teminatı tüm primlerin ödenmesi durumunda poliçe bitiş tarihinde ödenir. Sigorta süresi 10 seneden fazla olan poliçelerde, ilk 10 senenin doldurulmuş olması ve ilk 10 seneye ait tüm primlerin ödenmesi durumunda, iştira anında da Ara Dönem Prim İadesi ödenmektedir. İade oranları Bilgilendirme Formu ve Özel Şartlarda ayrıntılı olarak belirtilmiştir. Poliçenin 10 yıldan önce prim ödemelerinin durdurulması(tenzil), iştira edilmesi veya poliçe kapsamında borç alınıp geri ödenmemesi durumunda bu teminat kapsamında herhangi bir ödeme yapılamaz. </p>
+<p>6- %6 ve %10 olarak gösterilen brüt getiri oranları kar payı dağıtım oranı uygulamadan önceki oranlardır. Muhtemel birikim değerlerinde bu oranlardan kar payı kesintisi yapıldıktan sonraki birikimler gösterilmektedir. Poliçenin iştira edilmesi durumunda ya da bitiş tarihinde, sadece birikime yönlendirilen tutar üzerinden elde edilen kar payından, sistemde 10 yıldan kısa süre kalınmış olması durumunda %15, 10 yıl ve daha uzun kalınmış olması durumunda %10 stopaj düşülerek kalan birikim Sigorta Ettirene ödenecektir. Ana para üzerinden stopaj kesintisi yapılmayacaktır.</p>
+<p>7-Sigorta Ettiren'in, ödemiş olduğu primleri vergi matrahından indirmesi ile oluşacak vergi avantajının hesaplanmasında, Sigorta Ettiren'in biriktirme dönemi boyunca beyan ettiği vergi oranına tabi olduğu varsayılmıştır. Sigorta Ettiren'in vergi oranını beyan etmemiş olduğu durumlarda %27'lik vergi oranı kullanılmıştır. Vergi avantajından ilk öncelikle düzenli primler için faydalandığı varsayılmış olup, limit kalması durumunda ek prim için de vergi avantajı tutarı hesaplanmıştır. 193 sayılı Gelir Vergisi Kanunu'na göre 1 Ocak 2013 tarihinden itibaren hayat sigortası primlerin yarısı vergiye tabi matrahtan düşülebilmektedir. </p>
+<p>8-Sistemden zorunlu haller nedeniyle çıkışlarda uygulanacak vergi oranları farklıdır, söz konusu oranlar Bilgilendirme Formunda belirtilmiştir.</p>
+<p>9-Sistemden 1 yıllık prim ödemesi yapılmadan veya 1 yıllık süre tamamlandan çıkılması durumunda fesih işlemi, 1 yıllık prim ödenmesi yapılmış olması ve 1 yıllık sürenin tamamlanmış olması şartı ile çıkması durumunda iştira işlemi yapılır. İştira ve  fesih uygulamaları ile ilgili ayrıntılar Bilgilendirme Formunda yer almaktadır. İştira ve fesih kesintileri sadece düzenli primlerden oluşan birikimler üzerinden uygulanmaktadır. Kesinti oranları için Bilgilendirme Formuna bakınız. 10 uncu Poliçe Yılı'nın tamamlanmasına istinaden poliçenin iştira edilmesi durumunda 10 yıllık poliçelere göre hesaplanan iade tutarı da ayrıca ödül olarak ödenecektir. Bu ödüle hak kazanabilmek için 10 yıllık düzenli prim ödemesinin yapılmış olması şartı aranır. </p>
+
+
+<table><width=520><column=90><column=190><column=80><column=160>
+	<tbody>
+		<tr><height=15><border=clear>
+			<td><strong><left>Teklif Tarihi :</td>
+			<td><normal>$TeklifTarihi$</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr><height=15><border=clear>
+			<td><strong><left>Teklif Numarası :</td>
+			<td><normal>$TeklifNo$</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+<img><path=$OB_FooterBorder$><width=525><height=5><left></img>
+<p><normal>Yukarıdaki tablo gösterge niteliğinde olup, sigorta sözleşmesinin bir parçasını teşkil etmez. Teminatlar ile ilgili koşullar, size ayrıca verilecek olan sigorta sözleşmesinde belirtilecektir.</p>
+<p></p>
+<p><strong>Yapılması Gereken Tetkikler:
+<p><normal>$Tetkikler$</p>

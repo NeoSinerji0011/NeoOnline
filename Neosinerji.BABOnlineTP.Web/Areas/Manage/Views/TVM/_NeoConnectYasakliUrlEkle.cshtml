@@ -1,0 +1,144 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.NeoConnectYasakliUrlModels
+
+<script>
+
+    $("#TUMKodu").change(function () {
+        //Anadolu Sigorta ise Swap Kullanıcı Bilgi Giriş Ekranı açılıyor
+        if ($(this).val() == 4) {
+            $("#anadolu-ozel").show();
+        }
+        else {
+            $("#anadolu-ozel").hide();
+        }
+    });
+
+</script>
+<link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+@*    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>*@
+<script>
+    var myArraySigortaSirket = [];
+        @if (Model.SatisKanallariSelectList != null)
+        {
+
+            foreach (var d in Model.SatisKanallariSelectList)
+            {
+                   @:myArraySigortaSirket.push("@d");
+             }
+        }
+
+
+    $(document).ready(function () {
+        $("[rel=tooltip]").tooltip();
+
+        //Tvm listesini Dolduruyor....
+        var tvm = $("#TVMKodu").tvmfinder();
+        tvm.enable();
+
+        $('.multiselect').multiselect({
+            includeSelectAllOption: true,
+            enableFiltering: true,
+            maxHeight: 170,
+            nonSelectedText: '@babonline.PleaseSelect',
+            selectAllText: '@babonline.Select_All',
+            filterPlaceholder: '@babonline.Search',
+            nSelectedText: '@babonline.Selected'
+        });
+
+        if (myArraySigortaSirket.length > 0) {
+            $('#SatisKanallariSelectList').val(myArraySigortaSirket);
+        }
+        $("#SatisKanallariSelectList").multiselect("refresh");
+
+
+        $(".closed").hide();
+
+
+
+    });
+</script>
+<div id="neoconnectYasakliUrl-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        @if (Model.SigortaSirketKodu != null)
+        {
+            <h3>@babonline.Edit</h3>
+        }
+        else
+        {
+            <h3>NeoConnect S.Şirketi Menü Adımı Engelle</h3>
+        }
+    </div>
+
+    <div class="modal-body" style="height: 300px !important;">
+        <form id="neoconnectYasakliUrl-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.TVMKodu)
+            @*@Html.HiddenFor(m => m.AltTvmKodu)*@
+
+            @Html.AntiForgeryToken()
+            @*@Html.HiddenFor(m=>m.TVMKodu && m=>m.TVMUnvan)*@
+            @*    <div class="row-fluid">
+                    <div class="span12">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.TVM_Code <span class="required">*</span></label>
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.TVMKodu, Model.TVMListesi)
+                                @Html.ValidationMessageFor(m => m.TVMKodu)
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TVM_Name <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.SatisKanallariSelectList, Model.SatisKanallari, new { @class = "multiselect", multiple = "multiple", required = "required" })
+                            @Html.ValidationMessageFor(m => m.SatisKanallariSelectList)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label class="control-label">Sigorta Şirketi <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.SigortaSirketKodu, Model.TUMListesi, new { style = "width:277px;" })
+                            @Html.ValidationMessageFor(m => m.SigortaSirketKodu)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label class="control-label">Engellenecek Menü Adımı (Url) <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.YasaklanacakUrl, new { autocompletetype = "disabled", style = "width:264px;" })
+                            @Html.ValidationMessageFor(m => m.YasaklanacakUrl)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        @if (Model.SigortaSirketKodu != null)
+        {
+            <a href="#" class="btn btn-success" id="neoconnectYasakliUrl-guncelle-btn">@babonline.Edit</a>
+        }
+        else
+        {
+            <a href="#" class="btn btn-success" id="neoconnectYasakliUrl-ekle-btn">@babonline.Save</a>
+        }
+    </div>
+</div>

@@ -1,0 +1,15 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.KorunanGelecekEkTeminatlar
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.AnnualDisabilitySupportCoverage</label>
+            <div class="controls">
+                @Html.SwitchButtonFor(m => m.MaluliyetYillikDestekTeminati, new string[] { "EVET", "HAYIR" }, new { @class = "switcher switcher-small" })
+            </div>
+        </div>
+    </div>
+    </div>
+    

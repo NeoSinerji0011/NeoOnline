@@ -1,0 +1,50 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Hasar.Models
+@model HasarNotlarListModel
+
+<script>
+    $(document).ready(function () {
+        var notTable;
+        function notTableSet() {
+            notTable = $('#notlar-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        notTableSet();
+    });
+</script>
+
+<table id="notlar-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 50px;">Not Numarası</th>
+            <th style="width: 50px;">@babonline.Topic</th>
+            <th style="width: 250px;">Not Açıklaması</th>
+            <th style="width: 100px;">@babonline.Add_Date</th>
+            <th style="width: 50px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.NotId</td>
+                <td>@item.KonuAdi</td>
+                <td>@item.NotAciklamasi</td>
+                <td>@item.EklemeTarihi.ToShortDateString()</td>
+
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" not-id="@item.NotId" class="btn btn-mini btn-danger delete-not">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

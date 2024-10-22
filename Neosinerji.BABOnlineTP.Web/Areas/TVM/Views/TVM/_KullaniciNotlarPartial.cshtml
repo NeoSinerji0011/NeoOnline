@@ -1,0 +1,31 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@using Neosinerji.BABOnlineTP.Web.Areas.TVM.Models;
+@model List<KullaniciNotListeleModel>
+
+
+@foreach (var item in Model)
+{
+    <li>
+        <a href="#">
+            <div class="col1">
+                <div class="cont">
+                    <div class="cont-col1">
+                        <div class="label label-success">
+                            <i class="icon-bell"></i>
+                        </div>
+                    </div>
+                    <div class="cont-col2">
+                        <div class="desc">
+                            <a href="javascript:;" not-id="@item.NotId" id="not-detay">@item.Konu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col2">
+                <div class="date">
+                    <a href="javascript:;" class="btn red mini" not-id="@item.NotId" id="btn-not-sil">@babonline.Delete</a>
+                </div>
+            </div>
+        </a>
+    </li>
+}

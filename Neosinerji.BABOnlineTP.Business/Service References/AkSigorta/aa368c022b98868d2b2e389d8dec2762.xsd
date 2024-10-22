@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://policePDFSorgulama.police.webServices.aksigorta.tr.com/" targetNamespace="http://policePDFSorgulama.police.webServices.aksigorta.tr.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="policePDFSorgulama" type="tns:policePDFSorgulama" />
+  <xs:element name="policePDFSorgulamaResponse" type="tns:policePDFSorgulamaResponse" />
+  <xs:complexType name="policePDFSorgulama">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="policePDFSorgulama" type="tns:policePDFSorguInput" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="policePDFSorguInput">
+    <xs:sequence>
+      <xs:element name="kanalBilgileri" type="tns:kanalBilgileriType" />
+      <xs:element name="policeNo" type="xs:string" />
+      <xs:element name="basimDili" type="xs:string" />
+      <xs:element name="zeylSiraNo" type="xs:string" />
+      <xs:element minOccurs="0" name="basimTipi" type="tns:basimTipi" />
+      <xs:element minOccurs="0" name="satisId" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="kanalBilgileriType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:baseWSType">
+        <xs:sequence>
+          <xs:element name="kanalId" type="xs:string" />
+          <xs:element name="branchId" type="xs:string" />
+          <xs:element name="token" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="baseWSType" abstract="true">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="policePDFSorgulamaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:base64Binary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="basimTipi">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="POLICE_BASIM" />
+      <xs:enumeration value="BILGILENDIRME_FORMU" />
+      <xs:enumeration value="TAHSILAT_MAKBUZU" />
+      <xs:enumeration value="TUM_DOKUMANLAR" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

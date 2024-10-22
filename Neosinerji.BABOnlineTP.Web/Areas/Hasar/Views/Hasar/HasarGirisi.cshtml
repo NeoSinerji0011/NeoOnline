@@ -1,0 +1,897 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@using Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Web.Areas.Hasar.Models
+
+@model HasarModel
+
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+
+}
+@*<head>
+        <meta charset="utf-8">
+        <meta http-equiv="Cache-control" content="no-cache">
+        <meta http-equiv="Expires" content="-1">
+        <title>jQuery UI Datepicker - Default functionality</title>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <link href="~/Content/css/datepicker.css" rel="stylesheet" />
+        <link href="~/Content/css/datepicker.min.css" rel="stylesheet" />
+        <link href="~/Content/css/daterangepicker.css" rel="stylesheet" />
+        <script src="~/Content/js/mask.js" type="text/javascript"></script>
+        <script src="~/Content/js/daterangepicker.js"></script>
+        <link href="~/Content/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
+        <script src="@Url.Content("~/Content/js/jquery.gritter.min.js")" type="text/javascript"></script>
+        <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+        <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    </head>*@
+<script src="~/Content/Angular/js/sweetalert.min.js"></script>
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">Police Hasar Girişi<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.OtherReport<span class="arrow"></span></a>
+            <ul class="dropdown-menu"></ul>
+            <b class="caret-out"></b>
+        </li>
+
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+@section PageHeader
+{
+    @Scripts.Render("~/bundles/switch")
+    <link href="~/Content/css/bootstrapSwitch.css" rel="stylesheet" />
+    @*<script src="~/Content/js/bootstrapSwitch.js"></script>*@
+}
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/dataTable")
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            if ($("#HasarDosyaNo").val() != null && $("#HasarDosyaNo").val() != "") {
+                $("#hasar-guncelle-btn").show();
+                $("#hasar-ekle-btn").hide();
+                $('.hasar > .nav > .notActiveTab').not('.active').removeClass('disabled');
+                $('.hasar > .nav > .notActiveTab').not('.active').find('a').attr("data-toggle", "tab");
+            }
+            else {
+                $("#hasar-guncelle-btn").hide();
+                $("#hasar-ekle-btn").show();
+                $('.hasar > .nav > .notActiveTab').not('.active').addClass('disabled');
+                $('.hasar > .nav > .notActiveTab').not('.active').find('a').removeAttr("data-toggle");
+            }
+            $("#hasar-tab a:first").tab("show");
+
+            //Hasar Genel Bilgileri Ekleme
+            $("#hasar-ekle-btn").click(function () {
+                var isvalid = $("#hasar-form").valid();
+                if (isvalid) {
+                    var formData = $("#hasar-form").serialize();
+                    $.post("/Hasar/Hasar/HasarGirisi", formData,
+                        function (data) {
+                            if (data == "null") {
+                                $("#hasar-guncelle-btn").hide();
+                                $("#hasar-ekle-btn").show();
+                                $('.hasar > .nav > .notActiveTab').not('.active').addClass('disabled');
+                                $('.hasar > .nav > .notActiveTab').not('.active').find('a').removeAttr("data-toggle");
+                            }
+                            else {
+                                alert("Başrılı Kayıt Edildi");
+
+                                $("#hasar-guncelle-btn").show();
+                                $("#hasar-ekle-btn").hide();
+                                $('.hasar > .nav > .notActiveTab').not('.active').removeClass('disabled');
+                                $('.hasar > .nav > .notActiveTab').not('.active').find('a').attr("data-toggle", "tab");
+                            }
+
+                        }, "html");
+                }
+            });
+
+            $("#hasar-guncelle-btn").click(function () {
+                var isvalid = $("#hasar-form").valid();
+                if (isvalid) {
+                    var formData = $("#hasar-form").serialize();
+                    $.post("/Hasar/Hasar/HasarGirisiGuncelle", formData,
+                        function (data) {
+                            if (data == "null") {
+                                $("#hasar-guncelle-btn").hide();
+                                $("#hasar-ekle-btn").show();
+                            }
+                            else {
+                                alert("Kayıt Güncellendi.");
+
+                                $("#hasar-guncelle-btn").show();
+                                $("#hasar-ekle-btn").hide();
+                            }
+                        }, "html");
+                }
+            });
+
+            $("#AnlasmaliServisVarMi_control").on("switch-change", function (e, data) {
+                if (data.value) {
+                    $("#anlamaliServis").slideDown("fast");
+                }
+                else {
+                    $("#anlamaliServis").slideUp("fast");
+                }
+
+            });
+
+            var anlasmaliServis = $("#AnlasmaliServisVarMi_control").bootstrapSwitch('status');
+            if (anlasmaliServis) {
+                $("#anlamaliServis").slideDown("fast");
+            }
+            else {
+                $("#anlamaliServis").slideUp("fast");
+            }
+        });
+
+        $("#eksper-ekle").click(function () {
+            var hasarId = $("#HasarId").val();
+            $.get("/Hasar/Hasar/EksperEkle",
+                { id: hasarId },
+                function (data) {
+                    $("#eksper-modal-div").html(data);
+                    $.validator.unobtrusive.parse("#eksper-modal-div");
+                    $("#eksper-modal").modal('show');
+                },
+                "html");
+        });
+
+        $("#eksper-ekle-btn").live("click", function () {
+
+            var anlasmaliServisBedeli = $("#AnlasmaliServisBedeli").val();
+            if (anlasmaliServisBedeli != null && anlasmaliServisBedeli != "") {
+                $("#AnlasmaliServisParaBirimi").removeClass("ignore");
+            }
+            else {
+                $("#AnlasmaliServisParaBirimi").addClass("ignore");
+            }
+            var tahakkukBedeli = $("#TahakkukBedeli").val();
+            if (tahakkukBedeli != null && tahakkukBedeli != "") {
+                $("#TahakkukParaBirimi").removeClass("ignore");
+            }
+            else {
+                $("#TahakkukParaBirimi").addClass("ignore");
+            }
+            var rucuBedeli = $("#RucuBedeli").val();
+            if (rucuBedeli != null && rucuBedeli != "") {
+                $("#RucuBedeliParaBirimi").removeClass("ignore");
+            }
+            else {
+                $("#RucuBedeliParaBirimi").addClass("ignore");
+            }
+            var redBedeli = $("#RedBedeli").val();
+            if (redBedeli != null && redBedeli != "") {
+                $("#RedParaBirimi").removeClass("ignore");
+            }
+            else {
+                $("#RedParaBirimi").addClass("ignore");
+            }
+            var asistansFirmaBedeli = $("#AsistansFirmaBedeli").val();
+            if (asistansFirmaBedeli != null && asistansFirmaBedeli != "") {
+                $("#AsistansFirmaParaBirimi").removeClass("ignore");
+            }
+            else {
+                $("#AsistansFirmaParaBirimi").addClass("ignore");
+            }
+            var asistansFirmaBedeli = $("#AsistansFirmaBedeli").val();
+            if (asistansFirmaBedeli != null && asistansFirmaBedeli != "") {
+                $("#AsistansFirmaParaBirimi").removeClass("ignore");
+            }
+            else {
+                $("#AsistansFirmaParaBirimi").addClass("ignore");
+            }
+
+            $("#eksper-ekle-form").validate().form();
+            if ($("#eksper-ekle-form").valid()) {
+                var formData = $("#eksper-ekle-form").serialize();
+                $.post("/Hasar/Hasar/EksperEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#eksper-modal").modal('hide'); }
+                        else {
+                            $("#eksper-modal").modal('hide');
+                            $("#eksper-modal-div").html(data);
+                            $("#eksper-modal").modal('show');
+                        }
+                        viewEksper();
+                        //notTable.fnDraw();
+                    }, "html");
+            }
+        });
+
+
+        $(".edit-eksper").live("click", function () {
+            var eksperId = $(this).attr("eksper-id");
+
+            $.get("/Hasar/Hasar/EksperGuncelle",
+                { eksperId: eksperId },
+                function (data) {
+                    $("#eksper-modal-div").html(data);
+                    $.validator.unobtrusive.parse("#eksper-modal-div");
+                    $("#eksper-modal").modal('show');
+                },
+                "html");
+        });
+
+        $("#eksper-guncelle-btn").live("click", function () {
+            var anlasmaliServisBedeli = $("#AnlasmaliServisBedeli").val();
+            if (anlasmaliServisBedeli != null && anlasmaliServisBedeli != "") {
+                $("#AnlasmaliServisParaBirimi").removeClass("ignore");
+            }
+            else {
+                $("#AnlasmaliServisParaBirimi").addClass("ignore");
+            }
+            var tahakkukBedeli = $("#TahakkukBedeli").val();
+            if (tahakkukBedeli != null && tahakkukBedeli != "") {
+                $("#TahakkukParaBirimi").removeClass("ignore");
+            }
+            else {
+                $("#TahakkukParaBirimi").addClass("ignore");
+            }
+            var rucuBedeli = $("#RucuBedeli").val();
+            if (rucuBedeli != null && rucuBedeli != "") {
+                $("#RucuBedeliParaBirimi").removeClass("ignore");
+            }
+            else {
+                $("#RucuBedeliParaBirimi").addClass("ignore");
+            }
+            var redBedeli = $("#RedBedeli").val();
+            if (redBedeli != null && redBedeli != "") {
+                $("#RedParaBirimi").removeClass("ignore");
+            }
+            else {
+                $("#RedParaBirimi").addClass("ignore");
+            }
+            var asistansFirmaBedeli = $("#AsistansFirmaBedeli").val();
+            if (asistansFirmaBedeli != null && asistansFirmaBedeli != "") {
+                $("#AsistansFirmaParaBirimi").removeClass("ignore");
+            }
+            else {
+                $("#AsistansFirmaParaBirimi").addClass("ignore");
+            }
+            var asistansFirmaBedeli = $("#AsistansFirmaBedeli").val();
+            if (asistansFirmaBedeli != null && asistansFirmaBedeli != "") {
+                $("#AsistansFirmaParaBirimi").removeClass("ignore");
+            }
+            else {
+                $("#AsistansFirmaParaBirimi").addClass("ignore");
+            }
+
+            $("#eksper-ekle-form").validate().form();
+            if ($("#eksper-ekle-form").valid()) {
+                var formData = $("#eksper-ekle-form").serialize();
+                $.post("/Hasar/Hasar/EksperGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#eksper-modal").modal('hide'); }
+                        else {
+                            $("#eksper-modal").modal('hide');
+                            $("#eksper-modal-div").html(data);
+                            $("#eksper-modal").modal('show');
+                        }
+                        viewEksper();
+                    }, "html");
+            }
+        });
+
+        $(".delete-eksper").live("click", function () {
+            var eksperId = $(this).attr("eksper-id");
+            var hasarId = $("#HasarId").val();
+            $.post("/Hasar/Hasar/EksperSil/",
+                { eksperId: eksperId, hasarId: hasarId },
+                function (data) {
+                    $("#delete-confirmation").modal('hide');
+                    $("#eksper-container").html(data);
+                    viewEksper();
+                });
+
+            $("#delete-confirmation").modal('show');
+        });
+
+        //Not Ekleme - Silme İşlemleri
+        $("#not-ekle").click(function () {
+            var hasarId = $("#HasarId").val();
+            $.get("/Hasar/Hasar/NotEkle",
+                { id: hasarId },
+                function (data) {
+                    $("#not-modal-div").html(data);
+                    $.validator.unobtrusive.parse("#not-modal-div");
+                    $("#not-modal").modal('show');
+                },
+                "html");
+        });
+
+
+        $("#not-ekle-btn").live("click", function () {
+            $("#not-ekle-form").validate().form();
+            if ($("#not-ekle-form").valid()) {
+                var formData = $("#not-ekle-form").serialize();
+                $.post("/Hasar/Hasar/NotEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#not-modal").modal('hide'); }
+                        else {
+                            $("#not-modal").modal('hide');
+                            $("#not-modal-div").html(data);
+                            $("#not-modal").modal('show');
+                        }
+                        viewNot();
+                        //notTable.fnDraw();
+                    }, "html");
+            }
+        });
+
+        $(".delete-not").live("click", function () {
+            var notId = $(this).attr("not-id");
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $("#delete-confirmation").modal('hide');
+                $.post("/Hasar/Hasar/NotSil/", { notId: notId },
+
+                    function (data) {
+
+                        if (data.Basarili == "true")
+                        { $.gritter.add({ title: 'Bilgi Mesajı!', text: data.Message }); }
+                        else {
+                            if (data.Yetkili == "false") { $.gritter.add({ title: 'Erişim Engellendi!', text: data.Message }); }
+                            else { $.gritter.add({ title: 'Bilgi Mesajı!', text: data.Message }); }
+
+                        }
+                        viewNot();
+                    });
+            });
+            $("#delete-confirmation").modal('show');
+
+            // $("#delete-confirmation").modal('show');
+        });
+
+        //Doküman Ekleme - Silme İşlemleri
+        $("#evrak-ekle").click(function () {
+            var hasarId = $("#HasarId").val();
+            $.get("/Hasar/Hasar/EvrakEkle",
+                { id: hasarId },
+                function (data) {
+                    $("#evrak-modal-div").html(data);
+                    $.validator.unobtrusive.parse("#evrak-modal-div");
+                    $("#evrak-modal").modal('show');
+                },
+                "html");
+        });
+
+        $("#evrak-ekle-btn").live("click", function () {
+            $("#evrak-ekle-form").validate().form();
+            if ($("#evrak-ekle-form").valid()) {
+                //  var formData = $("#dokuman-ekle-form").serialize();
+                var formData = new FormData(document.forms.namedItem('evrak-ekle-form'));
+                var oReq = new XMLHttpRequest();
+                oReq.open("POST", "/Hasar/Hasar/EvrakEkle", true);
+                oReq.send(formData);
+                oReq.onload = function (oEvent) {
+                    if (oReq.status == 200) {
+                        //$("#dokuman-modal").modal('hide');
+                        $("#evrak-modal").modal('hide');
+                        $("#evrak-modal-div").html(oEvent);
+                        $("#evrak-modal").modal('show');
+                        viewEvrak();
+                    } else {
+                        // oOutput.innerHTML = "Error " + oReq.status + " occurred uploading your file.<br \/>";
+                        $("#evrak-modal").modal('hide');
+                        $("#evrak-modal-div").html(oEvent);
+                        $("#evrak-modal").modal('show');
+                    }
+                };
+            }
+        });
+
+        $(".delete-evrak").live("click", function () {
+            var evrakId = $(this).attr("evrak-id");
+            var hasarId = $("#HasarId").val();
+
+            $.post("/Hasar/Hasar/EvrakSil/",
+                { evrakId: evrakId, hasarId: hasarId },
+                function (data) {
+                    $("#delete-confirmation").modal('hide');
+                    $("#evrak-container").html(data);
+                    viewEvrak();
+                });
+
+            $("#delete-confirmation").modal('show');
+        });
+
+
+        //Banka Hesap Ekleme - Silme İşlemleri
+        $("#bankahesaplari-ekle").click(function () {
+            var hasarId = $("#HasarId").val();
+            $.get("/Hasar/Hasar/BankaHesapEkle",
+                { id: hasarId },
+                function (data) {
+                    $("#bankahesaplari-modal-div").html(data);
+                    $.validator.unobtrusive.parse("#bankahesaplari-modal-div");
+                    $("#bankahesaplari-modal").modal('show');
+                },
+                "html");
+        });
+
+        $("#bankahesaplari-ekle-btn").live("click", function () {
+            $("#bankahesaplari-ekle-form").validate().form();
+            if ($("#bankahesaplari-ekle-form").valid()) {
+                var formData = $("#bankahesaplari-ekle-form").serialize();
+                $.post("/Hasar/Hasar/BankaHesapEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#bankahesaplari-modal").modal('hide'); }
+                        else {
+                            $("#bankahesaplari-modal").modal('hide');
+                            $("#bankahesaplari-modal-div").html(data);
+                            $("#bankahesaplari-modal").modal('show');
+                        }
+                        viewBankaHesap();
+                        //bankahesaplariTable.fnDraw();
+                    }, "html");
+            }
+        });
+
+        $(".delete-bankahesaplari").live("click", function () {
+            var bankaHesapId = $(this).attr("hesap-id");
+            var hasarId = $("#HasarId").val();
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $("#delete-confirmation").modal('hide');
+                $.post("/Hasar/Hasar/BankaHesaplariSil/",
+                    { bankaHesapId: bankaHesapId, hasarId: hasarId },
+                    function (data) {
+                        $("#delete-confirmation").modal('hide');
+                        $("#bankahesaplari-container").html(data);
+                        viewBankaHesap();
+                    });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+
+        $(".edit-bankahesaplari").live("click", function () {
+            var bankahesapId = $(this).attr("hesap-id");
+
+            $.get("/Hasar/Hasar/BankaHesaplariGuncelle",
+                { hesapId: bankahesapId },
+                function (data) {
+                    $("#bankahesaplari-modal-div").html(data);
+                    $.validator.unobtrusive.parse("#bankahesaplari-modal-div");
+                    $("#bankahesaplari-modal").modal('show');
+                },
+                "html");
+        });
+
+        $("#bankahesaplari-guncelle-btn").live("click", function () {
+            $("#bankahesaplari-ekle-form").validate().form();
+            if ($("#bankahesaplari-ekle-form").valid()) {
+                var formData = $("#bankahesaplari-ekle-form").serialize();
+                $.post("/Hasar/Hasar/BankaHesaplariGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#bankahesaplari-modal").modal('hide'); }
+                        else {
+                            $("#bankahesaplari-modal").modal('hide');
+                            $("#bankahesaplari-modal-div").html(data);
+                            $("#bankahesaplari-modal").modal('show');
+                        }
+                        viewBankaHesap();
+                        //  bankahesaplariTable.fnDraw();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+
+        //İletişim Yetkiltri Ekleme - Silme İşlemleri
+        $("#iletisimyetkilileri-ekle").click(function () {
+            var hasarId = $("#HasarId").val();
+            $.get("/Hasar/Hasar/IletisimYetkilileriEkle",
+                { id: hasarId },
+                function (data) {
+                    $("#iletisimyetkilileri-modal-div").html(data);
+                    $.validator.unobtrusive.parse("#iletisimyetkilileri-modal-div");
+                    $("#iletisimyetkilileri-modal").modal('show');
+                },
+                "html");
+        });
+
+        $("#iletisimyetkilileri-ekle-btn").live("click", function () {
+            $("#iletisimyetkilileri-ekle-form").validate().form();
+            if ($("#iletisimyetkilileri-ekle-form").valid()) {
+                var formData = $("#iletisimyetkilileri-ekle-form").serialize();
+                $.post("/Hasar/Hasar/IletisimYetkilileriEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#iletisimyetkilileri-modal").modal('hide'); }
+                        else {
+                            $("#iletisimyetkilileri-modal").modal('hide');
+                            $("#iletisimyetkilileri-modal-div").html(data);
+                            $("#iletisimyetkilileri-modal").modal('show');
+                        }
+                        viewIletisimYetki();
+                        // iletisimyetkilileriTable.fnDraw();
+                    }, "html");
+            }
+        });
+
+        $(".delete-iletisimyetkilileri").live("click", function () {
+            var iletisimId = $(this).attr("iletisimyetkilileri-id");
+            var hasarId = $("#HasarId").val();
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $("#delete-confirmation").modal('hide');
+                $.post("/Hasar/Hasar/IletisimYetkilileriSil/",
+                    { iletisimId: iletisimId, HasarId: hasarId },
+                    function (data) {
+                        $("#delete-confirmation").modal('hide');
+                        $("#iletisimyetkilileri-container").html(data);
+                        viewIletisimYetki();
+                    });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+
+        $(".edit-iletisimyetkilileri").live("click", function () {
+            var iletisimId = $(this).attr("iletisimyetkilileri-id");
+
+            $.get("/Hasar/Hasar/IletisimYetkilileriGuncelle",
+                { iletisimId: iletisimId },
+                function (data) {
+                    $("#iletisimyetkilileri-modal-div").html(data);
+                    $.validator.unobtrusive.parse("#iletisimyetkilileri-modal-div");
+                    $("#iletisimyetkilileri-modal").modal('show');
+                },
+                "html");
+        });
+
+        $("#iletisimyetkilileri-guncelle-btn").live("click", function () {
+            $("#iletisimyetkilileri-ekle-form").validate().form();
+            if ($("#iletisimyetkilileri-ekle-form").valid()) {
+                var formData = $("#iletisimyetkilileri-ekle-form").serialize();
+                $.post("/Hasar/Hasar/IletisimYetkilileriGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#iletisimyetkilileri-modal").modal('hide'); }
+                        else {
+                            $("#iletisimyetkilileri-modal").modal('hide');
+                            $("#iletisimyetkilileri-modal-div").html(data);
+                            $("#iletisimyetkilileri-modal").modal('show');
+                        }
+                        viewIletisimYetki();
+                        //iletisimyetkilileriTable.fnDraw();
+                    }, "html");
+            }
+        });        ///////////////////////////////////////////////////////////////
+
+
+        function viewNot() {
+            var hasarId = $("#HasarId").val();
+            $.get("/Hasar/Hasar/NotView",
+                { HasarId: hasarId },
+                function (data) {
+                    $("#not-container").html(data);
+                },
+                "html");
+        }
+
+        function viewEksper() {
+            var hasarId = $("#HasarId").val();
+            $.get("/Hasar/Hasar/EksperView",
+                { HasarId: hasarId },
+                function (data) {
+                    $("#eksper-container").html(data);
+                },
+                "html");
+        }
+
+        function viewEvrak() {
+            var hasarId = $("#HasarId").val();
+            $.post("/Hasar/Hasar/EvraklariDoldur", { HasarId: hasarId },
+                function (data) {
+                    if (data != "" && data != "null") { $("#evrak-container").html(data); }
+                }, "html");
+        }
+
+        function viewBankaHesap() {
+            var hasarId = $("#HasarId").val();
+            $.get("/Hasar/Hasar/BankaHesapView",
+                { id: hasarId },
+                function (data) {
+                    $("#bankahesaplari-container").html(data);
+                },
+                "html");
+        }
+
+        function viewIletisimYetki() {
+            var hasarId = $("#HasarId").val();
+            $.get("/Hasar/Hasar/IletisimYetkiView",
+                { id: hasarId },
+                function (data) {
+                    $("#iletisimyetkilileri-container").html(data);
+                },
+                "html");
+        }
+
+    </script>
+}
+
+<form id="hasar-form" class="form-horizontal">
+    @Html.HiddenFor(m => m.PoliceId)
+    @Html.HiddenFor(m => m.HasarId)
+    @Html.HiddenFor(m => m.SigortaliTCVKN)
+    @Html.HiddenFor(m => m.BransKodu)
+    @Html.HiddenFor(m => m.UrunKodu)
+    @Html.HiddenFor(m => m.SigortaSirketKodu)
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="portlet box light-grey" style="margin-top: 24px;">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-reorder"></i>
+                        <span class="hidden-480">Police Hasar Girişi </span>
+                    </div>
+                </div>
+                <div class="portlet-body form">
+                    <div class="row-fluid" style="padding-top: 10px;">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">Acente Ünvanı</label>
+                                <div class="controls">
+                                    <label>@Model.AcenteUnvani </label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Satış Kanalı Ünvanı</label>
+                                <div class="controls">
+                                    <label>@Model.TaliAcenteAdi </label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Sigortali Adi/Unvanı</label>
+                                <div class="controls">
+                                    <label>@Model.SigortaliUnvani </label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Branş</label>
+                                <div class="controls">
+                                    <label>@Model.BransAdi </label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Ürün</label>
+                                <div class="controls">
+                                    <label>@Model.UrunAdi </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">Sigorta Şirketi</label>
+                                <div class="controls">
+                                    <label>@Model.SigortaSirketi </label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Poliçe Numarasi</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.PoliceNo, new { @readonly = true })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Yenileme Numarası</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.YenilemeNo, new { @readonly = true })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Zeyl Numarası</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.EkNo, new { @readonly = true })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @* <div class="row-fluid">
+                            <div class="form-actions">
+                                <a href="~/Police/Police/PoliceAraOffline" class="btn ligth-grey">@babonline.Clear</a>
+                                <input type="submit" id="searchl" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="@babonline.Search"/>
+                            </div>
+                        </div>*@
+                    <h3>Hasar Dosya İşlemleri </h3>
+                    <div class="tabbable tabbable-custom hasar" style="margin-top: 15px;">
+                        <ul class="nav nav-tabs" id="hasar-tab">
+                            <li><a href="#genelBilgi" data-toggle="tab">Dosya Bilgileri</a></li>
+                            <li class="notActiveTab"><a href="#eksper" data-toggle="tab">Eksper Bilgileri</a></li>
+                            <li class="notActiveTab"><a href="#evrak" data-toggle="tab">Evrak Seçimi</a></li>
+                            <li class="notActiveTab"><a href="#notlar" data-toggle="tab">@babonline.Notes</a></li>
+                            <li class="notActiveTab"><a href="#bankahesap" data-toggle="tab">@babonline.BankAccounts</a></li>
+                            <li class="notActiveTab"><a href="#iletisimyetkili" data-toggle="tab">@babonline.TVMContactAuthorities</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="genelBilgi">
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">Hasar Dosya Numarası<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(m => m.HasarDosyaNo)
+                                                @Html.ValidationMessageFor(m => m.HasarDosyaNo)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Anlaşmalı Servis Var Mı</label>
+                                            <div class="controls">
+                                                @Html.SwitchButtonFor(m => m.AnlasmaliServisVarMi, new string[] { babonline.Yes, babonline.No }, new { })
+                                            </div>
+                                        </div>
+                                        <div class="control-group" id="anlamaliServis" style="display: none">
+                                            <label class="control-label">Anlaşmalı Servis</label>
+                                            <div class="controls">
+                                                @Html.DropDownListFor(s => s.AnlasmaliServisKodu, Model.AnlasmaliServisler, new { style = "width:60%" })
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Hasar Dosya Durumu</label>
+                                            <div class="controls">
+                                                @Html.DropDownListFor(s => s.HasarDosyaDurumu, Model.HasarDosyaDurumlari, new { style = "width:60%" })
+                                            </div>
+                                        </div>
+                                        @* <div class="control-group">
+                                                <label class="control-label">Dosyaya Atanan MT</label>
+                                                <div class="controls">
+                                                    @Html.DropDownListFor(s => s.DosyayaAtananMTKodu, Model.MTKodlari, new { style = "width:60%" })
+                                                    @Html.ValidationMessageFor(m => m.HasarDosyaDurumu)
+                                                </div>
+                                            </div>*@
+                                    </div>
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">Hasar Tarihi<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.DateTextBoxFor(m => m.HasarTarihi, null)
+                                                @Html.ValidationMessageFor(m => m.HasarTarihi)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Ihbar Tarihi<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.DateTextBoxFor(m => m.IhbarTarihi, null)
+                                                @Html.ValidationMessageFor(m => m.IhbarTarihi)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Hasar Saati<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(m => m.HasarSaati)
+                                                @Html.ValidationMessageFor(m => m.HasarSaati)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Hasar Mevki<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextAreaFor(m => m.HasarMevki, new { style = "width:60%; height:15%; max-width: 60%; max-height: 15%;" })
+                                                @Html.ValidationMessageFor(m => m.HasarMevki)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Hasar Türü/Nedeni<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextAreaFor(m => m.HasarTuruNedeni, new { style = "width:60%; height:15%; max-width: 60%; max-height: 15%;" })
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Hasar Red Nedeni</label>
+                                            <div class="controls">
+                                                @Html.TextAreaFor(m => m.HasarDosyaRedNedeni, new { style = "width:60%; height:15%; max-width: 60%; max-height: 15%;" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-fluid" style="margin-left: 40%;">
+                                    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+                                    <a href="#" class="btn btn-success" id="hasar-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+                                    <a href="#" class="btn btn-success" id="hasar-guncelle-btn" style="display: none;"><i class="icon-ok">&nbsp;</i>@babonline.Update</a>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="eksper">
+                                <div class="row-fluid">
+                                    <label><a id="eksper-ekle" href="#" class="btn btn-success">Eksper Ekle</a></label>
+                                    <div class="row-fluid">
+                                        <div class="span12" id="eksper-container">
+                                            @Html.Partial("_EksperList", Model.EksperList)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="evrak">
+                                <div class="row-fluid">
+                                    <label><a id="evrak-ekle" href="#" class="btn btn-success">Zorunlu Evrak Ekle</a></label>
+                                    <div class="row-fluid">
+                                        <div class="span12" id="evrak-container">
+                                            @Html.Partial("_Evraklar", Model.ZorunluEvrakList)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="notlar">
+                                <div class="row-fluid">
+                                    <label><a id="not-ekle" href="#" class="btn btn-success">@babonline.Node_Add</a></label>
+                                    @*Notlar Burada Ekleniyor *@
+                                    <div class="row-fluid">
+                                        <div class="span12" id="not-container">
+                                            @Html.Partial("_Notlar", Model.NotlarList)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="bankahesap">
+                                <div class="row-fluid">
+                                    <label><a id="bankahesaplari-ekle" href="#" data-toggle="modal" class="btn btn-success">@babonline.BankAccounts_Add</a></label>
+
+                                    @*Banka Hesapları Burada Ekleniyor *@
+                                    <div class="row-fluid">
+                                        <div class="span12" id="bankahesaplari-container">
+                                            @Html.Partial("_BankaHesaplari", Model.BankaHesaplariList)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="iletisimyetkili">
+                                <div class="row-fluid">
+                                    <label><a id="iletisimyetkilileri-ekle" href="#" data-toggle="modal" class="btn btn-success">@babonline.TVMContactAuthorities_Add</a></label>
+
+                                    @*İletişim Yetkilileri Burada Ekleniyor *@
+                                    <div class="row-fluid">
+                                        <div class="span12" id="iletisimyetkilileri-container">
+                                            @Html.Partial("_IletisimYetkilileri", Model.IletisimYetkilileriList)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@*Not Ekleme*@
+<div id="not-modal-div"></div>
+
+@*Not Ekleme*@
+<div id="eksper-modal-div"></div>
+
+@* Zorunlu Evrak Ekleme*@
+<div id="evrak-modal-div"></div>
+
+@* Banka Hesabı Ekleme*@
+<div id="bankahesaplari-modal-div"></div>
+
+@* İletişim Yetkilileri Ekleme*@
+<div id="iletisimyetkilileri-modal-div"></div>
+
+
+
+@Html.Partial("_DeleteConfirmation")
+

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/soap/http" xmlns:tns="http://localhost:8080/server/cms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://localhost:8080/server/cms" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://localhost:8080/server/cms" />
+  </wsdl:types>
+  <wsdl:message name="PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_V1_Request">
+    <wsdl:part name="CORE_CLIENT" type="xsd:string" />
+    <wsdl:part name="CORE_DOMAIN" type="xsd:string" />
+    <wsdl:part name="CORE_LANGUAGE" type="xsd:string" />
+    <wsdl:part name="ARAC_KODU" type="xsd:string" />
+    <wsdl:part name="ARAC_TESCIL_KODU" type="xsd:string" />
+    <wsdl:part name="ZKTMS_YENILEME_NO" type="xsd:string" />
+    <wsdl:part name="ZKTMS_SIRKET_KODU" type="xsd:string" />
+    <wsdl:part name="ZKTMS_ESKI_POLICE_NO" type="xsd:string" />
+    <wsdl:part name="ZKTMS_ACENTE_KODU" type="xsd:string" />
+    <wsdl:part name="WEB_KULLANICI_ADI" type="xsd:string" />
+    <wsdl:part name="WEB_GIRIS" type="xsd:string" />
+    <wsdl:part name="VKN" type="xsd:string" />
+    <wsdl:part name="TRAMER_TARIFE_KODU" type="xsd:string" />
+    <wsdl:part name="TRAFIK_TESCIL_TARIHI" type="xsd:string" />
+    <wsdl:part name="TCKN" type="xsd:string" />
+    <wsdl:part name="TASIMA_YETKI_BELGE_SERI_NO" type="xsd:string" />
+    <wsdl:part name="ARAC_TESCIL_SERI_NO" type="xsd:string" />
+    <wsdl:part name="BITIS_TARIHI" type="xsd:string" />
+    <wsdl:part name="DOGUM_TARIHI" type="xsd:string" />
+    <wsdl:part name="CINSIYET" type="xsd:string" />
+    <wsdl:part name="MUSTERI_ILCE_KODU" type="xsd:string" />
+    <wsdl:part name="MUSTERI_IL_KODU" type="xsd:string" />
+    <wsdl:part name="MUSTERI_TIPI" type="xsd:string" />
+    <wsdl:part name="MODEL_YILI" type="xsd:string" />
+    <wsdl:part name="ONCEKI_ACENTE_KODU" type="xsd:string" />
+    <wsdl:part name="ONCEKI_POLICE_NO" type="xsd:string" />
+    <wsdl:part name="ONCEKI_SIRKET_KODU" type="xsd:string" />
+    <wsdl:part name="ONCEKI_YENILEME_NO" type="xsd:string" />
+    <wsdl:part name="PLAKA" type="xsd:string" />
+    <wsdl:part name="PLAKA_IL_KODU" type="xsd:string" />
+    <wsdl:part name="PLAKA_TIPI" type="xsd:string" />
+    <wsdl:part name="TASIMA_YETKI_BELGE_NO" type="xsd:string" />
+    <wsdl:part name="SESSION_ID" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_V1_Response">
+    <wsdl:part name="NET_PRIM" type="xsd:string" />
+    <wsdl:part name="KTGS" type="xsd:string" />
+    <wsdl:part name="HATA_TEXT" type="xsd:string" />
+    <wsdl:part name="HATA_KODU" type="xsd:string" />
+    <wsdl:part name="HASARSIZLIK_ORANI" type="xsd:string" />
+    <wsdl:part name="GECIKME_SURPRIM_ORANI" type="xsd:string" />
+    <wsdl:part name="BSMV" type="xsd:string" />
+    <wsdl:part name="THG_FON" type="xsd:string" />
+    <wsdl:part name="TAKSIT_SAYISI" type="xsd:string" />
+    <wsdl:part name="SONUC" type="xsd:string" />
+    <wsdl:part name="ODEME_TIPI" type="xsd:string" />
+    <wsdl:part name="SESSION_ID" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_WITH_PLAKA_TCKN_Request">
+    <wsdl:part name="CORE_CLIENT" type="xsd:string" />
+    <wsdl:part name="CORE_DOMAIN" type="xsd:string" />
+    <wsdl:part name="CORE_LANGUAGE" type="xsd:string" />
+    <wsdl:part name="MUSTERI_IL_KODU" type="xsd:string" />
+    <wsdl:part name="MUSTERI_TIPI" type="xsd:string" />
+    <wsdl:part name="ARAC_TESCIL_SERI_NO" type="xsd:string" />
+    <wsdl:part name="ARAC_TESCIL_KODU" type="xsd:string" />
+    <wsdl:part name="TCKN" type="xsd:string" />
+    <wsdl:part name="VKN" type="xsd:string" />
+    <wsdl:part name="MODEL_YILI" type="xsd:string" />
+    <wsdl:part name="PLAKA_IL_KODU" type="xsd:string" />
+    <wsdl:part name="PLAKA" type="xsd:string" />
+    <wsdl:part name="BITIS_TARIHI" type="xsd:string" />
+    <wsdl:part name="WEB_KULLANICI_ADI" type="xsd:string" />
+    <wsdl:part name="MUSTERI_ILCE_KODU" type="xsd:string" />
+    <wsdl:part name="PLAKA_TURU" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_WITH_PLAKA_TCKN_Response">
+    <wsdl:part name="KTGS" type="xsd:string" />
+    <wsdl:part name="BRUT_PRIM" type="xsd:string" />
+    <wsdl:part name="GECIKME_SURPRIM_ORANI" type="xsd:string" />
+    <wsdl:part name="HASARSIZLIK_ORANI" type="xsd:string" />
+    <wsdl:part name="THG_FON" type="xsd:string" />
+    <wsdl:part name="BSMV" type="xsd:string" />
+    <wsdl:part name="NET_PRIM" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="PR_SWEP_URT_OTO_WS_TRAFIK_KAYDET_Request">
+    <wsdl:part name="CORE_CLIENT" type="xsd:string" />
+    <wsdl:part name="CORE_DOMAIN" type="xsd:string" />
+    <wsdl:part name="CORE_LANGUAGE" type="xsd:string" />
+    <wsdl:part name="ARAC_ALT_RENGI" type="xsd:string" />
+    <wsdl:part name="KART_SAHIBI_SOYADI" type="xsd:string" />
+    <wsdl:part name="ISTIAP_HADDI_KISI" type="xsd:string" />
+    <wsdl:part name="ISTIAP_HADDI_KG" type="xsd:string" />
+    <wsdl:part name="ODEME_TIPI" type="xsd:string" />
+    <wsdl:part name="TAKSIT_SAYISI" type="xsd:string" />
+    <wsdl:part name="PUL_NO" type="xsd:string" />
+    <wsdl:part name="KART_SAHIBI_ADI" type="xsd:string" />
+    <wsdl:part name="ONCEKI_ACENTE_KODU" type="xsd:string" />
+    <wsdl:part name="ONCEKI_YENILEME_NO" type="xsd:string" />
+    <wsdl:part name="ONCEKI_POLICE_NO" type="xsd:string" />
+    <wsdl:part name="ONCEKI_SIRKET_KODU" type="xsd:string" />
+    <wsdl:part name="ALT_ACENTE_KODU" type="xsd:string" />
+    <wsdl:part name="ACENTE_KODU" type="xsd:string" />
+    <wsdl:part name="KULLANIM_AMACI" type="xsd:string" />
+    <wsdl:part name="KULLANIM_TIPI_KODU" type="xsd:string" />
+    <wsdl:part name="KULLANIM_SEKLI_KODU" type="xsd:string" />
+    <wsdl:part name="TESCIL_TARIHI" type="xsd:string" />
+    <wsdl:part name="PLAKA_TURU" type="xsd:string" />
+    <wsdl:part name="PLAKA_NO" type="xsd:string" />
+    <wsdl:part name="BITIS_TARIHI" type="xsd:string" />
+    <wsdl:part name="KILOMETRE" type="xsd:string" />
+    <wsdl:part name="MOTOR_NO" type="xsd:string" />
+    <wsdl:part name="TAKOMETRE" type="xsd:string" />
+    <wsdl:part name="KART_TEL_ALAN" type="xsd:string" />
+    <wsdl:part name="KART_TEL_NO" type="xsd:string" />
+    <wsdl:part name="PLAKA_IL_KODU" type="xsd:string" />
+    <wsdl:part name="TASIMA_YETKI_BELGE_NO" type="xsd:string" />
+    <wsdl:part name="ZKTMS_ACENTE_KODU" type="xsd:string" />
+    <wsdl:part name="ZKTMS_ESKI_POLICE_NO" type="xsd:string" />
+    <wsdl:part name="ZKTMS_SIRKET_KODU" type="xsd:string" />
+    <wsdl:part name="ZKTMS_YENILEME_NO" type="xsd:string" />
+    <wsdl:part name="CVV2" type="xsd:string" />
+    <wsdl:part name="MUSTERI_NO" type="xsd:string" />
+    <wsdl:part name="ARAC_KODU" type="xsd:string" />
+    <wsdl:part name="MODEL_YILI" type="xsd:string" />
+    <wsdl:part name="MUAYENE_GECERLILIK_TARIHI" type="xsd:string" />
+    <wsdl:part name="ARAC_RENGI" type="xsd:string" />
+    <wsdl:part name="TRAFIGE_CIKIS_TARIHI" type="xsd:string" />
+    <wsdl:part name="SASI_NO" type="xsd:string" />
+    <wsdl:part name="WEB_KULLANICI_ADI" type="xsd:string" />
+    <wsdl:part name="WEB_SIFRE" type="xsd:string" />
+    <wsdl:part name="KREDI_KART_NO" type="xsd:string" />
+    <wsdl:part name="SON_KULLANMA_TARIHI" type="xsd:string" />
+    <wsdl:part name="BASLANGIC_TARIHI" type="xsd:string" />
+    <wsdl:part name="ARAC_TESCIL_KODU" type="xsd:string" />
+    <wsdl:part name="ARAC_TESCIL_SERI_NO" type="xsd:string" />
+    <wsdl:part name="E_POSTA" type="xsd:string" />
+    <wsdl:part name="NET_PRIM" type="xsd:string" />
+    <wsdl:part name="PESIN_BLOKELI_TAKSIT" type="xsd:string" />
+    <wsdl:part name="SEND_EPOSTA" type="xsd:string" />
+    <wsdl:part name="RETURN_POLICE_PDF" type="xsd:string" />
+    <wsdl:part name="RETURN_GENEL_SART_PDF" type="xsd:string" />
+    <wsdl:part name="SESSION_ID" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="PR_SWEP_URT_OTO_WS_TRAFIK_KAYDET_Response">
+    <wsdl:part name="ODEME_PLANI" type="xsd:string" />
+    <wsdl:part name="THG_FON" type="xsd:string" />
+    <wsdl:part name="KTGS" type="xsd:string" />
+    <wsdl:part name="POLICE_NO" type="xsd:string" />
+    <wsdl:part name="NET_PRIM" type="xsd:string" />
+    <wsdl:part name="BRUT_PRIM" type="xsd:string" />
+    <wsdl:part name="BSMV" type="xsd:string" />
+    <wsdl:part name="POLICE_PDF" type="xsd:string" />
+    <wsdl:part name="GENEL_SART_PDF" type="xsd:string" />
+    <wsdl:part name="HATA_KODU" type="xsd:string" />
+    <wsdl:part name="HATA_TEXT" type="xsd:string" />
+    <wsdl:part name="SESSION_ID" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="PR_SWEP_MUS_WEB_MUSTERI_KAYDET_Request">
+    <wsdl:part name="CORE_CLIENT" type="xsd:string" />
+    <wsdl:part name="CORE_DOMAIN" type="xsd:string" />
+    <wsdl:part name="CORE_LANGUAGE" type="xsd:string" />
+    <wsdl:part name="UNVAN" type="xsd:string" />
+    <wsdl:part name="WEB_SIFRE" type="xsd:string" />
+    <wsdl:part name="MUSTERI_TIPI" type="xsd:string" />
+    <wsdl:part name="TCKN" type="xsd:string" />
+    <wsdl:part name="VKN" type="xsd:string" />
+    <wsdl:part name="ULKE_KODU" type="xsd:string" />
+    <wsdl:part name="PASAPORT_NO" type="xsd:string" />
+    <wsdl:part name="PASAPORT_GECERLILIK_TARIHI" type="xsd:string" />
+    <wsdl:part name="MUSTERI_EPOSTA" type="xsd:string" />
+    <wsdl:part name="ADRES_IL_KODU" type="xsd:string" />
+    <wsdl:part name="ILCE_ADI" type="xsd:string" />
+    <wsdl:part name="ADRES_TIPI" type="xsd:string" />
+    <wsdl:part name="MUSTERI_ADI" type="xsd:string" />
+    <wsdl:part name="MUSTERI_SOYADI" type="xsd:string" />
+    <wsdl:part name="DOGUM_TARIHI" type="xsd:string" />
+    <wsdl:part name="CINSIYET" type="xsd:string" />
+    <wsdl:part name="MUSTERI_BINA_ADI" type="xsd:string" />
+    <wsdl:part name="MUSTERI_MAHALLE_KOY" type="xsd:string" />
+    <wsdl:part name="MUSTERI_CADDE" type="xsd:string" />
+    <wsdl:part name="MUSTERI_SOKAK" type="xsd:string" />
+    <wsdl:part name="MUSTERI_DAIRE_NO" type="xsd:string" />
+    <wsdl:part name="MUSTERI_SERBESTADRES" type="xsd:string" />
+    <wsdl:part name="MUSTERI_TEL_ALAN" type="xsd:string" />
+    <wsdl:part name="MUSTERI_TEL_NO" type="xsd:string" />
+    <wsdl:part name="MUSTERI_TEL_TIP" type="xsd:string" />
+    <wsdl:part name="MUSTERI_TEL_DAHILI" type="xsd:string" />
+    <wsdl:part name="BAGLANTI_TIPI_KODU" type="xsd:string" />
+    <wsdl:part name="BAGLANTILI_KURUM_KODU" type="xsd:string" />
+    <wsdl:part name="KIBRIS_KIMLIK_NO" type="xsd:string" />
+    <wsdl:part name="WEB_KULLANICI_ADI" type="xsd:string" />
+    <wsdl:part name="SESSION_ID" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="PR_SWEP_MUS_WEB_MUSTERI_KAYDET_Response">
+    <wsdl:part name="HATA_TEXT" type="xsd:string" />
+    <wsdl:part name="HATA_KODU" type="xsd:string" />
+    <wsdl:part name="MUSTERI_NO" type="xsd:string" />
+    <wsdl:part name="SESSION_ID" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="PR_SWEP_URT_OTO_WS_SET_KULLANIM_TIPI_FOR_INTERNET_SATIS_Request">
+    <wsdl:part name="CORE_CLIENT" type="xsd:string" />
+    <wsdl:part name="CORE_DOMAIN" type="xsd:string" />
+    <wsdl:part name="CORE_LANGUAGE" type="xsd:string" />
+    <wsdl:part name="TRAMER_TARIFE_KODU" type="xsd:string" />
+    <wsdl:part name="ARAC_KODU" type="xsd:string" />
+    <wsdl:part name="MODEL_YILI" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="PR_SWEP_URT_OTO_WS_SET_KULLANIM_TIPI_FOR_INTERNET_SATIS_Response">
+    <wsdl:part name="KULLANIM_TIPI" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="PR_SWEP_URT_OTO_WS_SET_KULLANIM_SEKLI_FOR_INTERNET_SATIS_Request">
+    <wsdl:part name="CORE_CLIENT" type="xsd:string" />
+    <wsdl:part name="CORE_DOMAIN" type="xsd:string" />
+    <wsdl:part name="CORE_LANGUAGE" type="xsd:string" />
+    <wsdl:part name="MODEL_YILI" type="xsd:string" />
+    <wsdl:part name="TRAMER_TARIFE_KODU" type="xsd:string" />
+    <wsdl:part name="KULLANIM_TIPI_KODU" type="xsd:string" />
+    <wsdl:part name="ARAC_KODU" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="PR_SWEP_URT_OTO_WS_SET_KULLANIM_SEKLI_FOR_INTERNET_SATIS_Response">
+    <wsdl:part name="KULLANIM_SEKLI" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:portType name="Oto_PORT">
+    <wsdl:operation name="PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_V1">
+      <documentation />
+      <wsdl:input message="tns:PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_V1_Request" />
+      <wsdl:output message="tns:PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_V1_Response" />
+    </wsdl:operation>
+    <wsdl:operation name="PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_WITH_PLAKA_TCKN">
+      <documentation />
+      <wsdl:input message="tns:PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_WITH_PLAKA_TCKN_Request" />
+      <wsdl:output message="tns:PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_WITH_PLAKA_TCKN_Response" />
+    </wsdl:operation>
+    <wsdl:operation name="PR_SWEP_URT_OTO_WS_TRAFIK_KAYDET">
+      <documentation />
+      <wsdl:input message="tns:PR_SWEP_URT_OTO_WS_TRAFIK_KAYDET_Request" />
+      <wsdl:output message="tns:PR_SWEP_URT_OTO_WS_TRAFIK_KAYDET_Response" />
+    </wsdl:operation>
+    <wsdl:operation name="PR_SWEP_MUS_WEB_MUSTERI_KAYDET">
+      <documentation />
+      <wsdl:input message="tns:PR_SWEP_MUS_WEB_MUSTERI_KAYDET_Request" />
+      <wsdl:output message="tns:PR_SWEP_MUS_WEB_MUSTERI_KAYDET_Response" />
+    </wsdl:operation>
+    <wsdl:operation name="PR_SWEP_URT_OTO_WS_SET_KULLANIM_TIPI_FOR_INTERNET_SATIS">
+      <documentation />
+      <wsdl:input message="tns:PR_SWEP_URT_OTO_WS_SET_KULLANIM_TIPI_FOR_INTERNET_SATIS_Request" />
+      <wsdl:output message="tns:PR_SWEP_URT_OTO_WS_SET_KULLANIM_TIPI_FOR_INTERNET_SATIS_Response" />
+    </wsdl:operation>
+    <wsdl:operation name="PR_SWEP_URT_OTO_WS_SET_KULLANIM_SEKLI_FOR_INTERNET_SATIS">
+      <documentation />
+      <wsdl:input message="tns:PR_SWEP_URT_OTO_WS_SET_KULLANIM_SEKLI_FOR_INTERNET_SATIS_Request" />
+      <wsdl:output message="tns:PR_SWEP_URT_OTO_WS_SET_KULLANIM_SEKLI_FOR_INTERNET_SATIS_Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Oto_SOAP_BINDING" type="tns:Oto_PORT">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_V1">
+      <soap:operation soapAction="http://localhost:8080/server/cms/PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_V1" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://localhost:8080/server/cms" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://localhost:8080/server/cms" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_WITH_PLAKA_TCKN">
+      <soap:operation soapAction="http://localhost:8080/server/cms/PR_SWEP_URT_OTO_WS_TRAFIK_PRIM_HESAPLA_WITH_PLAKA_TCKN" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://localhost:8080/server/cms" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://localhost:8080/server/cms" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PR_SWEP_URT_OTO_WS_TRAFIK_KAYDET">
+      <soap:operation soapAction="http://localhost:8080/server/cms/PR_SWEP_URT_OTO_WS_TRAFIK_KAYDET" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://localhost:8080/server/cms" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://localhost:8080/server/cms" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PR_SWEP_MUS_WEB_MUSTERI_KAYDET">
+      <soap:operation soapAction="http://localhost:8080/server/cms/PR_SWEP_MUS_WEB_MUSTERI_KAYDET" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://localhost:8080/server/cms" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://localhost:8080/server/cms" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PR_SWEP_URT_OTO_WS_SET_KULLANIM_TIPI_FOR_INTERNET_SATIS">
+      <soap:operation soapAction="http://localhost:8080/server/cms/PR_SWEP_URT_OTO_WS_SET_KULLANIM_TIPI_FOR_INTERNET_SATIS" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://localhost:8080/server/cms" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://localhost:8080/server/cms" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PR_SWEP_URT_OTO_WS_SET_KULLANIM_SEKLI_FOR_INTERNET_SATIS">
+      <soap:operation soapAction="http://localhost:8080/server/cms/PR_SWEP_URT_OTO_WS_SET_KULLANIM_SEKLI_FOR_INTERNET_SATIS" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://localhost:8080/server/cms" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://localhost:8080/server/cms" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Oto_SERVICE_LIST">
+    <wsdl:port name="Oto_PORT" binding="tns:Oto_SOAP_BINDING">
+      <soap:address location="http://localhost:8080/server/cms" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

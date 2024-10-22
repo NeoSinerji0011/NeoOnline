@@ -1,0 +1,57 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model List<TVMWebServisKullanicilariModel>
+
+<script>
+    $(document).ready(function () {
+        var webservisKullanicilariTable;
+        function webservisKullanicilariTableSet() {
+            webservisKullanicilariTable = $('#webserviskullanicilari-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        webservisKullanicilariTableSet();
+    });
+</script>
+
+<table id="webserviskullanicilari-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th>@babonline.TUM_Title</th>
+            <th>@babonline.TVMUser_Name</th>
+            <th>@babonline.Password</th>
+            <th> SWAP @babonline.TVMUser_Name</th>
+            <th> SWAP @babonline.Password</th>
+            <th> Partaj No</th>
+            <th style="width: 50px;">&nbsp;</th>
+            <th style="width: 40px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TUMUnvan</td>
+                <td>@item.KullaniciAdi</td>
+                <td>@item.Sifre</td>
+                <td>@item.KullaniciAdi2</td>
+                <td>@item.Sifre2</td>
+                <td>@item.PartajNo_</td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" tvm-kodu="@item.TVMKodu" tum-kodu="@item.TUMKodu" class="btn btn-mini btn-info edit-tvmwebservis">@babonline.Edit</a>
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" tvm-kodu="@item.TVMKodu" tum-kodu="@item.TUMKodu" class="btn btn-mini btn-danger delete-tvmwebservis">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

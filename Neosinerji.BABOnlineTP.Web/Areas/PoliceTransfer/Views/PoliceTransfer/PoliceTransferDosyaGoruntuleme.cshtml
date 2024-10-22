@@ -1,0 +1,170 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.PoliceTransfer.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model PoliceTransferGoruntulemeModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        @* <li>
+                <a href="/Musteri/Musteri/Liste">@babonline.Customer_Search<span></span></a>
+            </li>*@
+        <li class="active">
+            <a href="#">@babonline.PolicyTransfer<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+}
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/switch")
+    <script type="text/javascript">
+
+        var myArraySigortaSirket = [];
+        @if (Model.SigortaSirketleriSelectList != null)
+        {
+
+            foreach (var d in Model.SigortaSirketleriSelectList)
+            {
+                   @:myArraySigortaSirket.push("@d");
+             }
+        }
+        $(document).ready(function () {
+            $("[rel=tooltip]").tooltip();
+
+            //Tvm listesini Dolduruyor....
+            var tvm = $("#TVMKodu").tvmfinder();
+            tvm.enable();
+
+            $('.multiselect').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                maxHeight: 170,
+                nonSelectedText: '@babonline.PleaseSelect',
+                selectAllText: '@babonline.Select_All',
+                filterPlaceholder: '@babonline.Search',
+                nSelectedText: '@babonline.Selected'
+            });
+
+
+            if (myArraySigortaSirket.length > 0) {
+                $('#SigortaSirketleriSelectList').val(myArraySigortaSirket);
+            }
+            $("#SigortaSirketleriSelectList").multiselect("refresh");
+        });
+
+    </script>
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">@babonline.PolicyTransfer</span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @using (Html.BeginForm("PoliceTransferDosyaGoruntuleme", "PoliceTransfer", FormMethod.Post, new { @class = "form-horizontal", id = "form-police-transfer", enctype = "multipart/form-data" }))
+                {
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.InsuranceCompany<span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(s => s.SigortaSirketleriSelectList, Model.SigortaSirketleri, new { @class = "multiselect", multiple = "multiple", required = "required" })
+                                    @Html.ValidationMessageFor(m => m.SigortaSirketleriSelectList)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Tanzim Başlangıç Tarihi <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(m => m.TanzimBaslangicTarihi, new { style = "width:100px" })
+                                    @Html.ValidationMessageFor(m => m.TanzimBaslangicTarihi)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Tanzim Bitiş Tarihi <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DateTextBoxFor(m => m.TanzimBitisTarihi, new { style = "width:100px" })
+                                    @Html.ValidationMessageFor(m => m.TanzimBaslangicTarihi)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row-fluid" style="margin-top: 20px;">
+                            <div class="span12">
+                                <input type="submit" id="search" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="@babonline.Search" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row-fluid" style="margin-top: 20px;">
+                    <div class="span12">
+                        <div id="table-div" style="overflow-x: auto; margin-top: 15px;">
+
+
+                            <table class="table table-striped table-bordered table-hover data-table" style="table-layout: inherit">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 5%;">@babonline.TVM_Title</th>
+                                        <th style="width: 10%;">@babonline.TVM_Name</th>
+                                        <th style="width: 10%;">@babonline.InsuranceCompany</th>
+                                        <th style="width: 10%;">Tanzim Başlangıç Tarihi</th>
+                                        <th style="width: 10%;">Tanzim Bitiş Tarihi</th>
+                                        <th style="width: 10%;">Kayıt Tarihi</th>
+                                        <th style="width: 10%;">Kaydı Ekleyen Kullanıcı</th>
+                                        <th style="width: 10%;">@babonline.File</th>
+                                    </tr>
+                                </thead>
+                                @if (Model.list != null)
+                                {
+                                    foreach (var itemPolice in Model.list)
+                                    {
+                                        <tr>
+                                            <td style="width: 5%;">@itemPolice.TVMKodu</td>
+                                            <td style="width: 5%;">@itemPolice.TVMUnvan</td>
+                                            <td style="width: 5%;">@itemPolice.SirketUnvani</td>
+                                            <td style="width: 5%;">@itemPolice.TanzimBaslangicTarihi.ToString("dd/MM/yyyy")</td>
+                                            <td style="width: 5%;">@itemPolice.TanzimBitisTarihi.ToString("dd/MM/yyyy")</td>
+                                            <td style="width: 5%;">@itemPolice.KayitTarihi.ToString("dd/MM/yyyy")</td>
+                                            <td style="width: 5%;">@itemPolice.KaydiEkleyenKullaniciUnvan</td>
+                                            @if (itemPolice.PoliceTransferUrl != "" && itemPolice.PoliceTransferUrl != null)
+                                            {
+                                                <td style="width: 10%;"><a href="@itemPolice.PoliceTransferUrl">İNDİR</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td style="width: 10%;"><a href="#">Dosya YOK</a></td>
+                                            }
+                                        </tr>
+                                    }
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

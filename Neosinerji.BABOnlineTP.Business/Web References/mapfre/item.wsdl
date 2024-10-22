@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:intf="http://services.ws.genel.mtr.mapfre.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns1="http://objects.ws.genel.mtr.mapfre.com" xmlns:impl="http://services.ws.genel.mtr.mapfre.com" targetNamespace="http://services.ws.genel.mtr.mapfre.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://objects.ws.genel.mtr.mapfre.com">
+      <xsd:import namespace="http://services.ws.genel.mtr.mapfre.com" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="AciklamaWS">
+        <xsd:sequence>
+          <xsd:element name="aciklamaSatir" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GenelBilgilerWS">
+        <xsd:sequence>
+          <xsd:element name="p_anios_max_duracion" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cant_renovaciones" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_agt" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_agt2" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_agt3" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_agt4" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_asesor" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_compensacion" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_cuadro_coa" nillable="true" type="xsd:string" />
+          <xsd:element name="p_cod_cuadro_com" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_docum" nillable="true" type="xsd:string" />
+          <xsd:element name="p_cod_dst_agt" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_ejecutivo" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_envio" nillable="true" type="xsd:string" />
+          <xsd:element name="p_cod_fracc_pago" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_gestor" nillable="true" type="xsd:string" />
+          <xsd:element name="p_cod_indice" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_mon" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_negocio" nillable="true" type="xsd:string" />
+          <xsd:element name="p_cod_nivel1" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_nivel2" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_nivel3" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_nivel3_captura" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_org" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_ramo" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_sector" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_spto" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_tip_spto" nillable="true" type="xsd:string" />
+          <xsd:element name="p_cod_usr" nillable="true" type="xsd:string" />
+          <xsd:element name="p_dias_max_duracion" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_duracion_pago_prima" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_hora_desde" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_datos_minimos" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_exclusivo" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_impresion" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_poliza_anulada" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_prima_manual" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_prorrata" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_provisional" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_reaseguro_manual" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_reaseguro_marco" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_regulariza" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_spto_anulado" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_spto_tmp" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_tasa_manual" nillable="true" type="xsd:string" />
+          <xsd:element name="p_mca_tomadores_alt" nillable="true" type="xsd:string" />
+          <xsd:element name="p_meses_max_duracion" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_num_contrato" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_num_poliza_anterior" nillable="true" type="xsd:string" />
+          <xsd:element name="p_num_poliza_cliente" nillable="true" type="xsd:string" />
+          <xsd:element name="p_num_poliza_grupo" nillable="true" type="xsd:string" />
+          <xsd:element name="p_num_poliza_siguiente" nillable="true" type="xsd:string" />
+          <xsd:element name="p_num_presupuesto" nillable="true" type="xsd:string" />
+          <xsd:element name="p_num_renovaciones" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_num_riesgos" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_num_secu_grupo" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_num_spto_anulado" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_num_spto_publico" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_num_subcontrato" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_pct_agt" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_pct_agt2" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_pct_agt3" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_pct_agt4" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_pct_regulariza" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_sub_cod_spto" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_tip_coaseguro" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_tip_docum" nillable="true" type="xsd:string" />
+          <xsd:element name="p_tip_duracion" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_tip_emision" nillable="true" type="xsd:string" />
+          <xsd:element name="p_tip_gestor" nillable="true" type="xsd:string" />
+          <xsd:element name="p_tip_poliza_tr" nillable="true" type="xsd:string" />
+          <xsd:element name="p_tip_rea" nillable="true" type="xsd:string" />
+          <xsd:element name="p_tip_regulariza" nillable="true" type="xsd:string" />
+          <xsd:element name="p_tip_spto" nillable="true" type="xsd:string" />
+          <xsd:element name="p_tip_spto_termina" nillable="true" type="xsd:string" />
+          <xsd:element name="p_txt_motivo_spto" nillable="true" type="xsd:string" />
+          <xsd:element name="p_val_mca_int" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="KomisyonWS">
+        <xsd:sequence />
+      </xsd:complexType>
+      <xsd:complexType name="SahaWS">
+        <xsd:sequence>
+          <xsd:element name="p_cod_campo" nillable="true" type="xsd:string" />
+          <xsd:element name="p_nom_campo" nillable="true" type="xsd:string" />
+          <xsd:element name="p_val_campo" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TeminatSahaWS">
+        <xsd:complexContent mixed="false">
+          <xsd:extension base="tns1:SahaWS">
+            <xsd:sequence>
+              <xsd:element name="p_cod_cob" nillable="true" type="xsd:decimal" />
+            </xsd:sequence>
+          </xsd:extension>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ListElementWS">
+        <xsd:sequence>
+          <xsd:element name="listElements" nillable="true" type="impl:ArrayOf_tns1_SahaWS" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ListWS">
+        <xsd:sequence>
+          <xsd:element name="listCode" nillable="true" type="xsd:decimal" />
+          <xsd:element name="listElements" nillable="true" type="impl:ArrayOf_tns1_ListElementWS" />
+          <xsd:element name="listHolderCodCampo" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PrimBilgileriWS">
+        <xsd:sequence>
+          <xsd:element name="burutPrim" nillable="true" type="xsd:decimal" />
+          <xsd:element name="dovizKodu" nillable="true" type="xsd:string" />
+          <xsd:element name="dovizKuru" nillable="true" type="xsd:decimal" />
+          <xsd:element name="komisyon" nillable="true" type="xsd:decimal" />
+          <xsd:element name="netPrim" nillable="true" type="xsd:decimal" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PrimDetayBilgileriWS">
+        <xsd:sequence>
+          <xsd:element name="primDetayKodu" nillable="true" type="xsd:decimal" />
+          <xsd:element name="primDetayTutar" nillable="true" type="xsd:decimal" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ReportWS">
+        <xsd:sequence>
+          <xsd:element name="report" nillable="true" type="xsd:base64Binary" />
+          <xsd:element name="tip_report" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SahisWS">
+        <xsd:sequence>
+          <xsd:element name="p_address" nillable="true" type="xsd:string" />
+          <xsd:element name="p_cod_docum" nillable="true" type="xsd:string" />
+          <xsd:element name="p_telefon" nillable="true" type="xsd:string" />
+          <xsd:element name="p_tip_benef" nillable="true" type="xsd:string" />
+          <xsd:element name="p_tip_docum" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TaksitWS">
+        <xsd:sequence>
+          <xsd:element name="p_cod_mon" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_fec_efec_recibo" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="p_fec_vcto_recibo" nillable="true" type="xsd:dateTime" />
+          <xsd:element name="p_imp_boni" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_imp_comis" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_imp_imptos" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_imp_imptos_interes" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_imp_interes" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_imp_neta" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_imp_recargo" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_imp_recibo" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_imp_total_comis" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_val_cambio" nillable="true" type="xsd:decimal" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TeminatWS">
+        <xsd:sequence>
+          <xsd:element name="p_capital" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_cod_cob" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_mca_seleccion" nillable="true" type="xsd:string" />
+          <xsd:element name="p_nom_cob" nillable="true" type="xsd:string" />
+          <xsd:element name="p_price" nillable="true" type="xsd:decimal" />
+          <xsd:element name="p_primium" nillable="true" type="xsd:decimal" />
+          <xsd:element name="teminatSahalari" nillable="true" type="impl:ArrayOf_tns1_TeminatSahaWS" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SirketAnahtariWS">
+        <xsd:sequence>
+          <xsd:element name="acenteNo" nillable="true" type="xsd:string" />
+          <xsd:element name="policeNo" nillable="true" type="xsd:string" />
+          <xsd:element name="sirketNo" nillable="true" type="xsd:string" />
+          <xsd:element name="yenilemeNo" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TramerBilgileriWS">
+        <xsd:sequence>
+          <xsd:element name="islem" nillable="true" type="xsd:string" />
+          <xsd:element name="tramer" nillable="true" type="tns1:SirketAnahtariWS" />
+          <xsd:element name="zkymsVar" nillable="true" type="xsd:string" />
+          <xsd:element name="zkytms" nillable="true" type="tns1:SirketAnahtariWS" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PaymentRequestWS">
+        <xsd:sequence>
+          <xsd:element name="cvc" nillable="true" type="xsd:string" />
+          <xsd:element name="expMonth" type="xsd:int" />
+          <xsd:element name="expYear" type="xsd:int" />
+          <xsd:element name="kartHamili" nillable="true" type="xsd:string" />
+          <xsd:element name="kartNo" nillable="true" type="xsd:string" />
+          <xsd:element name="taksitSayisi" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ZeyilWS">
+        <xsd:sequence>
+          <xsd:element name="aciklamalar" nillable="true" type="impl:ArrayOf_tns1_AciklamaWS" />
+          <xsd:element name="bilgiMesajlari" nillable="true" type="impl:ArrayOf_xsd_string" />
+          <xsd:element name="brbBransKodu" nillable="true" type="xsd:string" />
+          <xsd:element name="genelBilgiler" nillable="true" type="tns1:GenelBilgilerWS" />
+          <xsd:element name="hataMesajlari" nillable="true" type="impl:ArrayOf_xsd_string" />
+          <xsd:element name="isBasim" nillable="true" type="xsd:boolean" />
+          <xsd:element name="kayitTarihi" nillable="true" type="xsd:long" />
+          <xsd:element name="komisyonlar" nillable="true" type="impl:ArrayOf_tns1_KomisyonWS" />
+          <xsd:element name="listeler" nillable="true" type="impl:ArrayOf_tns1_ListWS" />
+          <xsd:element name="otorizasyonMesajlari" nillable="true" type="impl:ArrayOf_xsd_string" />
+          <xsd:element name="otorizasyonTarihi" nillable="true" type="xsd:long" />
+          <xsd:element name="passWord" nillable="true" type="xsd:string" />
+          <xsd:element name="polBaslangicTarihi" nillable="true" type="xsd:long" />
+          <xsd:element name="polBitisTarihi" nillable="true" type="xsd:long" />
+          <xsd:element name="polPoliceNo" nillable="true" type="xsd:string" />
+          <xsd:element name="polSource" nillable="true" type="xsd:string" />
+          <xsd:element name="polZeyilNo" nillable="true" type="xsd:decimal" />
+          <xsd:element name="policeTanzimTarihi" nillable="true" type="xsd:long" />
+          <xsd:element name="primBilgileriWS" nillable="true" type="tns1:PrimBilgileriWS" />
+          <xsd:element name="primDetayBilgileri" nillable="true" type="impl:ArrayOf_tns1_PrimDetayBilgileriWS" />
+          <xsd:element name="processID" nillable="true" type="xsd:long" />
+          <xsd:element name="reports" nillable="true" type="impl:ArrayOf_tns1_ReportWS" />
+          <xsd:element name="sahalarPolice" nillable="true" type="impl:ArrayOf_tns1_SahaWS" />
+          <xsd:element name="sahalarRisk" nillable="true" type="impl:ArrayOf_tns1_SahaWS" />
+          <xsd:element name="sahislar" nillable="true" type="impl:ArrayOf_tns1_SahisWS" />
+          <xsd:element name="seferNo" nillable="true" type="xsd:decimal" />
+          <xsd:element name="seferZeyilNo" nillable="true" type="xsd:decimal" />
+          <xsd:element name="taksitler" nillable="true" type="impl:ArrayOf_tns1_TaksitWS" />
+          <xsd:element name="tanzimTipi" nillable="true" type="xsd:string" />
+          <xsd:element name="teminatlar" nillable="true" type="impl:ArrayOf_tns1_TeminatWS" />
+          <xsd:element name="tramerBilgileri" nillable="true" type="tns1:TramerBilgileriWS" />
+          <xsd:element name="userName" nillable="true" type="xsd:string" />
+          <xsd:element name="vpos" nillable="true" type="tns1:PaymentRequestWS" />
+          <xsd:element name="zeyilIptalTarihi" nillable="true" type="xsd:long" />
+          <xsd:element name="zeyilTanzimTarihi" nillable="true" type="xsd:long" />
+          <xsd:element name="zylBaslangicTarihi" nillable="true" type="xsd:long" />
+          <xsd:element name="zylBitisTarihi" nillable="true" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://services.ws.genel.mtr.mapfre.com">
+      <xsd:import namespace="http://objects.ws.genel.mtr.mapfre.com" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ArrayOf_tns1_AciklamaWS">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:AciklamaWS[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_xsd_string">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_KomisyonWS">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:KomisyonWS[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_SahaWS">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:SahaWS[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_TeminatSahaWS">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:TeminatSahaWS[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_ListElementWS">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:ListElementWS[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_ListWS">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:ListWS[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_PrimDetayBilgileriWS">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:PrimDetayBilgileriWS[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_ReportWS">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:ReportWS[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_SahisWS">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:SahisWS[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_TaksitWS">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:TaksitWS[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOf_tns1_TeminatWS">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="tns1:TeminatWS[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="tabloDegerSorguResponse">
+    <wsdl:part name="tabloDegerSorguReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="teklifDuzeltRequest">
+    <wsdl:part name="zeyilWs" type="tns1:ZeyilWS" />
+  </wsdl:message>
+  <wsdl:message name="belgeSorguRequest">
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+    <wsdl:part name="brbBransKodu" type="xsd:string" />
+    <wsdl:part name="p_num_poliza" type="xsd:string" />
+    <wsdl:part name="p_num_spto" type="xsd:decimal" />
+    <wsdl:part name="p_num_apli" type="xsd:decimal" />
+    <wsdl:part name="p_num_spto_apli" type="xsd:decimal" />
+    <wsdl:part name="p_tip_emision" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="tabloDegerSorguRequest">
+    <wsdl:part name="apiCode" type="xsd:string" />
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+    <wsdl:part name="parameterXML" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="printResponse">
+    <wsdl:part name="printReturn" type="tns1:ZeyilWS" />
+  </wsdl:message>
+  <wsdl:message name="kimliktenAdresSorguRequest">
+    <wsdl:part name="apiCode" type="xsd:string" />
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+    <wsdl:part name="parameterXML" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="printBilgiResponse">
+    <wsdl:part name="printBilgiReturn" type="tns1:ZeyilWS" />
+  </wsdl:message>
+  <wsdl:message name="showPriceRequest">
+    <wsdl:part name="zeyilWs" type="tns1:ZeyilWS" />
+  </wsdl:message>
+  <wsdl:message name="kimlikSorguResponse">
+    <wsdl:part name="kimlikSorguReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="egmSorguResponse">
+    <wsdl:part name="egmSorguReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="issueTekliftoPoliceResponse">
+    <wsdl:part name="issueTekliftoPoliceReturn" type="tns1:ZeyilWS" />
+  </wsdl:message>
+  <wsdl:message name="policeSorguKaskoResponse">
+    <wsdl:part name="policeSorguKaskoReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="policeSorguKaskoRequest">
+    <wsdl:part name="apiCode" type="xsd:string" />
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+    <wsdl:part name="parameterXML" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="issueTeklifRequest">
+    <wsdl:part name="zeyilWs" type="tns1:ZeyilWS" />
+  </wsdl:message>
+  <wsdl:message name="simulateSpDekontResponse">
+    <wsdl:part name="simulateSpDekontReturn" type="tns1:ZeyilWS" />
+  </wsdl:message>
+  <wsdl:message name="teklifDuzeltResponse">
+    <wsdl:part name="teklifDuzeltReturn" type="tns1:ZeyilWS" />
+  </wsdl:message>
+  <wsdl:message name="egmSorguRequest">
+    <wsdl:part name="apiCode" type="xsd:string" />
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+    <wsdl:part name="parameterXML" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="showPriceResponse">
+    <wsdl:part name="showPriceReturn" type="tns1:ZeyilWS" />
+  </wsdl:message>
+  <wsdl:message name="issueTekliftoPoliceRequest">
+    <wsdl:part name="zeyilWs" type="tns1:ZeyilWS" />
+  </wsdl:message>
+  <wsdl:message name="loginTicketRequest">
+    <wsdl:part name="apiCode" type="xsd:string" />
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+    <wsdl:part name="acenteKodu" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="loginTicketResponse">
+    <wsdl:part name="loginTicketReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="policeSorguTrafikRequest">
+    <wsdl:part name="apiCode" type="xsd:string" />
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+    <wsdl:part name="parameterXML" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="kimlikSorguRequest">
+    <wsdl:part name="apiCode" type="xsd:string" />
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+    <wsdl:part name="parameterXML" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="policeSorguTrafikResponse">
+    <wsdl:part name="policeSorguTrafikReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="policeIndSrpSorguResponse">
+    <wsdl:part name="policeIndSrpSorguReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="policeIndSrpSorguRequest">
+    <wsdl:part name="apiCode" type="xsd:string" />
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+    <wsdl:part name="parameterXML" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="kimliktenAdresSorguResponse">
+    <wsdl:part name="kimliktenAdresSorguReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="printIngResponse">
+    <wsdl:part name="printIngReturn" type="tns1:ZeyilWS" />
+  </wsdl:message>
+  <wsdl:message name="issueTeklifResponse">
+    <wsdl:part name="issueTeklifReturn" type="tns1:ZeyilWS" />
+  </wsdl:message>
+  <wsdl:message name="printRequest">
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+    <wsdl:part name="p_num_poliza" type="xsd:string" />
+    <wsdl:part name="p_num_spto" type="xsd:decimal" />
+    <wsdl:part name="p_num_apli" type="xsd:decimal" />
+    <wsdl:part name="p_num_spto_apli" type="xsd:decimal" />
+    <wsdl:part name="p_num_riesgos" type="xsd:decimal" />
+    <wsdl:part name="p_tip_emision" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="printIngRequest">
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+    <wsdl:part name="p_num_poliza" type="xsd:string" />
+    <wsdl:part name="p_num_spto" type="xsd:decimal" />
+    <wsdl:part name="p_num_apli" type="xsd:decimal" />
+    <wsdl:part name="p_num_spto_apli" type="xsd:decimal" />
+    <wsdl:part name="p_num_riesgos" type="xsd:decimal" />
+    <wsdl:part name="p_tip_emision" type="xsd:string" />
+    <wsdl:part name="lang" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="belgeSorguResponse">
+    <wsdl:part name="belgeSorguReturn" type="tns1:ZeyilWS" />
+  </wsdl:message>
+  <wsdl:message name="simulateSpDekontRequest">
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="num_poliza" type="xsd:string" />
+    <wsdl:part name="num_spto" type="xsd:decimal" />
+    <wsdl:part name="num_apli" type="xsd:decimal" />
+    <wsdl:part name="num_spto_apli" type="xsd:decimal" />
+    <wsdl:part name="apiCode" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="printBilgiRequest">
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+    <wsdl:part name="p_num_poliza" type="xsd:string" />
+    <wsdl:part name="p_num_spto" type="xsd:decimal" />
+    <wsdl:part name="p_num_apli" type="xsd:decimal" />
+    <wsdl:part name="p_num_spto_apli" type="xsd:decimal" />
+    <wsdl:part name="p_num_riesgos" type="xsd:decimal" />
+    <wsdl:part name="p_tip_emision" type="xsd:string" />
+    <wsdl:part name="lang" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:portType name="TanzimWS">
+    <wsdl:operation name="print" parameterOrder="userName passWord p_num_poliza p_num_spto p_num_apli p_num_spto_apli p_num_riesgos p_tip_emision">
+      <wsdl:input name="printRequest" message="impl:printRequest" />
+      <wsdl:output name="printResponse" message="impl:printResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="egmSorgu" parameterOrder="apiCode userName passWord parameterXML">
+      <wsdl:input name="egmSorguRequest" message="impl:egmSorguRequest" />
+      <wsdl:output name="egmSorguResponse" message="impl:egmSorguResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="policeSorguKasko" parameterOrder="apiCode userName passWord parameterXML">
+      <wsdl:input name="policeSorguKaskoRequest" message="impl:policeSorguKaskoRequest" />
+      <wsdl:output name="policeSorguKaskoResponse" message="impl:policeSorguKaskoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="kimlikSorgu" parameterOrder="apiCode userName passWord parameterXML">
+      <wsdl:input name="kimlikSorguRequest" message="impl:kimlikSorguRequest" />
+      <wsdl:output name="kimlikSorguResponse" message="impl:kimlikSorguResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="printBilgi" parameterOrder="userName passWord p_num_poliza p_num_spto p_num_apli p_num_spto_apli p_num_riesgos p_tip_emision lang">
+      <wsdl:input name="printBilgiRequest" message="impl:printBilgiRequest" />
+      <wsdl:output name="printBilgiResponse" message="impl:printBilgiResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="printIng" parameterOrder="userName passWord p_num_poliza p_num_spto p_num_apli p_num_spto_apli p_num_riesgos p_tip_emision lang">
+      <wsdl:input name="printIngRequest" message="impl:printIngRequest" />
+      <wsdl:output name="printIngResponse" message="impl:printIngResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="tabloDegerSorgu" parameterOrder="apiCode userName passWord parameterXML">
+      <wsdl:input name="tabloDegerSorguRequest" message="impl:tabloDegerSorguRequest" />
+      <wsdl:output name="tabloDegerSorguResponse" message="impl:tabloDegerSorguResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="belgeSorgu" parameterOrder="userName passWord brbBransKodu p_num_poliza p_num_spto p_num_apli p_num_spto_apli p_tip_emision">
+      <wsdl:input name="belgeSorguRequest" message="impl:belgeSorguRequest" />
+      <wsdl:output name="belgeSorguResponse" message="impl:belgeSorguResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="simulateSpDekont" parameterOrder="userName password num_poliza num_spto num_apli num_spto_apli apiCode">
+      <wsdl:input name="simulateSpDekontRequest" message="impl:simulateSpDekontRequest" />
+      <wsdl:output name="simulateSpDekontResponse" message="impl:simulateSpDekontResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="loginTicket" parameterOrder="apiCode userName passWord acenteKodu">
+      <wsdl:input name="loginTicketRequest" message="impl:loginTicketRequest" />
+      <wsdl:output name="loginTicketResponse" message="impl:loginTicketResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="teklifDuzelt" parameterOrder="zeyilWs">
+      <wsdl:input name="teklifDuzeltRequest" message="impl:teklifDuzeltRequest" />
+      <wsdl:output name="teklifDuzeltResponse" message="impl:teklifDuzeltResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="issueTeklif" parameterOrder="zeyilWs">
+      <wsdl:input name="issueTeklifRequest" message="impl:issueTeklifRequest" />
+      <wsdl:output name="issueTeklifResponse" message="impl:issueTeklifResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="showPrice" parameterOrder="zeyilWs">
+      <wsdl:input name="showPriceRequest" message="impl:showPriceRequest" />
+      <wsdl:output name="showPriceResponse" message="impl:showPriceResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="issueTekliftoPolice" parameterOrder="zeyilWs">
+      <wsdl:input name="issueTekliftoPoliceRequest" message="impl:issueTekliftoPoliceRequest" />
+      <wsdl:output name="issueTekliftoPoliceResponse" message="impl:issueTekliftoPoliceResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="policeSorguTrafik" parameterOrder="apiCode userName passWord parameterXML">
+      <wsdl:input name="policeSorguTrafikRequest" message="impl:policeSorguTrafikRequest" />
+      <wsdl:output name="policeSorguTrafikResponse" message="impl:policeSorguTrafikResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="policeIndSrpSorgu" parameterOrder="apiCode userName passWord parameterXML">
+      <wsdl:input name="policeIndSrpSorguRequest" message="impl:policeIndSrpSorguRequest" />
+      <wsdl:output name="policeIndSrpSorguResponse" message="impl:policeIndSrpSorguResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="kimliktenAdresSorgu" parameterOrder="apiCode userName passWord parameterXML">
+      <wsdl:input name="kimliktenAdresSorguRequest" message="impl:kimliktenAdresSorguRequest" />
+      <wsdl:output name="kimliktenAdresSorguResponse" message="impl:kimliktenAdresSorguResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TanzimWSSoapBinding" type="impl:TanzimWS">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="print">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="printRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="printResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="egmSorgu">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="egmSorguRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="egmSorguResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="policeSorguKasko">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="policeSorguKaskoRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="policeSorguKaskoResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="kimlikSorgu">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="kimlikSorguRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="kimlikSorguResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="printBilgi">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="printBilgiRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="printBilgiResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="printIng">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="printIngRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="printIngResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="tabloDegerSorgu">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="tabloDegerSorguRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="tabloDegerSorguResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="belgeSorgu">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="belgeSorguRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="belgeSorguResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="simulateSpDekont">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="simulateSpDekontRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="simulateSpDekontResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="loginTicket">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="loginTicketRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="loginTicketResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="teklifDuzelt">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="teklifDuzeltRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="teklifDuzeltResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="issueTeklif">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="issueTeklifRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="issueTeklifResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="showPrice">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="showPriceRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="showPriceResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="issueTekliftoPolice">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="issueTekliftoPoliceRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="issueTekliftoPoliceResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="policeSorguTrafik">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="policeSorguTrafikRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="policeSorguTrafikResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="policeIndSrpSorgu">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="policeIndSrpSorguRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="policeIndSrpSorguResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="kimliktenAdresSorgu">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="kimliktenAdresSorguRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="kimliktenAdresSorguResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TanzimWSService">
+    <wsdl:port name="TanzimWS" binding="impl:TanzimWSSoapBinding">
+      <wsdlsoap:address location="http://10.0.0.68:8080/wtwpprws/services/TanzimWS" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

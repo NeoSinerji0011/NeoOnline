@@ -1,0 +1,582 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Police.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model PoliceOffLineModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="javascript:;">@babonline.PolicySearch / @babonline.Collection / @babonline.Damage_Entry @*Police Ara / Tahsilat / Hasar Girişi*@<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.OtherReport<span class="arrow"></span></a>
+            <ul class="dropdown-menu"></ul>
+            <b class="caret-out"></b>
+        </li>
+
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@Scripts.Render("~/bundles/switch")
+<link href="~/Content/css/bootstrapSwitch.min.css" rel="stylesheet" />
+
+@section PageHeader
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#radiopol').click(function () {
+                $('#textpol').removeAttr("disabled");
+                $('#texttcvkn').attr("disabled", "disabled");
+                $('#textplaka').attr("disabled", "disabled");
+                $('#textplaka1').attr("disabled", "disabled");
+                $('.textunvan').attr("disabled", "disabled");
+                $('#textunvansoyad').attr("disabled", "disabled");
+                $('.textunvanfirma').attr("disabled", "disabled");
+
+            });
+            $('#radiotcvkn').click(function () {
+                $('#texttcvkn').removeAttr("disabled");
+                $('#textpol').attr("disabled", "disabled");
+                $('#textplaka').attr("disabled", "disabled");
+                $('#textplaka1').attr("disabled", "disabled");
+                $('.textunvan').attr("disabled", "disabled");
+                $('#textunvansoyad').attr("disabled", "disabled");
+                $('.textunvanfirma').attr("disabled", "disabled");
+
+            });
+            $('#radioplaka').click(function () {
+                $('#textplaka').removeAttr("disabled");
+                $('#textplaka1').removeAttr("disabled");
+                ////
+                //$('#textpol').val("");
+                ////
+                $('#textpol').attr("disabled", "disabled");
+                $('#texttcvkn').attr("disabled", "disabled");
+                $('.textunvan').attr("disabled", "disabled");
+                $('#textunvansoyad').attr("disabled", "disabled");
+                $('.textunvanfirma').attr("disabled", "disabled");
+
+
+            });
+            $('#radiounvan').click(function () {
+                $('.textunvan').removeAttr("disabled");
+                $('#textunvansoyad').removeAttr("disabled");
+                $('.textunvanfirma').removeAttr("disabled");
+                $('#texttcvkn').attr("disabled");
+                $('#textpol').attr("disabled", "disabled");
+                $('#textplaka').attr("disabled", "disabled");
+                $('#textplaka1').attr("disabled", "disabled");
+            });
+
+
+            //var oTable = $('#polAraOffline').dataTable({
+            //    "bSort": false,
+            //    "bPaginate": false,
+            //    "bInfo": false,
+            //    "bLengthChange": false,
+            //    "sDom": 'T<"clear">lfrtip',
+            //    "oTableTools": { "aButtons": ["xls", "print", "copy", "pdf"] },
+            //});
+            //var oTable = $('#polAraOffline2').dataTable({
+            //    "bSort": false,
+            //    "bPaginate": false,
+            //    "bInfo": false,
+            //    "bLengthChange": false,
+            //    "sDom": 'T<"clear">lfrtip',
+            //    "oTableTools": { "aButtons": ["xls", "print", "copy", "pdf"] },
+            //});
+
+
+            //Tutar Değiştirme İşlemleri 100000 / 100,000
+            $(".tutar").each(function () {
+
+                var temp = $(this).html();
+
+                var valll = parseInt($(this).val());
+                //$p.contains("-");
+
+                // if (temp.contains("-"))   contains sadece firefox da çalışıyor o yüzden indexof kullanıldı
+                if (temp.valueOf().indexOf("-") > -1) {
+                    var length = $(this).html().length;
+                    var sayac = 0;
+                    var result = "";
+                    if (length > 7) {
+                        for (var i = 0; i < length; i++) {
+                            sayac++;
+                            result += $(this).html()[i];
+                            if (sayac == (length - 6) || sayac == (length - 9) || sayac == (length - 11))
+                                result += ",";
+                        }
+                        $(this).html(result);
+                    }
+                    else {
+                        return $(this).html();
+                    }
+
+                }
+                else {
+                    var length = $(this).html().length;
+                    var sayac = 0;
+                    var result = "";
+
+                    if (length > 6) {
+                        for (var i = 0; i < length; i++) {
+                            sayac++;
+                            result += $(this).html()[i];
+                            if (sayac == (length - 6) || sayac == (length - 9) || sayac == (length - 12)) {
+                                result += ",";
+                            }
+                        }
+                        $(this).html(result);
+                    } else if (length > 0 && length < 4) $(this).html($(this).html());
+                }
+
+            });
+
+            $(".see-policeOffline-detail").live("click", function () {
+                var policeId = $(this).attr("police-id");
+                if (policeId === undefined || policeId == 0) return;
+                $.post("/Police/Police/GetPoliceOfflineDetail", { policeId: policeId }, function (data) {
+                    window.location.href = "/Police/Police/GetPoliceOfflineDetail/" + data.GenelBilgiler.PoliceId;
+                });
+            });
+        });
+
+        //0 şahıs,1 firma
+        $(document).ready(function () {
+            var islemTip = $('input[name="Durum"]:checked').val();
+            if (islemTip == 0) {
+                $(".firma").hide();
+                $(".sahis").show();
+                $("#textunvansoyad").removeClass("ignore");
+
+            }
+            else if (islemTip == 1) {
+                $(".firma").show();
+                $(".sahis").hide();
+                $("#textunvansoyad").addClass("ignore");
+
+            }
+            $('input[name="Durum"]').change(function () {
+                var islemTip = $(this).val();
+                if (islemTip == 0) {
+                    $(".firma").hide();
+                    $(".sahis").show();
+
+                    $("#textunvansoyad").removeClass("ignore");
+                }
+                else if (islemTip == 1) {
+                    $(".firma").show();
+                    $(".sahis").hide();
+                    $("#textunvansoyad").addClass("ignore");
+                }
+            });
+        });
+
+    </script>
+}
+
+@section PageScripts
+{
+    <script src="~/Content/js/customDataTable.js" type="text/javascript"></script>
+    <script>
+        //createTable(".data-table", [16,17,18,19,20,21,22,23]);
+        createTable(".data-table", [16, 17, 18, 19, 20, 21, 22, 23], [0, 27, 28, 29, 30, 31]);
+    </script>
+
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">@babonline.PolicySearch / @babonline.Collection / @babonline.Damage_Entry @*Police Ara / Tahsilat / Hasar Girişi*@ </span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @using (Html.BeginForm("PoliceAraOffline", "Police", FormMethod.Post, new { @class = "form-horizontal", id = "formPoliceListe", enctype = "multipart/form-data" }))
+                {
+                    @Html.HiddenFor(s => s.TVMKodu);
+                    @Html.HiddenFor(s => s.TvmUnvani);
+
+                    <div class="row-fluid" style="padding-top: 10px;">
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="span1">
+                                    @Html.RadioButtonFor(m => m.PoliceNo, "PolNo", new { Name = "group1", id = "radiopol" })
+                                </div>
+                                <label class="control-label">@babonline.PolicyNo @*Poliçe No*@</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.PoliceNo, new { disabled = "disabled", id = "textpol" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="span1">
+                                    @Html.RadioButtonFor(m => m.TcknVkn, "TcVknNo", new { Name = "group1", id = "radiotcvkn" })
+                                </div>
+                                <label class="control-label">@babonline.TCKN_VKN </label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.TcknVkn, new { maxlenght = 11, disabled = "disabled", id = "texttcvkn", @class = "onlynumbers" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="span1">
+                                    @Html.RadioButtonFor(m => m.PlakaNo, "PlakaNo", new { Name = "group1", id = "radioplaka" })
+                                </div>
+                                <label class="control-label">@babonline.LicenceNumber @*Plaka No*@</label>
+                                <div class="controls">
+                                    @Html.TextBoxFor(m => m.PlakaKodu, new { maxlength = 2, disabled = "disabled", style = "width:46px !important;margin-right:10px;", @class = "onlynumbers", tabindex = "1", required = "", id = "textplaka" })
+                                    @Html.TextBoxFor(m => m.PlakaNo, new { maxlength = 8, disabled = "disabled", style = "width:90px;", tabindex = "2", required = "", id = "textplaka1" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="span1">
+                                    @Html.RadioButtonFor(m => m.Unvan, "Unvan", new { Name = "group1", id = "radiounvan" })
+                                </div>
+                                <label class="control-label">@babonline.Insured_Title @*Sigortalı Ünvanı*@</label>
+                                <div class="control-group">
+                                    <div class="controls radio-custom">
+                                        @Html.RadioButtonListFor(m => m.Durum, Model.Durumlar)
+                                    </div>
+                                </div>
+                                <div class="control-group ">
+                                    <div class="controls sahis" style="display: none;">
+                                        @Html.TextBoxFor(m => m.Unvan, new { maxlenght = 50, disabled = "disabled", @tabindex = "1", style = "width:50% !important;margin-right:10px;", @class = "textunvan" })
+                                        @Html.TextBoxFor(m => m.UnvanSoyad, new { maxlength = 50, disabled = "disabled", @tabindex = "2", style = "width:35%;", id = "textunvansoyad" })
+                                    </div>
+                                    <div class="control-group firma" style="display: none;">
+                                        <div class="controls">
+                                            @Html.TextBoxFor(m => m.UnvanFirma, new { maxlenght = 100, disabled = "disabled", style = "width:65% !important;margin-right:10px;", @class = "textunvanfirma" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="control-group">
+                                <div class="span1">
+                                </div>
+                                <label class="control-label">@babonline.Period @*Dönem*@: </label>
+                                <div class="control-group">
+                                    @Html.DropDownListFor(s => s.Donem, Model.Donemler, new { style = "width:125px" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+
+                        <div class="span4">
+                        </div>
+
+                        <div class="form-actions">
+                            <a href="~/Police/Police/PoliceAraOffline" class="btn ligth-grey">@babonline.Clear</a>
+                            <input type="submit" id="searchl" class="btn btn-success" data-loading-text="@babonline.QueryIndicator" value="@babonline.Search" />
+                        </div>
+                    </div>
+                }
+
+                <div class="row-fluid" style="margin-top: 20px;">
+
+                    <div class="span12">
+                        <div id="table-div" style="overflow-x: auto; margin-top: 15px;">
+                            <p style="color: red; font-size: 16px; font: bolder;">@babonline.Click_on_the_Policy_Number_for_the_collection_process_ @*Tahsilat işlemi için Poliçe Numarasına tıklayınız.*@</p>
+                            @if (ViewBag.AnaTVM)
+                            {
+                                <table class="table table-bordered table-hover dataTable data-table" id="polAraOffline" style="table-layout: inherit ;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: auto;">@babonline.PolicyNo</th>
+                                            <th style="width: auto;">@babonline.Insured</th>
+                                            <th style="width: 5%;">@babonline.Insured <br />TCKN/VKN</th>
+                                            <th style="width: auto;">@babonline.RenewalNo</th>
+                                            <th style="width: auto;">@babonline.Suppl </th>
+                                            <th style="width: auto;">@babonline.Branch </th>
+                                            @*<th style="width: 10%;">@babonline.Product_Code </th>*@
+                                            <th style="width: auto;">@babonline.Product_Name</th>
+                                            <th style="width: auto;">@babonline.InsuranceCompany</th>
+                                            <th style="width: auto;">
+                                                @babonline.Plate @*Plaka*@ / @babonline.City @*İl*@-@babonline.District
+                                                @*İlçe Adı*@
+                                            </th>
+
+                                            <th style="width: auto;">@babonline.SalesChannelCode</th>
+                                            <th style="width: auto;">@babonline.SalesChannel @*Satış Kanalı Adı*@</th>
+                                            <th style="width: auto;">@babonline.External_Source_Code @*Dış Kaynak Kodu*@</th>
+                                            <th style="width: auto;">@babonline.Outsource @*Dış Kaynak Adı*@</th>
+                                            <th style="width: auto;">@babonline.Date_Of_the_Establishment</th>
+                                            <th style="width: auto;">@babonline.PolicyStartDate</th>
+                                            <th style="width: auto;">@babonline.PolicyFinishDate</th>
+                                            <th style="width: auto;">@babonline.Net_Premium</th>
+                                            <th style="width: auto;">@babonline.Gross_Premium</th>
+                                            <th style="width: auto;">@babonline.Commission_Received</th>
+                                            <th style="width: auto;">KMS %</th>
+                                            <th style="width: auto;">@babonline.SubAgencyComission</th>
+                                            <th style="width: auto;">@babonline.Foreign_Currency_Net_Premium </th>
+                                            <th style="width: auto;">@babonline.Currency_Gross_Premium </th>
+                                            <th style="width: auto;">@babonline.Currency_Commission</th>
+                                            @*<th style="width: 10%;">@babonline.Plate</th>*@
+                                            <th style="width: auto;">@babonline.PaymentStyle</th>
+                                            <th style="width: 10%;">@babonline.PaymentType</th>
+                                            <th style="width: auto;">@babonline.HirePurchaseCount @*Taksit Sayısı*@</th>
+                                            <th style="width: auto;">@babonline.Damage_Entry @*Hasar Girişi*@</th>
+                                            <th style="width: auto;">@babonline.Documents_Entry @*Doküman Girişi*@</th>
+                                            <th style="width: auto;">@babonline.New_Task @*Yeni İş*@</th>
+                                            <th style="width: auto;">@babonline.Has_It_Been_Recorded_In_Accounting @*Muhasebeye İşlendi Mi?*@</th>
+                                            <th style="width: auto;">@babonline.Manual_Policy @*Manuel Poliçe Mi?*@</th>
+                                            <th style="width: 5%;">@babonline.Approving_Personnel_Name_Surname @*Onaylayan Personel Adı Soyadı*@</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    @if (Model.listPolOffline.Count > 0 || Model.listPolOffline != null)
+                                    {
+                                        foreach (var item in Model.listPolOffline)
+                                        {
+                                            <tr>
+                                                <th style="width: 5%;" title="Tahsilat İşlemi için Tıklayın"><a href='/Police/Police/GetPoliceOfflineDetail/@item.PoliceId'>@item.PoliceNo</a></th>
+                                                <th style="width: 5%;">@item.SigortaliUnvani</th>
+                                                <td style="width: 10%;">@item.TcknVkn</td>
+                                                <th style="width: 5%;">@item.YenilemeNo</th>
+                                                <th style="width: 10%;">@item.EkNo </th>
+                                                <th style="width: 5%;">@item.BransAdi </th>
+                                                <th style="width: 10%;">@item.UrunAdi</th>
+                                                <th style="width: 5%;">@item.SigortaSirketi</th>
+                                                @if (item.IlIlce == "")
+                                                {
+                                                    <th style="width: 8%;">@item.PlakaKodu  @item.PlakaNo </th>
+                                                }
+
+                                                else
+                                                {
+                                                    <th style="width: 3%;">@item.IlIlce</th>
+                                                }
+                                                <th style="width: 10%;">@(item.TaliAcenteKodu != null ? item.TaliAcenteKodu : null)</th>
+                                                <th style="width: 10%;">@(item.TaliAcenteAdi != null ? item.TaliAcenteAdi : null)</th>
+                                                <th style="width: 10%;">@(item.DisKaynakKodu != null ? item.DisKaynakKodu : null)</th>
+                                                <th style="width: 10%;">@(item.DisKaynakAdi != null ? item.DisKaynakAdi : null)</th>
+                                                <th style="width: 10%;">@item.TanzimTarihi.Value.ToShortDateString()</th>
+                                                <th style="width: 10%;">@item.BaslangicTarihi.Value.ToShortDateString()</th>
+                                                <th style="width: 10%;">@(item.BitisTarihi != null ? item.BitisTarihi.Value.ToShortDateString() : null)</th>
+                                                <th class="" style="width: 10%; text-align: right;">@item.NetPrim.Value.ToString("N")</th>
+                                                <th class="" style="width: 10%; text-align: right;">@item.BrütPrim.Value.ToString("N")</th>
+
+                                                @if (item.Komisyon.HasValue)
+                                                {
+
+
+                                                    if (@item.NetPrim.Value == 0)
+                                                    {
+                                                        var b = 0;
+                                                        <td style="width: 5%;">@item.Komisyon.Value.ToString("N")</td>
+                                                        <td style="width: 5%;">%@b.ToString("F2")</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        var a = (@item.Komisyon.Value / item.NetPrim.Value) * 100;
+                                                        <td style="width: 5%;">@item.Komisyon.Value.ToString("N")</td>
+                                                        <td style="width: 5%;">%@a.ToString("F2")</td>
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    <td style="width: 5%;"></td>
+                                                    <td style="width: 5%;"></td>
+                                                }
+                                                <th class="tutar" style="width: 10%; text-align: right;">@item.VerilenKomisyon</th>
+                                                <th class="tutar" style="width: 10%; text-align: right;">@(item.DovizliNetPrim != null ? item.DovizliNetPrim : null)</th>
+                                                <th class="tutar" style="width: 10%; text-align: right;">@(item.DovizliBrütPrim != null ? item.DovizliBrütPrim : null)</th>
+                                                <th class="tutar" style="width: 10%; text-align: right;">@(item.DovizliKomisyon != null ? item.DovizliKomisyon : null)</th>
+                                                <th style="width: 10%;">@item.OdemeTipi</th>
+                                                <th style="width: 10%;">@item.OdemeTipim</th>
+                                                <th style="width: 10%;">@item.TaksitSayisi</th>
+                                                <th style="width: 10%;">
+                                                    <a href='/Hasar/Hasar/HasarGirisi/@item.PoliceId'>
+                                                        <img src="/Content/img/hasar.png" id="hasarGir" polId="@item.PoliceId" width="32" height="32" title="@babonline.DamageEntry" alt="@babonline.DamageEntry">
+                                                    </a>
+                                                </th>
+
+                                                <th style="width: 10%;">
+                                                    <a href='/Police/Police/PoliceDokuman/@item.PoliceId' target="_blank">
+                                                        <img src="/Content/img/hasar.png" id="DokumanGir" polId="@item.PoliceId" width="32" height="32" title="@babonline.Documents_Entry" alt="@babonline.Documents_Entry">
+                                                    </a>
+                                                </th>
+
+                                                @if (item.Yeni_is == 1)
+                                                {
+                                                    <th style="text-align:center"><img src="~/Content/img/yesiltik.png" style="width: 100%" /></th>
+                                                }
+                                                else
+                                                {
+                                                    <th style="width: 10%;"></th>
+                                                }
+
+                                                @if (item.MuhasebeyeAktarildiMi == 2 || item.MuhasebeyeAktarildiMi == 4)
+                                                {
+                                                    <td style="width: 10%; text-align:center"> <label><img src="~/Content/img/yesiltik.png" style="width: 35%" /></label></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="width: 10%;"></td>
+                                                }
+
+                                                @if (item.ManuelPoliceMi == 3)
+                                                {
+                                                    <td style="width: 10%; text-align:center"> <label><img src="~/Content/img/yesiltik.png" style="width: 55%" /></label></td>
+                                                }
+                                                else
+                                                {
+                                                    <td style="width: 10%;"></td>
+                                                }
+
+                                                <th style="width: 10%;">@item.OnaylayanUnvan </th>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+                            }
+                            else
+
+                            {
+                                <table class="table table-bordered table-hover dataTable data-table" id="polAraOffline2" style="table-layout: inherit ;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: auto;">@babonline.PolicyNo</th>
+                                            <th style="width: auto;">@babonline.RenewalNo</th>
+                                            <th style="width: auto;">@babonline.Suppl </th>
+                                            <th style="width: auto;">@babonline.Branch </th>
+                                            <th style="width: auto;">@babonline.Product_Name</th>
+                                            <th style="width: auto;">@babonline.InsuranceCompany</th>
+                                            <th style="width: 8%;">@babonline.Plate  / @babonline.City -@babonline.District</th>
+
+                                            <th style="width: auto;">@babonline.SalesChannelCode</th>
+                                            <th style="width: auto;">@babonline.SalesChannel @*Satış Kanalı Adı*@</th>
+                                            <th style="width: auto;">@babonline.External_Source_Code @*Dış Kaynak Kodu*@</th>
+                                            <th style="width: auto;">@babonline.Outsource</th>
+                                            <th style="width: auto;">@babonline.Date_Of_the_Establishment</th>
+                                            <th style="width: auto;">@babonline.PolicyStartDate</th>
+                                            <th style="width: auto;">@babonline.PolicyFinishDate</th>
+                                            <th style="width: auto;">@babonline.Net_Premium</th>
+                                            <th style="width: auto;">@babonline.Gross_Premium</th>
+                                            <th style="width: auto;">@babonline.SubAgencyComission</th>
+                                            <th style="width: auto;">@babonline.Foreign_Currency_Net_Premium</th>
+                                            <th style="width: auto;">@babonline.Currency_Gross_Premium </th>
+                                            <th style="width: auto;">@babonline.PaymentType</th>
+                                            <th style="width: auto;">@babonline.NumberOfInstallments</th>
+                                            <th style="width: auto;">@babonline.Process </th>
+                                            <th style="width: auto;">@babonline.Documents_Entry </th>
+                                            <th style="width: auto;">@babonline.New_Task</th>
+                                            <th style="width: auto;">@babonline.Has_It_Been_Recorded_In_Accounting</th>
+                                            <th style="width: auto;">@babonline.Manual_Policy </th>
+                                            <th style="width: 5%;">@babonline.Approving_Personnel_Name_Surname </th>
+
+                                        </tr>
+                                    </thead>
+                                    @if (Model.listPolOffline.Count > 0 || Model.listPolOffline != null)
+                                    {
+                                        foreach (var item in Model.listPolOffline)
+                                        {
+                                            <tr>
+                                                <th style="width: 5%;"><a href='/Police/Police/GetPoliceOfflineDetail/@item.PoliceId'>@item.PoliceNo</a></th>
+                                                <th style="width: 5%;">@item.YenilemeNo</th>
+                                                <th style="width: 10%;">@item.EkNo </th>
+                                                <th style="width: 10%;">@item.BransAdi </th>
+                                                <th style="width: 10%;">@item.UrunAdi</th>
+                                                <th style="width: 5%;">@item.SigortaSirketi</th>
+                                                @if (item.IlIlce == "")
+                                                {
+                                                    <th style="width: 8%;">@item.PlakaKodu  @item.PlakaNo </th>
+                                                }
+
+                                                else
+                                                {
+                                                    <th style="width: 3%;">@item.IlIlce</th>
+                                                }
+                                                <th style="width: 10%;">@(item.TaliAcenteKodu != null ? item.TaliAcenteKodu : null)</th>
+                                                <th style="width: 10%;">@(item.TaliAcenteAdi != null ? item.TaliAcenteAdi : null)</th>
+                                                <th style="width: 10%;">@(item.DisKaynakKodu != null ? item.DisKaynakKodu : null)</th>
+                                                <th style="width: 10%;">@(item.DisKaynakAdi != null ? item.DisKaynakAdi : null)</th>
+                                                <th style="width: 10%;">@item.TanzimTarihi.Value.ToShortDateString() </th>
+                                                <th style="width: 10%;">@item.BaslangicTarihi.Value.ToShortDateString() </th>
+                                                @if (!String.IsNullOrEmpty(item.BitisTarihi.ToString()))
+                                                {
+                                                    <th style="width: 10%;">@(item.BitisTarihi != null ? item.BitisTarihi.Value.ToShortDateString() : null)</th>
+                                                }
+                                                else
+                                                {
+                                                    <th style="width: 10%;"></th>
+                                                }
+                                                <th class="tutar" style="width: 10%; text-align: right;">@item.NetPrim</th>
+                                                <th class="tutar" style="width: 10%; text-align: right;">@item.BrütPrim</th>
+                                                <th class="tutar" style="width: 10%; text-align: right;">@(item.DovizliNetPrim != null ? item.DovizliNetPrim : null)</th>
+                                                <th class="tutar" style="width: 10%; text-align: right;">@(item.DovizliBrütPrim != null ? item.DovizliBrütPrim : null)</th>
+                                                <th class="tutar" style="width: 10%; text-align: right;">@(item.DovizliKomisyon != null ? item.DovizliKomisyon : null)</th>
+                                                <th class="tutar" style="width: 10%; text-align: right;">@item.OdemeTipi</th>
+                                                <th style="width: 10%;">@item.TaksitSayisi</th>
+                                                @if (item.NetPrim > 0)
+                                                {
+                                                    <th style="width: 10%;">
+                                                        <img src="/Content/img/hasar.png" width="32" height="32" title="@babonline.DamageEntry" alt="@babonline.DamageEntry">
+                                                    </th>
+                                                    <th style="width: 10%;">
+                                                        <a href='/Police/Police/PoliceDokuman/@item.PoliceId' target="_blank">
+                                                            <img src="/Content/img/hasar.png" id="DokumanGir" polId="@item.PoliceId" width="32" height="32" title="@babonline.Documents_Entry" alt="@babonline.Documents_Entry">
+                                                        </a>
+                                                    </th>
+                                                }
+                                                else
+                                                {
+                                                    <th style="width: 10%;"></th>
+                                                    <th style="width: 10%;"></th>
+                                                }
+                                                @if (item.Yeni_is == 1)
+                                                {
+                                                    <th style="text-align:center"><img src="~/Content/img/yesiltik.png" style="width: 100%" /></th>
+                                                }
+                                                else
+                                                {
+                                                    <th style="width: 10%;"></th>
+                                                }
+                                                <th style="width: 5%;">@babonline.ApprovedBy</th>
+                                            </tr>
+                                        }
+                                    }
+
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

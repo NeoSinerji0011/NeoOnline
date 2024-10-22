@@ -1,0 +1,58 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.TESabitPrimliGenelBilgiler
+
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Insurance_Start_Date<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(s => s.SigortaBaslangicTarihi, new { })
+                @Html.ValidationMessageFor(s => s.SigortaBaslangicTarihi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Currency<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.ParaBirimi, Model.ParaBirimleri, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.ParaBirimi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.CalculationofChoice<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.HesaplamaSecenegi, Model.HesaplamaSecenekleri, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.HesaplamaSecenegi)
+            </div>
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Insurance_Duration (@babonline.Year)<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.SigortaSuresi, new { style = "width:100px;" })
+                @Html.ValidationMessageFor(s => s.SigortaSuresi)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.Premium_Payment_Period<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.PrimOdemeDonemi, Model.PrimDonemleri, new { style = "width:90%" })
+                @Html.ValidationMessageFor(s => s.PrimOdemeDonemi)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

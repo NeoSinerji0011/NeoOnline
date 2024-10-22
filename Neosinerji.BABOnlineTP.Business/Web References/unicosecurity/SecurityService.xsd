@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ApplicationBlocks.Security" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ApplicationBlocks.Security" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://previva.unicosigorta.com.tr/Public/SecurityService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/ApplicationBlocks.Common" />
+  <xs:complexType name="ArrayOfVW_SECURITY_PERMISSIONS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="VW_SECURITY_PERMISSIONS" nillable="true" type="tns:VW_SECURITY_PERMISSIONS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfVW_SECURITY_PERMISSIONS" nillable="true" type="tns:ArrayOfVW_SECURITY_PERMISSIONS" />
+  <xs:complexType name="VW_SECURITY_PERMISSIONS">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/ApplicationBlocks.Common" base="q1:BaseEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="HasPermission" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsNew" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsShowAllUsers" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsShowMenu" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsStatus" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Level" type="xs:int" />
+          <xs:element minOccurs="0" name="Order" type="xs:int" />
+          <xs:element minOccurs="0" name="ParentId" type="xs:int" />
+          <xs:element minOccurs="0" name="Path" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PermissionId" type="xs:int" />
+          <xs:element minOccurs="0" name="RecursiveOrder" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RecursivePath" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UiText" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="VW_SECURITY_PERMISSIONS" nillable="true" type="tns:VW_SECURITY_PERMISSIONS" />
+</xs:schema>

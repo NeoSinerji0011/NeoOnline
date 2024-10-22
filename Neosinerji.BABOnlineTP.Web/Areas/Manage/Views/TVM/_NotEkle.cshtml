@@ -1,0 +1,64 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.TVMNotlarModel
+
+<div id="not-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        @if (!string.IsNullOrEmpty(Model.KonuAdi))
+        {
+            <h3>@babonline.Read</h3>
+        }
+        else
+        {
+            <h3>@babonline.Node_Add</h3>
+        }
+    </div>
+
+    <div class="modal-body">
+        <div class="validation-summary-errors" id="not-error" style="display: none;">
+            <span>@babonline.Message_GenericErrorHeader</span>
+            <ul>
+                <li id="not-error-message">@babonline.Error</li>
+            </ul>
+        </div>
+        <form id="not-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.HiddenFor(m => m.TVMKodu)
+            @Html.HiddenFor(m => m.SiraNo)
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_Code</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.TVMKodu, new { autocompletetype = "disabled", disabled = "true" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Topic<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.KonuAdi, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.KonuAdi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Comment<span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextAreaFor(m => m.NotAciklamasi, new { maxlength = 500, autocompletetype = "disabled", style = "width:90%; height:150px" })
+                    @Html.ValidationMessageFor(m => m.NotAciklamasi)
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        @if (!string.IsNullOrEmpty(Model.KonuAdi))
+        {
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Close</a>
+        }
+        else
+        {
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+            <a href="#" class="btn btn-success" id="not-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+        }
+    </div>
+</div>

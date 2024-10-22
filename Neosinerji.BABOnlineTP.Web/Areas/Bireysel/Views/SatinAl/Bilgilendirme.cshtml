@@ -1,0 +1,73 @@
+﻿
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model LilyumKartBilgilendirme
+<head>
+    <title>LilyumSatinAl</title>
+    @*<link rel="shortcut icon" href="@Url.Content("~/Content/img/lilyum-icon.png")" />*@
+    <link rel="shortcut icon" href="~/Content/img/lilyum-icon.png" />
+</head>
+@section PageStyles
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+}
+@section PageScripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            debugger
+            var odemeDurumu ='@Model.odemeDurumu.ToString()';
+            if (odemeDurumu=="True") {
+                swal({
+                    title: "Lilyum Kart Ailesine Hoşgeldiniz!",
+                    text: " Ödemeniz alınmıştır.\n Email adresinize bilgiler gönderilmiştir.",
+                    type: "success",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Tamam",
+                    closeOnConfirm: false
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            window.location = "https://app.neoonline.com.tr/bireysel/satinal/LilyumKart?tvmkodu=153008";
+                        }
+                    });
+            }
+            else {
+                swal({
+                    title: "Başarısız!",
+                    text: "Ödemeniz Yapılamadı. Email adresinize bilgiler gönderilmiştir.",
+                    type: "warning",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Tamam",
+                    closeOnConfirm: false
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            window.location = "https://app.neoonline.com.tr/bireysel/satinal/LilyumKart?tvmkodu=153008";
+                        }
+                    });
+            }
+        });
+    </script>
+
+}
+@section PageHeader
+{
+}
+@section HorizontalMenu
+{
+    <ul class="nav">
+        @*<li>
+                <a href="/Teklif/Teklif/Liste">@babonline.Proposal_Search<span></span></a>
+            </li>*@
+        <li class="active" style="background-color:#bb78ef !important;">
+            <a href="https://app.neoonline.com.tr/bireysel/satinal/LilyumKart?tvmkodu=153008">Lilyum Kart<span class="selected"></span></a>
+        </li>
+    </ul>
+}
+

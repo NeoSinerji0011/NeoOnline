@@ -1,0 +1,208 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.SirketWebEkranModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="#">@babonline.PolicySearch<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+
+@section PageHeader
+{
+}
+
+@section PageStyles
+{
+    <link href="~/Content/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
+}
+
+@section PageScripts
+{
+    <script src="@Url.Content("~/Content/js/jquery.gritter.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.bootstrap.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Content/js/jquery.validate.custom.js")" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#raybaglan').on('click', function () {
+                $('#wrapper').hide();
+                var progress = $('#adres-sorgu-progress');
+                progress.show();
+                document.getElementById('rayloginForm').submit();
+
+                var iframe = document.getElementById('genericLogin');
+                
+                var count = 0;
+                iframe.onload = function () {
+                    count += 1;
+                    if (count >= 2) {
+                        progress.hide();
+                        $('#wrapper').show();
+                        return;
+                    }
+                    if (iframe.src != "https://rayhizliteklif.raysigorta.com.tr/Home/Portal") {
+                        iframe.src = "https://rayhizliteklif.raysigorta.com.tr/Home/Portal";
+                    }
+                }
+            });
+            $('#allianzbaglan').on('click', function () {
+
+                $('#wrapper').show();
+                document.getElementById('allianzloginForm').submit();
+
+                var iframe = document.getElementById('genericLogin');
+                iframe.onload = function () {
+                    if (iframe.src != "https://digitall.allianz.com.tr/DAPCoreWeb/faces/main.jspx") {
+                        iframe.src = "https://digitall.allianz.com.tr/DAPCoreWeb/faces/main.jspx";
+                    }
+                }
+            });
+            $('#sbnbaglan').on('click', function () {
+                $('#wrapper').show();
+                document.getElementById('sbnloginForm').submit();
+
+                var iframe = document.getElementById('genericLogin');
+                iframe.onload = function () {
+                    //https://eacente.sbnsigorta/?childPageNumId=0&actionStr=YetkiLoginKullaniciAction.closeLogin
+                    if (iframe.src != "https://eacente.sbnsigorta.com/") {
+                        iframe.src = "https://eacente.sbnsigorta.com/";
+                    }
+                }
+            });
+            $('#dogabaglan').on('click', function () {
+                $('#wrapper').show();
+                document.getElementById('dogaloginForm').submit();
+
+                var iframe = document.getElementById('genericLogin');
+                iframe.onload = function () {
+                    if (iframe.src != "https://www.dogasigortaportal.com/default.aspx?p=genel~ana&loginden=t") {
+                        iframe.src = "https://www.dogasigortaportal.com/default.aspx?p=genel~ana&loginden=t";
+                    }
+                }
+            });
+            $('#facebaglan').on('click', function () {
+                $('#wrapper').show();
+
+                document.getElementById('facloginForm').submit();
+
+                var iframe = document.getElementById('genericLogin');
+                iframe.onload = function () {
+                    if (iframe.src != "https://ejento.sompojapan.com.tr/AnaSayfa.aspx") {
+                        iframe.src = "https://ejento.sompojapan.com.tr/AnaSayfa.aspx";
+                    }
+                }
+            });
+            $('#korubaglan').on('click', function () {
+                $('#wrapper').show();
+                document.getElementById('koruloginForm').submit();
+
+                var iframe = document.getElementById('genericLogin');
+                iframe.onload = function () {
+                    if (iframe.src != "https://www.korusigortaportal.com/default.aspx?p=genel~ana&loginden=t") {
+                        iframe.src = "https://www.korusigortaportal.com/default.aspx?p=genel~ana&loginden=t";
+                    }
+                }
+            });
+            $('#gunesbaglan').on('click', function () {
+                $('#wrapper').show();
+                document.getElementById('gunesloginForm').submit();
+
+                var iframe = document.getElementById('genericLogin');
+                iframe.onload = function () {
+                    if (iframe.src != "http://pusula2.gunessigorta.com.tr/gunessigorta/base/home.seam?cid=150156") {
+                        iframe.src = "http://pusula2.gunessigorta.com.tr/gunessigorta/base/home.seam?cid=150156";
+                    }
+                }
+            });
+        });
+
+    </script>
+}
+<button id="raybaglan">Ray Baglan</button>
+<button id="sbnbaglan">Sbn Baglan</button>
+<button id="allianzbaglan">Allianz Baglan</button>
+<button id="dogabaglan">Doğa Baglan</button>
+<button id="facebaglan">Sompo Japon Baglan</button>
+<button id="korubaglan">Koru Baglan</button>
+<button id="gunesbaglan">Güneş Baglan</button>
+@*<form id="facloginForm" target="genericLogin" method="post" action="@Model.SompoLoginUrl">
+    <input type="hidden" name="@Model.SompoInputTextKullaniciId" value="@Model.SompoKullaniciAdi" />
+    <input type="hidden" name="@Model.SompoInputTextSifreId" value="@Model.SompoSifre" />
+    <input type="hidden" name="RememberMe" value="false" />
+    <input type="hidden" name="SafelyLogin" value="false" />
+    <input type="hidden" name="Captcha" value="false" />
+</form>
+<form id="rayloginForm" target="genericLogin" method="post" action="@Model.RayLoginUrl">
+    <input type="hidden" name="@Model.RayInputTextKullaniciId" value="@Model.RayKullaniciAdi" />
+    <input type="hidden" name="@Model.RayInputTextSifreId" value="@Model.RaySifre" />
+    <input type="hidden" name="RememberMe" value="false" />
+    <input type="hidden" name="SafelyLogin" value="false" />
+    <input type="hidden" name="Captcha" value="false" />
+</form>
+<form id="allianzloginForm" target="genericLogin" method="post" action="@Model.AllianzLoginUrl">
+    <input type="hidden" name="@Model.AllianzInputTextKullaniciId" value="@Model.AllianzKullaniciAdi" />
+    <input type="hidden" name="@Model.AllianzInputTextSifreId" value="@Model.AllianzSifre" />
+     <input type="hidden" name="It" value="false" />
+    <input type="hidden" name="execution" value="false" />
+    <input type="hidden" name="execution" value="false" />
+    <input type="hidden" name="_eventId" value="submit" />
+    <input type="hidden" name="SafelyLogin" value="false" />
+    <input type="hidden" name="Captcha" value="false" />
+ 
+</form>
+
+<form id="sbnloginForm" target="genericLogin" method="post" action="@Model.SbnLoginUrl">
+    <input type="hidden" name="@Model.SbnInputTextKullaniciId" value="@Model.SbnKullaniciAdi" />
+    <input type="hidden" name="@Model.SbnInputTextSifreId" value="@Model.SbnSifre" />
+    <input type="hidden" name="SafelyLogin" value="false" />
+    <input type="hidden" name="Captcha" value="false" />
+</form>
+<form id="dogaloginForm" target="genericLogin" method="post" action="@Model.DogaLoginUrl">
+    <input type="hidden" name="@Model.DogaInputTextKullaniciId" value="@Model.DogaKullaniciAdi" />
+    <input type="hidden" name="@Model.DogaInputTextSifreId" value="@Model.DogaSifre" />
+    <input type="hidden" name="SafelyLogin" value="false" />
+    <input type="hidden" name="Captcha" value="false" />
+</form>
+<form id="koruloginForm" target="genericLogin" method="post" action="@Model.KoruLoginUrl">
+    <input type="hidden" name="@Model.KoruInputTextKullaniciId" value="@Model.KoruKullaniciAdi" />
+    <input type="hidden" name="@Model.KoruInputTextSifreId" value="@Model.KoruSifre" />
+    <input type="hidden" name="SafelyLogin" value="false" />
+    <input type="hidden" name="Captcha" value="false" />
+</form>
+<form id="gunesloginForm" target="genericLogin" method="post" action="@Model.GunesLoginUrl">
+    <input type="hidden" name="@Model.GunesInputTextKullaniciId" value="@Model.GunesKullaniciAdi" />
+    <input type="hidden" name="@Model.GunesInputTextSifreId" value="@Model.GunesSifre" />
+    <input type="hidden" name="SafelyLogin" value="false" />
+    <input type="hidden" name="Captcha" value="false" />
+</form>*@
+
+<div id="adres-sorgu-progress" style="display: none;">
+    <h4>İşlem Yapılıyor...  
+    <img src="/Content/img/loading9.gif" width="40" height="40" title="İşlem Yapılıyor..." alt="İşlem Yapılıyor..."></h4>
+</div>
+
+<div id="wrapper" style="display:none;">
+<iframe id="genericLogin" name="genericLogin" width="1750" height="960"></iframe>
+</div>

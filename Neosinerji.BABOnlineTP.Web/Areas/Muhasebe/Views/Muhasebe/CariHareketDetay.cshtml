@@ -1,0 +1,141 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Muhasebe.Models
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model CariHareketDetayModel
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+
+<head>
+    <title>CariHareketDetay</title>
+</head>
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="~/TVM/TVM/Index">Cari Hareket Detay<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search..." class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+@section PageStyles{
+    <link rel="stylesheet" href="~/Content/css/TLsimgesi.css" />
+}
+
+@section PageScripts
+{}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey " style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-reorder"></i>Cari Hareket Detay</div>
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal form-view">
+                            <div class="row-fluid">
+                                <div class="span6" style="margin-left: 0px;">
+                                    <div class="control-group">
+                                        <label class="control-label">Cari Hesap Kodu</label>
+                                        <div class="controls ">
+                                            <label class="control">@Model.CariHesapKodu</label>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Evrak Tipi</label>
+                                        <div class="controls ">
+                                            <label class="control">@Model.EvrakTipiText</label>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Evrak No</label>
+                                        <div class="controls ">
+                                            <label class="control">@Model.EvrakNo</label>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Borç/Alacak</label>
+                                        <div class="controls ">
+                                            <label class="control">@Model.BorcAlacakTipiText</label>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Masraf Merkezi</label>
+                                        <div class="controls ">
+                                            <label class="control">@Model.MasrafMerkeziText</label>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Açıklama</label>
+                                        <div class="controls ">
+                                            <label class="control">@Model.Aciklama</label>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Cari Hareket Tarihi</label>
+                                        <div class="controls ">
+                                            <label class="control">@Model.CariHareketTarihi</label>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label">Ödeme Tarihi</label>
+                                        <div class="controls ">
+                                            <label class="control">@Model.OdemeTarihi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Ödeme Tipi</label>
+                                    <div class="controls ">
+                                        <label class="control">@Model.OdemeTipiText</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <label class="control-label">Döviz Tipi</label>
+                                    <div class="controls ">
+                                        <label class="control">@Model.DovizTipiText</label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Döviz Kuru</label>
+                                    <div class="controls ">
+                                        <label class="control">@Model.DovizKuru</label>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Döviz Tutari</label>
+                                    <div class="controls ">
+                                        <label class="control">@Model.DovizTutari</label>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

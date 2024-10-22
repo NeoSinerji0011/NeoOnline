@@ -1,0 +1,50 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.AnaMenuModel
+
+<div id="anamenuekle-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>@babonline.MainMenu_Add</h3>
+    </div>
+    <div class="modal-body">
+        <form id="anamenu-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+            @Html.HiddenFor(m => m.AnaMenuKodu)
+            <div class="control-group">
+                <label class="control-label">@babonline.Description    <span class="required">*</span></label>
+
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Aciklama, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.Aciklama)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Help_description      <span class="required">*</span></label>
+
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.YardimAciklama, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.YardimAciklama)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Operation_Code  <span class="required">*</span></label>
+
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.IslemKodu, Model.MenuIslemleri, new { style = "width:220px;" })
+                    @Html.ValidationMessageFor(m => m.IslemKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Status      <span class="required">*</span> </label>
+                <div class="controls radio-custom">
+                    @Html.RadioButtonListFor(m => m.Durum, Model.Durumlar)
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="javascript:void(0)" class="btn btn-success" id="anamenu-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+    </div>
+</div>

@@ -1,0 +1,2004 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using Neosinerji.BABOnlineTP.Business
+@using Neosinerji.BABOnlineTP.Business.Common
+@model TVMGuncelleModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/TVM/Liste">@babonline.TVM_Search<span></span></a>
+        </li>
+        <li>
+            <a href="~/Manage/TVM/Detay/@Model.Kodu">Detay<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Update<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+<style>
+    .table th, .table td {
+        padding: 2px 8px !important;
+    }
+</style>
+
+@section PageScripts
+{
+    <script src="~/Content/js/bootstrap-formhelpers-phone.js"></script>
+    @Scripts.Render("~/bundles/dataTable")
+    <script>
+        $(document).ready(function () {
+
+            if ($("#SubeAcenteTipi").val() == 9) {
+                $("#PoliceTransferiYapilacakMi_1").attr('checked', true);
+                $("#PoliceTransferiYapilacakMi_1").attr('disabled', false);
+                $("#PoliceTransferiYapilacakMi_1").attr('readonly', true);
+                $("#PoliceTransferiYapilacakMi_0").attr('disabled', true);
+            }
+            else {
+                $("#PoliceTransferiYapilacakMi_0").attr('checked', true);
+                $("#PoliceTransferiYapilacakMi_0").attr('readonly', true);
+                $("#PoliceTransferiYapilacakMi_0").attr('disabled', false);
+                $("#PoliceTransferiYapilacakMi_1").attr('disabled', true);
+            }
+
+            $("#SubeAcenteTipi").change(function () {
+                if ($("#SubeAcenteTipi").val() == 9) {
+                    $("#PoliceTransferiYapilacakMi_1").attr('checked', true);
+                    $("#PoliceTransferiYapilacakMi_1").attr('disabled', false);
+                    $("#PoliceTransferiYapilacakMi_1").attr('readonly', true);
+                    $("#PoliceTransferiYapilacakMi_0").attr('disabled', true);
+                }
+                else {
+                    $("#PoliceTransferiYapilacakMi_0").attr('checked', true);
+                    $("#PoliceTransferiYapilacakMi_0").attr('readonly', true);
+                    $("#PoliceTransferiYapilacakMi_0").attr('disabled', false);
+                    $("#PoliceTransferiYapilacakMi_1").attr('disabled', true);
+                }
+            });
+
+            $("[rel=tooltip]").tooltip();
+            //  $(".datepicker").datepicker();
+            $("#tvm-tab a:first").tab("show");
+
+            //Neosinerji kullanıcısı ise proje kodu aktif olacak
+            if ($("#MerkezTVMKodu").val() != 100) {
+                $("#ProjeKodu").attr("readonly", true);
+            }
+            //Telefon ve fax
+            $('form input[type="text"].bfh-phone, form input[type="tel"].bfh-phone, span.bfh-phone').each(function () {
+                var $phone = $(this)
+                $phone.bfhphone($phone.data())
+            })
+            setTimeout(setnumara, 100);
+            function setnumara() { $("#Telefon").val($("#Telefon").val()); $("#Fax").val($("#Fax").val()); }
+
+            //TVM Tipi'ne göre TCKN kompenentinin durumu
+            function TCNKVisible() {
+                //TVM Tipi produktor olduğunda produktor tckn alınacak
+
+                var valTipi = $("#MerkezTipi").val();
+                if (valTipi == "4") { //Prodüktör
+                    var tckn = $("#TCKN").val(@Model.TCKN);
+
+                    if (tckn == "XXXXXXXXXXX") {
+                        $("#TCKN").val("");
+                    }
+
+                    $("#divProducerTCKN").slideDown("fast");
+                }
+                else {
+                    $("#divProducerTCKN").slideUp("fast", function () { $("#TCKN").val("XXXXXXXXXXX"); });
+                }
+            }
+
+            TCNKVisible();
+            $("#MerkezTipi").change(function () {
+                TCNKVisible();
+            });
+            $("#sonPoliceOnayGunu").keyup(function () {
+                var sonpoliceonaygunu = $("#sonPoliceOnayGunu").val();
+                if (sonpoliceonaygunu > 31) {
+                    $("#sonPoliceOnayGunu").val("31");
+                }
+            });
+            ///////////////////////////////////////////////////////////////
+
+            //Bağlantı Sınırına bağlı olarak table'ın durumu
+            function BaglantiTableVisible() {
+                if ($('#BaglantiSiniri_1').attr('checked')) {
+                    $("#divbaglantiTable").slideDown("fast");
+                } else {
+                    $("#divbaglantiTable").css("display", "none");
+                }
+            }
+
+            BaglantiTableVisible();
+            $('input[name="BaglantiSiniri"]').change(function () {
+                BaglantiTableVisible();
+            });
+            ///////////////////////////////////////////////////////////////
+
+            //TVM Profili Şube / Acente olduğunda bağlı olduğu tvm'nin kodu girilmeli
+            //$("[name='Profili'").change(function () {
+            //    var val = $(this).val();
+            //    if (val == "0") { //Şube/Acente
+            //        $("#BagliOlduguTVMKodu").val("");
+            //        $("#divBagliOlduguTVMKodu").slideDown("fast");
+            //    }
+            //    else {
+            //        $("#divBagliOlduguTVMKodu").slideUp("fast", function () { $("#BagliOlduguTVMKodu").val("-9999"); });
+            //    }
+            //});
+            ///////////////////////////////////////////////////////////////
+
+            //Ülke - il - ilçe
+            $('#UlkeKodu').ulke({ il: '#IlKodu', ilce: '#IlceKodu' });
+
+            //Bölge Ekle
+            $('#region-ekle-btn').click(function () { alert('Bölge Eklendi...') })
+
+            //Departman Ekle
+            $('#department-ekle-btn').click(function () { alert('Departman Eklendi...') })
+            ///////////////////////////////////////////////////////////////
+
+        });
+
+        //Telefon ve fax
+        var telefon = "@Model.Telefon"
+        if (telefon != "") {
+            setTimeout(function () {
+                $("#Telefon").val("@Model.Fax");
+                }, 2000);
+            }
+            var fax = "@Model.Fax"
+        if (fax != "") {
+            setTimeout(function () {
+                $("#Fax").val("@Model.Fax");
+                }, 2000);
+            }
+        //Logo İşlemleri //////////////////////////////////
+        $("#btn-logo-ekle").click(function () {
+            var tvmkodu = $(this).attr("tvm-kodu");
+            $.get("/Manage/TVM/LogoEkle",
+                 { TVMKodu: tvmkodu },
+                 function (data) {
+                     $("#logoekle-modal-div").html(data);
+                     $.validator.unobtrusive.parse("#logoekle-modal-div");
+                     $("#logo-modal").modal('show');
+                 },
+                 "html");
+        });
+
+        $("#logo-ekle-btn").live("click", function () {
+            var formData = new FormData(document.forms.namedItem('logo-ekle-form'));
+            var oReq = new XMLHttpRequest();
+            oReq.open("POST", "/Manage/TVM/LogoEkle", true);
+            oReq.send(formData);
+            oReq.onload = function (oEvent) {
+                if (oReq.status == 200 && oReq.responseText == "") {
+                    $("#logo-modal").modal('hide');
+                    viewLogo();
+                } else if (oReq.responseText != "") {
+                    $("#logo-modal").modal('hide');
+                    $("#logoekle-modal-div").html(oReq.responseText);
+                    $("#logo-modal").modal('show');
+                }
+                else { alert("Bir hata oluştu"); }
+            };
+        });
+
+        //Bağlantı Ekleme - Silme İşlemleri
+        $("#baglanti-ekle").click(function () {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/BaglantiEkle",
+                  { TVMKodu: tvmkodu },
+                  function (data) {
+                      $("#baglanti-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#baglanti-modal-div");
+                      $("#baglanti-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#baglanti-ekle-btn").live("click", function () {
+            $("#baglanti-ekle-form").validate().form();
+            if ($("#baglanti-ekle-form").valid()) {
+                var formData = $("#baglanti-ekle-form").serialize();
+                $.post("/Manage/TVM/BaglantiEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#baglanti-modal").modal('hide'); }
+                        else {
+                            $("#baglanti-modal").modal('hide');
+                            $("#baglanti-modal-div").html(data);
+                            $("#baglanti-modal").modal('show');
+                        }
+                        viewBaglanti();
+                        // baglantiTable.fnDraw();
+                    }, "html");
+            }
+        });
+
+        $(".edit-baglanti").live("click", function () {
+            var baglantiKodu = $(this).attr("baglanti-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $.get("/Manage/TVM/BaglantiGuncelle",
+                  { SiraNo: baglantiKodu, tvmKodu: TVMKodu },
+                  function (data) {
+                      $("#baglanti-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#baglanti-modal-div");
+                      $("#baglanti-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#baglanti-guncelle-btn").live("click", function () {
+            $("#baglanti-ekle-form").validate().form();
+            if ($("#baglanti-ekle-form").valid()) {
+                var formData = $("#baglanti-ekle-form").serialize();
+                $.post("/Manage/TVM/BaglantiGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#baglanti-modal").modal('hide'); }
+                        else {
+                            $("#baglanti-modal").modal('hide');
+                            $("#baglanti-modal-div").html(data);
+                            $("#baglanti-modal").modal('show');
+                        }
+                        viewBaglanti();
+                        // baglantiTable.fnDraw();
+                    }, "html");
+            }
+        });
+
+        $(".delete-baglanti").live("click", function () {
+            var baglantiKodu = $(this).attr("baglanti-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TVM/BaglantiSil/",
+                       { baglantiKodu: baglantiKodu, tvmKodu: TVMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#baglanti-container").html(data);
+                           viewBaglanti();
+                           // baglantiTableSet();
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //Bolge Ekleme - Silme İşlemleri
+        $("#bolge-ekle").click(function () {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/BolgeEkle",
+                  { TVMKodu: tvmkodu },
+                  function (data) {
+                      $("#bolge-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#bolge-modal-div");
+                      $("#bolge-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#bolge-ekle-btn").live("click", function () {
+            $("#bolge-ekle-form").validate().form();
+            if ($("#bolge-ekle-form").valid()) {
+                var formData = $("#bolge-ekle-form").serialize();
+                $.post("/Manage/TVM/BolgeEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#bolge-modal").modal('hide'); }
+                        else {
+                            $("#bolge-modal").modal('hide');
+                            $("#bolge-modal-div").html(data);
+                            $("#bolge-modal").modal('show');
+                        }
+                        viewBolge();
+                        // bolgeTable.fnDraw();
+                    }, "html");
+            }
+        });
+
+        $(".delete-bolge").live("click", function () {
+            var bolgeKodu = $(this).attr("bolge-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TVM/BaglantiSil/",
+                       { bolgeKodu: bolgeKodu, tvmKodu: TVMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#bolge-container").html(data);
+                           bolgeTableSet();
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+
+        $(".edit-bolge").live("click", function () {
+            var bolgeKodu = $(this).attr("bolge-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+
+            $.get("/Manage/TVM/BolgeGuncelle",
+                  { BolgeNo: bolgeKodu, tvmKodu: TVMKodu },
+                  function (data) {
+                      $("#bolge-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#bolge-modal-div");
+                      $("#bolge-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#bolge-guncelle-btn").live("click", function () {
+            $("#bolge-ekle-form").validate().form();
+            if ($("#bolge-ekle-form").valid()) {
+                var formData = $("#bolge-ekle-form").serialize();
+                $.post("/Manage/TVM/BolgeGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#bolge-modal").modal('hide'); }
+                        else {
+                            $("#bolge-modal").modal('hide');
+                            $("#bolge-modal-div").html(data);
+                            $("#bolge-modal").modal('show');
+                        }
+                        viewBolge();
+                        // bolgeTable.fnDraw();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //Departman Ekleme - Silme İşlemleri
+        $("#departman-ekle").click(function () {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/DepartmanEkle",
+                  { TVMKodu: tvmkodu },
+                  function (data) {
+                      $("#departman-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#departman-modal-div");
+                      $("#departman-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#departman-ekle-btn").live("click", function () {
+            $("#departman-ekle-form").validate().form();
+            if ($("#departman-ekle-form").valid()) {
+                var formData = $("#departman-ekle-form").serialize();
+                $.post("/Manage/TVM/DepartmanEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#departman-modal").modal('hide'); }
+                        else {
+                            $("#departman-modal").modal('hide');
+                            $("#departman-modal-div").html(data);
+                            $("#departman-modal").modal('show');
+                        }
+                        viewDepartman();
+                        // departmanlarTable.fnDraw();
+                    }, "html");
+            }
+        });
+
+        $(".delete-departman").live("click", function () {
+            var departmanKodu = $(this).attr("departman-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TVM/DepartmanSil/",
+                       { departmanKodu: departmanKodu, tvmKodu: TVMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#departman-container").html(data);
+                           departmanTableSet();
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+
+        $(".edit-departman").live("click", function () {
+            var departmanKodu = $(this).attr("departman-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $.get("/Manage/TVM/DepartmanGuncelle",
+                  { departmanNo: departmanKodu, tvmKodu: TVMKodu },
+                  function (data) {
+                      $("#departman-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#departman-modal-div");
+                      $("#departman-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#departman-guncelle-btn").live("click", function () {
+            $("#departman-ekle-form").validate().form();
+            if ($("#departman-ekle-form").valid()) {
+                var formData = $("#departman-ekle-form").serialize();
+                $.post("/Manage/TVM/DepartmanGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#departman-modal").modal('hide'); }
+                        else {
+                            $("#departman-modal").modal('hide');
+                            $("#departman-modal-div").html(data);
+                            $("#departman-modal").modal('show');
+                        }
+                        viewDepartman();
+                        //departmanlarTable.fnDraw();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //Acentelik Ekleme - Silme İşlemleri
+        $("#acentelikleri-ekle").click(function () {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/AcenteEkle",
+                  { TVMKodu: tvmkodu },
+                  function (data) {
+                      $("#acentelikleri-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#acentelikleri-modal-div");
+                      $("#acentelikleri-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#acentelikleri-ekle-btn").live("click", function () {
+            $("#acentelikleri-ekle-form").validate().form();
+            if ($("#acentelikleri-ekle-form").valid()) {
+                var formData = $("#acentelikleri-ekle-form").serialize();
+                $.post("/Manage/TVM/AcenteEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#acentelikleri-modal").modal('hide'); }
+                        else {
+                            $("#acentelikleri-modal").modal('hide');
+                            $("#acentelikleri-modal-div").html(data);
+                            $("#acentelikleri-modal").modal('show');
+                        }
+                        viewAcente();
+                        //acenteliklerTable.fnDraw();
+                    }, "html");
+            }
+        });
+
+        $(".delete-acentelikleri").live("click", function () {
+            var acenteKodu = $(this).attr("acente-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TVM/AcenteSil/",
+                       { AcenteKodu: acenteKodu, tvmKodu: TVMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#acentelikleri-container").html(data);
+                           viewAcente();
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+
+        $(".edit-acentelikleri").live("click", function () {
+            var acenteKodu = $(this).attr("acente-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $.get("/Manage/TVM/AcenteGuncelle",
+                  { acenteKodu: acenteKodu, tvmKodu: TVMKodu },
+                  function (data) {
+                      $("#acentelikleri-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#acentelikleri-modal-div");
+                      $("#acentelikleri-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#acentelikleri-guncelle-btn").live("click", function () {
+            $("#acentelikleri-ekle-form").validate().form();
+            if ($("#acentelikleri-ekle-form").valid()) {
+                var formData = $("#acentelikleri-ekle-form").serialize();
+                $.post("/Manage/TVM/AcenteGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#acentelikleri-modal").modal('hide'); }
+                        else {
+                            $("#acentelikleri-modal").modal('hide');
+                            $("#acentelikleri-modal-div").html(data);
+                            $("#acentelikleri-modal").modal('show');
+                        }
+                        viewAcente();
+                        //acenteTable.fnDraw();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //Not Ekleme - Silme İşlemleri
+        $("#not-ekle").click(function () {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/NotEkle",
+                  { TVMKodu: tvmkodu },
+                  function (data) {
+                      $("#not-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#not-modal-div");
+                      $("#not-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#not-ekle-btn").live("click", function () {
+            $("#not-ekle-form").validate().form();
+            if ($("#not-ekle-form").valid()) {
+                var formData = $("#not-ekle-form").serialize();
+                $.post("/Manage/TVM/NotEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#not-modal").modal('hide'); }
+                        else {
+                            $("#not-modal").modal('hide');
+                            $("#not-modal-div").html(data);
+                            $("#not-modal").modal('show');
+                        }
+                        viewNot();
+                        //notTable.fnDraw();
+                    }, "html");
+            }
+        });
+
+        $(".delete-not").live("click", function () {
+            var notKodu = $(this).attr("not-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TVM/NotSil/",
+                       { notKodu: notKodu, tvmKodu: TVMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#not-container").html(data);
+                           viewNot();
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+
+        $(".edit-not").live("click", function () {
+            var notKodu = $(this).attr("not-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $.get("/Manage/TVM/NotOku",
+                  { SiraNo: notKodu, tvmKodu: TVMKodu },
+                  function (data) {
+                      $("#not-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#not-modal-div");
+                      $("#not-modal").modal('show');
+                  },
+                  "html");
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //Doküman Ekleme - Silme İşlemleri
+        $("#dokuman-ekle").click(function () {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/Dokuman",
+                  { TVMKodu: tvmkodu },
+                  function (data) {
+                      $("#dokuman-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#dokuman-modal-div");
+                      $("#dokuman-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#dokuman-ekle-btn").live("click", function () {
+            $("#dokuman-ekle-form").validate().form();
+            if ($("#dokuman-ekle-form").valid()) {
+                //  var formData = $("#dokuman-ekle-form").serialize();
+                var formData = new FormData(document.forms.namedItem('dokuman-ekle-form'));
+                var oReq = new XMLHttpRequest();
+                oReq.open("POST", "/Manage/TVM/Dokuman", true);
+                oReq.send(formData);
+                oReq.onload = function (oEvent) {
+                    if (oReq.status == 200) {
+                        //$("#dokuman-modal").modal('hide');
+                        $("#dokuman-modal").modal('hide');
+                        $("#dokuman-modal-div").html(oEvent);
+                        $("#dokuman-modal").modal('show');
+                        viewDokuman();
+                    } else {
+                        // oOutput.innerHTML = "Error " + oReq.status + " occurred uploading your file.<br \/>";
+                        $("#dokuman-modal").modal('hide');
+                        $("#dokuman-modal-div").html(oEvent);
+                        $("#dokuman-modal").modal('show');
+                    }
+                };
+
+                //$.post("/Manage/TVM/Dokuman", formData,
+                //    function (data) {
+                //        if (data == "null") { $("#dokuman-modal").modal('hide'); }
+                //        else {
+                //            $("#dokuman-modal").modal('hide');
+                //            $("#dokuman-modal-div").html(data);
+                //            $("#dokuman-modal").modal('show');
+                //        }
+                //        viewDokuman();
+                //       // dokumanTable.fnDraw();
+                //    }, "html");
+            }
+        });
+
+        $(".delete-dokuman").live("click", (function () {
+            var dokumanKodu = $(this).attr("dokuman-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TVM/DokumanSil/",
+                       { dokumanKodu: dokumanKodu, tvmKodu: TVMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#dokuman-container").html(data);
+                           dokumanTableSet();
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        }));
+
+        $(".edit-dokuman").live("click", function () {
+            var dokumanKodu = $(this).attr("dokuman-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $.get("/Manage/TVM/DokumanGuncelle",
+                  { SiraNo: dokumanKodu, tvmKodu: TVMKodu },
+                  function (data) {
+                      $("#dokuman-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#dokuman-modal-div");
+                      $("#dokuman-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#dokuman-guncelle-btn").live("click", function () {
+            $("#dokuman-ekle-form").validate().form();
+            if ($("#dokuman-ekle-form").valid()) {
+                var formData = $("#dokuman-ekle-form").serialize();
+                $.post("/Manage/TVM/DokumanGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#dokuman-modal").modal('hide'); }
+                        else {
+                            $("#dokuman-modal").modal('hide');
+                            $("#dokuman-modal-div").html(data);
+                            $("#dokuman-modal").modal('show');
+                        }
+                        viewDokuman();
+                        dokumanTable.fnDraw();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //Banka Hesap Ekleme - Silme İşlemleri
+        $("#bankahesaplari-ekle").click(function () {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/BankaHesaplariEkle",
+                  { TVMKodu: tvmkodu },
+                  function (data) {
+                      $("#bankahesaplari-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#bankahesaplari-modal-div");
+                      $("#bankahesaplari-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#bankahesaplari-ekle-btn").live("click", function () {
+
+            $("#bankahesaplari-ekle-form").validate().form();
+            if ($("#bankahesaplari-ekle-form").valid()) {
+                var formData = $("#bankahesaplari-ekle-form").serialize();
+                $.post("/Manage/TVM/BankaHesaplariEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#bankahesaplari-modal").modal('hide'); }
+                        else {
+                            $("#bankahesaplari-modal").modal('hide');
+                            $("#bankahesaplari-modal-div").html(data);
+                            $("#bankahesaplari-modal").modal('show');
+                        }
+                        viewBankaHesap();
+                        //bankahesaplariTable.fnDraw();
+                    }, "html");
+            }
+        });
+
+        $(".delete-bankahesaplari").live("click", function () {
+            var bankahesaplariKodu = $(this).attr("bankahesaplari-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TVM/BankaHesaplariSil/",
+                       { SiraNo: bankahesaplariKodu, tvmKodu: TVMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#bankahesaplari-container").html(data);
+                           viewBankaHesap();
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+
+        $(".edit-bankahesaplari").live("click", function () {
+            var bankahesaplariKodu = $(this).attr("bankahesaplari-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $.get("/Manage/TVM/BankaHesaplariGuncelle",
+                  { SiraNo: bankahesaplariKodu, tvmKodu: TVMKodu },
+                  function (data) {
+                      $("#bankahesaplari-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#bankahesaplari-modal-div");
+                      $("#bankahesaplari-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#bankahesaplari-guncelle-btn").live("click", function () {
+            $("#bankahesaplari-ekle-form").validate().form();
+            if ($("#bankahesaplari-ekle-form").valid()) {
+                var formData = $("#bankahesaplari-ekle-form").serialize();
+                $.post("/Manage/TVM/BankaHesaplariGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#bankahesaplari-modal").modal('hide'); }
+                        else {
+                            $("#bankahesaplari-modal").modal('hide');
+                            $("#bankahesaplari-modal-div").html(data);
+                            $("#bankahesaplari-modal").modal('show');
+                        }
+                        viewBankaHesap();
+                        //  bankahesaplariTable.fnDraw();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //İletişim Yetkiltri Ekleme - Silme İşlemleri
+        $("#iletisimyetkilileri-ekle").click(function () {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/IletisimYetkilileriEkle",
+                  { TVMKodu: tvmkodu },
+                  function (data) {
+                      $("#iletisimyetkilileri-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#iletisimyetkilileri-modal-div");
+                      $("#iletisimyetkilileri-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#iletisimyetkilileri-ekle-btn").live("click", function () {
+            $("#iletisimyetkilileri-ekle-form").validate().form();
+            if ($("#iletisimyetkilileri-ekle-form").valid()) {
+                var formData = $("#iletisimyetkilileri-ekle-form").serialize();
+                $.post("/Manage/TVM/IletisimYetkilileriEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#iletisimyetkilileri-modal").modal('hide'); }
+                        else {
+                            $("#iletisimyetkilileri-modal").modal('hide');
+                            $("#iletisimyetkilileri-modal-div").html(data);
+                            $("#iletisimyetkilileri-modal").modal('show');
+                        }
+                        viewIletisimYetki();
+                        // iletisimyetkilileriTable.fnDraw();
+                    }, "html");
+            }
+        });
+
+        $(".delete-iletisimyetkilileri").live("click", function () {
+            var iletisimyetkilileriKodu = $(this).attr("iletisimyetkilileri-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TVM/IletisimYetkilileriSil/",
+                       { SiraNo: iletisimyetkilileriKodu, tvmKodu: TVMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#iletisimyetkilileri-container").html(data);
+                           viewIletisimYetki();
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+
+        $(".edit-iletisimyetkilileri").live("click", function () {
+            var iletisimyetkilileriKodu = $(this).attr("iletisimyetkilileri-kodu");
+            var TVMKodu = $(this).attr("tvm-kodu");
+
+            $.get("/Manage/TVM/IletisimYetkilileriGuncelle",
+                  { SiraNo: iletisimyetkilileriKodu, tvmKodu: TVMKodu },
+                  function (data) {
+                      $("#iletisimyetkilileri-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#iletisimyetkilileri-modal-div");
+                      $("#iletisimyetkilileri-modal").modal('show');
+                  },
+                  "html");
+        });
+
+        $("#iletisimyetkilileri-guncelle-btn").live("click", function () {
+            $("#iletisimyetkilileri-ekle-form").validate().form();
+            if ($("#iletisimyetkilileri-ekle-form").valid()) {
+                var formData = $("#iletisimyetkilileri-ekle-form").serialize();
+                $.post("/Manage/TVM/IletisimYetkilileriGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#iletisimyetkilileri-modal").modal('hide'); }
+                        else {
+                            $("#iletisimyetkilileri-modal").modal('hide');
+                            $("#iletisimyetkilileri-modal-div").html(data);
+                            $("#iletisimyetkilileri-modal").modal('show');
+                        }
+                        viewIletisimYetki();
+                        //iletisimyetkilileriTable.fnDraw();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //Web servis kullanıcıları ekleme - silme işlemleri
+        $("#webserviskullanici-ekle").click(function () {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/WebServisKullaniciEkle",
+                  { TVMKodu: tvmkodu },
+                  function (data) {
+                      $("#wskullaniciekle-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#wskullaniciekle-modal-div");
+                      $("#webserviskullanici-modal").modal('show');
+                  },
+                  "html");
+        });
+        $("#wskullanici-ekle-btn").live("click", function () {
+            $("#webserviskullanici-ekle-form").validate().form();
+            if ($("#webserviskullanici-ekle-form").valid()) {
+                var formData = $("#webserviskullanici-ekle-form").serialize();
+                $.post("/Manage/TVM/WebServisKullaniciEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#webserviskullanici-modal").modal('hide'); }
+                        else {
+                            $("#webserviskullanici-modal").modal('hide');
+                            $("#wskullaniciekle-modal-div").html(data);
+                            $("#webserviskullanici-modal").modal('show');
+                        }
+                        viewWebServisKullanici();
+                    }, "html");
+            }
+        });
+
+        $(".delete-tvmwebservis").live("click", function () {
+            var TVMKodu = $(this).attr("tvm-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TVM/WebServisKullaniciSil",
+                       { tvmKodu: TVMKodu, tumKodu: TUMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#webserviskullanici-container").html(data);
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+        $(".edit-tvmwebservis").live("click", function () {
+            var TVMKodu = $(this).attr("tvm-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $.get("/Manage/TVM/WebServisKullaniciGuncelle",
+                  { tvmKodu: TVMKodu, tumKodu: TUMKodu },
+                  function (data) {
+                      $("#wskullaniciekle-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#wskullaniciekle-modal-div");
+                      $("#webserviskullanici-modal").modal('show');
+                      if ($("#TUMKodu").val() == 4) {
+                          $("#anadolu-ozel").show();
+                      }
+                      else {
+                          $("#anadolu-ozel").hide();
+                      }
+                  },
+                  "html");
+        });
+        $("#wskullanici-guncelle-btn").live("click", function () {
+            $("#webserviskullanici-ekle-form").validate().form();
+            if ($("#webserviskullanici-ekle-form").valid()) {
+                var formData = $("#webserviskullanici-ekle-form").serialize();
+                $.post("/Manage/TVM/WebServisKullaniciGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#webserviskullanici-modal").modal('hide'); }
+                        else {
+                            $("#webserviskullanici-modal").modal('hide');
+                            $("#wskullaniciekle-modal-div").html(data);
+                            $("#webserviskullanici-modal").modal('show');
+                        }
+                        viewWebServisKullanici();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //NeoConnect kullanıcıları ekleme - silme işlemleri
+        $("#neoconnectkullanici-ekle").click(function () {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/NeoConnectKullaniciEkle",
+                  { TVMKodu: tvmkodu },
+                  function (data) {
+                      $("#neokullaniciekle-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#neokullaniciekle-modal-div");
+                      $("#neoconnectkullanici-modal").modal('show');
+
+                  },
+                  "html");
+            //location.reload();
+        });
+        $("#neokullanici-ekle-btn").live("click", function () {
+            if ($("#GrupKodu").val() == "" || $("#GrupKodu").val() == null) {
+                $("#GrupKodu").addClass("ignore");
+            }
+            $("#neoconnectkullanici-ekle-form").validate().form();
+
+            if ($("#neoconnectkullanici-ekle-form").valid()) {
+                var formData = $("#neoconnectkullanici-ekle-form").serialize();
+                $.post("/Manage/TVM/NeoConnectKullaniciEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#neoconnectkullanici-modal").modal('hide'); }
+                        else {
+                            $("#neoconnectkullanici-modal").modal('hide');
+                            $("#neokullaniciekle-modal-div").html(data);
+                            $("#neoconnectkullanici-modal").modal('show');
+                        }
+                        viewNeoConnectKullanici();
+
+                    }, "html");
+
+            }
+        });
+
+        $(".delete-neotvmwebservis").live("click", function () {
+            var TVMKodu = $(this).attr("tvm-kodu");
+            var id = $(this).attr("kayit-id");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TVM/NeoConnectKullaniciSil",
+                       {id:id ,tvmKodu: TVMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#neoconnectkullanici-container").html(data);
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+        $(".edit-neotvmwebservis").live("click", function () {
+            var TVMKodu = $(this).attr("tvm-kodu");
+            var tumKodu = $(this).attr("tum-kodu");
+            var id = $(this).attr("kayit-id");
+
+            $.get("/Manage/TVM/NeoConnectKullaniciGuncelle",
+                  { tvmKodu: TVMKodu, tumKodu: tumKodu, id: id },
+                  function (data) {
+                      $("#neokullaniciekle-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#neokullaniciekle-modal-div");
+                      $("#neoconnectkullanici-modal").modal('show');
+                      if ($("#TUMKodu").val() == 4) {
+                          $("#anadolu-ozel").show();
+                      }
+                      else {
+                          $("#anadolu-ozel").hide();
+                      }
+                  },
+                  "html");
+        });
+        $("#neokullanici-guncelle-btn").live("click", function () {
+            if ($("#GrupKodu").val() == "" || $("#GrupKodu").val() == null) {
+                $("#GrupKodu").addClass("ignore");
+            }
+            $("#neoconnectkullanici-ekle-form").validate().form();
+            if ($("#neoconnectkullanici-ekle-form").valid()) {
+                var formData = $("#neoconnectkullanici-ekle-form").serialize();
+                $.post("/Manage/TVM/NeoConnectKullaniciGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#neoconnectkullanici-modal").modal('hide'); }
+                        else {
+                            $("#neoconnectkullanici-modal").modal('hide');
+                            $("#neokullaniciekle-modal-div").html(data);
+                            $("#neoconnectkullanici-modal").modal('show');
+                        }
+                        viewNeoConnectKullanici();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        ///////////////////////////////////////////////////////////////
+
+        //NeoConnect Yasakli URL - ekleme işlemleri
+        $("#neoconnectYasakliUrl-ekle").click(function () {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/NeoConnectYasakliUrlEkle",
+                  { TVMKodu: tvmkodu },
+                  function (data) {
+                      $("#neoconnectYasakliUrl-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#neoconnectYasakliUrl-modal-div");
+                      $("#neoconnectYasakliUrl-modal").modal('show');
+
+                  },
+                  "html");
+            //location.reload();
+        });
+        $("#neoconnectYasakliUrl-ekle-btn").live("click", function () {
+            $("#neoconnectYasakliUrl-ekle-form").validate().form();
+            if ($("#neoconnectYasakliUrl-ekle-form").valid()) {
+                var formData = $("#neoconnectYasakliUrl-ekle-form").serialize();
+                $.post("/Manage/TVM/NeoConnectYasakliUrlEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#neoconnectYasakliUrl-modal").modal('hide'); }
+                        else {
+                            $("#neoconnectYasakliUrl-modal").modal('hide');
+                            $("#neoconnectYasakliUrl-modal-div").html(data);
+                            $("#neoconnectYasakliUrl-modal").modal('show');
+                        }
+                        viewNeoconnectYasakliUrlKullanici();
+
+                    }, "html");
+
+            }
+        });
+
+        $(".delete-neoconnectYasakliUrl").live("click", function () {
+            var TVMKodu = $(this).attr("tvm-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TVM/NeoConnectYasakliUrlSil",
+                       { tvmKodu: TVMKodu, tumKodu: TUMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#neoconnectYasakliUrl-container").html(data);
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+        $(".edit-neoconnectYasakliUrl").live("click", function () {
+            var TVMKodu = $(this).attr("tvm-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $.get("/Manage/TVM/NeoConnectYasakliUrlGuncelle",
+                  { tvmKodu: TVMKodu, tumKodu: TUMKodu },
+                  function (data) {
+                      $("#neoconnectYasakliUrl-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#neoconnectYasakliUrl-modal-div");
+                      $("#neoconnectYasakliUrl-modal").modal('show');
+                      if ($("#TUMKodu").val() == 4) {
+                          $("#anadolu-ozel").show();
+                      }
+                      else {
+                          $("#anadolu-ozel").hide();
+                      }
+                  },
+                  "html");
+        });
+        $("#neoconnectYasakliUrl-guncelle-btn").live("click", function () {
+            $("#neoconnectYasakliUrl-ekle-form").validate().form();
+            if ($("#neoconnectYasakliUrl-ekle-form").valid()) {
+                var formData = $("#neoconnectYasakliUrl-ekle-form").serialize();
+                $.post("/Manage/TVM/NeoConnectYasakliUrlGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#neoconnectYasakliUrl-modal").modal('hide'); }
+                        else {
+                            $("#neoconnectYasakliUrl-modal").modal('hide');
+                            $("#neoconnectYasakliUrl-modal-div").html(data);
+                            $("#neoconnectYasakliUrl-modal").modal('show');
+                        }
+                        viewNeoconnectYasakliUrlKullanici();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //NeoConnect tvmlere S.şirketi ekleme - silme işlemleri
+
+        $("#neoconnecttvmsirket-ekle").click(function () {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/NeoConnectTvmSigortaSirketEkle",
+                  { TVMKodu: tvmkodu },
+                  function (data) {
+                      $("#neokullanicitvmsirketekle-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#neokullanicitvmsirketekle-modal-div");
+                      $("#neoconnecttvmsirket-modal").modal('show');
+                  },
+                  "html");
+        });
+        $("#neotvmsirketkullanici-ekle-btn").live("click", function () {
+            $("#neoconnecttvmsirketkullanici-ekle-form").validate().form();
+            if ($("#neoconnecttvmsirketkullanici-ekle-form").valid()) {
+                var formData = $("#neoconnecttvmsirketkullanici-ekle-form").serialize();
+                $.post("/Manage/TVM/NeoConnectTvmSigortaSirketEkle", formData,
+                    function (data) {
+                        if (data == "null") { $("#neoconnecttvmsirket-modal").modal('hide'); }
+                        else {
+                            $("#neoconnecttvmsirket-modal").modal('hide');
+                            $("#neokullanicitvmsirketekle-modal-div").html(data);
+                            $("#neoconnecttvmsirket-modal").modal('show');
+                        }
+                        viewNeoConnectTvmSirketKullanici();
+                    }, "html");
+            }
+        });
+
+        $(".delete-neotvmsirket").live("click", function () {
+            var TVMKodu = $(this).attr("tvm-kodu");
+            var TUMKodu = $(this).attr("tum-kodu");
+
+            $('#delete-confirm-btn').unbind('click');
+            $("#delete-confirm-btn").click(function () {
+                $.post("/Manage/TVM/NeoConnectTvmSigortaSirketSil",
+                       { tvmKodu: TVMKodu, tumKodu: TUMKodu },
+                       function (data) {
+                           $("#delete-confirmation").modal('hide');
+                           $("#neoconnecttvmsirket-container").html(data);
+                       });
+            });
+            $("#delete-confirmation").modal('show');
+        });
+        $(".edit-neotvmsirket").live("click", function () {
+            var id = $(this).attr("kayit-id");
+
+            $.get("/Manage/TVM/NeoConnectTvmSigortaSirketGuncelle",
+                  { Id: id },
+                  function (data) {
+                      $("#neokullanicitvmsirketekle-modal-div").html(data);
+                      $.validator.unobtrusive.parse("#neokullanicitvmsirketekle-modal-div");
+                      $("#neoconnecttvmsirket-modal").modal('show');
+                      if ($("#TUMKodu").val() == 4) {
+                          $("#anadolu-ozel").show();
+                      }
+                      else {
+                          $("#anadolu-ozel").hide();
+                      }
+                  },
+                  "html");
+        });
+        $("#neotvmsirketikullanici-guncelle-btn").live("click", function () {
+            $("#neoconnecttvmsirketkullanici-ekle-form").validate().form();
+            if ($("#neoconnecttvmsirketkullanici-ekle-form").valid()) {
+                var formData = $("#neoconnecttvmsirketkullanici-ekle-form").serialize();
+                $.post("/Manage/TVM/NeoConnectTvmSigortaSirketGuncelle", formData,
+                    function (data) {
+                        if (data == "null") { $("#neoconnecttvmsirket-modal").modal('hide'); }
+                        else {
+                            $("#neoconnecttvmsirket-modal").modal('hide');
+                            $("#neokullanicitvmsirketekle-modal-div").html(data);
+                            $("#neoconnecttvmsirket-modal").modal('show');
+                        }
+                        viewNeoConnectTvmSirketKullanici();
+                    }, "html");
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+        //View'ler
+        function viewLogo() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/LogoView",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    if (data != "")
+                    { $("#div-logo").html(data); }
+                    else { alert("Logo getirilirken bir hata oluştu") }
+                },
+                "html");
+        }
+
+        function viewBaglanti() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/BaglantiView",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#baglanti-container").html(data);
+                },
+                "html");
+        }
+
+        function viewBolge() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/BolgeView",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#bolge-container").html(data);
+                },
+                "html");
+        }
+
+        function viewDepartman() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/DepartmanView",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#departman-container").html(data);
+                },
+                "html");
+        }
+
+        function viewNot() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/NotView",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#not-container").html(data);
+                },
+                "html");
+        }
+
+        function viewDokuman() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/DokumanView",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#dokuman-container").html(data);
+                },
+                "html");
+        }
+
+        function viewAcente() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/AcenteView",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#acente-container").html(data);
+                },
+                "html");
+        }
+
+        function viewBankaHesap() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/BankaHesapView",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#bankahesaplari-container").html(data);
+                },
+                "html");
+        }
+
+        function viewIletisimYetki() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/IletisimYetkiView",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#iletisimyetkilileri-container").html(data);
+                },
+                "html");
+        }
+
+        function viewWebServisKullanici() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/WebservisKullaniciView",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#webserviskullanici-container").html(data);
+                },
+                "html");
+        }
+        function viewNeoConnectKullanici() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/NeoConnectKullaniciView",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#neoconnectkullanici-container").html(data);
+                },
+                "html");
+        }
+        function viewNeoConnectTvmSirketKullanici() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/NeoConnectTvmSirketView",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#neoconnecttvmsirket-container").html(data);
+                },
+                "html");
+        }
+        function viewNeoconnectYasakliUrlKullanici() {
+            var tvmkodu = $("#Kodu").val();
+            $.get("/Manage/TVM/NeoconnectYasakliUrlKullaniciView",
+                { TVMKodu: tvmkodu },
+                function (data) {
+                    $("#neoconnectYasakliUrl-container").html(data);
+                },
+                "html");
+        }
+        ///////////////////////////////////////////////////////////////
+    </script>
+}
+@Html.HiddenFor(s => s.id)
+@Html.HiddenFor(s => s.BagliOlduguTVMKodu)
+
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.TVMInformation</div>
+    </div>
+    <div class="portlet-body form">
+
+        @using (Html.BeginForm("Guncelle", "TVM", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+        {
+            Html.EnableClientValidation(true);
+            @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+            @Html.HiddenFor(m => m.Kodu)
+            @Html.AntiForgeryToken()
+
+
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_Code   <span class="required">*</span></label>
+
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Kodu, new { maxlength = 6, autocompletetype = "disabled", style = "width:100px;", disabled = "true" })
+                    @Html.ValidationMessageFor(m => m.Kodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_Name   <span class="required">*</span></label>
+
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Unvani, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%;" })
+                    @Html.ValidationMessageFor(m => m.Unvani)
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">Bölge Yetkilisi mi?</label>
+                        <div class="controls">
+                            @Html.RadioButtonListFor(m => m.BolgeYetkilisiMi, Model.BolgeYetkiliTipleri)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TVM_Type   <span class="required">*</span></label>
+                        @if (Model.Profili == 0)
+                        {
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.SubeAcenteTipi, Model.TVMSubeAcenteTipleri, new { style = "width:90%" })
+                                @Html.ValidationMessageFor(m => m.SubeAcenteTipi)
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.MerkezTipi, Model.TVMMerkezTipleri, new { style = "width:90%" })
+                                @Html.ValidationMessageFor(m => m.MerkezTipi)
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group" id="divProducerTCKN" style= "display:none" >
+                        <label class="control-label">@babonline.TVM_ProducerTCKN</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.TCKN, new { maxlength = 11, autocompletetype = "disabled", style = "width:100px;" })
+                            @Html.ValidationMessageFor(m => m.TCKN)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Project_Code <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.ProjeKodu, Model.ProjeTipleri, new { style = "width:90%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">Bölge Yetkilisi <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.bolgeYetkilisi, Model.BolgeYetkilileri, new { style = "width:90%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_RecordNo    <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.KayitNo, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%;" }, babonline.TVM_RecordNo_Tooltip)
+                    @Html.ValidationMessageFor(m => m.KayitNo)
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TaxOffice    <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.VergiDairesi, new { maxlength = 30, autocompletetype = "disabled", style = "width:90%;" })
+                            @Html.ValidationMessageFor(m => m.VergiDairesi)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TaxNumber  <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.VergiNumarasi, new { maxlength = 10, autocompletetype = "disabled", style = "width:100px;" })
+                            @Html.ValidationMessageFor(m => m.VergiNumarasi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TVM_Profile   </label>
+                        <div class="controls ">
+                            <label class="control">@Model.TVMProfiliText</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="span6" id="divBagliOlduguTVMKodu" style="@(Model.Profili == TVMProfilleri.Merkez ? "display:none" : "")">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.IsConnectedToTvm  </label>
+                        <div class="controls">
+                            <label class="control">@Model.BagliOlduguTVMText</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_AgencyExists </label>
+                @if (Model.Profili == 0)
+                {
+                    <div class="controls">
+                        <label class="control">@Model.AcentSuvbeVarText</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="controls radio-custom">
+                        @Html.RadioButtonListFor(s => s.AcentSuvbeVar, Model.AcenteSubeVarTipleri)
+                    </div>
+                }
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    @if (Model.PoliceTransferiYapilacakMi == 1)
+                    {
+                        <div class="control-group" disabled="disabled">
+                            <label class="control-label">Paylaşımlı Acenteden Poliçe Transferi Yapılacak mı?</label>
+                            <div class="controls">
+                                @Html.RadioButtonListFor(m => m.PoliceTransferiYapilacakMi, Model.PoliceTransferAcentesi)
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="control-group">
+                            <label class="control-label">Paylaşımlı Acenteden Poliçe Transferi Yapılacak mı?</label>
+                            <div class="controls">
+                                @Html.RadioButtonListFor(m => m.PoliceTransferiYapilacakMi, Model.PoliceTransferAcentesi)
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Status</label>
+                        <div class="controls radio-custom">
+                            @Html.RadioButtonListFor(m => m.Durum, Model.Durumlar)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Accounting_Integration</label>
+                        <div class="controls radio-custom">
+                            @Html.RadioButtonListFor(m => m.MuhasebeEntegrasyonu, Model.BaglantiSiniriVarYok)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TVM_ContractStartDate</label>
+                        <div class="controls">
+                            @Html.DateTextBoxFor(m => m.SozlesmeBaslamaTarihi, null)
+                            @Html.ValidationMessageFor(m => m.SozlesmeBaslamaTarihi)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TVM_ContractEndDate</label>
+                        <div class="controls">
+                            @Html.DateTextBoxFor(m => m.SozlesmeDondurmaTarihi, null)
+                            @Html.ValidationMessageFor(m => m.SozlesmeDondurmaTarihi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">Son Poliçe Onay Süresi(Gün)</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.SonPoliceOnayTarihi, new { maxlength = 2, @class = "onlynumbers", @id = "sonPoliceOnayGunu", style= "width: 15%;" })
+                            @Html.ValidationMessageFor(m => m.SonPoliceOnayTarihi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--BEGIN TABS-->@*
+                <div class="tabbable tabbable-custom" style="margin-top: 15px;">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_1_1" data-toggle="tab">Adresler</a></li>
+                        <li><a href="#tab_1_2" data-toggle="tab">Telefonlar</a></li>
+                        <li><a href="#tab_1_3" data-toggle="tab">Dökümanlar</a></li>
+                        <li><a href="#tab_1_4" data-toggle="tab">Notlar</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1_1">
+                            <label><a id="adres-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.Address_Add</a></label>
+
+                            <div class="row-fluid">
+                                <div class="span12" id="adresler-container">
+                                    @Html.Partial("_Adresler", Model.Adresleri)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_1_2">
+                            <label><a id="telefon-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.Phone_Add</a></label>
+
+                            <div class="row-fluid">
+                                <div class="span12" id="telefonlar-container">
+                                    @Html.Partial("_Telefonlar", Model.Telefonlari)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_1_3">
+                            <label><a id="dokuman-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.Document_Add</a></label>
+
+                            <div class="row-fluid">
+                                <div class="span12" id="dokumanlar-container">
+                                    @Html.Partial("_Dokumanlar", Model.Dokumanlari)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_1_4">
+                            <label><a id="not-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.Node_Add</a></label>
+
+                            <div class="row-fluid">
+                                <div class="span12" id="notlar-container">
+                                    @Html.Partial("_Notlar", Model.Notlari)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            <!--END TABS-->
+
+
+
+            <div class="tabbable tabbable-custom" style="margin-top: 15px;">
+                <ul class="nav nav-tabs" id="tvm-tab">
+                    <li><a href="#iletisim" data-toggle="tab">@babonline.Contact_Info</a></li>
+                    <li><a href="#guvenlik" data-toggle="tab">@babonline.Security_Info</a></li>
+                    @if (Model.Profili == TVMProfilleri.Merkez)
+                    {
+                        <li><a href="#bolge" data-toggle="tab">@babonline.Regions</a></li>
+                    }
+                    <li><a href="#departman" data-toggle="tab">@babonline.Departments</a></li>
+                    <li><a href="#acente" data-toggle="tab">Şirket Ödemelerinde Kapalı / Açık Tanımlama </a></li>
+                    <li><a href="#notlar" data-toggle="tab">@babonline.Notes</a></li>
+                    <li><a href="#dokuman" data-toggle="tab">@babonline.Document</a></li>
+                    <li><a href="#bankahesap" data-toggle="tab">Banka / Kasa / Pos / Çek /Senet</a></li>
+                    <li><a href="#iletisimyetkili" data-toggle="tab">@babonline.TVMContactAuthorities</a></li>
+                    <li><a href="#webserviskullanici" data-toggle="tab">@babonline.TVMWebServiceUsers</a></li>
+                    @*   <li><a href="#neoconnectkullanici" data-toggle="tab">NeoConnect Şifre Yetkisi</a></li>*@
+                    <li><a href="#neoconnecttvmsigortasirketikullanici" data-toggle="tab">NeoConnect Şirket Yetkisi</a></li>
+                    <li><a href="#neoconnectYasakliUrlkullanici" data-toggle="tab">Engellenen URL'ler</a></li>
+                    <li><a href="#logo" data-toggle="tab">Logo</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="iletisim">
+                        @* İletisim ve Adres Bilgileri  !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Country</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.UlkeKodu, Model.Ulkeler, new { style = "width:90%" })
+                                        @Html.ValidationMessageFor(m => m.UlkeKodu)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Phone</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Telefon, new { style = "width:90%;", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", title = babonline.Message_PhoneFormat })
+                                        @Html.ValidationMessageFor(m => m.Telefon)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.City</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.IlKodu, Model.Iller, new { style = "width:90%" })
+                                        @Html.ValidationMessageFor(m => m.IlKodu)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Fax_Number</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Fax, new { style = "width:90%;", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", title = babonline.Message_PhoneFormat })
+                                        @Html.ValidationMessageFor(m => m.Fax)
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.District</label>
+                                    <div class="controls">
+                                        @Html.DropDownListFor(m => m.IlceKodu, Model.IlceLer, new { style = "width:90%" })
+                                        @Html.ValidationMessageFor(m => m.IlceKodu)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Email_Adress</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Email, new { style = "width:90%" })
+                                        @Html.ValidationMessageFor(m => m.Email)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Neighborhood</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.Semt, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Web_URL</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.WebAdresi, new { style = "width:90%" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Address</label>
+                                    <div class="controls">
+                                        @Html.TextAreaFor(m => m.Adres, new { maxlength = 200, autocompletetype = "disabled", style = "width:97%" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane" id="guvenlik">
+                        @* Güvenlik  !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.PasswordValidDays   <span class="required">*</span></label>
+
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.SifreDegistirmeGunu, new { maxlength = 3, autocompletetype = "disabled", style = "width:50px;" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.PasswordWarningDays    <span class="required">*</span></label>
+
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.SifreIkazGunu, new { maxlength = 3, autocompletetype = "disabled", style = "width:50px;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.ConnectionLimit      <span class="required">*</span></label>
+
+                                    <div class="controls">
+                                        @Html.RadioButtonListFor(m => m.BaglantiSiniri, Model.BaglantiSiniriVarYok)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.MaxPasswordFail    <span class="required">*</span></label>
+
+                                    <div class="controls">
+                                        @Html.TextBoxFor(m => m.SifreKontralSayisi, new { maxlength = 2, autocompletetype = "disabled", style = "width:50px;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row-fluid">
+                            <div class="span12" id="divbaglantiTable">
+                                <label><a id="baglanti-ekle" href="#" data-toggle="modal" class="btn btn-success">@babonline.TVMIPConnection_Add</a></label>
+
+                                @*Bağlantı IPler Burada Ekleniyor*@
+                                <div class="row-fluid">
+                                    <div class="span12" id="baglanti-container">
+                                        @Html.Partial("_Baglantilar", Model.IPBaglantilariList)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (Model.Profili == TVMProfilleri.Merkez)
+                    {
+                        <div class="tab-pane" id="bolge">
+                            <label><a id="bolge-ekle" href="#" class="btn btn-success">@babonline.TVMRegion_Add</a></label>
+
+                            @*Bölgeler Burada Ekleniyor *@
+                            <div class="row-fluid">
+                                <div class="span12" id="bolge-container">
+                                    @Html.Partial("_Bolgeler", Model.BolgeleriList)
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="tab-pane" id="departman">
+                        <label><a id="departman-ekle" href="#" class="btn btn-success">@babonline.TVMDepartment_Add</a></label>
+
+                        @*Departman Burada Ekleniyor *@
+                        <div class="row-fluid">
+                            <div class="span12" id="departman-container">
+                                @Html.Partial("_Departmanlar", Model.DepartmanlarList)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="acente">
+                        <label><a id="acentelikleri-ekle" href="#" class="btn btn-success">@babonline.Add</a></label>
+
+                        @*Acenteler Burada Ekleniyor *@
+                        <div class="row-fluid">
+                            <div class="span12" id="acente-container">
+                                @Html.Partial("_Acentelikler", Model.AcentelikleriList)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="notlar">
+                        @* Notlar  !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <label><a id="not-ekle" href="#" class="btn btn-success">@babonline.Node_Add</a></label>
+
+                            @*Notlar Burada Ekleniyor *@
+                            <div class="row-fluid">
+                                <div class="span12" id="not-container">
+                                    @Html.Partial("_Notlar", Model.NotlarList)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="dokuman">
+                        @* Dokuman  !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <label><a id="dokuman-ekle" href="#" data-toggle="modal" class="btn btn-success">@babonline.Document_Add</a></label>
+
+                            @*Dokumanlarlar Burada Ekleniyor *@
+                            <div class="row-fluid">
+                                <div class="span12" id="dokuman-container">
+                                    @Html.Partial("_Dokumanlar", Model.DokumanlariList)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="bankahesap">
+                        @* Banka Hesapları  !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <label><a id="bankahesaplari-ekle" href="#" data-toggle="modal" class="btn btn-success">Hesap Ekle</a></label>
+
+                            @*Banka Hesapları Burada Ekleniyor *@
+                            <div class="row-fluid">
+                                <div class="span12" id="bankahesaplari-container">
+                                    @Html.Partial("_BankaHesaplari", Model.BankaHesaplariList)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="iletisimyetkili">
+                        @* İletişim Yetkilileri !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <label><a id="iletisimyetkilileri-ekle" href="#" data-toggle="modal" class="btn btn-success">@babonline.TVMContactAuthorities_Add</a></label>
+
+                            @*İletişim Yetkilileri Burada Ekleniyor *@
+                            <div class="row-fluid">
+                                <div class="span12" id="iletisimyetkilileri-container">
+                                    @Html.Partial("_IletisimYetkilileri", Model.IletisimYetkilileriList)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="webserviskullanici">
+                        @* Webservice kullanıcıları !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <label><a id="webserviskullanici-ekle" href="#" data-toggle="modal" class="btn btn-success">@babonline.Add</a></label>
+
+                            @*Webservice kullanıcıları Burada Ekleniyor *@
+                            <div class="row-fluid">
+                                <div class="span12" id="webserviskullanici-container">
+                                    @Html.Partial("_WebServisKullanicilari", Model.WebServisKullanicilari)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="neoconnectkullanici">
+                        @* NeoConnect kullanıcıları !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <label><a id="neoconnectkullanici-ekle" href="#" data-toggle="modal" class="btn btn-success">@babonline.Add</a></label>
+
+                            @* NeoConnect kullanıcıları Burada Ekleniyor *@
+                            <div class="row-fluid">
+                                <div class="span12" id="neoconnectkullanici-container">
+                                    @Html.Partial("_NeoConnectKullanicilari", Model.NeoConnectKullanicilari)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="neoconnecttvmsigortasirketikullanici">
+                        @* NeoConnect tvm s.şirket kullanıcıları !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <label><a id="neoconnecttvmsirket-ekle" href="#" data-toggle="modal" class="btn btn-success">@babonline.Add</a></label>
+
+                            @* NeoConnect tvm s.şirket kullanıcıları Burada Ekleniyor *@
+                            <div class="row-fluid">
+                                <div class="span12" id="neoconnecttvmsirket-container">
+                                    @Html.Partial("_NeoConnectTvmSigortaSirketi", Model.NeoConnectTvmSigortaSirketiKullanicilari)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="neoconnectYasakliUrlkullanici">
+                        @* NeoConnect yasakli url kullanıcıları !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <label><a id="neoconnectYasakliUrl-ekle" href="#" data-toggle="modal" class="btn btn-success">@babonline.Add</a></label>
+
+                            @* NeoConnect yasakli url kullanıcıları Burada Ekleniyor *@
+                            <div class="row-fluid">
+                                <div class="span12" id="neoconnectYasakliUrl-container">
+                                    @Html.Partial("_NeoConnectYasakliUrl", Model.NeoConnectYasakliUrlModelsKullanicilari)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="logo">
+                        @* İletişim Yetkilileri !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <label><a id="btn-logo-ekle" href="#" tvm-kodu="@Model.Kodu" data-toggle="modal" class="btn btn-success">@babonline.LogoAdd</a></label>
+
+                            <div class="row-fluid">
+                                <div class="span12" id="div-logo">
+                                    @Html.Partial("_Logo", Model.Logo)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                <a class="btn" href="~/Manage/TVM/Liste">@babonline.Cancel</a>
+            </div>
+        }
+    </div>
+</div>
+
+
+@*IP Bağlantı Ekleme*@
+<div id="baglanti-modal-div"></div>
+
+@*Bölge Ekleme*@
+<div id="bolge-modal-div"></div>
+
+@*Departman Ekleme*@
+<div id="departman-modal-div"></div>
+
+@*Not Ekleme*@
+<div id="acentelikleri-modal-div"></div>
+
+@*Not Ekleme*@
+<div id="not-modal-div"></div>
+
+@*Dokuman Ekleme*@
+<div id="dokuman-modal-div"></div>
+
+@*Dokuman Ekleme*@
+<div id="bankahesaplari-modal-div"></div>
+
+@*Dokuman Ekleme*@
+<div id="iletisimyetkilileri-modal-div"></div>
+
+@*Logo Ekleme*@
+<div id="logoekle-modal-div"></div>
+
+@*Logo Ekleme*@
+<div id="wskullaniciekle-modal-div"></div>
+
+@*NeoConnect Ekleme*@
+<div id="neokullaniciekle-modal-div"></div>
+
+@*NeoConnect tvm S.şirketi Ekleme*@
+<div id="neokullanicitvmsirketekle-modal-div"></div>
+
+@*NeoConnect Yasakli Url Ekleme*@
+<div id="neoconnectYasakliUrl-modal-div"></div>
+
+@*Silme İşlemi*@
+@Html.Partial("_DeleteConfirmation")

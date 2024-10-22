@@ -1,0 +1,66 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.VergiModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/Vergi/Liste">@babonline.Tax_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Tax_Add<span class="selected"></span></a>
+        </li>
+
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.Tax_Add</div>
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("Ekle", "Vergi", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            Html.EnableClientValidation(true);    
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Tax_Code</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.VergiKodu, new { maxlength = 6, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.VergiKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Tax_Name</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.VergiAdi, new { maxlength = 50, autocompletetype = "disabled" })
+                    @Html.ValidationMessageFor(m => m.VergiAdi)
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success">@babonline.Tax_Add</button>
+                <a class="btn" href="~/Manage/Vergi/Liste">@babonline.Cancel</a>
+            </div>  
+        }
+    </div>
+</div>
+
+
+

@@ -1,0 +1,88 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.MenuIslemModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li><a href="/Manage/Menu/Liste">@babonline.Menus<span></span></a>
+        </li>
+        <li><a href="/Manage/Menu/MenuIslemListe">@babonline.MenuOperation_Search<span></span></a>
+        </li>
+        <li>
+        <li class="active">
+            <a href="#">@babonline.Detail<span class="selected"></span></a>
+        </li>
+        <li><a href="/Manage/Menu/MenuIslemGuncelle/@Model.IslemKodu">@babonline.Update<span></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageScripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#menu-Menu").addClass("active");
+        });
+    </script>
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey " style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-reorder"></i>@babonline.MenuOperation_Detail</div>
+                        <div class="actions">
+                            <a href="/Manage/Menu/MenuIslemGuncelle/@Model.IslemKodu" class="btn yellow"><i class="icon-pencil">&nbsp;</i>@babonline.Update</a>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal form-view">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Operation_Code</label>
+                                <div class="controls">
+                                    <label class="control">@Model.IslemKodu</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Operation_Id</label>
+                                <div class="controls">
+                                    <label class="control">@Model.IslemId</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">URL</label>
+                                <div class="controls">
+                                    <label class="control">@Model.URL</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Icon</label>
+                                <div class="controls">
+                                    <label class="control">@Model.Icon</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

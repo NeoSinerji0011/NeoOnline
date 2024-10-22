@@ -1,0 +1,344 @@
+﻿
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model LilyumFerdiKazaModel
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+<head>
+    <title>LilyumSatinAl</title>
+    @*<link rel="shortcut icon" href="@Url.Content("~/Content/img/lilyum-icon.png")" />*@
+    <link rel="shortcut icon" href="~/Content/img/lilyum-icon.png" />
+</head>
+@section PageStyles
+{
+    @Styles.Render("~/Content/switch")
+    <style>
+        .w90 {
+            width: 90% !important;
+        }
+
+        .radio, .checkbox {
+            padding-left: 17px !important;
+        }
+
+        .controls .inline {
+            margin-top: 0;
+        }
+
+        .modal-size {
+            width: 750px;
+            margin-left: -375px;
+        }
+        /*Eureko Logo*/
+        #sg-icon-23 {
+            width: 100px !important;
+            height: 55px !important;
+        }
+        /*Ray Logo*/
+        #sg-icon-9 {
+            width: 100px !important;
+        }
+
+        /*Sompo Japan Logo*/
+        #sg-icon-10 {
+            height: 75px !important;
+        }
+
+        /*Mapfre Logo*/
+        #sg-icon-3 {
+            width: 90px !important;
+            height: 75px !important;
+        }
+        /*Türk Nippon Logo*/
+        #sg-icon-11 {
+            width: 130px !important;
+            height: 55px !important;
+        }
+        /*Koru Logo*/
+        #sg-icon-12 {
+            width: 130px !important;
+            height: 55px !important;
+        }
+    </style>
+    <link href="~/content/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+@section PageScripts
+{
+    <script src="@Url.Content("~/Content/js/autoNumeric.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/neosinerji.babonlinetp.teklif.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.bootstrap.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Content/js/jquery.validate.custom.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.bootstrap.wizard.js")" type="text/javascript"></script>
+
+    @if (lang == "en")
+    {
+        <script src="@Url.Content("~/Content/js/customlang.en.js")" type="text/javascript"></script>}
+    else
+    {
+        <script src="@Url.Content("~/Content/js/customlang.tr.js")" type="text/javascript"></script>}
+
+    <script src="@Url.Content("~/Content/js/form-wizard.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.inputmask.bundle.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.gritter.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/underscore.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/switch")
+    @Scripts.Render("~/bundles/dataTable")
+    <script src="~/Content/js/mask.js" type="text/javascript"></script>
+    <link href="~/Content/css/bootstrap-modal.css" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/js/ui-modals.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/bootstrap-modal.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/bootstrap-modalmanager.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/MapfreDisAcente/lilyum.js")" type="text/javascript"></script>
+    <script src="~/Content/Angular/js/sweetalert.min.js"></script>
+    <script src="~/Content/js/neosinerji.babonlinetp.common.js"></script>
+
+    <script type="text/javascript">
+
+        //var loaded = @(Model.TekrarTeklif ? "true" : "false");
+        $(document).ready(function () {
+            $("#btn-hesapla").button("reset");
+            //if (loaded) {
+            //    var odemeSekli = $("#Odeme_OdemeSekli_control").bootstrapSwitch('status');
+            //    if (odemeSekli) {
+            //        $("#Odeme_OdemeSekli_control").bootstrapSwitch('setState', true);
+            //    }
+            //    else {
+            //        $("#Odeme_OdemeSekli_control").bootstrapSwitch('setState', false);
+            //    }
+            //}
+             @*var cepTel="@Model.Musteri.Sigortali.CepTelefonu"
+            if(cepTel==""){ cepTel="90";}
+
+            setTimeout(function () { $("#Musteri_Sigortali_CepTelefonu").val(cepTel);}, 2000);*@
+
+            $(".clk").click(function () {
+                var id = $(this).attr('id');
+                $(".strclose-" + id.substring(4)).toggle();
+            });
+            $("#Musteri_Sigortali_Email").change(function () {
+                $("#Musteri_Sigortali_Email").val($("#Musteri_Sigortali_Email").val().trim());
+            });
+            $("#IletisimAdresi").change(function () {
+                swal({
+                    title: "Önemli!",
+                    text: "Adres Değişikliğinde Lütfen Bildiriniz.",
+                    type: "warning",
+                    showCancelButton: false,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Tamam",
+                    closeOnConfirm: false
+                });
+            });
+
+        });
+    </script>
+
+}
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        @*<li>
+                <a href="/Teklif/Teklif/Liste">@babonline.Proposal_Search<span></span></a>
+            </li>*@
+        <li class="active" style="background-color:#bb78ef !important;">
+            <a href="https://app.neoonline.com.tr/bireysel/satinal/LilyumKart?tvmkodu=153008">Lilyum Kart<span class="selected"></span></a>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <style>
+        #btn-hesapla:hover {
+            background-color: #a64dff !important;
+        }
+
+        #btn-hesapla {
+            background-color: #6815b1 !important;
+        }
+
+        .language {
+            display: none;
+        }
+    </style>
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box light-grey" id="form_wizard_1" style="margin-top: 24px; border-color:#bb78ef">
+            <div class="portlet-title" style="background-color: #6815b1 !important;">
+                <div class="caption">
+                    <i class="icon-reorder"></i> LİLYUM KART SATIN AL
+                </div>
+                <div class="tools hidden-phone">
+                    <a class="collapse" href="javascript:;"></a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div class="form-wizard">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab1">
+                            <form class="form-horizontal " id="form1">
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <label style="color: #6815b1 !important;"><h3 class="form-section">Lilyum Kart Sahibi Bilgileri</h3></label>
+                                        @Html.HiddenFor(m => m.UrunAdi)
+                                        <div class="control-group">
+                                            <label class="control-label">Kimlik No <span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(s => s.Musteri.Sigortali.KimlikNo, new { placeholder = "TCKN / VKN / YKN", @class = "onlynumbers", maxlength = 11, style = "width:35%;" })
+                                                @Html.ValidationMessageFor(m => m.Musteri.Sigortali.KimlikNo)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Name <span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(s => s.Musteri.Sigortali.AdiUnvan, new { maxlength = 20, style = "width:35%; text-transform:uppercase;" })
+                                                @Html.ValidationMessageFor(m => m.Musteri.Sigortali.AdiUnvan)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Surname <span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(s => s.Musteri.Sigortali.SoyadiUnvan, new { maxlength = 20, style = "width:35%; text-transform:uppercase;" })
+                                                @Html.ValidationMessageFor(m => m.Musteri.Sigortali.SoyadiUnvan)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Mobile_Phone <span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(m => m.Musteri.Sigortali.CepTelefonu, new { style = "width:35%;", required = "required", placeholder = "5XXXXXXXXX", data_format = "dddddddddd", maxlength = 10, minlength = 10, pattern = ".{10,10}", @class = "input-medium bfh-phone", title = "Format 5XXXXXXXXX" })
+                                                @Html.ValidationMessageFor(m => m.Musteri.Sigortali.CepTelefonu)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Email_Adress <span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(m => m.Musteri.Sigortali.Email, new { maxlength = 50, required = "required", autocompletetype = "disabled", style = "width:35%" })
+                                                @Html.ValidationMessageFor(m => m.Musteri.Sigortali.Email)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Job <span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.DropDownListFor(m => m.SigortaliMeslekKodu, Model.SigortaliMeslekListesi, new { required = "required", style = "width:220px;", tabindex = 2 })
+                                                @Html.ValidationMessageFor(m => m.SigortaliMeslekKodu)
+                                            </div>
+                                        </div>
+                                        @Html.EditorFor(m => m.GenelBilgiler)
+                                    </div>
+                                    <div class="span6">
+                                        <label style="color: #6815b1 !important;"><h3 class="form-section">Adres Bilgileri</h3></label>
+                                        <div class="control-group">
+                                            <label class="control-label">Teslimat Adresi Aynı Mı</label>
+                                            <div class="controls">
+                                                @Html.SwitchButtonFor(m => m.AdresAyniMi, new string[] { "EVET", "HAYIR" }, new { })
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Hizmet Alınacak Konut Adresi<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextAreaFor(m => m.IletisimAdresi, new { maxlength = 500, autocompletetype = "disabled", style = " min-width:30%;max-width:70%;width:50%;" })
+                                                @Html.ValidationMessageFor(m => m.IletisimAdresi)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Hizmet Alınacak Konut İl<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.DropDownListFor(m => m.IletisimIlKodu, Model.IletisimIller, new { required = "required", style = "width:220px;", tabindex = 2 })
+                                                @Html.ValidationMessageFor(m => m.IletisimIlKodu)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Hizmet Alınacak Konut İlçe<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.DropDownListFor(m => m.IletisimIlceKodu, Model.IletisimIlceler, new { required = "required", style = "width:220px;", tabindex = 2 })
+                                                @Html.ValidationMessageFor(m => m.IletisimIlceKodu)
+                                            </div>
+                                        </div>
+                                        <div class="control-group" id="teslimatAdresi" style="">
+                                            <label class="control-label">Teslimat Adresi<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.TextAreaFor(m => m.TeslimatAdresi, new { maxlength = 500, required = "required", disabled = "disabled", autocompletetype = "disabled", style = " min-width:30%;max-width:70%;width:50%;" })
+                                                @Html.ValidationMessageFor(m => m.TeslimatAdresi)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Teslimat İl<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.DropDownListFor(m => m.TeslimatIlKodu, Model.TeslimatIller, new { required = "required", disabled = "disabled", style = "width:220px;", tabindex = 2 })
+                                                @Html.ValidationMessageFor(m => m.TeslimatIlKodu)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Teslimat İlçe<span class="required">*</span></label>
+                                            <div class="controls">
+                                                @Html.DropDownListFor(m => m.TeslimatIlceKodu, Model.TeslimatIlceler, new { required = "required", disabled = "disabled", style = "width:220px;", tabindex = 2 })
+                                                @Html.ValidationMessageFor(m => m.TeslimatIlceKodu)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <h3 class="form-section" style="color: #6815b1 !important;">@babonline.PaymentOptions</h3>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        @Html.EditorFor(m => m.Odeme)
+                                    </div>
+                                    @*<div class="span6">
+                                            @Html.EditorFor(m => m.GenelBilgiler)
+                                        </div>*@
+                                </div>
+                                <div class="row-fluid">
+
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <span class="required">*</span>
+                                                @Html.CheckBoxFor(m => m.KullaniciSozlesmesi, new { required = "required" }) <span>Kullanıcı Sözleşmesini <a href='https://neoonlinestrg.blob.core.windows.net/musteri-dokuman/KullaniciSozlesmeleri/Lilyum%20Ki%C5%9Fisel%20Verileri%20Koruma.pdf' target='_blank'>okudum </a> kabul ediyorum</span>
+                                                @Html.ValidationMessageFor(m => m.KullaniciSozlesmesi)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <span class="required">*</span>
+                                                @Html.CheckBoxFor(m => m.ETicaretSozlesmesi, new { required = "required" }) <span>E Ticaret İzni Sözleşmesini <a href='https://neoonlinestrg.blob.core.windows.net/musteri-dokuman/KullaniciSozlesmeleri/Lilyum%20Kart%20E%20Ticaret%20%C4%B0zni.pdf' target='_blank'>okudum </a> kabul ediyorum</span>
+                                                @Html.ValidationMessageFor(m => m.ETicaretSozlesmesi)
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <span class="required">*</span>
+                                                @Html.CheckBoxFor(m => m.LilyumKartHizmeti, new { required = "required" }) <span>Lilyum Kart Hizmetleri <a href='https://neoonlinestrg.blob.core.windows.net/musteri-dokuman/KullaniciSozlesmeleri/Lilyum%20Kart%20Hizmetleri.pdf' target='_blank'>okudum </a> kabul ediyorum </span>
+                                                @Html.ValidationMessageFor(m => m.LilyumKartHizmeti)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="form-actions clearfix">
+                        <a id="btn-hesapla" href="javascript:;" class="btn green button-submit" data-loading-text="Lütfen bekleyiniz.">
+                            @babonline.Buy <i class="m-icon-swapright m-icon-white"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

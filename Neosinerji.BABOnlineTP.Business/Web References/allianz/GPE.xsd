@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:ns0="gs.az.tr" targetNamespace="gs.az.tr" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="getProcessDescriptorResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:processDescriptor" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="setConlog_idResponse" />
+  <xsd:complexType name="fieldState">
+    <xsd:sequence>
+      <xsd:element name="disabled" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="fieldName" type="xsd:string" />
+      <xsd:element name="visible" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="setConlog_id">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="arg0" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getValueSetResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:valueSet" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getObjectDescriptorResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:objectDescriptor" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="processStep">
+    <xsd:sequence>
+      <xsd:element name="async" type="xsd:boolean" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="commands" nillable="true" type="ns0:command" />
+      <xsd:element minOccurs="0" name="requestObjectDescriptor" type="ns0:objectDescriptor" />
+      <xsd:element minOccurs="0" name="responseObjectDescriptor" type="ns0:objectDescriptor" />
+      <xsd:element minOccurs="0" name="stepName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="syncTimeout" type="xsd:int" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getDisabledResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getConlog_idResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="value">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="key" type="xsd:string" />
+      <xsd:element minOccurs="0" name="predefined" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="value" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="command">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="commandName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="commandText" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="executeResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="ns0:serviceCommandResult" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="objectDescriptor">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="entityClass" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="fieldDescriptors" nillable="true" type="ns0:fieldDescriptor" />
+      <xsd:element minOccurs="0" name="objectName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="listProcessDescriptors">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="arg0" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="execute">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="arg0" type="ns0:serviceCommand" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="conversationKey">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="clientKey" type="xsd:string" />
+      <xsd:element minOccurs="0" name="serverKey" type="xsd:string" />
+      <xsd:element minOccurs="0" name="subjectId" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="objectData">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="fieldStates" nillable="true" type="ns0:fieldState" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="fields" nillable="true" type="ns0:field" />
+      <xsd:element minOccurs="0" name="objcetName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="processDescriptor">
+    <xsd:sequence>
+      <xsd:element name="isRestFul" type="xsd:boolean" />
+      <xsd:element minOccurs="0" name="processCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="processDescription" type="xsd:string" />
+      <xsd:element minOccurs="0" name="processName" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="processSteps" nillable="true" type="ns0:processStep" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="valueSet">
+    <xsd:sequence>
+      <xsd:element name="cacheable" type="xsd:boolean" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="values" nillable="true" type="ns0:value" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getObjectDescriptor">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="arg0" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getValueSet">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="arg0" type="xsd:string" />
+      <xsd:element minOccurs="0" name="arg1" type="xsd:string" />
+      <xsd:element minOccurs="0" name="arg2" type="ns0:field" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="arg3" nillable="true" type="ns0:field" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="field">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="fieldName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="value" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getProcessDescriptor">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="arg0" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getVisible">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="arg0" type="xsd:string" />
+      <xsd:element minOccurs="0" name="arg1" type="xsd:string" />
+      <xsd:element minOccurs="0" name="arg2" type="ns0:field" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="arg3" nillable="true" type="ns0:field" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="fieldDescriptor">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="defaultValue" type="xsd:string" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="disableDependency" nillable="true" type="ns0:fieldDescriptor" />
+      <xsd:element minOccurs="0" name="displayHint" type="xsd:string" />
+      <xsd:element minOccurs="0" name="fieldName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="fieldType" type="xsd:string" />
+      <xsd:element minOccurs="0" name="label" type="xsd:string" />
+      <xsd:element name="secondPhase" type="xsd:boolean" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="valueDependency" nillable="true" type="ns0:fieldDescriptor" />
+      <xsd:element name="valueSet" type="xsd:boolean" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="visibleDependency" nillable="true" type="ns0:fieldDescriptor" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="listProcessDescriptorsResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="return" type="ns0:processDescriptor" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getVisibleResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="return" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getDisabled">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="arg0" type="xsd:string" />
+      <xsd:element minOccurs="0" name="arg1" type="xsd:string" />
+      <xsd:element minOccurs="0" name="arg2" type="ns0:field" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="arg3" nillable="true" type="ns0:field" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="serviceMessage">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="code" type="xsd:string" />
+      <xsd:element minOccurs="0" name="message" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="getConlog_id" />
+  <xsd:complexType name="serviceCommandResult">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="availableCommands" nillable="true" type="ns0:command" />
+      <xsd:element minOccurs="0" name="key" type="ns0:conversationKey" />
+      <xsd:element minOccurs="0" name="processCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="processStepName" type="xsd:string" />
+      <xsd:element minOccurs="0" name="responseObject" type="ns0:objectData" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="serviceMessages" nillable="true" type="ns0:serviceMessage" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="serviceCommand">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="clientIP" type="xsd:string" />
+      <xsd:element minOccurs="0" name="command" type="ns0:command" />
+      <xsd:element minOccurs="0" name="key" type="ns0:conversationKey" />
+      <xsd:element minOccurs="0" name="objectData" type="ns0:objectData" />
+      <xsd:element minOccurs="0" name="processCode" type="xsd:string" />
+      <xsd:element minOccurs="0" name="processStepName" type="xsd:string" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="setConlog_idResponse" type="ns0:setConlog_idResponse" />
+  <xsd:element name="execute" type="ns0:execute" />
+  <xsd:element name="getProcessDescriptorResponse" type="ns0:getProcessDescriptorResponse" />
+  <xsd:element name="getObjectDescriptor" type="ns0:getObjectDescriptor" />
+  <xsd:element name="getValueSet" type="ns0:getValueSet" />
+  <xsd:element name="setConlog_id" type="ns0:setConlog_id" />
+  <xsd:element name="getVisible" type="ns0:getVisible" />
+  <xsd:element name="getProcessDescriptor" type="ns0:getProcessDescriptor" />
+  <xsd:element name="getValueSetResponse" type="ns0:getValueSetResponse" />
+  <xsd:element name="getObjectDescriptorResponse" type="ns0:getObjectDescriptorResponse" />
+  <xsd:element name="listProcessDescriptorsResponse" type="ns0:listProcessDescriptorsResponse" />
+  <xsd:element name="getVisibleResponse" type="ns0:getVisibleResponse" />
+  <xsd:element name="getConlog_idResponse" type="ns0:getConlog_idResponse" />
+  <xsd:element name="getDisabledResponse" type="ns0:getDisabledResponse" />
+  <xsd:element name="getDisabled" type="ns0:getDisabled" />
+  <xsd:element name="executeResponse" type="ns0:executeResponse" />
+  <xsd:element name="getConlog_id" type="ns0:getConlog_id" />
+  <xsd:element name="listProcessDescriptors" type="ns0:listProcessDescriptors" />
+</xsd:schema>

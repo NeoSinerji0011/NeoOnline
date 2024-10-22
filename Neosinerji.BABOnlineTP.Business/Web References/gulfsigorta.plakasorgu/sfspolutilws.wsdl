@@ -1,0 +1,1071 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="DovuzKurListesi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DovuzKurListesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DovuzKurListesiResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="KimlikBilgilerindenPoliceSorgulama">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="KimlikBilgilerindenPoliceSorgulamaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KimlikBilgilerindenPoliceSorgulamaResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PoliceyeBagliYenilemeVeZeylListesi">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PoliceyeBagliYenilemeVeZeylListesiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PoliceyeBagliYenilemeVeZeylListesiResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HakSahiplerinceAranmayanParalarByKimlik">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HakSahiplerinceAranmayanParalarByKimlikResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HakSahiplerinceAranmayanParalarByKimlikResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HakSahiplerinceAranmayanParalarByAd">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HakSahiplerinceAranmayanParalarByAdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HakSahiplerinceAranmayanParalarByAdResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="trafikPoliceSorguPlakaTCKimlikNo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="trafikPoliceSorguPlakaTCKimlikNoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="trafikPoliceSorguPlakaTCKimlikNoResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="trafikPoliceSorguPlakaVergiKimlikNo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="trafikPoliceSorguPlakaVergiKimlikNoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="trafikPoliceSorguPlakaVergiKimlikNoResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="kaskopoliceSorguByKimlikPlaka">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="kaskopoliceSorguByKimlikPlakaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="kaskopoliceSorguByKimlikPlakaResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TrafikTarifePrimSorguWS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TrafikTarifePrimSorguWSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TrafikTarifePrimSorguWSResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EgmMsmSorgu">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EgmMsmSorguResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EgmMsmSorguResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TrafikReferansPoliceSorguByVkn">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TrafikReferansPoliceSorguByVknResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TrafikReferansPoliceSorguByVknResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TrafikReferansPoliceSorguByKimlik">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TrafikReferansPoliceSorguByKimlikResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TrafikReferansPoliceSorguByKimlikResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="DovuzKurListesiSoapIn">
+    <wsdl:part name="parameters" element="tns:DovuzKurListesi" />
+  </wsdl:message>
+  <wsdl:message name="DovuzKurListesiSoapOut">
+    <wsdl:part name="parameters" element="tns:DovuzKurListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="KimlikBilgilerindenPoliceSorgulamaSoapIn">
+    <wsdl:part name="parameters" element="tns:KimlikBilgilerindenPoliceSorgulama" />
+  </wsdl:message>
+  <wsdl:message name="KimlikBilgilerindenPoliceSorgulamaSoapOut">
+    <wsdl:part name="parameters" element="tns:KimlikBilgilerindenPoliceSorgulamaResponse" />
+  </wsdl:message>
+  <wsdl:message name="PoliceyeBagliYenilemeVeZeylListesiSoapIn">
+    <wsdl:part name="parameters" element="tns:PoliceyeBagliYenilemeVeZeylListesi" />
+  </wsdl:message>
+  <wsdl:message name="PoliceyeBagliYenilemeVeZeylListesiSoapOut">
+    <wsdl:part name="parameters" element="tns:PoliceyeBagliYenilemeVeZeylListesiResponse" />
+  </wsdl:message>
+  <wsdl:message name="HakSahiplerinceAranmayanParalarByKimlikSoapIn">
+    <wsdl:part name="parameters" element="tns:HakSahiplerinceAranmayanParalarByKimlik" />
+  </wsdl:message>
+  <wsdl:message name="HakSahiplerinceAranmayanParalarByKimlikSoapOut">
+    <wsdl:part name="parameters" element="tns:HakSahiplerinceAranmayanParalarByKimlikResponse" />
+  </wsdl:message>
+  <wsdl:message name="HakSahiplerinceAranmayanParalarByAdSoapIn">
+    <wsdl:part name="parameters" element="tns:HakSahiplerinceAranmayanParalarByAd" />
+  </wsdl:message>
+  <wsdl:message name="HakSahiplerinceAranmayanParalarByAdSoapOut">
+    <wsdl:part name="parameters" element="tns:HakSahiplerinceAranmayanParalarByAdResponse" />
+  </wsdl:message>
+  <wsdl:message name="trafikPoliceSorguPlakaTCKimlikNoSoapIn">
+    <wsdl:part name="parameters" element="tns:trafikPoliceSorguPlakaTCKimlikNo" />
+  </wsdl:message>
+  <wsdl:message name="trafikPoliceSorguPlakaTCKimlikNoSoapOut">
+    <wsdl:part name="parameters" element="tns:trafikPoliceSorguPlakaTCKimlikNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="trafikPoliceSorguPlakaVergiKimlikNoSoapIn">
+    <wsdl:part name="parameters" element="tns:trafikPoliceSorguPlakaVergiKimlikNo" />
+  </wsdl:message>
+  <wsdl:message name="trafikPoliceSorguPlakaVergiKimlikNoSoapOut">
+    <wsdl:part name="parameters" element="tns:trafikPoliceSorguPlakaVergiKimlikNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="kaskopoliceSorguByKimlikPlakaSoapIn">
+    <wsdl:part name="parameters" element="tns:kaskopoliceSorguByKimlikPlaka" />
+  </wsdl:message>
+  <wsdl:message name="kaskopoliceSorguByKimlikPlakaSoapOut">
+    <wsdl:part name="parameters" element="tns:kaskopoliceSorguByKimlikPlakaResponse" />
+  </wsdl:message>
+  <wsdl:message name="TrafikTarifePrimSorguWSSoapIn">
+    <wsdl:part name="parameters" element="tns:TrafikTarifePrimSorguWS" />
+  </wsdl:message>
+  <wsdl:message name="TrafikTarifePrimSorguWSSoapOut">
+    <wsdl:part name="parameters" element="tns:TrafikTarifePrimSorguWSResponse" />
+  </wsdl:message>
+  <wsdl:message name="EgmMsmSorguSoapIn">
+    <wsdl:part name="parameters" element="tns:EgmMsmSorgu" />
+  </wsdl:message>
+  <wsdl:message name="EgmMsmSorguSoapOut">
+    <wsdl:part name="parameters" element="tns:EgmMsmSorguResponse" />
+  </wsdl:message>
+  <wsdl:message name="TrafikReferansPoliceSorguByVknSoapIn">
+    <wsdl:part name="parameters" element="tns:TrafikReferansPoliceSorguByVkn" />
+  </wsdl:message>
+  <wsdl:message name="TrafikReferansPoliceSorguByVknSoapOut">
+    <wsdl:part name="parameters" element="tns:TrafikReferansPoliceSorguByVknResponse" />
+  </wsdl:message>
+  <wsdl:message name="TrafikReferansPoliceSorguByKimlikSoapIn">
+    <wsdl:part name="parameters" element="tns:TrafikReferansPoliceSorguByKimlik" />
+  </wsdl:message>
+  <wsdl:message name="TrafikReferansPoliceSorguByKimlikSoapOut">
+    <wsdl:part name="parameters" element="tns:TrafikReferansPoliceSorguByKimlikResponse" />
+  </wsdl:message>
+  <wsdl:message name="DovuzKurListesiHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DovuzKurListesiHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="KimlikBilgilerindenPoliceSorgulamaHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="KimlikBilgilerindenPoliceSorgulamaHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="PoliceyeBagliYenilemeVeZeylListesiHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PoliceyeBagliYenilemeVeZeylListesiHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="HakSahiplerinceAranmayanParalarByKimlikHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HakSahiplerinceAranmayanParalarByKimlikHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="HakSahiplerinceAranmayanParalarByAdHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HakSahiplerinceAranmayanParalarByAdHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="trafikPoliceSorguPlakaTCKimlikNoHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="trafikPoliceSorguPlakaTCKimlikNoHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="trafikPoliceSorguPlakaVergiKimlikNoHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="trafikPoliceSorguPlakaVergiKimlikNoHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="kaskopoliceSorguByKimlikPlakaHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="kaskopoliceSorguByKimlikPlakaHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="TrafikTarifePrimSorguWSHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TrafikTarifePrimSorguWSHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="EgmMsmSorguHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EgmMsmSorguHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="TrafikReferansPoliceSorguByVknHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TrafikReferansPoliceSorguByVknHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="TrafikReferansPoliceSorguByKimlikHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TrafikReferansPoliceSorguByKimlikHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="DovuzKurListesiHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DovuzKurListesiHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="KimlikBilgilerindenPoliceSorgulamaHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="KimlikBilgilerindenPoliceSorgulamaHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="PoliceyeBagliYenilemeVeZeylListesiHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PoliceyeBagliYenilemeVeZeylListesiHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="HakSahiplerinceAranmayanParalarByKimlikHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HakSahiplerinceAranmayanParalarByKimlikHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="HakSahiplerinceAranmayanParalarByAdHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HakSahiplerinceAranmayanParalarByAdHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="trafikPoliceSorguPlakaTCKimlikNoHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="trafikPoliceSorguPlakaTCKimlikNoHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="trafikPoliceSorguPlakaVergiKimlikNoHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="trafikPoliceSorguPlakaVergiKimlikNoHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="kaskopoliceSorguByKimlikPlakaHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="kaskopoliceSorguByKimlikPlakaHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="TrafikTarifePrimSorguWSHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TrafikTarifePrimSorguWSHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="EgmMsmSorguHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EgmMsmSorguHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="TrafikReferansPoliceSorguByVknHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TrafikReferansPoliceSorguByVknHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="TrafikReferansPoliceSorguByKimlikHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TrafikReferansPoliceSorguByKimlikHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:portType name="SFSPolicyIntegrationServiceSoap">
+    <wsdl:operation name="DovuzKurListesi">
+      <wsdl:input message="tns:DovuzKurListesiSoapIn" />
+      <wsdl:output message="tns:DovuzKurListesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="KimlikBilgilerindenPoliceSorgulama">
+      <wsdl:input message="tns:KimlikBilgilerindenPoliceSorgulamaSoapIn" />
+      <wsdl:output message="tns:KimlikBilgilerindenPoliceSorgulamaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PoliceyeBagliYenilemeVeZeylListesi">
+      <wsdl:input message="tns:PoliceyeBagliYenilemeVeZeylListesiSoapIn" />
+      <wsdl:output message="tns:PoliceyeBagliYenilemeVeZeylListesiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByKimlik">
+      <wsdl:input message="tns:HakSahiplerinceAranmayanParalarByKimlikSoapIn" />
+      <wsdl:output message="tns:HakSahiplerinceAranmayanParalarByKimlikSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByAd">
+      <wsdl:input message="tns:HakSahiplerinceAranmayanParalarByAdSoapIn" />
+      <wsdl:output message="tns:HakSahiplerinceAranmayanParalarByAdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaTCKimlikNo">
+      <wsdl:input message="tns:trafikPoliceSorguPlakaTCKimlikNoSoapIn" />
+      <wsdl:output message="tns:trafikPoliceSorguPlakaTCKimlikNoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaVergiKimlikNo">
+      <wsdl:input message="tns:trafikPoliceSorguPlakaVergiKimlikNoSoapIn" />
+      <wsdl:output message="tns:trafikPoliceSorguPlakaVergiKimlikNoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="kaskopoliceSorguByKimlikPlaka">
+      <wsdl:input message="tns:kaskopoliceSorguByKimlikPlakaSoapIn" />
+      <wsdl:output message="tns:kaskopoliceSorguByKimlikPlakaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TrafikTarifePrimSorguWS">
+      <wsdl:input message="tns:TrafikTarifePrimSorguWSSoapIn" />
+      <wsdl:output message="tns:TrafikTarifePrimSorguWSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EgmMsmSorgu">
+      <wsdl:input message="tns:EgmMsmSorguSoapIn" />
+      <wsdl:output message="tns:EgmMsmSorguSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByVkn">
+      <wsdl:input message="tns:TrafikReferansPoliceSorguByVknSoapIn" />
+      <wsdl:output message="tns:TrafikReferansPoliceSorguByVknSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByKimlik">
+      <wsdl:input message="tns:TrafikReferansPoliceSorguByKimlikSoapIn" />
+      <wsdl:output message="tns:TrafikReferansPoliceSorguByKimlikSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SFSPolicyIntegrationServiceHttpGet">
+    <wsdl:operation name="DovuzKurListesi">
+      <wsdl:input message="tns:DovuzKurListesiHttpGetIn" />
+      <wsdl:output message="tns:DovuzKurListesiHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="KimlikBilgilerindenPoliceSorgulama">
+      <wsdl:input message="tns:KimlikBilgilerindenPoliceSorgulamaHttpGetIn" />
+      <wsdl:output message="tns:KimlikBilgilerindenPoliceSorgulamaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PoliceyeBagliYenilemeVeZeylListesi">
+      <wsdl:input message="tns:PoliceyeBagliYenilemeVeZeylListesiHttpGetIn" />
+      <wsdl:output message="tns:PoliceyeBagliYenilemeVeZeylListesiHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByKimlik">
+      <wsdl:input message="tns:HakSahiplerinceAranmayanParalarByKimlikHttpGetIn" />
+      <wsdl:output message="tns:HakSahiplerinceAranmayanParalarByKimlikHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByAd">
+      <wsdl:input message="tns:HakSahiplerinceAranmayanParalarByAdHttpGetIn" />
+      <wsdl:output message="tns:HakSahiplerinceAranmayanParalarByAdHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaTCKimlikNo">
+      <wsdl:input message="tns:trafikPoliceSorguPlakaTCKimlikNoHttpGetIn" />
+      <wsdl:output message="tns:trafikPoliceSorguPlakaTCKimlikNoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaVergiKimlikNo">
+      <wsdl:input message="tns:trafikPoliceSorguPlakaVergiKimlikNoHttpGetIn" />
+      <wsdl:output message="tns:trafikPoliceSorguPlakaVergiKimlikNoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="kaskopoliceSorguByKimlikPlaka">
+      <wsdl:input message="tns:kaskopoliceSorguByKimlikPlakaHttpGetIn" />
+      <wsdl:output message="tns:kaskopoliceSorguByKimlikPlakaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TrafikTarifePrimSorguWS">
+      <wsdl:input message="tns:TrafikTarifePrimSorguWSHttpGetIn" />
+      <wsdl:output message="tns:TrafikTarifePrimSorguWSHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EgmMsmSorgu">
+      <wsdl:input message="tns:EgmMsmSorguHttpGetIn" />
+      <wsdl:output message="tns:EgmMsmSorguHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByVkn">
+      <wsdl:input message="tns:TrafikReferansPoliceSorguByVknHttpGetIn" />
+      <wsdl:output message="tns:TrafikReferansPoliceSorguByVknHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByKimlik">
+      <wsdl:input message="tns:TrafikReferansPoliceSorguByKimlikHttpGetIn" />
+      <wsdl:output message="tns:TrafikReferansPoliceSorguByKimlikHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SFSPolicyIntegrationServiceHttpPost">
+    <wsdl:operation name="DovuzKurListesi">
+      <wsdl:input message="tns:DovuzKurListesiHttpPostIn" />
+      <wsdl:output message="tns:DovuzKurListesiHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="KimlikBilgilerindenPoliceSorgulama">
+      <wsdl:input message="tns:KimlikBilgilerindenPoliceSorgulamaHttpPostIn" />
+      <wsdl:output message="tns:KimlikBilgilerindenPoliceSorgulamaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PoliceyeBagliYenilemeVeZeylListesi">
+      <wsdl:input message="tns:PoliceyeBagliYenilemeVeZeylListesiHttpPostIn" />
+      <wsdl:output message="tns:PoliceyeBagliYenilemeVeZeylListesiHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByKimlik">
+      <wsdl:input message="tns:HakSahiplerinceAranmayanParalarByKimlikHttpPostIn" />
+      <wsdl:output message="tns:HakSahiplerinceAranmayanParalarByKimlikHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByAd">
+      <wsdl:input message="tns:HakSahiplerinceAranmayanParalarByAdHttpPostIn" />
+      <wsdl:output message="tns:HakSahiplerinceAranmayanParalarByAdHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaTCKimlikNo">
+      <wsdl:input message="tns:trafikPoliceSorguPlakaTCKimlikNoHttpPostIn" />
+      <wsdl:output message="tns:trafikPoliceSorguPlakaTCKimlikNoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaVergiKimlikNo">
+      <wsdl:input message="tns:trafikPoliceSorguPlakaVergiKimlikNoHttpPostIn" />
+      <wsdl:output message="tns:trafikPoliceSorguPlakaVergiKimlikNoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="kaskopoliceSorguByKimlikPlaka">
+      <wsdl:input message="tns:kaskopoliceSorguByKimlikPlakaHttpPostIn" />
+      <wsdl:output message="tns:kaskopoliceSorguByKimlikPlakaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TrafikTarifePrimSorguWS">
+      <wsdl:input message="tns:TrafikTarifePrimSorguWSHttpPostIn" />
+      <wsdl:output message="tns:TrafikTarifePrimSorguWSHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EgmMsmSorgu">
+      <wsdl:input message="tns:EgmMsmSorguHttpPostIn" />
+      <wsdl:output message="tns:EgmMsmSorguHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByVkn">
+      <wsdl:input message="tns:TrafikReferansPoliceSorguByVknHttpPostIn" />
+      <wsdl:output message="tns:TrafikReferansPoliceSorguByVknHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByKimlik">
+      <wsdl:input message="tns:TrafikReferansPoliceSorguByKimlikHttpPostIn" />
+      <wsdl:output message="tns:TrafikReferansPoliceSorguByKimlikHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SFSPolicyIntegrationServiceSoap" type="tns:SFSPolicyIntegrationServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DovuzKurListesi">
+      <soap:operation soapAction="http://tempuri.org/DovuzKurListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KimlikBilgilerindenPoliceSorgulama">
+      <soap:operation soapAction="http://tempuri.org/KimlikBilgilerindenPoliceSorgulama" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PoliceyeBagliYenilemeVeZeylListesi">
+      <soap:operation soapAction="http://tempuri.org/PoliceyeBagliYenilemeVeZeylListesi" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByKimlik">
+      <soap:operation soapAction="http://tempuri.org/HakSahiplerinceAranmayanParalarByKimlik" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByAd">
+      <soap:operation soapAction="http://tempuri.org/HakSahiplerinceAranmayanParalarByAd" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaTCKimlikNo">
+      <soap:operation soapAction="http://tempuri.org/trafikPoliceSorguPlakaTCKimlikNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaVergiKimlikNo">
+      <soap:operation soapAction="http://tempuri.org/trafikPoliceSorguPlakaVergiKimlikNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="kaskopoliceSorguByKimlikPlaka">
+      <soap:operation soapAction="http://tempuri.org/kaskopoliceSorguByKimlikPlaka" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrafikTarifePrimSorguWS">
+      <soap:operation soapAction="http://tempuri.org/TrafikTarifePrimSorguWS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EgmMsmSorgu">
+      <soap:operation soapAction="http://tempuri.org/EgmMsmSorgu" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByVkn">
+      <soap:operation soapAction="http://tempuri.org/TrafikReferansPoliceSorguByVkn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByKimlik">
+      <soap:operation soapAction="http://tempuri.org/TrafikReferansPoliceSorguByKimlik" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SFSPolicyIntegrationServiceSoap12" type="tns:SFSPolicyIntegrationServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DovuzKurListesi">
+      <soap12:operation soapAction="http://tempuri.org/DovuzKurListesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KimlikBilgilerindenPoliceSorgulama">
+      <soap12:operation soapAction="http://tempuri.org/KimlikBilgilerindenPoliceSorgulama" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PoliceyeBagliYenilemeVeZeylListesi">
+      <soap12:operation soapAction="http://tempuri.org/PoliceyeBagliYenilemeVeZeylListesi" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByKimlik">
+      <soap12:operation soapAction="http://tempuri.org/HakSahiplerinceAranmayanParalarByKimlik" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByAd">
+      <soap12:operation soapAction="http://tempuri.org/HakSahiplerinceAranmayanParalarByAd" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaTCKimlikNo">
+      <soap12:operation soapAction="http://tempuri.org/trafikPoliceSorguPlakaTCKimlikNo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaVergiKimlikNo">
+      <soap12:operation soapAction="http://tempuri.org/trafikPoliceSorguPlakaVergiKimlikNo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="kaskopoliceSorguByKimlikPlaka">
+      <soap12:operation soapAction="http://tempuri.org/kaskopoliceSorguByKimlikPlaka" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrafikTarifePrimSorguWS">
+      <soap12:operation soapAction="http://tempuri.org/TrafikTarifePrimSorguWS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EgmMsmSorgu">
+      <soap12:operation soapAction="http://tempuri.org/EgmMsmSorgu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByVkn">
+      <soap12:operation soapAction="http://tempuri.org/TrafikReferansPoliceSorguByVkn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByKimlik">
+      <soap12:operation soapAction="http://tempuri.org/TrafikReferansPoliceSorguByKimlik" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SFSPolicyIntegrationServiceHttpGet" type="tns:SFSPolicyIntegrationServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="DovuzKurListesi">
+      <http:operation location="/DovuzKurListesi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KimlikBilgilerindenPoliceSorgulama">
+      <http:operation location="/KimlikBilgilerindenPoliceSorgulama" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PoliceyeBagliYenilemeVeZeylListesi">
+      <http:operation location="/PoliceyeBagliYenilemeVeZeylListesi" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByKimlik">
+      <http:operation location="/HakSahiplerinceAranmayanParalarByKimlik" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByAd">
+      <http:operation location="/HakSahiplerinceAranmayanParalarByAd" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaTCKimlikNo">
+      <http:operation location="/trafikPoliceSorguPlakaTCKimlikNo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaVergiKimlikNo">
+      <http:operation location="/trafikPoliceSorguPlakaVergiKimlikNo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="kaskopoliceSorguByKimlikPlaka">
+      <http:operation location="/kaskopoliceSorguByKimlikPlaka" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrafikTarifePrimSorguWS">
+      <http:operation location="/TrafikTarifePrimSorguWS" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EgmMsmSorgu">
+      <http:operation location="/EgmMsmSorgu" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByVkn">
+      <http:operation location="/TrafikReferansPoliceSorguByVkn" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByKimlik">
+      <http:operation location="/TrafikReferansPoliceSorguByKimlik" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SFSPolicyIntegrationServiceHttpPost" type="tns:SFSPolicyIntegrationServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="DovuzKurListesi">
+      <http:operation location="/DovuzKurListesi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KimlikBilgilerindenPoliceSorgulama">
+      <http:operation location="/KimlikBilgilerindenPoliceSorgulama" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PoliceyeBagliYenilemeVeZeylListesi">
+      <http:operation location="/PoliceyeBagliYenilemeVeZeylListesi" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByKimlik">
+      <http:operation location="/HakSahiplerinceAranmayanParalarByKimlik" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HakSahiplerinceAranmayanParalarByAd">
+      <http:operation location="/HakSahiplerinceAranmayanParalarByAd" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaTCKimlikNo">
+      <http:operation location="/trafikPoliceSorguPlakaTCKimlikNo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="trafikPoliceSorguPlakaVergiKimlikNo">
+      <http:operation location="/trafikPoliceSorguPlakaVergiKimlikNo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="kaskopoliceSorguByKimlikPlaka">
+      <http:operation location="/kaskopoliceSorguByKimlikPlaka" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrafikTarifePrimSorguWS">
+      <http:operation location="/TrafikTarifePrimSorguWS" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EgmMsmSorgu">
+      <http:operation location="/EgmMsmSorgu" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByVkn">
+      <http:operation location="/TrafikReferansPoliceSorguByVkn" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TrafikReferansPoliceSorguByKimlik">
+      <http:operation location="/TrafikReferansPoliceSorguByKimlik" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SFSPolicyIntegrationService">
+    <wsdl:port name="SFSPolicyIntegrationServiceSoap" binding="tns:SFSPolicyIntegrationServiceSoap">
+      <soap:address location="http://testwebapp01.gulfsigorta.com.tr/polutil/sfspolutilws.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SFSPolicyIntegrationServiceSoap12" binding="tns:SFSPolicyIntegrationServiceSoap12">
+      <soap12:address location="http://testwebapp01.gulfsigorta.com.tr/polutil/sfspolutilws.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SFSPolicyIntegrationServiceHttpGet" binding="tns:SFSPolicyIntegrationServiceHttpGet">
+      <http:address location="http://testwebapp01.gulfsigorta.com.tr/polutil/sfspolutilws.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SFSPolicyIntegrationServiceHttpPost" binding="tns:SFSPolicyIntegrationServiceHttpPost">
+      <http:address location="http://testwebapp01.gulfsigorta.com.tr/polutil/sfspolutilws.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

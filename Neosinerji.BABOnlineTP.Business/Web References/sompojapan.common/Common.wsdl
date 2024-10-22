@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="DecryptTest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="encrypted" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DecryptTestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DecryptTestResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IdentityHeader" type="tns:IdentityHeader" />
+      <s:complexType name="IdentityHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="KullaniciAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KullaniciParola" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KullaniciIP" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="KullaniciTipi" type="tns:ClientType" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:simpleType name="ClientType">
+        <s:restriction base="s:string">
+          <s:enumeration value="ACENTE" />
+          <s:enumeration value="INTERNET" />
+          <s:enumeration value="DEVELOP" />
+          <s:enumeration value="INNER_SERVICE" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="Onay">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConfirmParameters" type="tns:ExtendConfirmParameters" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ExtendConfirmParameters">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Policy" type="tns:Policy" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfCustomParameter" />
+          <s:element minOccurs="0" maxOccurs="1" name="Unit" type="tns:Unit" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentInput" type="tns:PaymentInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Policy">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PolicyNumber" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="ProductName" type="tns:ProductName" />
+          <s:element minOccurs="1" maxOccurs="1" name="EndorsNr" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="RenewalNr" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirmCode" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CompanyCode" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parameters" type="tns:ArrayOfCustomParameter" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ProductName">
+        <s:restriction base="s:string">
+          <s:enumeration value="BireyselKasko" />
+          <s:enumeration value="TicariKasko" />
+          <s:enumeration value="ZorunluMaliMesuliyet" />
+          <s:enumeration value="YurticiSeyahat" />
+          <s:enumeration value="YurtdisiSeyahat" />
+          <s:enumeration value="ArtiKonut" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfCustomParameter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CustomParameter" nillable="true" type="tns:CustomParameter" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomParameter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Unit">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IDENTITY_NO" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="TAX_NO" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NAME" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SURNAME" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BIRTHDATE" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="FIRM_NAME" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FATHER_NAME" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MARITAL_STATUS" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BIRTH_PLACE" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OCCUPATION" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="NATIONALITY" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="PERSONAL_COMMERCIAL" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PHONE_COUNTRY_CODE" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="PHONE_CODE" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="PHONE_NUMBER" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="EMAIL_ADDRESS" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BASE_NO" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="GSM_COUNTRY_CODE" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="GSM_CODE" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="GSM_NUMBER" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FAX_COUNTRY_CODE" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="FAX_CODE" nillable="true" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="FAX_NUMBER" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="ADDRESS_LIST" nillable="true" type="tns:ArrayOfAddress" />
+          <s:element minOccurs="1" maxOccurs="1" name="QUESTION_LIST" nillable="true" type="tns:ArrayOfQuestion" />
+          <s:element minOccurs="1" maxOccurs="1" name="GENDER" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="UPDATEENTITY" nillable="true" type="tns:ProposalUnitUpdateEntity" />
+          <s:element minOccurs="1" maxOccurs="1" name="UNIT_NO" nillable="true" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfAddress">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ADDRESS" nillable="true" type="tns:Address" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Address">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ADDRESS_TYPE" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ADDRESS_DATA" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfQuestion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="QUESTION" nillable="true" type="tns:Question" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Question">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="QUESTION_CODE" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ANSWER" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProposalUnitUpdateEntity">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="UPDATE_UNSMAS_ENTITIES" nillable="true" type="tns:ArrayOfProposalUpdateUnsMasterEntity" />
+          <s:element minOccurs="1" maxOccurs="1" name="UNSADR" nillable="true" type="tns:ArrayOfProposalUpdateUnsAddressEntity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProposalUpdateUnsMasterEntity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UPDATE_UNSMAS" nillable="true" type="tns:ProposalUpdateUnsMasterEntity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProposalUpdateUnsMasterEntity">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ENTITY_NAME" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ENTITY_VALUE" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProposalUpdateUnsAddressEntity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ADDRESS" nillable="true" type="tns:ProposalUpdateUnsAddressEntity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProposalUpdateUnsAddressEntity">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ADR_TYPE" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ADR_DATA" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PaymentInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Installment" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountBankNo" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountBranchCode" nillable="true" type="s:unsignedInt" />
+          <s:element minOccurs="1" maxOccurs="1" name="AccountNo" nillable="true" type="s:unsignedInt" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountOwnerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCardCvv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCardEndYear" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCardEndMonth" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCardNameSurname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCardNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PaymentType" type="tns:PaymentMethod" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PaymentMethod">
+        <s:restriction base="s:string">
+          <s:enumeration value="WithCreditCard" />
+          <s:enumeration value="AsCash" />
+          <s:enumeration value="FromBankAccount" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="OnayResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OnayResult" type="tns:ConfirmOutput" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ConfirmOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="REQUEST_MESSAGE_NO" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RESPONSE_MESSAGE_NO" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="RESULT" type="tns:ResultOfConfirmOutput" />
+          <s:element minOccurs="1" maxOccurs="1" name="POLICY_NUMBER" nillable="true" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="EXTERNAL_POLICY_NUMBER" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="PAYMENT" nillable="true" type="tns:PaymentOfConfirmOutput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ResultOfConfirmOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RESULT_CODE" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ERROR" type="tns:ErrorOfConfirmOutput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ErrorOfConfirmOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ERROR_CODE" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ERROR_SOURCE" type="tns:ErrorSourceEnum" />
+          <s:element minOccurs="0" maxOccurs="1" name="ERROR_DESCRIPTION" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ErrorSourceEnum">
+        <s:restriction base="s:string">
+          <s:enumeration value="Core" />
+          <s:enumeration value="Winsure" />
+          <s:enumeration value="Inet" />
+          <s:enumeration value="WebService" />
+          <s:enumeration value="WinsureAuthorization" />
+          <s:enumeration value="PrintingService" />
+          <s:enumeration value="ExternalService" />
+          <s:enumeration value="Internal" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PaymentOfConfirmOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="POL_CURRENCY_TYPE" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NET_PREMIUM" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TAXES" nillable="true" type="tns:ArrayOfTaxOfConfirmOutput" />
+          <s:element minOccurs="1" maxOccurs="1" name="GROSS_PREMIUM" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="INSTALLMENTS" type="tns:InstallmentOfConfirmOutput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTaxOfConfirmOutput">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TAX" nillable="true" type="tns:TaxOfConfirmOutput" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TaxOfConfirmOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DEDUCTION_AMOUNT" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="DEDUCTION_DESCRIPTION" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InstallmentOfConfirmOutput">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="INSTALLMENT_ORDER_NO" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="INSTALLMENT_AMOUNT" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="INSTALLMENT_DATE" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Basim">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="policy" type="tns:Policy" />
+            <s:element minOccurs="1" maxOccurs="1" name="documentType" type="tns:PrintoutType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="PrintoutType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Policy" />
+          <s:enumeration value="PolicyEn" />
+          <s:enumeration value="PolicyConsulate" />
+          <s:enumeration value="CustomerInformationForm" />
+          <s:enumeration value="Slip" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="BasimResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="print-response" nillable="true" type="tns:PrintResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PrintResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="download-url" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="description" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="DecryptTestSoapIn">
+    <wsdl:part name="parameters" element="tns:DecryptTest" />
+  </wsdl:message>
+  <wsdl:message name="DecryptTestSoapOut">
+    <wsdl:part name="parameters" element="tns:DecryptTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="DecryptTestIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="OnaySoapIn">
+    <wsdl:part name="parameters" element="tns:Onay" />
+  </wsdl:message>
+  <wsdl:message name="OnaySoapOut">
+    <wsdl:part name="parameters" element="tns:OnayResponse" />
+  </wsdl:message>
+  <wsdl:message name="OnayIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:message name="BasimSoapIn">
+    <wsdl:part name="parameters" element="tns:Basim" />
+  </wsdl:message>
+  <wsdl:message name="BasimSoapOut">
+    <wsdl:part name="parameters" element="tns:BasimResponse" />
+  </wsdl:message>
+  <wsdl:message name="BasimIdentityHeader">
+    <wsdl:part name="IdentityHeader" element="tns:IdentityHeader" />
+  </wsdl:message>
+  <wsdl:portType name="CommonSoap">
+    <wsdl:operation name="DecryptTest">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">RSA key'in doğru implemente edilip edilmediğini test için kullanılan method.</wsdl:documentation>
+      <wsdl:input message="tns:DecryptTestSoapIn" />
+      <wsdl:output message="tns:DecryptTestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Onay">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Poliçe numarası ve ödeme bilgileri kullanılarak ilgili poliçenin onaylanmasını için kullanılır.</wsdl:documentation>
+      <wsdl:input message="tns:OnaySoapIn" />
+      <wsdl:output message="tns:OnaySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Basim">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Teklif veya poliçeye ait istenen türde basım üretir.</wsdl:documentation>
+      <wsdl:input message="tns:BasimSoapIn" />
+      <wsdl:output message="tns:BasimSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CommonSoap" type="tns:CommonSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DecryptTest">
+      <soap:operation soapAction="http://tempuri.org/DecryptTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:DecryptTestIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Onay">
+      <soap:operation soapAction="http://tempuri.org/Onay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:OnayIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Basim">
+      <soap:operation soapAction="http://tempuri.org/Basim" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:BasimIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CommonSoap12" type="tns:CommonSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DecryptTest">
+      <soap12:operation soapAction="http://tempuri.org/DecryptTest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:DecryptTestIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Onay">
+      <soap12:operation soapAction="http://tempuri.org/Onay" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:OnayIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Basim">
+      <soap12:operation soapAction="http://tempuri.org/Basim" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:BasimIdentityHeader" part="IdentityHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Common">
+    <wsdl:port name="CommonSoap" binding="tns:CommonSoap">
+      <soap:address location="http://apps.sompojapan.com.tr/SompoEndPoint/Common.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CommonSoap12" binding="tns:CommonSoap12">
+      <soap12:address location="http://apps.sompojapan.com.tr/SompoEndPoint/Common.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

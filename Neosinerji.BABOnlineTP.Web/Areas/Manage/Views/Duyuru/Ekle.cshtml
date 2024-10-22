@@ -1,0 +1,151 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model DuyuruEkleModel
+
+
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li>
+            <a href="~/Manage/Duyuru/Liste">@babonline.Notification_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="~/Manage/Duyuru/Ekle">@babonline.Notification_Add<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+
+@section PageStyles
+{
+    @Styles.Render("~/Content/wysihtml")
+
+}
+
+@section PageHeader
+{}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/wysihtml")
+    @Scripts.Render("~/bundles/multiselect")
+    <link href="~/Content/css/bootstap-multiselect.css" rel="stylesheet" />
+
+    <script>
+        $(document).ready(function () {
+           $("#Aciklama").wysihtml5();
+            $("#menu-EPosta").addClass("active");
+
+            //Multi SElectlist Scritps
+            $('.multiselect').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                maxHeight: 170,
+                nonSelectedText: '@babonline.PleaseSelect',
+                selectAllText: '@babonline.Select_All',
+                filterPlaceholder: '@babonline.Search',
+                nSelectedText: '@babonline.Selected'
+            });
+
+            //$(function () {
+            //    $('#BaslangisTarihi').datetimepicker({
+            //        language: 'pt-BR'
+            //    });
+            //});
+
+        });
+    </script>
+}
+
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+
+        <div class="caption"><i class="icon-reorder"></i>@babonline.Notification_Add</div>
+
+    </div>
+    <div class="portlet-body form">
+        @using (Html.BeginForm("Ekle", "Duyuru", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+        {
+            Html.EnableClientValidation(true);
+            @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Topic  <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Konu, new { maxlength = 30, autcompletetype = "off", style = "width:90%;" })
+                    @Html.ValidationMessageFor(s => s.Konu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Description</label>
+                <div class="controls">
+                    @Html.TextAreaFor(m => m.Aciklama, new { maxlength = 2000, autcompletetype = "off", style = "height:100px; width:90%;" })
+                    @Html.ValidationMessageFor(s => s.Aciklama)
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Preference <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.Oncelik, Model.Oncelikler, new { style = "width: 144px;" })
+                            @Html.ValidationMessageFor(s => s.Oncelik)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.StartDate <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DateTextBoxFor(m => m.BaslangisTarihi, new { style = "width:100px; ", Id = "BaslangisTarihi" })
+                            @Html.ValidationMessageFor(s => s.BaslangisTarihi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Offices <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.TVMLerSelectList, Model.TVMLerItems, new { @class = "multiselect", multiple = "multiple" })
+                            @Html.ValidationMessageFor(s => s.TVMLerSelectList)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.EndDate <span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DateTextBoxFor(m => m.BitisTarihi, new { style = "width:100px", Id = "BitisTarihi" })
+                            @Html.ValidationMessageFor(s => s.BitisTarihi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-actions">
+                <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                <a class="btn" href="~/Manage/Duyuru/Liste">@babonline.Cancel</a>
+            </div>
+        }
+    </div>
+</div>
+

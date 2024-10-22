@@ -1,0 +1,1125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://policy.thirdparty.service.insyst.ergo.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="ExternalPolicyService" targetNamespace="http://policy.thirdparty.service.insyst.ergo.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://ergonet.ergoturkiye.com:80/thirdParty/externalPolicyService?xsd=1" namespace="http://policy.thirdparty.service.insyst.ergo.com/" />
+    </xsd:schema>
+  </types>
+  <message name="retrieveProposal">
+    <part name="parameters" element="tns:retrieveProposal" />
+  </message>
+  <message name="retrieveProposalResponse">
+    <part name="parameters" element="tns:retrieveProposalResponse" />
+  </message>
+  <message name="ExternalServiceException">
+    <part name="fault" element="tns:ExternalServiceException" />
+  </message>
+  <message name="saveProposal">
+    <part name="parameters" element="tns:saveProposal" />
+  </message>
+  <message name="saveProposalResponse">
+    <part name="parameters" element="tns:saveProposalResponse" />
+  </message>
+  <message name="retrieveAgencySubs">
+    <part name="parameters" element="tns:retrieveAgencySubs" />
+  </message>
+  <message name="retrieveAgencySubsResponse">
+    <part name="parameters" element="tns:retrieveAgencySubsResponse" />
+  </message>
+  <message name="retrieveIdentityTypes">
+    <part name="parameters" element="tns:retrieveIdentityTypes" />
+  </message>
+  <message name="retrieveIdentityTypesResponse">
+    <part name="parameters" element="tns:retrieveIdentityTypesResponse" />
+  </message>
+  <message name="retrievePolicy">
+    <part name="parameters" element="tns:retrievePolicy" />
+  </message>
+  <message name="retrievePolicyResponse">
+    <part name="parameters" element="tns:retrievePolicyResponse" />
+  </message>
+  <message name="saveRenewal">
+    <part name="parameters" element="tns:saveRenewal" />
+  </message>
+  <message name="saveRenewalResponse">
+    <part name="parameters" element="tns:saveRenewalResponse" />
+  </message>
+  <message name="retrieveClientAgencies">
+    <part name="parameters" element="tns:retrieveClientAgencies" />
+  </message>
+  <message name="retrieveClientAgenciesResponse">
+    <part name="parameters" element="tns:retrieveClientAgenciesResponse" />
+  </message>
+  <message name="retrieveAgencySellerList">
+    <part name="parameters" element="tns:retrieveAgencySellerList" />
+  </message>
+  <message name="retrieveAgencySellerListResponse">
+    <part name="parameters" element="tns:retrieveAgencySellerListResponse" />
+  </message>
+  <message name="retrieveAgencyCustomer">
+    <part name="parameters" element="tns:retrieveAgencyCustomer" />
+  </message>
+  <message name="retrieveAgencyCustomerResponse">
+    <part name="parameters" element="tns:retrieveAgencyCustomerResponse" />
+  </message>
+  <message name="retrieveExistsOrCreateAgencyCustomer">
+    <part name="parameters" element="tns:retrieveExistsOrCreateAgencyCustomer" />
+  </message>
+  <message name="retrieveExistsOrCreateAgencyCustomerResponse">
+    <part name="parameters" element="tns:retrieveExistsOrCreateAgencyCustomerResponse" />
+  </message>
+  <message name="retrieveProductPropertiesLastVersion">
+    <part name="parameters" element="tns:retrieveProductPropertiesLastVersion" />
+  </message>
+  <message name="retrieveProductPropertiesLastVersionResponse">
+    <part name="parameters" element="tns:retrieveProductPropertiesLastVersionResponse" />
+  </message>
+  <message name="retrievePropertyValues">
+    <part name="parameters" element="tns:retrievePropertyValues" />
+  </message>
+  <message name="retrievePropertyValuesResponse">
+    <part name="parameters" element="tns:retrievePropertyValuesResponse" />
+  </message>
+  <message name="retrieveAgencySubProducts">
+    <part name="parameters" element="tns:retrieveAgencySubProducts" />
+  </message>
+  <message name="retrieveAgencySubProductsResponse">
+    <part name="parameters" element="tns:retrieveAgencySubProductsResponse" />
+  </message>
+  <message name="retrieveProductRiskValues">
+    <part name="parameters" element="tns:retrieveProductRiskValues" />
+  </message>
+  <message name="retrieveProductRiskValuesResponse">
+    <part name="parameters" element="tns:retrieveProductRiskValuesResponse" />
+  </message>
+  <message name="retrieveProductRiskBenefits">
+    <part name="parameters" element="tns:retrieveProductRiskBenefits" />
+  </message>
+  <message name="retrieveProductRiskBenefitsResponse">
+    <part name="parameters" element="tns:retrieveProductRiskBenefitsResponse" />
+  </message>
+  <message name="retrieveProductRiskBenefitCoverages">
+    <part name="parameters" element="tns:retrieveProductRiskBenefitCoverages" />
+  </message>
+  <message name="retrieveProductRiskBenefitCoveragesResponse">
+    <part name="parameters" element="tns:retrieveProductRiskBenefitCoveragesResponse" />
+  </message>
+  <message name="retrieveProductRiskDiscountSurcharges">
+    <part name="parameters" element="tns:retrieveProductRiskDiscountSurcharges" />
+  </message>
+  <message name="retrieveProductRiskDiscountSurchargesResponse">
+    <part name="parameters" element="tns:retrieveProductRiskDiscountSurchargesResponse" />
+  </message>
+  <message name="calculatePremiumPolicy">
+    <part name="parameters" element="tns:calculatePremiumPolicy" />
+  </message>
+  <message name="calculatePremiumPolicyResponse">
+    <part name="parameters" element="tns:calculatePremiumPolicyResponse" />
+  </message>
+  <message name="retrieveAllFinanceBank">
+    <part name="parameters" element="tns:retrieveAllFinanceBank" />
+  </message>
+  <message name="retrieveAllFinanceBankResponse">
+    <part name="parameters" element="tns:retrieveAllFinanceBankResponse" />
+  </message>
+  <message name="retrieveAgencyPolicies">
+    <part name="parameters" element="tns:retrieveAgencyPolicies" />
+  </message>
+  <message name="retrieveAgencyPoliciesResponse">
+    <part name="parameters" element="tns:retrieveAgencyPoliciesResponse" />
+  </message>
+  <message name="retrieveProductProfiles">
+    <part name="parameters" element="tns:retrieveProductProfiles" />
+  </message>
+  <message name="retrieveProductProfilesResponse">
+    <part name="parameters" element="tns:retrieveProductProfilesResponse" />
+  </message>
+  <message name="calculatePremiumEndersoment">
+    <part name="parameters" element="tns:calculatePremiumEndersoment" />
+  </message>
+  <message name="calculatePremiumEndersomentResponse">
+    <part name="parameters" element="tns:calculatePremiumEndersomentResponse" />
+  </message>
+  <message name="retrieveLossPayeeTypes">
+    <part name="parameters" element="tns:retrieveLossPayeeTypes" />
+  </message>
+  <message name="retrieveLossPayeeTypesResponse">
+    <part name="parameters" element="tns:retrieveLossPayeeTypesResponse" />
+  </message>
+  <message name="retrieveProposalLastVersion">
+    <part name="parameters" element="tns:retrieveProposalLastVersion" />
+  </message>
+  <message name="retrieveProposalLastVersionResponse">
+    <part name="parameters" element="tns:retrieveProposalLastVersionResponse" />
+  </message>
+  <message name="retrieveLastProductVersion">
+    <part name="parameters" element="tns:retrieveLastProductVersion" />
+  </message>
+  <message name="retrieveLastProductVersionResponse">
+    <part name="parameters" element="tns:retrieveLastProductVersionResponse" />
+  </message>
+  <message name="retrieveRegions">
+    <part name="parameters" element="tns:retrieveRegions" />
+  </message>
+  <message name="retrieveRegionsResponse">
+    <part name="parameters" element="tns:retrieveRegionsResponse" />
+  </message>
+  <message name="retrievePaymentTypes">
+    <part name="parameters" element="tns:retrievePaymentTypes" />
+  </message>
+  <message name="retrievePaymentTypesResponse">
+    <part name="parameters" element="tns:retrievePaymentTypesResponse" />
+  </message>
+  <message name="retrievePaymentPlans">
+    <part name="parameters" element="tns:retrievePaymentPlans" />
+  </message>
+  <message name="retrievePaymentPlansResponse">
+    <part name="parameters" element="tns:retrievePaymentPlansResponse" />
+  </message>
+  <message name="retrieveBanks">
+    <part name="parameters" element="tns:retrieveBanks" />
+  </message>
+  <message name="retrieveBanksResponse">
+    <part name="parameters" element="tns:retrieveBanksResponse" />
+  </message>
+  <message name="retrieveLossPayee">
+    <part name="parameters" element="tns:retrieveLossPayee" />
+  </message>
+  <message name="retrieveLossPayeeResponse">
+    <part name="parameters" element="tns:retrieveLossPayeeResponse" />
+  </message>
+  <message name="saveAgencyCustomer">
+    <part name="parameters" element="tns:saveAgencyCustomer" />
+  </message>
+  <message name="saveAgencyCustomerResponse">
+    <part name="parameters" element="tns:saveAgencyCustomerResponse" />
+  </message>
+  <message name="retrieveEndorsement">
+    <part name="parameters" element="tns:retrieveEndorsement" />
+  </message>
+  <message name="retrieveEndorsementResponse">
+    <part name="parameters" element="tns:retrieveEndorsementResponse" />
+  </message>
+  <message name="printPolicy">
+    <part name="parameters" element="tns:printPolicy" />
+  </message>
+  <message name="printPolicyResponse">
+    <part name="parameters" element="tns:printPolicyResponse" />
+  </message>
+  <message name="createPayment">
+    <part name="parameters" element="tns:createPayment" />
+  </message>
+  <message name="createPaymentResponse">
+    <part name="parameters" element="tns:createPaymentResponse" />
+  </message>
+  <message name="savePolicy">
+    <part name="parameters" element="tns:savePolicy" />
+  </message>
+  <message name="savePolicyResponse">
+    <part name="parameters" element="tns:savePolicyResponse" />
+  </message>
+  <message name="retrieveProfileTypes">
+    <part name="parameters" element="tns:retrieveProfileTypes" />
+  </message>
+  <message name="retrieveProfileTypesResponse">
+    <part name="parameters" element="tns:retrieveProfileTypesResponse" />
+  </message>
+  <message name="retrieveProfile">
+    <part name="parameters" element="tns:retrieveProfile" />
+  </message>
+  <message name="retrieveProfileResponse">
+    <part name="parameters" element="tns:retrieveProfileResponse" />
+  </message>
+  <message name="retrieveCustomerTypes">
+    <part name="parameters" element="tns:retrieveCustomerTypes" />
+  </message>
+  <message name="retrieveCustomerTypesResponse">
+    <part name="parameters" element="tns:retrieveCustomerTypesResponse" />
+  </message>
+  <message name="retrieveCurrencies">
+    <part name="parameters" element="tns:retrieveCurrencies" />
+  </message>
+  <message name="retrieveCurrenciesResponse">
+    <part name="parameters" element="tns:retrieveCurrenciesResponse" />
+  </message>
+  <message name="retrieveBankBranches">
+    <part name="parameters" element="tns:retrieveBankBranches" />
+  </message>
+  <message name="retrieveBankBranchesResponse">
+    <part name="parameters" element="tns:retrieveBankBranchesResponse" />
+  </message>
+  <message name="printProposal">
+    <part name="parameters" element="tns:printProposal" />
+  </message>
+  <message name="printProposalResponse">
+    <part name="parameters" element="tns:printProposalResponse" />
+  </message>
+  <message name="retrievePartner">
+    <part name="parameters" element="tns:retrievePartner" />
+  </message>
+  <message name="retrievePartnerResponse">
+    <part name="parameters" element="tns:retrievePartnerResponse" />
+  </message>
+  <message name="savePartner">
+    <part name="parameters" element="tns:savePartner" />
+  </message>
+  <message name="savePartnerResponse">
+    <part name="parameters" element="tns:savePartnerResponse" />
+  </message>
+  <message name="retrievePaymentPlan">
+    <part name="parameters" element="tns:retrievePaymentPlan" />
+  </message>
+  <message name="retrievePaymentPlanResponse">
+    <part name="parameters" element="tns:retrievePaymentPlanResponse" />
+  </message>
+  <message name="retrievePropertyValue">
+    <part name="parameters" element="tns:retrievePropertyValue" />
+  </message>
+  <message name="retrievePropertyValueResponse">
+    <part name="parameters" element="tns:retrievePropertyValueResponse" />
+  </message>
+  <message name="printLastProposal">
+    <part name="parameters" element="tns:printLastProposal" />
+  </message>
+  <message name="printLastProposalResponse">
+    <part name="parameters" element="tns:printLastProposalResponse" />
+  </message>
+  <message name="retrieveProductRiskBenefitCoveragesByBenefits">
+    <part name="parameters" element="tns:retrieveProductRiskBenefitCoveragesByBenefits" />
+  </message>
+  <message name="retrieveProductRiskBenefitCoveragesByBenefitsResponse">
+    <part name="parameters" element="tns:retrieveProductRiskBenefitCoveragesByBenefitsResponse" />
+  </message>
+  <message name="retrievePremiumTypes">
+    <part name="parameters" element="tns:retrievePremiumTypes" />
+  </message>
+  <message name="retrievePremiumTypesResponse">
+    <part name="parameters" element="tns:retrievePremiumTypesResponse" />
+  </message>
+  <portType name="ExternalPolicyServiceImpl">
+    <operation name="retrieveProposal">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProposalRequest" message="tns:retrieveProposal" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProposalResponse" message="tns:retrieveProposalResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProposal/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="saveProposal">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/saveProposalRequest" message="tns:saveProposal" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/saveProposalResponse" message="tns:saveProposalResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/saveProposal/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveAgencySubs">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencySubsRequest" message="tns:retrieveAgencySubs" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencySubsResponse" message="tns:retrieveAgencySubsResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencySubs/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveIdentityTypes">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveIdentityTypesRequest" message="tns:retrieveIdentityTypes" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveIdentityTypesResponse" message="tns:retrieveIdentityTypesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveIdentityTypes/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrievePolicy">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePolicyRequest" message="tns:retrievePolicy" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePolicyResponse" message="tns:retrievePolicyResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePolicy/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="saveRenewal">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/saveRenewalRequest" message="tns:saveRenewal" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/saveRenewalResponse" message="tns:saveRenewalResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/saveRenewal/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveClientAgencies">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveClientAgenciesRequest" message="tns:retrieveClientAgencies" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveClientAgenciesResponse" message="tns:retrieveClientAgenciesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveClientAgencies/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveAgencySellerList">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencySellerListRequest" message="tns:retrieveAgencySellerList" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencySellerListResponse" message="tns:retrieveAgencySellerListResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencySellerList/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveAgencyCustomer">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencyCustomerRequest" message="tns:retrieveAgencyCustomer" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencyCustomerResponse" message="tns:retrieveAgencyCustomerResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencyCustomer/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveExistsOrCreateAgencyCustomer">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveExistsOrCreateAgencyCustomerRequest" message="tns:retrieveExistsOrCreateAgencyCustomer" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveExistsOrCreateAgencyCustomerResponse" message="tns:retrieveExistsOrCreateAgencyCustomerResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveExistsOrCreateAgencyCustomer/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveProductPropertiesLastVersion">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductPropertiesLastVersionRequest" message="tns:retrieveProductPropertiesLastVersion" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductPropertiesLastVersionResponse" message="tns:retrieveProductPropertiesLastVersionResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductPropertiesLastVersion/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrievePropertyValues">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePropertyValuesRequest" message="tns:retrievePropertyValues" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePropertyValuesResponse" message="tns:retrievePropertyValuesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePropertyValues/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveAgencySubProducts">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencySubProductsRequest" message="tns:retrieveAgencySubProducts" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencySubProductsResponse" message="tns:retrieveAgencySubProductsResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencySubProducts/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveProductRiskValues">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskValuesRequest" message="tns:retrieveProductRiskValues" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskValuesResponse" message="tns:retrieveProductRiskValuesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskValues/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveProductRiskBenefits">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskBenefitsRequest" message="tns:retrieveProductRiskBenefits" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskBenefitsResponse" message="tns:retrieveProductRiskBenefitsResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskBenefits/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveProductRiskBenefitCoverages">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskBenefitCoveragesRequest" message="tns:retrieveProductRiskBenefitCoverages" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskBenefitCoveragesResponse" message="tns:retrieveProductRiskBenefitCoveragesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskBenefitCoverages/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveProductRiskDiscountSurcharges">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskDiscountSurchargesRequest" message="tns:retrieveProductRiskDiscountSurcharges" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskDiscountSurchargesResponse" message="tns:retrieveProductRiskDiscountSurchargesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskDiscountSurcharges/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="calculatePremiumPolicy">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/calculatePremiumPolicyRequest" message="tns:calculatePremiumPolicy" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/calculatePremiumPolicyResponse" message="tns:calculatePremiumPolicyResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/calculatePremiumPolicy/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveAllFinanceBank">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAllFinanceBankRequest" message="tns:retrieveAllFinanceBank" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAllFinanceBankResponse" message="tns:retrieveAllFinanceBankResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAllFinanceBank/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveAgencyPolicies">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencyPoliciesRequest" message="tns:retrieveAgencyPolicies" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencyPoliciesResponse" message="tns:retrieveAgencyPoliciesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveAgencyPolicies/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveProductProfiles">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductProfilesRequest" message="tns:retrieveProductProfiles" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductProfilesResponse" message="tns:retrieveProductProfilesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductProfiles/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="calculatePremiumEndersoment">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/calculatePremiumEndersomentRequest" message="tns:calculatePremiumEndersoment" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/calculatePremiumEndersomentResponse" message="tns:calculatePremiumEndersomentResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/calculatePremiumEndersoment/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveLossPayeeTypes">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveLossPayeeTypesRequest" message="tns:retrieveLossPayeeTypes" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveLossPayeeTypesResponse" message="tns:retrieveLossPayeeTypesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveLossPayeeTypes/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveProposalLastVersion">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProposalLastVersionRequest" message="tns:retrieveProposalLastVersion" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProposalLastVersionResponse" message="tns:retrieveProposalLastVersionResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProposalLastVersion/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveLastProductVersion">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveLastProductVersionRequest" message="tns:retrieveLastProductVersion" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveLastProductVersionResponse" message="tns:retrieveLastProductVersionResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveLastProductVersion/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveRegions">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveRegionsRequest" message="tns:retrieveRegions" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveRegionsResponse" message="tns:retrieveRegionsResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveRegions/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrievePaymentTypes">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePaymentTypesRequest" message="tns:retrievePaymentTypes" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePaymentTypesResponse" message="tns:retrievePaymentTypesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePaymentTypes/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrievePaymentPlans">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePaymentPlansRequest" message="tns:retrievePaymentPlans" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePaymentPlansResponse" message="tns:retrievePaymentPlansResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePaymentPlans/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveBanks">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveBanksRequest" message="tns:retrieveBanks" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveBanksResponse" message="tns:retrieveBanksResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveBanks/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveLossPayee">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveLossPayeeRequest" message="tns:retrieveLossPayee" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveLossPayeeResponse" message="tns:retrieveLossPayeeResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveLossPayee/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="saveAgencyCustomer">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/saveAgencyCustomerRequest" message="tns:saveAgencyCustomer" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/saveAgencyCustomerResponse" message="tns:saveAgencyCustomerResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/saveAgencyCustomer/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveEndorsement">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveEndorsementRequest" message="tns:retrieveEndorsement" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveEndorsementResponse" message="tns:retrieveEndorsementResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveEndorsement/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="printPolicy">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/printPolicyRequest" message="tns:printPolicy" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/printPolicyResponse" message="tns:printPolicyResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/printPolicy/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="createPayment">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/createPaymentRequest" message="tns:createPayment" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/createPaymentResponse" message="tns:createPaymentResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/createPayment/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="savePolicy">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/savePolicyRequest" message="tns:savePolicy" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/savePolicyResponse" message="tns:savePolicyResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/savePolicy/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveProfileTypes">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProfileTypesRequest" message="tns:retrieveProfileTypes" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProfileTypesResponse" message="tns:retrieveProfileTypesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProfileTypes/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveProfile">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProfileRequest" message="tns:retrieveProfile" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProfileResponse" message="tns:retrieveProfileResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProfile/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveCustomerTypes">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveCustomerTypesRequest" message="tns:retrieveCustomerTypes" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveCustomerTypesResponse" message="tns:retrieveCustomerTypesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveCustomerTypes/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveCurrencies">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveCurrenciesRequest" message="tns:retrieveCurrencies" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveCurrenciesResponse" message="tns:retrieveCurrenciesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveCurrencies/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveBankBranches">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveBankBranchesRequest" message="tns:retrieveBankBranches" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveBankBranchesResponse" message="tns:retrieveBankBranchesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveBankBranches/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="printProposal">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/printProposalRequest" message="tns:printProposal" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/printProposalResponse" message="tns:printProposalResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/printProposal/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrievePartner">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePartnerRequest" message="tns:retrievePartner" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePartnerResponse" message="tns:retrievePartnerResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePartner/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="savePartner">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/savePartnerRequest" message="tns:savePartner" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/savePartnerResponse" message="tns:savePartnerResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/savePartner/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrievePaymentPlan">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePaymentPlanRequest" message="tns:retrievePaymentPlan" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePaymentPlanResponse" message="tns:retrievePaymentPlanResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePaymentPlan/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrievePropertyValue">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePropertyValueRequest" message="tns:retrievePropertyValue" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePropertyValueResponse" message="tns:retrievePropertyValueResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePropertyValue/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="printLastProposal">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/printLastProposalRequest" message="tns:printLastProposal" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/printLastProposalResponse" message="tns:printLastProposalResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/printLastProposal/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrieveProductRiskBenefitCoveragesByBenefits">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskBenefitCoveragesByBenefitsRequest" message="tns:retrieveProductRiskBenefitCoveragesByBenefits" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskBenefitCoveragesByBenefitsResponse" message="tns:retrieveProductRiskBenefitCoveragesByBenefitsResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrieveProductRiskBenefitCoveragesByBenefits/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+    <operation name="retrievePremiumTypes">
+      <input wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePremiumTypesRequest" message="tns:retrievePremiumTypes" />
+      <output wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePremiumTypesResponse" message="tns:retrievePremiumTypesResponse" />
+      <fault wsam:Action="http://policy.thirdparty.service.insyst.ergo.com/ExternalPolicyServiceImpl/retrievePremiumTypes/Fault/ExternalServiceException" name="ExternalServiceException" message="tns:ExternalServiceException" />
+    </operation>
+  </portType>
+  <binding name="ExternalPolicyServicePortBinding" type="tns:ExternalPolicyServiceImpl">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="retrieveProposal">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="saveProposal">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveAgencySubs">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveIdentityTypes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrievePolicy">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="saveRenewal">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveClientAgencies">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveAgencySellerList">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveAgencyCustomer">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveExistsOrCreateAgencyCustomer">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveProductPropertiesLastVersion">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrievePropertyValues">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveAgencySubProducts">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveProductRiskValues">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveProductRiskBenefits">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveProductRiskBenefitCoverages">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveProductRiskDiscountSurcharges">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="calculatePremiumPolicy">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveAllFinanceBank">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveAgencyPolicies">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveProductProfiles">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="calculatePremiumEndersoment">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveLossPayeeTypes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveProposalLastVersion">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveLastProductVersion">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveRegions">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrievePaymentTypes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrievePaymentPlans">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveBanks">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveLossPayee">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="saveAgencyCustomer">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveEndorsement">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="printPolicy">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="createPayment">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="savePolicy">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveProfileTypes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveProfile">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveCustomerTypes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveCurrencies">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveBankBranches">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="printProposal">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrievePartner">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="savePartner">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrievePaymentPlan">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrievePropertyValue">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="printLastProposal">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrieveProductRiskBenefitCoveragesByBenefits">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="retrievePremiumTypes">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ExternalServiceException">
+        <soap:fault use="literal" name="ExternalServiceException" namespace="" />
+      </fault>
+    </operation>
+  </binding>
+  <service name="ExternalPolicyService">
+    <port name="ExternalPolicyServicePort" binding="tns:ExternalPolicyServicePortBinding">
+      <soap:address location="http://ergonet.ergoturkiye.com:80/thirdParty/externalPolicyService" />
+    </port>
+  </service>
+</definitions>

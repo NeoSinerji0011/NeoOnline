@@ -1,0 +1,120 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Models.LoginModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "SigortaliGiris";
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+<head>
+    <title>NeoOnlineSigortaliGiris</title>
+</head>
+<style>
+    .sifremi-unuttum-div {
+        float: right;
+        margin-right: 31px;
+        margin-top: 24px;
+    }
+
+    .login-yazi-tip {
+        font-family: Calibri !important;
+        font-size: 20px !important;
+    }
+
+</style>
+@*<link href="~/Content/css/YeniTemaLogin.css" rel="stylesheet" />*@
+ 
+
+<div class="logo-content" style="padding-top: 20px; padding-left:20px">
+    <div>
+        <a href="http://neoonline.com.tr/" target="_blank">
+            <img src="@Url.Content("~/Content/img/YeniTasarim/ust-banner-2.jpg")" style="width :14%; height:15%; background-color:transparent; opacity:inherit" />
+        </a>
+    </div>
+    <div id="global-sign">
+        <div class="col-sm-6">
+            <a href="http://www.neosinerji.com.tr/" target="_blank">
+                <img style="width:13%; margin-left: 5%; border-radius: 70px;" src="@Url.Content("~/Content/img/YeniTasarim/hjh.jpg")" />
+            </a>
+        </div>
+        <div class="col-sm-6">
+
+            <img style="width: 11%; margin-left: 6%; margin-top: 10px" src="@Url.Content("~/Content/img/YeniTasarim/comodosecure.png")" alt="global-sign" />
+
+        </div>
+    </div>
+
+
+</div>
+
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "form1", ReturnUrl = ViewBag.ReturnUrl }))
+{
+    { Html.EnableClientValidation(false); }
+
+<section class="ftco-section" style="padding: 2em !important">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5" style="height:20px">
+                <h2 class="heading-section" style="font-size:25px; color:#59646e; font-weight: bolder; margin-top:-12px ">Müşteri Giriş</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                
+                <div class="login-wrap p-0">
+                    @*<div class="col-md-6 ">
+                        <h2 class="heading-section" style="font-size:18px; color:#ecdbd2 ">Müşteri</h2>
+                    </div>*@
+                    <!-- <h3 class="mb-4 text-center">Have an account?</h3> -->
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(s => s.Email, new { @class = "form-control", placeholder = babonline.EMail_Address, style = "background: #6c6c8a82 !important" })
+                        @*<input type="text" class="form-control" placeholder="E-posta Adresiniz" required>*@
+                    </div>
+                    <div class="form-group">
+                        @Html.TextBoxFor(s => s.Password, new { @class = "form-control", placeholder = babonline.Password, type = "Password", style = "background: #6c6c8a82 !important" })
+                        @*<input id="password-field" type="password" class="form-control" placeholder="Şifre" required>*@
+                        @*<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>*@
+                    </div>
+                    <div class="form-group">
+                        <button id="btn-ok" type="submit" class="form-control btn btn-primary submit px-3">Giriş</button>
+                    </div>
+
+                    <div class="error-div " style="width: 281px; height: 40px; ">
+                        @Html.ValidationSummary(true)
+                    </div>
+
+
+                    <div class="form-group d-md-flex">
+                        <div class="w-50">
+                            <!-- <label class="checkbox-wrap checkbox-primary">Beni Hatırla
+              <input type="checkbox" checked>
+              <span class="checkmark"></span>
+            </label> -->
+                        </div>
+                        <div class="w-50 text-md-right">
+                            <a href="/Account/SifremiUnuttum" style="color: #fff">Şifremi Unuttum</a>
+                        </div>
+                    </div>
+
+                    <p class="w-100 text-center">  <!--&mdash; Or Sign In With &mdash;  --></p>
+                    <div class="social d-flex text-center" style="margin-top: 30px;">
+                        <a href="/Home/Harita" class="px-2 py-2 mr-md-1 rounded" style="background-color: #9db5ba; font-weight: bolder"><span class=""></span> Acente Bul<img src="~/Content/img/YeniTasarim/symbol.png" style="width: 20px; margin-left: 40px"></a>
+
+
+
+
+                        <a href="@Url.Content("~/Files/NeoOnline_Tanitim_Dokumani_2021_07.pdf")" target="_blank" class="px-2 py-2 ml-md-1 rounded" style="background-color: #9db5ba;  font-weight: bolder"><span class=""></span> Tanıtım Klavuzu<img src="~/Content/img/YeniTasarim/symbol.png" style="width: 20px; margin-left: 10px"></a>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear: left"></div>
+</section>
+
+}

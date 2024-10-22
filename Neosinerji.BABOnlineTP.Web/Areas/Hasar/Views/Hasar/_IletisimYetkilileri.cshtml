@@ -1,0 +1,57 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Hasar.Models
+@model HasarIletisimYetkilileriListModel
+
+<script>
+    $(document).ready(function () {
+        var iletisimyetkilileriTable;
+        function iletisimyetkilileriTableSet() {
+            iletisimyetkilileriTable = $('#iletisimyetkilileri-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        iletisimyetkilileriTableSet();
+    });
+</script>
+
+<table id="iletisimyetkilileri-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 150px;">@babonline.Order</th>
+            <th>@babonline.User</th>
+            <th>@babonline.Job</th>
+            <th>@babonline.Phone</th>
+            <th>@babonline.PhoneType</th>
+            <th>@babonline.Email_Adress</th>
+            <th style="width: 50px;">&nbsp;</th>
+            <th style="width: 40px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td style="text-align: center; width: 150px;">@item.IletisimYetkiliId</td>
+                <td>@item.GorusulenKisi</td>
+                <td>@item.Gorevi</td>
+                <td>@item.TelefonNo</td>
+                <td>@item.TelefonTipi</td>
+                <td>@item.Email</td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" iletisimyetkilileri-id="@item.IletisimYetkiliId" class="btn btn-mini btn-info edit-iletisimyetkilileri">@babonline.Edit</a>
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" iletisimyetkilileri-id="@item.IletisimYetkiliId" class="btn btn-mini btn-danger delete-iletisimyetkilileri">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

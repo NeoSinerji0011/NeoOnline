@@ -1,0 +1,252 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Muhasebe.Models
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+
+@model CariHesapDetayModel
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+<head>
+    <title>CariHesapDetay</title>
+</head>
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li class="active">
+            <a href="~/TVM/TVM/Index">Cari Hesap Detay<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search..." class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+    <link href="~/Content/Angular/css/sweetalert.css" rel="stylesheet" />
+}
+@section PageStyles{}
+
+@section PageScripts
+{
+    <script>
+        $(document).ready(function () {
+            //Ülke - il - ilçe
+            $('#UlkeKodu').ulke({ il: '#IlKodu', ilce: '#IlceKodu' });
+        });
+    </script>
+}
+
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="box corner-all">
+
+                <div class="box-body">
+                    <div class="portlet box light-grey " style="margin-top: 24px;">
+                        <div class="portlet-title">
+                            <div class="caption"><i class="icon-reorder"></i>@babonline.General_Information</div>
+                            <div class="actions">
+                              
+       
+                        <a href="/Muhasebe/Muhasebe/CariHesapGuncelle/@Model.Id" class="btn yellow"><i class="icon-pencil">&nbsp;</i>@babonline.Update</a>
+
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <form class="form-horizontal form-view">
+                                @Html.HiddenFor(m => m.Id)
+
+
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.TVM_Name</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.TVMUnvani</label>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Unvanı</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.Unvan</label>
+                                            </div>
+                                        </div>
+                                      
+                                        <div class="control-group">
+                                            <label class="control-label">Kimlik No TCKN / VKN</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.KimlikNo</label>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.TaxOffice</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.VergiDairesi</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">Cari Hesap Kodu</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.CariHesapKodu</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <label class="control-label">Dis aktarim Muhasebe Kodu</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.DisaktarimMuhasebeKodu</label>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Dis aktarim Cari Kodu</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.DisaktarimCariKodu</label>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Komisyon Gelirleri Muhasebe Kodu</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.KomisyonGelirleriMuhasebeKodu</label>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Satış İadeleri (Komisyon) Muhasebe Kodu</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.SatisIadeleriMuhasebeKodu</label>
+                                            </div>
+                                        </div>
+                                        <div class="control-group" id="divProducerTCKN">
+                                            <label class="control-label">Cari Hesap Tipi</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.CariHesapTipiAdi</label>
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Müşteri Grup Kodu</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.MusteriGrupKodu</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h3 class="form-section">@babonline.Contact_Info</h3>
+                                <div class="control-group">
+                                    <label class="control-label">@babonline.Phone</label>
+                                    <div class="controls">
+                                        <label class="control">@Model.Telefon1</label>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">Telefon 2</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.Telefon2</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">Cep Telefonu</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.CepTel</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Email_Adress</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.Email</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Web_URL</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.WebAdresi</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="form-section">@babonline.Address_Info</h3>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Country</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.UlkeAdi</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.City</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.IlAdi</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.Address</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.Adres</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">@babonline.District</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.IlceAdi</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="form-section">Notlar</h3>
+                                <div class="row-fluid">
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">Uyarı Notı</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.UyariNotu</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span6">
+                                        <div class="control-group">
+                                            <label class="control-label">Bilgi Notu</label>
+                                            <div class="controls">
+                                                <label class="control">@Model.BilgiNotu</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

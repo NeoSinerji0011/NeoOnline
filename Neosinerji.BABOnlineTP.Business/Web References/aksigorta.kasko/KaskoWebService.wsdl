@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://kasko.v2.genel.webServices.aksigorta.tr.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="/webservices/genel/v2/KaskoWebService" targetNamespace="http://kasko.v2.genel.webServices.aksigorta.tr.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://testapi.aksigorta.com.tr/service/aa368c022b98868d2b2e389d8dec2762?serviceoid=0e84c10812e55e948151bf384c3c3775&amp;servdocoid=1eee9e4a83e9d06168223e2147b3bd99" namespace="http://kasko.v2.genel.webServices.aksigorta.tr.com/" />
+    </xsd:schema>
+  </types>
+  <message name="kaskoTeklifOlustur">
+    <part name="parameters" element="tns:kaskoTeklifOlustur" />
+  </message>
+  <message name="kaskoTeklifOlusturResponse">
+    <part name="parameters" element="tns:kaskoTeklifOlusturResponse" />
+  </message>
+  <message name="kaskoTeklifOnayla">
+    <part name="parameters" element="tns:kaskoTeklifOnayla" />
+  </message>
+  <message name="kaskoTeklifOnaylaResponse">
+    <part name="parameters" element="tns:kaskoTeklifOnaylaResponse" />
+  </message>
+  <message name="kaskoTeklifOnayla3dUrlOlustur">
+    <part name="parameters" element="tns:kaskoTeklifOnayla3dUrlOlustur" />
+  </message>
+  <message name="kaskoTeklifOnayla3dUrlOlusturResponse">
+    <part name="parameters" element="tns:kaskoTeklifOnayla3dUrlOlusturResponse" />
+  </message>
+  <message name="kaskoTeklifOnayla3dTahsilatUrlOlustur">
+    <part name="parameters" element="tns:kaskoTeklifOnayla3dTahsilatUrlOlustur" />
+  </message>
+  <message name="kaskoTeklifOnayla3dTahsilatUrlOlusturResponse">
+    <part name="parameters" element="tns:kaskoTeklifOnayla3dTahsilatUrlOlusturResponse" />
+  </message>
+  <message name="kaskoPoliceOlustur">
+    <part name="parameters" element="tns:kaskoPoliceOlustur" />
+  </message>
+  <message name="kaskoPoliceOlusturResponse">
+    <part name="parameters" element="tns:kaskoPoliceOlusturResponse" />
+  </message>
+  <message name="kaskoPrimHesapla">
+    <part name="parameters" element="tns:kaskoPrimHesapla" />
+  </message>
+  <message name="kaskoPrimHesaplaResponse">
+    <part name="parameters" element="tns:kaskoPrimHesaplaResponse" />
+  </message>
+  <portType name="KaskoWebService">
+    <operation name="kaskoTeklifOlustur">
+      <input wsam:Action="http://kasko.v2.genel.webServices.aksigorta.tr.com/KaskoWebService/kaskoTeklifOlusturRequest" message="tns:kaskoTeklifOlustur" />
+      <output wsam:Action="http://kasko.v2.genel.webServices.aksigorta.tr.com/KaskoWebService/kaskoTeklifOlusturResponse" message="tns:kaskoTeklifOlusturResponse" />
+    </operation>
+    <operation name="kaskoTeklifOnayla">
+      <input wsam:Action="http://kasko.v2.genel.webServices.aksigorta.tr.com/KaskoWebService/kaskoTeklifOnaylaRequest" message="tns:kaskoTeklifOnayla" />
+      <output wsam:Action="http://kasko.v2.genel.webServices.aksigorta.tr.com/KaskoWebService/kaskoTeklifOnaylaResponse" message="tns:kaskoTeklifOnaylaResponse" />
+    </operation>
+    <operation name="kaskoTeklifOnayla3dUrlOlustur">
+      <input wsam:Action="http://kasko.v2.genel.webServices.aksigorta.tr.com/KaskoWebService/kaskoTeklifOnayla3dUrlOlusturRequest" message="tns:kaskoTeklifOnayla3dUrlOlustur" />
+      <output wsam:Action="http://kasko.v2.genel.webServices.aksigorta.tr.com/KaskoWebService/kaskoTeklifOnayla3dUrlOlusturResponse" message="tns:kaskoTeklifOnayla3dUrlOlusturResponse" />
+    </operation>
+    <operation name="kaskoTeklifOnayla3dTahsilatUrlOlustur">
+      <input wsam:Action="http://kasko.v2.genel.webServices.aksigorta.tr.com/KaskoWebService/kaskoTeklifOnayla3dTahsilatUrlOlusturRequest" message="tns:kaskoTeklifOnayla3dTahsilatUrlOlustur" />
+      <output wsam:Action="http://kasko.v2.genel.webServices.aksigorta.tr.com/KaskoWebService/kaskoTeklifOnayla3dTahsilatUrlOlusturResponse" message="tns:kaskoTeklifOnayla3dTahsilatUrlOlusturResponse" />
+    </operation>
+    <operation name="kaskoPoliceOlustur">
+      <input wsam:Action="http://kasko.v2.genel.webServices.aksigorta.tr.com/KaskoWebService/kaskoPoliceOlusturRequest" message="tns:kaskoPoliceOlustur" />
+      <output wsam:Action="http://kasko.v2.genel.webServices.aksigorta.tr.com/KaskoWebService/kaskoPoliceOlusturResponse" message="tns:kaskoPoliceOlusturResponse" />
+    </operation>
+    <operation name="kaskoPrimHesapla">
+      <input wsam:Action="http://kasko.v2.genel.webServices.aksigorta.tr.com/KaskoWebService/kaskoPrimHesaplaRequest" message="tns:kaskoPrimHesapla" />
+      <output wsam:Action="http://kasko.v2.genel.webServices.aksigorta.tr.com/KaskoWebService/kaskoPrimHesaplaResponse" message="tns:kaskoPrimHesaplaResponse" />
+    </operation>
+  </portType>
+  <binding name="kaskoWebServicePortBinding" type="tns:KaskoWebService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="kaskoTeklifOlustur">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kaskoTeklifOnayla">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kaskoTeklifOnayla3dUrlOlustur">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kaskoTeklifOnayla3dTahsilatUrlOlustur">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kaskoPoliceOlustur">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="kaskoPrimHesapla">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="/webservices/genel/v2/KaskoWebService">
+    <port name="kaskoWebServicePort" binding="tns:kaskoWebServicePortBinding">
+      <soap:address location="https://testapi.aksigorta.com.tr/api/kaskoWS-V3.0/KaskoWebService" />
+    </port>
+  </service>
+</definitions>

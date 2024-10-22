@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:intf="http://services.ws.genel.mtr.mapfre.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://services.ws.genel.mtr.mapfre.com" targetNamespace="http://services.ws.genel.mtr.mapfre.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types />
+  <wsdl:message name="validateUserResponse">
+    <wsdl:part name="validateUserReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="validateUserRequest">
+    <wsdl:part name="apiCode" type="xsd:string" />
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="validateUserWithIPResponse">
+    <wsdl:part name="validateUserWithIPReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="validateUserWithIPRequest">
+    <wsdl:part name="apiCode" type="xsd:string" />
+    <wsdl:part name="userName" type="xsd:string" />
+    <wsdl:part name="passWord" type="xsd:string" />
+    <wsdl:part name="ip" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:portType name="UtilitiesWS">
+    <wsdl:operation name="validateUser" parameterOrder="apiCode userName passWord">
+      <wsdl:input name="validateUserRequest" message="impl:validateUserRequest" />
+      <wsdl:output name="validateUserResponse" message="impl:validateUserResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="validateUserWithIP" parameterOrder="apiCode userName passWord ip">
+      <wsdl:input name="validateUserWithIPRequest" message="impl:validateUserWithIPRequest" />
+      <wsdl:output name="validateUserWithIPResponse" message="impl:validateUserWithIPResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UtilitiesWSSoapBinding" type="impl:UtilitiesWS">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="validateUser">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="validateUserRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="validateUserResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="validateUserWithIP">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="validateUserWithIPRequest">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="validateUserWithIPResponse">
+        <wsdlsoap:body use="encoded" namespace="http://services.ws.genel.mtr.mapfre.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UtilitiesWSService">
+    <wsdl:port name="UtilitiesWS" binding="impl:UtilitiesWSSoapBinding">
+      <wsdlsoap:address location="http://10.0.0.68:8080/wtwpprws/services/UtilitiesWS" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

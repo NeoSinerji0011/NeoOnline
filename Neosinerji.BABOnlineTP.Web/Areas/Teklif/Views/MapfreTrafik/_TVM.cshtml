@@ -1,0 +1,35 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Business
+@model List<TVMOzetModel>
+
+@if (Model == null)
+{
+    <div class="alert alert-block alert-error fade in">
+        Seçilebilecek acente bilgisi bulunamadı.
+    </div>
+} 
+else
+{
+<table id="tvm-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>@babonline.TVM_Code</th>
+            <th>@babonline.TVM_Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="text-align: center;">
+                    <a class="btn btn-mini btn-success acente-sec-btn" data-kodu="@item.Kodu" data-unvani="@item.Unvani">@babonline.Choose</a>
+                </td>
+                <td>@item.Kodu</td>
+                <td>@item.Unvani</td>
+            </tr>
+        }
+    </tbody>
+</table>
+}

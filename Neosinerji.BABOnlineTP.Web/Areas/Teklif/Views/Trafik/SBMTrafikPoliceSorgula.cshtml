@@ -1,0 +1,94 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+
+
+@{
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+@section PageStyles
+{
+    @Styles.Render("~/Content/switch")
+  
+    <link rel="stylesheet" href="~/Content/css/TLsimgesi.css" />
+    <link href="~/content/css/jquery.gritter.css" rel="stylesheet" type="text/css" />
+}
+
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+        <li>
+            <a href="/Teklif/Teklif/Liste">@babonline.Proposal_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Insurance_Quote<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+}
+
+@section PageScripts
+{
+@*    <script src="@Url.Content("~/Content/js/autoNumeric.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/neosinerji.babonlinetp.teklif.js?v=1")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.bootstrap.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Content/js/jquery.validate.custom.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.bootstrap.wizard.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/Mapfre/kasko.js?v=26")" type="text/javascript"></script>
+
+    @if (lang == "en")
+    {<script src="@Url.Content("~/Content/js/customlang.en.js")" type="text/javascript"></script>}
+    else
+    {<script src="@Url.Content("~/Content/js/customlang.tr.js")" type="text/javascript"></script>}
+
+    <script src="@Url.Content("~/Content/js/form-wizard.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.inputmask.bundle.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/jquery.gritter.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Content/js/underscore.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/switch")
+    @Scripts.Render("~/bundles/dataTable")
+    <script>
+        $(document).ready(function () {
+            //document.getElementById('sbmForm').submit();
+            //var iframe = document.getElementById('genericLogin');
+            //iframe.onload = function () {
+            //    if (iframe.src != "https://www.sbm.org.tr/tr/OnlineIslemler/Sayfalar/TrafikPoliceSorgula.aspx") {
+            //        iframe.src = "https://www.sbm.org.tr/tr/OnlineIslemler/Sayfalar/TrafikPoliceSorgula.aspx";
+            //    }
+            //}
+            //return;
+        });
+    </script>*@
+}
+
+<h2>SBMTrafikPoliceSorgula</h2>
+
+@*<form id="sbmForm" target="genericLogin" method="post" action="https://www.sbm.org.tr/tr/OnlineIslemler/Sayfalar/TrafikPoliceSorgula.aspx">
+    <input type="hidden" name="plakaIlKodu" value="" />
+    <input type="hidden" name="plakaNo" value="" />
+    <input type="hidden" name="tcKimlikNo" value="false" />
+    <input type="hidden" name="captcha" value="false" />
+
+</form>*@
+@*<div id="wrapper">*@
+    @*<iframe id="genericLogin" src="https://www.sbm.org.tr/tr/OnlineIslemler/Sayfalar/TrafikPoliceSorgula.aspx" name="genericLogin" width="1200" height="960"></iframe>*@
+  
+@*</div>
+   <iframe src="https://www.google.com.tr/"></iframe> *@

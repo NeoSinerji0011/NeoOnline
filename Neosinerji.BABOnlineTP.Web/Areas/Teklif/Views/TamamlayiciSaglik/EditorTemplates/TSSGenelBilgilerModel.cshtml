@@ -1,0 +1,129 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model TSSGenelBilgilerModel
+
+<script>
+    $(document).ready(function () {
+        $("#GenelBilgiler_PoliceBaslangicTarihi_control").on("change", function () {
+            var date = $("#GenelBilgiler_PoliceBaslangicTarihi").val();
+            $.getJSON('/Teklif/TamamlayiciSaglik/GetBitisTarihi/', { baslamaTarihi: date },
+                function (result) {
+                    $("#GenelBilgiler_PoliceBitisTarihi").val(result.PoliceBitisTarihi);
+                });
+        });
+        var start = $('#GenelBilgiler_PoliceBaslangicTarihi');
+
+        $("#GenelBilgiler_PoliceBaslangicTarihi").datepicker("option", "maxDate", '+1m +0d');
+        $("#GenelBilgiler_PoliceBaslangicTarihi").datepicker("option", "minDate", '0m -3d');
+
+        $("#GenelBilgiler_KronikHastalikCerrahisi_control").on("switch-change", function (e, data) {
+            if (data.value) {
+                $("#KronikHastalikAciklama").show();
+            }
+            else {
+                $("#KronikHastalikAciklama").hide();
+            }           
+        });
+        var kronikHataslikVarmi = $("#GenelBilgiler_KronikHastalikCerrahisi_control").bootstrapSwitch('status');      
+        if (kronikHataslikVarmi) {
+            $("#KronikHastalikAciklama").show();
+        } else {
+            $("#KronikHastalikAciklama").hide();
+        }
+    });
+</script>
+
+<h3 class="form-section">Genel Bilgiler</h3>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">Tedavi Tipi</label>
+            <div class="controls radio-custom">
+                @Html.RadioButtonListFor(m => m.TedaviTipi, Model.TedaviTipleri)
+            </div>
+        </div>
+        <div class="control-group" id="meslek">
+            <label class="control-label">@babonline.Job<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.MeslekKodu, Model.MeslekKodlari, new { style = "width:60%" })
+                @Html.ValidationMessageFor(m => m.MeslekKodu)
+            </div>
+        </div>
+        <div class="control-group" id="grupKodu">
+            <label class="control-label">Tarife Grup</label>
+            <div class="controls">
+                @Html.DropDownListFor(s => s.TarifeKodu, Model.TarifeKodlari, new { style = "width:60%;" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label tooltips" data-desktop="tooltips" data-placement="left">Kronik Hastalik Cerrahisi mi?</label>
+            <div class="controls ">
+                @Html.SwitchButtonFor(m => m.KronikHastalikCerrahisi, new string[] { babonline.Yes, babonline.No }, new { })
+            </div>
+        </div>
+        <div class="control-group" style="display:none;" id="KronikHastalikAciklama">
+            <label class="control-label">Kronik Hastalık Açıklama</label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.KronikHastalikAciklama, new { style = "width:50%" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label tooltips" data-desktop="tooltips" data-placement="left">Yenileme mi?</label>
+            <div class="controls ">
+                @Html.SwitchButtonFor(m => m.YenilemeMi, new string[] { babonline.Yes, babonline.No }, new { })
+            </div>
+        </div>
+        <div id="oncekiPolice" style="display: none">
+            <h4 class="form-section">Önceki Poliçe Bilgileri</h4>
+            <div class="control-group">
+                <label class="control-label">Poliçe Başlangıç Tarihi</label>
+                <div class="controls">
+                    @Html.DateTextBoxFor(m => m.OncekiPoliceBaslangicTarihi, new { style = "width:100px;", tabindex = "17" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Şirket Kodu</label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.OncekiSigortaSirketi, new { style = "width:50%" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Poliçe Numarası</label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.OncekiPoliceNo, new { style = "width:50%" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.PolicyStartDate<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(m => m.PoliceBaslangicTarihi, new { style = "width:100px;", tabindex = "17" })
+                @Html.ValidationMessageFor(m => m.PoliceBaslangicTarihi)
+            </div>
+        </div>
+        <div class="control-group" style="display: none">
+            <label class="control-label">@babonline.PolicyFinishDate<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DateTextBoxFor(m => m.PoliceBitisTarihi, new { style = "width:100px;", tabindex = "17" })
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Boy<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.Boy, new { style = "width:40%", @class = "NumbersValue" })
+                @Html.ValidationMessageFor(m => m.Boy)
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Kilo<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(s => s.Kilo, new { style = "width:40%", @class = "NumbersValue" })
+                @Html.ValidationMessageFor(m => m.Kilo)
+            </div>
+        </div>
+    </div>
+</div>
+

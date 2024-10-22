@@ -1,0 +1,198 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@using Neosinerji.BABOnlineTP.Business.Common
+@model KullaniciGuncelleModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/Kullanici/Liste">@babonline.SearchUser<span></span></a>
+        </li>
+        <li>
+            <a href="~/Manage/Kullanici/Detay/@Model.KullaniciKodu">@babonline.Detail<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Update<span class="selected"></span></a>
+        </li>
+
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/dataTable")
+    @Scripts.Render("~/bundles/phoneinputjs")
+    <script>
+        $(document).ready(function () {
+            $("[rel=tooltip]").tooltip();
+
+            var userfinder = $("#YoneticiKodu").userfinder("TVMKodu");
+            userfinder.enable();
+
+            setTimeout(function () {
+                $("#Telefon").val("@Model.Telefon");
+                $("#CepTelefon").val("@Model.CepTelefon");
+            }, 1000);
+        });
+    </script>
+}
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.UserInfo</div>
+    </div>
+    <div class="portlet-body form">
+
+        @using (Html.BeginForm("Guncelle", "Kullanici", FormMethod.Post, new { id = "form0", @class = "form-horizontal" }))
+        {
+            Html.EnableClientValidation(true);
+
+            @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+            @Html.HiddenFor(m => m.TVMKodu)
+            @Html.HiddenFor(m => m.KullaniciKodu)
+            @Html.AntiForgeryToken()
+
+            <div class="control-group">
+                <label class="control-label">@babonline.TVM_Code</label>
+                <div class="controls">
+                    <label class="control">@(Model.TVMKodu + " " + Model.TVMUnvani)</label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVMUser_TCKN</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m=>m.TCKN, new { @class = "control"})
+                    @*<label class="control">@Model.TCKN</label>*@
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Name   <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Adi, new { maxlength = 30, autocompletetype = "disabled", style = "width:200px;", @class = "onlyalpha" })
+                    @Html.ValidationMessageFor(m => m.Adi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Lastname    <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Soyadi, new { maxlength = 30, autocompletetype = "disabled", style = "width:200px;", @class = "onlyalpha" })
+                    @Html.ValidationMessageFor(m => m.Soyadi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVMUser_Department    <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.DepartmanKodu, Model.Departmanlar, new { style = "width:200px;" })
+                    @Html.ValidationMessageFor(m => m.DepartmanKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVMUser_AuthorityGroup    <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.YetkiGrubu, Model.Yetkiler, new { style = "width:200px;" })
+                    @Html.ValidationMessageFor(m => m.YetkiGrubu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVMUser_Job   <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.Gorevi, Model.GorevTipleri, new { style = "width:200px;" })
+                    @Html.ValidationMessageFor(m => m.Gorevi)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Manager   <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TVMKullaniciFinderFor(m => m.YoneticiKodu, Model.YoneticiAdi)
+                    @Html.ValidationMessageFor(m => m.YoneticiKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVMUser_TechnicalPersonnelCode</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.TeknikPersonelKodu, new { maxlength = 30, autocompletetype = "disabled", style = "width:200px;" })
+                    @Html.ValidationMessageFor(m => m.TeknikPersonelKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVMUser_Phone</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Telefon, new { style = "width:200px;", tabindex = 17, data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", placeholder = "90-212-5554477", title = babonline.Message_PhoneFormat })
+                    @Html.ValidationMessageFor(m => m.Telefon)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVMUser_MobilePhone</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.CepTelefon, new { style = "width:200px", tabindex = 17, data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", placeholder = "90-212-5554477", title = babonline.Message_PhoneFormat })
+                    @Html.ValidationMessageFor(m => m.CepTelefon)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.SkypeNumber</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.SkypeNumara, new { maxlength = 20, autocompletetype = "disabled", style = "width:200px;" })
+                    @Html.ValidationMessageFor(s => s.SkypeNumara)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Email_Adress  <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Email, new { style = "width:200px;" })
+                    @Html.ValidationMessageFor(s => s.Email)
+                </div>
+
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVMUser_MTCode</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.MTKodu, new { maxlength = 15, autocompletetype = "disabled", style = "width:100px;" })
+                    @Html.ValidationMessageFor(m => m.MTKodu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Status</label>
+                <div class="controls" style="margin-left: 200px;">
+                    @Html.RadioButtonListFor(m => m.Durum, Model.DurumTipleri)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.TVMUser_ProductionOffer</label>
+                <div class="controls" style="margin-left: 200px;">
+                    @Html.RadioButtonListFor(m => m.TeklifPoliceUretimi, Model.TeklifPoliceUretimTipleri)
+                </div>
+            </div>@*
+                if (Model.TVMKodu == NeosinerjiTVM.AegonTVMKodu)
+                {
+                <div class="control-group">
+                    <label class="control-label">APY mi?</label>
+                    <div class="controls">
+                        @Html.RadioButtonListFor(m => m.APYmi, Model.TeklifPoliceUretimTipleri)
+                    </div>
+                </div>
+                }
+            *@<div class="form-actions">
+                <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                <a class="btn" href="~/Manage/Kullanici/Detay/@Model.KullaniciKodu">@babonline.Cancel</a>
+            </div>
+        }
+        <!-- END FORM-->
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Hasar.Models
+@model HasarEksperIslemleriListModel
+
+<script>
+    $(document).ready(function () {
+        var notTable;
+        function notTableSet() {
+            notTable = $('#eksperler-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+
+        notTableSet();
+    });
+</script>
+
+<table id="eksperler-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 150px;">Eksper Ad Soyad</th>
+            <th style="width: 150px;">Tahmini Hasar Bedeli</th>
+            <th style="width: 100px;">Tahmini Hasar Para Birimi</th>
+            <th style="width: 50px;">Anlaşmalı Servis Ödenen Hasar Bedeli</th>
+            <th style="width: 40px;">Anlaşmalı Servis Ödenen Hasar ParaBirimi</th>
+            <th style="width: 40px;"></th>
+            <th style="width: 40px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td style="text-align: center; width: 150px;">@item.EksperAdSoyad</td>
+                <td style="text-align: center; width: 150px;">@item.TahminiHasarBedeli</td>
+                <td style="text-align: center; width: 150px;">@item.TahminiHasarParaBirimiText</td>
+                <td style="text-align: center; width: 150px;">@item.AnlasmaliServisBedeli</td>
+                <td style="text-align: center; width: 150px;">@item.AnlasmaliServisParaBirimiText</td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" eksper-id="@item.EksperId" class="btn btn-mini btn-info edit-eksper">@babonline.Edit</a>
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" eksper-id="@item.EksperId" class="btn btn-mini btn-danger delete-eksper">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

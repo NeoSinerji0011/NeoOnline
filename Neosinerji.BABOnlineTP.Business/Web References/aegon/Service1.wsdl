@@ -1,0 +1,1503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="TuruncuElma_TE02">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pTeklifNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="cinsiyet" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dogTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="yas" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigBasTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sigortaSure" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="odeDonem" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parabirimi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="anaTeminat" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="anaTeminatTutar" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="ekTeminatKodlari" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="pGvo" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="teklifTarihi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musteriAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmaKisaAd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="hesapSecenek" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TuruncuElma_TE02Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TuruncuElma_TE02Result" type="tns:ArrayOfTEPrimInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTEPrimInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TEPrimInfo" nillable="true" type="tns:TEPrimInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TEPrimInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="surum_bilgi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tibbi_tetkik_sonucu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="sbo_toplam_prim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="primdenVergiAvantaji" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="vas_prim_maliyeti" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="pdfLinki" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="beGvo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="paraBirimiStr" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="atYillikPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="atDonemselPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="error" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="topYillikPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="topDonemselPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="atAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="atAdiUzun" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="atTemTutar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KH_ektemAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KH_ektemAdiUzun" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KH_teminatTutar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KH_ektemYillikPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KH_ektemDonemselPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HKTDM_ektemAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HKTDM_ektemAdiUzun" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HKTDM_teminatTutar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HKTDM_ektemYillikPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HKTDM_ektemDonemselPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KVEF_ektemAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KVEF_ektemAdiUzun" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KVEF_teminatTutar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KVEF_ektemYillikPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KVEF_ektemDonemselPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TTAV_ektemAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TTAV_ektemAdiUzun" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TTAV_teminatTutar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TTAV_ektemYillikPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TTAV_ektemDonemselPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MALYD_ektemAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MALYD_ektemAdiUzun" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MALYD_teminatTutar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MALYD_ektemYillikPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MALYD_ektemDonemselPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HTED_ektemAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HTED_ektemAdiUzun" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HTED_teminatTutar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HTED_ektemYillikPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HTED_ektemDonemselPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KHYT_ektemAdi" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KHYT_ektemAdiUzun" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KHYT_teminatTutar" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KHYT_ektemYillikPrim" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="KHYT_ektemDonemselPrim" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="KorunanGelecek_KG01">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pTeklifNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="cinsiyet" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dogTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="yas" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigBasTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sigortaSure" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="odeDonem" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parabirimi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="anaTeminat" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="anaTeminatTutar" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="ekTeminat" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sGVo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="teklifTarihi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musteriAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmaKisaAd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="KorunanGelecek_KG01Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KorunanGelecek_KG01Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OdulluBirikim_OB01">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pTeklifNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="cinsiyet" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dogTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="yas" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigBasTar" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="odeDonem" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sigortaSure" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="pHesapSecenek" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tutar" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="pGVO" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="teklifTarihi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musteriAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmaKisaAd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OdulluBirikim_OB01Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OdulluBirikim_OB01Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EgitimIcinHayat_ES01">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pTeklifNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="cinsiyet" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dogTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="yas" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="parabirimi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigBasTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sigortaSure" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="pGeriOdeSure" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="pGOYillikTutar" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="odeDonem" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="pGVO" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="teklifTarihi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musteriAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmaKisaAd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EgitimIcinHayat_ES01Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EgitimIcinHayat_ES01Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrimIadeli_PI01">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pTeklifNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="cinsiyet" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dogTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="yas" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigBasTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sigortaSure" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="odeDonem" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parabirimi" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="hesapYontem" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tutar" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="surprimOran" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="sGVo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="teklifTarihi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musteriAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmaKisaAd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrimIadeli_PI01Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrimIadeli_PI01Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrimIadeli_PI02_B">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pTeklifNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="cinsiyet" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dogTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="yas" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigBasTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sigortaSure" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="odeDonem" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parabirimi" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="hesapYontem" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tutar" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="surprimOran" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="sGVO" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="teklifTarihi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musteriAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmaKisaAd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrimIadeli_PI02_BResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrimIadeli_PI02_BResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrimIadeli_PI02">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pTeklifNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="cinsiyet" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dogTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="yas" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigBasTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sigortaSure" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="odeDonem" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="parabirimi" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="hesapYontem" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tutar" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="surprimOran" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="sGVo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="teklifTarihi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musteriAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmaKisaAd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrimIadeli_PI02Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrimIadeli_PI02Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OdemeGuvence_OGS01">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pTeklifNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="cinsiyet" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dogTar" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ogsBastar" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="odeDonem" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paraBirimi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="kapBastar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sigSure" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="kapAyPrim" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="KHPM_varmi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MDPM_varmi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IDPM_varmi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KHYPM_varmi" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="surprim_ana" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="surprim_khpm" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="surprim_mdpm" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="surprim_idpm" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="surprim_khypm" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="sGvo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="teklifTarihi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="musteriAdi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmaKisaAd" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="pKapTeklifNo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OdemeGuvence_OGS01Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OdemeGuvence_OGS01Result">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="onProvizyon">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pUrunHaymerKodu" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="pTeklifNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="pPartajNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pBasvuruNo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="pOdemeTuru" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="pDovKod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pTCK" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pKKNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pSKT_Ay" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pSKT_Yil" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pCVV" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pTutar" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pProvTar" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmaKisaAd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="onProvizyonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="onProvizyonResult" type="tns:result" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="result">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="errormsg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="response" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="resultCode" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="esales_underwriting">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pTeklifNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="tckno" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigBasTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sigSure" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="cinsiyet" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="yas" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="urunHaymerKodu" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paraBirimi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tmntKodlariVeTutarlari" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="yasamTarziSoruCevap" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="fgd_tck" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmaKisaAd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="saglikSoruSetiCevap" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="esales_underwritingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="esales_underwritingResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="e_underwriting">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="pTeklifNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="tckno" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dogTar" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigBasTar" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="sigSure" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="cinsiyet" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="urunHaymerKodu" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paraBirimi" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tmntKodlariVeTutarlari" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="yasamTarziSoruCevap" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="saglikSoruSetiCevap" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="fgd_tck" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dogYerUlke" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="uyruk" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="iletisimUlke" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigYabVerMuk" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigetYabVerMuk" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigetTuzelGercek" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigetTCK" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sigetKrediKartNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmaKisaAd" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="e_underwritingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="e_underwritingResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="karaListeKontrol">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ad" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="soyad" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firmaKisaAd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="kullanici" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="karaListeKontrolResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="karaListeKontrolResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArrayOfTEPrimInfo" nillable="true" type="tns:ArrayOfTEPrimInfo" />
+      <s:element name="DataTable" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+            <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="result" nillable="true" type="tns:result" />
+      <s:element name="int" type="s:int" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="TuruncuElma_TE02SoapIn">
+    <wsdl:part name="parameters" element="tns:TuruncuElma_TE02" />
+  </wsdl:message>
+  <wsdl:message name="TuruncuElma_TE02SoapOut">
+    <wsdl:part name="parameters" element="tns:TuruncuElma_TE02Response" />
+  </wsdl:message>
+  <wsdl:message name="KorunanGelecek_KG01SoapIn">
+    <wsdl:part name="parameters" element="tns:KorunanGelecek_KG01" />
+  </wsdl:message>
+  <wsdl:message name="KorunanGelecek_KG01SoapOut">
+    <wsdl:part name="parameters" element="tns:KorunanGelecek_KG01Response" />
+  </wsdl:message>
+  <wsdl:message name="OdulluBirikim_OB01SoapIn">
+    <wsdl:part name="parameters" element="tns:OdulluBirikim_OB01" />
+  </wsdl:message>
+  <wsdl:message name="OdulluBirikim_OB01SoapOut">
+    <wsdl:part name="parameters" element="tns:OdulluBirikim_OB01Response" />
+  </wsdl:message>
+  <wsdl:message name="EgitimIcinHayat_ES01SoapIn">
+    <wsdl:part name="parameters" element="tns:EgitimIcinHayat_ES01" />
+  </wsdl:message>
+  <wsdl:message name="EgitimIcinHayat_ES01SoapOut">
+    <wsdl:part name="parameters" element="tns:EgitimIcinHayat_ES01Response" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI01SoapIn">
+    <wsdl:part name="parameters" element="tns:PrimIadeli_PI01" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI01SoapOut">
+    <wsdl:part name="parameters" element="tns:PrimIadeli_PI01Response" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI02_BSoapIn">
+    <wsdl:part name="parameters" element="tns:PrimIadeli_PI02_B" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI02_BSoapOut">
+    <wsdl:part name="parameters" element="tns:PrimIadeli_PI02_BResponse" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI02SoapIn">
+    <wsdl:part name="parameters" element="tns:PrimIadeli_PI02" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI02SoapOut">
+    <wsdl:part name="parameters" element="tns:PrimIadeli_PI02Response" />
+  </wsdl:message>
+  <wsdl:message name="OdemeGuvence_OGS01SoapIn">
+    <wsdl:part name="parameters" element="tns:OdemeGuvence_OGS01" />
+  </wsdl:message>
+  <wsdl:message name="OdemeGuvence_OGS01SoapOut">
+    <wsdl:part name="parameters" element="tns:OdemeGuvence_OGS01Response" />
+  </wsdl:message>
+  <wsdl:message name="onProvizyonSoapIn">
+    <wsdl:part name="parameters" element="tns:onProvizyon" />
+  </wsdl:message>
+  <wsdl:message name="onProvizyonSoapOut">
+    <wsdl:part name="parameters" element="tns:onProvizyonResponse" />
+  </wsdl:message>
+  <wsdl:message name="esales_underwritingSoapIn">
+    <wsdl:part name="parameters" element="tns:esales_underwriting" />
+  </wsdl:message>
+  <wsdl:message name="esales_underwritingSoapOut">
+    <wsdl:part name="parameters" element="tns:esales_underwritingResponse" />
+  </wsdl:message>
+  <wsdl:message name="e_underwritingSoapIn">
+    <wsdl:part name="parameters" element="tns:e_underwriting" />
+  </wsdl:message>
+  <wsdl:message name="e_underwritingSoapOut">
+    <wsdl:part name="parameters" element="tns:e_underwritingResponse" />
+  </wsdl:message>
+  <wsdl:message name="karaListeKontrolSoapIn">
+    <wsdl:part name="parameters" element="tns:karaListeKontrol" />
+  </wsdl:message>
+  <wsdl:message name="karaListeKontrolSoapOut">
+    <wsdl:part name="parameters" element="tns:karaListeKontrolResponse" />
+  </wsdl:message>
+  <wsdl:message name="TuruncuElma_TE02HttpGetIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="parabirimi" type="s:string" />
+    <wsdl:part name="anaTeminat" type="s:string" />
+    <wsdl:part name="anaTeminatTutar" type="s:string" />
+    <wsdl:part name="ekTeminatKodlari" type="s:string" />
+    <wsdl:part name="pGvo" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+    <wsdl:part name="hesapSecenek" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TuruncuElma_TE02HttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfTEPrimInfo" />
+  </wsdl:message>
+  <wsdl:message name="KorunanGelecek_KG01HttpGetIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="parabirimi" type="s:string" />
+    <wsdl:part name="anaTeminat" type="s:string" />
+    <wsdl:part name="anaTeminatTutar" type="s:string" />
+    <wsdl:part name="ekTeminat" type="s:string" />
+    <wsdl:part name="sGVo" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="KorunanGelecek_KG01HttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="OdulluBirikim_OB01HttpGetIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="pHesapSecenek" type="s:string" />
+    <wsdl:part name="tutar" type="s:string" />
+    <wsdl:part name="pGVO" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OdulluBirikim_OB01HttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="EgitimIcinHayat_ES01HttpGetIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="parabirimi" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="pGeriOdeSure" type="s:string" />
+    <wsdl:part name="pGOYillikTutar" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="pGVO" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EgitimIcinHayat_ES01HttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI01HttpGetIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="parabirimi" type="s:string" />
+    <wsdl:part name="hesapYontem" type="s:string" />
+    <wsdl:part name="tutar" type="s:string" />
+    <wsdl:part name="surprimOran" type="s:string" />
+    <wsdl:part name="sGVo" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI01HttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI02_BHttpGetIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="parabirimi" type="s:string" />
+    <wsdl:part name="hesapYontem" type="s:string" />
+    <wsdl:part name="tutar" type="s:string" />
+    <wsdl:part name="surprimOran" type="s:string" />
+    <wsdl:part name="sGVO" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI02_BHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI02HttpGetIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="parabirimi" type="s:string" />
+    <wsdl:part name="hesapYontem" type="s:string" />
+    <wsdl:part name="tutar" type="s:string" />
+    <wsdl:part name="surprimOran" type="s:string" />
+    <wsdl:part name="sGVo" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI02HttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="OdemeGuvence_OGS01HttpGetIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="ogsBastar" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="paraBirimi" type="s:string" />
+    <wsdl:part name="kapBastar" type="s:string" />
+    <wsdl:part name="sigSure" type="s:string" />
+    <wsdl:part name="kapAyPrim" type="s:string" />
+    <wsdl:part name="KHPM_varmi" type="s:string" />
+    <wsdl:part name="MDPM_varmi" type="s:string" />
+    <wsdl:part name="IDPM_varmi" type="s:string" />
+    <wsdl:part name="KHYPM_varmi" type="s:string" />
+    <wsdl:part name="surprim_ana" type="s:string" />
+    <wsdl:part name="surprim_khpm" type="s:string" />
+    <wsdl:part name="surprim_mdpm" type="s:string" />
+    <wsdl:part name="surprim_idpm" type="s:string" />
+    <wsdl:part name="surprim_khypm" type="s:string" />
+    <wsdl:part name="sGvo" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+    <wsdl:part name="pKapTeklifNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OdemeGuvence_OGS01HttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="onProvizyonHttpGetIn">
+    <wsdl:part name="pUrunHaymerKodu" type="s:string" />
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="pPartajNo" type="s:string" />
+    <wsdl:part name="pBasvuruNo" type="s:string" />
+    <wsdl:part name="pOdemeTuru" type="s:string" />
+    <wsdl:part name="pDovKod" type="s:string" />
+    <wsdl:part name="pTCK" type="s:string" />
+    <wsdl:part name="pKKNo" type="s:string" />
+    <wsdl:part name="pSKT_Ay" type="s:string" />
+    <wsdl:part name="pSKT_Yil" type="s:string" />
+    <wsdl:part name="pCVV" type="s:string" />
+    <wsdl:part name="pTutar" type="s:string" />
+    <wsdl:part name="pProvTar" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="onProvizyonHttpGetOut">
+    <wsdl:part name="Body" element="tns:result" />
+  </wsdl:message>
+  <wsdl:message name="karaListeKontrolHttpGetIn">
+    <wsdl:part name="ad" type="s:string" />
+    <wsdl:part name="soyad" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+    <wsdl:part name="kullanici" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="karaListeKontrolHttpGetOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:message name="TuruncuElma_TE02HttpPostIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="parabirimi" type="s:string" />
+    <wsdl:part name="anaTeminat" type="s:string" />
+    <wsdl:part name="anaTeminatTutar" type="s:string" />
+    <wsdl:part name="ekTeminatKodlari" type="s:string" />
+    <wsdl:part name="pGvo" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+    <wsdl:part name="hesapSecenek" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="TuruncuElma_TE02HttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfTEPrimInfo" />
+  </wsdl:message>
+  <wsdl:message name="KorunanGelecek_KG01HttpPostIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="parabirimi" type="s:string" />
+    <wsdl:part name="anaTeminat" type="s:string" />
+    <wsdl:part name="anaTeminatTutar" type="s:string" />
+    <wsdl:part name="ekTeminat" type="s:string" />
+    <wsdl:part name="sGVo" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="KorunanGelecek_KG01HttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="OdulluBirikim_OB01HttpPostIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="pHesapSecenek" type="s:string" />
+    <wsdl:part name="tutar" type="s:string" />
+    <wsdl:part name="pGVO" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OdulluBirikim_OB01HttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="EgitimIcinHayat_ES01HttpPostIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="parabirimi" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="pGeriOdeSure" type="s:string" />
+    <wsdl:part name="pGOYillikTutar" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="pGVO" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EgitimIcinHayat_ES01HttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI01HttpPostIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="parabirimi" type="s:string" />
+    <wsdl:part name="hesapYontem" type="s:string" />
+    <wsdl:part name="tutar" type="s:string" />
+    <wsdl:part name="surprimOran" type="s:string" />
+    <wsdl:part name="sGVo" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI01HttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI02_BHttpPostIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="parabirimi" type="s:string" />
+    <wsdl:part name="hesapYontem" type="s:string" />
+    <wsdl:part name="tutar" type="s:string" />
+    <wsdl:part name="surprimOran" type="s:string" />
+    <wsdl:part name="sGVO" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI02_BHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI02HttpPostIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="yas" type="s:string" />
+    <wsdl:part name="sigBasTar" type="s:string" />
+    <wsdl:part name="sigortaSure" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="parabirimi" type="s:string" />
+    <wsdl:part name="hesapYontem" type="s:string" />
+    <wsdl:part name="tutar" type="s:string" />
+    <wsdl:part name="surprimOran" type="s:string" />
+    <wsdl:part name="sGVo" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PrimIadeli_PI02HttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="OdemeGuvence_OGS01HttpPostIn">
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="cinsiyet" type="s:string" />
+    <wsdl:part name="dogTar" type="s:string" />
+    <wsdl:part name="ogsBastar" type="s:string" />
+    <wsdl:part name="odeDonem" type="s:string" />
+    <wsdl:part name="paraBirimi" type="s:string" />
+    <wsdl:part name="kapBastar" type="s:string" />
+    <wsdl:part name="sigSure" type="s:string" />
+    <wsdl:part name="kapAyPrim" type="s:string" />
+    <wsdl:part name="KHPM_varmi" type="s:string" />
+    <wsdl:part name="MDPM_varmi" type="s:string" />
+    <wsdl:part name="IDPM_varmi" type="s:string" />
+    <wsdl:part name="KHYPM_varmi" type="s:string" />
+    <wsdl:part name="surprim_ana" type="s:string" />
+    <wsdl:part name="surprim_khpm" type="s:string" />
+    <wsdl:part name="surprim_mdpm" type="s:string" />
+    <wsdl:part name="surprim_idpm" type="s:string" />
+    <wsdl:part name="surprim_khypm" type="s:string" />
+    <wsdl:part name="sGvo" type="s:string" />
+    <wsdl:part name="teklifTarihi" type="s:string" />
+    <wsdl:part name="musteriAdi" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+    <wsdl:part name="pKapTeklifNo" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OdemeGuvence_OGS01HttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="onProvizyonHttpPostIn">
+    <wsdl:part name="pUrunHaymerKodu" type="s:string" />
+    <wsdl:part name="pTeklifNo" type="s:string" />
+    <wsdl:part name="pPartajNo" type="s:string" />
+    <wsdl:part name="pBasvuruNo" type="s:string" />
+    <wsdl:part name="pOdemeTuru" type="s:string" />
+    <wsdl:part name="pDovKod" type="s:string" />
+    <wsdl:part name="pTCK" type="s:string" />
+    <wsdl:part name="pKKNo" type="s:string" />
+    <wsdl:part name="pSKT_Ay" type="s:string" />
+    <wsdl:part name="pSKT_Yil" type="s:string" />
+    <wsdl:part name="pCVV" type="s:string" />
+    <wsdl:part name="pTutar" type="s:string" />
+    <wsdl:part name="pProvTar" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="onProvizyonHttpPostOut">
+    <wsdl:part name="Body" element="tns:result" />
+  </wsdl:message>
+  <wsdl:message name="karaListeKontrolHttpPostIn">
+    <wsdl:part name="ad" type="s:string" />
+    <wsdl:part name="soyad" type="s:string" />
+    <wsdl:part name="firmaKisaAd" type="s:string" />
+    <wsdl:part name="kullanici" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="karaListeKontrolHttpPostOut">
+    <wsdl:part name="Body" element="tns:int" />
+  </wsdl:message>
+  <wsdl:portType name="Service1Soap">
+    <wsdl:operation name="TuruncuElma_TE02">
+      <wsdl:input message="tns:TuruncuElma_TE02SoapIn" />
+      <wsdl:output message="tns:TuruncuElma_TE02SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="KorunanGelecek_KG01">
+      <wsdl:input message="tns:KorunanGelecek_KG01SoapIn" />
+      <wsdl:output message="tns:KorunanGelecek_KG01SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OdulluBirikim_OB01">
+      <wsdl:input message="tns:OdulluBirikim_OB01SoapIn" />
+      <wsdl:output message="tns:OdulluBirikim_OB01SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EgitimIcinHayat_ES01">
+      <wsdl:input message="tns:EgitimIcinHayat_ES01SoapIn" />
+      <wsdl:output message="tns:EgitimIcinHayat_ES01SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI01">
+      <wsdl:input message="tns:PrimIadeli_PI01SoapIn" />
+      <wsdl:output message="tns:PrimIadeli_PI01SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02_B">
+      <wsdl:input message="tns:PrimIadeli_PI02_BSoapIn" />
+      <wsdl:output message="tns:PrimIadeli_PI02_BSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02">
+      <wsdl:input message="tns:PrimIadeli_PI02SoapIn" />
+      <wsdl:output message="tns:PrimIadeli_PI02SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OdemeGuvence_OGS01">
+      <wsdl:input message="tns:OdemeGuvence_OGS01SoapIn" />
+      <wsdl:output message="tns:OdemeGuvence_OGS01SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="onProvizyon">
+      <wsdl:input message="tns:onProvizyonSoapIn" />
+      <wsdl:output message="tns:onProvizyonSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="esales_underwriting">
+      <wsdl:input message="tns:esales_underwritingSoapIn" />
+      <wsdl:output message="tns:esales_underwritingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="e_underwriting">
+      <wsdl:input message="tns:e_underwritingSoapIn" />
+      <wsdl:output message="tns:e_underwritingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="karaListeKontrol">
+      <wsdl:input message="tns:karaListeKontrolSoapIn" />
+      <wsdl:output message="tns:karaListeKontrolSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="Service1HttpGet">
+    <wsdl:operation name="TuruncuElma_TE02">
+      <wsdl:input message="tns:TuruncuElma_TE02HttpGetIn" />
+      <wsdl:output message="tns:TuruncuElma_TE02HttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="KorunanGelecek_KG01">
+      <wsdl:input message="tns:KorunanGelecek_KG01HttpGetIn" />
+      <wsdl:output message="tns:KorunanGelecek_KG01HttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OdulluBirikim_OB01">
+      <wsdl:input message="tns:OdulluBirikim_OB01HttpGetIn" />
+      <wsdl:output message="tns:OdulluBirikim_OB01HttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EgitimIcinHayat_ES01">
+      <wsdl:input message="tns:EgitimIcinHayat_ES01HttpGetIn" />
+      <wsdl:output message="tns:EgitimIcinHayat_ES01HttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI01">
+      <wsdl:input message="tns:PrimIadeli_PI01HttpGetIn" />
+      <wsdl:output message="tns:PrimIadeli_PI01HttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02_B">
+      <wsdl:input message="tns:PrimIadeli_PI02_BHttpGetIn" />
+      <wsdl:output message="tns:PrimIadeli_PI02_BHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02">
+      <wsdl:input message="tns:PrimIadeli_PI02HttpGetIn" />
+      <wsdl:output message="tns:PrimIadeli_PI02HttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OdemeGuvence_OGS01">
+      <wsdl:input message="tns:OdemeGuvence_OGS01HttpGetIn" />
+      <wsdl:output message="tns:OdemeGuvence_OGS01HttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="onProvizyon">
+      <wsdl:input message="tns:onProvizyonHttpGetIn" />
+      <wsdl:output message="tns:onProvizyonHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="karaListeKontrol">
+      <wsdl:input message="tns:karaListeKontrolHttpGetIn" />
+      <wsdl:output message="tns:karaListeKontrolHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="Service1HttpPost">
+    <wsdl:operation name="TuruncuElma_TE02">
+      <wsdl:input message="tns:TuruncuElma_TE02HttpPostIn" />
+      <wsdl:output message="tns:TuruncuElma_TE02HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="KorunanGelecek_KG01">
+      <wsdl:input message="tns:KorunanGelecek_KG01HttpPostIn" />
+      <wsdl:output message="tns:KorunanGelecek_KG01HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OdulluBirikim_OB01">
+      <wsdl:input message="tns:OdulluBirikim_OB01HttpPostIn" />
+      <wsdl:output message="tns:OdulluBirikim_OB01HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EgitimIcinHayat_ES01">
+      <wsdl:input message="tns:EgitimIcinHayat_ES01HttpPostIn" />
+      <wsdl:output message="tns:EgitimIcinHayat_ES01HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI01">
+      <wsdl:input message="tns:PrimIadeli_PI01HttpPostIn" />
+      <wsdl:output message="tns:PrimIadeli_PI01HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02_B">
+      <wsdl:input message="tns:PrimIadeli_PI02_BHttpPostIn" />
+      <wsdl:output message="tns:PrimIadeli_PI02_BHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02">
+      <wsdl:input message="tns:PrimIadeli_PI02HttpPostIn" />
+      <wsdl:output message="tns:PrimIadeli_PI02HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OdemeGuvence_OGS01">
+      <wsdl:input message="tns:OdemeGuvence_OGS01HttpPostIn" />
+      <wsdl:output message="tns:OdemeGuvence_OGS01HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="onProvizyon">
+      <wsdl:input message="tns:onProvizyonHttpPostIn" />
+      <wsdl:output message="tns:onProvizyonHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="karaListeKontrol">
+      <wsdl:input message="tns:karaListeKontrolHttpPostIn" />
+      <wsdl:output message="tns:karaListeKontrolHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Service1Soap" type="tns:Service1Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TuruncuElma_TE02">
+      <soap:operation soapAction="http://tempuri.org/TuruncuElma_TE02" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KorunanGelecek_KG01">
+      <soap:operation soapAction="http://tempuri.org/KorunanGelecek_KG01" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OdulluBirikim_OB01">
+      <soap:operation soapAction="http://tempuri.org/OdulluBirikim_OB01" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EgitimIcinHayat_ES01">
+      <soap:operation soapAction="http://tempuri.org/EgitimIcinHayat_ES01" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI01">
+      <soap:operation soapAction="http://tempuri.org/PrimIadeli_PI01" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02_B">
+      <soap:operation soapAction="http://tempuri.org/PrimIadeli_PI02_B" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02">
+      <soap:operation soapAction="http://tempuri.org/PrimIadeli_PI02" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OdemeGuvence_OGS01">
+      <soap:operation soapAction="http://tempuri.org/OdemeGuvence_OGS01" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="onProvizyon">
+      <soap:operation soapAction="http://tempuri.org/onProvizyon" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="esales_underwriting">
+      <soap:operation soapAction="http://tempuri.org/esales_underwriting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="e_underwriting">
+      <soap:operation soapAction="http://tempuri.org/e_underwriting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="karaListeKontrol">
+      <soap:operation soapAction="http://tempuri.org/karaListeKontrol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1Soap12" type="tns:Service1Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="TuruncuElma_TE02">
+      <soap12:operation soapAction="http://tempuri.org/TuruncuElma_TE02" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KorunanGelecek_KG01">
+      <soap12:operation soapAction="http://tempuri.org/KorunanGelecek_KG01" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OdulluBirikim_OB01">
+      <soap12:operation soapAction="http://tempuri.org/OdulluBirikim_OB01" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EgitimIcinHayat_ES01">
+      <soap12:operation soapAction="http://tempuri.org/EgitimIcinHayat_ES01" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI01">
+      <soap12:operation soapAction="http://tempuri.org/PrimIadeli_PI01" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02_B">
+      <soap12:operation soapAction="http://tempuri.org/PrimIadeli_PI02_B" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02">
+      <soap12:operation soapAction="http://tempuri.org/PrimIadeli_PI02" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OdemeGuvence_OGS01">
+      <soap12:operation soapAction="http://tempuri.org/OdemeGuvence_OGS01" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="onProvizyon">
+      <soap12:operation soapAction="http://tempuri.org/onProvizyon" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="esales_underwriting">
+      <soap12:operation soapAction="http://tempuri.org/esales_underwriting" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="e_underwriting">
+      <soap12:operation soapAction="http://tempuri.org/e_underwriting" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="karaListeKontrol">
+      <soap12:operation soapAction="http://tempuri.org/karaListeKontrol" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1HttpGet" type="tns:Service1HttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="TuruncuElma_TE02">
+      <http:operation location="/TuruncuElma_TE02" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KorunanGelecek_KG01">
+      <http:operation location="/KorunanGelecek_KG01" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OdulluBirikim_OB01">
+      <http:operation location="/OdulluBirikim_OB01" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EgitimIcinHayat_ES01">
+      <http:operation location="/EgitimIcinHayat_ES01" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI01">
+      <http:operation location="/PrimIadeli_PI01" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02_B">
+      <http:operation location="/PrimIadeli_PI02_B" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02">
+      <http:operation location="/PrimIadeli_PI02" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OdemeGuvence_OGS01">
+      <http:operation location="/OdemeGuvence_OGS01" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="onProvizyon">
+      <http:operation location="/onProvizyon" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="karaListeKontrol">
+      <http:operation location="/karaListeKontrol" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1HttpPost" type="tns:Service1HttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="TuruncuElma_TE02">
+      <http:operation location="/TuruncuElma_TE02" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KorunanGelecek_KG01">
+      <http:operation location="/KorunanGelecek_KG01" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OdulluBirikim_OB01">
+      <http:operation location="/OdulluBirikim_OB01" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EgitimIcinHayat_ES01">
+      <http:operation location="/EgitimIcinHayat_ES01" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI01">
+      <http:operation location="/PrimIadeli_PI01" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02_B">
+      <http:operation location="/PrimIadeli_PI02_B" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrimIadeli_PI02">
+      <http:operation location="/PrimIadeli_PI02" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OdemeGuvence_OGS01">
+      <http:operation location="/OdemeGuvence_OGS01" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="onProvizyon">
+      <http:operation location="/onProvizyon" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="karaListeKontrol">
+      <http:operation location="/karaListeKontrol" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="Service1Soap" binding="tns:Service1Soap">
+      <soap:address location="http://aegonteklif.aegonemeklilik.com:8888/aegontekliftest/Service1.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1Soap12" binding="tns:Service1Soap12">
+      <soap12:address location="http://aegonteklif.aegonemeklilik.com:8888/aegontekliftest/Service1.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1HttpGet" binding="tns:Service1HttpGet">
+      <http:address location="http://aegonteklif.aegonemeklilik.com:8888/aegontekliftest/Service1.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1HttpPost" binding="tns:Service1HttpPost">
+      <http:address location="http://aegonteklif.aegonemeklilik.com:8888/aegontekliftest/Service1.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

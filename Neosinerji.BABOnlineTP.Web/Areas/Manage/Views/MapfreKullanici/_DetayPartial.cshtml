@@ -1,0 +1,82 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using Neosinerji.BABOnlineTP.Database.Models
+@using menu = Neosinerji.BABOnlineTP.Business.Common
+@using Neosinerji.BABOnlineTP.Business.Common
+@model MapfreKullaniciDetayModel
+
+@{
+    bool guncellemeYetkisi = false;
+
+    List<KullaniciYetkiModel> sekmeler = ViewBag.Sekmeler;
+    KullaniciYetkiModel sekme = sekmeler.Where(s => s.SekmeKodu == menu.AltMenuSekmeler.MapfreKullaniciTanimlama).FirstOrDefault();
+
+    if (sekme != null)
+    {
+        if (sekme.Degistirme == 1)
+        { guncellemeYetkisi = true; }
+    }
+}
+
+@Html.HiddenFor(s => s.KullaniciId)
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="box corner-all">
+            <div class="box-body">
+                <div class="portlet box light-grey " style="margin-top: 24px;">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-reorder"></i>@babonline.UserInfo</div>
+                        @if (guncellemeYetkisi)
+                        {
+                            <div class="actions">
+                                <a href="/Manage/MapfreKullanici/Guncelle/@Model.KullaniciId" class="btn yellow"><i class="icon-pencil">&nbsp;</i>@babonline.Update</a>
+                            </div>
+                        }
+                    </div>
+                    <div class="portlet-body form">
+                        <form class="form-horizontal form-view">
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Region</label>
+                                <div class="controls">
+                                    <label class="control">@Model.Bolge</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">TVM Unvanı</label>
+                                <div class="controls">
+                                    <label class="control">@Model.TVMUnvan</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Name</label>
+                                <div class="controls">
+                                    <label class="control">@Model.KullaniciAdi</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">@babonline.HomePartaj</label>
+                                <div class="controls">
+                                    <label class="control">@Model.AnaPartaj</label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Tali Partaj</label>
+                                <div class="controls">
+                                    <label class="control">@Model.TaliPartaj</label>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">@babonline.Email_Adress</label>
+                                <div class="controls">
+                                    <label class="control">@Model.Email</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

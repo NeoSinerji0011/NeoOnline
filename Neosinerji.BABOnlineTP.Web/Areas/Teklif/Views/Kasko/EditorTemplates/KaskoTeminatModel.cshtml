@@ -1,0 +1,973 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model KaskoTeminatModel
+
+<style>
+    #Teminat_GroupamaTeminatLimiti {
+        text-align: center;
+    }
+</style>
+
+
+<script type="text/template" class="template-aksesuar">
+    <div class="row-fluid aksesuar-row control-group" style="padding-bottom: 10px;" id="aksesuar-row-<%- rc.no %>">
+        <div class="span4">
+            <select name="Teminat.Aksesuarlar[<%- rc.no %>].AksesuarTip" id="Teminat_Aksesuarlar_<%- rc.no %>__AksesuarTip" style="width: 90%">
+                @foreach (var item in Model.AksesuarTipleri)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+        </div>
+        <div class="span4">
+            <input name="Teminat.Aksesuarlar[<%- rc.no %>].Aciklama" class="input-medium" id="Teminat_Aksesuarlar_<%- rc.no %>__Aciklama" type="text" value="" data-val-required="Açıklama alanı bol bırakılamaz." data-val="true">
+        </div>
+        <div class="span2">
+            <input name="Teminat.Aksesuarlar[<%- rc.no %>].Bedel" class="input-small" id="Teminat_Aksesuarlar_<%- rc.no %>__Bedel" type="text" value=""
+                   data-val-required="Bedel alanı gereklidir." data-val="true" data-val-number="The field Bedel must be a number.">
+        </div>
+        <div class="span2">
+            <button class="btn btn-mini btn-danger remove-aksesuar" data-id="<%- rc.no %>" style="margin-left: 10px; margin-top: 3px;" type="button"><i class="icon-white icon-remove"></i></button>
+        </div>
+    </div>
+</script>
+<script type="text/template" class="template-elekcihaz">
+    <div class="row-fluid elekcihaz-row control-group" style="padding-bottom: 10px;" id="elekcihaz-row-<%- rc.no %>">
+        <div class="span4">
+            <select name="Teminat.Cihazlar[<%- rc.no %>].AksesuarTip" id="Teminat_Cihazlar_<%- rc.no %>__AksesuarTip" style="width: 90%">
+                @foreach (var item in Model.ElektronikCihazTipleri)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+        </div>
+        <div class="span4">
+            <input name="Teminat.Cihazlar[<%- rc.no %>].Aciklama" class="input-medium" id="Teminat_Cihazlar_<%- rc.no %>__Aciklama" type="text" value="">
+        </div>
+        <div class="span2">
+            <input name="Teminat.Cihazlar[<%- rc.no %>].Bedel" class="input-small" id="Teminat_Cihazlar_<%- rc.no %>__Bedel" type="text" value=""
+                   data-val-required="Bedel alanı gereklidir." data-val="true" data-val-number="The field Bedel must be a number.">
+        </div>
+        <div class="span2">
+            <button class="btn btn-mini btn-danger remove-elekcihaz" data-id="<%- rc.no %>" style="margin-left: 10px; margin-top: 3px;" type="button"><i class="icon-white icon-remove"></i></button>
+        </div>
+    </div>
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#btn-indirim-sorgula").click(function () {
+            $("#nippon-progress").show();
+            var sigortaEttirenKimlikNo = $("#Musteri_SigortaEttiren_KimlikNo").val();
+            var sigortaliKimlikNo = $("#Musteri_Sigortali_KimlikNo").val();
+            if (sigortaliKimlikNo == "" || sigortaliKimlikNo == null) {
+                sigortaliKimlikNo = sigortaEttirenKimlikNo;
+            }
+            var plakaKod = $("#Arac_PlakaKodu").val();
+            var plakaNo = $("#Arac_PlakaNo").val();
+            var policeBaslangicTarihi = $("#Arac_PoliceBaslangicTarihi").val();
+            if ((sigortaliKimlikNo == "" || sigortaliKimlikNo == null) && (sigortaEttirenKimlikNo == "" || sigortaEttirenKimlikNo == null) &&
+                (plakaKod == "" || plakaKod == null) && (plakaNo == "" || plakaNo == null) && (policeBaslangicTarihi || "" && policeBaslangicTarihi == null)) {
+                alert("HATA! Sorgulamada kullanılan parametreler eksik girilmiştir. Lütfen bilgileri eksiksiz giriniz.");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "/Teklif/Kasko/GetTurkNipponKaskoYetkiliIndirimi",
+                    data: { sigortaliKimlikNo: sigortaliKimlikNo, sigortaEttirenKimlikNo: sigortaEttirenKimlikNo, plakaKodu: plakaKod, plakaNo: plakaNo, policeBaslangicTarihi: policeBaslangicTarihi },
+                    success: function (data) {
+                        if (data.hata == "") {
+                            $("#nippon-progress").hide();
+                            $("#Teminat_YetkiliIndirimi").val(data.YetkiliIndirim);
+                        }
+                        else {
+                            $("#nippon-progress").hide();
+                            alert(data.hata);
+                        }
+                    },
+                    error: function () {
+                        $("#nippon-progress").hide();
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+<div class="span12">
+    <h3 class="form-section">@babonline.GuaranteesChoices</h3>
+
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">@babonline.IMMLimit</label>
+                <div class="controls">
+                    <label>
+                        Bedeni Sahis - Bedeni Kaza - Maddi
+                    </label>
+                    @Html.DropDownListFor(m => m.IMMKodu, Model.IMM, new { style = "width:65%;" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.FKLimit</label>
+                <div class="controls">
+                    <label>
+                        @babonline.DeathsDisabilityCure
+                    </label>
+                    @Html.DropDownListFor(m => m.FKKodu, Model.FK, new { style = "width:65%;" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Insurance_Services</label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.Kasko_Servis, Model.KaskoServisleri, new { style = "width:35%" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Insurance_Spare_Parts</label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.Kasko_Yedek_Parca, Model.KaskoYedekParcalari, new { style = "width:35%" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Insurance_Type</label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.Kasko_Turu, Model.KaskoTurleri, new { style = "width:35%" })
+                </div>
+            </div>
+            <div class="control-group ikame-turu">
+                <label class="control-label">@babonline.SubstitutedSpecies</label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.IkameTuru, Model.IkameTurleri, new { style = "width:35%" })
+                </div>
+            </div>
+            <div class="control-group" id="meslek">
+                <label class="control-label">@babonline.Job</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.MeslekKodu, Model.MeslekKodlari, new { style = "width:35%" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Kullanım Gelir Kaybı</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.KullanimGelirKaybiVarMi, new string[] { "EVET ", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="control-group" id="gelirKaybiBedel" style="display:none">
+                <label class="control-label">Kullanım Gelir Kaybı Bedeli</label>
+                <div class="controls">
+                    @Html.TextBoxFor(s => s.KullanimGelirKaybiBedel, new { style = "width:40%" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Healt</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Saglik, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group" id="saglik-kisi-sayisi" style="display: none">
+                <label class="control-label" style="text-align: center;">@babonline.Number_Of_People_Collateralized</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.Saglik_Kisi_Sayisi, Model.Saglik_Kisi_Sayilari, new { style = "width:70px !important;" })
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Guarantee_Of_International</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Yutr_Disi_Teminat, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group" id="yurtdisi-teminat" style="display: none">
+                <label class="control-label" style="text-align: center;">@babonline.Time_Of_Guarantee_Of_International</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.Yurt_Disi_Teminati_Sure, Model.Yurtdisi_Teminat_Sureleri)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Vehicle_LPG</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.LPGLi_Arac, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group" id="lpg-arac-orjinalmi" style="display: none">
+                <label class="control-label" style="text-align: center;">@babonline.Is_Original</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.LPG_Arac_Orjinalmi, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="row-fluid" id="lpg-marka-bedel" style="display: none">
+                <div class="control-group">
+                    <label class="control-label" style="text-align: center;">@babonline.LPGCompany</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(s => s.LPGAracModel.Markasi, new { style = "width:90%" })
+                        @Html.ValidationMessageFor(s => s.LPGAracModel.Markasi)
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" style="text-align: center;">@babonline.LPGPrice</label>
+                    <div class="controls">
+
+                        @Html.ValidationMessageFor(s => s.LPGAracModel.Bedeli)
+                        <div class="input-prepend input-append">
+                            <span class="add-on simge-tl">&#8378;</span> @Html.TextBoxFor(s => s.LPGAracModel.Bedeli, new { @class = "m-wrap onlynumbers", style = "width:90px; text-align:right" })<span class="add-on">.00</span>
+                            @Html.ValidationMessageFor(m => m.LPGAracModel.Bedeli)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Accessory</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Aksesuar_Teminati, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="row-fluid control-group" id="aksesuarlar" style="display: none;">
+                <div class="span12">
+                    <div class="row-fluid" id="aksesuar-header">
+                        <div class="span4">
+                            <strong>@babonline.Accessory</strong>
+                        </div>
+                        <div class="span4">
+                            <strong>@babonline.Description</strong>
+                        </div>
+                        <div class="span2">
+                            <strong>@babonline.Price1</strong>
+                        </div>
+                        <div class="span2">
+                            <button class="btn btn-mini btn-success add-aksesuar" style="margin-left: 10px;" type="button"><i class="icon-white icon-plus"></i></button>
+                        </div>
+                    </div>
+                    @if (Model.Aksesuarlar != null && Model.Aksesuarlar.Count > 0)
+            {
+                for (int i = 0; i < Model.Aksesuarlar.Count; i++)
+                {
+                    <div class="row-fluid aksesuar-row control-group" style="padding-bottom:10px;" id="aksesuar-row-@(i)">
+                        <div class="span4">
+                            @Html.DropDownListFor(m => m.Aksesuarlar[i].AksesuarTip, new SelectList(Model.AksesuarTipleri, "Value", "Text", Model.Aksesuarlar[i].AksesuarTip), new { style = "width:90%" })
+                        </div>
+                        <div class="span4">
+                            @Html.TextBoxFor(m => m.Aksesuarlar[i].Aciklama, new { @class = "input-medium" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(m => m.Aksesuarlar[i].Bedel, new { @class = "input-small auto-bedel" })
+                        </div>
+                        <div class="span2">
+                            <button class="btn btn-mini btn-danger remove-aksesuar" data-id="@(i)" style="margin-left:10px;margin-top:3px;" type="button"><i class="icon-white icon-remove"></i></button>
+                        </div>
+                    </div>
+        }
+    }
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.ElectronicEquipment</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.ElektronikCihaz_Teminati, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="row-fluid" id="elekcihaz" style="display: none;">
+                <div class="span12">
+                    <div class="row-fluid" id="elekcihaz-header">
+                        <div class="span4">
+                            <strong>@babonline.Equipment</strong>
+                        </div>
+                        <div class="span4">
+                            <strong>@babonline.Description</strong>
+                        </div>
+                        <div class="span2">
+                            <strong>@babonline.Price1</strong>
+                        </div>
+                        <div class="span2">
+                            <button class="btn btn-mini btn-success add-elekcihaz" style="margin-left: 10px;" type="button"><i class="icon-white icon-plus"></i></button>
+                        </div>
+                    </div>
+                    @if (Model.Cihazlar != null && Model.Cihazlar.Count > 0)
+            {
+                for (int i = 0; i < Model.Cihazlar.Count; i++)
+                {
+                    <div class="row-fluid elekcihaz-row control-group" style="padding-bottom:10px;" id="elekcihaz-row-@(i)">
+                        <div class="span4">
+                            @Html.DropDownListFor(m => m.Cihazlar[i].AksesuarTip, new SelectList(Model.ElektronikCihazTipleri, "Value", "Text", Model.Cihazlar[i].AksesuarTip), new { style = "width:90%" })
+                        </div>
+                        <div class="span4">
+                            @Html.TextBoxFor(m => m.Cihazlar[i].Aciklama, new { @class = "input-medium" })
+                        </div>
+                        <div class="span2">
+                            @Html.TextBoxFor(m => m.Cihazlar[i].Bedel, new { @class = "input-small auto-bedel" })
+                        </div>
+                        <div class="span2">
+                            <button class="btn btn-mini btn-danger remove-elekcihaz" data-id="@(i)" style="margin-left:10px;margin-top:3px;" type="button"><i class="icon-white icon-remove"></i></button>
+                        </div>
+                    </div>
+        }
+    }
+                </div>
+            </div>
+
+            <div class="control-group tasinan-yuk" style="display: none;">
+                <label class="control-label">Taşınan Yük</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.TasinanYuk_Teminati, new string[] { "EVET", "HAYIR" }, new { })
+                </div>
+            </div>
+            <div class="row-fluid" id="tasinan" style="display: none;">
+                <div class="span12">
+                    <div class="row-fluid" id="tasinan-header">
+                        <div class="span6">
+                            <strong>Yük</strong>
+                        </div>
+                        <div class="span3">
+                            <strong>@babonline.Description</strong>
+                        </div>
+                        <div class="span3">
+                            <strong>@babonline.Price1</strong>
+                        </div>
+                    </div>
+                    <div class="row-fluid tasinan-row control-group" style="padding-bottom: 10px;">
+                        <div class="span6">
+                            @Html.DropDownListFor(m => m.TasinanYukKademe, Model.TasinanYukTipleri, new { style = "width:100%" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(m => m.TasinanYukAciklama, new { @class = "input-medium" })
+                        </div>
+                        <div class="span3">
+                            @Html.TextBoxFor(m => m.TasinanYukBedel, new { @class = "input-small auto-bedel" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Engelli Aracı Mı</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.EngelliAraciMi, new string[] { "EVET ", "HAYIR" }, new { })
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Elektrikli Araç</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Elektrikli_Arac, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="row-fluid" id="elektrikliArac-Pil-bedel" style="display: none">
+                <div class="control-group">
+                    <label class="control-label" style="text-align: center;">Pil Id</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(s => s.ElektirkliAracModel.PilId, new { style = "width:90%" })
+                        @Html.ValidationMessageFor(s => s.ElektirkliAracModel.PilId)
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" style="text-align: center;">@babonline.Price1</label>
+                    <div class="controls">
+                        @Html.ValidationMessageFor(s => s.ElektirkliAracModel.Bedeli)
+                        <div class="input-prepend input-append">
+                            <span class="add-on simge-tl">&#8378;</span> @Html.TextBoxFor(s => s.ElektirkliAracModel.Bedeli, new { @class = "m-wrap onlynumbers", style = "width:90px; text-align:right" })<span class="add-on">.00</span>
+                            @Html.ValidationMessageFor(m => m.ElektirkliAracModel.Bedeli)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Yanlış Akaryakıt Alımı</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.YanlisAkaryakitDolumu, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+        </div>
+        <div class="span6">           
+            <div class="control-group">
+                <label class="control-label">@babonline.Legal_Protection</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Hukuksal_Koruma_Teminati, new string[] { babonline.Yes, babonline.No }, new { disabled = "disabled" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Legal_Protection Bedeli</label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.HKBedeli, Model.HKBedelleri, new { style = "width:35%" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label tooltips" data-desktop="tooltips" data-placement="left" data-original-title="@babonline.Collateral_Of_Walkout_LockOut_PopularMovement">@babonline.CW_L_PM</label>
+                <div class="controls ">
+                    @Html.SwitchButtonFor(m => m.GLKHHT, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Earthquake</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Deprem, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Flood_Water</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Sel_Su, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Scatheless_Protection</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Hasarsizlik_Koruma, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Theft</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Calinma, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Damage_From_The_Animals</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Hayvanlarin_Verecegi_Zarar_Teminati, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Kıymet Kazanma</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.KiymetKazanma, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Sigara Yanığı</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.SigaraYanigi, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Seylap</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Seylap, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Anahtarlı Çalınma</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.AnahtarliCalinma, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Cam Muafiyeti Kaldırılsın Mı</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.CamMuafiyetiKaldirilsinMi, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Yetkisiz Çekilme</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.YetkiliOlmayanCekilme, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Alert</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Alarm_Teminati, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Forgot_Key</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Anahtar_Kaybi_Teminati, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Fire</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Yangin, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Obsolescence</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.Eskime_Payi_Teminati, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row-fluid" id="HDIOzel" style="display: none">
+        <div>
+            <h3 class="form-section">HDI Sigorta'ya Özel Alanlar</h3>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">Rayiç Bedel Koruma</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.HDIRayicDegerKoruma, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Patlayıcı Parlayıcı Teminatı</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.HDIPatlayiciMadde, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>           
+        </div>
+        <div class="span6">
+           
+            <div class="control-group">
+                <label class="control-label">Kişisel Eşyalar</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.KisiselEsya, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid" id="TurkNipponOzel" style="display: none">
+        <div>
+            <h3 class="form-section">Türk Nippon Sigorta'ya Özel Alanlar</h3>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">Servis Türü</label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.NipponServisTuru, Model.NipponServisTurleri, new { style = "width:35%" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Muafiyet Limiti</label>
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.NipponMuafiyetTutari, Model.NipponMuafiyetTutarlari, new { style = "width:35%" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Yetkili İndirimi</label>
+                <div class="controls">
+                    <div class="input-append">
+                        @Html.TextBoxFor(m => m.NipponYetkiliIndirimi, new { style = "width:90px; text-align:right;" })<span class="add-on">%</span>
+                    </div>
+                    <a class="btn btn-primary" id="btn-indirim-sorgula" href="javascript:;" data-toggle="modal" type="button" tabindex="3">Yetkili İndirimi Sorgula</a>
+                </div>
+            </div>
+            <div id="nippon-progress" class="span12" style="padding-bottom: 20px; display: none;">
+                <div style="margin: 20px auto; width: 500px; text-align: center;">
+                    <h4>Lütfen bekleyin, Yıllık indirim sorgulanıyor...</h4>
+                </div>
+                <div style="margin: 20px auto; width: 500px; text-align: center;">
+                    <img src="/Content/img/loading9.gif" width="32" height="32" title="Lütfen bekleyin, Yıllık indirim sorgulanıyor." alt="Lütfen bekleyin, ürün kaydediliyor.">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid SompoJapanOzel" style="display: none">
+        <div class="span6">
+            <h3 class="form-section">Sompo Japan Sigorta'ya Özel Alanlar</h3>
+        </div>
+
+    </div>
+    <div class="row-fluid SompoJapanOzel" style="display: none">
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label tooltips" data-desktop="tooltips">Artı Teminat</label>
+                <div class="controls ">
+                    @Html.SwitchButtonFor(m => m.SompoArtiTeminatPlani, new string[] { "EVET ", "HAYIR" }, new { style = "width:15%" })
+                </div>
+            </div>
+            <div class="control-group" id="sompoArtiTeminatDegeri" style="display:none;">
+                <label class="control-label">Sompo Artı Teminat Planı</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.SompoArtiTeminatDegeri, Model.SompoArtiTeminatDegerleri, new { style = "width:35%" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label tooltips" data-desktop="tooltips" data-placement="left" data-original-title="@babonline.Collateral_Of_Walkout_LockOut_PopularMovement">Kasko Türü</label>
+                <div class="controls ">
+                    @Html.SwitchButtonFor(m => m.TicariBireysel, new string[] { "BİREYSEL ", "TİCARİ" }, new { style = "width:15%" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid" id="SompoJapanFaaliyetKod" style="display: none">
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">Faaliyet Kodu</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.FaaliyetKodu, Model.FaaliyetKodlari, new { style = "width:90%" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="GroupamaOzel" style="display: none">
+        <div>
+            <h3 class="form-section">Groupama Sigorta'ya Özel Alanlar</h3>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+
+                <div class="control-group">
+                    <label class="control-label">YHİMS Var Mı</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.GroupamaYHIMSKodu, Model.GroupamaYHIMSKodlari, new { style = "width:50%;" })
+                    </div>
+                </div>
+                <div class="control-group klasikKaskoMaddiBedeniAyrimli" style="display: none">
+                    <label class="control-label">YHİMS Basamak </label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.GroupamaYHIMSBasamakKodu, Model.GroupamaYHIMSBasamakKodlari, new { style = "width:50%;" })
+                    </div>
+                </div>
+
+                <div class="control-group serbestLimit" style="display: none">
+                    <label class="control-label">YHİMS Serbest Limit</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.GroupamaYHIMSSerbestLimit, new { style = "width:150px; text-align:right;" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">YHİMS Manevi Dahil Mi</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.GroupamaManeviDahilMi, new string[] { "EVET ", "HAYIR" }, new { style = "width:15%" })
+                    </div>
+                </div>
+                <div class="control-group maneviBedel" style="display: none">
+                    <label class="control-label">YHİMS KB MANEVİ TAZ Bedeli</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.GroupamaManeviDahilBedeli, new { style = "width:150px; text-align:right;" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Meslek Grubu</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.GroupamaMeslekKodu, Model.GroupamaMeslekKodlari, new { style = "width:50%;" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Yakınlık Derecesi</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.YakinlikDerecesi, Model.GroupamaYakinlikDereceleri, new { style = "width:50%;" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Riziko Fiyatları</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.RizikoFiyati, Model.GroupamaRizikoFiyatlari, new { style = "width:50%;" })
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="control-group">
+                    <label class="control-label">Arac Hukuksal Koruma Bedel</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.GroupamaAracHukuksalKorumaBedel, new { style = "width:150px; text-align:right;" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Sürücü Hukuksal Koruma Bedel</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.GroupamaSurucuHukuksalKorumaBedel, new { style = "width:150px; text-align:right;" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Prim Koruma</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.PrimKoruma, new string[] { "EVET ", "HAYIR" }, new { style = "width:15%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Yurt Dışı Kasko</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.YurtDisiKasko, new string[] { "EVET ", "HAYIR" }, new { style = "width:15%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Acente Özel İndirimi</label>
+                    <div class="controls">
+                        <div class="input-append">
+                            @Html.TextBoxFor(m => m.AcenteOzelIndirimi, new { style = "width:50px; text-align:right;" })<span class="add-on">%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Peşin İndirimi</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.PesinIndirimi, new string[] { "EVET ", "HAYIR" }, new { style = "width:15%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Elit Kasko Mu</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.ElitKaskomu, new string[] { "EVET ", "HAYIR" }, new { style = "width:15%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Kaza Destek Var Mı</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.KazaDestekVarMi, new string[] { "EVET ", "HAYIR" }, new { style = "width:15%" })
+                    </div>
+                </div>
+                <div class="control-group" id="kazaDestekLimiti" style="display: none">
+                    <label class="control-label">Kaza Destek Teminat Limiti</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.GroupamaTeminatLimiti, Model.GroupamaTeminatLimitleri, new { style = "width:50%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Asistans Plus Paketi</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.AsistansPlusPaketi, new string[] { "EVET ", "HAYIR" }, new { style = "width:15%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Kolonlar</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.Kolonlar, new string[] { "EVET ", "HAYIR" }, new { style = "width:15%" })
+                    </div>
+                </div>
+                <div class="control-group kolon" style="display: none">
+                    <label class="control-label">Kolon Marka</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.KolonMarka, new { style = "width:150px; text-align:right;" })
+                    </div>
+                </div>
+                <div class="control-group kolon" style="display: none">
+                    <label class="control-label">Kolon Bedel</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.KolonBedel, new { style = "width:150px; text-align:right;" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid GulfOzel" id="gulf-ozel" style="display: none">
+        <h3 class="form-section">Gulf Sigortaya Özel Alanlar</h3>
+    </div>
+    <div class="row-fluid GulfOzel" style="display: none">
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">İkame Türü</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.IkameTuruGulf, Model.IkameTurleriGulf, new { style = "width:35%" })
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Yakıt türü</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.YakitTuruGulf, Model.YakitTurleriGulf, new { style = "width:35%" })
+                </div>
+            </div>
+            @*<div class="control-group">
+                    <label class="control-label">Hukuksal Koruma Bedel</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.HukuksalKorumaGulf, Model.HukuksalKorumaBedelleriGulf, new { style = "width:35%" })
+                    </div>
+                </div>*@
+            <div class="control-group">
+                <label class="control-label">Meslek</label>
+                <div class="controls">
+                    @Html.DropDownListFor(s => s.MeslekKoduGulf, Model.MeslekListesiGulf, new { style = "width:35%" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ErgoOzel" style="display: none">
+        <div>
+            <h3 class="form-section">Ergo Sigorta'ya Özel Alanlar</h3>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="control-group">
+                    <label class="control-label">Meslek</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.ErgoMeslekKodu, Model.ErgoMeslekKodlari, new { style = "width:35%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Servis Türü</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.ErgoServisTuru, Model.ErgoServisTurleri, new { style = "width:35%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="UnicoOzel" style="display: none">
+        <div>
+            <h3 class="form-section">Unico Sigorta'ya Özel Alanlar</h3>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="control-group">
+                    <label class="control-label">Genişletilmiş Cam</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.UnicoGenisletilmisCam, new string[] { "EVET ", "HAYIR" }, new { })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Manevi Tazminat</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.UnicoManeviTazminat, new string[] { "EVET ", "HAYIR" }, new { })
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Hasarsızlık Koruma Klozu</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.UnicoHasarsizlikKorumaKlozu, new string[] { "EVET ", "HAYIR" }, new { })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Yeni Değer Klozu</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.UnicoYeniDegerklozu, new string[] { "EVET ", "HAYIR" }, new { })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Sürücü Kursu Aracı Mı</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.UnicoSurucuKursuAracimi, new string[] { "EVET ", "HAYIR" }, new { })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Tek Sürücü Mü</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.UnicoTekSurucuMu, new string[] { "EVET ", "HAYIR" }, new { })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Sürücü Sayısı</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(s => s.UnicoSurucuSayisi, new { style = "width:90%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">TEB Üyesi Mi</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.UnicoTEBUyesi, new string[] { "EVET ", "HAYIR" }, new { })
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Kiralık Araç Mı</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.UnicoKiralikAracmi, new string[] { "EVET ", "HAYIR" }, new { })
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="control-group">
+                    <label class="control-label">Meslek</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.UnicoMeslekKodu, Model.UnicoMeslekler, new { style = "width:35%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Kilit Bedeli</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.UnicoKilitBedeli, Model.UnicoKilitBedelleri, new { style = "width:35%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">İkame Seçeneği</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.UnicoIkameSecenegi, Model.UnicoIkameSecenekleri, new { style = "width:35%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Deprem Sel Muafiyeti</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.UnicoDepremSelMuafiyeti, Model.UnicoDepremSelMuafiyetleri, new { style = "width:35%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Kasko Muafiyeti</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.UnicoKaskoMuafiyeti, Model.UnicoKaskoMuafiyetleri, new { style = "width:35%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="AxaOzel" style="display: none">
+        <div>
+            <h3 class="form-section">Axa Sigorta'ya Özel Alanlar</h3>
+        </div>
+        <div class="row-fluid">
+            <div class="span6">
+                <div class="control-group" id="axaHayatTeminati" style="display:none">
+                    <label class="control-label">Hayat Teminat Limiti</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.AxaHayatTeminatLimiti, Model.AxaHayatTeminatLimitleri, new { style = "width:40%" })
+                    </div>
+                </div>
+                @*<div class="control-group" id="axaIkame">
+                        <label class="control-label">İkame Seçimi</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(s => s.AxaIkameSecimi, Model.AxaIkameSecimleri, new { style = "width:40%" })
+                        </div>
+                    </div>*@
+                <div class="control-group">
+                    <label class="control-label">Asistans Hizmeti</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.AxaAsistansHizmeti, Model.AxaAsistansHizmetleri, new { style = "width:40%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Araca Bağlı Karavan</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.AxaAracaBagliKaravanMi, new string[] { "EVET ", "HAYIR" }, new { })
+                    </div>
+                </div>
+                <div class="control-group" id="karavanBedel" style="display:none">
+                    <label class="control-label">Araca Bağlı Karavan Bedeli</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(s => s.AxaAracaBagliKaravanBedel, new { style = "width:40%" })
+                    </div>
+                </div>
+            </div>
+            <div class="span6" id="AracBirYasSorulari">
+                <div class="control-group">
+                    <label class="control-label">Cam Filmi Logo </label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.AxaCamFilmiLogo, new string[] { "EVET ", "HAYIR" }, new { })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Plaka Yeni Kayıt Mı</label>
+                    <div class="controls">
+                        @Html.SwitchButtonFor(m => m.AxaPlakaYeniKayitMi, new string[] { "EVET ", "HAYIR" }, new { })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Yeni Değer Klozu</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.AxaYeniDegerKlozu, Model.AxaYeniDegerKlozlari, new { style = "width:40%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Onarım Seçimi</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.AxaOnarimSecimi, Model.AxaOnarimSecimleri, new { style = "width:40%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Deprem/Sel Koasüransı</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.AxaDepremSelKoasuransi, Model.AxaDepremSelKoasuranslari, new { style = "width:40%" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Muafiyet Tutarı</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.AxaMuafiyetTutari, Model.AxaMuafiyetTutarlari, new { style = "width:40%" })
+                    </div>
+                </div>
+                <div class="control-group" id="axaSorumlulukLimiti" style="display:none">
+                    <label class="control-label">Sorumluluk Limiti</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(s => s.AxaSorumlulukLimiti, Model.AxaSorumlulukLimitleri, new { style = "width:40%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

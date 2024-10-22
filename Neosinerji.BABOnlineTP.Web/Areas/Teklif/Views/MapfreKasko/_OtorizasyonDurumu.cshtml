@@ -1,0 +1,50 @@
+﻿@using Neosinerji.BABOnlineTP.Business.MAPFRE
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model OtorizasyonResponse
+
+<div class="row-fluid" style="margin-top:20px; padding-bottom:20px;">
+    <div class="span12">
+        @if(Model.Hata)
+        {
+        <div class="alert alert-danger">
+            <h4>Hatalar</h4>
+            @foreach (var item in Model.Hatalar)
+	        {
+		        <p>@item</p>
+	        }
+        </div>
+        }
+        @if(Model.Otorizasyon)
+        {
+        <div class="alert alert-danger">
+            <h4>Otorizasyon Sorgu Sonucu</h4>
+            @foreach (var item in Model.OtorizasyonMesajlari)
+	        {
+		        <p>@item</p>
+	        }
+        </div>
+        }
+        @if (!Model.Otorizasyon && !Model.Hata)
+        {
+            <div class="alert alert-success">
+                <h4>Otorizasyon Sorgu Sonucu</h4>
+                <p>Teklif için gerekli otorizasyonlar verilmiştir. Teklifi onaylamak için aşağıdaki butona tıklayınız.</p>
+            </div>
+            <button type="button" class="btn blue pull-right" id="otor-onayla" data-loading-text="Onaylanıyor...">
+                <i class="icon-white icon-check"></i> Onayla
+            </button>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                <h4>Otorizasyon Sorgu Sonucu</h4>
+                <p>Otorizasyon sorgusu sonucu hatalar oluştu. Aynı bilgilerle tekrar teklif almak için aşağıdaki butona tıklayınız.</p>
+            </div>
+            <div class="row">
+                <div class="span12">
+                    <button id="btn-teklif-tekrar" class="btn btn-warning pull-right" data-teklif-id="@Model.TeklifId" data-musteri-kodu="@Model.MusteriKodu" type="button"><i class="icon-star-empty icon-white"></i>&nbsp;@babonline.RepeatProposal</button>
+                </div>                
+            </div>
+        }
+    </div>
+</div>

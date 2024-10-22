@@ -1,0 +1,16 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model LilyumGenelBilgilerModel
+
+
+<div class="control-group">
+    <label class="control-label">@babonline.LicenceNumber</label>
+    <div class="controls">
+        @Html.DropDownListFor(m => m.PlakaIlKodu, Model.PlakaKoduListe, new { style = "width:70px !important;margin-right:10px; ", tabindex = "1" })
+        @Html.TextBoxFor(m => m.PlakaNo, new { maxlength = 8, autocompletetype = "disabled", style = "width:100px; text-transform:uppercase;", tabindex = "2", @class = "NumbersHarfValue" })     
+        @Html.ValidationMessageFor(m => m.PlakaNo)
+    </div>
+</div>
+
+

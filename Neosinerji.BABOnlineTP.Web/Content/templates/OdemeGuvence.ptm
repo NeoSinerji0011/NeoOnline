@@ -1,0 +1,262 @@
+﻿<table>
+	<width=520><column=170><column=350>
+	<tbody>
+	<tr><height=>
+		<td><img><width=130><height=40> <path=$TVMLogo$><left></img></td>
+		<td>
+		<size=16><strong>Ödeme Güvence Sigortası
+		</td>
+	</tr>	
+	<tr><height=20>
+			<td><size=13><colspan=2><center><normal>Teklif Tablosu</td>
+	</tr>
+	<tr><height=20><border=clear>
+			<td><size=12><colspan=2><normal><center><backgroundColor=clear> Tüm tutarlar $ParaBirimi$ olarak gösterilmektedir. </td>
+	</tr>
+	</tbody>
+</table>
+
+<table><normal><size=12>
+	<width=520><column=100><column=120><column=10><column=200><column=90>
+	<tbody>
+		<tr><height=30><backgroundColor=192,192,192>
+			<td><colspan=2><strong><left>Sigortalı Adayı İle İlgili Bilgiler</td>
+			<td><backgroundColor=255,255,255></td>
+			<td><backgroundColor=192,192,192><colspan=2><strong><left>Koruma Altına Alınan Poliçe (KAP) İle İlgili Bilgiler</td>
+		</tr>		
+	
+		<tr><height=20><backgroundColor=clear><border=clear>	
+			<td><strong><left>Adı Soyadı :</td>
+			<td><normal><right>$AdiSoyadi$</td>
+			<td></td>
+			<td><strong><left>KAP Poliçe No :</td>
+			<td><normal><right>$KAPPoliceNo$</td>
+		</tr>
+		
+		<tr>
+			<td><strong><left>Cinsiyet :</td>
+			<td><normal><right>$Cinsiyet$</td>
+			<td></td>
+			<td><strong><left>Aylık Prim Tutarı* :</td>
+			<td><normal><right>$AylikPrimTutari$</td>
+		</tr>
+		
+		<tr><height=30>
+			<td><strong><left>Doğum Tarihi : </td>
+			<td><normal><right>$DogumTarihi$</td>
+			<td></td>
+			<td><colspan=2><normal><size=12><left>* KAP Ödeme Dönemi aylıktan farklı olabilir. Buradaki değer aylık eşdeğeridir.</td>
+		</tr>
+		
+		<tr><height=20>
+			<td><strong><left>Yaş :</td>
+			<td><normal><right>$Yas$</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>		
+	</tbody>
+</table>	
+<p></p>
+
+<table><normal>
+	<width=520><column=120><column=100><column=10><column=110><column=180>
+	<tbody>
+		<tr><height=20><backgroundColor=192,192,192>
+			<td><colspan=5><strong><left><center>Sigorta ve Teminat Tutarları İle İlgili Bilgiler</td>
+		</tr>		
+	
+		<tr><backgroundColor=clear>	<height=30>
+			<td><strong><left>Başlangıç Tarihi :</td>
+			<td><normal><right>$BaslangicTarihi$</td>
+			<td></td>
+			<td><strong><left>AnaTeminat(Bknz. Madde 4):</td>
+			<td><right><normal>Vefat Durumunda Prim Muafiyeti Teminatı</td>
+		</tr>
+		
+		<tr>
+			<td><strong><left>Sigorta Süresi (Yıl):</td>
+			<td><normal><right>$SigortaSuresi$</td>
+			<td></td>
+			<td><strong><left>Prim Ödeme Sıklığı :</td>
+			<td><normal><right>$PrimOdeme$</td>
+		</tr>
+		
+		<tr>
+			<td><strong><left>Kalan Sigorta Süresi (Ay) : </td>
+			<td><normal><right>$KalanSigortaSuresi$</td>
+			<td></td>
+			<td><strong><left>Para Birimi :</td>
+			<td><normal><right>$ParaBirimi$</td>
+		</tr>	
+	</tbody>
+</table>	
+
+<p></p>
+	
+	
+<table><normal><size=12>
+	<width=520><column=120><column=100><column=10><column=200><column=90>
+	<tbody>
+		<tr><height=30><backgroundColor=192,192,192>
+			<td><colspan=5><strong><center>Prim Tutarı ve Vergi İle İlgili Bilgiler (Bknz. Not 7) </td>
+		</tr>		
+	
+		<tr><backgroundColor=clear><border=clear>	
+			<td><strong><left>Süre Boyunca  Ödenecek Toplam Prim:</td>
+			<td><normal><right>$SBOTP$</td>
+			<td></td>
+			<td><strong><left>Primden Vergi Avantajı :</td>
+			<td><right><normal>$PrimdenVergiAvantaji$</td>
+		</tr>
+		
+		<tr>
+			<td><strong><left>Beyan Edilen Gelir Vergisi Oranı :</td>
+			<td><normal><right>$BEGVO$</td>
+			<td></td>
+			<td><strong><left>Vergi Avantajı Sonrası Prim Maliyeti :</td>
+			<td><normal><right>$VASPM$</td>
+		</tr>
+		
+	</tbody>
+</table>	
+
+
+
+<table><border=clear>
+	<width=520><column=80><column=10><column=330><column=100>
+	<tbody><size=12>
+		<tr><height=30><backgroundColor=192,192,192>
+			<td><colspan=4><strong><left><center>Sigorta Bedelleri *</td>
+		</tr>	
+		<tr><backgroundColor=clear>
+			<td><strong><left>Ana Teminat</td>
+			<td><normal><left>:</td>
+			<td>Vefat Durumunda Prim Muafiyeti Teminatı (KAP'ın Yıllık Prim Tutarı kadardır.)</td>
+			<td><right>$AnaTeminatiBedeli$</td>
+		</tr>
+		<tr>
+			<td><strong><left>Ek Teminatlar</td>
+			<td><normal><left>:</td>
+			<td>Kritik Hastalıklar Durumunda Prim Muafiyeti Teminatı (KAP'ın Yıllık Prim Tutarı kadardır.)</td>
+			<td><right>$KritikHastaliklarEkTeminatPrice$</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td><normal><left>Tam ve Daimi Maluliyet Durumunda Prim Muafiyeti Teminatı  (KAP'ın Yıllık Prim Tutarı kadardır.)</td>
+			<td><right>$TamVeDaimiMaluliyetPrice$</td>
+		</tr>
+		<tr><height=45>
+			<td></td>
+			<td></td>
+			<td><normal><left>İşsizlik Durumunda Prim Muafiyeti Teminatı 
+				(KAP'ın Aylık Prim Tutarı kadardır ve bu tutar aylık Brüt Asgari Ücret'ten fazla olamaz.)</td>
+			<td><right>$IssizlikDurumundaPrimPrice$</td>
+		</tr>
+		<tr><height=60>
+			<td></td>
+			<td></td>
+			<td><normal><left>Kaza Sonucu Hastanede Yatarak Tedavi Durumunda Prim Muafiyeti Teminatı
+				(KAP'ın Aylık Prim Tutarı kadardır ve bu tutar aylık Brüt Asgari Ücret'ten fazla olamaz.)</td>
+			<td><right>$KazaSonucuHastanedeyatarakTedaviPrice$</td>
+		</tr>
+			
+		<tr>
+			<td><colspan=4><left><size=12><strong>* KAP'ın Yıllık Prim Tutarı kadar olan teminatlar yıl bazında ödenirken, KAP'ın Aylık Prim Tutarı kadar olan teminatlar ise ay bazında ödenmektedir.</td>
+		</tr>			
+	</tbody>
+	</table>
+
+<p></p>
+<rotate></rotate>
+<table><normal><size=12><border=1>
+	<width=770><column=70><column=100><column=100><column=100><column=100><column=100><column=100><column=100>
+	<tbody>
+		<tr><height=30><backgroundColor=192,192,192>
+			<td><colspan=12><strong><left><center>Sigorta Prim Tutarları</td>
+		</tr>		
+	
+		<tr><height=90><backgroundColor=clear><size=12>
+			<td><center><strong>Poliçe Dönemi</td>
+			<td>Vefat DPMT Primi</td>
+			<td>Kritik Hastalıklar DPMT Primi</td>
+			<td>Tam ve Daimi Maluliyet DPMT Primi</td>
+			<td>İşsizlik DPMT Primi</td>
+			<td>Kaza Sonucu Hastanede Yatarak Tedavi DPMT Primi</td>
+			<td>Toplam Prim</td>
+			<td>Aylık Eşdeğer Prim</td>
+		</tr>			
+		<placeHolder=SigortaPrimTutarlari></placeHolder>		
+	</tbody>
+</table>
+
+<p></p>
+<pagebreak></pagebreak>
+<table><normal><size=12><border=1>
+	<width=520><column=140><column=380>
+	<tbody>
+		<tr><height=40><backgroundColor=192,192,192>
+			<td><size=12><strong><colspan=2><left><center>TEMİNAT TANIMLARI  (Tazminat ödeme şartları hakkında ayrıntılı bilgiyi Ödeme Güvence Sigortası Özel Şartlarında bulabilirsiniz.)</td>
+		</tr>		
+	
+		<tr><backgroundColor=clear>
+			<td><left><strong>Vefat Durumunda Prim Muafiyeti Teminatı : </td>
+			<td><normal>İlgili teminatın alınması durumunda, Sigortalı vefat ettiğinde, belirtilen sigorta bedeli yıllık tazminat olarak Koruma Altına Alınan Poliçe'ye ödenir.
+			</td>
+		</tr>
+		<tr>
+			<td><strong>Kritik Hastalıklar Durumunda Prim Muafiyeti Teminatı : </td>
+			<td><normal>Sigortalı, Kritik hastalıklardan birine yakalandığında, belirtilen sigorta bedeli yıllık tazminat olarak Koruma Altına Alınan Poliçe'ye ödenir.
+			</td>
+		</tr>
+		<tr>
+			<td><strong>Tam ve Daimi Maluliyet Durumunda Prim Muafiyeti Teminatı : </td>
+			<td><normal>Sigortalı, kaza ya da hastalık sonucu tam ve daimi malul kaldığında, belirtilen sigorta bedeli yıllık tazminat olarak Koruma Altına Alınan Poliçe'ye ödenir.
+			</td>
+		</tr>
+		<tr><height=60>
+			<td><strong>İşsizlik Durumunda Prim Muafiyeti Teminatı :</td>
+			<td><normal>Sigortalı, istem dışı olarak işsiz kalırsa, işsizlik hali sona erene kadar azami süre limitleri dahilinde, belirtilen sigorta bedeli aylık tazminat olarak Koruma Altına Alınan Poliçe'ye ödenir. Bu tutar Aylık Brüt Asgari Ücreti aşamaz.
+			</td>
+		</tr>
+		<tr><height=75>
+			<td><strong>Kaza Sonucu Hastanede Yatarak Tedavi Durumunda Prim Muafiyeti Teminatı :</td>
+			<td><normal>Sigortalı, kaza sonucu hastanede yatarak tedavi gördüğünde, ilgili tedavi sona erene kadar azami süre limitleri dahilinde, belirtilen sigorta bedeli aylık tazminat olarak Koruma Altına Alınan Poliçe'ye ödenir. Bu tutar Aylık Brüt Asgari Ücreti aşamaz.
+			</td>
+		</tr>
+	</tbody>
+</table>
+<p></p>
+
+
+<p><strong>Önemli Notlar:</p>
+<p><normal>1- Yukarıdaki tablo, Başlangıç Tarihi itibarıyla hesaplanan yaşa göre hazırlanmıştır. Poliçenin başladığı tarih itibarıyla yaşın değişmesi durumunda yukarıdaki tabloda gösterilen değerler değişecektir.</p>
+<p>2- Aegon Emeklilik ve Hayat A.Ş.'ye yapılacak sigorta başvurusunun neticesinde yapılacak değerlendirme sonucu, yukarıda gösterilen prim tutarları artırılabilir.</p>
+<p>3- Yukarıda yer alan primler, Sigorta Bedellerinin (KAP Priminin) süre boyunca aynı kalması durumunu göstermektedir. KAP priminin değişmesi sonucu, yukarıdaki tabloda gösterilen Sigorta Bedeli tutarları ve bunun sonucunda Sigorta Prim Tutarları da aynı oranda değişecektir.</p>
+<p>4- Söz konusu olan teminatlar için prim tutarları, her poliçe dönemindeki yaşa göre ve yine poliçe dönemi itibariyle geriye kalan sigorta süresi boyunca ödenmesi muhtemel sigorta bedeli toplamına göre değişmektedir.</p>
+<p>5- Yukarıda gösterilen primler, Sigorta Bedeli'nin oranı olarak, Vefat ve Maluliyet teminatları  için süre boyunca garanti edilmektedir. Primler Kritik Hastalıklar teminatı için 20 yıl, İşsizlik ve Kaza Sonucu Hastanede Yatarak Tedavi teminatları için 5 yıl boyunca garanti edilmektedir. Aegon Emeklilik ve Hayat A.Ş., belirtilen sürelerin sonunda Kritik Hastalıklar, İşsizlik ve Kaza Sonucu Hastanede Yatarak Tedavi teminatları için prim oranını belirleme hakkına sahiptir. Buna göre sigortanın kalan yıllarına ilişkin prim artışı yapılabilecektir. Bu artış, ürünü almış veya alacak olan herkese uygulanan ve mevcut zaman diliminde geçerli olan prim oranlarına göre yapılır. Ancak bu prim artışı hesaplanırken, sigortalıdan yeniden Sağlık Beyanı ya da Tıbbi Tetkik istenmeyecek ve sigortalının değişen sağlık durumu dikkate alınmayacaktır.</p>
+<p>6- Ürün kapsamındaki teminatların azami sigortalanma yaşları farklıdır. İlgili teminat için azami sigortalanma yaşına gelindiğinde, ilgili teminat sona ermekte ve primi de sıfırlanmaktadır.</p>
+<p>7- Sigorta Ettiren'in, ödemiş olduğu primleri vergi  matrahından indirmesi ile oluşacak vergi avantajının hesaplanmasında, Sigorta Ettiren'in biriktirme dönemi boyunca beyan ettiği vergi oranına tabi olduğu varsayılmıştır. Sigorta Ettiren'in vergi oranını beyan etmemiş olduğu durumlarda %27'lik vergi oranı kullanılmıştır. 193 sayılı Gelir Vergisi Kanunu'na göre 1 Ocak 2013 tarihinden itibaren ölüm, kaza, hastalık, engellilik gibi şahıs hayat sigortası için ödenen primlerin tamamı vergiye tabi matrahtan düşülebilmektedir. Bu konuda sigortacınıza ve/veya vergi uzmanına danışabilirsiniz.</p>
+<p>8- Bu teklif, teklif tarihinden itibaren 30 gün geçerlidir.</p>
+
+
+
+<table><width=520><column=100><column=420>
+	<tbody><size=12>
+		<tr><height=15><border=clear>
+			<td><strong><left>Teklif Tarihi :</td>
+			<td><normal>$TeklifTarihi$</td>
+		</tr>
+		<tr>
+			<td><strong><left>Teklif Numarası :</td>
+			<td><normal>$TeklifNo$</td>
+		</tr>		
+	</tbody>
+</table>
+<p></p>
+
+<p><normal>Yukarıdaki tablo gösterge niteliğinde olup, sigorta sözleşmesinin bir parçasını teşkil etmez. Teminatlar ile ilgili koşullar, size ayrıca verilecek olan sigorta sözleşmesinde belirtilecektir.</p>
+<p></p>
+<p><strong>Yapılması Gereken Tetkikler:
+<p><normal>$Tetkikler$</p>

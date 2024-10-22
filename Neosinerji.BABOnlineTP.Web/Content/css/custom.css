@@ -1,0 +1,171 @@
+﻿/* MVC Error */
+.field-validation-error {
+    color: #b94a48;
+    display: block;
+}
+
+.required {
+    color: #b94a48;
+    /*float:left;
+    line-height:20px;
+    margin-bottom:5px;
+    padding-top:5px;*/
+    padding-left: 3px;
+}
+
+.control-group span.field-validation-error span,
+.control-group span.input-validation-error,
+.control-group span.error {
+    background: rgb(185, 74, 72);
+    padding: 4px 8px;
+    border-radius: 3px;
+    top: 5px;
+    color: rgb(255, 255, 255);
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 1em;
+    position: relative;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.35);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+    .control-group span.field-validation-error span::after,
+    .control-group span.input-validation-error::after,
+    .control-group span.error::after {
+        left: 7px;
+        top: -6px;
+        border-right-color: transparent;
+        border-bottom-color: rgb(185, 74, 72);
+        border-left-color: transparent;
+        border-right-width: 6px;
+        border-bottom-width: 6px;
+        border-left-width: 6px;
+        border-right-style: solid;
+        border-bottom-style: solid;
+        border-left-style: solid;
+        display: inline-block;
+        position: absolute;
+        content: "";
+    }
+
+.error.control-group {
+    padding-bottom: 0.5em;
+}
+
+    .error.control-group div.clean {
+        display: none;
+    }
+
+.widget-box .alert-error {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.controls .control {
+    margin-top: 5px;
+}
+
+
+/*Radio button custom css*/
+.radio-custom {
+    margin-left: 200px !important;
+}
+
+
+.btn-mini {
+    height: 13px;
+    font-size: 11px !important;
+    line-height: 13px;
+    padding: 4px 10px;
+}
+
+button.btn.btn-mini,
+input[type="button"].btn.btn-mini,
+input[type="submit"].btn.btn-mini {
+    height: 21px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.validation-summary-errors {
+    opacity: 1;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    padding: 8px 35px 8px 14px;
+    margin-bottom: 20px;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    border: 1px solid #fbeed5;
+    -webkit-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+}
+
+
+/*Custom css ekran boyutlarına göre değişmesi gereken css*/
+@media (min-width:100px) and (max-width:1140px) {
+    .badge {
+        display: none;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 664px) {
+    .switcher.switcher-small {
+        min-width: 49px !important;
+    }
+
+    .altmenu-ismi {
+        width: 146px !important;
+    }
+
+    .accordion-inner {
+        padding-right: 0px !important;
+    }
+
+    .ul-custom {
+        margin: 0px !important;
+    }
+
+    .buton-container-ana {
+        margin-left: 160px !important;
+    }
+
+    .aciklama {
+        margin: 2px !important;
+        text-align: center !important;
+        font-size: 10px !important;
+        width: 60px !important;
+    }
+
+    .nav-list-custom {
+        padding-left: 158px !important;
+    }
+
+    .div-evet-hayir {
+        width: 21px !important;
+    }
+
+    .buton-container-alt {
+        margin-left: 0px !important;
+    }
+
+    .nav-header {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+
+    .nav-list {
+        padding-right: 0px;
+    }
+}
+
+table thead {
+    background-color: #99CCFF;
+}
+
+.switcher span.switcher-small, .switcher label.switcher-small {
+    z-index: 1 !important;
+}

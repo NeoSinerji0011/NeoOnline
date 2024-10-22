@@ -1,0 +1,313 @@
+﻿@model Neosinerji.BABOnlineTP.Web.Models.LoginModelAEGON
+@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@{
+    ViewBag.Title = "Aegon";
+    //Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>NeoOnline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="neosinerji" name="author" />
+    <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" />
+
+    <!-- BEGIN CORE PLUGINS -->
+    <script src="~/Content/js/jquery-1.10.1.min.js" type="text/javascript"></script>
+    <script src="~/Content/js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+
+    <style type="text/css">
+        #gr_main_holder {
+            background-image: url("/Content/img/Aegon/gr_bg.jpg");
+            background-repeat: no-repeat;
+            border-bottom: 1px solid #2D72A7;
+            border-top: 1px solid #000000;
+            height: 540px;
+            margin: 50px auto auto;
+            width: 960px;
+        }
+
+        #gr_bottom {
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 9px;
+            font-weight: bold;
+            margin: auto;
+            padding-top: 3px;
+            width: 960px;
+        }
+
+        #gr_logo {
+            margin-top: 23px;
+        }
+
+        #gr_login_holder {
+            background-image: url("/Content/img/Aegon/login_bg.jpg");
+            background-position: right top;
+            background-repeat: no-repeat;
+            float: left;
+            height: 280px;
+            margin-left: 10px;
+            margin-top: 115px;
+            width: 450px;
+        }
+
+        #gr_message_area {
+            float: left;
+            height: 280px;
+            margin-top: 120px;
+            width: 350px;
+        }
+
+        #gr_message_header {
+            color: #379AD0;
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 60px 10px 10px 30px;
+        }
+
+        #gr_message {
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 12px;
+            margin: 10px 10px 10px 30px;
+        }
+
+
+
+        #gr_user {
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 11px;
+            margin-top: 75px;
+            text-align: right;
+        }
+
+            #gr_user input {
+                margin-right: 90px;
+                margin-top: 2px;
+                width: 220px;
+            }
+
+        #gr_pass {
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 11px;
+            text-align: right;
+        }
+
+            #gr_pass input {
+                margin-right: 90px;
+                margin-top: 2px;
+                width: 220px;
+            }
+
+        #gr_but {
+            text-align: right;
+        }
+
+            #gr_but input {
+                float: right;
+                margin-right: 201px;
+                margin-top: 2px;
+            }
+
+        #reminder {
+            float: left;
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 12px;
+            margin-top: 55px;
+            width: 400px;
+        }
+
+            #reminder a {
+                color: #000000;
+                font-family: Arial,Helvetica,sans-serif;
+                font-size: 12px;
+                text-decoration: none;
+            }
+
+                #reminder a:hover {
+                    color: #379AD0;
+                    font-family: Arial,Helvetica,sans-serif;
+                    font-size: 12px;
+                }
+
+        #forget1 {
+            border-bottom: 1px solid #379AD0;
+            float: left;
+            height: 18px;
+            margin-left: 5px;
+            width: 100px;
+        }
+
+        #forget2 {
+            border-bottom: 1px solid #379AD0;
+            float: left;
+            height: 18px;
+            margin-left: 10px;
+            width: 160px;
+        }
+
+        #note {
+            background-image: url("/Content/img/Aegon/unl.gif");
+            background-repeat: no-repeat;
+            border-top: 1px solid #D3D3D3;
+            height: 50px;
+            margin-left: 5px;
+            padding-left: 25px;
+            padding-top: 10px;
+        }
+
+        .arrow {
+            border-bottom: 1px solid #379AD0;
+            float: left;
+            height: 18px;
+            width: 6px;
+        }
+
+        TABLE {
+            background-color: #FFFFFF;
+            border-collapse: collapse;
+            border-color: #000000;
+            border-right: 0 solid #000000;
+            border-style: solid;
+            border-width: 0;
+            float: left;
+            font-size: 100%;
+            height: 21px;
+            display: block;
+        }
+
+            TABLE .alert_t {
+                border-color: #B7217F;
+                border-right: 0 solid #B7217F;
+                border-style: solid;
+                border-width: 0;
+                font-size: 100%;
+                width: 100%;
+            }
+
+            TABLE TD {
+                border-bottom: 0 solid #000000;
+                padding: 0 10px;
+                vertical-align: top;
+            }
+
+                TABLE TD .alert_td {
+                    border-bottom: 0 solid #000000;
+                    padding: 3px 10px 4px;
+                    vertical-align: top;
+                }
+
+        .alert {
+            color: #FF0000;
+            font-family: arial;
+            font-size: 12px;
+            font-weight: bold;
+            outline: medium none;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-content">
+        <a href="http://www.neoonline.com.tr/">
+            <img src="@Url.Content("~/Content/img/YeniTasarim/ust-banner-2.jpg")" style="width :25%; height:80%; background-color:transparent; opacity:inherit" />
+        </a>
+
+        <div id="global-sign" style="width: 40%;">
+            <div style="float: left; margin-top:0.5%; width:25.5%; margin-left:3%;">
+                <a href="http://www.neosinerji.com.tr" target="_blank" >
+                    <img style="width: 100%;" src="@Url.Content("~/Content/img/YeniTasarim/neoSinerji_logo.jpg")" alt="neosinerji" /></a>
+            </div>
+            <div style="margin-left: 16%;">
+                <img  style="width:31%;" src="@Url.Content("~/Content/img/YeniTasarim/global-sign-img.png")" alt="global-sign" />
+            </div>
+
+        </div>
+    </div>
+    <div class="custom-content" style="width: 80%;">
+        <div class="login-hub" style="width: 50%; margin-left: 27%; padding-top: 20px;">
+            <div class="login-hub-top" style="width: 500px; height: 350px !important; background-color: white; opacity: 0.9; border: solid 2px lightgray; border-radius: 20px; -moz-border-radius: 25px; -webkit-border-radius: 5px; -border-radius: 5px;">
+                <div style="">
+                    <div style="margin-top: 10px; float: right; margin-right: 10px;">
+                        <a href="@Url.Action("ChangeCulture", "Home", new { lang = Neosinerji.BABOnlineTP.Web.Models.Culture.tr, returnUrl = this.Request.RawUrl })" rel="tooltip" title="Türkçe">
+                            <img style="border: none;" src="~/Content/img/YeniTasarim/Turkey.png" /></a>
+                        <a href="@Url.Action("ChangeCulture", "Home", new { lang = Neosinerji.BABOnlineTP.Web.Models.Culture.en, returnUrl = this.Request.RawUrl })" rel="tooltip" title="English">
+                            <img style="border: none;" src="~/Content/img/YeniTasarim/the_United_Kingdom.png" /></a>
+
+                    </div>
+                    @if (lang == "en")
+                    {
+                        <div>
+                            <img style="width:50%; height:100px;  margin-left:20%" src="@Url.Content("~/Content/img/YeniTasarim/aegon-login-logo-en.png")" alt="login Logo" />
+                        </div>
+                    }
+                    else
+                    {
+                        <img style="width:50%; height:100px;  margin-left:20%" src="@Url.Content("~/Content/img/YeniTasarim/aegon-login-logo.png")" alt="Giriş Logo" />    
+                    }
+
+                </div>
+
+                @*login-white-content*@
+
+                @using (Html.BeginForm("Login", "Aegon", FormMethod.Post, new { id = "form1", ReturnUrl = ViewBag.ReturnUrl }))
+                {
+                    { Html.EnableClientValidation(false); }
+                                   
+                    <div style="width: 100%; height: 15%; margin-top: 3%;">
+                        <div style="width: 30%; height: 15%; float: left; margin-left: 3%; margin-top: 2%;">
+                            <img src="~/Content/img/YeniTasarim/hayat-sigortasi.jpg" style="width: 100%; height: 100%;" />
+                        </div>
+                        <div style="float: right; width: 60%; margin-right: 5%;">
+                            <div style="width: 80%;">
+                                @Html.TextBoxFor(s => s.AcenteNo, new { @class = "text-box login-yazi-tip", placeholder = "Partaj No" })
+                                @Html.TextBoxFor(s => s.Password, new { @class = "text-box login-yazi-tip", placeholder = babonline.Password, type = "Password" })
+
+                            </div>
+                            <div>
+                                <input id="btn-ok" type="submit" class=" tamam-button-div login-yazi-tip green" style="background-color:rgb(224,40,18) !important; border: medium none red;   border-radius: 13px;" value="@babonline.OK"/>
+                            </div>
+                            <div class="sifremi-unuttum-div">
+                                <a href="/Account/SifremiUnuttum" class="link login-yazi-tip" style="color: #272649 !important;">@babonline.ForgotPassword</a>
+                            </div>
+                        </div>
+                    </div>                    
+                }
+
+            </div>
+
+            <div style="width: 281px; height: 61px;">
+                <div class="basvur-div">
+                    &nbsp;
+                </div>
+                <div class="basvur-link-div">
+                    <a href="/Home/Harita" style="position: relative" class="link login-yazi-tip">@babonline.Find_Agency</a>
+                </div>
+
+                <div class="basvur-div" style="margin-top: 0px;">
+                    &nbsp;
+                </div>
+                <div class="basvur-link-div">
+                    <a href="@Url.Content("~/Files/NeoOnline_Tanitim_Dokumani_12042016.pdf")" target="_blank" class="login-yazi-tip link" style="position: relative">@babonline.IntroductoryGuide</a>
+                </div>
+            </div>
+
+        </div>
+        <!-- .login Hub -->
+
+        <div style="clear: left"></div>
+    </div>
+    <script type="text/javascript">
+        $("#sifremi-unuttum").click(function () {
+            window.open("/Aegon/SifremiUnuttum", "_blank", "location=0,status=1,scrollbars=1,width=550,height=400");
+        });
+    </script>
+</body>
+</html>

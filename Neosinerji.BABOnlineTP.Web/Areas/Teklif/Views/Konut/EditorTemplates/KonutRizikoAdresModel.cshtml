@@ -1,0 +1,123 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.KonutRizikoAdresModel
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.City<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(m => m.Il, Model.Iller)
+                @Html.ValidationMessageFor(m => m.Il)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Avenue<span class="required">**</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Cadde)
+                @Html.ValidationMessageFor(m => m.Cadde)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.District<span class="required">*</span></label>
+            <div class="controls">
+                @Html.DropDownListFor(m => m.Ilce, Model.Ilceler)
+                @Html.ValidationMessageFor(m => m.Ilce)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Street<span class="required">**</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Sokak)
+                @Html.ValidationMessageFor(m => m.Sokak)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Neighborhood<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.SemtBelde)
+                @Html.ValidationMessageFor(m => m.SemtBelde)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Building<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Bina)
+                @Html.ValidationMessageFor(m => m.Bina)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Parish<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Mahalle)
+                @Html.ValidationMessageFor(m => m.Mahalle)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Apartment_No<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Daire)
+                @Html.ValidationMessageFor(m => m.Daire)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Apartment<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.Apartman)
+                @Html.ValidationMessageFor(m => m.Apartman)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Han_Apt_Fab</label>
+            <div class="controls">
+                @Html.DropDownListFor(m => m.Han_Aprt_Fab, Model.HanAptFabList)
+                @Html.ValidationMessageFor(m => m.Han_Aprt_Fab)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Postal_Code<span class="required">*</span></label>
+            <div class="controls">
+                @Html.TextBoxFor(m => m.PostaKodu, new { tabindex = 17, maxlength = 5, minlength = 5, pattern = ".{5,5}", title = babonline.Message_PostCode, autocompletetype = "disabled", style = "width:70px" })
+                @Html.ValidationMessageFor(m => m.PostaKodu)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

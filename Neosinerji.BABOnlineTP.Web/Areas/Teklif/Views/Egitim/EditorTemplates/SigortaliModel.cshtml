@@ -1,0 +1,136 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model SigortaliModel
+
+@Html.HiddenFor(m => m.SigortaEttiren.MusteriKodu)
+@Html.DropDownListFor(m => m.SigortaEttiren.UlkeKodu, Model.Ulkeler, new { @class = "ignore", style = "display:none;" })
+@Html.DropDownListFor(m => m.Sigortali.UlkeKodu, Model.Ulkeler, new { @class = "ignore", style = "display:none;" })
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="row-fluid">
+            <div class="span12">
+                <h3 class="form-section">@babonline.Insured</h3>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">@babonline.Identification_Number</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.SigortaEttiren.KimlikNo, new { maxlength = 11, style = "width:120px;", @class = "onlynumbers" })
+                        <button class="btn btn-info blue" id="sigortaettiren-sorgula" type="button" data-loading-text="@babonline.QueryIndicator">@babonline.Query</button><br />
+                        <span class="text-error" id="sigortaettiren-kimlikno-mesaj">@babonline.Message_TCKN_VKN_YKN_Required</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid sigortaettiren-satir ozel">
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">@babonline.Nationality<span class="required">*</span></label>
+                    <div class="controls" style="margin-left: 200px;">
+                        @Html.RadioButtonListFor(m => m.SigortaEttiren.Uyruk, Model.UyrukTipleri)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid sigortaettiren-satir ozel tuzel">
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">@babonline.Customer_Name_Title<span class="required">*</span></label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.SigortaEttiren.AdiUnvan, new { maxlength = 50, autocompletetype = "disabled", @class = "onlyalpha span12 upper-letter" })
+                        @Html.ValidationMessageFor(m => m.SigortaEttiren.AdiUnvan)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid sigortaettiren-satir ozel tuzel">
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">@babonline.Customer_Surname_Title<span class="required">*</span></label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.SigortaEttiren.SoyadiUnvan, new { maxlength = 50, autocompletetype = "disabled", @class = "onlyalpha span12 upper-letter" })
+                        @Html.ValidationMessageFor(m => m.SigortaEttiren.SoyadiUnvan)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid sigortaettiren-satir ozel">
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">@babonline.DateOfBirth<span class="required">*</span></label>
+                    <div class="controls">
+                        @Html.DateTextBoxFor(m => m.SigortaEttiren.DogumTarihi, new { style = "width:100px" })
+                        @Html.ValidationMessageFor(m => m.SigortaEttiren.DogumTarihi)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid sigortaettiren-satir ozel">
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">@babonline.IncomeTaxRatio<span class="required">*</span></label>
+                    <div class="controls">
+                        @Html.DropDownListFor(m => m.SigortaEttiren.GelirVergisiOrani, Model.GelirVergisiTipleri, new { style = "width:100px" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid sigortaettiren-satir ozel">
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">@babonline.Gender<span class="required">*</span></label>
+                    <div class="controls" style="margin-left: 200px;">
+                        @Html.RadioButtonListFor(m => m.SigortaEttiren.Cinsiyet, Model.CinsiyetTipleri)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid sigortaettiren-satir ozel tuzel">
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">@babonline.Address @babonline.City</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(m => m.SigortaEttiren.IlKodu, Model.Iller)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid sigortaettiren-satir ozel tuzel">
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">@babonline.Address @babonline.District</label>
+                    <div class="controls">
+                        @Html.DropDownListFor(m => m.SigortaEttiren.IlceKodu, Model.Ilceler)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid sigortaettiren-satir ozel tuzel">
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">@babonline.Mobile_Phone</label>
+                    <div class="controls">
+
+                        @Html.TextBoxFor(m => m.SigortaEttiren.CepTelefonu, new { style = "width:90%", data_format = "dd-ddd-ddddddd", maxlength = 14, minlength = 14, pattern = ".{14,14}", @class = "input-medium bfh-phone", title = "Format 90-212-5994949" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid sigortaettiren-satir ozel tuzel">
+            <div class="span12">
+                <div class="control-group">
+                    <label class="control-label">@babonline.Email_Adress</label>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.SigortaEttiren.Email, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,86 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@using Neosinerji.BABOnlineTP.Business
+@model KonfigurasyonModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Manage/Konfigurasyon/Liste">@babonline.Configuration_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Configuration_Add<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+
+@section PageScripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#menu-Konfigurasyon").addClass("active");
+        });
+    </script>
+}
+
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.Configuration_Add</div>
+    </div>
+    <div class="portlet-body form">
+
+        @using (Html.BeginForm("Ekle", "Konfigurasyon", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            {
+                Html.EnableClientValidation(true);
+            }
+            @Html.AntiForgeryToken()
+
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Configuration_Code   <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Kod, new { maxlength = 20, autcompletetype = "off", style = "width:200px;" })
+                    @Html.ValidationMessageFor(s => s.Kod)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Configuration_Value   <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Deger, new { maxlength = 100, autcompletetype = "off", style = "width:400px;" })
+                    @Html.ValidationMessageFor(s => s.Deger)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Comment   <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Aciklama, new { maxlength = 255, autcompletetype = "off", style = "width:400px;" })
+                    @Html.ValidationMessageFor(s => s.Aciklama)
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-success"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                <a class="btn" href="~/Manage/Konfigurasyon/Liste">@babonline.Cancel</a>
+            </div>
+        }
+    </div>
+</div>
+

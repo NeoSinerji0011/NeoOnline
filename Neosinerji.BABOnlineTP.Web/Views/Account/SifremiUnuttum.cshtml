@@ -1,0 +1,117 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Models.RecoverPassword
+
+@{
+    Layout = "~/Views/Shared/_LayoutEski.cshtml";
+}
+
+<style>
+    .sifremi-unuttum {
+        color: #1999CE;
+        font-size: 18px;
+        font-weight: bold;
+        height: 41px;
+        padding-left: 22px;
+        padding-top: 10px;
+        font-family: Helvetica;
+    }
+
+    .login-yazi-tip {
+        font-family: Calibri !important;
+        font-size: 20px !important;
+    }
+</style>
+<head>
+    <title>NeoOnlineSifremiUnuttum</title>
+</head>
+@*<link href="~/Content/css/YeniTemaLogin.css" rel="stylesheet" />*@
+
+<link href="~/Content/css/loginStyle.css" rel="stylesheet">
+
+
+
+
+<div class="logo-content" style="padding-top: 20px; padding-left:20px">
+    <div>
+        <a href="http://neoonline.com.tr/" target="_blank">
+            <img src="@Url.Content("~/Content/img/YeniTasarim/ust-banner-2.jpg")" style="width :14%; height:15%; background-color:transparent; opacity:inherit" />
+        </a>
+    </div>
+    <div id="global-sign">
+        <div class="col-sm-6">
+            <a href="http://www.neosinerji.com.tr/" target="_blank">
+                <img style="width:13%; margin-left: 5%; border-radius: 70px;" src="@Url.Content("~/Content/img/YeniTasarim/hjh.jpg")" />
+            </a>
+        </div>
+        <div class="col-sm-6">
+
+            <img style="width: 11%; margin-left: 6%; margin-top: 10px" src="@Url.Content("~/Content/img/YeniTasarim/comodosecure.png")" alt="global-sign" />
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+@using (Html.BeginForm("SifremiUnuttum", "Account", FormMethod.Post, new { id = "form1" }))
+{
+    { Html.EnableClientValidation(false); }
+
+   
+
+    <section class="ftco-section" style="padding: 2em !important">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section" style="font-size: 20px; color:#ecdbd2 !important"> ŞİFREMİ UNUTTUM</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="login-wrap p-0">
+                        <!-- <h3 class="mb-4 text-center">Have an account?</h3> -->
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(s => s.Email, new { @class = "form-control", placeholder = "Email Adresi", style = "background: #6c6c8a82; height: 50px; border-radius: 80px !important" })
+                            @Html.ValidationMessageFor(s => s.Email)
+                            @*<input type="text" class="form-control" placeholder="E-posta Adresiniz" required>*@
+                        </div>
+
+
+                        <div class="form-group">
+                            <button id="btn-ok" type="submit" class="form-control btn btn-primary submit px-3">Gönder</button>
+
+                        </div>
+
+                        <div class="error-div">
+                            @Html.ValidationSummary(true)
+                        </div>
+                        <div class="error-div">
+                            @if (!String.IsNullOrEmpty(ViewBag.Message))
+                            {
+                                <ul>
+                                    <li>
+
+                                        @ViewBag.Message
+
+                                    </li>
+                                </ul>
+                             }
+                            </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>@*<div style="clear: left"></div>*@
+    </section>
+
+
+
+
+}

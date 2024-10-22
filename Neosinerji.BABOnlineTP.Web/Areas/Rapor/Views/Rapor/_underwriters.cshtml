@@ -1,0 +1,49 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Police.Models.UnderwritersPartialView
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Police.Models
+
+@using Neosinerji.BABOnlineTP.Database.Models
+
+<script>
+    $(document).ready(function () {
+
+    });
+</script>
+
+<div id="underwriter-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>Açıklama ve Underwriters</h3>
+    </div>
+    <div class="modal-body">
+        <form id="underwriter-form" class="form-horizontal">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Description</label>
+                        <div class="controls">
+                            <label class="control-label">@Model.Aciklama</label>
+                        </div>
+                    </div>
+                    @if (Model.UnderwriterSatirlar != null)
+                    {
+                        foreach (var item in Model.UnderwriterSatirlar)
+                        {
+                            <div class="control-group">
+                                <label class="control-label">Underwriter : </label>
+                                <div class="controls">
+                                    <label class="control-label">@item.UnderwriterPayOrani  :  @item.UnderwriterAdi</label>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="~/Police/Police/ManuelTeklifPoliceGirisi" target="_blank" class="btn" id="policeTeklifGiriseGit" data-loading-text="Aranıyor">Manuel Poliçe / Teklif Girişe Git</a>
+        <a href="#" class="btn btn-success" data-dismiss="modal" aria-hidden="true">@babonline.OK</a>
+    </div>
+</div>

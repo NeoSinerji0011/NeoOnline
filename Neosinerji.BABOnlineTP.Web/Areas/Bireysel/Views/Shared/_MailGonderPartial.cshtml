@@ -1,0 +1,104 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.TeklifMailGonderModel
+
+<script src="~/Content/js/bootstrapSwitch.js"></script>
+<link href="~/Content/css/bootstrapSwitch.css" rel="stylesheet" />
+
+<script>
+    $(document).ready(function () {
+        $("#SigortaEttirenMailGonder_control").on("switch-change", sigortaEttirenMail);
+        $("#DigerMailGonder_control").on("switch-change", digerMail);
+
+        $("#DigerEmail").addClass("ignore");
+        $("#DigerEmail").val("");
+        $("#DigerAdSoyad").addClass("ignore");
+        $("#DigerAdSoyad").val("");
+    });
+
+    function sigortaEttirenMail(e, data) {
+        if (data.value) $(".asil-mail").slideDown();
+        else $(".asil-mail").slideUp();
+    }
+
+    function digerMail(e, data) {
+        if (data.value) {
+            $(".diger-mail").slideDown();
+
+            $("#DigerEmail").removeClass("ignore");
+            $("#DigerEmail").val("");
+            $("#DigerAdSoyad").removeClass("ignore");
+            $("#DigerAdSoyad").val("");
+        }
+        else {
+            $(".diger-mail").slideUp();
+
+            $("#DigerEmail").addClass("ignore");
+            $("#DigerEmail").val("");
+            $("#DigerAdSoyad").addClass("ignore");
+            $("#DigerAdSoyad").val("");
+        }
+    }
+
+</script>
+
+<div id="email-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>@babonline.EmailSend</h3>
+    </div>
+    <div class="modal-body">
+        <form id="mail-gonder-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.HiddenFor(m => m.SigortaEttirenId)
+            @Html.HiddenFor(m => m.TeklifId)
+            @Html.HiddenFor(m => m.TeklifPDF)
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+
+            <div class="control-group">
+                <label class="control-label">@babonline.PrincipalSendMail</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.SigortaEttirenMailGonder, new string[] {  babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+
+            <div class="control-group asil-mail">
+                <label class="control-label">@babonline.NameLastname</label>
+                <div class="controls">
+                    <label class="control">@Model.SigortaEttirenAdSoyad</label>
+                </div>
+            </div>
+            <div class="control-group asil-mail">
+                <label class="control-label">@babonline.Email_Adress</label>
+                <div class="controls">
+                    <label class="control">@Model.SigortaEttirenMail</label>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">@babonline.OtherSendMail</label>
+                <div class="controls">
+                    @Html.SwitchButtonFor(m => m.DigerMailGonder, new string[] { babonline.Yes, babonline.No }, new { })
+                </div>
+            </div>
+
+            <div class="control-group diger-mail" style="display: none;">
+                <label class="control-label">@babonline.NameLastname</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.DigerAdSoyad, new { maxlength = 100, autocompletetype = "disabled", style = "width:90%" })
+                    @Html.ValidationMessageFor(m => m.DigerAdSoyad)
+                </div>
+            </div>
+            <div class="control-group diger-mail" style="display: none;">
+                <label class="control-label">@babonline.Email_Adress</label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.DigerEmail, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%" })
+                    @Html.ValidationMessageFor(m => m.DigerEmail)
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="#" class="btn btn-success" id="mail-gonder-btn">@babonline.Send</a>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Manage.Models
+@model  TVMDokumanlarListModel
+
+<script>
+    $(document).ready(function () {
+        var dokumanTable;
+        function dokumanTableSet() {
+            dokumanTable = $('#dokuman-table').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "iDisplayLength": 5,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sPaginationType": "bootstrap"
+            });
+        }
+        dokumanTableSet();
+    });
+</script>
+
+<table id="dokumanlar-table" class="table table-bordered table-striped responsive data-table">
+    <thead>
+        <tr>
+            <th style="width: 150px;">@babonline.Order</th>
+            <th>@babonline.Document_Type</th>
+            <th>@babonline.Added_User</th>
+            <th style="width: 100px;">@babonline.Add_Date</th>
+            <th style="width: 50px;">&nbsp;</th>
+            <th style="width: 40px;">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td style="text-align: center; width: 150px;">@item.SiraNo</td>
+                <td>@item.DokumanTuru</td>
+                <td>@item.EkleyenPersonelAdi</td>
+                <td>@item.EklemeTarihi.ToString("dd.MM.yyyy")</td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" dokuman-kodu="@item.SiraNo" tvm-kodu="@item.TVMKodu" class="btn btn-mini btn-info edit-dokuman">@babonline.Edit</a>
+                </td>
+                <td style="text-align: center;">
+                    <a href="javascript:void(0)" dokuman-kodu="@item.SiraNo" tvm-kodu="@item.TVMKodu" class="btn btn-mini btn-danger delete-dokuman">@babonline.Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

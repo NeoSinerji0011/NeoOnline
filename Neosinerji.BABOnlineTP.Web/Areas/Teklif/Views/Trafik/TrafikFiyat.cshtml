@@ -1,0 +1,337 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model TeklifFiyatModel
+
+@section PageMenu
+{
+<div id="main-menu">
+    <ul class="nav nav-tabs">
+    </ul>
+</div>
+}
+
+@section PageScripts
+{
+<script>
+    var teklifFiyat = new function () {
+        this.gosterilenler = [];
+        this.requestCount = 0;
+        this.processId = 0;
+        this.timeout;
+
+        this.kontol = function (options) {
+            this.processId = options.processId;
+            this.timeout = setTimeout(this.durumKontrol, 5000);
+        },
+
+        this.durumKontrol = function () {
+            $.ajax(
+            {
+                type: "POST",
+                url: "/Teklif/Trafik/TeklifDurumu",
+                data: { isId: teklifFiyat.processId, gosterilenler: teklifFiyat.gosterilenler },
+                dataType: "json",
+                success: teklifFiyat.durumSuccess,
+                error: teklifFiyat.durumError,
+                traditional: true
+            });
+
+            this.requestCount++;
+        },
+
+        this.durumSuccess = function (data) {
+            var model = data.model;
+
+            if (model.teklifler.length > 0) {
+                var index = teklifFiyat.gosterilenler.length;
+
+                for (var teklif in model.teklifler) {
+                    teklifFiyat.showTeklif(index, model.teklifler[teklif]);
+
+                    teklifFiyat.gosterilenler[teklifFiyat.gosterilenler.length] = model.teklifler[teklif].TUMKodu;
+                    index++;
+                }
+            }
+
+            if (model.tamamlandi) {
+                $("#teklif-fiyat-progress").slideUp();
+            }
+            else {
+                teklifFiyat.timeout = setTimeout(teklifFiyat.durumKontrol, 5000);
+            }
+
+            teklifFiyat.timeout = setTimeout(teklifFiyat.durumKontrol, 5000);
+        },
+
+        this.durumError = function () {
+        },
+
+        this.showTeklif = function (index, teklif) {
+            var container = $("#fiyat-container-" + index);
+            var tum = $("#tum-unvan-" + index);
+            var hasarsizlik = $("#div-hasarsizlik-" + index);
+            var surprim = $("#div-surprim-" + index);
+            var divFiyat1 = $("#div-fiyat-1-" + index);
+            var divFiyat2 = $("#div-fiyat-2-" + index);
+            var divFiyat3 = $("#div-fiyat-3-" + index);
+            var fiyat1 = $("#tum-fiyat-1-" + index);
+            var fiyat2 = $("#tum-fiyat-2-" + index);
+            var fiyat3 = $("#tum-fiyat-3-" + index);
+            var satinal1 = $("#tum-satial-1-" + index);
+            var satinal2 = $("#tum-satial-2-" + index);
+            var satinal3 = $("#tum-satial-3-" + index);
+
+            var containerValue = container.attr("tum-kodu");
+            if (containerValue !== undefined)
+                return;
+
+            container.attr("tum-kodu", teklif.TUMKodu);
+            tum.attr({
+                "alt": teklif.TUMUnvani,
+                "title": teklif.TUMUnvani,
+                "src": teklif.TUMLogoUrl
+            });
+
+            if (teklif.Hasarsizlik != null && teklif.Hasarsizlik.length > 0) {
+                var html = "";
+
+                if (teklif.HasarIndirimSurprim == "I") {
+                    html = "<span class='label label-success' style='margin-top:25px'>" + teklif.Hasarsizlik + "</span>";
+                }
+                if (teklif.HasarIndirimSurprim == "S") {
+                    html = "<span class='label label-important' style='margin-top:25px'>" + teklif.Hasarsizlik + "</span>";
+                }
+
+                hasarsizlik.html(html);
+            }
+
+            if (teklif.Surprimler != null && teklif.Surprimler.length > 0) {
+                var html = "<div style='position:absolute;top:50%;display: table-cell; vertical-align: middle;height:65px;'>";
+
+                for (var i in teklif.Surprimler) {
+                    var surp = teklif.Surprimler[i];
+                    html = html + "<div class='row' style='width:200px;margin-left: auto; margin-right: auto;position:relative;top:-50%;'>"
+                    html = html + "<div class='span10' style='text-align:center;'>" + surp.SurprimAciklama + "</div>"
+
+                    if (surp.SurprimIS == "I") {
+                        html = html + "<div class='span2' style='text-align:center;'><span class='label label-success'>" + surp.Surprim + "</span></div>"
+                    }
+                    if (surp.SurprimIS == "S") {
+                        html = html + "<div class='span2' style='text-align:center;'><span class='label label-important'>" + surp.Surprim + "</span></div>"
+                    }
+
+                    html = html + "</div>";
+                }
+
+                html = html + "</div>";
+
+                surprim.html(html);
+            }
+
+            if (fiyat1.length > 0) {
+                fiyat1.html(teklif.Fiyat1);
+                satinal1.attr("teklif-id", teklif.Fiyat1_TeklifId);
+            }
+
+            if (fiyat2.length > 0) {
+                fiyat2.html(teklif.Fiyat2);
+                satinal2.attr("teklif-id", teklif.Fiyat2_TeklifId);
+            }
+
+            if (fiyat3.length > 0) {
+                fiyat3.html(teklif.Fiyat3);
+                satinal3.attr("teklif-id", teklif.Fiyat3_TeklifId);
+            }
+
+            if (teklif.Hatalar != null && teklif.Hatalar.length > 0) {
+                hasarsizlik.removeClass("span1");
+                surprim.removeClass("span3").hide();
+                divFiyat1.removeClass("span3").hide();
+                divFiyat2.removeClass("span3").hide();
+                divFiyat3.removeClass("span3").hide();
+                hasarsizlik.addClass("span12");
+                hasarsizlik.addClass("alert alert-error");
+                hasarsizlik.css({ "text-align": "left", "margin-bottom" : "0px" });
+
+                var hataHtml = "<strong>@babonline.ProposalIsNotCreated</strong><br/>";
+                for (var i in teklif.Hatalar) {
+                    var hata = teklif.Hatalar[i];
+                    //if (hata.length > 150)
+                    //    hata = hata.substring(0, 150);
+
+                    hataHtml = hataHtml + "<span title='" + teklif.Hatalar[i] + "'>" + hata + "<span><br/>";
+                }
+
+                hasarsizlik.html(hataHtml);                
+            }
+
+            $("#teklif-fiyatlar").slideDown();
+            container.css({ "width": "0" });
+            container.show();
+            container.animate({ "width": "100%" }, "slow");
+        }
+    }
+
+    teklifFiyat.kontol({ processId: 122 });
+</script>
+}
+
+<form class="form-horizontal">
+<div class="row-fluid" style="border-bottom: 1px solid #e5e5e5">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.Insured</label>
+            <div class="controls">
+                <label class="control">@Model.AdSoyadUnvan</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.LicenceNumber</label>
+            <div class="controls">
+                <label class="control">@Model.PlakaNo</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.VehicleBrand</label>
+            <div class="controls">
+                <label class="control">@Model.MarkaAdi</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.VehicleType</label>
+            <div class="controls">
+                <label class="control">@Model.TipAdi</label>
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <div class="controls">
+                <label class="control">&nbsp;</label>
+            </div>            
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="control">&nbsp;</label>
+            </div>            
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.VehicleUsageType</label>
+            <div class="controls">
+                <label class="control">@Model.KullanimTarziAdi</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">@babonline.PolicyStartDate</label>
+            <div class="controls">
+                <label class="control">@Model.PoliceBaslangicTarihi</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="teklif-fiyat-progress" style="padding-bottom: 20px;">
+<div style="margin: 20px auto; width: 500px; text-align: center;">
+    <h4>@babonline.PleaseWaitProposalIsPreparing</h4>
+</div>
+<div style="margin: 20px auto; width: 500px; text-align: center;">
+    <img src="/Content/img/loading9.gif" width="32" height="32" title="@babonline.PreparingProposal" alt="@babonline.PreparingProposal" />
+</div>
+<div style="margin: 20px auto; width: 500px; text-align: center;">
+    <img id="sg-icon-1" src="/Content/img/hdi.png" style="margin-right:10px;width:32px;height:32px;" />
+    <img id="sg-icon-2" src="/Content/img/mapfre.png" style="margin-right:10px;width:32px;height:32px;"  />
+</div>
+</div>
+
+<div id="teklif-fiyatlar" style="display:none;">
+<div class="row-fluid" style="margin-top:20px; border-bottom: 1px solid #e5e5e5;">
+    <div class="span2" style="text-align:center;">
+        @babonline.InsuranceCompany
+    </div>
+    <div class="span1" style="text-align:center;">
+        @babonline.NoDamage
+    </div>
+    <div class="span3" style="text-align:center;">
+        @babonline.IndirimSurprim
+    </div>
+    <div class="span3" style="text-align:center;">
+        @babonline.SinglePayment
+    </div>
+    <div class="span3" style="text-align:center;">
+        5 @babonline.HirePurchase
+    </div>
+</div>
+
+@for (int i = 0; i < Model.TUMSayisi; i++)
+{
+    <div class="row-fluid" id="fiyat-container-@(i)" style="margin-top:20px; padding-bottom:20px; border-bottom: 1px solid #e5e5e5;display:none;">
+        <div class="span2" style="text-align:center;">
+            <img id="tum-unvan-@(i)" />
+        </div>
+        <div id="div-hasarsizlik-@(i)" class="span1" style="text-align:center;">
+            &nbsp;
+        </div>
+        <div id="div-surprim-@(i)" class="span3" style="text-align:center;">
+            &nbsp;
+        </div>
+        <div id="div-fiyat-1-@(i)" class="span3" style="text-align:center;">
+            <span id="tum-fiyat-1-@(i)"></span><br />
+            <button id="tum-satial-1-@(i)" type="button" class="btn btn-success teklif-satin-al" style="margin-top:15px;">
+                <i class="icon-ok icon-white"></i>
+                <span>@babonline.Buy</span>
+            </button>
+        </div>
+        <div id="div-fiyat-2-@(i)" class="span3" style="text-align:center;">
+            <span id="tum-fiyat-2-@(i)"></span><br />
+            <button id="tum-satial-2-@(i)" type="button" class="btn btn-success teklif-satin-al" style="margin-top:15px;">
+                <i class="icon-ok icon-white"></i>
+                <span>@babonline.Buy</span>
+            </button>
+        </div>
+    </div>
+}
+@*@foreach (var item in Model.Fiyatlar)
+{
+    <div class="row-fluid" id="fiyat-container1" style="margin-top:20px; padding-bottom:20px; border-bottom: 1px solid #e5e5e5;">
+        <div class="span2" style="text-align:center;">
+            <img alt="@item.TUMUnvani" src="@item.TUMLogoUrl" />
+        </div>
+        <div class="span3" style="text-align:center;">
+            <span>@item.Fiyat1.ToString("N2") TL</span><br />
+            @if(item.Fiyat1 > 0) 
+            {
+            <button type="button" class="btn btn-success btn-mini teklif-satin-al" style="margin-top:15px;" teklif-id="@item.Fiyat1_TeklifId">
+                <i class="icon-ok icon-white"></i>
+                <span>Satın Al</span>
+            </button>
+            }
+        </div>
+        <div class="span3" style="text-align:center;">
+            <span>@item.Fiyat2.ToString("N2") TL</span><br />
+            @if(item.Fiyat2 > 0) 
+            {
+            <button type="button" class="btn btn-success btn-mini teklif-satin-al" style="margin-top:15px;" teklif-id="@item.Fiyat2_TeklifId">
+                <i class="icon-ok icon-white"></i>
+                <span>Satın Al</span>
+            </button>
+            }
+        </div>
+        <div class="span1" style="text-align:center;">
+            @item.Hasarsizlik.ToString("N2")
+        </div>
+        <div class="span3" style="text-align:center;">
+            @if (item.Surprimler.Count > 0)
+            {
+                    foreach (var surprim in item.Surprimler)
+                    {
+                        <span>@surprim.SurprimAciklama</span>
+                        <span style="width:100px;text-align:right;">@surprim.Surprim.ToString("N2")</span>
+                        <br />
+                    }
+            }
+        </div>
+    </div>
+}*@
+</div>
+</form>

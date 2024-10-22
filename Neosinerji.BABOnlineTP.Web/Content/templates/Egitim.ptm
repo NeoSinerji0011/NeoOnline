@@ -1,0 +1,227 @@
+﻿<table>
+	<width=520><column=170><column=350>
+	<tbody>
+	<tr><height=15>
+		<td><img><width=130><height=40> <path=$TVMLogo$><left></img></td>
+		<td>
+		<size=16><strong>Eğitim İçin Hayat Sigortası
+		</td>
+	</tr>
+	<tr><height=15>
+			<td><size=13><colspan=2><center><normal>Tahmini Birikim Tablosu</td>
+	</tr>
+	<tr><height=15>
+			<td><size=13><colspan=2><center><normal>Tüm tutarlar ABD Doları olarak gösterilmektedir.</td>
+	</tr>
+	</tbody>
+</table>
+
+<table>
+	<width=520><column=80><column=170><column=10><column=160><column=100>
+	<tbody><size=12>
+		<tr><height=20>
+			<td><colspan=2></colspan=2><strong><center><backgroundColor=192,192,192>Sigortalı Adayı Bilgileri</td>
+			<td><backgroundColor=clear></td>
+			<td><colspan=2><center><backgroundColor=192,192,192>Ödeme Bilgileri</td>
+		</tr>
+	
+		<tr><height=30><backgroundColor=clear>
+			<td><strong><left>Adı Soyadı</td>
+			<td><normal><right>$AdiSoyadi$</td>
+			<td></td>
+			<td><strong><left>Aylık Prim Tutarı</td>
+			<td><normal><right>$AylikPrimTutari$</td>
+		</tr>
+		
+		<tr><height=20>
+			<td><strong><left>Doğum Tarihi</td>
+			<td><normal><right>$DogumTarihi$</td>
+			<td></td>
+			<td><strong><left>Yıllık Prim (bkz not 2) </td>
+			<td><normal><right>$YillikPrim$</td>
+		</tr>
+		
+		<tr>
+			<td><strong><left>Başlangıç Yaşı</td>
+			<td><normal><right>$BaslangicYasi$</td>
+			<td></td>
+			<td><strong><left>Prim Ödeme Dönemi</td>
+			<td><normal><right>$PrimOdemeDonemi$</td>
+		</tr>
+		
+		<tr>
+			<td><strong><left>Cinsiyeti</td>
+			<td><normal><right>$Cinsiyeti$</td>
+			<td></td>
+			<td><strong><left>Toplam Ödenecek Prim</td>
+			<td><normal><right>$ToplamOdenecekPrim$</td>
+		</tr>
+		
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><strong><left>Vergi İade Oran(bkz not 6)</td>
+			<td><normal><right>$VergiIadeOran$</td>
+		</tr>
+		
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><strong><left>Vergi Avantajı (bkz not 6)</td>
+			<td><normal><right>$VergiAvantaji$</td>
+		</tr>
+		
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td><strong><left>Vergi Avantajı Sonra Maliyet</td>
+			<td><normal><right>$VergiAvantajiSonraMaliyet$</td>
+		</tr>
+			
+	</tbody>
+</table>	
+
+<table>
+	<width=520><column=250><column=250>
+	<tbody><size=12>
+		<tr><height=20>
+			<td><colspan=2></colspan=2><strong><center><backgroundColor=192,192,192>Teminat ve Kesinti Bilgileri</td>
+		</tr>
+		<tr><backgroundColor=clear>		
+			<td><strong><left>Sigorta Başlangıç Tarihi</td>	
+			<td><normal><right>$SigortaBaslangicTarihi$</td>					
+		</tr>
+		
+		<tr>
+			<td><strong><left>Toplam Sigorta Süresi (Yıl)</td>	
+			<td><normal><right>$ToplamSigortaSuresi$</td>
+		</tr>
+
+		<tr>
+			<td><strong><center>Eğitim Öncesi (bkz. not 4)</td>	
+			<td><normal><right>$EgitimOncesi$</td>
+		</tr>
+		
+		<tr>
+			<td><center><strong>Eğitim Süresi ( bkz. not 4)</td>	
+			<td><normal><right>$EgitimSuresi$</td>
+		</tr>
+		
+		<tr>
+			<td><strong><left>Vefat Teminatı</td>	
+			<td><normal><right>$VefatTeminatı$</td>
+		</tr>
+		
+		<tr>
+			<td><strong><left>Yıllık Ortalama Risk Primi Kesintisi Oranı</td>	
+			<td><normal><right>$YillikOrtalamaRiskPrimiKesintisi$</td>
+		</tr>
+		
+		<tr>
+			<td><strong><left>Kar Payı Dağıtım Oranı</td>	
+			<td><normal><right>$KarPayiDagitimOrani$</td>
+		</tr>
+		
+	</tbody>
+</table>	
+
+<table>
+	<width=520><column=190><column=90><column=100><column=140>
+	<tbody><size=12>
+		<tr><height=30>
+			<td><backgroundColor=192,192,192><left><strong>Birikim Bilgileri</td>
+			<td>Vergi Öncesi</td>
+			<td>Net (bkz not 5)</td>
+			<td><right>Eğitim Süresi Yıllık Ödeme (net)</td>
+		</tr>
+		<tr><backgroundColor=clear><height=20>
+			<td><strong><left>Garanti ($IB_MIN_GETIRI_ORAN$ Getiri)</td>
+			<td><normal>$Garanti_VergiOncesi$</td>
+			<td>$Garanti_Net$</td>
+			<td><right>$Garanti_EgitimSuresi$</td>
+		</tr>
+		<tr>
+			<td><strong><left>Varsayım 1 ($IB_ORT_GETIRI_ORAN$ Getiri)</td>
+			<td><normal>$Varsayim1_VergiOncesi$</td>
+			<td>$Varsayim1_Net$</td>
+			<td><right>$Varsayim1_EgitimSuresi$</td>
+		</tr>
+		<tr>
+			<td><strong><left>Varsayım 2 ($IB_MAX_GETIRI_ORAN$ Getiri)</td>
+			<td><normal>$Varsayim2_VergiOncesi$</td>
+			<td>$Varsayim2_Net$</td>
+			<td><right>$Varsayim2_EgitimSuresi$</td>
+		</tr>		
+	</tbody>
+</table>
+
+<rotate></rotate>
+<table><width=770><column=40><column=50><column=85><column=85><column=85><column=85><column=85><column=85><column=85><column=85><center>
+	<tbody>	
+		<tr><height=30>
+			<td></td>	
+			<td></td>	
+			<td></td>	
+			<td></td>	
+			<td><border=1><backgroundColor=192,192,192><colspan=2><normal><center>Varsayılan yıllık getiri oranı: $IB_MIN_GETIRI_ORAN$</td>
+			<td><colspan=2>Varsayılan yıllık getiri oranı: $IB_ORT_GETIRI_ORAN$</td>
+			<td><colspan=2>Varsayılan yıllık getiri oranı: $IB_MAX_GETIRI_ORAN$ </td>
+		</tr>
+		
+		<tr><height=75><size=12>
+			<td>Poliçe Yılı</td>	
+			<td>Sigortalı Yaşı</td>
+			<td>Yıllık Risk Kesintisi</td>
+			<td>Kümülatif Yıllık Prim</td>
+			<td>Vergi Öncesi Birikim</td>	
+			<td>Yıllık Geri Ödeme(ikraz) Tutarı (not 4)</td>
+			<td>Vergi Öncesi Birikim</td>	
+			<td>Yıllık Geri Ödeme(ikraz) Tutarı (not 4)</td>
+			<td>Vergi Öncesi Birikim</td>	
+			<td>Yıllık Geri Ödeme(ikraz) Tutarı (not 4)</td>
+		</tr>
+	
+		<placeHolder=PrimTable></placeHolder>
+		
+	</tbody>
+</table>
+
+<pagebreak></pagebreak>
+
+<p><strong><size=12>Önemli Notlar:</p>
+<p><normal>1- Vade geliminde ulaşacağınız birikim tutarı yatırım getirilerine göre değişkenlik gösterebilir. Burada yapılan hesaplamalar sonucu ulaşılan tutar tahmini bir tutar olup, Aegon Emeklilik ve Hayat A.Ş., primlerin vade tarihlerinde Aegon Emeklilik ve Hayat A.Ş.'ye intikal etmesi durumunda yalnızca vade geliminde (poliçe bitiş tarihinde) %2  getiri oranı ile  gerçekleşeceği konusunda garanti vermektedir. Poliçe bitiminden önceki tutarlar garanti edilmemektedir, sadece bilgi niteliğindedir.</p>
+<p>2-  Tahmini birikim tablosu, tablonun düzenlendiği tarihteki poliçe özellikleri, varsayımlar ve sigortalı adayının yukarıda belirlenen yaşı,sigorta süresi ve geri ödeme (ikraz) süresi gibi beyan edilen bilgiler baz alınarak hazırlanmıştır. Bütün parasal değerler vade gelimi itibariyle olup, primlerin yıllık  ve her sözleşme yılı başında peşin ve zamanında ödendiği varsayılmıştır.</p>
+<p>3- Sigorta özellikleri, kesintiler ve vergi uygulamaları, Bilgilendirme Formu ve Özel Şartlarda ayrıntılı olarak belirtilmiştir.</p>
+<p>4- Yapılacak olan geri ödeme (ikraz) tutarları geri ödeme süresinin başladığı poliçe yılından itibaren, her poliçe yılının sonunda yıllık olarak ödenir. Eğitimin başlacağı yıl geri ödemelerin başlayacağı varsayılmıştır.</p>
+<p>5- Poliçe bitiş tarihinde, yapılmış olan geri ödemeler ve  süre sonunda hesaplanan anapara hariç birikim üzerinden %10 stopaj düşülerek kalan birikim Sigorta Ettirene ödenecektir.  </p>
+<p>6 - Sigorta Ettiren'in, ödemiş olduğu primleri vergi  matrahından indirmesi ile oluşacak vergi avantajının hesaplanmasında, Sigorta Ettiren'in biriktirme dönemi boyunca beyan ettiği vergi oranına tabi olduğu varsayılmıştır. Sigorta Ettiren'in vergi oranını beyan etmemiş olduğu durumlarda %27'lik vergi oranı kullanılmıştır. Vergi avantajından ilk öncelikle primler için faydalanıldığı varsayılmış olup, limit kalması durumunda ek prim için de vergi avantajı tutarı hesaplanmıştır. 193 sayılı Gelir Vergisi Kanunu'na göre </p>
+<p>1 Ocak 2013 tarihinden itibaren hayat sigortası primlerinin yarısı vergiye tabi matrahtan düşülebilmektedir.</p>
+<p>7-  Sistemden zorunlu haller nedeniyle çıkışlarda uygulanacak vergi oranları farklıdır, söz konusu oranlar Bilgilendirme Formunda belirtilmiştir.</p>
+
+
+<table><width=520><column=110><column=130><column=130><column=150>
+	<tbody>
+		<tr><height=20><border=clear>
+			<td><strong><left>Teklif Tarihi:</td>
+			<td><normal>$TeklifTarihi$</td>	
+			<td></td>
+			<td></td>
+		</tr>		
+		<tr>
+			<td><strong><left>Teklif Numarası :</td>
+			<td><normal>$TeklifNo$</td>		
+			<td></td>
+			<td></td>			
+		</tr>
+	</tbody>
+</table>
+<img><path=$E_FooterBorder$><width=525><height=5><left></img>
+
+<p>Yukarıdaki tablo gösterge niteliğinde olup, sigorta sözleşmesinin bir parçasını teşkil etmez. Teminatlar ile ilgili koşullar, size ayrıca verilecek olan sigorta sözleşmesinde belirtilecektir.</p>
+<p></p>
+<p><strong>Yapılması Gereken Tetkikler:</p>
+<p><normal>$Tetkikler$</p>
+

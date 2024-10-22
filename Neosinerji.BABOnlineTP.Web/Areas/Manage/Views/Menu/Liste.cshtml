@@ -1,0 +1,367 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Manage.Models.MenulerModel
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li class="active"><a href="#">@babonline.Menu<span class="selected"></span></a></li>
+        <li><a href="/Manage/Menu/MenuIslemListe">@babonline.MenuOperation_List<span></span></a></li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search2" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+
+@section PageHeader
+{
+
+}
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/dataTable")
+    <script>
+        $(document).ready(function () {
+
+            //AltMenuEkleme İşlemleri
+            $("#altmenu-ekle").live("click", function () {
+                var anamenukodu = $(this).attr("anamenu-kodu");
+                $.get("/Manage/menu/AltMenuEkle",
+                      { AnaMenuKodu: anamenukodu },
+                      function (data) {
+                          $("#altmenuekle-modal-div").html(data);
+                          $.validator.unobtrusive.parse($("#altmenuekle-modal-div"));
+                          $("#altmenuekle-modal").modal('show');
+                      },
+                      "html");
+            });
+            $("#altmenu-ekle-btn").live("click", function () {
+                $("#altmenu-ekle-form").validate().form();
+                if ($("#altmenu-ekle-form").valid()) {
+                    var formData = $("#altmenu-ekle-form").serialize();
+                    $.post("/Manage/Menu/AltMenuEkle", formData,
+                        function (data) {
+                            if (data == "") {
+                                $("#altmenuekle-modal").modal('hide');
+                            }
+                            else {
+                                $("#altmenuekle-modal").modal('hide');
+                                $("#altmenuekle-modal-div").empty().html(data);
+                                $("#altmenuekle-modal").modal('show');
+                            }
+                            yenile();
+                        }, "html");
+                }
+            });
+
+            //Alt Menu Detay Ekranı Acılıyor....
+            $("#altmenu-detay").live("click", function () {
+                var altmenukodu = $(this).attr("altmenu-kodu");
+                var anamenukodu = $(this).attr("anamenu-kodu");
+                $.get("/Manage/menu/AltMenuDetay",
+                       { AltMenuKodu: altmenukodu, AnaMenuKodu: anamenukodu },
+                      function (data) {
+                          $("#altmenudetay-modal-div").html(data);
+                          $("#altmenudetay-modal").modal('show');
+                      },
+                      "html");
+            });
+            //Alt Menu guncelle Ekranı Acılıyor....
+            $("#altmenu-guncelle").live("click", function () {
+                var altmenukodu = $(this).attr("altmenu-kodu");
+                var anamenukodu = $(this).attr("anamenu-kodu");
+                $.get("/Manage/menu/AltMenuGuncelle",
+                        { AltMenuKodu: altmenukodu, AnaMenuKodu: anamenukodu },
+                      function (data) {
+                          $("#altmenuguncelle-modal-div").html(data);
+                          $.validator.unobtrusive.parse($("#altmenuguncelle-modal-div"));
+                          $("#altmenuguncelle-modal").modal('show');
+                      },
+                      "html");
+            });
+            $("#altmenu-guncelle-btn").live("click", function () {
+                $("#altmenu-guncelle-form").validate().form();
+                if ($("#altmenu-guncelle-form").valid()) {
+                    var formData = $("#altmenu-guncelle-form").serialize();
+                    $.post("/Manage/Menu/AltMenuGuncelle", formData,
+                        function (data) {
+                            if (data == "") { $("#altmenuguncelle-modal").modal('hide'); }
+                            else {
+                                $("#altmenuguncelle-modal").modal('hide');
+                                $("#altmenuguncelle-modal-div").empty().html(data);
+                                $("#altmenuguncelle-modal").modal('show');
+                            }
+                            yenile();
+                        }, "html");
+                }
+            });
+
+            //Alt Menu Silme...
+            $("#altmenu-sil").live("click", (function () {
+                var altmenukodu = $(this).attr("altmenu-kodu");
+                var anamenukodu = $(this).attr("anamenu-kodu");
+                $.post("/Manage/Menu/AltMenuSilOnay/",
+                           { AltMenuKodu: altmenukodu, AnaMenuKodu: anamenukodu },
+                           function (data) {
+                               if (data == "True")
+                                   $("#delete-confirmation").modal('show');
+                               else
+                                   $("#kayitsilinemez").modal('show');
+                           });
+                $('#delete-confirm-btn').unbind('click');
+                $("#delete-confirm-btn").click(function () {
+                    $.post("/Manage/Menu/AltMenuSil/",
+                           { AltMenuKodu: altmenukodu, AnaMenuKodu: anamenukodu },
+                           function () {
+                               $("#delete-confirmation").modal('hide');
+                               yenile();
+                           });
+                });
+            }));
+
+            //Ana Menu İşlemleri  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            $("#anamenu-ekle").live("click", function () {
+                $.get("/Manage/menu/AnaMenuEkle",
+                      function (data) {
+                          $("#anamenuekle-modal-div").html(data);
+                          $.validator.unobtrusive.parse("#anamenuekle-modal-div");
+                          $("#anamenuekle-modal").modal('show');
+                      },
+                      "html");
+            });
+            $("#anamenu-ekle-btn").live("click", function () {
+                $("#anamenu-ekle-form").validate().form();
+                if ($("#anamenu-ekle-form").valid()) {
+                    var formData = $("#anamenu-ekle-form").serialize();
+                    $.post("/Manage/Menu/AnaMenuEkle", formData,
+                        function (data) {
+                            if (data == "") { $("#anamenuekle-modal").modal('hide'); }
+                            else {
+                                $("#anamenuekle-modal").modal('hide');
+                                $("#anamenuekle-modal-div").empty().html(data);
+                                $("#anamenuekle-modal").modal('show');
+                            }
+                            yenile();
+                        }, "html");
+                }
+            });
+            //Ana Menu Detay Ekranı Acılıyor....
+            $("#anamenu-detay").live("click", function () {
+                var anamenukodu = $(this).attr("anamenu-kodu");
+                $.get("/Manage/menu/AnaMenuDetay",
+                      { AnaMenuKodu: anamenukodu },
+                      function (data) {
+                          $("#anamenudetay-modal-div").html(data);
+                          $("#anamenudetay-modal").modal('show');
+                      },
+                      "html");
+            });
+            //Ana Menu guncelle Ekranı Acılıyor....
+            $("#anamenu-guncelle").live("click", function () {
+                var anamenukodu = $(this).attr("anamenu-kodu");
+                $.get("/Manage/menu/AnaMenuGuncelle",
+                      { AnaMenuKodu: anamenukodu },
+                      function (data) {
+                          $("#anamenuguncelle-modal-div").html(data);
+                          $.validator.unobtrusive.parse("#anamenuguncelle-modal-div");
+                          $("#anamenuguncelle-modal").modal('show');
+                      },
+                      "html");
+            });
+            $("#anamenu-guncelle-btn").live("click", function () {
+                $("#anamenu-guncelle-form").validate().form();
+                if ($("#anamenu-guncelle-form").valid()) {
+                    var formData = $("#anamenu-guncelle-form").serialize();
+                    $.post("/Manage/Menu/AnaMenuGuncelle", formData,
+                        function (data) {
+                            if (data == "") { $("#anamenuguncelle-modal").modal('hide'); }
+                            else {
+                                $("#anamenuguncelle-modal").modal('hide');
+                                $("#anamenuguncelle-modal-div").empty().html(data);
+                                $("#anamenuguncelle-modal").modal('show');
+                            }
+                            yenile();
+                        }, "html");
+                }
+            });
+
+            //Ana Menu Silme...
+            $("#anamenu-sil").live("click", (function () {
+                var anamenukodu = $(this).attr("anamenu-kodu");
+                $.post("/Manage/Menu/AnaMenuSilOnay/",
+                           { AnaMenuKodu: anamenukodu },
+                           function (data) {
+                               if (data == "True")
+                                   $("#delete-confirmation").modal('show');
+                               else
+                                   $("#kayitsilinemez").modal('show');
+                           });
+                $('#delete-confirm-btn').unbind('click');
+                $("#delete-confirm-btn").click(function () {
+                    $.post("/Manage/Menu/AnaMenuSil/",
+                           { AnaMenuKodu: anamenukodu },
+                           function () {
+                               $("#delete-confirmation").modal('hide');
+                               yenile();
+                           });
+                });
+            }));
+
+            //AltMenuSekmeEkleme İşlemleri !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            $("#altmenusekme-ekle").live("click", function () {
+                var altmenukodu = $(this).attr("altmenu-kodu");
+                var anamenukodu = $(this).attr("anamenu-kodu");
+                $.get("/Manage/menu/AltMenuSekmeEkle",
+                      { AltMenuKodu: altmenukodu, AnaMenuKodu: anamenukodu },
+                      function (data) {
+                          $("#altmenusekme-ekle-modal-div").html(data);
+                          $.validator.unobtrusive.parse("#altmenusekme-ekle-modal-div");
+                          $("#altmenusekme-ekle-modal").modal('show');
+                      },
+                      "html");
+            });
+            $("#altmenusekme-ekle-btn").live("click", function () {
+                $("#altmenusekme-ekle-form").validate().form();
+                if ($("#altmenusekme-ekle-form").valid()) {
+                    var formData = $("#altmenusekme-ekle-form").serialize();
+                    $.post("/Manage/Menu/AltMenuSekmeEkle", formData,
+                        function (data) {
+                            if (data == "") { $("#altmenusekme-ekle-modal").modal('hide'); }
+                            else {
+                                $("#altmenusekme-ekle-modal").modal('hide');
+                                $("#altmenusekme-ekle-modal-div").empty().html(data);
+                                $("#altmenusekme-ekle-modal").modal('show');
+                            }
+                            yenile();
+                        }, "html");
+                }
+            });
+
+            //Alt Menu sekme Detay Ekranı Acılıyor....
+            $("#altmenusekme-detay").live("click", function () {
+                var sekmekodu = $(this).attr("sekme-kodu");
+                var altmenukodu = $(this).attr("altmenu-kodu");
+                $.get("/Manage/menu/AltMenuSekmeDetay",
+                           { SekmeKodu: sekmekodu, AltMenuKodu: altmenukodu },
+                      function (data) {
+                          $("#altmenusekme-detay-modal-div").html(data);
+                          $("#altmenusekme-detay-modal").modal('show');
+                      },
+                      "html");
+            });
+            //Alt Menu sekme guncelle Ekranı Acılıyor....
+            $("#altmenusekme-guncelle").live("click", function () {
+                var sekmekodu = $(this).attr("sekme-kodu");
+                var altmenukodu = $(this).attr("altmenu-kodu");
+                $.get("/Manage/menu/AltMenuSekmeGuncelle",
+                      { SekmeKodu: sekmekodu, AltMenuKodu: altmenukodu },
+                      function (data) {
+                          $("#altmenusekme-guncelle-modal-div").html(data);
+                          $.validator.unobtrusive.parse("#altmenusekme-guncelle-modal-div");
+                          $("#altmenusekme-guncelle-modal").modal('show');
+                      },
+                      "html");
+            });
+            $("#altmenusekme-guncelle-btn").live("click", function () {
+                $("#altmenusekme-guncelle-form").validate().form();
+                if ($("#altmenusekme-guncelle-form").valid()) {
+                    var formData = $("#altmenusekme-guncelle-form").serialize();
+                    $.post("/Manage/Menu/AltMenuSekmeGuncelle", formData,
+                        function (data) {
+                            if (data == "") { $("#altmenusekme-guncelle-modal").modal('hide'); }
+                            else {
+                                $("#altmenusekme-guncelle-modal").modal('hide');
+                                $("#altmenusekme-guncelle-modal-div").empty().html(data);
+                                $("#altmenusekme-guncelle-modal").modal('show');
+                            }
+                            yenile();
+                        }, "html");
+                }
+            });
+            //Alt Menu sekme Silme...
+            $("#altmenusekme-sil").live("click", (function () {
+                var sekmekodu = $(this).attr("sekme-kodu");
+
+                $("#delete-confirmation").modal('show');
+                $('#delete-confirm-btn').unbind('click');
+                $("#delete-confirm-btn").click(function () {
+                    $.post("/Manage/Menu/AltMenuSekmeSil/",
+                           { SekmeKodu: sekmekodu },
+                           function () {
+                               $("#delete-confirmation").modal('hide');
+                               yenile();
+                           });
+                });
+            }));
+
+            //Acılışta listeyi getirmesi için
+            yenile();
+            function yenile() {
+                $.get("/Manage/menu/AnaEkran",
+                     function (data) {
+                         $("#anaekran").html(data);
+                     },
+                     "html");
+            }
+        });
+    </script>
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="portlet box tabbable light-grey " style="margin-top: 24px;">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-reorder"></i>
+                    <span class="hidden-480">@babonline.MenuOperation_List</span>
+                </div>
+                <div class="actions">
+                    <a href="#" id="anamenu-ekle" class="btn green"><i class="icon-plus">&nbsp;</i>@babonline.MainMenu_Add</a>
+                    <a href="/Manage/Menu/MenuIslemListe" class="btn yellow"><i class="icon-pencil">&nbsp;</i>@babonline.MenuOperation_List</a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <div id="anaekran" style="width: 300px; padding: 8px 0;" class="well">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Ana menu işlemleri*@
+<div id="anamenuekle-modal-div"></div>
+<div id="anamenudetay-modal-div"></div>
+<div id="anamenuguncelle-modal-div"></div>
+
+@*Alt menu işlemleri*@
+<div id="altmenuekle-modal-div"></div>
+<div id="altmenudetay-modal-div"></div>
+<div id="altmenuguncelle-modal-div"></div>
+
+@*Alt-menu-sekme işlemleri*@
+<div id="altmenusekme-ekle-modal-div"></div>
+<div id="altmenusekme-detay-modal-div"></div>
+<div id="altmenusekme-guncelle-modal-div"></div>
+
+@Html.Partial("_DeleteConfirmation")
+@Html.Partial("_KayitSilinemezBilgisi")
+
+
+
+
+
+
+
+
+
+
+
+
+
+

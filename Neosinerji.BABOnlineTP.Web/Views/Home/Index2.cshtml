@@ -1,0 +1,155 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Models.LoginModel
+@*@using reCAPTCHA.MVC*@
+@{
+    ViewBag.Title = "Ana Sayfa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lang = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script>
+   
+    $(document).ready(function () {
+        $(".down-icon").click(function () {
+            var attr = $(".down-custom").css("display");
+            if (attr == 'none')
+                $(".down-custom").slideDown("fast");
+            else
+                $(".down-custom").slideUp("fast");
+        });
+
+        $("[rel='tooltip']").tooltip();
+        //function createRecaptcha() {
+        //    grecaptcha.render("recaptcha", { sitekey: "6LdqiBQUAAAAAGZqci0ARyE-if9p2RiiaG5RFoZR", theme: "light" });
+        //}
+        //createRecaptcha();
+
+    });
+</script>
+<style>
+    .rc-anchor-pt{display:none;}
+
+/*#recaptcha {
+  display: inline-block;
+  position: relative;
+}*/
+
+/*#recaptcha:after {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 1;
+    bottom: 3px;
+    right: 5px;
+    width: 100px;
+    height: 70px;
+    background-color: #f9f9f9;
+}*/
+    .login-yazi-tip {
+        font-family: Calibri !important;
+        font-size: 20px !important;
+    }
+</style>
+
+<div class="logo-content">
+    <a href="http://www.neoonline.com.tr/">
+        <img src="@Url.Content("~/Content/img/YeniTasarim/ust-banner-2.jpg")" style="width :25%; height:80%; background-color:transparent; opacity:inherit" />
+    </a>
+
+   <div id="global-sign" style="width: 40%;">
+        <div style="float: left; margin-top: 0.5%; width: 25.5%; margin-left: 3%;">
+            <a href="http://www.neosinerji.com.tr" target="_blank">
+                <img style="width: 100%;" src="@Url.Content("~/Content/img/YeniTasarim/neoSinerji_logo.jpg")" alt="neosinerji" /></a>
+        </div>
+        <div style="margin-left: 16%;">
+            <img  style="width:31%;" src="@Url.Content("~/Content/img/YeniTasarim/global-sign-img.png")" alt="global-sign" />
+        </div>
+
+    </div>
+</div>
+
+<div class="custom-content" style="width: 80%;">
+    <div class="login-hub" style="width: 50%; margin-left: 30%; padding-top: 20px;">
+        <div class="login-hub-top" style="width: 500px; height: 350px !important; background-color: white; opacity: 0.9; border: solid 2px lightgray; border-radius: 20px; -moz-border-radius: 25px; -webkit-border-radius: 5px; -border-radius: 5px;">
+            <div style="">
+                <div style="margin-top: 10px; float: right; margin-right: 10px;">
+                    <a href="@Url.Action("ChangeCulture", "Home", new { lang = Neosinerji.BABOnlineTP.Web.Models.Culture.tr, returnUrl = this.Request.RawUrl })" rel="tooltip" title="Türkçe">
+                        <img style="border: none;" src="~/Content/img/YeniTasarim/Turkey.png" /></a>
+                    <a href="@Url.Action("ChangeCulture", "Home", new { lang = Neosinerji.BABOnlineTP.Web.Models.Culture.en, returnUrl = this.Request.RawUrl })" rel="tooltip" title="English">
+                        <img style="border: none;" src="~/Content/img/YeniTasarim/the_United_Kingdom.png" /></a>
+
+                </div>
+                @if (lang == "en")
+                {
+                    <div>
+                        <img style="width:50%; height:100px;  margin-left:20%" src="@Url.Content("~/Content/img/YeniTasarim/giris-kilit-eu.png")" alt="login Logo" />
+                    </div>
+                }
+                else
+                {
+                    <img style="width:50%; height:100px;  margin-left:20%" src="@Url.Content("~/Content/img/YeniTasarim/giris-kilit-tr.png")" alt="Giriş Logo" />    
+                }
+
+            </div>
+
+            @*login-white-content*@
+
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "form1", ReturnUrl = ViewBag.ReturnUrl }))
+            {
+                { Html.EnableClientValidation(false); }
+                   
+@*<div style="clear: left;"></div>*@                  
+                <div style="width: 100%; height: 15%;">
+                    <div style="width: 30%; height: 15%; float: left;">
+                        <img src="~/Content/img/YeniTasarim/login-left.jpg" style="width: 100%; height: 100%;" />
+                    </div>
+                    <div style="float: right; width: 60%; margin-right: 5%;">
+                        <div style="width: 80%;">
+                            @Html.TextBoxFor(s => s.Email, new { @class = "text-box login-yazi-tip", placeholder = babonline.EMail_Address })
+                            @Html.TextBoxFor(s => s.Password, new { @class = "text-box login-yazi-tip", placeholder = babonline.Password, type = "Password" })
+                              @*@Html.Recaptcha()*@
+                          @*@Html.ValidationMessage("ReCaptcha")*@
+    @*<div class="g-recaptcha" data-callback="verifyCallback" data-sitekey="6LeDiRQUAAAAALIaDC4gHvNZfAaYNHtzIBqW-pEe"></div>*@
+                        </div>
+                        <div>
+                            <input id="btn-ok" type="submit" class="tamam-button-div login-yazi-tip" style="background-color:#E73626 !important" value="@babonline.OK"/>
+                        </div>
+                        <div class="sifremi-unuttum-div" style="margin-top:5%">
+                            <a href="/Account/SifremiUnuttum" class="link login-yazi-tip" style="color: #272649 !important;">@babonline.ForgotPassword</a>
+                        </div>
+                    </div>
+                </div>                 
+            }
+
+        </div>
+
+        <div style="width: 281px; height: 61px;">
+            <div class="basvur-div">
+                &nbsp;
+            </div>
+            <div class="basvur-link-div">
+                <a href="/Home/Harita" style="position: relative" class="link login-yazi-tip">@babonline.Find_Agency</a>
+            </div>
+
+            <div class="basvur-div" style="margin-top: 0px;">
+                &nbsp;
+            </div>
+            <div class="basvur-link-div">
+                <a href="@Url.Content("~/Files/NeoOnline_Tanitim_Dokumani_12042016.pdf")" target="_blank" class="login-yazi-tip link" style="position: relative">@babonline.IntroductoryGuide</a>
+            </div>
+        </div>
+
+    </div>
+    <!-- .login Hub -->
+
+    <div style="clear: left"></div>
+</div>
+<!-- .Custom Content -->
+
+
+
+
+
+
+
+

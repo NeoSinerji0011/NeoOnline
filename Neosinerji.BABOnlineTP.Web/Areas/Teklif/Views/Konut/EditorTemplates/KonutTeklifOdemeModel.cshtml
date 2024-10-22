@@ -1,0 +1,35 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model KonutTeklifOdemeModel
+
+<div class="control-group">
+    <label class="control-label">@babonline.PaymentStyle</label>
+    <div class="controls">
+        @Html.SwitchButtonFor(m => m.OdemeSekli, new string[] { babonline.Cash, babonline.Forward }, new { })
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">@babonline.PaymentType</label>
+    <div class="controls">
+        <div class="btn-group" data-toggle="buttons-radio">
+            @Html.RadioButtonListFor(s => s.OdemeTipi, Model.OdemeTipleri)
+        </div>
+    </div>
+</div>
+<div class="control-group taksit-sayisi" style="display: none;">
+    <label class="control-label">@babonline.HirePurchaseCount</label>
+    <div class="controls">
+        @Html.DropDownListFor(m => m.TaksitSayisi, Model.TaksitSayilari)
+    </div>
+</div>
+
+<style>
+    .radio, .checkbox {
+        padding-left: 17px !important;
+    }
+
+    .controls .inline {
+        margin-top: 0;
+    }
+</style>

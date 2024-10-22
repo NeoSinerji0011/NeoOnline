@@ -1,0 +1,640 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.Musteri.Models.MusteriModel
+
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li class="active">
+            <a href="javascript:;">@babonline.Update<span class="selected"></span></a>
+        </li>
+        <li>
+            <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">@babonline.Other<span class="arrow"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="~/Musteri/Musteri/Liste">@babonline.Customer_Search<span></span></a></li>
+                <li><a href="~/Musteri/Musteri/Detay/@Model.MusteriGuncelleModel.MusteriKodu">@babonline.Detail<span></span></a></li>
+                @if (ViewBag.MusTeklifMenuGor)
+                {
+                    <li><a href="~/Musteri/Musteri/Teklifleri/@Model.MusteriGuncelleModel.MusteriKodu">@babonline.Proposal_List_ForUser<span></span></a></li>
+                }
+                @if (ViewBag.MusPoliceMenuGor)
+                {
+                    <li><a href="~/Musteri/Musteri/Policeleri/@Model.MusteriGuncelleModel.MusteriKodu">@babonline.Policies<span></span></a></li>
+                }
+
+            </ul>
+            <b class="caret-out"></b>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+<title>MüşteriGüncelle</title>
+
+@section PageHeader
+{
+}
+
+@{
+    ViewBag.eskitckn = Model.MusteriGuncelleModel.KimlikNo;
+}
+
+@section PageScripts
+{
+    @Scripts.Render("~/bundles/phoneinputjs")
+    <script src="~/Content/js/neosinerji.babonlinetp.musteri.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#urun-tab a:first").tab("show");
+            $("#MusteriGuncelleModel_DogumTarihi").addClass("ignore");
+            //Sektor ara tüzel kisi icin
+            $('#MusteriGuncelleModel_FaaliyetGosterdigiAnaSektor').sektor({ altsektor: '#MusteriGuncelleModel_FaaliyetGosterdigiAltSektor' });
+
+            //!!!!!!!!!!!!!!!  MUSTERİ DELETE !!!!!
+            //$("#delete-musteri").live("click", function () {
+            //    var musteriKodu = $(this).attr("musteri-kodu");
+
+            //    $('#delete-confirm-btn').unbind('click');
+            //    $("#delete-confirm-btn").click(function () {
+            //        $.post("/Musteri/Musteri/MusteriSil/",
+            //               { Id: musteriKodu },
+            //               function (data) {
+            //                   window.location.href = data.redirectToUrl;
+            //               });
+            //    });
+            //    $("#delete-confirmation").modal('show');
+            //});
+
+
+            //Müşteri tipine göre ekranları ayarlıyor..
+            function kontrol() {
+                var val = $("#MusteriGuncelleModel_MusteriTipKodu").val();
+                if (val == "1") { //Gerçek TC Uyruklu Müşteri
+                    $("#sahis").slideDown("fast");
+
+                    $("#kimlik-no").html("@babonline.Identification_Number");
+                    $("#MusteriGuncelleModel_KimlikNo").attr("pattern", ".{11,11}");
+                    $("#MusteriGuncelleModel_KimlikNo").attr("title", "@babonline.Message_TCKN_least_11");
+                    $("#MusteriGuncelleModel_KimlikNo").attr("minlength", "11");
+                    $("#MusteriGuncelleModel_KimlikNo").attr("maxlength", "11");
+
+                    $("[adi = 'pasaportno']").slideUp("fast");
+                    $("[adi = 'pasaportnotarihi']").slideUp("fast");
+                    $("[adi = 'vergi-dairesi']").slideUp("fast");
+                    $("[adi = 'web-url']").slideUp("fast");
+                    $("#MusteriGuncelleModel_VergiDairesi").val("0");
+                    $("[name = 'MusteriGuncelleModel.PasaportGecerlilikBitisTarihi']").val("12.12.1212");
+
+                    //Tüzel kişi için değişimler
+                    //$("#MusteriGuncelleModel_FaaliyetGosterdigiAnaSektor").val("1000");
+                    //$("#MusteriGuncelleModel_FaaliyetGosterdigiAltSektor").val("1001");
+                    //$("#MusteriGuncelleModel_CiroBilgisi").val("DGR0021617");
+                    //$("#MusteriGuncelleModel_FaaliyetOlcegi_").val("DGR0010652");
+                    //$("#MusteriGuncelleModel_SabitVarlikBilgisi").val("DGR0022107");
+                }
+                else if (val == "2" || val == "3") { //Tüzel kişiler ve Şahıs Firması için
+                    $("[adi = 'web-url']").slideDown("fast");
+                    $("[adi = 'vergi-dairesi']").slideDown("fast");
+                    $("#sahis").slideUp("fast");
+
+                    $("#kimlik-no").html("@babonline.Tax_Identification_Number");
+                    $("#MusteriGuncelleModel_KimlikNo").attr("pattern", ".{10,10}");
+                    $("#MusteriGuncelleModel_KimlikNo").attr("title", "@babonline.Message_VKN_Least10");
+                    $("#MusteriGuncelleModel_KimlikNo").attr("minlength", "10");
+                    $("#MusteriGuncelleModel_KimlikNo").attr("maxlength", "10");
+
+                    $("[name = 'MusteriGuncelleModel.PasaportGecerlilikBitisTarihi']").val("12.12.1212");
+                    $("[name = 'MusteriGuncelleModel.DogumTarihi']").val("12.12.1212");
+
+                    //if (val == "3") {
+                    //    //Tüzel kişi için değişimler
+                    //    $("#MusteriGuncelleModel_FaaliyetGosterdigiAnaSektor").val("1000");
+                    //    $("#MusteriGuncelleModel_FaaliyetGosterdigiAltSektor").val("1001");
+                    //    $("#MusteriGuncelleModel_CiroBilgisi").val("DGR0021617");
+                    //    $("#MusteriGuncelleModel_FaaliyetOlcegi_").val("DGR0010652");
+                    //    $("#MusteriGuncelleModel_SabitVarlikBilgisi").val("DGR0022107");
+                    //}
+                    //if (val == 2)
+                    //    $("#div-tuzel-kisi").attr("style", "display:normal")
+                }
+                else if (val == "4") { //Gerçek Yabancı Uyruklu Müşteri
+                    $("#sahis").slideDown("fast");
+                    $("[adi = 'pasaportno']").slideDown("fast");
+                    $("[adi = 'vergi-dairesi']").slideUp("fast");
+                    $("[adi = 'web-url']").slideUp("fast");
+                    $("#MusteriGuncelleModel_VergiDairesi").val("0");
+
+                    $("#kimlik-no").html("@babonline.Foreign_Identification_Number");
+                    $("#MusteriGuncelleModel_KimlikNo").attr("pattern", ".{11,11}");
+                    $("#MusteriGuncelleModel_KimlikNo").attr("title", "@babonline.Message_TCKN_least_11");
+                    $("#MusteriGuncelleModel_KimlikNo").attr("minlength", "11");
+                    $("#MusteriGuncelleModel_KimlikNo").attr("maxlength", "11");
+
+                    //Tüzel kişi için değişimler
+                    //$("#MusteriGuncelleModel_FaaliyetGosterdigiAnaSektor").val("1000");
+                    //$("#MusteriGuncelleModel_FaaliyetGosterdigiAltSektor").val("1001");
+                    //$("#MusteriGuncelleModel_CiroBilgisi").val("DGR0021617");
+                    //$("#MusteriGuncelleModel_FaaliyetOlcegi_").val("DGR0010652");
+                    //$("#MusteriGuncelleModel_SabitVarlikBilgisi").val("DGR0022107");
+                }
+                else {//Tüm Alanlar Kapatılıyor...
+                    $("#sahis").slideUp("fast");
+                    $("[adi = 'vergi-dairesi']").slideUp("fast");
+                    $("[adi = 'web-url']").slideUp("fast");
+                }
+        pasaportkontrol();
+    }
+
+            //Müşterinin tckn yada vergi numarası kontrol ediliyor..
+            $("#MusteriGuncelleModel_KimlikNo").change(function () {
+                var tckn = $("#MusteriGuncelleModel_KimlikNo").val();
+                var tipkoduval = $("#MusteriGuncelleModel_MusteriTipKodu").val();
+
+                if ($("#eskitckn").val() != tckn) {
+                    if (tckn.length == 10 && (tipkoduval == "2" || tipkoduval == "3")) { vergiKNsorgula(); }
+                    else if (tckn.length == 11 && (tipkoduval == "1" || tipkoduval == "4")) { tcknkontrol(); }
+                }
+            });
+
+            function tcknkontrol() {
+                var tckn = $("#MusteriGuncelleModel_KimlikNo").val();
+                var tvmKodu = $("#MusteriGuncelleModel_TVMKodu").val();
+                if (tckn.length > 10) {
+                    $("#loading-gif").attr("style", "display:normal");
+                    $.post("/Musteri/Musteri/TCKontrol",
+                           { TCKN: tckn, TVMKodu: tvmKodu },
+                            function (data) {
+                                if (data == "False") {
+                                    $("#alert").addClass("in");
+                                    $("#alert").attr("style", "display:normal");
+                                    $("#loading-gif").attr("style", "display:none");
+                                }
+                                else {
+                                    $("#loading-gif").attr("style", "display:none");
+                                    $("#alert").removeClass("in");
+                                    $("#alert").attr("style", "display:none ");
+                                }
+                            });
+                }
+            }
+
+            function vergiKNsorgula() {
+                var tckn = $("#MusteriGuncelleModel_KimlikNo").val();
+                var tvmKodu = $("#MusteriGuncelleModel_TVMKodu").val();
+
+                $("#loading-gif").attr("style", "display:normal");
+                $.post("/Musteri/Musteri/TCKontrol",
+                       { TCKN: tckn, TVMKodu: tvmKodu },
+                        function (data) {
+                            if (data == "False") {
+                                $("#alert").addClass("in");
+                                $("#alert").attr("style", "display:normal");
+                                $("#loading-gif").attr("style", "display:none");
+                            }
+                            else {
+                                $("#loading-gif").attr("style", "display:none");
+                                $("#alert").removeClass("in");
+                                $("#alert").attr("style", "display:none ");
+                            }
+                        });
+
+            }
+
+            //Pasaport alanına veri girilirse tarih aktif oluyor...
+            $("#MusteriGuncelleModel_PasaportNo").change(function () {
+                pasaportkontrol();
+            });
+
+            function pasaportkontrol() {
+                var val = $("#MusteriGuncelleModel_PasaportNo").val();
+                if (val != "") {
+                    $("[adi = 'pasaportnotarihi']").slideDown("fast");
+                }
+                else {
+                    $("[adi = 'pasaportnotarihi']").slideUp("fast");
+                    $("[name = 'MusteriGuncelleModel.PasaportGecerlilikBitisTarihi']").val("12.12.1212");
+                }
+            }
+            pasaportkontrol();
+            kontrol();
+
+            $("#MusteriGuncelleModel_AdiUnvan").blur(function () {
+                $(this).val($(this).val().replace('i', 'İ'));
+                $(this).val($(this).val().toUpperCase());
+            });
+            $("#MusteriGuncelleModel_SoyadiUnvan").blur(function () {
+                $(this).val($(this).val().replace('i', 'İ'));
+                $(this).val($(this).val().toUpperCase());
+            });
+
+            $("#MusteriGuncelleModel_AdiUnvan").val($("#MusteriGuncelleModel_AdiUnvan").val().replace('i', 'İ'));
+            $("#MusteriGuncelleModel_AdiUnvan").val($("#MusteriGuncelleModel_AdiUnvan").val().toUpperCase());
+
+            $("#MusteriGuncelleModel_SoyadiUnvan").val($("#MusteriGuncelleModel_SoyadiUnvan").val().replace('i', 'İ'));
+            $("#MusteriGuncelleModel_SoyadiUnvan").val($("#MusteriGuncelleModel_SoyadiUnvan").val().toUpperCase());
+        });
+    </script>
+}
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.CustomerInfo</div>
+    </div>
+    <div class="portlet-body form">
+
+        @using (Html.BeginForm("Guncelle", "Musteri", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+        {
+            Html.EnableClientValidation(true);
+            @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+            @Html.HiddenFor(m => m.MusteriGuncelleModel.MusteriKodu)
+            @Html.HiddenFor(m => m.MusteriGuncelleModel.MusteriTipKodu)
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" id="eskitckn" value="@ViewBag.eskitckn" />
+            @*TvmUnvanı ve TvmMusteriKodu*@
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TVM_Title</label>
+                        <div class="controls">
+                            <label class="control">@Model.MusteriGuncelleModel.TVMUnvani</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Customer_Code</label>
+                        <div class="controls">
+                            <label class="control">@Model.MusteriGuncelleModel.MusteriKodu</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @*Musteri Tipi İnicn alan*@
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Customer_Type   <span class="required">*</span></label>
+
+                        <div class="controls">
+                            <label id="MusteriGenelBilgilerModel_MusteriTipKodu" class="control">@Model.MusteriGuncelleModel.MusteriTipiText</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.CustomerGroupName</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.MusteriGuncelleModel.TVMMusteriKodu, new { maxlength = 30, style = "width:90%;" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @*Vergi Dairesi İcin Alan*@
+            <div class="row-fluid" adi="vergi-dairesi" style="display: none;">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TaxOffice   <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.MusteriGuncelleModel.VergiDairesi, new { maxlength = 50, autocompletetype = "disabled", style = "width:200px;" })
+                            @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.VergiDairesi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @*Kimlik no icin alan*@
+    <div class="row-fluid">
+        <div class="span6">
+            <div class="control-group">
+                <label id="kimlik-no" class="control-label">@babonline.Identification_Number   <span class="required">*</span></label>
+
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.MusteriGuncelleModel.KimlikNo, new { maxlength = 11, autocompletetype = "disabled", style = "width:110px; float:left", @class = "onlynumbers", minlength = 11, pattern = ".{11,11}", title = babonline.Message_TCKN_least_11 }, babonline.Customer_TypeCode_Tooltip)
+                    <img id="loading-gif" src="~/Content/img/loading6.gif" alt="loading.." style="display: none" />
+                    <div style="text-align: center; padding-top: 5px;">
+                        <div id="alert" class="fade" style="display: none; margin: 0">
+                            <span style="text-align: center"><strong>@babonline.Warning</strong>@babonline.Message_TCKN_AlreadyExist</span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div style="display: block; float: left; width: 200px; margin-top: 34px; margin-left: -123px;">
+                    @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.KimlikNo)
+                </div>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="control-group">
+                <label class="control-label">Muhasebe Kodu<span class="required">*</span></label>
+
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.MusteriGuncelleModel.MuhasebeKodu, new { maxlength = 100, autocompletetype = "disabled", style = "width:200px;" })
+                    @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.MuhasebeKodu)
+                </div>
+            </div>
+        </div>
+    </div>
+
+            @*Ad Alanı*@
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Customer_Name_Title   <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.MusteriGuncelleModel.AdiUnvan, new { maxlength = 50, autocompletetype = "disabled", style = "width:200%;", @class = "onlyalpha" })
+                            @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.AdiUnvan)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*Soyad Alanı*@
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Customer_Surname_Title  <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.MusteriGuncelleModel.SoyadiUnvan, new { maxlength = 50, autocompletetype = "disabled", style = "width:200%;", @class = "onlyalpha" })
+                            @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.SoyadiUnvan)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*Email Adress ve web URL bolumu*@
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Email_Adress</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.MusteriGuncelleModel.EMail, new { maxlength = 50, autocompletetype = "disabled", style = "width:300px;" })
+                            @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.EMail)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group" adi="web-url" style="display: none;">
+                        <label class="control-label">@babonline.Web_URL</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.MusteriGuncelleModel.WebUrl, new { maxlength = 50, autocompletetype = "disabled", style = "width:200px;" })
+                            @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.WebUrl)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            @*Uyruk Ve Eğitim Durumu*@
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Nationality    <span class="required">*</span></label>
+
+                        <div class="controls">
+                            <label class="control">
+                                @if (@Model.MusteriGuncelleModel.Uyruk == 0)
+                                {
+                                    <span>TC</span>
+                                }
+                                else
+                                {
+                                    <span>@babonline.Foreign</span>
+                                }
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="sahis" style="display: none;">
+                @* Meslek ve Dogum Tarihi bölümü*@
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Job</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.MusteriGuncelleModel.MeslekKodu, Model.Meslekler, new { style = "width:100" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.DateOfBirth</label>
+                            <div class="controls">
+                                @Html.DateTextBoxFor(m => m.MusteriGuncelleModel.DogumTarihi, new { style = "width:100px;", @class = "ignore" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*Egitim durumu ve cinsiyet*@
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Education_Level</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.MusteriGuncelleModel.EgitimDurumu, Model.EgitimDurumlari, new { style = "width:100" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Gender</label>
+                            <div class="controls" style="margin-left: 200px;">
+                                @Html.RadioButtonListFor(m => m.MusteriGuncelleModel.Cinsiyet, Model.CinsiyetTipleri)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @* medeni durum bölümü*@
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Marital_Status</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.MusteriGuncelleModel.MedeniDurumu, Model.MedeniDurumTipleri, new { style = "width:100" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*Pasaport bolumu*@
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group" adi="pasaportno" style="display: none;">
+                            <label class="control-label">@babonline.Passport_Number</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.MusteriGuncelleModel.PasaportNo, new { maxlength = 40, autocompletetype = "disabled", style = "width:200px;" })
+                                @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.PasaportNo)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group" adi="pasaportnotarihi" style="display: none;">
+                            <label class="control-label">@babonline.Passport_Expiry_Date   <span class="required">*</span></label>
+
+                            <div class="controls">
+                                @Html.DateTextBoxFor(m => m.MusteriGuncelleModel.PasaportGecerlilikBitisTarihi, new { style = "width:100px;" })
+                                @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.PasaportGecerlilikBitisTarihi)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div id="div-tuzel-kisi" style="display: none">
+                    <h4 class="form-section" style="color: red; font-size: 16.5px;">Tüzel Müşteri için doldurulması zorunlu alanlar </h4>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">Faaliyet Ana Sektör <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.MusteriGuncelleModel.FaaliyetGosterdigiAnaSektor, Model.FaaliyerAnaSektorList, new { style = "width:90%" })
+                                    @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.FaaliyetGosterdigiAnaSektor)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">Faaliyet Ölçeği <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.MusteriGuncelleModel.FaaliyetOlcegi_, Model.FaaliyetOlcegiList, new { style = "width:90%" })
+                                    @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.FaaliyetOlcegi_)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">Faaliyet Alt Sektör <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.MusteriGuncelleModel.FaaliyetGosterdigiAltSektor, Model.FaaliyetAltSektorList, new { style = "width:90%" })
+                                    @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.FaaliyetGosterdigiAltSektor)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">Sabit Varlık Bilgisi <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.MusteriGuncelleModel.SabitVarlikBilgisi, Model.SabitVarlikList, new { style = "width:90%" })
+                                    @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.SabitVarlikBilgisi)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">Ciro Bilgisi <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.MusteriGuncelleModel.CiroBilgisi, Model.CiroBilgisiList, new { style = "width:90%" })
+                                    @Html.ValidationMessageFor(m => m.MusteriGuncelleModel.CiroBilgisi)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>*@
+
+            <!--BEGIN TABS-->
+            <div class="tabbable tabbable-custom" style="margin-top: 15px;">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1_1" data-toggle="tab">@babonline.Address</a></li>
+                    <li class=""><a href="#tab_1_2" data-toggle="tab">@babonline.Phone</a></li>
+                    <li><a href="#tab_1_3" data-toggle="tab">@babonline.Document</a></li>
+                    <li><a href="#tab_1_4" data-toggle="tab">@babonline.Node</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1_1">
+                        <label><a id="adres-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.Address_Add</a></label>
+                        @*Adresler Burada Ekleniyor  !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <div class="span12" id="adresler-container">
+                                @Html.Partial("_Adresler", Model.Adresleri)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_1_2">
+                        <label><a id="telefon-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.Phone_Add</a></label>
+                        @*Telefonlar Burada Ekleniyor  !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <div class="span12" id="telefonlar-container">
+                                @Html.Partial("_Telefonlar", Model.Telefonlari)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_1_3">
+                        <label><a id="dokuman-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.Document_Add</a></label>
+                        @*Dökümanlar Burada Ekleniyor  !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <div class="span12" id="dokumanlar-container">
+                                @Html.Partial("_Dokumanlar", Model.Dokumanlari)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_1_4">
+                        <label><a id="not-ekle" href="javascript:void(0)" class="btn btn-success">@babonline.Node_Add</a></label>
+                        @*Notlar Burada Ekleniyor  !!!!!!!!!!!!!!!!!!!!   *@
+                        <div class="row-fluid">
+                            <div class="span12" id="notlar-container">
+                                @Html.Partial("_Notlar", Model.Notlari)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--END TABS-->
+            <div class="form-actions">
+                <button class="btn green">@babonline.Edit</button>
+                <a class="btn" href="/Musteri/Musteri/detay/@Model.MusteriGuncelleModel.MusteriKodu">@babonline.Cancel</a>
+            </div>
+        }
+        <!-- END FORM-->
+    </div>
+</div>
+
+
+
+
+@*Telefon  ekle modal form*@
+<div id="telefon-modal-div"></div>
+
+@*Adres  ekle modal form*@
+<div id="adres-modal-div"></div>
+
+@*Döküman   ekle modal form*@
+<div id="dokuman-modal-div"></div>
+
+@*Not  ekle modal form*@
+<div id="not-modal-div"></div>
+
+
+@Html.Partial("_DeleteConfirmation")
+@Html.Partial("_KayitSilinemez")
+
+

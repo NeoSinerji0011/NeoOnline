@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="gs.az.tr" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="GenericProcessExecutorService" targetNamespace="gs.az.tr" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://test.services.allianz.com.tr:80/gws/GPE?xsd=1" namespace="gs.az.tr" />
+    </xsd:schema>
+  </types>
+  <message name="execute">
+    <part name="parameters" element="tns:execute" />
+  </message>
+  <message name="executeResponse">
+    <part name="parameters" element="tns:executeResponse" />
+  </message>
+  <message name="listProcessDescriptors">
+    <part name="parameters" element="tns:listProcessDescriptors" />
+  </message>
+  <message name="listProcessDescriptorsResponse">
+    <part name="parameters" element="tns:listProcessDescriptorsResponse" />
+  </message>
+  <message name="getProcessDescriptor">
+    <part name="parameters" element="tns:getProcessDescriptor" />
+  </message>
+  <message name="getProcessDescriptorResponse">
+    <part name="parameters" element="tns:getProcessDescriptorResponse" />
+  </message>
+  <message name="getObjectDescriptor">
+    <part name="parameters" element="tns:getObjectDescriptor" />
+  </message>
+  <message name="getObjectDescriptorResponse">
+    <part name="parameters" element="tns:getObjectDescriptorResponse" />
+  </message>
+  <message name="setConlog_id">
+    <part name="parameters" element="tns:setConlog_id" />
+  </message>
+  <message name="setConlog_idResponse">
+    <part name="parameters" element="tns:setConlog_idResponse" />
+  </message>
+  <message name="getConlog_id">
+    <part name="parameters" element="tns:getConlog_id" />
+  </message>
+  <message name="getConlog_idResponse">
+    <part name="parameters" element="tns:getConlog_idResponse" />
+  </message>
+  <message name="getValueSet">
+    <part name="parameters" element="tns:getValueSet" />
+  </message>
+  <message name="getValueSetResponse">
+    <part name="parameters" element="tns:getValueSetResponse" />
+  </message>
+  <message name="getDisabled">
+    <part name="parameters" element="tns:getDisabled" />
+  </message>
+  <message name="getDisabledResponse">
+    <part name="parameters" element="tns:getDisabledResponse" />
+  </message>
+  <message name="getVisible">
+    <part name="parameters" element="tns:getVisible" />
+  </message>
+  <message name="getVisibleResponse">
+    <part name="parameters" element="tns:getVisibleResponse" />
+  </message>
+  <portType name="GPE">
+    <operation name="execute">
+      <input wsam:Action="gs.az.tr/GPE/executeRequest" message="tns:execute" />
+      <output wsam:Action="gs.az.tr/GPE/executeResponse" message="tns:executeResponse" />
+    </operation>
+    <operation name="listProcessDescriptors">
+      <input wsam:Action="gs.az.tr/GPE/listProcessDescriptorsRequest" message="tns:listProcessDescriptors" />
+      <output wsam:Action="gs.az.tr/GPE/listProcessDescriptorsResponse" message="tns:listProcessDescriptorsResponse" />
+    </operation>
+    <operation name="getProcessDescriptor">
+      <input wsam:Action="gs.az.tr/GPE/getProcessDescriptorRequest" message="tns:getProcessDescriptor" />
+      <output wsam:Action="gs.az.tr/GPE/getProcessDescriptorResponse" message="tns:getProcessDescriptorResponse" />
+    </operation>
+    <operation name="getObjectDescriptor">
+      <input wsam:Action="gs.az.tr/GPE/getObjectDescriptorRequest" message="tns:getObjectDescriptor" />
+      <output wsam:Action="gs.az.tr/GPE/getObjectDescriptorResponse" message="tns:getObjectDescriptorResponse" />
+    </operation>
+    <operation name="setConlog_id">
+      <input wsam:Action="gs.az.tr/GPE/setConlog_idRequest" message="tns:setConlog_id" />
+      <output wsam:Action="gs.az.tr/GPE/setConlog_idResponse" message="tns:setConlog_idResponse" />
+    </operation>
+    <operation name="getConlog_id">
+      <input wsam:Action="gs.az.tr/GPE/getConlog_idRequest" message="tns:getConlog_id" />
+      <output wsam:Action="gs.az.tr/GPE/getConlog_idResponse" message="tns:getConlog_idResponse" />
+    </operation>
+    <operation name="getValueSet">
+      <input wsam:Action="gs.az.tr/GPE/getValueSetRequest" message="tns:getValueSet" />
+      <output wsam:Action="gs.az.tr/GPE/getValueSetResponse" message="tns:getValueSetResponse" />
+    </operation>
+    <operation name="getDisabled">
+      <input wsam:Action="gs.az.tr/GPE/getDisabledRequest" message="tns:getDisabled" />
+      <output wsam:Action="gs.az.tr/GPE/getDisabledResponse" message="tns:getDisabledResponse" />
+    </operation>
+    <operation name="getVisible">
+      <input wsam:Action="gs.az.tr/GPE/getVisibleRequest" message="tns:getVisible" />
+      <output wsam:Action="gs.az.tr/GPE/getVisibleResponse" message="tns:getVisibleResponse" />
+    </operation>
+  </portType>
+  <binding name="GenericProcessExecutorPortBinding" type="tns:GPE">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="execute">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="listProcessDescriptors">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getProcessDescriptor">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getObjectDescriptor">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="setConlog_id">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getConlog_id">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getValueSet">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getDisabled">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getVisible">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="GenericProcessExecutorService">
+    <port name="GenericProcessExecutorPort" binding="tns:GenericProcessExecutorPortBinding">
+      <soap:address location="http://test.services.allianz.com.tr:80/gws/GPE" />
+    </port>
+  </service>
+</definitions>

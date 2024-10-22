@@ -1,0 +1,56 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models
+@model PrimIadeliDetayPartialModel
+
+
+<h3 class="form-section">@babonline.General_Information</h3>
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">Sigortalı Ad Soyad</label>
+            <div class="controls">
+                <label class="control">@Model.AdSoyad</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Sigorta Başlangıç Tarihi</label>
+            <div class="controls">
+                <label class="control">@Model.SigortaBaslangicTarihi</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Sigorta Süresi (Yıl)</label>
+            <div class="controls">
+                <label class="control">@Model.SigortaSuresiText</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">Prim Ödeme Dönemi</label>
+            <div class="controls">
+                <label class="control">@Model.PrimOdemeDonemiText</label>
+            </div>
+        </div>
+         <div class="control-group">
+            <label class="control-label">Hesaplama Seçeneği</label>
+            <div class="controls">
+                <label class="control">@Model.HesaplamaSecenegiText</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Tutar</label>
+            <div class="controls">
+                <label class="control">@Model.Tutar</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

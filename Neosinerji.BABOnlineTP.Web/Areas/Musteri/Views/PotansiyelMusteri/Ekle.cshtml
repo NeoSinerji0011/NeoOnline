@@ -1,0 +1,888 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@using Neosinerji.BABOnlineTP.Web.Areas.PotansiyelMusteri.Models
+@using Neosinerji.BABOnlineTP.Web.Tools.Helpers
+@model PotansiyelMusteriModel
+
+
+@section HorizontalMenu
+{
+    <ul class="nav">
+
+        <li>
+            <a href="~/Musteri/PotansiyelMusteri/Liste">@babonline.Customer_Search<span></span></a>
+        </li>
+        <li class="active">
+            <a href="#">@babonline.Customer_Add<span class="selected"></span></a>
+        </li>
+        <li>
+            <span class="hor-menu-search-form-toggler">&nbsp;</span>
+            <div class="search-form hidden-phone hidden-tablet">
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" placeholder="@babonline.Search" class="m-wrap">
+                        <button type="button" class="btn"></button>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+}
+<title>PotansiyelMüşteriEkle</title>
+@section PageHeader
+{
+
+}
+
+
+@Scripts.Render("~/bundles/phoneinputjs")
+
+<script>
+    $(document).ready(function () {
+
+        MapsGoogle.init();
+
+       // $('#Cinsiyet_E').attr('checked',false);
+        //setTimeout(function () { $('#Cinsiyet_E').prop('checked', false); }, 1500);
+
+       $("#PotansiyelMusteriTelefonModel_IletisimNumaraTipi").addClass("ignore");
+
+       $("#PotansiyelMusteriTelefonModel_Numara").change(function () {
+           var valLength = $(this).val().length;
+           if (valLength != 0) $("#PotansiyelMusteriTelefonModel_IletisimNumaraTipi").removeClass("ignore");
+           else
+               $("#PotansiyelMusteriTelefonModel_IletisimNumaraTipi").addClass("ignore");
+       });
+
+        $("#PotansiyelGenelBilgiler_DogumTarihi").attr("class", "m-wrap text-box single-line date-custom hasDatepicker ignore");
+        //tarih istenirse bugunden sonraya kapatılıyor..
+        var myDate = new Date;
+        var datetype = (myDate.getDate()) + "." + (myDate.getMonth()) + "." + (myDate.getFullYear());
+        $("#PotansiyelGenelBilgiler_DogumTarihi").datepicker("option", "maxDate", datetype);
+
+        //Akordiyonlar ilk açılışta açık gelsinler diye.....
+        $("#collapseTwo").addClass("accordion-body in collapse");
+
+        //Tvm listesini Dolduruyor....
+        var tvm = $("#PotansiyelGenelBilgiler_TVMKodu").tvmfinder();
+        tvm.enable();
+
+        $("#PotansiyelGenelBilgiler_MusteriTipKodu").change(function () {
+            kontrol();
+            IletisimNumarasi();
+        });
+
+        //Müşteri tipine göre ekranları ayarlıyor..
+        function kontrol() {
+            var val = $("#PotansiyelGenelBilgiler_MusteriTipKodu").val();
+            if (val == "1") { //Gerçek TC Uyruklu Müşteri
+                $("#sahis").slideDown("fast");
+                $("#kimlik-no").html("@babonline.Identification_Number");
+                $("[adi = 'pasaportno']").slideUp("fast");
+                $("[adi = 'pasaportnotarihi']").slideUp("fast");
+                $("[adi = 'vergidairesi']").slideUp("fast");
+                $("[adi = 'weburl']").slideUp("fast");
+                $("#PotansiyelGenelBilgiler_KimlikNo").attr("maxlength", "11");
+
+                $("#Uyruk_0").attr("checked", "checked");
+                $("#Uyruk_0").attr("enabled", "enabled");
+                $("#Uyruk_1").attr("disabled", "disabled");
+
+                $("#PotansiyelGenelBilgiler_KimlikNo").attr("pattern", ".{11,11}");
+                $("#PotansiyelMusteriGuncelleModel_KimlikNo").attr("title", "@babonline.Message_TCKN_least_11");
+                $("#PotansiyelGenelBilgiler_KimlikNo").attr("minlength", "11");
+                $("#PotansiyelGenelBilgiler_KimlikNo").attr("maxlength", "11");
+
+                $("#PotansiyelGenelBilgiler_KimlikNo").val("");
+                $("#PotansiyelGenelBilgiler_VergiDairesi").val("0");
+                $("[name = 'PotansiyelGenelBilgiler.PasaportGecerlilikBitisTarihi']").val("12.12.1212");
+                $("[name = 'PotansiyelGenelBilgiler.DogumTarihi']").val("");
+            }
+            else if (val == "2" || val == "3") { //Tüzel kişiler ve Şahıs Firması için
+                $("[adi = 'vergidairesi']").slideDown("fast");
+                $("[adi = 'weburl']").slideDown("fast");
+                $("#PotansiyelGenelBilgiler_VergiDairesi").val("");
+                $("#kimlik-no").html("@babonline.Tax_Identification_Number");
+                $("[name = 'PotansiyelGenelBilgiler.PasaportGecerlilikBitisTarihi']").val("12.12.1212");
+                $("[name = 'PotansiyelGenelBilgiler.DogumTarihi']").val("12.12.1212");
+                $("#Cinsiyet_E").attr("checked", "checked");
+                $("#sahis").slideUp("fast");
+                $("#PotansiyelGenelBilgiler_KimlikNo").attr("maxlength", "10");
+                $("#PotansiyelGenelBilgiler_KimlikNo").attr("pattern", ".{10,10}");
+                $("#PotansiyelGenelBilgiler_KimlikNo").attr("title", "@babonline.Message_VKN_Least10");
+                $("#PotansiyelGenelBilgiler_KimlikNo").attr("minlength", "10");
+                $("#PotansiyelGenelBilgiler_KimlikNo").val("");
+
+                //Uyruk alanları değiştiriliyor..
+                $("#Uyruk_0").attr("checked", "checked");
+                $("#Uyruk_0").removeAttr("disabled");
+                $("#Uyruk_1").removeAttr("disabled");
+            }
+            else if (val == "4") { //Gerçek Yabancı Uyruklu Müşteri
+                $("#sahis").slideDown("fast");
+                $("[adi = 'pasaportno']").slideDown("fast");
+                $("[adi = 'vergidairesi']").slideUp("fast");
+                $("[adi = 'weburl']").slideUp("fast");
+                $("#kimlik-no").html("@babonline.Foreign_Identification_Number");
+                //Pasaport no girmemişse biz onun yerine tarih giriyoruz ama kaydetmiyoruz...
+                if ($("#PotansiyelGenelBilgiler_PasaportNo").val() > 0)
+                { $("[name = 'PotansiyelGenelBilgiler.PasaportGecerlilikBitisTarihi']").val(""); }
+                else
+                { $("[name = 'PotansiyelGenelBilgiler.PasaportGecerlilikBitisTarihi']").val("12.12.1212"); }
+
+                $("[name = 'PotansiyelGenelBilgiler.DogumTarihi']").val("");
+                //$("#PotansiyelGenelBilgiler_VergiDairesi").val("0");
+                $("#PotansiyelGenelBilgiler_KimlikNo").val("");
+
+
+
+                $("#PotansiyelGenelBilgiler_KimlikNo").attr("pattern", ".{11,11}");
+                $("#PotansiyelMusteriGuncelleModel_KimlikNo").attr("title", "@babonline.Message_TCKN_least_11");
+                $("#PotansiyelGenelBilgiler_KimlikNo").attr("minlength", "11");
+                $("#PotansiyelGenelBilgiler_KimlikNo").val("");
+
+                //Uyruk alanları değiştiriliyor..
+                $("#Uyruk_1").removeAttr("disabled");
+                $("#Uyruk_0").attr("disabled", "disabled");
+                $("#Uyruk_1").attr("checked", "checked");
+
+            }
+            else {
+                //Tüm Alanlar Kapatılıyor...
+                $("#sahis").slideUp("fast");
+                $("#Cinsiyet_E").attr("checked", "checked");
+                $("[adi = 'vergidairesi']").slideUp("fast");
+                $("[adi = 'weburl']").slideUp("fast");
+            }
+
+
+}
+        //Pasaport alanına veri girilirse tarih aktif oluyor...
+        $("#PotansiyelGenelBilgiler_PasaportNo").change(function () {
+            var val = $(this).val();
+            if (val > 0) {
+                $("[adi = 'pasaportnotarihi']").slideDown("fast");
+                $("[name = 'PotansiyelGenelBilgiler.PasaportGecerlilikBitisTarihi']").val("");
+            }
+            else {
+                $("[adi = 'pasaportnotarihi']").slideUp("fast");
+                $("[name = 'PotansiyelGenelBilgiler.PasaportGecerlilikBitisTarihi']").val("12.12.1212");
+            }
+        });
+
+        kontrol();
+
+
+        //Müşterinin tckn yada vergi numarası kontrol ediliyor..
+        $("#PotansiyelGenelBilgiler_KimlikNo").change(function () {
+            var tckn = $("#PotansiyelGenelBilgiler_KimlikNo").val();
+            var tipkoduval = $("#PotansiyelGenelBilgiler_MusteriTipKodu").val();
+
+            if (tckn.length == 10 && (tipkoduval == "2" || tipkoduval == "3")) { vergiKNsorgula(); }
+            else if (tckn.length == 11 && (tipkoduval == "1" || tipkoduval == "4")) { tcknkontrol(); }
+        });
+
+        function tcknkontrol() {
+            var tckn = $("#PotansiyelGenelBilgiler_KimlikNo").val();
+            var tvmKodu = $("#PotansiyelGenelBilgiler_TVMKodu").val();
+            if (tckn.length > 10) {
+                $("#loading-gif").attr("style", "display:normal");
+                $.post("/Musteri/PotansiyelMusteri/TCKontrol",
+                       { TCKN: tckn, TVMKodu: tvmKodu },
+                        function (data) {
+                            if (data == "False") {
+                                $("#alert").addClass("in");
+                                $("#alert").attr("style", "display:normal");
+                                $("#GenelBilgiler_KimlikNo").val("");
+                                $("#loading-gif").attr("style", "display:none");
+                            }
+                            else {
+                                $("#loading-gif").attr("style", "display:none");
+                                $("#alert").removeClass("in");
+                                $("#alert").attr("style", "display:none ");
+                            }
+                        });
+            }
+        }
+
+        function vergiKNsorgula() {
+            var tipkoduval = $("#PotansiyelGenelBilgiler_MusteriTipKodu").val();
+            var tckn = $("#PotansiyelGenelBilgiler_KimlikNo").val();
+            var tvmKodu = $("#PotansiyelGenelBilgiler_TVMKodu").val();
+
+            if (tckn.length > 9 && (tipkoduval == "2" || tipkoduval == "3")) {
+                $("#loading-gif").attr("style", "display:normal");
+                $.post("/Musteri/PotansiyelMusteri/TCKontrol",
+                       { TCKN: tckn, TVMKodu: tvmKodu },
+                        function (data) {
+                            if (data == "False") {
+                                $("#alert").addClass("in");
+                                $("#alert").attr("style", "display:normal");
+                                //$("#GenelBilgiler_KimlikNo").val("");
+                                $("#loading-gif").attr("style", "display:none");
+                            }
+                            else {
+                                $("#loading-gif").attr("style", "display:none");
+                                $("#alert").removeClass("in");
+                                $("#alert").attr("style", "display:none ");
+                            }
+                        });
+            }
+        }
+
+        $("#close-alert").live("click", function () {
+            $("#alert").attr("style", "display:none");
+            $("#alert").removeClass("in");
+        });
+
+
+        //Ülke - il - ilçe
+         $('#PotansiyelMusteriAdresModel_UlkeKodu').ulke({ il: '#PotansiyelMusteriAdresModel_IlKodu', ilce: '#PotansiyelMusteriAdresModel_IlceKodu' });
+
+
+        //Telefon numarası ulke kodu orneği ile geliyor..
+
+        //Acordiyonu acık getiriyor..
+        $("#collapseOne").attr("style", "heigth:auto;");
+        $("#collapseTwo").attr("style", "heigth:auto;");
+
+
+
+        //Sektor ara tüzel kisi icin
+        $('#PotansiyelGenelBilgiler_FaaliyetGosterdigiAnaSektor').sektor({ altsektor: '#PotansiyelGenelBilgiler_FaaliyetGosterdigiAltSektor' });
+
+        $("#PotansiyelGenelBilgiler_AdiUnvan").blur(function () {
+            $(this).val($(this).val().replace('i', 'İ'));
+            $(this).val($(this).val().toUpperCase());
+        });
+        $("#PotansiyelGenelBilgiler_SoyadiUnvan").blur(function () {
+            $(this).val($(this).val().replace('i', 'İ'));
+            $(this).val($(this).val().toUpperCase());
+        });
+    });
+
+</script>
+
+<script type="text/javascript" src="~/Content/js/PotansiyelMusteriAdresDogrulama.js"></script>
+
+<style>
+    #PotansiyelMusteriAdresModel_ParitusAdresDogrulama {
+        font-size: large;
+        font-style: italic;
+        height: 30px;
+        margin-top: -2px;
+        width: 100%;
+    }
+
+    #dogrulama-alert-div {
+        margin-left: 180px;
+        width: 180px;
+        height: 17px;
+    }
+</style>
+
+
+<div class="portlet box light-grey " style="margin-top: 24px;">
+    <div class="portlet-title">
+        <div class="caption"><i class="icon-reorder"></i>@babonline.PotentialCustomerInformation</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse"></a>
+
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <!-- BEGIN FORM-->
+        @using (Html.BeginForm("Ekle", "PotansiyelMusteri", FormMethod.Post, new { @class = "form-horizontal", id = "form0" }))
+        {
+            Html.EnableClientValidation(true);
+            @Html.ValidationSummary(true, @babonline.Message_GenericErrorHeader)
+            @Html.AntiForgeryToken()
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TVM_Code <span class="required">*</span></label>
+                        <div class="controls " style="padding-bottom: 3px; padding-top: 3px">
+                            @Html.TVMFinderFor(m => m.PotansiyelGenelBilgiler.TVMKodu, Model.PotansiyelGenelBilgiler.TVMUnvani)
+                            @Html.ValidationMessageFor(m => m.PotansiyelGenelBilgiler.TVMKodu)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">&nbsp;  @babonline.TVM_Customer_Code</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.PotansiyelGenelBilgiler.TVMMusteriKodu, new { maxlength = 20, autocompletetype = "disabled", style = "width:90%" })
+                            @Html.ValidationMessageFor(m => m.PotansiyelGenelBilgiler.TVMMusteriKodu)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Customer_Type_Code<span class="required">*</span></label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.PotansiyelGenelBilgiler.MusteriTipKodu, Model.MusteriTipleri, new { style = "width:90%" })
+                            @Html.ValidationMessageFor(m => m.PotansiyelGenelBilgiler.MusteriTipKodu)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span6" adi="vergidairesi" style="display: none;">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.TaxOffice</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.PotansiyelGenelBilgiler.VergiDairesi, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%;" })
+                            @Html.ValidationMessageFor(m => m.PotansiyelGenelBilgiler.VergiDairesi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row-fluid">
+                <div class="">
+                    <div class="control-group">
+                        <label id="kimlik-no" class="control-label">@babonline.Identification_Number</label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.PotansiyelGenelBilgiler.KimlikNo, new { maxlength = 11, autocompletetype = "disabled", style = "width:110px; float:left", @class = "onlynumbers", minlength = 11, pattern = ".{11,11}", title = babonline.Message_TCKN_least_11 }, babonline.Customer_TypeCode_Tooltip)
+                            <img id="loading-gif" src="~/Content/img/loading6.gif" alt="loading.." style="display: none" />
+                            <div style="text-align: center; padding-top: 5px;">
+                                <div id="alert" class="fade" style="display: none; margin: 0">
+                                    <span style="text-align: center"><strong>@babonline.Warning</strong>@babonline.Message_TCKN_AlreadyExist</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: block; float: left; width: 200px; margin-top: 34px; margin-left: -123px;">
+                            @Html.ValidationMessageFor(m => m.PotansiyelGenelBilgiler.KimlikNo)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Customer_Name_Title  <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.PotansiyelGenelBilgiler.AdiUnvan, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%;", @class = "onlyalpha" })
+                            @Html.ValidationMessageFor(m => m.PotansiyelGenelBilgiler.AdiUnvan)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Customer_Surname_Title    <span class="required">*</span></label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.PotansiyelGenelBilgiler.SoyadiUnvan, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%;", @class = "onlyalpha" })
+                            @Html.ValidationMessageFor(m => m.PotansiyelGenelBilgiler.SoyadiUnvan)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Email_Adress</label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.PotansiyelGenelBilgiler.EMail, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%" })
+                            @Html.ValidationMessageFor(m => m.PotansiyelGenelBilgiler.EMail)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6" adi="weburl" style="display: none;">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Web_URL</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.PotansiyelGenelBilgiler.WebUrl, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%" })
+                            @Html.ValidationMessageFor(m => m.PotansiyelGenelBilgiler.WebUrl)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Nationality</label>
+
+                        <div class="controls" style="margin-left: 200px;">
+                            @Html.RadioButtonListFor(m => m.PotansiyelGenelBilgiler.Uyruk, Model.UyrukTipleri)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="sahis" style="display: none;">
+                @*Meslek ve DOgum tarihi*@
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Job</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.PotansiyelGenelBilgiler.MeslekKodu, Model.Meslekler, new { style = "width:90%" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.DateOfBirth    </label>
+
+                            <div class="controls">
+                                @Html.DateTextBoxFor(m => m.PotansiyelGenelBilgiler.DogumTarihi, new { style = "width:100px;" })
+                                @Html.ValidationMessageFor(m => m.PotansiyelGenelBilgiler.DogumTarihi)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*Eğitim durumu cinsiyet*@
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Education_Level</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.PotansiyelGenelBilgiler.EgitimDurumu, Model.EgitimDurumlari, new { style = "width:90%" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Gender</label>
+
+                            <div class="controls" style="margin-left: 200px;">
+                                @Html.RadioButtonListFor(m => m.PotansiyelGenelBilgiler.Cinsiyet, Model.CinsiyetTipleri)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*Medeni  Durumu *@
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Marital_Status</label>
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.PotansiyelGenelBilgiler.MedeniDurumu, Model.MedeniDurumTipleri, new { style = "width:90%" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                @*Pasaport bolumu*@
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group" adi="pasaportno" style="display: none;">
+                            <label class="control-label">@babonline.Passport_Number</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.PotansiyelGenelBilgiler.PasaportNo, new { maxlength = 40, autocompletetype = "disabled", style = "width:90%;", @class = "onlynumbers" })
+                                @Html.ValidationMessageFor(m => m.PotansiyelGenelBilgiler.PasaportNo)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group" adi="pasaportnotarihi" style="display: none;">
+                            <label class="control-label">@babonline.Passport_Expiry_Date</label>
+
+                            <div class="controls">
+                                @Html.DateTextBoxFor(m => m.PotansiyelGenelBilgiler.PasaportGecerlilikBitisTarihi, new { style = "width:100px;" })
+                                @Html.ValidationMessageFor(m => m.PotansiyelGenelBilgiler.PasaportGecerlilikBitisTarihi)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div id="div-tuzel-kisi" style="display: none">
+                    <h4 class="form-section" style="color: red; font-size: 16.5px;">Tüzel Müşteri için doldurulması zorunlu alanlar </h4>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">Faaliyet Ana Sektör  <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.GenelBilgiler.FaaliyetGosterdigiAnaSektor, Model.FaaliyerAnaSektorList, new { style = "width:90%" })
+                                    @Html.ValidationMessageFor(m => m.GenelBilgiler.FaaliyetGosterdigiAnaSektor)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">Faaliyet Ölçeği  <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.GenelBilgiler.FaaliyetOlcegi_, Model.FaaliyetOlcegiList, new { style = "width:90%" })
+                                    @Html.ValidationMessageFor(m => m.GenelBilgiler.FaaliyetOlcegi_)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">Faaliyet Alt Sektör  <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.GenelBilgiler.FaaliyetGosterdigiAltSektor, Model.FaaliyetAltSektorList, new { style = "width:90%" })
+                                    @Html.ValidationMessageFor(m => m.GenelBilgiler.FaaliyetGosterdigiAltSektor)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">Sabit Varlık Bilgisi  <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.GenelBilgiler.SabitVarlikBilgisi, Model.SabitVarlikList, new { style = "width:90%" })
+                                    @Html.ValidationMessageFor(m => m.GenelBilgiler.SabitVarlikBilgisi)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label">Ciro Bilgisi  <span class="required">*</span></label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.GenelBilgiler.CiroBilgisi, Model.CiroBilgisiList, new { style = "width:90%" })
+                                    @Html.ValidationMessageFor(m => m.GenelBilgiler.CiroBilgisi)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>*@
+            @*ADres tipi ve Mahalle*@
+            <h3 class="form-section">@babonline.Address_Info</h3>
+
+            //Adres Doğrulama Rapirtus
+            @Html.HiddenFor(s => s.PotansiyelMusteriAdresModel.Latitude)
+            @Html.HiddenFor(s => s.PotansiyelMusteriAdresModel.Longitude)
+
+            <div id="paritus-adres-dogrulama">
+                <div class="row-fluid">
+
+                    <div class="span9">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.VerifyAddress</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(s => s.PotansiyelMusteriAdresModel.ParitusAdresDogrulama, new { style = "width:100%" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span3">
+                        <a style="float: left" class="btn red" id="paritus-dogrula">@babonline.Verify</a>
+                        <div style="width: 67px; margin-left: 10px; float: left;">
+                            <span style="color: red; font-size: 11px;">Powered By &nbsp;</span>
+                            <img width="70px" style="width: 70px;" src="~/Content/img/parituslogo-ori.png" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span9 pull-center">
+                        <div class="span7">
+                            <div id="dogrulama-alert-div" class="alert alert-success" style="display: none">
+                                <strong>@babonline.VerificationScore</strong><span id="dogrulama-skoru"></span>/1000
+                            </div>
+                        </div>
+                        <div style="text-align: right" class="span5">
+                            <a href="javascript:" style="color: red" id="ornek">@babonline.Sample</a> <span class="spacer">//</span>
+                            <a href="javascript:" style="color: red" id="temizle">@babonline.Clear</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-fluid" id="paritus-coklu-adres" style="display: none">
+                    <div class="span9">
+                        <div style="padding: 3%; text-align: center; display: block;" class="span9 offset1 pull-center caption" id="recommendationdiv">
+                            <h4 id="infolbl">@babonline.TheAddressYouAreLooking</h4>
+                            <table style="background-color: #ffffff" class="table table-hover" id="tablerecommendation">
+                                <tbody id="tablebodycommendation"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Address_Type</label>
+
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.PotansiyelMusteriAdresModel.AdresTipi, Model.PotansiyelMusteriAdresModel.AdresTipleri, new { tabindex = 1, style = "width:90%" })
+                                @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.AdresTipi)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Parish</label>
+
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.PotansiyelMusteriAdresModel.Mahalle, new { maxlength = 100, autocompletetype = "disabled", style = "width:90%;", tabindex = 8, @class = "paritus-adres" })
+                                @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.Mahalle)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                @*Ulke Ve Cadde Alanlari*@
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Country</label>
+
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.PotansiyelMusteriAdresModel.UlkeKodu, Model.PotansiyelMusteriAdresModel.UlkeLer, new { style = "width:90%;", tabindex = 2 })
+                                @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.UlkeKodu)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Avenue</label>
+
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.PotansiyelMusteriAdresModel.Cadde, new { maxlength = 100, autocompletetype = "disabled", style = "width:90%;", tabindex = 9, @class = "paritus-adres" })
+                                @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.Cadde)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                @* İl Ve sokak Alanları*@
+
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.City</label>
+
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.PotansiyelMusteriAdresModel.IlKodu, Model.PotansiyelMusteriAdresModel.Iller, new { style = "width:90%;", tabindex = 3 })
+                                @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.IlKodu)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Street</label>
+
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.PotansiyelMusteriAdresModel.Sokak, new { maxlength = 100, autocompletetype = "disabled", style = "width:90%;", tabindex = 10, @class = "paritus-adres" })
+                                @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.Sokak)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*İlce Ve Bina no Daire no alanları*@
+                <div class="row-fluid">
+                    <div class="span6">
+
+                        <div class="control-group">
+                            <label class="control-label">@babonline.District</label>
+
+                            <div class="controls">
+                                @Html.DropDownListFor(m => m.PotansiyelMusteriAdresModel.IlceKodu, Model.PotansiyelMusteriAdresModel.IlceLer, new { style = "width:90%;", tabindex = 4 })
+                                @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.IlceKodu, "", new { style = "width: 200px" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Apartment</label>
+
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.PotansiyelMusteriAdresModel.Apartman, new { @class = "paritus-adres", maxlength = 50, autocompletetype = "disabled", style = "width:90%;", tabindex = 11 })
+                                @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.Apartman)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*Semt ve  bino no daire no alanları*@
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Neighborhood</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.PotansiyelMusteriAdresModel.Semt, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%;", tabindex = 5, @class = "paritus-adres" })
+                                @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.Semt)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Apartment_No</label>
+
+                            <div class="controls">
+                                <div style="width: 220px;">
+                                    <div>
+                                        @Html.TextBoxFor(m => m.PotansiyelMusteriAdresModel.DaireNo, new { maxlength = 20, autocompletetype = "disabled", style = "width:30px; float:left;", tabindex = 12, @class = "paritus-adres" })
+                                        <label style="float: left; margin-top: 4px; color: #0D638F; margin-left: 13px;">@babonline.Building_No</label>
+                                        <span style="float: left; color: #E02222; padding-left: 2px;">&nbsp; &nbsp; </span>
+                                        @Html.TextBoxFor(m => m.PotansiyelMusteriAdresModel.BinaNo, new { maxlength = 20, autocompletetype = "disabled", style = "width:30px; float:left;", tabindex = 13, @class = "paritus-adres" })
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.DaireNo, "", new { style = "margin-left:-20px; float:left;" })
+                                    @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.BinaNo, "", new { style = "margin-left:-25px; float:right;" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                @*Han APt -FAb   ve Diğer alanı*@
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Han_Apt_Fab</label>
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.PotansiyelMusteriAdresModel.HanAptFab, new { maxlength = 20, autocompletetype = "disabled", style = "width:90%;", tabindex = 6, @class = "paritus-adres" })
+                                @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.HanAptFab)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Postal_Code</label>
+
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.PotansiyelMusteriAdresModel.PostaKodu, new { maxlength = 5, minlength = 5, pattern = ".{5,5}", title = babonline.Message_PostCode, autocompletetype = "disabled", style = "width:90%;", tabindex = 14, @class = "onlynumbers paritus-adres" })
+                                @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.PostaKodu)
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                @*Diğer Ve Adres Alanı*@
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Address </label>
+
+                            <div class="controls">
+                                @Html.TextAreaFor(m => m.PotansiyelMusteriAdresModel.Adres, new { @class = "paritus-adres", maxlength = 100, autocompletetype = "disabled", style = "width:90%; height:50px;", tabindex = 7 })
+                                @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.Adres)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="control-group">
+                            <label class="control-label">@babonline.Other</label>
+                            <div class="controls">
+                                @Html.TextAreaFor(m => m.PotansiyelMusteriAdresModel.Diger, new { maxlength = 20, autocompletetype = "disabled", style = "width:90%; ; height:50px;", tabindex = 15 })
+                                @Html.ValidationMessageFor(m => m.PotansiyelMusteriAdresModel.Diger)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6"></div>
+                    <div class="span6">
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#collapse_2">
+                                    <i class="icon-angle-left"></i>
+                                    @babonline.Map
+                                </a>
+                            </div>
+                            <div id="collapse_2" class="accordion-body collapse">
+                                <div class="accordion-inner">
+                                    <div id="gmap_marker" class="gmaps"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            //*telefon bilgileri bölümü
+            <h3 class="form-section">@babonline.Phone_Info</h3>
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Contact_Number_Type</label>
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.PotansiyelMusteriTelefonModel.IletisimNumaraTipi, Model.IletisimNumaraTipleri, new { tabindex = 16, style = "width:90%" })
+                            @Html.ValidationMessageFor(m => m.PotansiyelMusteriTelefonModel.IletisimNumaraTipi)
+                        </div>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Number</label>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.PotansiyelMusteriTelefonModel.Numara, new
+                            {
+                                style = "width:90%",
+                                tabindex = 17,
+                                data_format = "dd-ddd-ddddddd",
+                                maxlength = 14,
+                                minlength = 14,
+                                pattern = ".{14,14}",
+                                @class = "input-medium bfh-phone",
+                                placeholder = "90-212-5554477",
+                                title = babonline.Message_PhoneFormat
+                            })
+                            @Html.ValidationMessageFor(m => m.PotansiyelMusteriTelefonModel.Numara)
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="control-group">
+                        <label class="control-label">@babonline.Number_Owner</label>
+
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.PotansiyelMusteriTelefonModel.NumaraSahibi, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%;", tabindex = 18, @class = "onlyalpha" })
+                            @Html.ValidationMessageFor(m => m.PotansiyelMusteriTelefonModel.NumaraSahibi)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button tabindex="19" id="btn-kaydet" class="btn green"><i class="icon-ok">&nbsp;</i>@babonline.Save</button>
+                <a class="btn" href="/Musteri/PotansiyelMusteri/Liste">@babonline.Cancel</a>
+            </div>
+        }
+        <!-- END FORM-->
+    </div>
+</div>
+
+
+
+

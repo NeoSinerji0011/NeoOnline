@@ -1,0 +1,93 @@
+@model Neosinerji.BABOnlineTP.Web.Models.AegonSifremiUnuttum
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/HTML; charset=ISO-8859-9" />
+    <title>Aegon Emeklilik ve Hayat | Şifremi unuttum</title>
+    <style type="text/css">
+        body {
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 12px;
+            color: #000;
+        }
+
+        .uyari {
+            color: #666666;
+            font-size: 12px;
+            line-height: 18px;
+        }
+
+        input[type="text"] {
+            margin-top: 2px;
+            width: 250px;
+            margin-bottom: 2px;
+        }
+
+        #tckimlik {
+            font-family: Arial,Helvetica,sans-serif;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="mainform">
+        <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" vertical-align="middle">
+            <tr>
+                <td>
+                    <img src="~/Content/img/Aegon/aegonlogo.jpg" alt="aegon-logo" /></td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="form">
+                        <form id='form1' action='/Aegon/SifremiUnuttum' method='post' accept-charset='ISO-8859-9' enctype="multipart/form-data">
+
+                            <input type='hidden' name='submitted' id='submitted' value='1' />
+
+                            <div><span class='error'></span></div>
+                            <div style="background-color: #2D72A7; height: 22px; width: 480px;">
+                                <p style="font-weight: bold; font-size: 12px; padding: 4px; color: #fff;">Aegon Şifre Hatırlatma Servisi</p>
+                            </div>
+                            <p class="uyari">Aegon şifrenizi öğrenmek için, Partaj Numaranızı giriniz.</p>
+                            <div id="tckimlik">
+                                <label for='tckimlikno'>Partaj No :</label><br />
+                                @Html.TextBoxFor(s => s.PartajNo)
+                            </div>
+                            <a href="javascript: submitform1()">
+                                <img src="~/Content/img/Aegon/sorgula.png" border="0" /></a>
+                        </form>
+
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div>
+                                <span style="background-color: #fff; color: #fb003b; height: 40px; width: 480px; font-weight: bold; font-size: 14px; margin-top: 30px;">
+                                    <img border="0" src="~/Content/img/Aegon/warning.png">
+                                    @Html.ValidationSummary(true)
+                                </span>
+                            </div>
+                        }
+                        @if (!String.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            @ViewBag.Message
+                        }
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        function submitform1() {
+            document.forms["form1"].submit();
+        }
+    </script>
+</body>
+</html>
+
+
+

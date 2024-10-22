@@ -1,0 +1,2275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="QueryPolicyDetail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryPolicyDetailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryPolicyDetailResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PolicySearch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PolicySearchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PolicySearchResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveProposal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveProposalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApproveProposalResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteProposal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteProposalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteProposalResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApprovalCancellation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApprovalCancellationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ApprovalCancellationResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateProposal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateProposalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateProposalResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancellationFromInception">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancellationFromInceptionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancellationFromInceptionResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancellationMidTerm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancellationMidTermResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancellationMidTermResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancellationNonPayment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancellationNonPaymentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancellationNonPaymentResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsuredIncludeEndorsement">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsuredIncludeEndorsementResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsuredIncludeEndorsementResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsuredExcludeEndorsement">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsuredExcludeEndorsementResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsuredExcludeEndorsementResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateEndorsment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateEndorsmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateEndorsmentResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryDaskPolicy">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryDaskPolicyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryDaskPolicyResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRenewalList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRenewalListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRenewalListResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCoverageList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCoverageListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCoverageListResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchWithIdentityPlate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchWithIdentityPlateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchWithIdentityPlateResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EditProposal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EditProposalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EditProposalResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCreditCardPaymentTypeList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCreditCardPaymentTypeListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCreditCardPaymentTypeListResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentsByDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPaymentsByDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPaymentsByDateResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProposalUpdateClient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProposalUpdateClientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProposalUpdateClientResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProposalUpdateMortgager">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProposalUpdateMortgagerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProposalUpdateMortgagerResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProposalQuestionUpdate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProposalQuestionUpdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProposalQuestionUpdateResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrintDocumentResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintDocumentByEMail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrintDocumentByEMailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrintDocumentByEMailResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreatePolicyAndPrint">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreatePolicyAndPrintResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreatePolicyAndPrintResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateProposals">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sRequestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateProposalsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateProposalsResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="QueryPolicyDetailSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryPolicyDetail" />
+  </wsdl:message>
+  <wsdl:message name="QueryPolicyDetailSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryPolicyDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="PolicySearchSoapIn">
+    <wsdl:part name="parameters" element="tns:PolicySearch" />
+  </wsdl:message>
+  <wsdl:message name="PolicySearchSoapOut">
+    <wsdl:part name="parameters" element="tns:PolicySearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApproveProposalSoapIn">
+    <wsdl:part name="parameters" element="tns:ApproveProposal" />
+  </wsdl:message>
+  <wsdl:message name="ApproveProposalSoapOut">
+    <wsdl:part name="parameters" element="tns:ApproveProposalResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProposalSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteProposal" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProposalSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteProposalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApprovalCancellationSoapIn">
+    <wsdl:part name="parameters" element="tns:ApprovalCancellation" />
+  </wsdl:message>
+  <wsdl:message name="ApprovalCancellationSoapOut">
+    <wsdl:part name="parameters" element="tns:ApprovalCancellationResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateProposalSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateProposal" />
+  </wsdl:message>
+  <wsdl:message name="CreateProposalSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateProposalResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancellationFromInceptionSoapIn">
+    <wsdl:part name="parameters" element="tns:CancellationFromInception" />
+  </wsdl:message>
+  <wsdl:message name="CancellationFromInceptionSoapOut">
+    <wsdl:part name="parameters" element="tns:CancellationFromInceptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancellationMidTermSoapIn">
+    <wsdl:part name="parameters" element="tns:CancellationMidTerm" />
+  </wsdl:message>
+  <wsdl:message name="CancellationMidTermSoapOut">
+    <wsdl:part name="parameters" element="tns:CancellationMidTermResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancellationNonPaymentSoapIn">
+    <wsdl:part name="parameters" element="tns:CancellationNonPayment" />
+  </wsdl:message>
+  <wsdl:message name="CancellationNonPaymentSoapOut">
+    <wsdl:part name="parameters" element="tns:CancellationNonPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsuredIncludeEndorsementSoapIn">
+    <wsdl:part name="parameters" element="tns:InsuredIncludeEndorsement" />
+  </wsdl:message>
+  <wsdl:message name="InsuredIncludeEndorsementSoapOut">
+    <wsdl:part name="parameters" element="tns:InsuredIncludeEndorsementResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsuredExcludeEndorsementSoapIn">
+    <wsdl:part name="parameters" element="tns:InsuredExcludeEndorsement" />
+  </wsdl:message>
+  <wsdl:message name="InsuredExcludeEndorsementSoapOut">
+    <wsdl:part name="parameters" element="tns:InsuredExcludeEndorsementResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateEndorsmentSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateEndorsment" />
+  </wsdl:message>
+  <wsdl:message name="CreateEndorsmentSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateEndorsmentResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryDaskPolicySoapIn">
+    <wsdl:part name="parameters" element="tns:QueryDaskPolicy" />
+  </wsdl:message>
+  <wsdl:message name="QueryDaskPolicySoapOut">
+    <wsdl:part name="parameters" element="tns:QueryDaskPolicyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRenewalListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRenewalList" />
+  </wsdl:message>
+  <wsdl:message name="GetRenewalListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRenewalListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCoverageListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCoverageList" />
+  </wsdl:message>
+  <wsdl:message name="GetCoverageListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCoverageListResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchWithIdentityPlateSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchWithIdentityPlate" />
+  </wsdl:message>
+  <wsdl:message name="SearchWithIdentityPlateSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchWithIdentityPlateResponse" />
+  </wsdl:message>
+  <wsdl:message name="EditProposalSoapIn">
+    <wsdl:part name="parameters" element="tns:EditProposal" />
+  </wsdl:message>
+  <wsdl:message name="EditProposalSoapOut">
+    <wsdl:part name="parameters" element="tns:EditProposalResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCreditCardPaymentTypeListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCreditCardPaymentTypeList" />
+  </wsdl:message>
+  <wsdl:message name="GetCreditCardPaymentTypeListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCreditCardPaymentTypeListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentsByDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPaymentsByDate" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentsByDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPaymentsByDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProposalUpdateClientSoapIn">
+    <wsdl:part name="parameters" element="tns:ProposalUpdateClient" />
+  </wsdl:message>
+  <wsdl:message name="ProposalUpdateClientSoapOut">
+    <wsdl:part name="parameters" element="tns:ProposalUpdateClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProposalUpdateMortgagerSoapIn">
+    <wsdl:part name="parameters" element="tns:ProposalUpdateMortgager" />
+  </wsdl:message>
+  <wsdl:message name="ProposalUpdateMortgagerSoapOut">
+    <wsdl:part name="parameters" element="tns:ProposalUpdateMortgagerResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProposalQuestionUpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:ProposalQuestionUpdate" />
+  </wsdl:message>
+  <wsdl:message name="ProposalQuestionUpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:ProposalQuestionUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="PrintDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:PrintDocument" />
+  </wsdl:message>
+  <wsdl:message name="PrintDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:PrintDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="PrintDocumentByEMailSoapIn">
+    <wsdl:part name="parameters" element="tns:PrintDocumentByEMail" />
+  </wsdl:message>
+  <wsdl:message name="PrintDocumentByEMailSoapOut">
+    <wsdl:part name="parameters" element="tns:PrintDocumentByEMailResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreatePolicyAndPrintSoapIn">
+    <wsdl:part name="parameters" element="tns:CreatePolicyAndPrint" />
+  </wsdl:message>
+  <wsdl:message name="CreatePolicyAndPrintSoapOut">
+    <wsdl:part name="parameters" element="tns:CreatePolicyAndPrintResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateProposalsSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateProposals" />
+  </wsdl:message>
+  <wsdl:message name="CreateProposalsSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateProposalsResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryPolicyDetailHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryPolicyDetailHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="PolicySearchHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PolicySearchHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="ApproveProposalHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ApproveProposalHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProposalHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProposalHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="ApprovalCancellationHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ApprovalCancellationHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CreateProposalHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateProposalHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CancellationFromInceptionHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CancellationFromInceptionHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CancellationMidTermHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CancellationMidTermHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CancellationNonPaymentHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CancellationNonPaymentHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="InsuredIncludeEndorsementHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InsuredIncludeEndorsementHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="InsuredExcludeEndorsementHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InsuredExcludeEndorsementHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CreateEndorsmentHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateEndorsmentHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QueryDaskPolicyHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryDaskPolicyHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetRenewalListHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRenewalListHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetCoverageListHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCoverageListHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="SearchWithIdentityPlateHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SearchWithIdentityPlateHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="EditProposalHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EditProposalHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetCreditCardPaymentTypeListHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCreditCardPaymentTypeListHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentsByDateHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentsByDateHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="ProposalUpdateClientHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ProposalUpdateClientHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="ProposalUpdateMortgagerHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ProposalUpdateMortgagerHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="ProposalQuestionUpdateHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ProposalQuestionUpdateHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="PrintDocumentHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PrintDocumentHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="PrintDocumentByEMailHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PrintDocumentByEMailHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CreatePolicyAndPrintHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreatePolicyAndPrintHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CreateProposalsHttpGetIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateProposalsHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QueryPolicyDetailHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryPolicyDetailHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="PolicySearchHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PolicySearchHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="ApproveProposalHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ApproveProposalHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProposalHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProposalHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="ApprovalCancellationHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ApprovalCancellationHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CreateProposalHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateProposalHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CancellationFromInceptionHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CancellationFromInceptionHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CancellationMidTermHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CancellationMidTermHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CancellationNonPaymentHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CancellationNonPaymentHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="InsuredIncludeEndorsementHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InsuredIncludeEndorsementHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="InsuredExcludeEndorsementHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="InsuredExcludeEndorsementHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CreateEndorsmentHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateEndorsmentHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="QueryDaskPolicyHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="QueryDaskPolicyHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetRenewalListHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetRenewalListHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetCoverageListHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCoverageListHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="SearchWithIdentityPlateHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SearchWithIdentityPlateHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="EditProposalHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EditProposalHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetCreditCardPaymentTypeListHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCreditCardPaymentTypeListHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentsByDateHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPaymentsByDateHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="ProposalUpdateClientHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ProposalUpdateClientHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="ProposalUpdateMortgagerHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ProposalUpdateMortgagerHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="ProposalQuestionUpdateHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ProposalQuestionUpdateHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="PrintDocumentHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PrintDocumentHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="PrintDocumentByEMailHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PrintDocumentByEMailHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CreatePolicyAndPrintHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreatePolicyAndPrintHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="CreateProposalsHttpPostIn">
+    <wsdl:part name="sRequestXml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CreateProposalsHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:portType name="SFSPolicyIntegrationServiceSoap">
+    <wsdl:operation name="QueryPolicyDetail">
+      <wsdl:input message="tns:QueryPolicyDetailSoapIn" />
+      <wsdl:output message="tns:QueryPolicyDetailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PolicySearch">
+      <wsdl:input message="tns:PolicySearchSoapIn" />
+      <wsdl:output message="tns:PolicySearchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveProposal">
+      <wsdl:input message="tns:ApproveProposalSoapIn" />
+      <wsdl:output message="tns:ApproveProposalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProposal">
+      <wsdl:input message="tns:DeleteProposalSoapIn" />
+      <wsdl:output message="tns:DeleteProposalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApprovalCancellation">
+      <wsdl:input message="tns:ApprovalCancellationSoapIn" />
+      <wsdl:output message="tns:ApprovalCancellationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposal">
+      <wsdl:input message="tns:CreateProposalSoapIn" />
+      <wsdl:output message="tns:CreateProposalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancellationFromInception">
+      <wsdl:input message="tns:CancellationFromInceptionSoapIn" />
+      <wsdl:output message="tns:CancellationFromInceptionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancellationMidTerm">
+      <wsdl:input message="tns:CancellationMidTermSoapIn" />
+      <wsdl:output message="tns:CancellationMidTermSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancellationNonPayment">
+      <wsdl:input message="tns:CancellationNonPaymentSoapIn" />
+      <wsdl:output message="tns:CancellationNonPaymentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsuredIncludeEndorsement">
+      <wsdl:input message="tns:InsuredIncludeEndorsementSoapIn" />
+      <wsdl:output message="tns:InsuredIncludeEndorsementSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsuredExcludeEndorsement">
+      <wsdl:input message="tns:InsuredExcludeEndorsementSoapIn" />
+      <wsdl:output message="tns:InsuredExcludeEndorsementSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateEndorsment">
+      <wsdl:input message="tns:CreateEndorsmentSoapIn" />
+      <wsdl:output message="tns:CreateEndorsmentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryDaskPolicy">
+      <wsdl:input message="tns:QueryDaskPolicySoapIn" />
+      <wsdl:output message="tns:QueryDaskPolicySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRenewalList">
+      <wsdl:input message="tns:GetRenewalListSoapIn" />
+      <wsdl:output message="tns:GetRenewalListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCoverageList">
+      <wsdl:input message="tns:GetCoverageListSoapIn" />
+      <wsdl:output message="tns:GetCoverageListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchWithIdentityPlate">
+      <wsdl:input message="tns:SearchWithIdentityPlateSoapIn" />
+      <wsdl:output message="tns:SearchWithIdentityPlateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EditProposal">
+      <wsdl:input message="tns:EditProposalSoapIn" />
+      <wsdl:output message="tns:EditProposalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCreditCardPaymentTypeList">
+      <wsdl:input message="tns:GetCreditCardPaymentTypeListSoapIn" />
+      <wsdl:output message="tns:GetCreditCardPaymentTypeListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentsByDate">
+      <wsdl:input message="tns:GetPaymentsByDateSoapIn" />
+      <wsdl:output message="tns:GetPaymentsByDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateClient">
+      <wsdl:input message="tns:ProposalUpdateClientSoapIn" />
+      <wsdl:output message="tns:ProposalUpdateClientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateMortgager">
+      <wsdl:input message="tns:ProposalUpdateMortgagerSoapIn" />
+      <wsdl:output message="tns:ProposalUpdateMortgagerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProposalQuestionUpdate">
+      <wsdl:input message="tns:ProposalQuestionUpdateSoapIn" />
+      <wsdl:output message="tns:ProposalQuestionUpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocument">
+      <wsdl:input message="tns:PrintDocumentSoapIn" />
+      <wsdl:output message="tns:PrintDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocumentByEMail">
+      <wsdl:input message="tns:PrintDocumentByEMailSoapIn" />
+      <wsdl:output message="tns:PrintDocumentByEMailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreatePolicyAndPrint">
+      <wsdl:input message="tns:CreatePolicyAndPrintSoapIn" />
+      <wsdl:output message="tns:CreatePolicyAndPrintSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposals">
+      <wsdl:input message="tns:CreateProposalsSoapIn" />
+      <wsdl:output message="tns:CreateProposalsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SFSPolicyIntegrationServiceHttpGet">
+    <wsdl:operation name="QueryPolicyDetail">
+      <wsdl:input message="tns:QueryPolicyDetailHttpGetIn" />
+      <wsdl:output message="tns:QueryPolicyDetailHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PolicySearch">
+      <wsdl:input message="tns:PolicySearchHttpGetIn" />
+      <wsdl:output message="tns:PolicySearchHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveProposal">
+      <wsdl:input message="tns:ApproveProposalHttpGetIn" />
+      <wsdl:output message="tns:ApproveProposalHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProposal">
+      <wsdl:input message="tns:DeleteProposalHttpGetIn" />
+      <wsdl:output message="tns:DeleteProposalHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApprovalCancellation">
+      <wsdl:input message="tns:ApprovalCancellationHttpGetIn" />
+      <wsdl:output message="tns:ApprovalCancellationHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposal">
+      <wsdl:input message="tns:CreateProposalHttpGetIn" />
+      <wsdl:output message="tns:CreateProposalHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancellationFromInception">
+      <wsdl:input message="tns:CancellationFromInceptionHttpGetIn" />
+      <wsdl:output message="tns:CancellationFromInceptionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancellationMidTerm">
+      <wsdl:input message="tns:CancellationMidTermHttpGetIn" />
+      <wsdl:output message="tns:CancellationMidTermHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancellationNonPayment">
+      <wsdl:input message="tns:CancellationNonPaymentHttpGetIn" />
+      <wsdl:output message="tns:CancellationNonPaymentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsuredIncludeEndorsement">
+      <wsdl:input message="tns:InsuredIncludeEndorsementHttpGetIn" />
+      <wsdl:output message="tns:InsuredIncludeEndorsementHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsuredExcludeEndorsement">
+      <wsdl:input message="tns:InsuredExcludeEndorsementHttpGetIn" />
+      <wsdl:output message="tns:InsuredExcludeEndorsementHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateEndorsment">
+      <wsdl:input message="tns:CreateEndorsmentHttpGetIn" />
+      <wsdl:output message="tns:CreateEndorsmentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryDaskPolicy">
+      <wsdl:input message="tns:QueryDaskPolicyHttpGetIn" />
+      <wsdl:output message="tns:QueryDaskPolicyHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRenewalList">
+      <wsdl:input message="tns:GetRenewalListHttpGetIn" />
+      <wsdl:output message="tns:GetRenewalListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCoverageList">
+      <wsdl:input message="tns:GetCoverageListHttpGetIn" />
+      <wsdl:output message="tns:GetCoverageListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchWithIdentityPlate">
+      <wsdl:input message="tns:SearchWithIdentityPlateHttpGetIn" />
+      <wsdl:output message="tns:SearchWithIdentityPlateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EditProposal">
+      <wsdl:input message="tns:EditProposalHttpGetIn" />
+      <wsdl:output message="tns:EditProposalHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCreditCardPaymentTypeList">
+      <wsdl:input message="tns:GetCreditCardPaymentTypeListHttpGetIn" />
+      <wsdl:output message="tns:GetCreditCardPaymentTypeListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentsByDate">
+      <wsdl:input message="tns:GetPaymentsByDateHttpGetIn" />
+      <wsdl:output message="tns:GetPaymentsByDateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateClient">
+      <wsdl:input message="tns:ProposalUpdateClientHttpGetIn" />
+      <wsdl:output message="tns:ProposalUpdateClientHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateMortgager">
+      <wsdl:input message="tns:ProposalUpdateMortgagerHttpGetIn" />
+      <wsdl:output message="tns:ProposalUpdateMortgagerHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProposalQuestionUpdate">
+      <wsdl:input message="tns:ProposalQuestionUpdateHttpGetIn" />
+      <wsdl:output message="tns:ProposalQuestionUpdateHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocument">
+      <wsdl:input message="tns:PrintDocumentHttpGetIn" />
+      <wsdl:output message="tns:PrintDocumentHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocumentByEMail">
+      <wsdl:input message="tns:PrintDocumentByEMailHttpGetIn" />
+      <wsdl:output message="tns:PrintDocumentByEMailHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreatePolicyAndPrint">
+      <wsdl:input message="tns:CreatePolicyAndPrintHttpGetIn" />
+      <wsdl:output message="tns:CreatePolicyAndPrintHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposals">
+      <wsdl:input message="tns:CreateProposalsHttpGetIn" />
+      <wsdl:output message="tns:CreateProposalsHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SFSPolicyIntegrationServiceHttpPost">
+    <wsdl:operation name="QueryPolicyDetail">
+      <wsdl:input message="tns:QueryPolicyDetailHttpPostIn" />
+      <wsdl:output message="tns:QueryPolicyDetailHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PolicySearch">
+      <wsdl:input message="tns:PolicySearchHttpPostIn" />
+      <wsdl:output message="tns:PolicySearchHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveProposal">
+      <wsdl:input message="tns:ApproveProposalHttpPostIn" />
+      <wsdl:output message="tns:ApproveProposalHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProposal">
+      <wsdl:input message="tns:DeleteProposalHttpPostIn" />
+      <wsdl:output message="tns:DeleteProposalHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApprovalCancellation">
+      <wsdl:input message="tns:ApprovalCancellationHttpPostIn" />
+      <wsdl:output message="tns:ApprovalCancellationHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposal">
+      <wsdl:input message="tns:CreateProposalHttpPostIn" />
+      <wsdl:output message="tns:CreateProposalHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancellationFromInception">
+      <wsdl:input message="tns:CancellationFromInceptionHttpPostIn" />
+      <wsdl:output message="tns:CancellationFromInceptionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancellationMidTerm">
+      <wsdl:input message="tns:CancellationMidTermHttpPostIn" />
+      <wsdl:output message="tns:CancellationMidTermHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancellationNonPayment">
+      <wsdl:input message="tns:CancellationNonPaymentHttpPostIn" />
+      <wsdl:output message="tns:CancellationNonPaymentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsuredIncludeEndorsement">
+      <wsdl:input message="tns:InsuredIncludeEndorsementHttpPostIn" />
+      <wsdl:output message="tns:InsuredIncludeEndorsementHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsuredExcludeEndorsement">
+      <wsdl:input message="tns:InsuredExcludeEndorsementHttpPostIn" />
+      <wsdl:output message="tns:InsuredExcludeEndorsementHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateEndorsment">
+      <wsdl:input message="tns:CreateEndorsmentHttpPostIn" />
+      <wsdl:output message="tns:CreateEndorsmentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryDaskPolicy">
+      <wsdl:input message="tns:QueryDaskPolicyHttpPostIn" />
+      <wsdl:output message="tns:QueryDaskPolicyHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRenewalList">
+      <wsdl:input message="tns:GetRenewalListHttpPostIn" />
+      <wsdl:output message="tns:GetRenewalListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCoverageList">
+      <wsdl:input message="tns:GetCoverageListHttpPostIn" />
+      <wsdl:output message="tns:GetCoverageListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchWithIdentityPlate">
+      <wsdl:input message="tns:SearchWithIdentityPlateHttpPostIn" />
+      <wsdl:output message="tns:SearchWithIdentityPlateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EditProposal">
+      <wsdl:input message="tns:EditProposalHttpPostIn" />
+      <wsdl:output message="tns:EditProposalHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCreditCardPaymentTypeList">
+      <wsdl:input message="tns:GetCreditCardPaymentTypeListHttpPostIn" />
+      <wsdl:output message="tns:GetCreditCardPaymentTypeListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentsByDate">
+      <wsdl:input message="tns:GetPaymentsByDateHttpPostIn" />
+      <wsdl:output message="tns:GetPaymentsByDateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateClient">
+      <wsdl:input message="tns:ProposalUpdateClientHttpPostIn" />
+      <wsdl:output message="tns:ProposalUpdateClientHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateMortgager">
+      <wsdl:input message="tns:ProposalUpdateMortgagerHttpPostIn" />
+      <wsdl:output message="tns:ProposalUpdateMortgagerHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProposalQuestionUpdate">
+      <wsdl:input message="tns:ProposalQuestionUpdateHttpPostIn" />
+      <wsdl:output message="tns:ProposalQuestionUpdateHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocument">
+      <wsdl:input message="tns:PrintDocumentHttpPostIn" />
+      <wsdl:output message="tns:PrintDocumentHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocumentByEMail">
+      <wsdl:input message="tns:PrintDocumentByEMailHttpPostIn" />
+      <wsdl:output message="tns:PrintDocumentByEMailHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreatePolicyAndPrint">
+      <wsdl:input message="tns:CreatePolicyAndPrintHttpPostIn" />
+      <wsdl:output message="tns:CreatePolicyAndPrintHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposals">
+      <wsdl:input message="tns:CreateProposalsHttpPostIn" />
+      <wsdl:output message="tns:CreateProposalsHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SFSPolicyIntegrationServiceSoap" type="tns:SFSPolicyIntegrationServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="QueryPolicyDetail">
+      <soap:operation soapAction="http://tempuri.org/QueryPolicyDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PolicySearch">
+      <soap:operation soapAction="http://tempuri.org/PolicySearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveProposal">
+      <soap:operation soapAction="http://tempuri.org/ApproveProposal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProposal">
+      <soap:operation soapAction="http://tempuri.org/DeleteProposal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApprovalCancellation">
+      <soap:operation soapAction="http://tempuri.org/ApprovalCancellation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposal">
+      <soap:operation soapAction="http://tempuri.org/CreateProposal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellationFromInception">
+      <soap:operation soapAction="http://tempuri.org/CancellationFromInception" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellationMidTerm">
+      <soap:operation soapAction="http://tempuri.org/CancellationMidTerm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellationNonPayment">
+      <soap:operation soapAction="http://tempuri.org/CancellationNonPayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsuredIncludeEndorsement">
+      <soap:operation soapAction="http://tempuri.org/InsuredIncludeEndorsement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsuredExcludeEndorsement">
+      <soap:operation soapAction="http://tempuri.org/InsuredExcludeEndorsement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateEndorsment">
+      <soap:operation soapAction="http://tempuri.org/CreateEndorsment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryDaskPolicy">
+      <soap:operation soapAction="http://tempuri.org/QueryDaskPolicy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRenewalList">
+      <soap:operation soapAction="http://tempuri.org/GetRenewalList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCoverageList">
+      <soap:operation soapAction="http://tempuri.org/GetCoverageList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchWithIdentityPlate">
+      <soap:operation soapAction="http://tempuri.org/SearchWithIdentityPlate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditProposal">
+      <soap:operation soapAction="http://tempuri.org/EditProposal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCreditCardPaymentTypeList">
+      <soap:operation soapAction="http://tempuri.org/GetCreditCardPaymentTypeList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentsByDate">
+      <soap:operation soapAction="http://tempuri.org/GetPaymentsByDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateClient">
+      <soap:operation soapAction="http://tempuri.org/ProposalUpdateClient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateMortgager">
+      <soap:operation soapAction="http://tempuri.org/ProposalUpdateMortgager" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProposalQuestionUpdate">
+      <soap:operation soapAction="http://tempuri.org/ProposalQuestionUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocument">
+      <soap:operation soapAction="http://tempuri.org/PrintDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocumentByEMail">
+      <soap:operation soapAction="http://tempuri.org/PrintDocumentByEMail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePolicyAndPrint">
+      <soap:operation soapAction="http://tempuri.org/CreatePolicyAndPrint" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposals">
+      <soap:operation soapAction="http://tempuri.org/CreateProposals" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SFSPolicyIntegrationServiceSoap12" type="tns:SFSPolicyIntegrationServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="QueryPolicyDetail">
+      <soap12:operation soapAction="http://tempuri.org/QueryPolicyDetail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PolicySearch">
+      <soap12:operation soapAction="http://tempuri.org/PolicySearch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveProposal">
+      <soap12:operation soapAction="http://tempuri.org/ApproveProposal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProposal">
+      <soap12:operation soapAction="http://tempuri.org/DeleteProposal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApprovalCancellation">
+      <soap12:operation soapAction="http://tempuri.org/ApprovalCancellation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposal">
+      <soap12:operation soapAction="http://tempuri.org/CreateProposal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellationFromInception">
+      <soap12:operation soapAction="http://tempuri.org/CancellationFromInception" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellationMidTerm">
+      <soap12:operation soapAction="http://tempuri.org/CancellationMidTerm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellationNonPayment">
+      <soap12:operation soapAction="http://tempuri.org/CancellationNonPayment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsuredIncludeEndorsement">
+      <soap12:operation soapAction="http://tempuri.org/InsuredIncludeEndorsement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsuredExcludeEndorsement">
+      <soap12:operation soapAction="http://tempuri.org/InsuredExcludeEndorsement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateEndorsment">
+      <soap12:operation soapAction="http://tempuri.org/CreateEndorsment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryDaskPolicy">
+      <soap12:operation soapAction="http://tempuri.org/QueryDaskPolicy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRenewalList">
+      <soap12:operation soapAction="http://tempuri.org/GetRenewalList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCoverageList">
+      <soap12:operation soapAction="http://tempuri.org/GetCoverageList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchWithIdentityPlate">
+      <soap12:operation soapAction="http://tempuri.org/SearchWithIdentityPlate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditProposal">
+      <soap12:operation soapAction="http://tempuri.org/EditProposal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCreditCardPaymentTypeList">
+      <soap12:operation soapAction="http://tempuri.org/GetCreditCardPaymentTypeList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentsByDate">
+      <soap12:operation soapAction="http://tempuri.org/GetPaymentsByDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateClient">
+      <soap12:operation soapAction="http://tempuri.org/ProposalUpdateClient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateMortgager">
+      <soap12:operation soapAction="http://tempuri.org/ProposalUpdateMortgager" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProposalQuestionUpdate">
+      <soap12:operation soapAction="http://tempuri.org/ProposalQuestionUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocument">
+      <soap12:operation soapAction="http://tempuri.org/PrintDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocumentByEMail">
+      <soap12:operation soapAction="http://tempuri.org/PrintDocumentByEMail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePolicyAndPrint">
+      <soap12:operation soapAction="http://tempuri.org/CreatePolicyAndPrint" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposals">
+      <soap12:operation soapAction="http://tempuri.org/CreateProposals" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SFSPolicyIntegrationServiceHttpGet" type="tns:SFSPolicyIntegrationServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="QueryPolicyDetail">
+      <http:operation location="/QueryPolicyDetail" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PolicySearch">
+      <http:operation location="/PolicySearch" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveProposal">
+      <http:operation location="/ApproveProposal" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProposal">
+      <http:operation location="/DeleteProposal" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApprovalCancellation">
+      <http:operation location="/ApprovalCancellation" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposal">
+      <http:operation location="/CreateProposal" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellationFromInception">
+      <http:operation location="/CancellationFromInception" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellationMidTerm">
+      <http:operation location="/CancellationMidTerm" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellationNonPayment">
+      <http:operation location="/CancellationNonPayment" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsuredIncludeEndorsement">
+      <http:operation location="/InsuredIncludeEndorsement" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsuredExcludeEndorsement">
+      <http:operation location="/InsuredExcludeEndorsement" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateEndorsment">
+      <http:operation location="/CreateEndorsment" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryDaskPolicy">
+      <http:operation location="/QueryDaskPolicy" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRenewalList">
+      <http:operation location="/GetRenewalList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCoverageList">
+      <http:operation location="/GetCoverageList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchWithIdentityPlate">
+      <http:operation location="/SearchWithIdentityPlate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditProposal">
+      <http:operation location="/EditProposal" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCreditCardPaymentTypeList">
+      <http:operation location="/GetCreditCardPaymentTypeList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentsByDate">
+      <http:operation location="/GetPaymentsByDate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateClient">
+      <http:operation location="/ProposalUpdateClient" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateMortgager">
+      <http:operation location="/ProposalUpdateMortgager" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProposalQuestionUpdate">
+      <http:operation location="/ProposalQuestionUpdate" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocument">
+      <http:operation location="/PrintDocument" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocumentByEMail">
+      <http:operation location="/PrintDocumentByEMail" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePolicyAndPrint">
+      <http:operation location="/CreatePolicyAndPrint" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposals">
+      <http:operation location="/CreateProposals" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SFSPolicyIntegrationServiceHttpPost" type="tns:SFSPolicyIntegrationServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="QueryPolicyDetail">
+      <http:operation location="/QueryPolicyDetail" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PolicySearch">
+      <http:operation location="/PolicySearch" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveProposal">
+      <http:operation location="/ApproveProposal" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProposal">
+      <http:operation location="/DeleteProposal" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApprovalCancellation">
+      <http:operation location="/ApprovalCancellation" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposal">
+      <http:operation location="/CreateProposal" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellationFromInception">
+      <http:operation location="/CancellationFromInception" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellationMidTerm">
+      <http:operation location="/CancellationMidTerm" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancellationNonPayment">
+      <http:operation location="/CancellationNonPayment" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsuredIncludeEndorsement">
+      <http:operation location="/InsuredIncludeEndorsement" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsuredExcludeEndorsement">
+      <http:operation location="/InsuredExcludeEndorsement" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateEndorsment">
+      <http:operation location="/CreateEndorsment" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryDaskPolicy">
+      <http:operation location="/QueryDaskPolicy" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRenewalList">
+      <http:operation location="/GetRenewalList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCoverageList">
+      <http:operation location="/GetCoverageList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchWithIdentityPlate">
+      <http:operation location="/SearchWithIdentityPlate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditProposal">
+      <http:operation location="/EditProposal" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCreditCardPaymentTypeList">
+      <http:operation location="/GetCreditCardPaymentTypeList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentsByDate">
+      <http:operation location="/GetPaymentsByDate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateClient">
+      <http:operation location="/ProposalUpdateClient" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProposalUpdateMortgager">
+      <http:operation location="/ProposalUpdateMortgager" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProposalQuestionUpdate">
+      <http:operation location="/ProposalQuestionUpdate" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocument">
+      <http:operation location="/PrintDocument" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrintDocumentByEMail">
+      <http:operation location="/PrintDocumentByEMail" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreatePolicyAndPrint">
+      <http:operation location="/CreatePolicyAndPrint" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProposals">
+      <http:operation location="/CreateProposals" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SFSPolicyIntegrationService">
+    <wsdl:port name="SFSPolicyIntegrationServiceSoap" binding="tns:SFSPolicyIntegrationServiceSoap">
+      <soap:address location="https://testwebapp01.gulfsigorta.com.tr/polsvc/sfspolsvcws.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SFSPolicyIntegrationServiceSoap12" binding="tns:SFSPolicyIntegrationServiceSoap12">
+      <soap12:address location="https://testwebapp01.gulfsigorta.com.tr/polsvc/sfspolsvcws.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SFSPolicyIntegrationServiceHttpGet" binding="tns:SFSPolicyIntegrationServiceHttpGet">
+      <http:address location="https://testwebapp01.gulfsigorta.com.tr/polsvc/sfspolsvcws.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SFSPolicyIntegrationServiceHttpPost" binding="tns:SFSPolicyIntegrationServiceHttpPost">
+      <http:address location="https://testwebapp01.gulfsigorta.com.tr/polsvc/sfspolsvcws.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

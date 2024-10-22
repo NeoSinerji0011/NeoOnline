@@ -1,0 +1,39 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Areas.GorevTakip.Models.AtananIsNotlarModel
+
+<div id="not-modal" class="modal hide fade">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>@babonline.Node_Add</h3>
+    </div>
+    <div class="modal-body">
+        <form id="not-ekle-form" class="form-horizontal">
+            @{ Html.EnableClientValidation(true); }
+            @Html.HiddenFor(m => m.IsId)
+            @Html.HiddenFor(m => m.TVMKodu)
+            @Html.HiddenFor(m => m.TVMPersonelKodu)
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, babonline.Message_GenericErrorHeader)
+            <div class="control-group">
+                <label class="control-label">@babonline.Topic <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextBoxFor(m => m.Konu, new { maxlength = 50, autocompletetype = "disabled", style = "width:90%;" })
+                    @Html.ValidationMessageFor(m => m.Konu)
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">@babonline.Node <span class="required">*</span></label>
+                <div class="controls">
+                    @Html.TextAreaFor(m => m.NotAciklamasi, new { maxlength = 500, autocompletetype = "disabled", style = "width:90%; height:150px" })
+                    @Html.ValidationMessageFor(m => m.NotAciklamasi)
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.Cancel</a>
+        <a href="#" class="btn btn-success" id="not-ekle-btn"><i class="icon-ok">&nbsp;</i>@babonline.Save</a>
+
+    </div>
+</div>
+

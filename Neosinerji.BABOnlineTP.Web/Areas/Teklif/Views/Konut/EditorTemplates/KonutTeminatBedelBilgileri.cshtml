@@ -1,0 +1,27 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang;
+@model Neosinerji.BABOnlineTP.Web.Areas.Teklif.Models.KonutTeminatBedelBilgileri
+
+
+<div class="row-fluid">
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.AddGoods<span class="required">*</span></label>
+            <div class="controls">
+                <div class="input-append">
+                    @Html.TextBoxFor(m => m.EsyaBedeli, new { @class = "m-wrap onlynumbers autoNumeric", style = "width:90px; text-align:right" })<span class="add-on"> TL</span>
+                </div>
+                @Html.ValidationMessageFor(s => s.EsyaBedeli)
+            </div>
+        </div>
+    </div>
+    <div class="span6">
+        <div class="control-group">
+            <label class="control-label">@babonline.BuildingCost</label>
+            <div class="controls">
+                <div class="input-append">
+                    @Html.TextBoxFor(m => m.BinaBedeli, new { @class = "m-wrap onlynumbers autoNumeric", style = "width:90px; text-align:right" })<span class="add-on"> TL</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

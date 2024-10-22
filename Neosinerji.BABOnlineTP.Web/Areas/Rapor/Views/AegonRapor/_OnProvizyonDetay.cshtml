@@ -1,0 +1,66 @@
+﻿@model Neosinerji.BABOnlineTP.Business.Common.AegonOnProvizyonModelDetay
+@using Neosinerji.BABOnlineTP.Web.Content.Lang
+
+<div id="onprovizyon-detay-modal" class="modal hide fade" data-backdrop="static" data-keyboard="false">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3>@babonline.PreProvisioning</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+
+            <div class="control-group ">
+                <label class="control-label">Partaj No </label>
+                <div class="controls">
+                    <label class="control">@Model.partajNo</label>
+                </div>
+            </div>
+
+            <div class="control-group ">
+                <label class="control-label">@babonline.ReferenceNumber </label>
+                <div class="controls input-icon">
+                    <label class="control">@Model.basvuruNo</label>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Ödemeyi Yapanın TC Kimlik Numarası  </label>
+                <div class="controls">
+                    <label class="control">@Model.tckn</label>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">@babonline.Credit_Card</label>
+                <div class="controls">
+                    <label class="control">@Model.krediKarti</label>
+                </div>
+            </div>
+
+            <div class="control-group asil-mail">
+                <label class="control-label">@babonline.Amount</label>
+                <div class="controls">
+                    <label class="control">@Model.tutar</label>
+                </div>
+            </div>
+
+            <div class="control-group asil-mail">
+                <label class="control-label">@babonline.Currency</label>
+                <div class="controls">
+                    <label class="control">@Model.paraBirimi</label>
+                </div>
+            </div>
+
+            <div class="control-group asil-mail">
+                <label class="control-label">Onay Kodu</label>
+                <div class="controls">
+                    <label class="control">@Model.onayKodu</label>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@babonline.OK</a>
+    </div>
+</div>

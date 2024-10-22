@@ -1,0 +1,51 @@
+﻿@using Neosinerji.BABOnlineTP.Web.Content.Lang
+@model Neosinerji.BABOnlineTP.Web.Models.LoginModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = babonline.Title_Login;
+}
+
+<script>
+
+    $(document).ready(function () {
+        $("#btn-onay").click(function () {
+            if ($("#form1").valid())
+                $("#btn-onay").button("loading");
+        });
+        $("#btn-onay").button("reset");
+    });
+
+</script>
+
+<div class="block-header">
+    <h2>@ViewBag.Title</h2>
+</div>
+
+@*@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))*@
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "form1", ReturnUrl = ViewBag.ReturnUrl }))
+{
+   
+    @Html.AntiForgeryToken();
+                            { Html.EnableClientValidation(); }
+    @Html.ValidationSummary()
+    <div class="control-group">
+        <label>@babonline.Email_Adress</label>
+        <div class="controls">
+            @Html.TextBoxFor(m => m.Email, new { @class = "span12", maxlength = 50, autocompletetype = "disabled", tabindex = 1 })
+            @Html.ValidationMessageFor(m => m.Email, null, new { id = "email" })
+        </div>
+    </div>
+    <a class="reset-password" href="/Account/SifremiUnuttum" tabindex="9">@babonline.ForgotPassword</a>
+    <div class="control-group">
+        <label>@babonline.Password</label>
+        <div class="controls">
+            @Html.PasswordFor(m => m.Password, new { @class = "span12", maxlength = 20, autocompletetype = "disabled", tabindex = 2 })
+            @Html.ValidationMessageFor(m => m.Password, null, new { id = "sifre" })
+        </div>
+    </div>
+    <div class="form-actions">
+        <button type="submit" data-loading-text="@babonline.Message_Loading" id="btn-onay" class="btn btn-success pull-right" tabindex=3>@babonline.Login</button>
+        <div class="clearfix"></div>
+    </div>
+}
