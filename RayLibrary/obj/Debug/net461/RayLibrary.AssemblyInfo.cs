@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RayLibrary")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ebaa377d6f92e1e26a81e0c8320cdaa9b6b2b695")]
 [assembly: System.Reflection.AssemblyProductAttribute("RayLibrary")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RayLibrary")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

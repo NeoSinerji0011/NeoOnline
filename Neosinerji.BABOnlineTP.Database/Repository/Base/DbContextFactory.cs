@@ -28,6 +28,7 @@ namespace Neosinerji.BABOnlineTP.Database.Repository
 
         public DbContext GetDbContext()
         {
+            var db = _context.Database.Connection;
             return _context;
         }
 
